@@ -142,6 +142,21 @@
     );
   });
 
+  /* ------------------------------------------- 5b. Testimonials carousel    */
+  $$("[data-testi]").forEach((box) => {
+    const slides = $$(".testi__slide", box);
+    const prev = $("[data-testi-prev]", box);
+    const next = $("[data-testi-next]", box);
+    if (slides.length < 2) return;
+    let idx = 0;
+    const go = (n) => {
+      idx = (n + slides.length) % slides.length;
+      slides.forEach((s, i) => s.classList.toggle("is-active", i === idx));
+    };
+    prev && prev.addEventListener("click", () => go(idx - 1));
+    next && next.addEventListener("click", () => go(idx + 1));
+  });
+
   /* ------------------------------------------------------ 6. Language state */
   $$(".lang button").forEach((btn) => {
     btn.addEventListener("click", () => {
