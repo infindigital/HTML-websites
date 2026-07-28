@@ -687,18 +687,20 @@ button { font-family: inherit; cursor: pointer; }
 .subpage-hero__frame::after {
   content: "";
   position: absolute; left: 0; bottom: 0;
-  width: min(560px, 62%); height: 46%;
+  width: min(720px, 74%); height: 48%;
   background: var(--bg);
   border-radius: 0 var(--radius-lg) 0 0;
 }
 .subpage-hero__title {
   position: relative;
-  margin-top: -70px;
+  margin-top: -64px;
   z-index: 3;
-  font-size: clamp(2.2rem, 6vw, 4.2rem);
+  font-size: clamp(1.9rem, 4.1vw, 3.1rem);
   font-weight: 700;
-  letter-spacing: -1.5px;
+  letter-spacing: -1px;
+  line-height: 1.05;
   padding-left: 4px;
+  white-space: nowrap;
 }
 
 .subpage-intro { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; padding-top: 40px; }
@@ -874,6 +876,7 @@ button { font-family: inherit; cursor: pointer; }
   .footer__top { grid-template-columns: 1fr; }
   .materials__panel, .contact2__info, .contact2__form, .list-panel { padding: 26px; }
   .subpage-hero__frame { aspect-ratio: 16/10; }
-  .subpage-hero__title { margin-top: -44px; }
+  .subpage-hero__frame::after { width: 82%; height: 42%; }
+  .subpage-hero__title { margin-top: -44px; font-size: clamp(1.35rem, 5.6vw, 1.7rem); white-space: normal; }
   .subpage-intro p { text-align: left; }
 }
