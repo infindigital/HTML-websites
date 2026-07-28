@@ -157,15 +157,45 @@
     next && next.addEventListener("click", () => go(idx + 1));
   });
 
-  /* ------------------------------------------------------ 6. Language state */
+  /* -------------------------------------------- 6. Language (Google Translate) */
+  // The Arabic flag translates the whole site to Arabic via the Google Website
+  // Translate widget; the English flag restores the original. The choice is
+  // stored in the `googtrans` cookie so it persists across every page.
+  const readTrans = () => {
+    const m = document.cookie.match(/googtrans=([^;]+)/);
+    return m ? decodeURIComponent(m[1]) : "";
+  };
+  const currentLang = () => (readTrans().split("/").pop() === "ar" ? "ar" : "en");
+
+  const applyLang = (lang) => {
+    const val = "/en/" + lang;
+    // Set on the current path and (when hosted) the domain so it carries across pages.
+    document.cookie = "googtrans=" + val + ";path=/";
+    if (location.hostname) {
+      document.cookie = "googtrans=" + val + ";path=/;domain=" + location.hostname;
+    }
+    location.reload();
+  };
+
+  // Reflect the active language on load (active flag + RTL direction for Arabic).
+  const reflect = () => {
+    const cur = currentLang();
+    $$(".lang button").forEach((b) => b.classList.toggle("is-active", b.dataset.lang === cur));
+    if (cur === "ar") {
+      document.documentElement.setAttribute("lang", "ar");
+      document.documentElement.setAttribute("dir", "rtl");
+    } else {
+      document.documentElement.setAttribute("lang", "en");
+      document.documentElement.removeAttribute("dir");
+    }
+  };
+  reflect();
+
   $$(".lang button").forEach((btn) => {
     btn.addEventListener("click", () => {
-      $$(".lang button").forEach((b) => b.classList.remove("is-active"));
-      btn.classList.add("is-active");
-      // English is the fully authored language; the Arabic flag marks the
-      // toggle affordance from the original site. Direction hint applied only.
       const lang = btn.dataset.lang;
-      if (lang) document.documentElement.setAttribute("data-lang", lang);
+      if (!lang || lang === currentLang()) return;
+      applyLang(lang);
     });
   });
 

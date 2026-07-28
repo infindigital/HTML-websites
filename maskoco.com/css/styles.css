@@ -307,6 +307,14 @@ button { font-family: inherit; cursor: pointer; }
 .lang button.is-active { opacity: 1; }
 .lang button.is-active svg { box-shadow: 0 0 0 2px var(--blue); }
 
+/* Google Translate widget — hidden gadget + banner; translation is driven by
+   the flag toggle, so keep only the flags visible. */
+#google_translate_element { display: none !important; }
+.goog-te-banner-frame, .goog-te-gadget-icon, .goog-te-balloon-frame { display: none !important; }
+.goog-tooltip, .goog-tooltip:hover { display: none !important; }
+.goog-text-highlight { background: none !important; box-shadow: none !important; }
+body { top: 0 !important; }
+
 /* Hamburger */
 .nav__toggle {
   display: none;
