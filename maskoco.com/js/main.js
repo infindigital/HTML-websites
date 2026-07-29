@@ -128,6 +128,8 @@
   }
 
   /* ------------------------------------------------- 5. Material carousel   */
+  // A free-scrolling horizontal track: the arrows nudge it, and it can also be
+  // dragged with the mouse or swiped on touch — no snap points, no hard stops.
   $$("[data-carousel]").forEach((carousel) => {
     const track = $(".materials__grid", carousel) || $("[data-track]", carousel);
     const prev = $("[data-prev]", carousel);
@@ -140,6 +142,33 @@
     next && next.addEventListener("click", () =>
       track.scrollBy({ left: amount(), behavior: "smooth" })
     );
+
+    // Click-and-drag to scroll (desktop). Touch devices scroll natively.
+    let down = false, startX = 0, startLeft = 0, moved = 0;
+    track.addEventListener("pointerdown", (e) => {
+      if (e.pointerType === "touch") return; // let native touch scroll handle it
+      down = true; moved = 0;
+      startX = e.clientX;
+      startLeft = track.scrollLeft;
+      track.classList.add("is-dragging");
+    });
+    track.addEventListener("pointermove", (e) => {
+      if (!down) return;
+      const dx = e.clientX - startX;
+      moved = Math.max(moved, Math.abs(dx));
+      track.scrollLeft = startLeft - dx;
+    });
+    const endDrag = () => {
+      if (!down) return;
+      down = false;
+      track.classList.remove("is-dragging");
+    };
+    track.addEventListener("pointerup", endDrag);
+    track.addEventListener("pointerleave", endDrag);
+    // Suppress the click on cards after a real drag so it doesn't navigate.
+    track.addEventListener("click", (e) => {
+      if (moved > 6) { e.preventDefault(); }
+    }, true);
   });
 
   /* ------------------------------------------- 5b. Testimonials carousel    */

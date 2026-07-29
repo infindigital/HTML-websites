@@ -614,8 +614,25 @@ body { top: 0 !important; }
   padding: 40px;
   box-shadow: 0 0 0 6px #fff, var(--shadow-sm);
 }
-.materials__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
-.material-card { text-align: center; }
+/* Horizontal scroll track: shows 4 cards, the rest scroll freely via the
+   arrows, mouse drag, trackpad or touch swipe — no snap stops. */
+.materials__grid {
+  display: flex;
+  gap: 24px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  -ms-overflow-style: none;   /* IE/Edge */
+  scrollbar-width: none;      /* Firefox */
+  padding-bottom: 4px;
+  cursor: grab;
+}
+.materials__grid::-webkit-scrollbar { display: none; }  /* Chrome/Safari */
+.materials__grid.is-dragging { cursor: grabbing; scroll-behavior: auto; }
+.material-card {
+  text-align: center;
+  flex: 0 0 calc((100% - 72px) / 4);   /* 4 visible, 24px gaps */
+}
+.material-card__img img { pointer-events: none; }
 .material-card__img {
   position: relative; border-radius: var(--radius); overflow: hidden;
   aspect-ratio: 3/3.3; box-shadow: var(--shadow-sm); margin-bottom: 16px;
@@ -835,7 +852,8 @@ body { top: 0 !important; }
 
 /* ======================= 11. RESPONSIVE =============================== */
 @media (max-width: 1080px) {
-  .services__grid, .materials__grid { grid-template-columns: repeat(2, 1fr); }
+  .services__grid { grid-template-columns: repeat(2, 1fr); }
+  .material-card { flex-basis: calc((100% - 48px) / 3); }   /* 3 visible */
   .list-cols { columns: 2; }
   .list-groups { grid-template-columns: repeat(2, 1fr); }
   .footer__top { grid-template-columns: 1fr 1fr; }
@@ -878,7 +896,8 @@ body { top: 0 !important; }
 
 @media (max-width: 640px) {
   :root { --gutter: 18px; }
-  .services__grid, .materials__grid, .why__cards, .list-groups { grid-template-columns: 1fr; }
+  .services__grid, .why__cards, .list-groups { grid-template-columns: 1fr; }
+  .material-card { flex-basis: calc((100% - 20px) / 2); }   /* ~2 visible */
   .list-cols { columns: 1; }
   .hero__inner { padding-block: 60px; }
   .footer__top { grid-template-columns: 1fr; }
