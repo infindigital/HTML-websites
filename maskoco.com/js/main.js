@@ -177,17 +177,14 @@
     location.reload();
   };
 
-  // Reflect the active language on load (active flag + RTL direction for Arabic).
+  // Reflect the active language on load (active flag + lang attribute). We keep
+  // the original left-to-right layout so the custom interior banners, carousel,
+  // footer and grids stay exactly as designed; Google still translates the text
+  // into Arabic, which shapes and reads correctly within the existing layout.
   const reflect = () => {
     const cur = currentLang();
     $$(".lang button").forEach((b) => b.classList.toggle("is-active", b.dataset.lang === cur));
-    if (cur === "ar") {
-      document.documentElement.setAttribute("lang", "ar");
-      document.documentElement.setAttribute("dir", "rtl");
-    } else {
-      document.documentElement.setAttribute("lang", "en");
-      document.documentElement.removeAttribute("dir");
-    }
+    document.documentElement.setAttribute("lang", cur === "ar" ? "ar" : "en");
   };
   reflect();
 
