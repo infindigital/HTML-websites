@@ -1287,6 +1287,8 @@ p { margin: 0; }
 
 /* banner crop tuned for the wide houseboat photo */
 .page-banner--pkg .page-banner__bg img { object-position: center 60%; }
+/* gallery banner: lower the crop so the houseboat reads as the subject, not the sky */
+.page-banner--gallery .page-banner__bg img { object-position: center 78%; }
 
 /* ---- Fare index (rate card) ---- */
 .pkgx-head { max-width: 640px; }
