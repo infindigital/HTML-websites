@@ -354,13 +354,13 @@ p { margin: 0; }
 .hero .eyebrow::before { background: var(--gold-300); }
 .hero__title {
   color: #fff;
-  font-size: clamp(2.6rem, 6.4vw, 4.9rem);
+  font-size: clamp(2.4rem, 5.4vw, 4.3rem);
   font-weight: 900;
-  line-height: 1.05;
-  margin-bottom: 1.5rem;
+  line-height: 1.04;
+  margin-bottom: 1rem;
   text-shadow: 0 2px 8px rgba(4,16,28,0.55), 0 8px 40px rgba(4,16,28,0.45);
 }
-.hero__text { color: #fff; font-size: 1.15rem; max-width: 54ch; margin-bottom: 2.4rem; text-shadow: 0 1px 10px rgba(4,16,28,0.6); }
+.hero__text { color: #fff; font-size: 1.05rem; line-height: 1.55; max-width: 52ch; margin-bottom: 1.5rem; text-shadow: 0 1px 10px rgba(4,16,28,0.6); }
 
 /* floating rating badge (inspiration cue, luxury restyle) */
 .hero__badge {
@@ -782,22 +782,19 @@ p { margin: 0; }
 /* ============================================================
    HERO — two-tone title, floating cards, booking bar (inspiration)
    ============================================================ */
-.hero--feature { min-height: min(94vh, 900px); }
+.hero--feature { min-height: min(86vh, 700px); }
 .hero--feature .hero__inner {
   max-width: none; width: 100%;
   display: flex; flex-direction: column; justify-content: space-between;
-  gap: 2.5rem; min-height: inherit;
-  padding-block: clamp(4.5rem, 10vh, 7rem) clamp(3.5rem, 7vh, 5.5rem);
+  gap: 1.5rem; min-height: inherit;
+  padding-block: clamp(1.25rem, 2.5vh, 2.25rem) clamp(1.75rem, 3vh, 2.75rem);
 }
 .hero__content { max-width: 640px; }
 .hero__title-thin {
   display: block; font-weight: 400; font-size: 0.6em; letter-spacing: 0.02em;
-  color: rgba(255,255,255,0.9); margin-bottom: 0.15em;
+  color: #fff; margin-bottom: 0.15em;
 }
-@supports ((-webkit-text-stroke: 1px #fff)) {
-  .hero__title-thin { color: transparent; -webkit-text-stroke: 1px rgba(255,255,255,0.85); }
-}
-.hero__title-gold { color: var(--gold-300); }
+.hero__title-gold { color: #fff; }
 
 /* balanced grid: empty left track mirrors the ratecard so the picks strip stays dead-centre */
 .hero__cards { display: grid; grid-template-columns: 1fr minmax(0, 660px) 1fr; align-items: end; gap: 1.4rem; }
@@ -805,14 +802,14 @@ p { margin: 0; }
   grid-column: 2; justify-self: center; width: 100%;
   background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.28);
   -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px);
-  border-radius: 22px; padding: 1.35rem 1.75rem; box-shadow: var(--shadow-md);
+  border-radius: 20px; padding: 1rem 1.5rem; box-shadow: var(--shadow-md);
 }
-.hero__picks-label { font-size: 0.72rem; letter-spacing: 0.24em; text-transform: uppercase; font-weight: 700; color: var(--gold-300); margin-bottom: 1.05rem; text-align: center; }
-.hero__chips { display: flex; gap: 1rem; justify-content: center; }
-.hero__chip { width: 74px; }
-.hero__chip img { width: 74px; height: 74px; border-radius: 16px; object-fit: cover; border: 1px solid rgba(255,255,255,0.35); transition: transform 0.4s var(--ease); }
+.hero__picks-label { font-size: 0.7rem; letter-spacing: 0.24em; text-transform: uppercase; font-weight: 700; color: var(--gold-300); margin-bottom: 0.75rem; text-align: center; }
+.hero__chips { display: flex; gap: 0.9rem; justify-content: center; }
+.hero__chip { width: 66px; }
+.hero__chip img { width: 66px; height: 66px; border-radius: 15px; object-fit: cover; border: 1px solid rgba(255,255,255,0.35); transition: transform 0.4s var(--ease); }
 .hero__chip:hover img { transform: translateY(-4px); }
-.hero__chip span { display: block; margin-top: 0.5rem; font-size: 0.66rem; text-align: center; line-height: 1.15; color: rgba(255,255,255,0.95); font-weight: 600; letter-spacing: 0.02em; }
+.hero__chip span { display: block; margin-top: 0.4rem; font-size: 0.64rem; text-align: center; line-height: 1.15; color: rgba(255,255,255,0.95); font-weight: 600; letter-spacing: 0.02em; }
 
 .hero__ratecard {
   grid-column: 3; justify-self: end; align-self: end;
