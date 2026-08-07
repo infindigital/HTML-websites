@@ -330,7 +330,8 @@ p { margin: 0; }
   overflow: hidden;
 }
 .hero__bg { position: absolute; inset: 0; z-index: -2; }
-.hero__bg img { width: 100%; height: 100%; object-fit: cover; }
+.hero__bg img,
+.hero__bg video { width: 100%; height: 100%; object-fit: cover; display: block; }
 /* cross-fading hero slideshow (plays like a slow film) */
 .hero__slide {
   position: absolute; inset: 0;
@@ -808,13 +809,13 @@ p { margin: 0; }
 /* balanced grid: empty left track mirrors the ratecard so the picks strip stays dead-centre */
 .hero__cards { display: grid; grid-template-columns: 1fr minmax(0, 660px) 1fr; align-items: end; gap: 1.4rem; }
 .hero__picks {
-  grid-column: 2; justify-self: center; width: 100%;
+  grid-column: 2; justify-self: center; width: auto; max-width: 100%;
   background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.28);
   -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px);
-  border-radius: 20px; padding: 1rem 1.5rem; box-shadow: var(--shadow-md);
+  border-radius: 20px; padding: 1rem 1.9rem 1.15rem; box-shadow: var(--shadow-md);
 }
 .hero__picks-label { font-size: 0.72rem; letter-spacing: 0.26em; text-transform: uppercase; font-weight: 700; color: #fff; margin-bottom: 0.95rem; text-align: center; }
-.hero__chips { display: flex; gap: 1.6rem; justify-content: center; }
+.hero__chips { display: flex; gap: 1.9rem; justify-content: center; }
 .hero__chip { width: 66px; }
 .hero__chip img { width: 66px; height: 66px; border-radius: 15px; object-fit: cover; border: 1px solid rgba(255,255,255,0.35); transition: transform 0.4s var(--ease); }
 .hero__chip:hover img { transform: translateY(-4px); }
@@ -823,13 +824,14 @@ p { margin: 0; }
 .hero__ratecard {
   grid-column: 3; justify-self: end; align-self: end;
   background: var(--blue-950); color: #fff; border-radius: 20px;
-  padding: 1.2rem 1.4rem; max-width: 290px;
+  padding: 1.2rem 1.4rem; max-width: 320px;
   box-shadow: var(--shadow-lg); border: 1px solid rgba(255,255,255,0.08);
 }
-.hero__ratecard-top { display: flex; align-items: center; gap: 0.85rem; margin-bottom: 0.6rem; }
-.hero__ratecard-score { font-family: var(--serif); font-size: 2.5rem; font-weight: 600; line-height: 1; }
-.hero__ratecard-stars { color: var(--gold-300); font-size: 0.82rem; letter-spacing: 1px; }
-.hero__ratecard-meta { font-size: 0.72rem; color: rgba(255,255,255,0.7); }
+.hero__ratecard-top { display: flex; align-items: center; gap: 0.9rem; margin-bottom: 0.6rem; }
+.hero__ratecard-score { font-family: var(--serif); font-size: 2.6rem; font-weight: 600; line-height: 1; flex-shrink: 0; }
+.hero__ratecard-rating { display: flex; flex-direction: column; justify-content: center; gap: 0.28rem; }
+.hero__ratecard-stars { color: var(--gold-300); font-size: 0.92rem; letter-spacing: 2px; line-height: 1; }
+.hero__ratecard-meta { font-size: 0.72rem; color: rgba(255,255,255,0.72); line-height: 1; white-space: nowrap; }
 .hero__ratecard-text { font-size: 0.82rem; color: rgba(255,255,255,0.82); line-height: 1.5; }
 @media (max-width: 1040px) { .hero__cards { grid-template-columns: minmax(0, 660px) 1fr; } .hero__picks { grid-column: 1; } .hero__ratecard { grid-column: 2; } }
 @media (max-width: 820px) { .hero__cards { grid-template-columns: 1fr; } .hero__picks { grid-column: 1; justify-self: stretch; } .hero__ratecard { display: none; } }
