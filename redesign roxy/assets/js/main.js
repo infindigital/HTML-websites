@@ -109,6 +109,20 @@
     revealEls.forEach(function (el) { el.classList.add("is-in"); });
   }
 
+  /* ---- Hero slideshow (cross-fades like a slow film) ---- */
+  var heroStage = document.querySelector("[data-hero-slides]");
+  if (heroStage) {
+    var slides = heroStage.querySelectorAll(".hero__slide");
+    if (slides.length > 1) {
+      var idx = 0;
+      window.setInterval(function () {
+        slides[idx].classList.remove("is-active");
+        idx = (idx + 1) % slides.length;
+        slides[idx].classList.add("is-active");
+      }, 5000);
+    }
+  }
+
   /* ---- Footer year ---- */
   var yr = document.getElementById("year");
   if (yr) yr.textContent = new Date().getFullYear();
