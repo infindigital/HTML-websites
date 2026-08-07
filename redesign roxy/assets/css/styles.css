@@ -617,8 +617,10 @@ p { margin: 0; }
   position: relative; color: #fff; overflow: hidden;
   display: flex; align-items: center;
   min-height: clamp(340px, 44vh, 460px);
-  margin-top: calc(-1 * (54px + 1.2rem));
-  padding-top: calc(54px + 1.2rem);
+  /* pull the banner up by the full nav height (logo 74px + 1.2rem padding)
+     so its image sits flush beneath the top bar — no white gap */
+  margin-top: calc(-1 * (74px + 1.2rem));
+  padding-top: calc(74px + 1.2rem);
 }
 .page-banner__bg { position: absolute; inset: 0; z-index: -2; }
 .page-banner__bg img { width: 100%; height: 100%; object-fit: cover; }
