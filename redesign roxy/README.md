@@ -17,7 +17,7 @@ Kerala backwater luxury experience: calm, authentic, trustworthy and premium.
 
 ## Design system
 
-- **Palette:** Deep Forest Green · Warm Gold · White · Soft Cream · Muted Grey
+- **Palette:** Deep Ocean Blue · Warm Gold · White · Soft Cream · Muted Grey
 - **Type:** Cormorant Garamond (serif display) + Jost (sans body), via Google Fonts
 - **Tokens & components:** one shared stylesheet (`assets/css/styles.css`) using
   CSS custom properties and reusable component classes across all pages

@@ -104,7 +104,7 @@
       var note = form.querySelector("[data-form-status]");
       if (note) {
         note.textContent = "Thank you — your enquiry has been noted. We'll be in touch shortly.";
-        note.style.color = "var(--green-700)";
+        note.style.color = "var(--blue-700)";
       }
       form.reset();
     });
