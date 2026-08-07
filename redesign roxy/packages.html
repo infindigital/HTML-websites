@@ -61,8 +61,8 @@
   <div class="nav__backdrop"></div>
 
   <!-- ============ BANNER ============ -->
-  <section class="page-banner">
-    <div class="page-banner__bg"><img src="assets/images/houseboat-day-1.jpg" alt="Roxy houseboat cruise packages" /></div>
+  <section class="page-banner page-banner--pkg">
+    <div class="page-banner__bg"><img src="assets/images/houseboat-day-3.jpg" alt="Roxy houseboat cruising the Nileshwar backwaters" /></div>
     <div class="container page-banner__inner">
       <span class="page-banner__rule"></span>
       <p class="page-banner__sub" style="margin:0 0 .3rem">Roxy House Boat</p>
@@ -71,134 +71,200 @@
     </div>
   </section>
 
-  <!-- ============ PACKAGE ROWS ============ -->
-  <section class="section">
+  <!-- ============ FARE INDEX ============ -->
+  <section class="section pkgx-fares">
     <div class="container">
-      <div class="pkg-rows">
+      <div class="pkgx-head reveal">
+        <span class="eyebrow">Cruise Fares</span>
+        <h2 class="h-section">Choose your cruise</h2>
+      </div>
+      <div class="fares reveal" data-delay="1">
+        <a class="fare" href="#day-cruise">
+          <span class="fare__no">01</span>
+          <span class="fare__text"><span class="fare__name">Day Cruise</span><span class="fare__time">10:00am – 04:00pm</span></span>
+          <span class="fare__price">₹12,000</span>
+          <svg class="fare__go" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+        <a class="fare" href="#lunch-cruise">
+          <span class="fare__no">02</span>
+          <span class="fare__text"><span class="fare__name">Lunch Cruise</span><span class="fare__time">12:00pm – 03:00pm</span></span>
+          <span class="fare__price">₹10,000</span>
+          <svg class="fare__go" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+        <a class="fare" href="#sunset-cruise">
+          <span class="fare__no">03</span>
+          <span class="fare__text"><span class="fare__name">Sunset Cruise</span><span class="fare__time">04:30pm – 06:30pm</span></span>
+          <span class="fare__price">₹6,000</span>
+          <svg class="fare__go" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+        <a class="fare" href="#dinner-cruise">
+          <span class="fare__no">04</span>
+          <span class="fare__text"><span class="fare__name">Dinner Cruise</span><span class="fare__time">5pm – 9pm</span></span>
+          <span class="fare__price">₹10,000</span>
+          <svg class="fare__go" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+        <a class="fare" href="#overnight-cruise">
+          <span class="fare__no">05</span>
+          <span class="fare__text"><span class="fare__name">Overnight Cruise</span><span class="fare__time">05:00pm – 08:30am</span></span>
+          <span class="fare__price">₹10,000</span>
+          <svg class="fare__go" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+        <a class="fare" href="#day-night-cruise">
+          <span class="fare__no">06</span>
+          <span class="fare__text"><span class="fare__name">Day &amp; Night Cruise</span><span class="fare__time">10:00am – 08:30am</span></span>
+          <span class="fare__price">₹16,000</span>
+          <svg class="fare__go" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CRUISE PANELS ============ -->
+  <section class="section pkgx" style="padding-top:0">
+    <div class="container">
+      <div class="cruises">
 
         <!-- Day Cruise -->
-        <article class="pkg-row reveal">
-          <div class="pkg-row__media">
-            <div class="media-stack">
-              <div class="media-stack__main"><img src="assets/images/houseboat-day-1.jpg" alt="Day Cruise houseboat" loading="lazy" width="800" height="640" /></div>
-              <div class="media-stack__inset"><img src="assets/images/houseboat-small-1.jpg" alt="Day cruise detail" loading="lazy" width="400" height="300" /></div>
-            </div>
+        <article class="cruise reveal" id="day-cruise">
+          <div class="cruise__media">
+            <span class="cruise__ticket">₹12,000</span>
+            <div class="cruise__frame"><img src="assets/images/houseboat-day-1.jpg" alt="Day Cruise houseboat" loading="lazy" width="800" height="640" /></div>
+            <div class="cruise__inset"><img src="assets/images/houseboat-small-1.jpg" alt="Day cruise detail" loading="lazy" width="400" height="400" /></div>
           </div>
-          <div class="pkg-row__body">
-            <span class="pkg-row__price">₹12,000</span>
-            <h2 class="pkg-row__title">Day Cruise</h2>
-            <p class="pkg-row__desc">Set sail through the tranquil waterways with a refreshing welcome Drink. Enjoy an authentic Malabar lunch followed by some evening tea with snacks, prepared by the chef on-board.</p>
-            <ul class="pkg-row__details">
-              <li class="pkg-row__detail"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><strong>Duration:</strong> 10:00am – 04:00pm</li>
-              <li class="pkg-row__detail"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/></svg><strong>Number of Guests:</strong> 8 &nbsp;·&nbsp; Additional Guests: ₹900/-</li>
-            </ul>
-            <span class="pkg-row__tag">Welcome Drink, Lunch, Tea &amp; Snacks</span>
-            <div class="mt-2"><a class="btn btn--sm" href="contact-us.html">Book This Cruise</a></div>
+          <div class="cruise__body" data-no="01">
+            <h2 class="cruise__title">Day Cruise</h2>
+            <p class="cruise__desc">Set sail through the tranquil waterways with a refreshing welcome Drink. Enjoy an authentic Malabar lunch followed by some evening tea with snacks, prepared by the chef on-board.</p>
+            <div class="cruise__specs">
+              <div class="cruise__spec"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><span><small>Duration</small><b>10:00am – 04:00pm</b></span></div>
+              <div class="cruise__spec"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/></svg><span><small>Number of Guests</small><b>8 &nbsp;·&nbsp; Additional Guests: ₹900/-</b></span></div>
+            </div>
+            <div class="cruise__incl">
+              <span class="cruise__inclLabel">Included</span>
+              <ul class="chips"><li class="chip">Welcome Drink</li><li class="chip">Lunch</li><li class="chip">Tea &amp; Snacks</li></ul>
+            </div>
+            <a class="btn btn--sm" href="contact-us.html">Book This Cruise
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </a>
           </div>
         </article>
 
         <!-- Lunch Cruise -->
-        <article class="pkg-row reveal">
-          <div class="pkg-row__media">
-            <div class="media-stack">
-              <div class="media-stack__main"><img src="assets/images/thali-1.jpg" alt="Lunch Cruise Malabar spread" loading="lazy" width="800" height="640" /></div>
-              <div class="media-stack__inset"><img src="assets/images/food-spread.jpg" alt="Lunch cruise dishes" loading="lazy" width="400" height="300" /></div>
-            </div>
+        <article class="cruise reveal" id="lunch-cruise">
+          <div class="cruise__media">
+            <span class="cruise__ticket">₹10,000</span>
+            <div class="cruise__frame"><img src="assets/images/thali-1.jpg" alt="Lunch Cruise Malabar spread" loading="lazy" width="800" height="640" /></div>
+            <div class="cruise__inset"><img src="assets/images/food-spread.jpg" alt="Lunch cruise dishes" loading="lazy" width="400" height="400" /></div>
           </div>
-          <div class="pkg-row__body">
-            <span class="pkg-row__price">₹10,000</span>
-            <h2 class="pkg-row__title">Lunch Cruise</h2>
-            <p class="pkg-row__desc">Enjoy a leisurely lunch while you cruise through the relaxing backwaters of Kasaragod. Cherish this private dining experience with an exquisite spread of Malabar delicacies prepared on-board by our chef.</p>
-            <ul class="pkg-row__details">
-              <li class="pkg-row__detail"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><strong>Duration:</strong> 12:00pm – 03:00pm</li>
-              <li class="pkg-row__detail"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/></svg><strong>Number of Guests:</strong> 8 &nbsp;·&nbsp; Additional Guests: ₹700/-</li>
-            </ul>
-            <span class="pkg-row__tag">Welcome Drink &amp; Lunch</span>
-            <div class="mt-2"><a class="btn btn--sm" href="contact-us.html">Book This Cruise</a></div>
+          <div class="cruise__body" data-no="02">
+            <h2 class="cruise__title">Lunch Cruise</h2>
+            <p class="cruise__desc">Enjoy a leisurely lunch while you cruise through the relaxing backwaters of Kasaragod. Cherish this private dining experience with an exquisite spread of Malabar delicacies prepared on-board by our chef.</p>
+            <div class="cruise__specs">
+              <div class="cruise__spec"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><span><small>Duration</small><b>12:00pm – 03:00pm</b></span></div>
+              <div class="cruise__spec"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/></svg><span><small>Number of Guests</small><b>8 &nbsp;·&nbsp; Additional Guests: ₹700/-</b></span></div>
+            </div>
+            <div class="cruise__incl">
+              <span class="cruise__inclLabel">Included</span>
+              <ul class="chips"><li class="chip">Welcome Drink</li><li class="chip">Lunch</li></ul>
+            </div>
+            <a class="btn btn--sm" href="contact-us.html">Book This Cruise
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </a>
           </div>
         </article>
 
         <!-- Sunset Cruise -->
-        <article class="pkg-row reveal">
-          <div class="pkg-row__media">
-            <div class="media-stack">
-              <div class="media-stack__main"><img src="assets/images/sunset-1.jpg" alt="Sunset Cruise" loading="lazy" width="800" height="640" /></div>
-              <div class="media-stack__inset"><img src="assets/images/sunset-2.jpg" alt="Sunset over backwaters" loading="lazy" width="400" height="300" /></div>
-            </div>
+        <article class="cruise reveal" id="sunset-cruise">
+          <div class="cruise__media">
+            <span class="cruise__ticket">₹6,000</span>
+            <div class="cruise__frame"><img src="assets/images/sunset-1.jpg" alt="Sunset Cruise" loading="lazy" width="800" height="640" /></div>
+            <div class="cruise__inset"><img src="assets/images/sunset-2.jpg" alt="Sunset over backwaters" loading="lazy" width="400" height="400" /></div>
           </div>
-          <div class="pkg-row__body">
-            <span class="pkg-row__price">₹6,000</span>
-            <h2 class="pkg-row__title">Sunset Cruise</h2>
-            <p class="pkg-row__desc">What can be more magical than a sunset cruise! Enjoy evening tea with snacks as you witness the myriad shades of setting sun paint, the skies and waterways.</p>
-            <ul class="pkg-row__details">
-              <li class="pkg-row__detail"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><strong>Duration:</strong> 04:30pm – 06:30pm</li>
-              <li class="pkg-row__detail"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/></svg><strong>Number of Guests:</strong> 8 &nbsp;·&nbsp; Additional Guests: ₹500/-</li>
-            </ul>
-            <span class="pkg-row__tag">Tea &amp; Snacks</span>
-            <div class="mt-2"><a class="btn btn--sm" href="contact-us.html">Book This Cruise</a></div>
+          <div class="cruise__body" data-no="03">
+            <h2 class="cruise__title">Sunset Cruise</h2>
+            <p class="cruise__desc">What can be more magical than a sunset cruise! Enjoy evening tea with snacks as you witness the myriad shades of setting sun paint, the skies and waterways.</p>
+            <div class="cruise__specs">
+              <div class="cruise__spec"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><span><small>Duration</small><b>04:30pm – 06:30pm</b></span></div>
+              <div class="cruise__spec"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/></svg><span><small>Number of Guests</small><b>8 &nbsp;·&nbsp; Additional Guests: ₹500/-</b></span></div>
+            </div>
+            <div class="cruise__incl">
+              <span class="cruise__inclLabel">Included</span>
+              <ul class="chips"><li class="chip">Tea &amp; Snacks</li></ul>
+            </div>
+            <a class="btn btn--sm" href="contact-us.html">Book This Cruise
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </a>
           </div>
         </article>
 
         <!-- Dinner Cruise -->
-        <article class="pkg-row reveal">
-          <div class="pkg-row__media">
-            <div class="media-stack">
-              <div class="media-stack__main"><img src="assets/images/dinner-1.jpg" alt="Dinner Cruise" loading="lazy" width="800" height="640" /></div>
-              <div class="media-stack__inset"><img src="assets/images/dinner-2.jpg" alt="Dinner cruise dining" loading="lazy" width="400" height="300" /></div>
-            </div>
+        <article class="cruise reveal" id="dinner-cruise">
+          <div class="cruise__media">
+            <span class="cruise__ticket">₹10,000</span>
+            <div class="cruise__frame"><img src="assets/images/dinner-1.jpg" alt="Dinner Cruise" loading="lazy" width="800" height="640" /></div>
+            <div class="cruise__inset"><img src="assets/images/dinner-2.jpg" alt="Dinner cruise dining" loading="lazy" width="400" height="400" /></div>
           </div>
-          <div class="pkg-row__body">
-            <span class="pkg-row__price">₹10,000</span>
-            <h2 class="pkg-row__title">Dinner Cruise</h2>
-            <p class="pkg-row__desc">Watch the setting sun leave you with a starry night. Experience private dining on-board, while we treat you to an exquisite spread of authentic Malabar cuisine prepared by our chef.</p>
-            <ul class="pkg-row__details">
-              <li class="pkg-row__detail"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><strong>Duration:</strong> 5pm – 9pm</li>
-              <li class="pkg-row__detail"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/></svg><strong>Number of Guests:</strong> 8 &nbsp;·&nbsp; Additional Guests: ₹700/-</li>
-            </ul>
-            <span class="pkg-row__tag">Tea &amp; Snacks, Dinner</span>
-            <div class="mt-2"><a class="btn btn--sm" href="contact-us.html">Book This Cruise</a></div>
+          <div class="cruise__body" data-no="04">
+            <h2 class="cruise__title">Dinner Cruise</h2>
+            <p class="cruise__desc">Watch the setting sun leave you with a starry night. Experience private dining on-board, while we treat you to an exquisite spread of authentic Malabar cuisine prepared by our chef.</p>
+            <div class="cruise__specs">
+              <div class="cruise__spec"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><span><small>Duration</small><b>5pm – 9pm</b></span></div>
+              <div class="cruise__spec"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/></svg><span><small>Number of Guests</small><b>8 &nbsp;·&nbsp; Additional Guests: ₹700/-</b></span></div>
+            </div>
+            <div class="cruise__incl">
+              <span class="cruise__inclLabel">Included</span>
+              <ul class="chips"><li class="chip">Tea &amp; Snacks</li><li class="chip">Dinner</li></ul>
+            </div>
+            <a class="btn btn--sm" href="contact-us.html">Book This Cruise
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </a>
           </div>
         </article>
 
         <!-- Overnight Cruise -->
-        <article class="pkg-row reveal">
-          <div class="pkg-row__media">
-            <div class="media-stack">
-              <div class="media-stack__main"><img src="assets/images/bedroom-1.jpg" alt="Overnight Cruise bedroom" loading="lazy" width="800" height="640" /></div>
-              <div class="media-stack__inset"><img src="assets/images/houseboat-small-2.jpg" alt="Overnight cruise houseboat" loading="lazy" width="400" height="300" /></div>
-            </div>
+        <article class="cruise reveal" id="overnight-cruise">
+          <div class="cruise__media">
+            <span class="cruise__ticket">₹10,000</span>
+            <div class="cruise__frame"><img src="assets/images/bedroom-1.jpg" alt="Overnight Cruise bedroom" loading="lazy" width="800" height="640" /></div>
+            <div class="cruise__inset"><img src="assets/images/houseboat-small-2.jpg" alt="Overnight cruise houseboat" loading="lazy" width="400" height="400" /></div>
           </div>
-          <div class="pkg-row__body">
-            <span class="pkg-row__price">₹10,000</span>
-            <h2 class="pkg-row__title">Overnight Cruise</h2>
-            <p class="pkg-row__desc">Indulge in a night escapade where nature puts up a special show from sunset to sunrise. Enjoy an evening karaoke or simply stargaze, while we serve you delicious Malabar cuisine.</p>
-            <ul class="pkg-row__details">
-              <li class="pkg-row__detail"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><strong>Duration:</strong> 05:00pm – 08:30am</li>
-              <li class="pkg-row__detail"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/></svg><strong>Number of Guests:</strong> 2 &nbsp;·&nbsp; Additional Guests: ₹2,000/-</li>
-            </ul>
-            <span class="pkg-row__tag">Tea &amp; Snacks, Dinner, Breakfast</span>
-            <div class="mt-2"><a class="btn btn--sm" href="contact-us.html">Book This Cruise</a></div>
+          <div class="cruise__body" data-no="05">
+            <h2 class="cruise__title">Overnight Cruise</h2>
+            <p class="cruise__desc">Indulge in a night escapade where nature puts up a special show from sunset to sunrise. Enjoy an evening karaoke or simply stargaze, while we serve you delicious Malabar cuisine.</p>
+            <div class="cruise__specs">
+              <div class="cruise__spec"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><span><small>Duration</small><b>05:00pm – 08:30am</b></span></div>
+              <div class="cruise__spec"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/></svg><span><small>Number of Guests</small><b>2 &nbsp;·&nbsp; Additional Guests: ₹2,000/-</b></span></div>
+            </div>
+            <div class="cruise__incl">
+              <span class="cruise__inclLabel">Included</span>
+              <ul class="chips"><li class="chip">Tea &amp; Snacks</li><li class="chip">Dinner</li><li class="chip">Breakfast</li></ul>
+            </div>
+            <a class="btn btn--sm" href="contact-us.html">Book This Cruise
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </a>
           </div>
         </article>
 
         <!-- Day & Night Cruise -->
-        <article class="pkg-row reveal">
-          <div class="pkg-row__media">
-            <div class="media-stack">
-              <div class="media-stack__main"><img src="assets/images/sunset-4.jpg" alt="Day and Night Cruise" loading="lazy" width="800" height="640" /></div>
-              <div class="media-stack__inset"><img src="assets/images/houseboat-day-2.jpg" alt="Day and night cruise houseboat" loading="lazy" width="400" height="300" /></div>
-            </div>
+        <article class="cruise reveal" id="day-night-cruise">
+          <div class="cruise__media">
+            <span class="cruise__ticket">₹16,000</span>
+            <div class="cruise__frame"><img src="assets/images/sunset-4.jpg" alt="Day and Night Cruise" loading="lazy" width="800" height="640" /></div>
+            <div class="cruise__inset"><img src="assets/images/houseboat-day-2.jpg" alt="Day and night cruise houseboat" loading="lazy" width="400" height="400" /></div>
           </div>
-          <div class="pkg-row__body">
-            <span class="pkg-row__price">₹16,000</span>
-            <h2 class="pkg-row__title">Day &amp; Night Cruise</h2>
-            <p class="pkg-row__desc">Embark on a relaxing voyage as cruises through serene backwaters. Be pampered by our friendly staff, offering an array of delectable delicacies in the comforts of your floating home.</p>
-            <ul class="pkg-row__details">
-              <li class="pkg-row__detail"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><strong>Duration:</strong> 10:00am – 08:30am</li>
-              <li class="pkg-row__detail"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/></svg><strong>Number of Guests:</strong> 2 &nbsp;·&nbsp; Additional Guests: ₹2,500/-</li>
-            </ul>
-            <span class="pkg-row__tag">Welcome Drink, Lunch, Tea &amp; Snacks, Dinner, Breakfast</span>
-            <div class="mt-2"><a class="btn btn--sm" href="contact-us.html">Book This Cruise</a></div>
+          <div class="cruise__body" data-no="06">
+            <h2 class="cruise__title">Day &amp; Night Cruise</h2>
+            <p class="cruise__desc">Embark on a relaxing voyage as cruises through serene backwaters. Be pampered by our friendly staff, offering an array of delectable delicacies in the comforts of your floating home.</p>
+            <div class="cruise__specs">
+              <div class="cruise__spec"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><span><small>Duration</small><b>10:00am – 08:30am</b></span></div>
+              <div class="cruise__spec"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/></svg><span><small>Number of Guests</small><b>2 &nbsp;·&nbsp; Additional Guests: ₹2,500/-</b></span></div>
+            </div>
+            <div class="cruise__incl">
+              <span class="cruise__inclLabel">Included</span>
+              <ul class="chips"><li class="chip">Welcome Drink</li><li class="chip">Lunch</li><li class="chip">Tea &amp; Snacks</li><li class="chip">Dinner</li><li class="chip">Breakfast</li></ul>
+            </div>
+            <a class="btn btn--sm" href="contact-us.html">Book This Cruise
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </a>
           </div>
         </article>
 
