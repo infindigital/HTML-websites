@@ -76,6 +76,23 @@
     });
   });
 
+  /* ---- Tabbed showcase ---- */
+  document.querySelectorAll("[data-showcase]").forEach(function (wrap) {
+    wrap.querySelectorAll(".showcase__tab").forEach(function (tab) {
+      tab.addEventListener("click", function () {
+        var id = tab.getAttribute("data-tab");
+        wrap.querySelectorAll(".showcase__tab").forEach(function (t) {
+          var on = t === tab;
+          t.classList.toggle("is-active", on);
+          t.setAttribute("aria-selected", on ? "true" : "false");
+        });
+        wrap.querySelectorAll(".showcase__panel").forEach(function (p) {
+          p.classList.toggle("is-active", p.getAttribute("data-panel") === id);
+        });
+      });
+    });
+  });
+
   /* ---- Scroll reveal ---- */
   var revealEls = document.querySelectorAll(".reveal");
   if ("IntersectionObserver" in window && revealEls.length) {
