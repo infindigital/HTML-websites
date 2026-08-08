@@ -371,19 +371,19 @@ ul{margin:0;padding:0;list-style:none}
 .xp-tile img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2;
   transition:transform 1.5s var(--ease)}
 .xp-tile__scrim{position:absolute;inset:0;z-index:-1;
-  background:linear-gradient(180deg,rgba(8,30,24,0) 30%,rgba(8,30,24,.42) 60%,rgba(8,30,24,.9) 100%)}
+  background:linear-gradient(180deg,rgba(8,30,24,.12) 0%,rgba(8,30,24,.3) 40%,rgba(8,30,24,.68) 66%,rgba(8,30,24,.95) 100%)}
 .xp-tile:hover img{transform:scale(1.06)}
-.xp-tile__in{padding:clamp(1.15rem,2vw,1.9rem)}
+.xp-tile__in{padding:clamp(1.15rem,2vw,1.9rem);text-shadow:0 1px 16px rgba(8,30,24,.6)}
 .xp-tile__tag{display:inline-block;font-size:.66rem;font-weight:700;letter-spacing:.16em;
   text-transform:uppercase;color:var(--gold-2);margin-bottom:.6rem}
 .xp-tile__title{font-family:var(--serif);font-weight:900;line-height:1.08;
   font-size:clamp(1.35rem,1.15rem + .9vw,1.9rem);margin-bottom:.5rem}
 .xp-tile--lead .xp-tile__title{font-size:clamp(1.8rem,1.2rem + 2.1vw,2.9rem)}
-.xp-tile__desc{color:rgba(244,239,227,.9);line-height:1.55;font-size:.92rem;max-width:48ch}
+.xp-tile__desc{color:rgba(244,239,227,.94);line-height:1.55;font-size:.92rem;max-width:48ch}
 .xp-tile:not(.xp-tile--lead) .xp-tile__desc{font-size:.88rem;
   display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
 .xp-tile__note{display:block;margin-top:.8rem;font-size:.75rem;font-weight:600;letter-spacing:.03em;
-  color:rgba(244,239,227,.78)}
+  color:rgba(244,239,227,.82)}
 
 /* ============================================================
    CRUISES — editorial rate list
@@ -449,8 +449,8 @@ ul{margin:0;padding:0;list-style:none}
 .stat{border-top:1px solid rgba(255,255,255,.2);padding-top:1.4rem}
 .stat b{font-family:var(--serif);font-weight:900;font-size:clamp(2.6rem,5vw,3.8rem);color:#fff;line-height:1;
   font-variant-numeric:tabular-nums;display:block}
-.stat b .u{font-size:.5em;color:var(--gold-2);margin-left:.1em}
-.stat span{display:block;margin-top:.7rem;font-size:.86rem;color:rgba(244,239,227,.72);letter-spacing:.04em}
+.stat b .u{display:inline;font-size:.5em;color:var(--gold-2);margin-left:.1em;vertical-align:.35em}
+.stat>span{display:block;margin-top:.7rem;font-size:.86rem;color:rgba(244,239,227,.72);letter-spacing:.04em}
 
 /* ============================================================
    GALLERY (asymmetric editorial)
@@ -479,24 +479,25 @@ ul{margin:0;padding:0;list-style:none}
 /* ============================================================
    TESTIMONIALS (editorial quotes)
    ============================================================ */
-.voices__head{max-width:720px;margin-bottom:clamp(2.4rem,5vw,4rem)}
+#voices{padding-block:clamp(40px,5vw,64px)}
+.voices__head{max-width:720px;margin-bottom:clamp(1.6rem,3.2vw,2.6rem)}
 .voices__lead{font-family:var(--serif);font-weight:900;letter-spacing:-.015em;line-height:1.14;
   font-size:clamp(1.8rem,3.6vw,2.9rem);color:var(--ink);text-wrap:balance;position:relative}
-.voices__grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:clamp(1.5rem,3vw,2.6rem);align-items:start}
-.quote{position:relative}
-.quote__mark{font-family:var(--serif);font-weight:900;font-size:4.5rem;line-height:.6;color:var(--gold);opacity:.5;display:block;height:.5em}
-.quote__text{font-family:var(--serif);font-weight:400;line-height:1.55;color:var(--ink);margin:1rem 0 1.6rem}
-.quote--feature .quote__text{font-weight:700;font-size:clamp(1.3rem,2vw,1.65rem)}
-.quote:not(.quote--feature) .quote__text{font-size:1.02rem}
-.quote__by{display:flex;align-items:center;gap:.9rem;border-top:1px solid var(--line);padding-top:1.1rem}
+.voices__grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:clamp(1.5rem,3vw,2.6rem);align-items:stretch}
+.quote{position:relative;display:flex;flex-direction:column}
+.quote__mark{font-family:var(--serif);font-weight:900;font-size:3.2rem;line-height:.6;color:var(--gold);opacity:.5;display:block;height:.42em}
+.quote__text{font-family:var(--serif);font-weight:400;line-height:1.5;color:var(--ink);margin:.55rem 0 1.05rem}
+.quote--feature .quote__text{font-weight:700;font-size:clamp(1.05rem,1.3vw,1.25rem)}
+.quote:not(.quote--feature) .quote__text{font-size:1rem}
+.quote__by{display:flex;align-items:center;gap:.9rem;border-top:1px solid var(--line);padding-top:.9rem;margin-top:auto}
 .quote__av{width:44px;height:44px;border-radius:50%;background:var(--forest);color:var(--gold-2);
   display:grid;place-items:center;font-family:var(--serif);font-weight:900;font-size:1.1rem;flex:0 0 auto}
 .quote__who b{display:block;font-family:var(--sans);font-weight:700;font-size:.94rem;color:var(--ink)}
 .quote__who span{font-size:.8rem;color:var(--muted-2)}
 .quote__stars{margin-left:auto;color:var(--gold);font-size:.82rem;letter-spacing:1px;white-space:nowrap}
 .quote__stars .dim{color:var(--line)}
-.voices__foot{display:flex;align-items:center;gap:1.2rem;margin-top:clamp(2.4rem,5vw,3.6rem);
-  padding-top:1.8rem;border-top:1px solid var(--line);flex-wrap:wrap}
+.voices__foot{display:flex;align-items:center;gap:1.2rem;margin-top:clamp(1.6rem,3.2vw,2.4rem);
+  padding-top:1.5rem;border-top:1px solid var(--line);flex-wrap:wrap}
 .voices__foot .score{font-family:var(--serif);font-weight:900;font-size:2.4rem;color:var(--forest);line-height:1}
 .voices__foot .stars{color:var(--gold);letter-spacing:3px;font-size:1.35rem}
 .voices__foot .meta{font-size:.9rem;color:var(--muted)}
