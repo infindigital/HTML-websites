@@ -6,13 +6,13 @@
 
 /* ---------- Design tokens ---------- */
 :root {
-  /* Ocean blues */
-  --blue-950: #082f4e;
-  --blue-900: #0e3f66;
-  --blue-800: #124e79;
-  --blue-700: #175f92;   /* primary ocean blue */
-  --blue-600: #1f77b0;
-  --blue-500: #2d90c9;
+  /* Ocean blues — anchored to brand #1598B8 */
+  --blue-950: #073540;
+  --blue-900: #0a4857;
+  --blue-800: #0d6277;
+  --blue-700: #117c97;   /* deep ocean blue */
+  --blue-600: #1598b8;   /* primary ocean blue (brand) */
+  --blue-500: #19b9e1;
 
   /* Gold */
   --gold-700: #a67c2e;
@@ -29,8 +29,8 @@
   --ink: #16212b;         /* near-black, blue tinted */
   --muted: #67707a;       /* muted grey */
   --muted-2: #97a0aa;
-  --line: rgba(23, 73, 110, 0.14);
-  --line-soft: rgba(23, 73, 110, 0.08);
+  --line: rgba(21, 152, 184, 0.16);
+  --line-soft: rgba(21, 152, 184, 0.09);
 
   /* Effects */
   --shadow-sm: 0 6px 18px -8px rgba(11, 39, 64, 0.18);

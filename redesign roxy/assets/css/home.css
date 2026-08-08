@@ -11,10 +11,10 @@
   --sand:#e2e8ef;
   --paper:#ffffff;       /* cards / raised surfaces */
 
-  --forest:#175f92;      /* primary ocean blue */
-  --forest-2:#0e3f66;    /* darker — masthead / overlays */
-  --forest-3:#082f4e;    /* deepest — footer */
-  --pine:#1f77b0;        /* mid ocean blue */
+  --forest:#0d6277;      /* primary deep ocean (dark surfaces) */
+  --forest-2:#0a4857;    /* darker — masthead / overlays */
+  --forest-3:#073540;    /* deepest — footer */
+  --pine:#1598b8;        /* mid ocean blue — brand #1598B8 */
 
   --ink:#16242f;         /* near-black text (navy-charcoal) */
   --muted:#54626f;       /* secondary text */
