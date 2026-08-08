@@ -5,11 +5,11 @@
 
 /* ---------- TOKENS ---------- */
 :root{
-  /* colour — Kerala backwaters: forest green · warm ivory · brass */
-  --ivory:#f4efe3;
-  --ivory-2:#efe7d6;
-  --sand:#e6dcc4;
-  --paper:#faf7ef;
+  /* colour — Kerala backwaters: white ground · forest green · brass */
+  --ivory:#ffffff;       /* page ground — white */
+  --ivory-2:#f5f6f4;     /* alternating sections — whisper off-white */
+  --sand:#e6e8e4;
+  --paper:#ffffff;       /* cards / raised surfaces */
 
   --forest:#123a30;      /* primary deep backwater green */
   --forest-2:#0c2a22;    /* darker — footer / overlays */
@@ -169,11 +169,8 @@ ul{margin:0;padding:0;list-style:none}
   max-width:var(--wrap-wide);margin-inline:auto;padding-inline:var(--gut);
   height:var(--nav-h);display:flex;align-items:center;justify-content:space-between;gap:1.5rem;
 }
-.brand{display:flex;align-items:center;gap:.7rem;z-index:2}
-.brand img{height:46px;width:auto;transition:filter .5s var(--ease)}
-.brand__type{display:flex;flex-direction:column;line-height:1;color:#fff;transition:color .5s var(--ease)}
-.brand__type b{font-family:var(--serif);font-weight:900;font-size:1.08rem;letter-spacing:.01em}
-.brand__type span{font-family:var(--sans);font-weight:600;font-size:.6rem;letter-spacing:.34em;text-transform:uppercase;opacity:.8;margin-top:3px}
+.brand{display:flex;align-items:center;z-index:2}
+.brand img{height:64px;width:auto;transition:height .5s var(--ease)}
 
 .navmenu{display:flex;align-items:center;gap:2.1rem}
 .navmenu a{
@@ -189,13 +186,9 @@ ul{margin:0;padding:0;list-style:none}
 .nav-phone{display:inline-flex;align-items:center;gap:.5em;font-weight:600;font-size:.86rem;color:#fff;opacity:.92}
 .nav-phone svg{width:16px;height:16px;color:var(--gold-2)}
 
-/* scrolled state: solid ivory bar, dark text */
-.masthead.is-stuck{background:var(--paper);box-shadow:0 1px 0 var(--line),0 18px 40px -30px rgba(12,42,34,.5)}
-.masthead.is-stuck .brand__type{color:var(--ink)}
-.masthead.is-stuck .navmenu a{color:var(--ink)}
-.masthead.is-stuck .navmenu a.is-active{color:var(--forest)}
-.masthead.is-stuck .nav-phone{color:var(--ink)}
-.masthead.is-stuck .brand img{filter:none}
+/* scrolled state: solid deep-forest bar (keeps the white logo legible) */
+.masthead.is-stuck{background:var(--forest-2);box-shadow:0 18px 40px -30px rgba(8,30,24,.7)}
+.masthead.is-stuck .brand img{height:52px}
 .masthead.is-hidden{transform:translateY(-100%)}
 
 /* hamburger */
@@ -205,7 +198,6 @@ ul{margin:0;padding:0;list-style:none}
 .burger span:nth-child(1){top:15px}
 .burger span:nth-child(2){top:22px}
 .burger span:nth-child(3){top:29px}
-.masthead.is-stuck .burger span{background:var(--ink)}
 .is-menu-open .burger span{background:#f4efe3}
 .is-menu-open .burger span:nth-child(1){transform:translateY(7px) rotate(45deg)}
 .is-menu-open .burger span:nth-child(2){opacity:0}
@@ -574,12 +566,30 @@ ul{margin:0;padding:0;list-style:none}
 .reveal[data-delay="1"]{transition-delay:.12s}
 .reveal[data-delay="2"]{transition-delay:.24s}
 .reveal[data-delay="3"]{transition-delay:.36s}
-.reveal-img{clip-path:inset(0 0 100% 0);transition:clip-path 1.3s var(--ease-out)}
-.reveal-img.is-in{clip-path:inset(0 0 0 0)}
+/* image reveal — pure fade so it never leaves a blank and composes with 3D tilt */
+.reveal-img{opacity:0;transition:opacity 1.1s var(--ease-out)}
+.reveal-img.is-in{opacity:1}
 .par{will-change:transform}
+
+/* ---------- 3D FLOATING PANELS (pointer-tilt) ---------- */
+.tilt{
+  transform:perspective(1200px) rotateX(var(--trx,0deg)) rotateY(var(--try,0deg));
+  transform-style:preserve-3d;
+  transition:transform .6s var(--ease),box-shadow .6s var(--ease);
+  will-change:transform;
+}
+.intro__figure.tilt,.exp__media.tilt,.pk-feature.tilt{
+  border-radius:8px;
+  box-shadow:0 34px 70px -38px rgba(8,30,24,.5),0 8px 22px -18px rgba(8,30,24,.35);
+}
+.why__media.tilt{filter:drop-shadow(0 34px 60px rgba(8,30,24,.34))}
+.why__media.tilt img{border-radius:8px}
+.tilt img,.tilt .exp__tag,.tilt .pk-feature__in{transform:translateZ(0)}
+.tilt:hover{box-shadow:0 44px 90px -40px rgba(8,30,24,.58),0 10px 26px -16px rgba(8,30,24,.4)}
 
 @media (prefers-reduced-motion:reduce){
   .reveal,.reveal-img{opacity:1;transform:none;clip-path:none;transition:none}
+  .tilt{transform:none;transition:none}
   .hero__scroll i::after{animation:none}
   *{scroll-behavior:auto !important}
 }

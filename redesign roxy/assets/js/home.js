@@ -83,15 +83,54 @@
 
   /* ---- reveal on scroll ---- */
   var revealEls = doc.querySelectorAll(".reveal, .reveal-img");
+  function revealInView() {
+    var vh = window.innerHeight || doc.documentElement.clientHeight;
+    revealEls.forEach(function (el) {
+      if (el.classList.contains("is-in")) return;
+      var r = el.getBoundingClientRect();
+      if (r.top < vh * 1.05 && r.bottom > 0) el.classList.add("is-in");
+    });
+  }
   if ("IntersectionObserver" in window && !reduce) {
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (en) {
         if (en.isIntersecting) { en.target.classList.add("is-in"); io.unobserve(en.target); }
       });
-    }, { threshold: 0.14, rootMargin: "0px 0px -8% 0px" });
+    }, { threshold: 0.08, rootMargin: "0px 0px -6% 0px" });
     revealEls.forEach(function (el) { io.observe(el); });
+    /* safety: reveal anything already on screen, and a hard fallback */
+    revealInView();
+    window.addEventListener("load", revealInView);
+    setTimeout(revealInView, 1400);
   } else {
     revealEls.forEach(function (el) { el.classList.add("is-in"); });
+  }
+
+  /* ---- 3D pointer tilt on floating image panels ---- */
+  var tilts = doc.querySelectorAll(".tilt");
+  var finePointer = window.matchMedia("(pointer: fine)").matches;
+  if (tilts.length && !reduce && finePointer) {
+    var MAX = 5.5; // degrees
+    tilts.forEach(function (el) {
+      var raf = null, tx = 0, ty = 0;
+      function apply() {
+        el.style.setProperty("--try", tx.toFixed(2) + "deg");
+        el.style.setProperty("--trx", ty.toFixed(2) + "deg");
+        raf = null;
+      }
+      el.addEventListener("mousemove", function (e) {
+        var r = el.getBoundingClientRect();
+        var px = (e.clientX - r.left) / r.width - 0.5;
+        var py = (e.clientY - r.top) / r.height - 0.5;
+        tx = px * MAX;          // rotateY follows horizontal
+        ty = -py * MAX;         // rotateX follows vertical (inverted)
+        if (!raf) raf = window.requestAnimationFrame(apply);
+      });
+      el.addEventListener("mouseleave", function () {
+        tx = 0; ty = 0;
+        if (!raf) raf = window.requestAnimationFrame(apply);
+      });
+    });
   }
 
   /* ---- subtle parallax on flagged media ---- */
