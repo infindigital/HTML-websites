@@ -434,9 +434,9 @@ ul{margin:0;padding:0;list-style:none}
    STATISTICS BAND
    ============================================================ */
 .stats{background:var(--pine);color:#f3efe4;position:relative;overflow:hidden}
-.stats__bg{position:absolute;inset:0;opacity:.16}
+.stats__bg{position:absolute;inset:0;opacity:.09}
 .stats__bg img{width:100%;height:100%;object-fit:cover}
-.stats::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,var(--pine) 30%,rgba(21,152,184,.62))}
+.stats::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,var(--pine) 40%,rgba(21,152,184,.9))}
 .stats__inner{position:relative;z-index:2}
 .stats__head{max-width:640px;margin-bottom:clamp(2.6rem,5vw,4rem)}
 .stats__head .h2{color:#fff}
@@ -456,7 +456,9 @@ ul{margin:0;padding:0;list-style:none}
   display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(.8rem,1.6vw,1.2rem);
 }
 .gtile{position:relative;overflow:hidden;border-radius:2px;aspect-ratio:4/3}
-.gtile img{width:100%;height:100%;object-fit:cover;transition:transform 1.4s var(--ease)}
+.gtile img{width:100%;height:100%;object-fit:cover;object-position:center;transition:transform 1.4s var(--ease)}
+/* houseboat-day-7 is a tall portrait with the boat low in frame — pull the crop down so the boat, not the empty sky, fills the tile */
+.gtile.g-e img{object-position:center 84%}
 .gtile::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,30,24,0) 55%,rgba(8,30,24,.6));
   opacity:0;transition:opacity .5s var(--ease)}
 .gtile:hover img{transform:scale(1.06)}
