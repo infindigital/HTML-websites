@@ -400,6 +400,23 @@ p { margin: 0; }
 .split__body .lead { margin-bottom: 2rem; }
 .split__body .lead + .lead { margin-top: 1.25rem; }
 
+/* Clean single framed photo — About "Who we are" (no badge / no inset) */
+.who-photo {
+  position: relative;
+  margin: 0;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-md), 0 40px 80px -46px rgba(4, 14, 26, 0.5);
+  aspect-ratio: 4 / 3.3;
+}
+.who-photo img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 1.4s var(--ease); }
+.who-photo:hover img { transform: scale(1.05); }
+.who-photo::after {
+  content: ""; position: absolute; inset: 0; border-radius: inherit;
+  box-shadow: inset 0 0 0 1px rgba(201, 169, 97, 0.3);
+  pointer-events: none;
+}
+
 .media-stack { position: relative; }
 .media-stack__main {
   border-radius: var(--radius-lg);
@@ -1707,8 +1724,8 @@ p { margin: 0; }
 /* the cutout houseboat — sits on the waterline, ends breaking past both edges */
 .burst__boat {
   position: absolute; z-index: 3;
-  width: 158%; height: auto; max-width: none;
-  left: -29%; top: -2%;
+  width: 184%; height: auto; max-width: none;
+  left: -42%; top: -12%;
   filter:
     drop-shadow(0 22px 26px rgba(4,14,26,.5))
     drop-shadow(0 6px 10px rgba(4,14,26,.4));
