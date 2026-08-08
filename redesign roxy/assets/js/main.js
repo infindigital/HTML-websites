@@ -145,6 +145,8 @@
       var spread = 62;
       var depth = 150;
       var dragged = false;
+      var drag = 0;        // live drag offset in card units (updated while a finger/mouse pulls the deck)
+      var dragging = false;
 
       // Nudge the hero video into playing — some browsers hold autoplay until asked.
       var vid = pkgHero.querySelector(".pkg-hero__video");
@@ -179,26 +181,29 @@
 
       var layout = function () {
         cards.forEach(function (c, i) {
-          var off = i - active;
+          var off = i - active - drag;              // include the live drag offset
           var abs = Math.abs(off);
+          var rnd = Math.round(off);
           var sign = off < 0 ? -1 : 1;
-          if (abs > 2) {
+          if (abs > 2.6) {
             c.style.opacity = "0";
             c.style.visibility = "hidden";
             c.style.pointerEvents = "none";
           } else {
             c.style.visibility = "visible";
-            c.style.pointerEvents = "auto";
-            c.style.opacity = abs === 0 ? "1" : (abs === 1 ? "0.92" : "0.55");
+            c.style.pointerEvents = dragging ? "none" : "auto";
+            c.style.opacity = String(Math.max(0.4, 1 - abs * 0.34));
           }
+          c.style.transition = dragging ? "none" : "";   // 1:1 follow while dragging, smooth snap on release
+          var clamped = Math.max(-2, Math.min(2, off));
           var tx = off * spread;
-          var tz = reduce ? 0 : -abs * depth;
-          var ry = reduce ? 0 : -sign * Math.min(abs, 2) * 26;
-          var sc = 1 - abs * 0.12;
+          var tz = reduce ? 0 : -Math.abs(clamped) * depth;
+          var ry = reduce ? 0 : -sign * Math.abs(clamped) * 26;
+          var sc = 1 - Math.min(abs, 2) * 0.12;
           c.style.transform =
             "translate(-50%,-50%) translateX(" + tx + "%) translateZ(" + tz + "px) rotateY(" + ry + "deg) scale(" + sc + ")";
-          c.style.zIndex = String(20 - abs);
-          c.classList.toggle("is-active", i === active);
+          c.style.zIndex = String(20 - Math.abs(rnd));
+          c.classList.toggle("is-active", rnd === 0 && !dragging);
           c.setAttribute("aria-current", i === active ? "true" : "false");
           c.tabIndex = i === active ? 0 : -1;
         });
@@ -248,36 +253,58 @@
         else if (e.key === "ArrowRight") { go(active + 1, true); }
       });
 
-      /* Manual drag / swipe — grab the deck and pull left/right (touch + mouse) */
+      /* Manual drag / swipe — grab the deck and pull it left/right (touch + mouse). */
       if (stage && window.PointerEvent) {
-        var dragging = false, startX = 0, deltaX = 0;
+        var startX = 0, pxPerUnit = 1, activePointer = null;
         stage.style.touchAction = "pan-y";
         stage.style.cursor = "grab";
-        stage.addEventListener("pointerdown", function (e) {
-          if (e.pointerType === "mouse" && e.button !== 0) return;
-          dragging = true; dragged = false; startX = e.clientX; deltaX = 0;
-          stage.style.cursor = "grabbing";
-          // capture the pointer on the stage so a card button can't swallow the move/up
-          try { stage.setPointerCapture(e.pointerId); } catch (_) {}
-          stop();
+
+        // stop native image/text drag from hijacking the gesture (this was killing the swipe)
+        cards.forEach(function (c) {
+          c.setAttribute("draggable", "false");
+          c.querySelectorAll("img").forEach(function (im) { im.setAttribute("draggable", "false"); });
         });
-        stage.addEventListener("pointermove", function (e) {
-          if (!dragging) return;
-          deltaX = e.clientX - startX;
-          if (Math.abs(deltaX) > 8) dragged = true;
-        });
+        stage.addEventListener("dragstart", function (e) { e.preventDefault(); });
+
+        var onMove = function (e) {
+          if (!dragging || (activePointer !== null && e.pointerId !== activePointer)) return;
+          var dx = e.clientX - startX;
+          if (Math.abs(dx) > 4) dragged = true;
+          drag = dx / pxPerUnit;                       // convert pixels → card units
+          if (drag > 1.3) drag = 1.3; else if (drag < -1.3) drag = -1.3;
+          layout();
+        };
+
         var endDrag = function (e) {
           if (!dragging) return;
+          if (activePointer !== null && e && e.pointerId !== undefined && e.pointerId !== activePointer) return;
           dragging = false;
+          activePointer = null;
           stage.style.cursor = "grab";
-          try { stage.releasePointerCapture(e.pointerId); } catch (_) {}
-          var threshold = 46;
-          if (deltaX <= -threshold) { go(active + 1, true); }
-          else if (deltaX >= threshold) { go(active - 1, true); }
-          else { start(); }
+          window.removeEventListener("pointermove", onMove);
+          window.removeEventListener("pointerup", endDrag);
+          window.removeEventListener("pointercancel", endDrag);
+          var move = Math.round(-drag);                // pull left (drag>0) advances to the next card
+          drag = 0;
+          if (move !== 0) { go(active + move, true); }
+          else { layout(); start(); }
         };
-        stage.addEventListener("pointerup", endDrag);
-        stage.addEventListener("pointercancel", endDrag);
+
+        stage.addEventListener("pointerdown", function (e) {
+          if (e.pointerType === "mouse" && e.button !== 0) return;
+          dragging = true; dragged = false; drag = 0;
+          activePointer = e.pointerId;
+          startX = e.clientX;
+          var w = stage.getBoundingClientRect().width || stage.offsetWidth || 1;
+          pxPerUnit = Math.max(120, w * spread / 100);  // width of one card step, in px
+          stage.style.cursor = "grabbing";
+          try { stage.setPointerCapture(e.pointerId); } catch (_) {}
+          stop();
+          window.addEventListener("pointermove", onMove);
+          window.addEventListener("pointerup", endDrag);
+          window.addEventListener("pointercancel", endDrag);
+          layout();
+        });
       }
 
       var tick = function () { go(active + 1, false); };
