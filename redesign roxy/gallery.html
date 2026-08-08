@@ -60,19 +60,64 @@
   </header>
   <div class="nav__backdrop"></div>
 
-  <!-- ============ BANNER ============ -->
-  <section class="page-banner page-banner--gallery">
-    <div class="page-banner__bg"><img src="assets/images/houseboat-day-1.jpg" alt="Roxy houseboat gallery" /></div>
-    <div class="container page-banner__inner">
-      <span class="page-banner__rule"></span>
-      <p class="page-banner__sub" style="margin:0 0 .3rem">Roxy House Boat</p>
-      <h1 class="page-banner__title">Gallery</h1>
-      <nav class="crumbs" aria-label="Breadcrumb"><a href="index.html">Home</a> / <span>Gallery</span></nav>
+  <!-- ============ VIDEO HERO ============ -->
+  <section class="ahero" data-hero-video>
+    <video class="ahero__video" autoplay muted loop playsinline preload="auto"
+           poster="assets/images/houseboat-day-1.jpg" aria-hidden="true" tabindex="-1">
+      <source src="Ocean_water_with_ripples_1080p_202608081607.mp4" type="video/mp4" />
+    </video>
+    <span class="ahero__scrim" aria-hidden="true"></span>
+
+    <div class="container ahero__inner">
+      <div class="ahero__lead reveal">
+        <nav class="crumbs crumbs--light" aria-label="Breadcrumb"><a href="index.html">Home</a> / <span>Gallery</span></nav>
+        <span class="eyebrow ahero__eyebrow">Roxy House Boat · Nileshwar</span>
+        <h1 class="ahero__title">Moments on<br />the Backwaters</h1>
+        <p class="ahero__sub">Houseboats, sunsets, elegant interiors &amp; Malabar flavours.</p>
+        <div class="ahero__meta">
+          <a class="btn btn--white btn--sm" href="#gallery">View the gallery
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M6 13l6 6 6-6"/></svg>
+          </a>
+          <span class="ahero__place">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Nileshwar · Kasaragod · Kerala
+          </span>
+        </div>
+      </div>
+
+      <div class="ahero__stage reveal" data-delay="1">
+        <figure class="ahero__card">
+          <img src="assets/images/houseboat-day-1.jpg" alt="A Roxy houseboat cruising the palm-fringed Nileshwar backwaters" width="900" height="1100" />
+          <figure class="ahero__card-inset">
+            <img src="assets/images/sunset-1.jpg" alt="Golden sunset over the Kerala backwaters" width="420" height="460" />
+          </figure>
+          <span class="ahero__chip">
+            <b>5.0</b>
+            <span><i class="stars">★★★★★</i><small>111+ happy travellers</small></span>
+          </span>
+        </figure>
+      </div>
+    </div>
+
+    <div class="ahero__wave" aria-hidden="true">
+      <svg viewBox="0 0 1440 120" preserveAspectRatio="none"><path d="M0,64 C240,120 480,16 720,40 C960,64 1200,120 1440,72 L1440,120 L0,120 Z"></path></svg>
+    </div>
+  </section>
+
+  <!-- ============ STATS BAND ============ -->
+  <section class="about-stats">
+    <div class="container">
+      <div class="about-stats__row">
+        <div class="about-stat reveal"><b>5.0</b><span>Google Rating</span></div>
+        <div class="about-stat reveal" data-delay="1"><b>111+</b><span>Happy Travellers</span></div>
+        <div class="about-stat reveal" data-delay="2"><b>24 Hrs</b><span>Guest Service</span></div>
+        <div class="about-stat about-stat--word reveal" data-delay="3"><b>Nileshwar</b><span>Kerala Backwaters</span></div>
+      </div>
     </div>
   </section>
 
   <!-- ============ GALLERY MOSAIC ============ -->
-  <section class="section">
+  <section class="section" id="gallery">
     <div class="container">
       <div class="section-head text-center reveal">
         <span class="eyebrow eyebrow--center">Moments on the Backwaters</span>
