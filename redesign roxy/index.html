@@ -57,33 +57,49 @@
 
   <!-- ============ 01 · HERO ============ -->
   <section class="hero">
-    <div class="hero__media">
-      <video autoplay muted loop playsinline preload="auto" poster="assets/images/houseboat-day-5.jpg" aria-label="Aerial view of a Roxy houseboat cruising the Nileshwar backwaters">
+    <div class="hero__frame">
+      <video class="hero__video" autoplay muted loop playsinline preload="auto" poster="assets/images/houseboat-day-5.jpg" aria-label="Aerial view of a Roxy houseboat cruising the Nileshwar backwaters">
         <source src="assets/video/hero-drone.mp4" type="video/mp4" />
       </video>
-    </div>
-    <div class="hero__inner">
-      <span class="eyebrow hero__label eyebrow--plain">Nileshwar · Alappuzha, Kerala</span>
-      <h1 class="hero__title">
-        <span class="kicker">Welcome to</span>
-        Roxy Houseboat <span class="gold">Nileshwar</span>
-      </h1>
-      <p class="hero__text">Your premier choice for an unforgettable houseboat Nileshwar experience — luxurious cruises through the tranquil backwaters of Kerala.</p>
-      <div class="hero__cta">
-        <a class="btn btn--gold" href="contact-us.html">Book Your Cruise
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-        </a>
-        <a class="btn btn--ghost" href="packages.html">View Packages</a>
-      </div>
-      <div class="hero__base">
-        <div class="hero__rating">
-          <b>4.9</b>
-          <span>
-            <span class="stars">★★★★★</span>
-            <small>Rated by 121 guests on Google</small>
-          </span>
+      <div class="hero__scrim"></div>
+
+      <div class="hero__center">
+        <span class="eyebrow hero__label eyebrow--plain">Nileshwar · Alappuzha, Kerala</span>
+        <h1 class="hero__title">
+          <span class="kicker">Welcome to</span>
+          Roxy Houseboat <span class="gold">Nileshwar</span>
+        </h1>
+        <p class="hero__text">Your premier choice for an unforgettable houseboat Nileshwar experience — luxurious cruises through the tranquil backwaters of Kerala.</p>
+        <div class="hero__cta">
+          <a class="btn btn--gold" href="contact-us.html">Book Your Cruise
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+          <a class="btn btn--ghost" href="packages.html">View Packages</a>
         </div>
-        <span class="hero__scroll">Scroll to explore <i></i></span>
+      </div>
+
+      <div class="hero__cards">
+        <a class="hero__card hero__card--offer" href="packages.html">
+          <img src="assets/images/houseboat-small-1.jpg" alt="Roxy houseboat on the Nileshwar backwaters" loading="lazy" />
+          <span class="hero__card-body">
+            <b>Six curated cruises</b>
+            <small>one for every escape</small>
+          </span>
+          <span class="hero__card-arrow" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </span>
+        </a>
+        <div class="hero__card hero__card--stats">
+          <div class="hero__stat hero__stat--rating">
+            <b>4.9</b>
+            <span class="hero__rate-meta">
+              <span class="stars">★★★★★</span>
+              <small>Rated by 121 guests on Google</small>
+            </span>
+          </div>
+          <div class="hero__stat"><b>120</b><small>Guest capacity</small></div>
+          <div class="hero__stat"><b>24<i>Hrs</i></b><small>Guest support</small></div>
+        </div>
       </div>
     </div>
   </section>
