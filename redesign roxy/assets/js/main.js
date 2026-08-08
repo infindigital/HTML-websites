@@ -192,7 +192,7 @@
           } else {
             c.style.visibility = "visible";
             c.style.pointerEvents = dragging ? "none" : "auto";
-            c.style.opacity = String(Math.max(0.4, 1 - abs * 0.34));
+            c.style.opacity = "1";   // fully opaque — no transparency on the side cards
           }
           c.style.transition = dragging ? "none" : "";   // 1:1 follow while dragging, smooth snap on release
           var clamped = Math.max(-2, Math.min(2, off));
