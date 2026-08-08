@@ -5,27 +5,27 @@
 
 /* ---------- TOKENS ---------- */
 :root{
-  /* colour — Kerala backwaters: white ground · forest green · brass */
+  /* colour — nautical: white ground · deep navy · brass (XIRAM-inspired) */
   --ivory:#ffffff;       /* page ground — white */
-  --ivory-2:#f5f6f4;     /* alternating sections — whisper off-white */
-  --sand:#e6e8e4;
+  --ivory-2:#f2f5f9;     /* alternating sections — cool whisper */
+  --sand:#e2e8ef;
   --paper:#ffffff;       /* cards / raised surfaces */
 
-  --forest:#123a30;      /* primary deep backwater green */
-  --forest-2:#0c2a22;    /* darker — footer / overlays */
-  --forest-3:#081e18;    /* deepest */
-  --pine:#1d5142;        /* mid green */
+  --forest:#173a5c;      /* primary deep navy */
+  --forest-2:#102a44;    /* darker — masthead / overlays */
+  --forest-3:#0a1e33;    /* deepest — footer */
+  --pine:#245a82;        /* mid navy */
 
-  --ink:#1a221d;         /* near-black text (green-charcoal) */
-  --muted:#5c6a5f;       /* secondary text */
-  --muted-2:#8a938a;     /* tertiary */
+  --ink:#16242f;         /* near-black text (navy-charcoal) */
+  --muted:#54626f;       /* secondary text */
+  --muted-2:#8794a1;     /* tertiary */
 
-  --gold:#b0894c;        /* warm brass accent */
-  --gold-2:#c8a662;      /* lighter gold (hover) */
-  --gold-soft:#d8c79f;
+  --gold:#bd934c;        /* warm brass accent */
+  --gold-2:#d4ab60;      /* lighter gold (hover) */
+  --gold-soft:#e3d0a2;
 
-  --line:rgba(26,34,29,.14);
-  --line-soft:rgba(26,34,29,.08);
+  --line:rgba(22,36,47,.14);
+  --line-soft:rgba(22,36,47,.08);
   --line-light:rgba(255,255,255,.16);
 
   /* type */
@@ -706,6 +706,89 @@ ul{margin:0;padding:0;list-style:none}
 }
 
 /* ============================================================
+   NAUTICAL THEME LAYER — navy · brass · diamond motif · depth
+   Overlays the base system to echo the XIRAM nautical identity.
+   The hero is intentionally left untouched.
+   ============================================================ */
+
+/* ---- section-header gold rule (XIRAM signature under titles) ---- */
+.rule-gold{
+  display:block;width:66px;height:3px;border:0;border-radius:2px;
+  background:linear-gradient(90deg,var(--gold),var(--gold-2));
+  margin:1.1rem 0 0;position:relative;
+}
+.rule-gold::after{content:"";position:absolute;top:50%;left:50%;transform:translate(-50%,-50%) rotate(45deg);
+  width:8px;height:8px;background:var(--gold-2);box-shadow:0 0 0 3px var(--paper)}
+
+/* centred section heads (experience + testimonials) */
+.exp__head--stack,.voices__head{
+  display:flex;flex-direction:column;align-items:center;text-align:center;
+  gap:.9rem;margin-inline:auto;max-width:760px;
+}
+.exp__head--stack .eyebrow,.voices__head .eyebrow{justify-content:center}
+.exp__head--stack .eyebrow::before,.voices__head .eyebrow::before{display:none}
+.exp__head--stack .lead{max-width:54ch}
+.exp__head--stack .rule-gold,.voices__head .rule-gold{margin-inline:auto}
+
+/* ---- WHY ROXY reasons → framed diamond-icon feature cards ---- */
+.why__reasons{border-top:0;display:grid;gap:1.1rem;margin-top:2rem}
+.reason{
+  grid-template-columns:auto 1fr;gap:1.4rem;align-items:center;
+  border:1px solid var(--line);border-bottom:1px solid var(--line);border-radius:4px;
+  background:var(--paper);padding:1.35rem 1.6rem;
+  box-shadow:0 22px 44px -32px rgba(10,30,51,.42);
+  transition:transform .55s var(--ease),box-shadow .55s var(--ease),border-color .55s var(--ease);
+}
+.reason:hover{transform:translateY(-5px);border-color:var(--gold-soft);
+  box-shadow:0 34px 60px -32px rgba(10,30,51,.5)}
+.reason__no{
+  position:relative;display:grid;place-items:center;width:54px;height:54px;
+  font-size:1.15rem;color:var(--gold);z-index:0;
+}
+.reason__no::before{content:"";position:absolute;inset:0;border:1.5px solid var(--gold);
+  transform:rotate(45deg);transition:transform .55s var(--ease),border-color .55s var(--ease)}
+.reason__no::after{content:"";position:absolute;inset:9px;border:1px solid var(--gold);opacity:.42;
+  transform:rotate(45deg)}
+.reason:hover .reason__no::before{transform:rotate(135deg);border-color:var(--gold-2)}
+
+/* ---- gold seam bands framing the dark statistics band ---- */
+.stats{box-shadow:inset 0 4px 0 var(--gold),inset 0 -4px 0 var(--gold)}
+/* spec-row: label above big serif number, thin dividers (XIRAM boat specs) */
+.stat{display:flex;flex-direction:column-reverse;gap:.55rem;border-top:0;padding-top:0;
+  padding-left:clamp(1.1rem,2vw,1.8rem);border-left:1px solid rgba(255,255,255,.18);text-align:left}
+.stats__grid>.stat:first-child{border-left:0;padding-left:0}
+.stat>span{margin-top:0}
+.stat b .u{color:var(--gold-2)}
+
+/* ---- experience bento titles get a growing gold underline ---- */
+.xp-tile__title{position:relative;padding-bottom:.55rem}
+.xp-tile__title::after{content:"";position:absolute;left:0;bottom:0;width:0;height:2px;
+  background:var(--gold-2);transition:width .55s var(--ease)}
+.xp-tile:hover .xp-tile__title::after{width:58px}
+/* small gold diamond tick anchoring each tile tag */
+.xp-tile__tag{position:relative;padding-left:1.1em}
+.xp-tile__tag::before{content:"";position:absolute;left:0;top:50%;transform:translateY(-50%) rotate(45deg);
+  width:7px;height:7px;background:var(--gold-2)}
+
+/* ---- FOOTER monogram watermark (XIRAM's giant faint letters) ---- */
+.foot{position:relative;overflow:hidden}
+.foot__mark{
+  position:absolute;left:50%;top:34%;transform:translate(-50%,-50%);
+  font-family:var(--serif);font-weight:900;letter-spacing:.14em;
+  font-size:clamp(8rem,26vw,21rem);line-height:1;white-space:nowrap;
+  color:rgba(255,255,255,.035);pointer-events:none;z-index:0;user-select:none;
+}
+.foot .wrap{position:relative;z-index:1}
+
+/* ---- 3D diamond emblems on the feature cards float gently ---- */
+@media (prefers-reduced-motion:no-preference){
+  .reason__no{animation:diaBob 7s ease-in-out infinite}
+  @keyframes diaBob{0%,100%{transform:perspective(560px) rotateX(0) translateY(0)}
+    50%{transform:perspective(560px) rotateX(16deg) translateY(-4px)}}
+  .reason:hover .reason__no{animation:none}
+}
+
+/* ============================================================
    RESPONSIVE
    ============================================================ */
 @media (max-width:1080px){
@@ -755,4 +838,13 @@ ul{margin:0;padding:0;list-style:none}
   .foot__top{grid-template-columns:1fr}
   .g-a,.g-b,.g-c,.g-d,.g-e,.g-f{grid-column:span 12;grid-row:span 3}
   .voices__foot img{margin-left:0}
+}
+/* nautical-layer responsive: keep spec dividers tidy when the grid wraps */
+@media (max-width:900px){
+  .stats__grid>.stat:nth-child(3){border-left:0;padding-left:0}
+}
+@media (max-width:600px){
+  .stat{border-left:0;padding-left:0;border-top:1px solid rgba(255,255,255,.18);padding-top:1.2rem}
+  .stats__grid>.stat:first-child{border-top:1px solid rgba(255,255,255,.18);padding-top:1.2rem}
+  .foot__mark{top:26%}
 }
