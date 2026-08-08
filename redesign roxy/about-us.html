@@ -60,19 +60,53 @@
   </header>
   <div class="nav__backdrop"></div>
 
-  <!-- ============ BANNER ============ -->
-  <section class="page-banner">
-    <div class="page-banner__bg"><img src="assets/images/houseboat-day-5.jpg" alt="Roxy houseboat on the Nileshwar backwaters" /></div>
-    <div class="container page-banner__inner">
-      <span class="page-banner__rule"></span>
-      <h1 class="page-banner__title">About Roxy House Boat</h1>
-      <p class="page-banner__sub">Your Gateway to Tranquility &amp; Discovery.</p>
-      <nav class="crumbs" aria-label="Breadcrumb"><a href="index.html">Home</a> / <span>About Us</span></nav>
+  <!-- ============ VIDEO HERO — houseboat bursting from the frame ============ -->
+  <section class="ahero" data-hero-video>
+    <video class="ahero__video" autoplay muted loop playsinline preload="auto"
+           poster="assets/images/hero-backwater.jpg" aria-hidden="true" tabindex="-1">
+      <source src="Ocean_water_with_ripples_1080p_202608081607.mp4" type="video/mp4" />
+    </video>
+    <span class="ahero__scrim" aria-hidden="true"></span>
+
+    <div class="container ahero__inner">
+      <div class="ahero__lead reveal">
+        <nav class="crumbs crumbs--light" aria-label="Breadcrumb"><a href="index.html">Home</a> / <span>About Us</span></nav>
+        <span class="eyebrow ahero__eyebrow">Roxy House Boat · Nileshwar</span>
+        <h1 class="ahero__title">About Roxy<br />House Boat</h1>
+        <p class="ahero__sub">Your Gateway to Tranquility &amp; Discovery.</p>
+        <div class="ahero__meta">
+          <a class="btn btn--white btn--sm" href="#who">Our story
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M6 13l6 6 6-6"/></svg>
+          </a>
+          <span class="ahero__rating">
+            <b>5.0</b>
+            <span><i class="stars">★★★★★</i><small>111+ happy travellers</small></span>
+          </span>
+        </div>
+      </div>
+
+      <div class="ahero__stage reveal" data-delay="1">
+        <span class="bulge__glow" aria-hidden="true"></span>
+        <figure class="bulge">
+          <img class="bulge__pop" src="assets/images/houseboat-day-1.jpg" alt="" aria-hidden="true" />
+          <div class="bulge__frame">
+            <img class="bulge__base" src="assets/images/houseboat-day-1.jpg" alt="A Roxy houseboat cruising the Nileshwar backwaters beneath swaying palms" width="900" height="640" />
+          </div>
+          <figcaption class="bulge__tag">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Nileshwar · Kasaragod · Kerala
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+
+    <div class="ahero__wave" aria-hidden="true">
+      <svg viewBox="0 0 1440 120" preserveAspectRatio="none"><path d="M0,64 C240,120 480,16 720,40 C960,64 1200,120 1440,72 L1440,120 L0,120 Z"></path></svg>
     </div>
   </section>
 
   <!-- ============ WHO WE ARE ============ -->
-  <section class="section">
+  <section class="section section--who" id="who">
     <div class="container split">
       <div class="split__media reveal">
         <div class="media-stack">

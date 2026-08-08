@@ -109,6 +109,15 @@
     revealEls.forEach(function (el) { el.classList.add("is-in"); });
   }
 
+  /* ---- Generic hero background video: nudge autoplay on browsers that hold it ---- */
+  document.querySelectorAll("[data-hero-video] video").forEach(function (vid) {
+    if (typeof vid.play !== "function") return;
+    var tryPlay = function () { var p = vid.play(); if (p && p.catch) p.catch(function () {}); };
+    tryPlay();
+    vid.addEventListener("loadeddata", tryPlay);
+    document.addEventListener("visibilitychange", function () { if (!document.hidden) tryPlay(); });
+  });
+
   /* ---- Hero slideshow (cross-fades like a slow film) ---- */
   var heroStage = document.querySelector("[data-hero-slides]");
   if (heroStage) {
