@@ -60,14 +60,111 @@
   </header>
   <div class="nav__backdrop"></div>
 
-  <!-- ============ BANNER ============ -->
-  <section class="page-banner page-banner--pkg">
-    <div class="page-banner__bg"><img src="assets/images/houseboat-day-3.jpg" alt="Roxy houseboat cruising the Nileshwar backwaters" /></div>
-    <div class="container page-banner__inner">
-      <span class="page-banner__rule"></span>
-      <p class="page-banner__sub" style="margin:0 0 .3rem">Roxy House Boat</p>
-      <h1 class="page-banner__title">Packages</h1>
-      <nav class="crumbs" aria-label="Breadcrumb"><a href="index.html">Home</a> / <span>Packages</span></nav>
+  <!-- ============ VIDEO HERO + PACKAGE CAROUSEL ============ -->
+  <section class="pkg-hero" data-pkg-hero>
+    <video class="pkg-hero__video" autoplay muted loop playsinline preload="auto"
+           poster="assets/images/hero-backwater.jpg" aria-hidden="true" tabindex="-1">
+      <source src="Ocean_water_with_ripples_1080p_202608081607.mp4" type="video/mp4" />
+    </video>
+    <span class="pkg-hero__scrim" aria-hidden="true"></span>
+
+    <div class="container pkg-hero__inner">
+      <div class="pkg-hero__lead">
+        <nav class="crumbs" aria-label="Breadcrumb"><a href="index.html">Home</a> / <span>Packages</span></nav>
+        <span class="eyebrow pkg-hero__eyebrow">Roxy House Boat · Cruise Packages</span>
+        <h1 class="pkg-hero__title" data-pkg-title>Day Cruise</h1>
+        <p class="pkg-hero__text" data-pkg-text>Set sail through the tranquil waterways with a refreshing welcome Drink. Enjoy an authentic Malabar lunch followed by some evening tea with snacks, prepared by the chef on-board.</p>
+        <div class="pkg-hero__meta">
+          <span class="pkg-hero__price"><b data-pkg-price>₹12,000</b><small>per cruise</small></span>
+          <a class="btn btn--white btn--sm pkg-hero__view" href="#day-cruise" data-pkg-link>View details
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+        </div>
+        <div class="pkg-hero__ctrls">
+          <button class="pkg-hero__arrow" type="button" data-pkg-prev aria-label="Previous package">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>
+          </button>
+          <button class="pkg-hero__arrow" type="button" data-pkg-next aria-label="Next package">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </button>
+          <span class="pkg-hero__count"><b data-pkg-index>01</b><i>/</i>06</span>
+        </div>
+      </div>
+
+      <div class="pkg-hero__deck">
+        <div class="pkg-hero__stage" data-pkg-stage>
+          <div class="pkg-hero__rail" data-pkg-rail>
+
+            <button class="pcard" type="button" data-pkg-card data-name="Day Cruise" data-price="₹12,000" data-href="#day-cruise" data-desc="Set sail through the tranquil waterways with a refreshing welcome Drink. Enjoy an authentic Malabar lunch followed by some evening tea with snacks, prepared by the chef on-board." aria-label="Day Cruise, ₹12,000. Select to view details.">
+              <span class="pcard__img"><img src="assets/images/houseboat-day-5.jpg" alt="Day Cruise houseboat" loading="lazy" width="480" height="640" /></span>
+              <span class="pcard__no">01</span>
+              <span class="pcard__mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h12a1 1 0 0 1 1 1v17l-7-4-7 4V4a1 1 0 0 1 1-1z"/></svg></span>
+              <span class="pcard__body">
+                <span class="pcard__time">10:00am – 04:00pm</span>
+                <span class="pcard__name">Day Cruise</span>
+                <span class="pcard__price">₹12,000</span>
+              </span>
+            </button>
+
+            <button class="pcard" type="button" data-pkg-card data-name="Lunch Cruise" data-price="₹10,000" data-href="#lunch-cruise" data-desc="Enjoy a leisurely lunch while you cruise through the relaxing backwaters of Kasaragod. Cherish this private dining experience with an exquisite spread of Malabar delicacies prepared on-board by our chef." aria-label="Lunch Cruise, ₹10,000. Select to view details.">
+              <span class="pcard__img"><img src="assets/images/thali-1.jpg" alt="Lunch Cruise Malabar spread" loading="lazy" width="480" height="640" /></span>
+              <span class="pcard__no">02</span>
+              <span class="pcard__mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h12a1 1 0 0 1 1 1v17l-7-4-7 4V4a1 1 0 0 1 1-1z"/></svg></span>
+              <span class="pcard__body">
+                <span class="pcard__time">12:00pm – 03:00pm</span>
+                <span class="pcard__name">Lunch Cruise</span>
+                <span class="pcard__price">₹10,000</span>
+              </span>
+            </button>
+
+            <button class="pcard" type="button" data-pkg-card data-name="Sunset Cruise" data-price="₹6,000" data-href="#sunset-cruise" data-desc="What can be more magical than a sunset cruise! Enjoy evening tea with snacks as you witness the myriad shades of setting sun paint, the skies and waterways." aria-label="Sunset Cruise, ₹6,000. Select to view details.">
+              <span class="pcard__img"><img src="assets/images/sunset-1.jpg" alt="Sunset Cruise" loading="lazy" width="480" height="640" /></span>
+              <span class="pcard__no">03</span>
+              <span class="pcard__mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h12a1 1 0 0 1 1 1v17l-7-4-7 4V4a1 1 0 0 1 1-1z"/></svg></span>
+              <span class="pcard__body">
+                <span class="pcard__time">04:30pm – 06:30pm</span>
+                <span class="pcard__name">Sunset Cruise</span>
+                <span class="pcard__price">₹6,000</span>
+              </span>
+            </button>
+
+            <button class="pcard" type="button" data-pkg-card data-name="Dinner Cruise" data-price="₹10,000" data-href="#dinner-cruise" data-desc="Watch the setting sun leave you with a starry night. Experience private dining on-board, while we treat you to an exquisite spread of authentic Malabar cuisine prepared by our chef." aria-label="Dinner Cruise, ₹10,000. Select to view details.">
+              <span class="pcard__img"><img src="assets/images/dinner-1.jpg" alt="Dinner Cruise" loading="lazy" width="480" height="640" /></span>
+              <span class="pcard__no">04</span>
+              <span class="pcard__mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h12a1 1 0 0 1 1 1v17l-7-4-7 4V4a1 1 0 0 1 1-1z"/></svg></span>
+              <span class="pcard__body">
+                <span class="pcard__time">5pm – 9pm</span>
+                <span class="pcard__name">Dinner Cruise</span>
+                <span class="pcard__price">₹10,000</span>
+              </span>
+            </button>
+
+            <button class="pcard" type="button" data-pkg-card data-name="Overnight Cruise" data-price="₹10,000" data-href="#overnight-cruise" data-desc="Indulge in a night escapade where nature puts up a special show from sunset to sunrise. Enjoy an evening karaoke or simply stargaze, while we serve you delicious Malabar cuisine." aria-label="Overnight Cruise, ₹10,000. Select to view details.">
+              <span class="pcard__img"><img src="assets/images/bedroom-1.jpg" alt="Overnight Cruise bedroom" loading="lazy" width="480" height="640" /></span>
+              <span class="pcard__no">05</span>
+              <span class="pcard__mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h12a1 1 0 0 1 1 1v17l-7-4-7 4V4a1 1 0 0 1 1-1z"/></svg></span>
+              <span class="pcard__body">
+                <span class="pcard__time">05:00pm – 08:30am</span>
+                <span class="pcard__name">Overnight Cruise</span>
+                <span class="pcard__price">₹10,000</span>
+              </span>
+            </button>
+
+            <button class="pcard" type="button" data-pkg-card data-name="Day &amp; Night Cruise" data-price="₹16,000" data-href="#day-night-cruise" data-desc="Embark on a relaxing voyage as cruises through serene backwaters. Be pampered by our friendly staff, offering an array of delectable delicacies in the comforts of your floating home." aria-label="Day and Night Cruise, ₹16,000. Select to view details.">
+              <span class="pcard__img"><img src="assets/images/sunset-4.jpg" alt="Day and Night Cruise" loading="lazy" width="480" height="640" /></span>
+              <span class="pcard__no">06</span>
+              <span class="pcard__mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h12a1 1 0 0 1 1 1v17l-7-4-7 4V4a1 1 0 0 1 1-1z"/></svg></span>
+              <span class="pcard__body">
+                <span class="pcard__time">10:00am – 08:30am</span>
+                <span class="pcard__name">Day &amp; Night Cruise</span>
+                <span class="pcard__price">₹16,000</span>
+              </span>
+            </button>
+
+          </div>
+        </div>
+        <div class="pkg-hero__dots" data-pkg-dots aria-hidden="true"></div>
+      </div>
     </div>
   </section>
 
