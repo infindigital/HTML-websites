@@ -361,6 +361,35 @@ ul{margin:0;padding:0;list-style:none}
 .pk__foot{margin-top:2.4rem}
 
 /* ============================================================
+   3D CARD GRIDS (experience + cruises)
+   ============================================================ */
+.feat-grid,.cruise-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(1.2rem,2.4vw,1.9rem)}
+.feat-card,.cruise-card{
+  background:var(--paper);border:1px solid var(--line-soft);border-radius:14px;overflow:hidden;
+  display:flex;flex-direction:column;height:100%;
+}
+.feat-card__media,.cruise-card__media{position:relative;overflow:hidden}
+.feat-card__media img{width:100%;aspect-ratio:4/3;object-fit:cover;transition:transform 1.4s var(--ease)}
+.cruise-card__media img{width:100%;aspect-ratio:3/2;object-fit:cover;transition:transform 1.5s var(--ease)}
+.feat-card:hover .feat-card__media img,.cruise-card:hover .cruise-card__media img{transform:scale(1.05)}
+.feat-card__tag{position:absolute;top:1rem;left:1rem;z-index:2;background:rgba(8,30,24,.72);color:#f4efe3;
+  font-size:.68rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:.5em .85em;backdrop-filter:blur(4px)}
+.feat-card__body,.cruise-card__body{padding:clamp(1.3rem,2vw,1.7rem);display:flex;flex-direction:column;gap:.7rem;flex:1}
+.feat-card__title,.cruise-card__title{font-family:var(--serif);font-weight:700;font-size:1.4rem;color:var(--ink);line-height:1.15}
+.feat-card__desc,.cruise-card__desc{color:var(--muted);font-size:.95rem;line-height:1.65}
+.feat-card__note{margin-top:auto;font-size:.8rem;font-weight:600;letter-spacing:.02em;color:var(--forest);
+  border-top:1px solid var(--line-soft);padding-top:.9rem}
+.exp__foot{margin-top:clamp(2rem,4vw,3rem)}
+
+.cruise-card__flag{position:absolute;top:1rem;left:1rem;z-index:2;background:var(--gold);color:#1c140a;
+  font-size:.66rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;padding:.45em .8em;border-radius:2px}
+.cruise-card__price{position:absolute;bottom:1rem;right:1rem;z-index:2;background:rgba(8,30,24,.82);color:#fff;
+  font-family:var(--serif);font-weight:900;font-size:1.1rem;padding:.32em .7em;border-radius:4px;backdrop-filter:blur(4px)}
+.cruise-card__time{margin-top:auto;font-size:.82rem;font-weight:600;color:var(--muted-2);
+  display:inline-flex;align-items:center;gap:.5em;border-top:1px solid var(--line-soft);padding-top:.9rem}
+.cruise-card__time svg{width:14px;height:14px;color:var(--gold);flex:0 0 auto}
+
+/* ============================================================
    WHY ROXY
    ============================================================ */
 .why{display:grid;grid-template-columns:.92fr 1.08fr;gap:clamp(2rem,5vw,5rem);align-items:center}
@@ -587,9 +616,55 @@ ul{margin:0;padding:0;list-style:none}
 .tilt img,.tilt .exp__tag,.tilt .pk-feature__in{transform:translateZ(0)}
 .tilt:hover{box-shadow:0 44px 90px -40px rgba(8,30,24,.58),0 10px 26px -16px rgba(8,30,24,.4)}
 
+/* smaller 3D cards — feature/cruise/testimonial/gallery */
+.feat-card.tilt,.cruise-card.tilt,.gtile.tilt{
+  box-shadow:0 26px 54px -34px rgba(8,30,24,.42),0 6px 16px -14px rgba(8,30,24,.3);
+}
+.quote.tilt{
+  background:var(--paper);border:1px solid var(--line-soft);border-radius:14px;
+  padding:clamp(1.5rem,2.6vw,2.1rem);
+  box-shadow:0 26px 54px -34px rgba(8,30,24,.4),0 6px 16px -14px rgba(8,30,24,.28);
+}
+.quote.tilt .quote__by{border-top-color:var(--line-soft)}
+
+/* ============================================================
+   CINEMATIC MOTION LAYER (scroll-driven, mobile-safe)
+   ============================================================ */
+/* clip-path wipe reveal — works on containers or images alike */
+.wipe{clip-path:inset(0 0 100% 0);transition:clip-path 1.2s var(--ease-out)}
+.wipe.is-in{clip-path:inset(0 0 0 0)}
+/* camera push-in: image starts larger, settles as it enters view */
+.zoom{transform:scale(1.1);transition:transform 1.5s var(--ease-out)}
+.zoom.is-in{transform:none}
+/* marquee images sit inside .tilt figures, whose `.tilt img` locks transform —
+   raise specificity so the push-in composes with the translateZ base */
+.tilt img.zoom{transform:scale(1.08) translateZ(0)}
+.tilt img.zoom.is-in{transform:translateZ(0)}
+/* staggered gallery wipe cascade */
+.gal__grid .wipe:nth-child(2){transition-delay:.08s}
+.gal__grid .wipe:nth-child(3){transition-delay:.16s}
+.gal__grid .wipe:nth-child(4){transition-delay:.1s}
+.gal__grid .wipe:nth-child(5){transition-delay:.18s}
+.gal__grid .wipe:nth-child(6){transition-delay:.26s}
+/* full-bleed parallax bands — headroom so the translate never bares an edge */
+.stats__bg img.par,.final__bg img.par{position:absolute;left:0;top:-16%;width:100%;height:132%;will-change:transform}
+.hero__media video,.hero__media img{will-change:transform}
+/* hero content load-in (typography rise); parent gets scroll-parallax via JS */
+@media (prefers-reduced-motion:no-preference){
+  .hero__inner>*{opacity:0;animation:heroRise 1.05s var(--ease-out) forwards}
+  .hero__label{animation-delay:.15s}
+  .hero__title{animation-delay:.3s}
+  .hero__text{animation-delay:.52s}
+  .hero__cta{animation-delay:.7s}
+  .hero__base{animation-delay:.86s}
+}
+@keyframes heroRise{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:none}}
+
 @media (prefers-reduced-motion:reduce){
-  .reveal,.reveal-img{opacity:1;transform:none;clip-path:none;transition:none}
+  .reveal,.reveal-img,.wipe,.zoom{opacity:1;transform:none;clip-path:none;transition:none}
+  .tilt img.zoom{transform:none}
   .tilt{transform:none;transition:none}
+  .hero__inner>*{opacity:1;animation:none}
   .hero__scroll i::after{animation:none}
   *{scroll-behavior:auto !important}
 }
@@ -617,6 +692,7 @@ ul{margin:0;padding:0;list-style:none}
   .foot__top{grid-template-columns:1fr 1fr}
   .exp__row{grid-template-columns:1fr;gap:1.6rem}
   .exp__row--reverse .exp__media{order:0}
+  .feat-grid,.cruise-grid{grid-template-columns:1fr 1fr;gap:1.2rem}
   /* gallery → simpler mosaic */
   .g-a{grid-column:span 12;grid-row:span 4}
   .g-b,.g-c{grid-column:span 6;grid-row:span 3}
@@ -630,6 +706,7 @@ ul{margin:0;padding:0;list-style:none}
   .hero__cta .btn{flex:1;justify-content:center}
   .intro__grid{grid-template-columns:1fr}
   .intro__figbadge{max-width:88%}
+  .feat-grid,.cruise-grid{grid-template-columns:1fr}
   .pk-item{grid-template-columns:96px 1fr;gap:1rem}
   .frow{grid-template-columns:1fr}
   .stats__grid{grid-template-columns:1fr 1fr;gap:1.4rem}

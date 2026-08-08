@@ -82,7 +82,7 @@
   });
 
   /* ---- reveal on scroll ---- */
-  var revealEls = doc.querySelectorAll(".reveal, .reveal-img");
+  var revealEls = doc.querySelectorAll(".reveal, .reveal-img, .wipe, .zoom");
   function revealInView() {
     var vh = window.innerHeight || doc.documentElement.clientHeight;
     revealEls.forEach(function (el) {
@@ -102,6 +102,16 @@
     revealInView();
     window.addEventListener("load", revealInView);
     setTimeout(revealInView, 1400);
+    /* clip-path reveals (.wipe) start fully clipped, so their IntersectionObserver
+       ratio is ~0 and never crosses the threshold — drive those from the
+       bounding-box check on scroll, which ignores clip-path. */
+    var rvTicking = false;
+    window.addEventListener("scroll", function () {
+      if (!rvTicking) {
+        window.requestAnimationFrame(function () { revealInView(); rvTicking = false; });
+        rvTicking = true;
+      }
+    }, { passive: true });
   } else {
     revealEls.forEach(function (el) { el.classList.add("is-in"); });
   }
@@ -152,6 +162,31 @@
       if (!pTicking) { window.requestAnimationFrame(parallax); pTicking = true; }
     }, { passive: true });
     parallax();
+  }
+
+  /* ---- cinematic hero: text drift + slow video push-in ---- */
+  var hero = doc.querySelector(".hero");
+  var heroInner = doc.querySelector(".hero__inner");
+  var heroVid = doc.querySelector(".hero__media video, .hero__media img");
+  if (hero && !reduce) {
+    var hTicking = false;
+    function heroPar() {
+      var h = hero.offsetHeight || 1;
+      var y = window.scrollY;
+      if (y <= h) {
+        var p = y / h; // 0..1 across the hero
+        if (heroInner) {
+          heroInner.style.transform = "translate3d(0," + (y * 0.22).toFixed(1) + "px,0)";
+          heroInner.style.opacity = (1 - p * 0.85).toFixed(3);
+        }
+        if (heroVid) heroVid.style.transform = "scale(" + (1 + p * 0.12).toFixed(3) + ")";
+      }
+      hTicking = false;
+    }
+    window.addEventListener("scroll", function () {
+      if (!hTicking) { window.requestAnimationFrame(heroPar); hTicking = true; }
+    }, { passive: true });
+    heroPar();
   }
 
   /* ---- contact form (no backend on static site) ---- */
