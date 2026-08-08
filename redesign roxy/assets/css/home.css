@@ -11,10 +11,10 @@
   --sand:#e2e8ef;
   --paper:#ffffff;       /* cards / raised surfaces */
 
-  --forest:#173a5c;      /* primary deep navy */
-  --forest-2:#102a44;    /* darker — masthead / overlays */
-  --forest-3:#0a1e33;    /* deepest — footer */
-  --pine:#245a82;        /* mid navy */
+  --forest:#175f92;      /* primary ocean blue */
+  --forest-2:#0e3f66;    /* darker — masthead / overlays */
+  --forest-3:#082f4e;    /* deepest — footer */
+  --pine:#1f77b0;        /* mid ocean blue */
 
   --ink:#16242f;         /* near-black text (navy-charcoal) */
   --muted:#54626f;       /* secondary text */

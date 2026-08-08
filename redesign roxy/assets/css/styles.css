@@ -7,12 +7,12 @@
 /* ---------- Design tokens ---------- */
 :root {
   /* Ocean blues */
-  --blue-950: #071a2b;
-  --blue-900: #0b2740;
-  --blue-800: #103351;
-  --blue-700: #17496e;   /* primary ocean blue */
-  --blue-600: #205f8c;
-  --blue-500: #2c78a8;
+  --blue-950: #082f4e;
+  --blue-900: #0e3f66;
+  --blue-800: #124e79;
+  --blue-700: #175f92;   /* primary ocean blue */
+  --blue-600: #1f77b0;
+  --blue-500: #2d90c9;
 
   /* Gold */
   --gold-700: #a67c2e;
