@@ -137,12 +137,23 @@
       var idxEl = pkgHero.querySelector("[data-pkg-index]");
       var prevBtn = pkgHero.querySelector("[data-pkg-prev]");
       var nextBtn = pkgHero.querySelector("[data-pkg-next]");
+      var stage = pkgHero.querySelector("[data-pkg-stage]");
       var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
       var total = cards.length;
       var active = 0;
       var timer = null;
       var spread = 62;
       var depth = 150;
+      var dragged = false;
+
+      // Nudge the hero video into playing — some browsers hold autoplay until asked.
+      var vid = pkgHero.querySelector(".pkg-hero__video");
+      if (vid && typeof vid.play === "function") {
+        var tryPlay = function () { var p = vid.play(); if (p && p.catch) p.catch(function () {}); };
+        tryPlay();
+        vid.addEventListener("loadeddata", tryPlay);
+        document.addEventListener("visibilitychange", function () { if (!document.hidden) tryPlay(); });
+      }
 
       var pad = function (n) { return (n < 10 ? "0" : "") + n; };
 
@@ -219,6 +230,7 @@
 
       cards.forEach(function (c, i) {
         c.addEventListener("click", function () {
+          if (dragged) { dragged = false; return; }
           if (i === active) {
             var href = c.getAttribute("data-href");
             var target = href && document.querySelector(href);
@@ -235,6 +247,38 @@
         if (e.key === "ArrowLeft") { go(active - 1, true); }
         else if (e.key === "ArrowRight") { go(active + 1, true); }
       });
+
+      /* Manual drag / swipe — grab the deck and pull left/right (touch + mouse) */
+      if (stage && window.PointerEvent) {
+        var dragging = false, startX = 0, deltaX = 0;
+        stage.style.touchAction = "pan-y";
+        stage.style.cursor = "grab";
+        stage.addEventListener("pointerdown", function (e) {
+          if (e.pointerType === "mouse" && e.button !== 0) return;
+          dragging = true; dragged = false; startX = e.clientX; deltaX = 0;
+          stage.style.cursor = "grabbing";
+          // capture the pointer on the stage so a card button can't swallow the move/up
+          try { stage.setPointerCapture(e.pointerId); } catch (_) {}
+          stop();
+        });
+        stage.addEventListener("pointermove", function (e) {
+          if (!dragging) return;
+          deltaX = e.clientX - startX;
+          if (Math.abs(deltaX) > 8) dragged = true;
+        });
+        var endDrag = function (e) {
+          if (!dragging) return;
+          dragging = false;
+          stage.style.cursor = "grab";
+          try { stage.releasePointerCapture(e.pointerId); } catch (_) {}
+          var threshold = 46;
+          if (deltaX <= -threshold) { go(active + 1, true); }
+          else if (deltaX >= threshold) { go(active - 1, true); }
+          else { start(); }
+        };
+        stage.addEventListener("pointerup", endDrag);
+        stage.addEventListener("pointercancel", endDrag);
+      }
 
       var tick = function () { go(active + 1, false); };
       var start = function () { if (!reduce && !timer && total > 1) timer = window.setInterval(tick, 5500); };

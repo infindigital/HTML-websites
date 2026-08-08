@@ -1337,108 +1337,94 @@ p { margin: 0; }
 @media (max-width: 560px) { .fares { grid-template-columns: 1fr; } }
 
 /* ---- Cruise panels ---- */
-.cruises { display: flex; flex-direction: column; gap: clamp(4rem, 9vw, 7.5rem); margin-top: clamp(3rem, 7vw, 5.5rem); }
-.cruise {
+/* Compact card grid — smaller, self-contained cruise cards (no layered inset) */
+.cruises {
   display: grid;
-  grid-template-columns: 1.02fr 0.98fr;
-  align-items: center;
-  gap: clamp(2.2rem, 5vw, 4.75rem);
-  scroll-margin-top: 120px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(1.4rem, 2.8vw, 2.2rem);
+  margin-top: clamp(2.5rem, 6vw, 4rem);
 }
-.cruise:nth-child(even) .cruise__media { order: 2; }
+.cruise {
+  display: flex; flex-direction: column;
+  background: #fff; border: 1px solid var(--line);
+  border-radius: var(--radius); overflow: hidden;
+  box-shadow: var(--shadow-sm); scroll-margin-top: 110px;
+  transition: transform 0.5s var(--ease), box-shadow 0.5s var(--ease), border-color 0.5s var(--ease);
+}
+.cruise:hover { transform: translateY(-5px); box-shadow: var(--shadow-md); border-color: var(--gold-300); }
 
-/* media composition */
+/* compact media strip */
 .cruise__media { position: relative; }
-.cruise__frame {
-  position: relative; border-radius: var(--radius); overflow: hidden;
-  box-shadow: var(--shadow-md); aspect-ratio: 4 / 3.15;
-}
-.cruise__frame img { width: 100%; height: 100%; object-fit: cover; transition: transform 1.4s var(--ease); }
+.cruise__frame { position: relative; overflow: hidden; aspect-ratio: 16 / 9; }
+.cruise__frame img { width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s var(--ease); }
 .cruise:hover .cruise__frame img { transform: scale(1.06); }
 .cruise__frame::after {
-  content: ""; position: absolute; inset: 16px; z-index: 2; pointer-events: none;
-  border: 1px solid rgba(255, 255, 255, 0.55); border-radius: calc(var(--radius) - 9px);
-  opacity: 0; transition: opacity 0.55s var(--ease), inset 0.55s var(--ease);
+  content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none;
+  background: linear-gradient(0deg, rgba(6, 20, 35, 0.5) 0%, rgba(6, 20, 35, 0) 42%);
 }
-.cruise:hover .cruise__frame::after { opacity: 1; inset: 12px; }
-
 .cruise__ticket {
-  position: absolute; z-index: 4; top: 1.3rem; left: 0;
-  transform: translateX(-12px);
-  background: var(--blue-900); color: #fff;
-  font-family: var(--serif); font-weight: 700; font-size: 1.35rem;
+  position: absolute; z-index: 2; bottom: 0.85rem; left: 0.85rem;
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  background: rgba(9, 26, 43, 0.82); color: #fff;
+  font-family: var(--serif); font-weight: 700; font-size: 1.05rem;
   letter-spacing: 0.01em; font-variant-numeric: tabular-nums;
-  padding: 0.55rem 1.3rem 0.55rem 1.5rem;
-  border-radius: 0 999px 999px 0;
-  box-shadow: var(--shadow-md);
-  transition: transform 0.55s var(--ease);
+  padding: 0.4rem 0.9rem; border-radius: 999px;
+  backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);
+  box-shadow: 0 6px 18px -8px rgba(3, 10, 20, 0.7);
 }
 .cruise__ticket::before {
-  content: ""; position: absolute; left: 0.75rem; top: 50%; transform: translateY(-50%);
-  width: 4px; height: 4px; border-radius: 50%; background: var(--gold-500);
+  content: ""; width: 5px; height: 5px; border-radius: 50%; background: var(--gold-400);
   box-shadow: 0 0 0 3px rgba(201, 169, 97, 0.28);
 }
-.cruise:hover .cruise__ticket { transform: translateX(-6px) translateY(-3px); }
-
-.cruise__inset {
-  position: absolute; z-index: 4; right: -8px; bottom: -24px; width: 38%;
-  aspect-ratio: 1 / 1; border-radius: var(--radius-sm); overflow: hidden;
-  border: 5px solid #fff; box-shadow: var(--shadow-md);
-  transition: transform 0.55s var(--ease);
-}
-.cruise__inset img { width: 100%; height: 100%; object-fit: cover; }
-/* day-cruise inset is a tall portrait — lower the crop so the boat sits centred, not clipped at the base */
-#day-cruise .cruise__inset img { object-position: center 72%; }
-.cruise:hover .cruise__inset { transform: translateY(-6px); }
 
 /* body */
-.cruise__body { position: relative; }
+.cruise__body {
+  position: relative; display: flex; flex-direction: column; flex: 1;
+  padding: clamp(1.25rem, 2.4vw, 1.7rem);
+}
 .cruise__body::before {
-  content: attr(data-no); position: absolute; z-index: 0; top: -0.62em; right: -0.05em;
+  content: attr(data-no); position: absolute; z-index: 0; top: 0.4rem; right: 0.9rem;
   font-family: var(--serif); font-weight: 900; line-height: 1;
-  font-size: clamp(5rem, 13vw, 9rem); color: var(--blue-900); opacity: 0.055;
+  font-size: clamp(3rem, 6vw, 4.2rem); color: var(--blue-900); opacity: 0.05;
   pointer-events: none; user-select: none;
 }
 .cruise__body > * { position: relative; z-index: 1; }
-.cruise__title { font-size: clamp(1.9rem, 3.7vw, 2.9rem); text-transform: uppercase; letter-spacing: -0.01em; }
+.cruise__title { font-size: clamp(1.3rem, 2.3vw, 1.68rem); text-transform: uppercase; letter-spacing: -0.01em; }
 .cruise__title::after {
-  content: ""; display: block; width: 56px; height: 2px; background: var(--gold-500);
-  margin-top: 1.1rem; transform: scaleX(0.4); transform-origin: left;
+  content: ""; display: block; width: 48px; height: 2px; background: var(--gold-500);
+  margin-top: 0.85rem; transform: scaleX(0.4); transform-origin: left;
   transition: transform 0.6s var(--ease);
 }
 .cruise:hover .cruise__title::after { transform: scaleX(1); }
-.cruise__desc { color: var(--muted); font-size: 1.05rem; margin-top: 1.2rem; }
+.cruise__desc { color: var(--muted); font-size: 0.94rem; line-height: 1.6; margin-top: 0.8rem; }
 
-.cruise__specs { display: flex; flex-wrap: wrap; gap: 1rem 2.2rem; margin: 1.6rem 0; }
-.cruise__spec { display: flex; align-items: flex-start; gap: 0.65rem; }
-.cruise__spec svg { width: 18px; height: 18px; color: var(--gold-600); margin-top: 0.2rem; flex-shrink: 0; }
-.cruise__spec small { display: block; font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.13em; color: var(--muted-2); margin-bottom: 0.1rem; }
-.cruise__spec b { font-weight: 600; color: var(--blue-800); font-size: 0.98rem; }
+.cruise__specs {
+  display: flex; flex-wrap: wrap; gap: 0.7rem 1.6rem;
+  margin: 1.15rem 0; padding: 0.95rem 0; border-block: 1px solid var(--line);
+}
+.cruise__spec { display: flex; align-items: flex-start; gap: 0.55rem; }
+.cruise__spec svg { width: 16px; height: 16px; color: var(--gold-600); margin-top: 0.15rem; flex-shrink: 0; }
+.cruise__spec small { display: block; font-size: 0.62rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--muted-2); margin-bottom: 0.1rem; }
+.cruise__spec b { font-weight: 600; color: var(--blue-800); font-size: 0.88rem; }
 
-.cruise__incl { margin-bottom: 1.8rem; }
-.cruise__inclLabel { display: block; font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.15em; color: var(--gold-700); margin-bottom: 0.65rem; }
-.chips { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.cruise__incl { margin-bottom: 1.3rem; }
+.cruise__inclLabel { display: block; font-size: 0.62rem; text-transform: uppercase; letter-spacing: 0.15em; color: var(--gold-700); margin-bottom: 0.55rem; }
+.chips { display: flex; flex-wrap: wrap; gap: 0.42rem; }
 .chip {
-  font-size: 0.82rem; padding: 0.42rem 0.95rem; border-radius: 999px;
+  font-size: 0.76rem; padding: 0.34rem 0.8rem; border-radius: 999px;
   border: 1px solid var(--line); background: var(--cream-2); color: var(--blue-800);
-  transition: border-color 0.35s var(--ease), background 0.35s var(--ease), transform 0.35s var(--ease);
+  transition: border-color 0.35s var(--ease), background 0.35s var(--ease);
 }
 .cruise:hover .chip { border-color: var(--gold-300); background: var(--gold-100); }
+.cruise__body .btn { align-self: flex-start; margin-top: auto; }
 
-@media (max-width: 860px) {
-  .cruise { grid-template-columns: 1fr; gap: 2.6rem; }
-  .cruise:nth-child(even) .cruise__media { order: 0; }
-}
-@media (max-width: 600px) {
-  .cruise__frame { aspect-ratio: 4 / 3; }
-  .cruise__inset { width: 34%; bottom: -18px; }
-  .cruise__ticket { font-size: 1.2rem; }
+@media (max-width: 720px) {
+  .cruises { grid-template-columns: 1fr; }
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .cruise:hover,
   .cruise:hover .cruise__frame img,
-  .cruise:hover .cruise__ticket,
-  .cruise:hover .cruise__inset,
   .fare:hover { transform: none; }
 }
 
