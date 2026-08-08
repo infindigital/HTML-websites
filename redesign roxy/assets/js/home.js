@@ -166,8 +166,8 @@
 
   /* ---- cinematic hero: text drift + slow video push-in ---- */
   var hero = doc.querySelector(".hero");
-  var heroInner = doc.querySelector(".hero__center");
-  var heroVid = doc.querySelector(".hero__video");
+  var heroInner = doc.querySelector(".hero__inner");
+  var heroVid = doc.querySelector(".hero__media video, .hero__media img");
   if (hero && !reduce) {
     var hTicking = false;
     function heroPar() {
