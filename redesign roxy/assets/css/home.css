@@ -69,8 +69,8 @@ ul{margin:0;padding:0;list-style:none}
 /* ---------- LAYOUT ---------- */
 .wrap{max-width:var(--wrap);margin-inline:auto;padding-inline:var(--gut);width:100%}
 .wrap--wide{max-width:var(--wrap-wide)}
-.section{position:relative;padding-block:clamp(80px,11vw,150px)}
-.section--tight{padding-block:clamp(56px,8vw,96px)}
+.section{position:relative;padding-block:clamp(48px,6.5vw,88px)}
+.section--tight{padding-block:clamp(40px,5vw,64px)}
 .bg-cream{background:var(--ivory-2)}
 .bg-paper{background:var(--paper)}
 .bg-forest{background:var(--forest);color:#f3efe4}
@@ -296,7 +296,7 @@ ul{margin:0;padding:0;list-style:none}
 /* ============================================================
    EXPERIENCE (onboard storytelling)
    ============================================================ */
-.exp__head{display:flex;justify-content:space-between;align-items:flex-end;gap:2rem;flex-wrap:wrap;margin-bottom:clamp(2.4rem,5vw,4rem)}
+.exp__head{display:flex;justify-content:space-between;align-items:flex-end;gap:2rem;flex-wrap:wrap;margin-bottom:clamp(1.6rem,3vw,2.4rem)}
 .exp__row{
   display:grid;grid-template-columns:1fr 1fr;gap:clamp(1.5rem,4vw,4rem);align-items:center;
 }
@@ -318,7 +318,7 @@ ul{margin:0;padding:0;list-style:none}
 /* ============================================================
    PACKAGES (featured + rail)
    ============================================================ */
-.pk__head{display:flex;justify-content:space-between;align-items:flex-end;gap:2rem;flex-wrap:wrap;margin-bottom:clamp(2.4rem,5vw,3.6rem)}
+.pk__head{display:flex;justify-content:space-between;align-items:flex-end;gap:2rem;flex-wrap:wrap;margin-bottom:clamp(1.6rem,3vw,2.4rem)}
 .pk__head .h2{margin-top:.8rem;max-width:14ch}
 .pk__layout{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(1.2rem,2.5vw,1.8rem)}
 
@@ -358,36 +358,62 @@ ul{margin:0;padding:0;list-style:none}
   display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .pk-item__time{font-size:.8rem;font-weight:600;letter-spacing:.02em;color:var(--muted-2);margin-top:.5rem;display:inline-flex;align-items:center;gap:.5em}
 .pk-item__time svg{width:14px;height:14px}
-.pk__foot{margin-top:2.4rem}
+.pk__foot{margin-top:clamp(1.4rem,3vw,2rem)}
 
 /* ============================================================
-   3D CARD GRIDS (experience + cruises)
+   EXPERIENCE — immersive photo bento
    ============================================================ */
-.feat-grid,.cruise-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(1.2rem,2.4vw,1.9rem)}
-.feat-card,.cruise-card{
-  background:var(--paper);border:1px solid var(--line-soft);border-radius:14px;position:relative;
-  display:flex;flex-direction:column;height:100%;
-}
-.feat-card__media,.cruise-card__media{position:relative;overflow:hidden;border-radius:13px 13px 0 0}
-.feat-card__media img{width:100%;aspect-ratio:4/3;object-fit:cover;transition:transform 1.4s var(--ease)}
-.cruise-card__media img{width:100%;aspect-ratio:3/2;object-fit:cover;transition:transform 1.5s var(--ease)}
-.feat-card:hover .feat-card__media img,.cruise-card:hover .cruise-card__media img{transform:scale(1.05)}
-.feat-card__tag{position:absolute;top:1rem;left:1rem;z-index:2;background:rgba(8,30,24,.72);color:#f4efe3;
-  font-size:.68rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:.5em .85em;backdrop-filter:blur(4px)}
-.feat-card__body,.cruise-card__body{padding:clamp(1.3rem,2vw,1.7rem);display:flex;flex-direction:column;gap:.7rem;flex:1;transform-style:preserve-3d}
-.feat-card__title,.cruise-card__title{font-family:var(--serif);font-weight:700;font-size:1.4rem;color:var(--ink);line-height:1.15}
-.feat-card__desc,.cruise-card__desc{color:var(--muted);font-size:.95rem;line-height:1.65}
-.feat-card__note{margin-top:auto;font-size:.8rem;font-weight:600;letter-spacing:.02em;color:var(--forest);
-  border-top:1px solid var(--line-soft);padding-top:.9rem}
-.exp__foot{margin-top:clamp(2rem,4vw,3rem)}
+.xp-grid{display:grid;grid-template-columns:1.12fr .88fr;grid-template-rows:1fr 1fr;
+  gap:clamp(.85rem,1.5vw,1.35rem);min-height:clamp(520px,64vh,640px)}
+.xp-tile{position:relative;overflow:hidden;border-radius:12px;display:flex;align-items:flex-end;
+  isolation:isolate;color:#fff;min-height:250px}
+.xp-tile--lead{grid-row:1 / span 2}
+.xp-tile img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2;
+  transition:transform 1.5s var(--ease)}
+.xp-tile__scrim{position:absolute;inset:0;z-index:-1;
+  background:linear-gradient(180deg,rgba(8,30,24,0) 30%,rgba(8,30,24,.42) 60%,rgba(8,30,24,.9) 100%)}
+.xp-tile:hover img{transform:scale(1.06)}
+.xp-tile__in{padding:clamp(1.15rem,2vw,1.9rem)}
+.xp-tile__tag{display:inline-block;font-size:.66rem;font-weight:700;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--gold-2);margin-bottom:.6rem}
+.xp-tile__title{font-family:var(--serif);font-weight:900;line-height:1.08;
+  font-size:clamp(1.35rem,1.15rem + .9vw,1.9rem);margin-bottom:.5rem}
+.xp-tile--lead .xp-tile__title{font-size:clamp(1.8rem,1.2rem + 2.1vw,2.9rem)}
+.xp-tile__desc{color:rgba(244,239,227,.9);line-height:1.55;font-size:.92rem;max-width:48ch}
+.xp-tile:not(.xp-tile--lead) .xp-tile__desc{font-size:.88rem;
+  display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.xp-tile__note{display:block;margin-top:.8rem;font-size:.75rem;font-weight:600;letter-spacing:.03em;
+  color:rgba(244,239,227,.78)}
 
-.cruise-card__flag{position:absolute;top:1rem;left:1rem;z-index:2;background:var(--gold);color:#1c140a;
-  font-size:.66rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;padding:.45em .8em;border-radius:2px}
-.cruise-card__price{position:absolute;bottom:1rem;right:1rem;z-index:2;background:rgba(8,30,24,.82);color:#fff;
-  font-family:var(--serif);font-weight:900;font-size:1.1rem;padding:.32em .7em;border-radius:4px;backdrop-filter:blur(4px)}
-.cruise-card__time{margin-top:auto;font-size:.82rem;font-weight:600;color:var(--muted-2);
-  display:inline-flex;align-items:center;gap:.5em;border-top:1px solid var(--line-soft);padding-top:.9rem}
-.cruise-card__time svg{width:14px;height:14px;color:var(--gold);flex:0 0 auto}
+/* ============================================================
+   CRUISES — editorial rate list
+   ============================================================ */
+.rate-list{border-top:1px solid var(--line)}
+.rate-row{display:grid;grid-template-columns:154px 1fr;gap:clamp(1.2rem,2.4vw,2.2rem);
+  align-items:center;padding:clamp(1.05rem,1.9vw,1.6rem) 0;border-bottom:1px solid var(--line);
+  position:relative;transition:padding-left .45s var(--ease)}
+.rate-row::before{content:"";position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--gold);
+  transform:scaleY(0);transform-origin:top;transition:transform .5s var(--ease)}
+.rate-row:hover{padding-left:1rem}
+.rate-row:hover::before{transform:scaleY(1)}
+.rate-row--feature::before{transform:scaleY(1);width:3px}
+.rate-row__media{overflow:hidden;border-radius:8px;aspect-ratio:5/4}
+.rate-row__media img{width:100%;height:100%;object-fit:cover;transition:transform 1.1s var(--ease)}
+.rate-row:hover .rate-row__media img{transform:scale(1.07)}
+.rate-row__head{display:flex;justify-content:space-between;align-items:baseline;gap:1.2rem}
+.rate-row__title{font-family:var(--serif);font-weight:700;line-height:1.12;color:var(--ink);
+  font-size:clamp(1.3rem,1.05rem + .8vw,1.7rem);transition:color .35s var(--ease);
+  display:flex;align-items:center;gap:.7rem;flex-wrap:wrap}
+.rate-row:hover .rate-row__title{color:var(--gold)}
+.rate-row__flag{font-family:var(--sans);font-size:.6rem;font-weight:700;letter-spacing:.16em;
+  text-transform:uppercase;color:#1c140a;background:var(--gold);padding:.4em .7em;border-radius:2px}
+.rate-row__price{font-family:var(--serif);font-weight:900;color:var(--forest);white-space:nowrap;
+  font-size:clamp(1.3rem,1.1rem + .7vw,1.7rem)}
+.rate-row__desc{color:var(--muted);line-height:1.6;font-size:.95rem;margin-top:.45rem;max-width:62ch}
+.rate-row__time{margin-top:.7rem;font-size:.82rem;font-weight:600;color:var(--muted-2);
+  display:inline-flex;align-items:center;gap:.5em}
+.rate-row__time svg{width:14px;height:14px;color:var(--gold);flex:0 0 auto}
+.exp__foot{margin-top:clamp(1.4rem,3vw,2.2rem)}
 
 /* ============================================================
    WHY ROXY
@@ -616,8 +642,8 @@ ul{margin:0;padding:0;list-style:none}
 .tilt img,.tilt .exp__tag,.tilt .pk-feature__in{transform:translateZ(0)}
 .tilt:hover{box-shadow:0 44px 90px -40px rgba(8,30,24,.58),0 10px 26px -16px rgba(8,30,24,.4)}
 
-/* smaller 3D cards — feature/cruise/testimonial/gallery */
-.feat-card.tilt,.cruise-card.tilt,.gtile.tilt{
+/* smaller 3D tiles — experience bento / testimonial / gallery */
+.xp-tile.tilt,.gtile.tilt{
   box-shadow:0 26px 54px -34px rgba(8,30,24,.42),0 6px 16px -14px rgba(8,30,24,.3);
 }
 .quote.tilt{
@@ -627,18 +653,15 @@ ul{margin:0;padding:0;list-style:none}
 }
 .quote.tilt .quote__by{border-top-color:var(--line-soft)}
 
-/* ---------- DEPTH-LAYERED CARDS (Z-plane parallax) ----------
-   card is preserve-3d (via .tilt, overflow no longer clipped); the photo
-   sits on the base plane while the text content floats forward in graded
-   planes, so on pointer-tilt the layers parallax into a shallow diorama. */
-.feat-card__title,.cruise-card__title{transform:translateZ(34px)}
-.feat-card__desc,.cruise-card__desc{transform:translateZ(18px)}
-.feat-card__note,.cruise-card__time{transform:translateZ(9px)}
+/* ---------- DEPTH-LAYERED TESTIMONIALS (Z-plane parallax) ----------
+   the quote card is preserve-3d (via .tilt); the giant quote-mark floats
+   forward of the text, which floats forward of the attribution, so on
+   pointer-tilt the layers parallax into a shallow diorama. */
 .quote.tilt .quote__mark{transform:translateZ(52px)}
 .quote.tilt .quote__text{transform:translateZ(26px)}
 .quote.tilt .quote__by{transform:translateZ(11px)}
 /* whole card eases toward the viewer on hover (composes via the --tz axis) */
-.feat-card.tilt:hover,.cruise-card.tilt:hover,.quote.tilt:hover{--tz:22px}
+.quote.tilt:hover{--tz:22px}
 
 /* ============================================================
    CINEMATIC MOTION LAYER (scroll-driven, mobile-safe)
@@ -677,8 +700,6 @@ ul{margin:0;padding:0;list-style:none}
   .reveal,.reveal-img,.wipe,.zoom{opacity:1;transform:none;clip-path:none;transition:none}
   .tilt img.zoom{transform:none}
   .tilt{transform:none;transition:none}
-  .feat-card__title,.feat-card__desc,.feat-card__note,
-  .cruise-card__title,.cruise-card__desc,.cruise-card__time,
   .quote.tilt .quote__mark,.quote.tilt .quote__text,.quote.tilt .quote__by{transform:none}
   .hero__inner>*{opacity:1;animation:none}
   .hero__scroll i::after{animation:none}
@@ -708,7 +729,10 @@ ul{margin:0;padding:0;list-style:none}
   .foot__top{grid-template-columns:1fr 1fr}
   .exp__row{grid-template-columns:1fr;gap:1.6rem}
   .exp__row--reverse .exp__media{order:0}
-  .feat-grid,.cruise-grid{grid-template-columns:1fr 1fr;gap:1.2rem}
+  .xp-grid{grid-template-columns:1fr;grid-template-rows:none;min-height:0;gap:1rem}
+  .xp-tile--lead{grid-row:auto}
+  .xp-tile{min-height:300px}
+  .xp-tile:not(.xp-tile--lead) .xp-tile__desc{-webkit-line-clamp:4}
   /* gallery → simpler mosaic */
   .g-a{grid-column:span 12;grid-row:span 4}
   .g-b,.g-c{grid-column:span 6;grid-row:span 3}
@@ -722,7 +746,9 @@ ul{margin:0;padding:0;list-style:none}
   .hero__cta .btn{flex:1;justify-content:center}
   .intro__grid{grid-template-columns:1fr}
   .intro__figbadge{max-width:88%}
-  .feat-grid,.cruise-grid{grid-template-columns:1fr}
+  .rate-row{grid-template-columns:1fr;gap:1rem}
+  .rate-row__media{aspect-ratio:16/10}
+  .rate-row__head{flex-wrap:wrap;gap:.4rem}
   .pk-item{grid-template-columns:96px 1fr;gap:1rem}
   .frow{grid-template-columns:1fr}
   .stats__grid{grid-template-columns:1fr 1fr;gap:1.4rem}
