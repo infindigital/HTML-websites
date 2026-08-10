@@ -203,6 +203,86 @@
     });
   }
 
+  /* ---- services coverflow carousel ---- */
+  doc.querySelectorAll("[data-svc]").forEach(function (stage) {
+    var track = stage.querySelector("[data-svc-track]");
+    var cards = Array.prototype.slice.call(stage.querySelectorAll("[data-svc-card]"));
+    var dotsWrap = stage.querySelector("[data-svc-dots]");
+    var prev = stage.querySelector("[data-svc-prev]");
+    var next = stage.querySelector("[data-svc-next]");
+    if (!track || cards.length === 0) return;
+
+    var n = cards.length;
+    var active = Math.min(2, n - 1); /* default: Sunset Cruise centered */
+    var dots = [];
+
+    if (dotsWrap) {
+      cards.forEach(function (c, i) {
+        var b = doc.createElement("button");
+        b.type = "button";
+        b.className = "svc__dot";
+        b.setAttribute("aria-label", "Go to slide " + (i + 1));
+        b.addEventListener("click", function () { go(i); });
+        dotsWrap.appendChild(b);
+        dots.push(b);
+      });
+    }
+
+    /* shortest signed distance from active (with wrap-around) */
+    function offset(i) {
+      var o = ((i - active) % n + n) % n;
+      if (o > n / 2) o -= n;
+      return o;
+    }
+
+    var STEP = [0, 66, 121, 176]; /* translate % per |offset| */
+    var SCALE = [1, 0.8, 0.64, 0.5];
+    var OPAC = [1, 0.92, 0.78, 0];
+
+    function render() {
+      cards.forEach(function (card, i) {
+        var o = offset(i);
+        var a = Math.abs(o);
+        var idx = Math.min(a, 3);
+        var x = (o < 0 ? -1 : 1) * STEP[idx];
+        card.style.transform =
+          "translate(calc(-50% + " + x + "%), -50%) scale(" + SCALE[idx] + ")";
+        card.style.opacity = OPAC[idx];
+        card.style.zIndex = String(10 - a);
+        card.style.pointerEvents = a > 2 ? "none" : "auto";
+        card.classList.toggle("is-active", o === 0);
+      });
+      dots.forEach(function (d, i) { d.classList.toggle("is-active", i === active); });
+    }
+
+    function go(i) { active = ((i % n) + n) % n; render(); }
+    function step(d) { go(active + d); }
+
+    if (prev) prev.addEventListener("click", function () { step(-1); });
+    if (next) next.addEventListener("click", function () { step(1); });
+    cards.forEach(function (card, i) {
+      card.addEventListener("click", function () { if (offset(i) !== 0) go(i); });
+    });
+
+    /* keyboard support when stage focused */
+    stage.addEventListener("keydown", function (e) {
+      if (e.key === "ArrowLeft") { step(-1); }
+      else if (e.key === "ArrowRight") { step(1); }
+    });
+
+    render();
+
+    /* gentle autoplay, paused on hover / reduced motion */
+    if (!reduce) {
+      var timer = null;
+      function start() { stop(); timer = window.setInterval(function () { step(1); }, 5000); }
+      function stop() { if (timer) { window.clearInterval(timer); timer = null; } }
+      stage.addEventListener("mouseenter", stop);
+      stage.addEventListener("mouseleave", start);
+      start();
+    }
+  });
+
   /* ---- year ---- */
   var y = new Date().getFullYear();
   doc.querySelectorAll("#year, .rx-year").forEach(function (s) { s.textContent = y; });

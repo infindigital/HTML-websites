@@ -239,59 +239,100 @@
     </div>
   </section>
 
-  <!-- ============ 06 · PACKAGES ============ -->
-  <section class="section" id="packages">
+  <!-- ============ 06 · PACKAGES / SERVICES CAROUSEL ============ -->
+  <section class="section svc" id="packages">
     <div class="wrap">
-      <div class="sec-head reveal">
-        <div class="sec-head__t">
-          <span class="label">The Cruises</span>
-          <h2 class="h2">Choose your journey</h2>
-        </div>
-        <p class="lead" style="max-width:36ch">Six curated cruises — from a breezy day sail to a starlit overnight voyage — each a complete Malabar experience with cuisine, comfort and calm.</p>
+      <div class="svc__head reveal">
+        <span class="svc__script">our services</span>
+        <h2 class="svc__title">Our Services</h2>
       </div>
 
-      <div class="pk__grid reveal" data-delay="1">
-        <article class="pk-feature">
-          <img src="assets/images/houseboat-day-6.jpg" alt="A Roxy houseboat cruising the backwaters for a full day and night voyage" loading="lazy" />
-          <div class="pk-feature__in">
-            <span class="pk-feature__flag">Signature voyage</span>
-            <h3 class="pk-feature__title">Day &amp; Night Cruise</h3>
-            <p class="pk-feature__desc">A full day and night afloat — welcome drink, lunch, evening tea, dinner and breakfast, all in your own floating home.</p>
-            <div class="pk-feature__foot">
-              <div class="pk-feature__price">₹16,000<small>10:00am – 08:30am · 2 guests</small></div>
-              <a class="arrow" href="packages.html">View package
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-              </a>
-            </div>
-          </div>
-        </article>
+      <div class="svc__stage reveal" data-delay="1" data-svc>
+        <button class="svc__nav svc__nav--prev" type="button" aria-label="Previous cruise" data-svc-prev>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg>
+        </button>
 
-        <div class="pk-rail">
-          <a class="pk-item" href="packages.html">
-            <div class="pk-item__media"><img src="assets/images/houseboat-day-1.jpg" alt="Day Cruise houseboat" loading="lazy" /></div>
-            <div><div class="pk-item__title">Day Cruise</div><div class="pk-item__time">10:00am – 04:00pm · 8 guests</div></div>
-            <div class="pk-item__price">₹12,000</div>
-          </a>
-          <a class="pk-item" href="packages.html">
-            <div class="pk-item__media"><img src="assets/images/thali-3.jpg" alt="Lunch Cruise Kerala meal" loading="lazy" /></div>
-            <div><div class="pk-item__title">Lunch Cruise</div><div class="pk-item__time">12:00pm – 03:00pm · 8 guests</div></div>
-            <div class="pk-item__price">₹8,000</div>
-          </a>
-          <a class="pk-item" href="packages.html">
-            <div class="pk-item__media"><img src="assets/images/sunset-1.jpg" alt="Sunset Cruise over the backwaters" loading="lazy" /></div>
-            <div><div class="pk-item__title">Sunset Cruise</div><div class="pk-item__time">04:30pm – 06:30pm · 8 guests</div></div>
-            <div class="pk-item__price">₹6,000</div>
-          </a>
-          <a class="pk-item" href="packages.html">
-            <div class="pk-item__media"><img src="assets/images/dinner-1.jpg" alt="Dinner Cruise served on board" loading="lazy" /></div>
-            <div><div class="pk-item__title">Dinner Cruise</div><div class="pk-item__time">07:00pm – 09:30pm · 8 guests</div></div>
-            <div class="pk-item__price">₹9,000</div>
-          </a>
-          <a class="pk-item" href="packages.html">
-            <div class="pk-item__media"><img src="assets/images/sunset-3.jpg" alt="Overnight Cruise at dusk" loading="lazy" /></div>
-            <div><div class="pk-item__title">Overnight Cruise</div><div class="pk-item__time">05:00pm – 09:00am · 2 guests</div></div>
-            <div class="pk-item__price">₹14,000</div>
-          </a>
+        <div class="svc__track" data-svc-track>
+          <article class="svc-card" data-svc-card aria-label="Day Cruise">
+            <img src="assets/images/houseboat-day-1.jpg" alt="Day Cruise on the Nileshwar backwaters" loading="lazy" />
+            <div class="svc-card__body">
+              <span class="svc-card__loc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.4"/></svg>Day Cruise</span>
+              <a class="svc-card__cta" href="packages.html">Explore</a>
+            </div>
+          </article>
+
+          <article class="svc-card" data-svc-card aria-label="Lunch Cruise">
+            <img src="assets/images/thali-3.jpg" alt="Traditional Kerala thali served on a Lunch Cruise" loading="lazy" />
+            <div class="svc-card__body">
+              <span class="svc-card__loc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.4"/></svg>Lunch Cruise</span>
+              <a class="svc-card__cta" href="packages.html">Explore</a>
+            </div>
+          </article>
+
+          <article class="svc-card" data-svc-card aria-label="Sunset Cruise">
+            <img src="assets/images/sunset-1.jpg" alt="Sunset Cruise over the Nileshwar backwaters" loading="lazy" />
+            <div class="svc-card__body">
+              <span class="svc-card__loc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.4"/></svg>Sunset Cruise</span>
+              <a class="svc-card__cta" href="packages.html">Explore</a>
+            </div>
+          </article>
+
+          <article class="svc-card" data-svc-card aria-label="Dinner Cruise">
+            <img src="assets/images/dinner-1.jpg" alt="Malabar dinner served on board a Dinner Cruise" loading="lazy" />
+            <div class="svc-card__body">
+              <span class="svc-card__loc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.4"/></svg>Dinner Cruise</span>
+              <a class="svc-card__cta" href="packages.html">Explore</a>
+            </div>
+          </article>
+
+          <article class="svc-card" data-svc-card aria-label="Overnight Cruise">
+            <img src="assets/images/bedroom-3.jpg" alt="Houseboat bedroom at night on an Overnight Cruise" loading="lazy" />
+            <div class="svc-card__body">
+              <span class="svc-card__loc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.4"/></svg>Overnight Cruise</span>
+              <a class="svc-card__cta" href="packages.html">Explore</a>
+            </div>
+          </article>
+
+          <article class="svc-card" data-svc-card aria-label="Day &amp; Night Cruise">
+            <img src="assets/images/houseboat-day-6.jpg" alt="A Roxy houseboat on a full Day and Night Cruise" loading="lazy" />
+            <div class="svc-card__body">
+              <span class="svc-card__loc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.4"/></svg>Day &amp; Night Cruise</span>
+              <a class="svc-card__cta" href="packages.html">Explore</a>
+            </div>
+          </article>
+        </div>
+
+        <button class="svc__nav svc__nav--next" type="button" aria-label="Next cruise" data-svc-next>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>
+        </button>
+
+        <div class="svc__dots" data-svc-dots aria-hidden="true"></div>
+      </div>
+
+      <div class="svc__legend reveal" data-delay="1">
+        <div class="svc__leg">
+          <span class="svc__leg-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v9M12 12L4 12l8-9zM5 16h14l-2.5 4h-9z"/><path d="M12 20v2"/></svg></span>
+          <div><b>Day Cruise</b><span>10:00am - 04:00pm</span></div>
+        </div>
+        <div class="svc__leg">
+          <span class="svc__leg-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3v8a2 2 0 0 0 4 0V3M7 11v10"/><path d="M17 3c-1.5 0-2.5 1.6-2.5 4s1 4 2.5 4v10"/></svg></span>
+          <div><b>Lunch Cruise</b><span>12:00pm - 03:00pm</span></div>
+        </div>
+        <div class="svc__leg">
+          <span class="svc__leg-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M17 18a5 5 0 0 0-10 0M12 3v5M4.5 10.5l1.4 1.4M19.5 10.5l-1.4 1.4M2 18h20M3 22h18"/></svg></span>
+          <div><b>Sunset Cruise</b><span>04:30pm - 06:30pm</span></div>
+        </div>
+        <div class="svc__leg">
+          <span class="svc__leg-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15a8 8 0 0 1 16 0M2 15h20M9 15a3 3 0 0 1 6 0M12 5v3"/></svg></span>
+          <div><b>Dinner Cruise</b><span>05:00pm - 09:00pm</span></div>
+        </div>
+        <div class="svc__leg">
+          <span class="svc__leg-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M20.5 14.5A8 8 0 0 1 9.5 3.5a7 7 0 1 0 11 11z"/></svg></span>
+          <div><b>Overnight Cruise</b><span>05:00pm - 08:30am</span></div>
+        </div>
+        <div class="svc__leg">
+          <span class="svc__leg-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></span>
+          <div><b>Day &amp; Night Cruise</b><span>10:00am - 08:30am</span></div>
         </div>
       </div>
     </div>
