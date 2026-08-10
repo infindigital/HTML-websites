@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://arcship.ae/saudi-arabia/</loc><changefreq>monthly</changefreq><priority>1.0</priority></url>
   <url><loc>https://arcship.ae/saudi-arabia/contact/</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://arcship.ae/saudi-arabia/insights/</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://arcship.ae/saudi-arabia/blog/</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
   <url><loc>https://arcship.ae/saudi-arabia/gallery/</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
   <url><loc>https://arcship.ae/saudi-arabia/terms-of-service/</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
   <url><loc>https://arcship.ae/saudi-arabia/privacy-policy/</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
@@ -13,10 +13,10 @@
   <url><loc>https://arcship.ae/saudi-arabia/marine-mechanical-solutions/</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
   <url><loc>https://arcship.ae/saudi-arabia/calibration-services/</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
   <url><loc>https://arcship.ae/saudi-arabia/marine-safety-products/</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://arcship.ae/saudi-arabia/insights/ship-repair-services-saudi-arabia/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://arcship.ae/saudi-arabia/insights/marine-safety-equipment-services-saudi-arabia/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://arcship.ae/saudi-arabia/insights/ship-management-services-saudi-arabia/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://arcship.ae/saudi-arabia/insights/life-saving-appliance-servicing-saudi-arabia/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://arcship.ae/saudi-arabia/insights/fire-fighting-appliance-servicing-saudi-arabia/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://arcship.ae/saudi-arabia/insights/engine-overhauling-marine-machinery-repair-saudi-arabia/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://arcship.ae/saudi-arabia/blog/ship-repair-services-saudi-arabia/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://arcship.ae/saudi-arabia/blog/marine-safety-equipment-services-saudi-arabia/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://arcship.ae/saudi-arabia/blog/ship-management-services-saudi-arabia/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://arcship.ae/saudi-arabia/blog/life-saving-appliance-servicing-saudi-arabia/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://arcship.ae/saudi-arabia/blog/fire-fighting-appliance-servicing-saudi-arabia/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://arcship.ae/saudi-arabia/blog/engine-overhauling-marine-machinery-repair-saudi-arabia/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
 </urlset>
