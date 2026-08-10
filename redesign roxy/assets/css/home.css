@@ -537,7 +537,7 @@ ul{margin:0;padding:0;list-style:none}
 /* ============================================================
    06c · TESTIMONIALS — google-style review carousel
    ============================================================ */
-.rev{background:#f1f6f9}
+.rev{background:#fff}
 .rev__head{text-align:center;margin-bottom:clamp(2.4rem,4.5vw,3.6rem)}
 .rev__script{display:block;font-family:'Dancing Script',cursive;font-weight:600;
   font-size:clamp(1.6rem,2.8vw,2.3rem);color:var(--aqua);line-height:1}
