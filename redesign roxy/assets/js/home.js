@@ -116,6 +116,42 @@
     revealEls.forEach(function (el) { el.classList.add("is-in"); });
   }
 
+  /* ---- count-up on the stats band ---- */
+  var counters = doc.querySelectorAll(".statx-num");
+  if (counters.length) {
+    var runCount = function (el) {
+      if (el.dataset.done) return;
+      el.dataset.done = "1";
+      var target = parseFloat(el.getAttribute("data-count")) || 0;
+      var dec = parseInt(el.getAttribute("data-decimals"), 10) || 0;
+      if (reduce) { el.textContent = target.toFixed(dec); return; }
+      var dur = 1400, t0 = null;
+      var ease = function (x) { return 1 - Math.pow(1 - x, 3); };
+      var frame = function (ts) {
+        if (t0 === null) t0 = ts;
+        var p = Math.min((ts - t0) / dur, 1);
+        el.textContent = (target * ease(p)).toFixed(dec);
+        if (p < 1) window.requestAnimationFrame(frame);
+        else el.textContent = target.toFixed(dec);
+      };
+      window.requestAnimationFrame(frame);
+    };
+    var band = counters[0].closest(".statx") || document.body;
+    if ("IntersectionObserver" in window) {
+      var cio = new IntersectionObserver(function (entries) {
+        entries.forEach(function (en) {
+          if (en.isIntersecting) {
+            counters.forEach(runCount);
+            cio.disconnect();
+          }
+        });
+      }, { threshold: 0.35 });
+      cio.observe(band);
+    } else {
+      counters.forEach(runCount);
+    }
+  }
+
   /* ---- 3D pointer tilt on floating image panels ---- */
   var tilts = doc.querySelectorAll(".tilt");
   var finePointer = window.matchMedia("(pointer: fine)").matches;

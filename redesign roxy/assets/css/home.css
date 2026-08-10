@@ -47,7 +47,7 @@
   --nav-h:80px;
   --radius:22px;
   --radius-sm:14px;
-  --pad:clamp(72px,10vw,150px);   /* section vertical padding */
+  --pad:clamp(46px,6.2vw,94px);   /* section vertical padding */
 }
 
 /* ---------- RESET ---------- */
@@ -76,7 +76,7 @@ ul{margin:0;padding:0;list-style:none}
 .wrap{max-width:var(--wrap);margin-inline:auto;padding-inline:var(--gut);width:100%}
 .wrap--narrow{max-width:var(--wrap-narrow)}
 .section{position:relative;padding-block:var(--pad)}
-.section--tight{padding-block:clamp(56px,7vw,96px)}
+.section--tight{padding-block:clamp(32px,4.2vw,60px)}
 .bg-2{background:var(--bg-2)}
 .bg-grey{background:var(--grey)}
 
@@ -229,7 +229,7 @@ ul{margin:0;padding:0;list-style:none}
   position:relative;width:100%;border-radius:var(--radius);overflow:hidden;
   aspect-ratio:3/2;                   /* == source image ratio (1535x1024), so the clip-path %s map 1:1 */
   container-type:inline-size;         /* lets the giant word scale to the stage width */
-  box-shadow:0 50px 90px -60px rgba(23,32,31,.6);isolation:isolate;
+  isolation:isolate;
 }
 /* both photo layers share identical sizing so they stay pixel-aligned */
 .hero__photo{position:absolute;inset:0;background-size:cover;background-position:center;background-repeat:no-repeat}
@@ -367,13 +367,34 @@ ul{margin:0;padding:0;list-style:none}
 /* ============================================================
    03 · STATS — minimal strip
    ============================================================ */
-.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(1.2rem,3vw,2.6rem)}
-.stat{padding-left:clamp(1.1rem,2vw,1.8rem);border-left:1px solid var(--line-2)}
-.stat:first-child{border-left:0;padding-left:0}
-.stat b{font-family:var(--serif);font-weight:500;font-size:clamp(2.4rem,4.6vw,3.5rem);color:var(--ink);
-  line-height:1;font-variant-numeric:tabular-nums;display:block}
-.stat b .u{font-size:.5em;color:var(--aqua-deep);vertical-align:.4em;margin-left:.05em}
-.stat span{display:block;margin-top:.7rem;font-size:.82rem;letter-spacing:.02em;color:var(--ink-2);max-width:18ch}
+.statx{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  background:var(--grey);
+  border:1px solid var(--line-2);
+  border-radius:clamp(20px,2.6vw,32px);
+  padding:clamp(1.7rem,3.2vw,2.8rem) clamp(1.1rem,2.2vw,1.8rem);
+  box-shadow:0 34px 66px -50px rgba(23,58,77,.45);
+}
+.statx-item{
+  position:relative;
+  display:flex;flex-direction:column;align-items:flex-start;
+  padding:clamp(.2rem,.8vw,.5rem) clamp(1rem,2vw,2rem);
+}
+.statx-item + .statx-item{border-left:1px solid var(--line-2)}
+.statx-item__ic{
+  width:clamp(40px,3.6vw,48px);height:clamp(40px,3.6vw,48px);
+  display:grid;place-items:center;border-radius:50%;
+  background:var(--white);color:var(--navy);
+  box-shadow:0 10px 22px -14px rgba(23,58,77,.55);
+  margin-bottom:clamp(.9rem,1.6vw,1.25rem);
+}
+.statx-item__ic svg{width:52%;height:52%}
+.statx-item__n{
+  font-family:var(--serif);font-weight:500;
+  font-size:clamp(2.3rem,4.5vw,3.5rem);line-height:1;color:var(--navy);
+  font-variant-numeric:tabular-nums;display:flex;align-items:flex-start}
+.statx-item__u{font-size:.44em;color:var(--aqua-deep);margin-left:.08em;transform:translateY(.4em);white-space:nowrap}
+.statx-item__l{margin-top:.8rem;font-size:.82rem;line-height:1.55;letter-spacing:.02em;color:var(--ink-2);max-width:18ch}
 
 /* ============================================================
    04 · COLLECTION — asymmetric houseboats
@@ -1072,8 +1093,10 @@ ul{margin:0;padding:0;list-style:none}
   .navmenu,.nav-call{display:none}
   .burger{display:block}
   .btn{white-space:nowrap}
-  .stats{grid-template-columns:1fr 1fr;gap:1.8rem}
-  .stat:nth-child(3){border-left:0;padding-left:0}
+  .statx{grid-template-columns:1fr 1fr;row-gap:clamp(1.4rem,3vw,2rem)}
+  .statx-item{border-left:0}
+  .statx-item:nth-child(even){border-left:1px solid var(--line-2)}
+  .statx-item:nth-child(n+3){padding-top:clamp(1.4rem,3vw,2rem);border-top:1px solid var(--line-2)}
   .coll__pair{grid-template-columns:1fr}
   .faq__grid{grid-template-columns:1fr;gap:1.6rem}
   .faq__aside{position:static}
@@ -1123,8 +1146,10 @@ ul{margin:0;padding:0;list-style:none}
   .hero__meta{gap:1rem}
   .hero__cta{width:100%}
   .hero__cta .btn{flex:1;justify-content:center}
-  .stats{grid-template-columns:1fr 1fr;gap:1.4rem}
-  .stat{border-left:0;padding-left:0}
+  .statx{grid-template-columns:1fr;row-gap:0;padding:clamp(1.4rem,6vw,2rem) clamp(1.3rem,6vw,1.8rem)}
+  .statx-item{border-left:0!important;padding:clamp(1rem,4vw,1.3rem) 0}
+  .statx-item:nth-child(n+2){border-top:1px solid var(--line-2)}
+  .statx-item:nth-child(n+3){padding-top:clamp(1rem,4vw,1.3rem)}
   .frow,.cx__row{grid-template-columns:1fr}
   .coll__specs{gap:1.4rem}
   .stories__side{flex-direction:column}
