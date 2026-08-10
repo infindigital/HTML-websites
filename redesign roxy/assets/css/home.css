@@ -488,6 +488,53 @@ ul{margin:0;padding:0;list-style:none}
 .svc__leg span{display:block;font-size:clamp(.8rem,.95vw,.9rem);color:var(--ink-2);margin-top:.15rem}
 
 /* ============================================================
+   06b · SERVICES BAND — intro panel + two feature cards
+   ============================================================ */
+.svc2__panel{background:#e9edf1;border-radius:clamp(24px,2.6vw,34px);
+  padding:clamp(.85rem,1.4vw,1.2rem);display:grid;grid-template-columns:1.08fr 1fr 1fr;
+  gap:clamp(.75rem,1.1vw,1.05rem)}
+.svc2__intro{background:#8892a4;border-radius:24px;color:#fff;
+  padding:clamp(1.8rem,3vw,2.9rem);display:flex;flex-direction:column;align-items:flex-start}
+.svc2__intro-ic{color:#fff;margin-bottom:clamp(1.4rem,3vw,2.2rem)}
+.svc2__intro-ic svg{width:clamp(38px,3.4vw,46px);height:clamp(38px,3.4vw,46px)}
+.svc2__intro-title{font-family:var(--sans);font-weight:700;line-height:1.04;
+  font-size:clamp(2rem,3vw,2.6rem);color:#fff;margin:0}
+.svc2__wave{display:block;color:var(--navy);margin:.9rem 0 1.2rem}
+.svc2__wave svg{width:clamp(52px,6vw,66px);height:auto;display:block}
+.svc2__intro-text{color:rgba(255,255,255,.92);line-height:1.6;
+  font-size:clamp(1rem,1.15vw,1.1rem);max-width:26ch;margin:0}
+.svc2__intro-cta{margin-top:auto;display:inline-flex;align-items:center;gap:.7em;
+  padding:.95em 1.7em;border-radius:999px;background:var(--navy);color:#fff;
+  font-family:var(--sans);font-weight:600;font-size:.92rem;letter-spacing:.01em;
+  transition:background .4s var(--ease),transform .4s var(--ease)}
+.svc2__intro-cta svg{width:16px;height:16px;transition:transform .4s var(--ease)}
+.svc2__intro-cta:hover{background:var(--ink);transform:translateY(-2px)}
+.svc2__intro-cta:hover svg{transform:translateX(3px)}
+/* keep the button off the very bottom edge when text is short */
+.svc2__intro-text{margin-bottom:clamp(1.8rem,3vw,2.6rem)}
+
+.svc2__card{position:relative;overflow:hidden;border-radius:24px;isolation:isolate;
+  min-height:clamp(440px,44vw,570px);display:flex;align-items:flex-end;color:#fff}
+.svc2__card img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2;
+  transition:transform 1.5s var(--ease)}
+.svc2__card::after{content:"";position:absolute;inset:0;z-index:-1;
+  background:linear-gradient(180deg,rgba(12,14,18,0) 26%,rgba(12,12,14,.5) 58%,rgba(8,9,11,.9) 100%)}
+.svc2__card:hover img{transform:scale(1.05)}
+.svc2__card-ic{position:absolute;top:clamp(1rem,1.4vw,1.3rem);left:clamp(1rem,1.4vw,1.3rem);z-index:2;
+  width:clamp(50px,5vw,62px);height:clamp(50px,5vw,62px);border-radius:50%;color:#fff;
+  background:rgba(255,255,255,.2);backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px);
+  display:grid;place-items:center}
+.svc2__card-ic svg{width:46%;height:46%}
+.svc2__card-body{padding:clamp(1.4rem,2.2vw,2rem)}
+.svc2__card-title{font-family:var(--sans);font-weight:700;text-transform:uppercase;
+  font-size:clamp(1.35rem,1.9vw,1.7rem);line-height:1.1;letter-spacing:.01em;margin:0}
+.svc2__card-sub{display:block;font-family:var(--sans);font-weight:600;text-transform:uppercase;
+  font-size:clamp(.8rem,.95vw,.92rem);letter-spacing:.02em;color:rgba(255,255,255,.94);
+  margin:.55rem 0 .8rem}
+.svc2__card-text{font-size:clamp(.9rem,1.05vw,1rem);line-height:1.55;
+  color:rgba(255,255,255,.86);max-width:34ch;margin:0}
+
+/* ============================================================
    07 · WATER — cinematic full-bleed story
    ============================================================ */
 .water{position:relative;overflow:hidden;color:#fff;isolation:isolate;
@@ -767,6 +814,9 @@ ul{margin:0;padding:0;list-style:none}
   .why__media{max-width:560px}
   .about__media,.about2__media{max-width:540px;margin-inline:auto}
   .svc__legend{grid-template-columns:repeat(3,1fr);row-gap:1.8rem}
+  .svc2__panel{grid-template-columns:1fr;gap:.9rem}
+  .svc2__intro{min-height:auto}
+  .svc2__card{min-height:clamp(380px,64vw,460px)}
   .dest__grid{grid-template-columns:1fr;grid-template-rows:none}
   .dest__lead{grid-column:1;grid-row:auto;min-height:340px}
   .dest__copy{grid-column:1;grid-row:auto}
