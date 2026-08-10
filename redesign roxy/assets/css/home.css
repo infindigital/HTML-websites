@@ -627,6 +627,55 @@ ul{margin:0;padding:0;list-style:none}
 .why__badge .stars{color:var(--gold);font-size:.78rem;letter-spacing:1px;display:block}
 .why__badge small{font-size:.72rem;color:var(--ink-2)}
 
+/* ---- Why Choose Roxy — split copy + slate feature cards ---- */
+.whyx{display:grid;grid-template-columns:1fr 1.04fr;gap:clamp(2.2rem,5vw,5rem);align-items:center}
+.whyx__eyebrow{display:flex;align-items:center;gap:.9rem;font-weight:700;font-size:.78rem;
+  letter-spacing:.16em;text-transform:uppercase;color:var(--aqua)}
+.whyx__eyebrow::after{content:"";height:2px;width:clamp(48px,6vw,84px);background:var(--aqua);border-radius:2px}
+.whyx__title{font-family:var(--sans);font-weight:800;color:var(--navy);line-height:1.1;
+  letter-spacing:-.02em;font-size:clamp(1.8rem,3.4vw,2.85rem);margin:1.1rem 0 0;max-width:14ch}
+.whyx__lead{color:var(--ink-2);font-size:clamp(.98rem,1.15vw,1.08rem);line-height:1.66;
+  margin:1.1rem 0 0;max-width:44ch}
+.whyx__cta{display:inline-flex;align-items:center;gap:.6em;margin-top:clamp(1.4rem,2.4vw,1.9rem);
+  padding:.9em 1.9em;border-radius:12px;background:var(--aqua);color:#fff;font-weight:600;
+  font-size:.82rem;text-transform:uppercase;letter-spacing:.08em;text-decoration:none;
+  box-shadow:0 20px 34px -18px rgba(18,168,216,.7);
+  transition:transform .4s var(--ease),background .4s var(--ease)}
+.whyx__cta svg{width:16px;height:16px;transition:transform .4s var(--ease)}
+.whyx__cta:hover{background:var(--aqua-deep);transform:translateY(-2px)}
+.whyx__cta:hover svg{transform:translateX(3px)}
+.whyx__stats{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(.6rem,1.5vw,1.4rem);
+  margin-top:clamp(2.2rem,4vw,3rem)}
+.whyx-stat{position:relative;padding-right:clamp(.4rem,1vw,1rem)}
+.whyx-stat + .whyx-stat{border-left:1px solid var(--line);padding-left:clamp(.9rem,1.6vw,1.5rem)}
+.whyx-stat__ic{display:inline-flex;align-items:center;justify-content:center;
+  width:clamp(42px,3.4vw,48px);height:clamp(42px,3.4vw,48px);border-radius:50%;
+  background:var(--navy);color:#fff}
+.whyx-stat__ic svg{width:52%;height:52%}
+.whyx-stat__n{display:block;font-family:var(--sans);font-weight:800;color:var(--navy);
+  font-size:clamp(1.4rem,2.1vw,1.9rem);line-height:1;margin:.85rem 0 .35rem;letter-spacing:-.01em;white-space:nowrap}
+.whyx-stat__l{display:block;color:var(--ink-2);font-size:clamp(.76rem,.86vw,.86rem);line-height:1.4}
+.whyx__social{display:flex;gap:.7rem;margin-top:clamp(1.8rem,3.4vw,2.6rem)}
+.whyx__social a{display:inline-flex;align-items:center;justify-content:center;
+  width:40px;height:40px;border-radius:50%;background:var(--navy);color:#fff;
+  transition:transform .35s var(--ease),background .35s var(--ease)}
+.whyx__social svg{width:18px;height:18px}
+.whyx__social a:hover{background:var(--aqua);transform:translateY(-3px)}
+.whyx__cards{display:flex;flex-direction:column;gap:clamp(1rem,1.6vw,1.4rem)}
+.whyx-card{display:flex;align-items:center;gap:clamp(1rem,1.8vw,1.6rem);
+  background:#8892a4;border-radius:clamp(18px,1.8vw,24px);
+  padding:clamp(1.1rem,1.8vw,1.5rem);box-shadow:0 24px 48px -34px rgba(23,58,77,.5);
+  transition:transform .4s var(--ease),box-shadow .4s var(--ease)}
+.whyx-card:hover{transform:translateY(-3px);box-shadow:0 30px 56px -32px rgba(23,58,77,.55)}
+.whyx-card__ic{flex:0 0 auto;display:inline-flex;align-items:center;justify-content:center;
+  width:clamp(64px,6vw,86px);height:clamp(64px,6vw,86px);border-radius:clamp(14px,1.4vw,20px);
+  background:#f4f6f8;color:var(--navy)}
+.whyx-card__ic svg{width:46%;height:46%}
+.whyx-card__title{font-family:var(--sans);font-weight:700;color:var(--navy);
+  font-size:clamp(1.08rem,1.4vw,1.3rem);line-height:1.2;margin:0}
+.whyx-card__text{color:rgba(20,40,54,.82);font-size:clamp(.88rem,1vw,.98rem);
+  line-height:1.55;margin:.5rem 0 0}
+
 /* ============================================================
    09 · NILESHWAR — destination
    ============================================================ */
@@ -931,7 +980,8 @@ ul{margin:0;padding:0;list-style:none}
    RESPONSIVE
    ============================================================ */
 @media (max-width:1040px){
-  .about__grid,.about2__grid,.coll__feature,.why,.food__grid,.contact,.stories{grid-template-columns:1fr}
+  .about__grid,.about2__grid,.coll__feature,.why,.whyx,.food__grid,.contact,.stories{grid-template-columns:1fr}
+  .whyx__cards{max-width:640px}
   .about2__grid{gap:clamp(2.6rem,7vw,3.6rem)}
   .coll__feature{gap:2rem}
   .why__media{max-width:560px}
