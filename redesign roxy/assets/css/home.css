@@ -247,16 +247,18 @@ ul{margin:0;padding:0;list-style:none}
   /* top edge hugs the boat's roofline, dropping to the waterline over open water,
      so the letters are covered more where the boat sits — the "behind the boat" effect */
   clip-path:polygon(
-    0% 62%, 30% 61.5%, 43% 61%, 45% 55%, 48% 51%, 52% 47.5%, 56% 45.5%,
-    60% 44.3%, 63% 43.2%, 66% 43.8%, 69% 43.3%, 72% 44.3%, 75% 46.5%,
-    77% 49.5%, 78.5% 52.5%, 80% 61%, 86% 62%, 90% 60.5%, 93% 60.8%,
-    100% 62%, 100% 100%, 0% 100%
+    0% 43%, 7% 43.5%, 10% 48%, 12.5% 50.7%, 17% 52%, 24% 52.8%, 28% 54%,
+    31% 55.2%, 35% 55.6%, 38% 56.9%, 41% 57.9%, 45% 57.3%, 47.5% 55%,
+    49% 52.3%, 52% 50.5%, 55% 48%, 59% 46.6%, 65% 45.4%, 68% 44.4%, 71% 43%,
+    74% 44.5%, 77% 47%, 79% 50%, 80.5% 53%, 82% 60%, 85% 66%, 88% 64.5%,
+    90.5% 62%, 92.5% 61%, 94.5% 66%, 95.2% 72%, 100% 78%,
+    100% 100%, 0% 100%
   );
 }
 .hero__ghost{
-  position:absolute;left:50%;top:14.5%;transform:translateX(-50%);z-index:3;
+  position:absolute;left:50%;top:19%;transform:translateX(-50%);z-index:3;
   font-family:var(--sans);font-weight:800;letter-spacing:.005em;line-height:.8;
-  font-size:29.5cqw;color:#fff;white-space:nowrap;pointer-events:none;user-select:none;
+  font-size:26.5cqw;color:#fff;white-space:nowrap;pointer-events:none;user-select:none;
   text-shadow:0 12px 60px rgba(8,20,28,.32);
 }
 .hero__scrim{position:absolute;inset:0;pointer-events:none}
@@ -265,12 +267,12 @@ ul{margin:0;padding:0;list-style:none}
 .hero__scrim--bot{z-index:5;
   background:linear-gradient(0deg,rgba(8,20,28,.78) 0%,rgba(8,20,28,.46) 24%,rgba(8,20,28,.16) 44%,rgba(8,20,28,0) 62%)}
 .hero__content{position:absolute;z-index:6;left:0;bottom:0;
-  padding:clamp(1.6rem,4vw,3.6rem);max-width:min(680px,90%)}
+  padding:clamp(1.6rem,4vw,3.6rem);max-width:min(780px,94%)}
 .hero__loc{display:inline-flex;align-items:center;gap:.5em;font-size:.74rem;font-weight:700;
   letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.92);margin-bottom:1rem}
 .hero__loc svg{width:16px;height:16px;opacity:.9}
-.hero__title{font-family:var(--sans);font-weight:800;color:#fff;line-height:1.04;letter-spacing:-.02em;
-  font-size:clamp(2rem,4.6vw,3.5rem);text-shadow:0 6px 40px rgba(0,0,0,.34)}
+.hero__title{font-family:var(--sans);font-weight:800;color:#fff;line-height:1.06;letter-spacing:-.02em;
+  font-size:clamp(1.7rem,3.5vw,2.7rem);text-shadow:0 6px 40px rgba(0,0,0,.34)}
 .hero__title span{color:#fff}
 .hero__text{color:rgba(255,255,255,.92);font-size:clamp(1rem,1.35vw,1.16rem);line-height:1.6;max-width:46ch;
   margin-top:clamp(.9rem,1.6vw,1.3rem);text-shadow:0 1px 18px rgba(0,0,0,.34)}
