@@ -561,6 +561,8 @@ body.nav-open .nav-scrim{ opacity:1; visibility:visible; }
 
 /* ---------- Quote / value cards ---------- */
 .qgrid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(320px,1fr)); gap:clamp(18px,2.2vw,26px); }
+.qgrid--2{ grid-template-columns:repeat(2,minmax(0,1fr)); max-width:1040px; margin-inline:auto; }
+@media (max-width:720px){ .qgrid--2{ grid-template-columns:1fr; } }
 .qcard{ position:relative; background:#fff; border:1px solid var(--line); border-radius:var(--radius-lg); padding:clamp(26px,3vw,38px); box-shadow:var(--shadow-sm); overflow:hidden; transition:box-shadow .35s var(--ease),transform .35s var(--ease); }
 .qcard::before{ content:"\201C"; position:absolute; top:-.35em; right:.2em; font-family:var(--font-display); font-size:8rem; line-height:1; color:var(--brand-tint); pointer-events:none; }
 .qcard:hover{ box-shadow:var(--shadow-md); transform:translateY(-4px); }
