@@ -236,7 +236,7 @@ ul{margin:0;padding:0;list-style:none}
   padding-bottom:clamp(40px,6vw,72px)}
 .hero__stage{
   position:relative;width:100%;border-radius:var(--radius);overflow:hidden;
-  aspect-ratio:16/10;                 /* == source image ratio, so the clip-path %s map 1:1 */
+  aspect-ratio:3/2;                   /* == source image ratio (1535x1024), so the clip-path %s map 1:1 */
   container-type:inline-size;         /* lets the giant word scale to the stage width */
   box-shadow:0 50px 90px -60px rgba(23,32,31,.6);isolation:isolate;
 }
@@ -247,23 +247,23 @@ ul{margin:0;padding:0;list-style:none}
   /* top edge hugs the boat's roofline, dropping to the waterline over open water,
      so the letters are covered more where the boat sits — the "behind the boat" effect */
   clip-path:polygon(
-    0% 60%, 33% 59%, 38% 58%, 39.5% 55.5%, 41.5% 52.5%, 44% 51%,
-    48% 50%, 52% 49.2%, 56% 50%, 60% 49.6%, 64% 49.2%, 68% 49.9%,
-    71% 51%, 74% 52.5%, 77% 54%, 79.5% 54.8%, 81% 56.5%, 83.5% 58.5%,
-    100% 60%, 100% 100%, 0% 100%
+    0% 62%, 30% 61.5%, 43% 61%, 45% 55%, 48% 51%, 52% 47.5%, 56% 45.5%,
+    60% 44.3%, 63% 43.2%, 66% 43.8%, 69% 43.3%, 72% 44.3%, 75% 46.5%,
+    77% 49.5%, 78.5% 52.5%, 80% 61%, 86% 62%, 90% 60.5%, 93% 60.8%,
+    100% 62%, 100% 100%, 0% 100%
   );
 }
 .hero__ghost{
-  position:absolute;left:50%;top:9%;transform:translateX(-50%);z-index:3;
+  position:absolute;left:50%;top:14.5%;transform:translateX(-50%);z-index:3;
   font-family:var(--sans);font-weight:800;letter-spacing:.005em;line-height:.8;
-  font-size:26cqw;color:#fff;white-space:nowrap;pointer-events:none;user-select:none;
+  font-size:29.5cqw;color:#fff;white-space:nowrap;pointer-events:none;user-select:none;
   text-shadow:0 12px 60px rgba(8,20,28,.32);
 }
 .hero__scrim{position:absolute;inset:0;pointer-events:none}
 .hero__scrim--top{z-index:2;
   background:linear-gradient(180deg,rgba(8,20,28,.5) 0%,rgba(8,20,28,.2) 16%,rgba(8,20,28,0) 34%)}
 .hero__scrim--bot{z-index:5;
-  background:linear-gradient(0deg,rgba(8,20,28,.72) 0%,rgba(8,20,28,.34) 26%,rgba(8,20,28,.04) 52%,rgba(8,20,28,0) 66%)}
+  background:linear-gradient(0deg,rgba(8,20,28,.78) 0%,rgba(8,20,28,.46) 24%,rgba(8,20,28,.16) 44%,rgba(8,20,28,0) 62%)}
 .hero__content{position:absolute;z-index:6;left:0;bottom:0;
   padding:clamp(1.6rem,4vw,3.6rem);max-width:min(680px,90%)}
 .hero__loc{display:inline-flex;align-items:center;gap:.5em;font-size:.74rem;font-weight:700;
@@ -704,21 +704,22 @@ ul{margin:0;padding:0;list-style:none}
   .g-wide{grid-column:span 2}
   .g-tall{grid-row:auto}
 }
-/* --- hero on narrower screens: tall stage, boat framed high, ROXY behind it, content below --- */
-@media (max-width:760px){
-  .hero__stage{aspect-ratio:auto;height:clamp(600px,90vh,720px)}
-  .hero__bg,.hero__fg{background-size:auto 150%;background-position:58% 84%}
-  .hero__fg{
-    clip-path:polygon(
-      0% 44%, 24% 43%, 34% 36%, 43% 31%, 52% 29%, 61% 29.5%,
-      69% 31.5%, 77% 36%, 86% 40%, 94% 43%, 100% 44%, 100% 100%, 0% 100%
-    );
-  }
-  .hero__ghost{font-size:41cqw;top:15%}
-  .hero__title{font-size:clamp(1.55rem,6.2vw,2rem)}
-  .hero__text{font-size:1rem;max-width:100%}
+/* --- hero on tablet + mobile: SIMPLE clean photo hero (no behind-boat effect) --- */
+@media (max-width:1024px){
+  .hero__ghost,.hero__fg,.hero__scrim--top{display:none}
+  .hero__stage{aspect-ratio:3/2}
+  .hero__bg{background-size:cover;background-position:62% 58%}
   .hero__content{max-width:100%}
-  .hero__scrim--bot{background:linear-gradient(0deg,rgba(8,20,28,.88) 0%,rgba(8,20,28,.66) 34%,rgba(8,20,28,.32) 52%,rgba(8,20,28,.06) 66%,rgba(8,20,28,0) 78%)}
+  .hero__title{font-size:clamp(1.9rem,5vw,2.8rem)}
+  .hero__text{max-width:52ch}
+  .hero__scrim--bot{background:linear-gradient(0deg,rgba(8,20,28,.82) 0%,rgba(8,20,28,.5) 30%,rgba(8,20,28,.18) 50%,rgba(8,20,28,0) 70%)}
+}
+@media (max-width:640px){
+  .hero__stage{aspect-ratio:auto;height:clamp(500px,80vh,620px)}
+  .hero__bg{background-position:70% 55%}
+  .hero__title{font-size:clamp(1.6rem,7vw,2.1rem)}
+  .hero__text{font-size:1rem;max-width:100%}
+  .hero__scrim--bot{background:linear-gradient(0deg,rgba(8,20,28,.9) 0%,rgba(8,20,28,.62) 32%,rgba(8,20,28,.28) 52%,rgba(8,20,28,0) 74%)}
 }
 @media (max-width:560px){
   body{font-size:16px}
