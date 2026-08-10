@@ -529,6 +529,15 @@ body.nav-open .nav-scrim{ opacity:1; visibility:visible; }
 .related-card__go svg{ width:.95em; height:.95em; transition:transform .35s var(--ease); }
 .related-card:hover .related-card__go svg{ transform:translateX(4px); }
 
+/* ---------- Mission / vision pillars ---------- */
+.pillar{ position:relative; background:#fff; border:1px solid var(--line); border-radius:var(--radius-lg); padding:clamp(26px,3vw,38px); overflow:hidden; transition:box-shadow .35s var(--ease), transform .35s var(--ease); }
+.pillar::after{ content:""; position:absolute; left:0; top:0; bottom:0; width:3px; background:var(--brand); }
+.pillar:hover{ box-shadow:var(--shadow-md); transform:translateY(-4px); }
+.pillar__ic{ display:grid; place-items:center; width:56px; height:56px; border-radius:var(--radius-lg); background:var(--brand-tint); color:var(--brand-600); margin-bottom:1.1rem; }
+.pillar__ic svg{ width:28px; height:28px; }
+.pillar h3{ font-size:1.3rem; margin-bottom:.6rem; }
+.pillar p{ color:var(--muted); margin:0; }
+
 /* ---------- Responsive ---------- */
 @media (max-width:1080px){
   .trust-inner{ grid-template-columns:repeat(3,1fr); }
