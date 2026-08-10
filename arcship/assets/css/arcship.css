@@ -538,6 +538,71 @@ body.nav-open .nav-scrim{ opacity:1; visibility:visible; }
 .pillar h3{ font-size:1.3rem; margin-bottom:.6rem; }
 .pillar p{ color:var(--muted); margin:0; }
 
+/* ---------- Green centered hero (About / Approvals) ---------- */
+.hero-green{ position:relative; text-align:center; color:#fff; overflow:hidden;
+  background:linear-gradient(180deg,var(--forest-900) 0%,var(--forest-800) 24%,var(--brand-700) 78%,var(--brand-600) 100%);
+  padding-block:clamp(120px,17vh,180px) clamp(60px,8vw,104px); }
+.hero-green::after{ content:""; position:absolute; inset:0; background:radial-gradient(120% 90% at 50% 0%,rgba(255,255,255,.10),transparent 60%); pointer-events:none; }
+.hero-green .container{ position:relative; z-index:1; }
+.hero-green .crumb,.hero-green .crumb a,.hero-green .crumb span{ color:rgba(255,255,255,.8); justify-content:center; }
+.hero-green h1{ color:#fff; font-size:clamp(2.3rem,5.6vw,4.4rem); letter-spacing:-.02em; text-shadow:0 2px 24px rgba(0,0,0,.18); }
+.hero-green p{ color:rgba(255,255,255,.9); max-width:60ch; margin-inline:auto; margin-top:1rem; }
+.hero-green .hero-actions{ justify-content:center; }
+
+/* ---------- Stat cards (About) ---------- */
+.about-lead{ display:grid; grid-template-columns:.82fr 1.5fr; gap:clamp(28px,4vw,60px); align-items:start; }
+.statcards{ display:grid; gap:16px; }
+.statcard{ background:#fff; border:1px solid var(--line); border-radius:var(--radius-lg); box-shadow:var(--shadow-sm); padding:22px 26px; text-align:center; transition:box-shadow .35s var(--ease),transform .35s var(--ease); }
+.statcard:hover{ box-shadow:var(--shadow-md); transform:translateY(-3px); }
+.statcard b{ display:block; font-family:var(--font-display); font-weight:800; font-size:clamp(2rem,3.4vw,2.9rem); color:var(--ink); line-height:1; letter-spacing:-.03em; }
+.statcard span{ display:block; margin-top:.4rem; font-size:.9rem; color:var(--muted); }
+.about-lead .prose-col p{ color:var(--body); margin-bottom:1.15rem; line-height:1.75; }
+.about-lead .prose-col p:first-of-type{ font-size:1.12rem; color:var(--ink); }
+
+/* ---------- Quote / value cards ---------- */
+.qgrid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(320px,1fr)); gap:clamp(18px,2.2vw,26px); }
+.qcard{ position:relative; background:#fff; border:1px solid var(--line); border-radius:var(--radius-lg); padding:clamp(26px,3vw,38px); box-shadow:var(--shadow-sm); overflow:hidden; transition:box-shadow .35s var(--ease),transform .35s var(--ease); }
+.qcard::before{ content:"\201C"; position:absolute; top:-.35em; right:.2em; font-family:var(--font-display); font-size:8rem; line-height:1; color:var(--brand-tint); pointer-events:none; }
+.qcard:hover{ box-shadow:var(--shadow-md); transform:translateY(-4px); }
+.qcard h3{ position:relative; font-size:clamp(1.15rem,1.7vw,1.4rem); line-height:1.3; margin-bottom:.9rem; color:var(--ink); }
+.qcard p{ position:relative; color:var(--muted); margin:0 0 .9rem; line-height:1.7; }
+.qcard p:last-child{ margin-bottom:0; }
+
+/* ---------- Leadership ---------- */
+.leaders{ display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:clamp(20px,2.6vw,30px); max-width:760px; margin-inline:auto; }
+.leader-card{ position:relative; border-radius:var(--radius-lg); overflow:hidden; aspect-ratio:4/4.4; box-shadow:var(--shadow-md); background:var(--forest-800); }
+.leader-card img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+.leader-card__label{ position:absolute; left:18px; right:18px; bottom:18px; background:#fff; border-radius:var(--radius); padding:14px 18px; box-shadow:var(--shadow-sm); }
+.leader-card__label b{ display:block; font-family:var(--font-display); font-size:1.1rem; color:var(--ink); }
+.leader-card__label span{ font-size:.85rem; color:var(--muted); }
+
+/* ---------- Company policies ---------- */
+.policy-list{ display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:16px; }
+.policy-card{ display:flex; align-items:center; justify-content:space-between; gap:1rem; background:#fff; border:1px solid var(--line); border-radius:var(--radius-lg); padding:22px 24px; transition:border-color .3s,box-shadow .3s var(--ease),transform .3s var(--ease); }
+.policy-card:hover{ border-color:var(--brand-200,rgba(23,162,74,.28)); box-shadow:var(--shadow-md); transform:translateY(-3px); }
+.policy-card h3{ font-size:1.02rem; margin:0; }
+.policy-card p{ font-size:.85rem; color:var(--muted); margin:.25rem 0 0; }
+.policy-card__ic{ flex-shrink:0; display:grid; place-items:center; width:40px; height:40px; border-radius:50%; background:var(--brand-tint); color:var(--brand-600); }
+.policy-card__ic svg{ width:18px; height:18px; }
+
+/* ---------- Approval / certification groups ---------- */
+.appro + .appro{ margin-top:clamp(40px,5vw,64px); }
+.appro__h{ text-align:center; font-size:clamp(1.4rem,2.4vw,1.9rem); color:var(--brand-600); margin-bottom:clamp(22px,3vw,34px); }
+.appro-logos{ display:flex; flex-wrap:wrap; justify-content:center; align-items:center; gap:clamp(16px,2vw,26px); }
+.appro-logo{ display:grid; place-items:center; width:clamp(120px,14vw,168px); height:clamp(88px,10vw,116px); background:#fff; border:1px solid var(--line); border-radius:var(--radius-lg); padding:16px; box-shadow:var(--shadow-sm); transition:box-shadow .3s var(--ease),transform .3s var(--ease); }
+.appro-logo:hover{ box-shadow:var(--shadow-md); transform:translateY(-3px); }
+.appro-logo img{ max-width:100%; max-height:100%; width:auto; height:auto; object-fit:contain; }
+.iso-badges{ display:flex; flex-wrap:wrap; justify-content:center; align-items:center; gap:clamp(30px,6vw,90px); }
+.iso-badges img{ height:clamp(120px,15vw,180px); width:auto; }
+.iso-caption{ text-align:center; font-family:var(--font-display); font-weight:700; font-size:clamp(1.1rem,2vw,1.5rem); color:var(--ink); margin-top:clamp(24px,3vw,36px); }
+
+/* ---------- Flag approvals ---------- */
+.flag-row{ display:flex; flex-wrap:wrap; justify-content:center; gap:clamp(18px,2.4vw,34px); }
+.flag{ text-align:center; width:clamp(96px,10vw,128px); }
+.flag img{ width:100%; height:auto; aspect-ratio:3/2; object-fit:cover; border-radius:8px; box-shadow:var(--shadow-sm); border:1px solid var(--line); background:#fff; transition:transform .3s var(--ease); }
+.flag:hover img{ transform:translateY(-3px); }
+.flag span{ display:block; margin-top:.6rem; font-size:.8rem; color:var(--muted); letter-spacing:.01em; }
+
 /* ---------- Responsive ---------- */
 @media (max-width:1080px){
   .trust-inner{ grid-template-columns:repeat(3,1fr); }
@@ -551,6 +616,8 @@ body.nav-open .nav-scrim{ opacity:1; visibility:visible; }
   .burger{ display:block; }
   .svc-grid,.detail-grid,.post-grid,.cert-cards,.related-grid{ grid-template-columns:repeat(2,1fr); }
   .split{ grid-template-columns:1fr; gap:36px; }
+  .about-lead{ grid-template-columns:1fr; gap:32px; }
+  .statcards{ grid-template-columns:repeat(2,1fr); }
   .split.reverse .split-media{ order:0; }
   .ksa{ grid-template-columns:1fr; }
   .contact-grid{ grid-template-columns:1fr; }
@@ -565,6 +632,7 @@ body.nav-open .nav-scrim{ opacity:1; visibility:visible; }
   .trust-item:nth-child(2){ border-right:0; }
   .svc-grid,.detail-grid,.post-grid,.cert-cards,.ind-grid,.feat-grid,.related-grid,.field-row,.port-list,.grid-2{ grid-template-columns:1fr; }
   .cta-band-inner{ flex-direction:column; align-items:flex-start; }
+  .statcards{ grid-template-columns:1fr; }
   .hero-meta{ gap:1.2rem 1.8rem; }
   .footer-top{ grid-template-columns:1fr; }
   .split-media .badge.br{ right:12px; bottom:-16px; }
