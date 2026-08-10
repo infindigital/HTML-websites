@@ -197,7 +197,7 @@
       var status = form.querySelector("[data-form-status]");
       if (status) {
         status.textContent = "Thank you — we’ve received your enquiry and will be in touch shortly.";
-        status.style.color = "var(--forest)";
+        status.style.color = "var(--aqua-deep)";
       }
       form.reset();
     });
