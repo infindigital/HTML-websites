@@ -582,6 +582,12 @@ ul{margin:0;padding:0;list-style:none}
 .rev__dot{width:9px;height:9px;border-radius:50%;border:none;padding:0;cursor:pointer;
   background:#c7d2d8;transition:background .35s var(--ease),width .35s var(--ease)}
 .rev__dot.is-active{background:var(--aqua);width:26px;border-radius:5px}
+.rev__badge{display:flex;justify-content:center;margin-top:clamp(1.8rem,2.8vw,2.6rem)}
+.rev__badge a{display:inline-block;border-radius:12px;overflow:hidden;
+  box-shadow:0 16px 32px -18px rgba(23,58,77,.5);
+  transition:transform .4s var(--ease),box-shadow .4s var(--ease)}
+.rev__badge img{display:block;width:clamp(158px,17vw,196px);height:auto}
+.rev__badge a:hover{transform:translateY(-3px);box-shadow:0 22px 40px -18px rgba(23,58,77,.55)}
 
 /* ============================================================
    07 · WATER — cinematic full-bleed story
