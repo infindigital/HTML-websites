@@ -92,7 +92,7 @@ p{ margin:0 0 1.1rem; }
   display:inline-flex; align-items:center; gap:.6em; justify-content:center;
   padding:.92em 1.6em; border-radius:var(--radius); font-family:var(--font-body);
   font-weight:600; font-size:.95rem; letter-spacing:.01em; line-height:1;
-  background:var(--_bg); color:var(--_fg); border:1.5px solid var(--_bd);
+  background:var(--_bg); color:var(--_fg); border:1.5px solid var(--_bd); white-space:nowrap;
   transition:transform .3s var(--ease), background .3s var(--ease), box-shadow .3s var(--ease), color .25s;
   will-change:transform;
 }
@@ -121,8 +121,9 @@ p{ margin:0 0 1.1rem; }
 .brand-word{ font-family:var(--font-display); font-weight:800; font-size:1.16rem; letter-spacing:.01em; color:var(--ink); }
 .brand-word b{ color:var(--brand-600); }
 .is-transparent .brand-word{ color:#fff; }
-.nav-links{ display:flex; align-items:center; gap:.35rem; margin-left:auto; list-style:none; padding:0; margin-block:0; }
-.nav-links > li > a{ position:relative; display:inline-block; padding:.5rem .78rem; font-size:.92rem; font-weight:500; color:var(--ink); border-radius:var(--radius); transition:color .25s; }
+.nav-links{ display:flex; align-items:center; flex-wrap:nowrap; gap:.35rem; margin-left:auto; list-style:none; padding:0; margin-block:0; }
+.nav-links > li{ flex-shrink:0; }
+.nav-links > li > a{ position:relative; display:inline-flex; align-items:center; white-space:nowrap; padding:.5rem .72rem; font-size:.92rem; font-weight:500; color:var(--ink); border-radius:var(--radius); transition:color .25s; }
 .is-transparent .nav-links > li > a{ color:rgba(255,255,255,.86); }
 .nav-links > li > a::after{ content:""; position:absolute; left:.78rem; right:.78rem; bottom:.28rem; height:1.5px; background:var(--brand); transform:scaleX(0); transform-origin:left; transition:transform .3s var(--ease); }
 .nav-links > li > a:hover::after,.nav-links > li > a[aria-current]::after{ transform:scaleX(1); }
@@ -135,8 +136,8 @@ p{ margin:0 0 1.1rem; }
 
 /* dropdown */
 .has-drop{ position:relative; }
-.drop-toggle{ display:inline-flex; align-items:center; gap:.3em; }
-.drop-toggle svg{ width:.72em; height:.72em; transition:transform .3s; }
+.drop-toggle{ display:inline-flex; align-items:center; gap:.3em; white-space:nowrap; }
+.drop-toggle svg{ flex-shrink:0; width:.72em; height:.72em; transition:transform .3s; }
 .has-drop:hover .drop-toggle svg,.has-drop:focus-within .drop-toggle svg{ transform:rotate(180deg); }
 .drop{ position:absolute; top:calc(100% + 6px); left:0; min-width:290px; background:#fff; border:1px solid var(--line); border-radius:var(--radius-lg); box-shadow:var(--shadow-md); padding:.5rem; list-style:none; margin:0; opacity:0; visibility:hidden; transform:translateY(8px); transition:.25s var(--ease); }
 .has-drop:hover .drop,.has-drop:focus-within .drop{ opacity:1; visibility:visible; transform:translateY(0); }
@@ -260,9 +261,14 @@ body.nav-open .nav-scrim{ opacity:1; visibility:visible; }
 .ind span{ position:relative; z-index:1; padding:16px; font-family:var(--font-display); font-weight:600; font-size:1rem; line-height:1.15; }
 
 /* ---------- Saudi map / ecosystem ---------- */
-.ksa{ display:grid; grid-template-columns:1fr 1fr; gap:clamp(30px,5vw,64px); align-items:center; }
-.ksa-map{ position:relative; }
-.ksa-map svg{ width:100%; height:auto; }
+.ksa{ display:grid; grid-template-columns:1.1fr .9fr; gap:clamp(30px,5vw,64px); align-items:center; }
+.ksa-map{ position:relative; border:1px solid var(--forest-line); border-radius:var(--radius-lg);
+  overflow:hidden; background:radial-gradient(120% 90% at 60% 30%, rgba(23,162,74,.10), transparent 70%); }
+.ksa-map svg{ width:100%; height:auto; display:block; }
+.ksa-map .pulse{ transform-box:fill-box; transform-origin:center; animation:portPulse 2.8s var(--ease) infinite; }
+.ksa-map .pulse:nth-of-type(2){ animation-delay:.5s; } .ksa-map .pulse:nth-of-type(3){ animation-delay:1s; }
+@keyframes portPulse{ 0%{ transform:scale(.55); opacity:.85; } 70%{ transform:scale(2.1); opacity:0; } 100%{ opacity:0; } }
+@media (prefers-reduced-motion:reduce){ .ksa-map .pulse{ animation:none; } }
 .port-list{ list-style:none; padding:0; margin:1.4rem 0 0; display:grid; grid-template-columns:1fr 1fr; gap:.5rem 1.4rem; }
 .port-list li{ display:flex; gap:.6rem; align-items:center; font-size:.95rem; }
 .port-list li::before{ content:""; width:9px; height:9px; border-radius:50%; background:var(--brand); box-shadow:0 0 0 4px rgba(23,162,74,.18); flex-shrink:0; }
@@ -278,6 +284,14 @@ body.nav-open .nav-scrim{ opacity:1; visibility:visible; }
 .cert-card img{ height:150px; width:auto; margin:0 auto 14px; object-fit:contain; }
 .cert-card b{ display:block; font-family:var(--font-display); font-size:.98rem; color:var(--ink); }
 .cert-card span{ font-size:.84rem; color:var(--muted); }
+
+/* ---------- Client logos (full colour tiles) ---------- */
+.client-strip{ display:grid; grid-template-columns:repeat(7,1fr); gap:clamp(10px,1.3vw,16px); }
+.client-cell{ display:grid; place-items:center; padding:clamp(12px,1.5vw,20px); min-height:clamp(72px,7vw,96px);
+  background:#fff; border:1px solid var(--line); border-radius:var(--radius-lg);
+  transition:transform .3s var(--ease), box-shadow .3s var(--ease), border-color .3s; }
+.client-cell img{ max-height:clamp(30px,3.2vw,44px); width:auto; object-fit:contain; }
+.client-cell:hover{ transform:translateY(-3px); box-shadow:var(--shadow-md); border-color:transparent; }
 
 /* ---------- CTA band ---------- */
 .cta-band{ position:relative; overflow:hidden; background:var(--forest); color:#fff; border-radius:var(--radius-lg); padding:clamp(40px,6vw,72px); }
