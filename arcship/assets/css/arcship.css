@@ -462,9 +462,9 @@ body.nav-open .nav-scrim{ opacity:1; visibility:visible; }
 .site-footer{ position:relative; overflow:hidden; background:var(--forest-900); color:#9fb3aa; padding-block:clamp(56px,7vw,84px) 0; font-size:.92rem; }
 .site-footer .container{ position:relative; z-index:2; }
 /* Signature oversized wordmark + green base glow (brand footer effect) */
-.footer-wordmark{ position:absolute; left:50%; bottom:-.14em; transform:translateX(-50%);
-  font-family:var(--font-display); font-weight:800; line-height:.78; letter-spacing:.015em;
-  font-size:clamp(2.4rem,13.2vw,12rem); white-space:nowrap; max-width:96vw; overflow:hidden; pointer-events:none; user-select:none; z-index:0;
+.footer-wordmark{ position:absolute; left:50%; bottom:clamp(10px,1.4vw,22px); transform:translateX(-50%);
+  font-family:var(--font-display); font-weight:800; line-height:1; letter-spacing:.015em;
+  font-size:clamp(2.2rem,12vw,11rem); white-space:nowrap; max-width:94vw; overflow:hidden; pointer-events:none; user-select:none; z-index:0;
   background:linear-gradient(180deg, rgba(91,217,138,.16), rgba(91,217,138,.03));
   -webkit-background-clip:text; background-clip:text; color:transparent;
   -webkit-text-stroke:1px rgba(91,217,138,.10); }
