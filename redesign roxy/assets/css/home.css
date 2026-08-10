@@ -240,17 +240,17 @@ ul{margin:0;padding:0;list-style:none}
      so the letters are covered more where the boat sits — the "behind the boat" effect */
   clip-path:polygon(
     0% 43%, 7% 43.5%, 10% 48%, 12.5% 50.7%, 17% 52%, 24% 52.8%, 28% 54%,
-    31% 55.2%, 35% 55.6%, 38% 56.9%, 41% 57.9%, 45% 57.3%, 47.5% 55%,
-    49% 52.3%, 52% 50.5%, 55% 48%, 59% 46.6%, 65% 45.4%, 68% 44.4%, 71% 43%,
-    74% 44.5%, 77% 47%, 79% 50%, 80.5% 53%, 82% 60%, 85% 66%, 88% 64.5%,
-    90.5% 62%, 92.5% 61%, 94.5% 66%, 95.2% 72%, 100% 78%,
+    31% 55.2%, 35% 55.6%, 38% 56.5%, 41% 57.5%, 44% 57%, 46% 55%,
+    48% 52%, 50% 50.5%, 53% 49.5%, 56% 48%, 58% 47%, 61% 46.5%, 64% 46%, 67% 46.5%,
+    70% 48%, 73% 50.5%, 76% 53.5%, 79% 57%, 82% 60.5%, 85% 64%, 88% 68%,
+    91% 72%, 94% 76%, 97% 79%, 100% 81%,
     100% 100%, 0% 100%
   );
 }
 .hero__ghost{
-  position:absolute;left:48.5%;top:22%;transform:translateX(-50%);z-index:3;
+  position:absolute;left:44.5%;top:27%;transform:translateX(-50%);z-index:3;
   font-family:var(--sans);font-weight:800;letter-spacing:.005em;line-height:.8;
-  font-size:24.5cqw;color:#fff;white-space:nowrap;pointer-events:none;user-select:none;
+  font-size:23.5cqw;color:#fff;white-space:nowrap;pointer-events:none;user-select:none;
   text-shadow:0 12px 60px rgba(8,20,28,.32);
 }
 .hero__scrim{position:absolute;inset:0;pointer-events:none}
@@ -308,6 +308,41 @@ ul{margin:0;padding:0;list-style:none}
 .about__tick{flex:0 0 auto;width:22px;height:22px;border-radius:50%;background:rgba(18,168,216,.12);position:relative}
 .about__tick::after{content:"";position:absolute;left:7px;top:5px;width:5px;height:9px;
   border:solid var(--aqua-deep);border-width:0 2px 2px 0;transform:rotate(45deg)}
+
+/* ---------- ABOUT (reference layout: centered kicker + arched image collage) ---------- */
+.about2__head{text-align:center;margin-bottom:clamp(2.4rem,4.5vw,3.8rem)}
+.about2__script{display:block;font-family:'Dancing Script',cursive;font-weight:600;
+  font-size:clamp(1.55rem,2.7vw,2.2rem);color:var(--aqua-deep);line-height:1}
+.about2__kicker{display:block;font-family:var(--sans);font-weight:700;text-transform:uppercase;
+  font-size:clamp(1.2rem,2.6vw,2rem);letter-spacing:.12em;color:var(--ink);margin-top:.35rem;text-wrap:balance}
+.about2__grid{display:grid;grid-template-columns:1fr 1.04fr;gap:clamp(2.6rem,6vw,6.5rem);align-items:center}
+.about2__media{position:relative;isolation:isolate;padding:0 3rem 3.2rem 0}
+.about2__img{margin:0;overflow:hidden}
+.about2__img img{width:100%;height:100%;object-fit:cover;transition:transform 1.4s var(--ease)}
+.about2__img--a{position:relative;z-index:1;width:76%;aspect-ratio:4/5;
+  border-radius:180px 180px 26px 26px;box-shadow:0 46px 80px -56px rgba(23,32,31,.55)}
+.about2__img--b{position:absolute;z-index:2;right:0;bottom:0;width:50%;aspect-ratio:3/4;
+  border-radius:110px 26px 26px 26px;border:7px solid var(--white);
+  box-shadow:0 30px 56px -34px rgba(23,32,31,.5)}
+.about2__media:hover .about2__img--a img{transform:scale(1.04)}
+.about2__exp{position:absolute;z-index:4;left:0;bottom:.2rem;display:flex;align-items:center;gap:1rem;
+  background:var(--white);border-radius:100px;padding:.7rem 1.5rem .7rem 1.1rem;
+  box-shadow:0 26px 50px -26px rgba(23,32,31,.5)}
+.about2__exp b{font-family:var(--serif);font-weight:600;font-size:clamp(2.1rem,3vw,2.7rem);color:var(--ink);
+  line-height:.9;padding-right:1rem;border-right:1.5px solid var(--line-2)}
+.about2__exp b span{color:var(--aqua);font-size:.5em;vertical-align:.55em}
+.about2__exp-label{font-size:.82rem;font-weight:600;color:var(--ink-2);line-height:1.2;text-transform:uppercase;letter-spacing:.03em}
+.about2__badge{position:absolute;z-index:5;top:1.6rem;right:1.8rem;display:flex;align-items:center;gap:.6rem;
+  background:var(--slate);color:#fff;border-radius:100px;padding:.5rem .95rem .5rem .55rem;
+  box-shadow:0 20px 40px -22px rgba(23,32,31,.6)}
+.about2__badge-ic{flex:0 0 auto;width:34px;height:34px;border-radius:50%;background:var(--aqua);
+  display:grid;place-items:center;color:#fff}
+.about2__badge-ic svg{width:14px;height:14px;margin-left:2px}
+.about2__badge-tx{display:flex;flex-direction:column;line-height:1.05;font-size:.72rem;color:rgba(255,255,255,.82)}
+.about2__badge-tx b{font-size:1rem;font-weight:700;color:#fff}
+.about2__title{font-family:var(--serif);font-weight:600;line-height:1.08;letter-spacing:-.01em;
+  font-size:clamp(2rem,3.9vw,3.35rem);color:var(--ink);text-wrap:balance;margin:0 0 1.4rem}
+.about2__lead{font-size:clamp(1.04rem,1.4vw,1.2rem);line-height:1.8;color:var(--ink-2);max-width:56ch;margin:0 0 1.9rem}
 
 /* ============================================================
    03 · STATS — minimal strip
@@ -678,10 +713,11 @@ ul{margin:0;padding:0;list-style:none}
    RESPONSIVE
    ============================================================ */
 @media (max-width:1040px){
-  .about__grid,.coll__feature,.why,.food__grid,.contact,.stories{grid-template-columns:1fr}
+  .about__grid,.about2__grid,.coll__feature,.why,.food__grid,.contact,.stories{grid-template-columns:1fr}
+  .about2__grid{gap:clamp(2.6rem,7vw,3.6rem)}
   .coll__feature{gap:2rem}
   .why__media{max-width:560px}
-  .about__media{max-width:560px;margin-inline:auto}
+  .about__media,.about2__media{max-width:540px;margin-inline:auto}
   .pk__grid{grid-template-columns:1fr;gap:1.6rem}
   .dest__grid{grid-template-columns:1fr;grid-template-rows:none}
   .dest__lead{grid-column:1;grid-row:auto;min-height:340px}
