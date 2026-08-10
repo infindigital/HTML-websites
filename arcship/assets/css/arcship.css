@@ -168,6 +168,22 @@ body.nav-open .nav-scrim{ opacity:1; visibility:visible; }
 .hero-media img{ width:100%; height:100%; object-fit:cover; animation:heroZoom 18s var(--ease) both; }
 @keyframes heroZoom{ from{ transform:scale(1.12); } to{ transform:scale(1); } }
 @media (prefers-reduced-motion: reduce){ .hero-media img{ animation:none; } }
+/* 3-image crossfade hero */
+.hero-slides{ position:absolute; inset:0; z-index:-2; }
+.hero-slides img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
+  opacity:0; animation:heroFade 21s infinite var(--ease); }
+.hero-slides img:nth-child(1){ animation-delay:0s; }
+.hero-slides img:nth-child(2){ animation-delay:7s; }
+.hero-slides img:nth-child(3){ animation-delay:14s; }
+@keyframes heroFade{
+  0%{ opacity:0; transform:scale(1.09); }
+  5%{ opacity:1; }
+  28%{ opacity:1; }
+  34%{ opacity:0; }
+  100%{ opacity:0; transform:scale(1); } }
+@media (prefers-reduced-motion: reduce){
+  .hero-slides img{ animation:none; opacity:0; transform:none; }
+  .hero-slides img:first-child{ opacity:1; } }
 .hero::after{ content:""; position:absolute; inset:0; z-index:-1;
   background:linear-gradient(180deg, rgba(6,24,15,.5) 0%, rgba(6,24,15,.28) 32%, rgba(6,24,15,.72) 82%, rgba(6,24,15,.9) 100%); }
 .hero-grid{ position:absolute; inset:0; z-index:-1; opacity:.5;
@@ -309,11 +325,8 @@ body.nav-open .nav-scrim{ opacity:1; visibility:visible; }
 .gallery-grid figcaption{ position:absolute; inset:auto 0 0 0; padding:16px; color:#fff;
   font-family:var(--font-display); font-size:.92rem; font-weight:600;
   background:linear-gradient(transparent,rgba(6,24,15,.85)); }
-.gallery-grid figure:nth-child(7n+1){ grid-column:span 2; aspect-ratio:16/10; }
-@media (max-width:860px){ .gallery-grid{ grid-template-columns:repeat(2,1fr); }
-  .gallery-grid figure:nth-child(7n+1){ grid-column:span 2; } }
-@media (max-width:520px){ .gallery-grid{ grid-template-columns:1fr; }
-  .gallery-grid figure{ grid-column:span 1 !important; aspect-ratio:4/3 !important; } }
+@media (max-width:860px){ .gallery-grid{ grid-template-columns:repeat(2,1fr); } }
+@media (max-width:520px){ .gallery-grid{ grid-template-columns:1fr; } }
 
 /* ---------- Saudi map / ecosystem ---------- */
 .ksa{ display:grid; grid-template-columns:1.1fr .9fr; gap:clamp(30px,5vw,64px); align-items:center; }
@@ -331,11 +344,13 @@ body.nav-open .nav-scrim{ opacity:1; visibility:visible; }
 
 /* ---------- Certifications ---------- */
 /* single line, full colour */
-.logo-strip{ display:flex; flex-wrap:nowrap; align-items:center; justify-content:space-between;
-  gap:clamp(14px,2vw,32px); overflow-x:auto; padding-bottom:6px; scrollbar-width:thin; }
-.logo-strip img{ height:clamp(38px,4.6vw,58px); width:auto; object-fit:contain; flex:0 0 auto;
-  filter:none; opacity:1; transition:transform .35s var(--ease); }
+.logo-strip{ display:grid; grid-template-columns:repeat(9,1fr); align-items:center;
+  gap:clamp(10px,1.8vw,26px); }
+.logo-strip img{ max-height:clamp(30px,3.4vw,46px); max-width:100%; width:auto; height:auto;
+  object-fit:contain; justify-self:center; filter:none; opacity:1; transition:transform .35s var(--ease); }
 .logo-strip img:hover{ transform:translateY(-3px); }
+@media (max-width:900px){ .logo-strip{ grid-template-columns:repeat(5,1fr); row-gap:22px; } }
+@media (max-width:560px){ .logo-strip{ grid-template-columns:repeat(3,1fr); row-gap:20px; } }
 .cert-cards{ display:grid; grid-template-columns:repeat(3,1fr); gap:clamp(16px,2vw,24px); }
 .cert-card{ background:#fff; border:1px solid var(--line); border-radius:var(--radius-lg); padding:20px; text-align:center; transition:box-shadow .35s,transform .35s; }
 .cert-card:hover{ box-shadow:var(--shadow-md); transform:translateY(-4px); }
@@ -440,7 +455,22 @@ body.nav-open .nav-scrim{ opacity:1; visibility:visible; }
 .imgph span{ font-size:.78rem; letter-spacing:.1em; text-transform:uppercase; }
 
 /* ---------- Footer ---------- */
-.site-footer{ background:var(--forest-900); color:#9fb3aa; padding-block:clamp(56px,7vw,84px) 32px; font-size:.92rem; }
+.site-footer{ position:relative; overflow:hidden; background:var(--forest-900); color:#9fb3aa; padding-block:clamp(56px,7vw,84px) 0; font-size:.92rem; }
+.site-footer .container{ position:relative; z-index:2; }
+/* Signature oversized wordmark + green base glow (brand footer effect) */
+.footer-wordmark{ position:absolute; left:50%; bottom:-.14em; transform:translateX(-50%);
+  font-family:var(--font-display); font-weight:800; line-height:.78; letter-spacing:.015em;
+  font-size:clamp(4.5rem,21vw,20rem); white-space:nowrap; pointer-events:none; user-select:none; z-index:0;
+  background:linear-gradient(180deg, rgba(91,217,138,.16), rgba(91,217,138,.03));
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+  -webkit-text-stroke:1px rgba(91,217,138,.10); }
+.footer-glow{ position:absolute; left:0; right:0; bottom:0; height:46%; z-index:0; pointer-events:none;
+  background:linear-gradient(180deg, transparent, rgba(23,162,74,.16) 62%, rgba(23,162,74,.34)); }
+.footer-glow::after{ content:""; position:absolute; left:0; right:0; bottom:0; height:14px;
+  background:linear-gradient(90deg, transparent, rgba(91,217,138,.55), transparent);
+  filter:blur(6px); }
+@media (prefers-reduced-motion: no-preference){
+  .footer-wordmark{ transition:background .6s var(--ease); } }
 .footer-top{ display:grid; grid-template-columns:1.5fr 1fr 1fr 1.3fr; gap:clamp(28px,4vw,52px); padding-bottom:clamp(40px,5vw,56px); border-bottom:1px solid var(--forest-line); }
 .footer-brand .brand-word{ color:#fff; }
 .footer-brand p{ margin:1rem 0 1.3rem; max-width:34ch; color:#8ba79b; }
@@ -454,7 +484,7 @@ body.nav-open .nav-scrim{ opacity:1; visibility:visible; }
 .footer-col a:hover{ color:#fff; }
 .footer-contact li{ display:flex; gap:.6rem; margin-bottom:.7rem; align-items:flex-start; }
 .footer-contact svg{ width:17px; height:17px; color:var(--brand); flex-shrink:0; margin-top:3px; }
-.footer-bottom{ display:flex; flex-wrap:wrap; gap:16px; justify-content:space-between; align-items:center; padding-top:26px; font-size:.84rem; color:#7f958b; }
+.footer-bottom{ display:flex; flex-wrap:wrap; gap:16px; justify-content:space-between; align-items:center; padding:26px 0 clamp(90px,12vw,150px); font-size:.84rem; color:#7f958b; }
 .footer-bottom nav{ display:flex; flex-wrap:wrap; gap:1.2rem; }
 .footer-bottom a:hover{ color:#fff; }
 
