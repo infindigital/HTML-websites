@@ -283,6 +283,81 @@
     }
   });
 
+  /* ---- testimonials paged carousel ---- */
+  doc.querySelectorAll("[data-rev]").forEach(function (stage) {
+    var track = stage.querySelector("[data-rev-track]");
+    var cards = Array.prototype.slice.call(stage.querySelectorAll(".rev-card"));
+    var dotsWrap = stage.querySelector("[data-rev-dots]");
+    var prev = stage.querySelector("[data-rev-prev]");
+    var next = stage.querySelector("[data-rev-next]");
+    if (!track || cards.length === 0) return;
+
+    var n = cards.length;
+    var page = 0;
+
+    function perView() {
+      var w = window.innerWidth;
+      if (w <= 640) return 1;
+      if (w <= 1040) return 2;
+      return 3;
+    }
+
+    function gapPx() {
+      var g = window.getComputedStyle(track).columnGap || window.getComputedStyle(track).gap;
+      return parseFloat(g) || 0;
+    }
+
+    function pageCount() { return Math.max(1, Math.ceil(n / perView())); }
+
+    function buildDots() {
+      if (!dotsWrap) return;
+      dotsWrap.innerHTML = "";
+      var pc = pageCount();
+      for (var i = 0; i < pc; i++) {
+        (function (i) {
+          var b = doc.createElement("button");
+          b.type = "button";
+          b.className = "rev__dot";
+          b.setAttribute("aria-label", "Go to review page " + (i + 1));
+          b.addEventListener("click", function () { go(i); });
+          dotsWrap.appendChild(b);
+        })(i);
+      }
+    }
+
+    function render() {
+      var per = perView();
+      var pc = pageCount();
+      if (page > pc - 1) page = pc - 1;
+      var step = cards[0].getBoundingClientRect().width + gapPx();
+      var start = Math.min(page * per, Math.max(0, n - per)); /* clamp last page flush-right */
+      track.style.transform = "translateX(" + (-start * step) + "px)";
+
+      var dots = dotsWrap ? dotsWrap.querySelectorAll(".rev__dot") : [];
+      dots.forEach(function (d, i) { d.classList.toggle("is-active", i === page); });
+      if (prev) prev.disabled = page === 0;
+      if (next) next.disabled = page >= pc - 1;
+    }
+
+    function go(p) {
+      var pc = pageCount();
+      page = Math.max(0, Math.min(p, pc - 1));
+      render();
+    }
+
+    if (prev) prev.addEventListener("click", function () { go(page - 1); });
+    if (next) next.addEventListener("click", function () { go(page + 1); });
+
+    buildDots();
+    render();
+
+    var rt;
+    window.addEventListener("resize", function () {
+      window.clearTimeout(rt);
+      rt = window.setTimeout(function () { buildDots(); render(); }, 150);
+    });
+  });
+
   /* ---- year ---- */
   var y = new Date().getFullYear();
   doc.querySelectorAll("#year, .rx-year").forEach(function (s) { s.textContent = y; });

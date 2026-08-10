@@ -535,6 +535,55 @@ ul{margin:0;padding:0;list-style:none}
   color:rgba(255,255,255,.86);max-width:34ch;margin:0}
 
 /* ============================================================
+   06c · TESTIMONIALS — google-style review carousel
+   ============================================================ */
+.rev{background:#f1f6f9}
+.rev__head{text-align:center;margin-bottom:clamp(2.4rem,4.5vw,3.6rem)}
+.rev__script{display:block;font-family:'Dancing Script',cursive;font-weight:600;
+  font-size:clamp(1.6rem,2.8vw,2.3rem);color:var(--aqua);line-height:1}
+.rev__title{font-family:var(--sans);font-weight:700;font-size:clamp(1.7rem,3.4vw,2.7rem);
+  color:var(--navy);margin:.3rem 0 0;line-height:1.14;letter-spacing:-.01em}
+
+.rev__stage{position:relative}
+.rev__viewport{overflow:hidden;padding:16px 6px 8px}
+.rev__track{--g:clamp(1rem,1.6vw,1.5rem);display:flex;gap:var(--g);align-items:stretch;
+  transition:transform .6s var(--ease);will-change:transform}
+.rev-card{flex:0 0 calc((100% - 2*var(--g))/3);background:#fff;border:1px solid var(--line);
+  border-radius:18px;padding:clamp(1.6rem,2.3vw,2.1rem);
+  display:flex;flex-direction:column;align-items:center;text-align:center;
+  box-shadow:0 30px 55px -42px rgba(23,58,77,.42)}
+.rev-card__avatar{width:64px;height:64px;border-radius:50%;flex:0 0 auto;
+  display:grid;place-items:center;color:#fff;overflow:hidden;
+  font-family:var(--sans);font-weight:700;font-size:1.4rem;letter-spacing:.02em}
+.rev-card__avatar img{width:100%;height:100%;object-fit:cover}
+.rev-card__name{font-family:var(--sans);font-weight:700;font-size:clamp(1.05rem,1.3vw,1.2rem);
+  color:var(--navy);margin:.9rem 0 .7rem}
+.rev-card__text{color:var(--ink-2);line-height:1.72;font-size:clamp(.94rem,1.05vw,1rem);margin:0}
+.rev-card__foot{margin-top:auto;padding-top:1.3rem;width:100%;
+  display:flex;align-items:center;justify-content:space-between;gap:1rem;
+  border-top:1px solid var(--line)}
+.rev-card__rating{display:inline-flex;align-items:center;gap:.4rem;
+  font-family:var(--sans);font-weight:700;font-size:.95rem;color:var(--navy)}
+.rev-card__rating svg{width:16px;height:16px;color:#f6a609}
+.rev-card__ago{font-size:.85rem;color:var(--muted)}
+
+.rev__nav{position:absolute;top:50%;transform:translateY(-50%);z-index:6;
+  width:clamp(42px,4.2vw,52px);height:clamp(42px,4.2vw,52px);border-radius:50%;border:none;
+  background:var(--aqua);color:#fff;display:grid;place-items:center;cursor:pointer;
+  box-shadow:0 16px 30px -14px rgba(18,168,216,.7);
+  transition:background .35s var(--ease),transform .35s var(--ease)}
+.rev__nav svg{width:46%;height:46%}
+.rev__nav--prev{left:clamp(-10px,-0.6vw,0px)}
+.rev__nav--next{right:clamp(-10px,-0.6vw,0px)}
+.rev__nav:hover{background:var(--aqua-deep);transform:translateY(-50%) scale(1.06)}
+.rev__nav[disabled]{opacity:.35;cursor:default;pointer-events:none}
+
+.rev__dots{display:flex;justify-content:center;gap:.55rem;margin-top:clamp(1.6rem,2.4vw,2.2rem)}
+.rev__dot{width:9px;height:9px;border-radius:50%;border:none;padding:0;cursor:pointer;
+  background:#c7d2d8;transition:background .35s var(--ease),width .35s var(--ease)}
+.rev__dot.is-active{background:var(--aqua);width:26px;border-radius:5px}
+
+/* ============================================================
    07 · WATER — cinematic full-bleed story
    ============================================================ */
 .water{position:relative;overflow:hidden;color:#fff;isolation:isolate;
@@ -814,6 +863,7 @@ ul{margin:0;padding:0;list-style:none}
   .why__media{max-width:560px}
   .about__media,.about2__media{max-width:540px;margin-inline:auto}
   .svc__legend{grid-template-columns:repeat(3,1fr);row-gap:1.8rem}
+  .rev-card{flex-basis:calc((100% - var(--g))/2)}
   .svc2__panel{grid-template-columns:1fr;gap:.9rem}
   .svc2__intro{min-height:auto}
   .svc2__card{min-height:clamp(380px,64vw,460px)}
@@ -841,6 +891,9 @@ ul{margin:0;padding:0;list-style:none}
   .svc__legend{grid-template-columns:repeat(2,1fr)}
   .svc__track{height:clamp(420px,86vw,520px)}
   .svc-card{width:clamp(230px,62vw,300px)}
+  .rev-card{flex-basis:100%}
+  .rev__nav--prev{left:-6px}
+  .rev__nav--next{right:-6px}
 }
 /* --- hero on tablet + mobile: SIMPLE clean photo hero (no behind-boat effect) --- */
 @media (max-width:1024px){
