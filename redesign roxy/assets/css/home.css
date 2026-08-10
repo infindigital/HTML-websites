@@ -889,6 +889,39 @@ ul{margin:0;padding:0;list-style:none}
 .acc__a{max-height:0;overflow:hidden;transition:max-height .5s var(--ease)}
 .acc__a-in{padding-bottom:1.5rem;color:var(--ink-2);line-height:1.8;max-width:60ch}
 
+/* ---- Contact + FAQ — grey curved form panel beside the accordion ---- */
+.cx__grid{display:grid;grid-template-columns:1fr 1.05fr;gap:clamp(2rem,4.5vw,4.5rem);align-items:start}
+.cx__panel{background:#e9edf1;border-radius:clamp(22px,2.4vw,32px);
+  padding:clamp(1.6rem,3vw,2.8rem)}
+.cx__eyebrow{display:flex;align-items:center;gap:.9rem;font-weight:700;font-size:.76rem;
+  letter-spacing:.16em;text-transform:uppercase;color:var(--aqua)}
+.cx__eyebrow::after{content:"";height:2px;width:clamp(44px,5vw,72px);background:var(--aqua);border-radius:2px}
+.cx__title{font-family:var(--sans);font-weight:800;color:var(--navy);line-height:1.1;
+  letter-spacing:-.02em;font-size:clamp(1.7rem,2.8vw,2.4rem);margin:.9rem 0 0}
+.cx__sub{color:var(--ink-2);font-size:.96rem;margin:.6rem 0 0}
+.cx__form{margin-top:clamp(1.4rem,2.4vw,2rem)}
+.cx__row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.cx__form .field input,.cx__form .field textarea{background:#fff;border:1px solid var(--line-2);
+  border-radius:12px}
+.cx__form .field input:focus,.cx__form .field textarea:focus{border-color:var(--aqua);background:#fff}
+.cx__btn{width:100%;margin-top:.5rem;padding:1em 1.5em;border:0;cursor:pointer;
+  border-radius:12px;background:var(--aqua);color:#fff;font-family:inherit;font-weight:600;
+  font-size:.82rem;text-transform:uppercase;letter-spacing:.09em;
+  box-shadow:0 20px 34px -18px rgba(18,168,216,.7);
+  transition:transform .4s var(--ease),background .4s var(--ease)}
+.cx__btn:hover{background:var(--aqua-deep);transform:translateY(-2px)}
+.cx__faq-title{font-family:var(--sans);font-weight:800;color:var(--navy);
+  letter-spacing:-.01em;font-size:clamp(1.5rem,2.4vw,2.1rem);text-align:center;
+  margin:0 0 clamp(1.4rem,2.6vw,2rem)}
+.cx__faq .acc{border-top:0;display:flex;flex-direction:column;gap:.7rem}
+.cx__faq .acc__item{border-bottom:0;background:#f4f6f8;border:1px solid var(--line);
+  border-radius:14px;padding:0 clamp(1rem,1.6vw,1.4rem);overflow:hidden;
+  transition:background .35s var(--ease),border-color .35s var(--ease)}
+.cx__faq .acc__item.is-open{background:#eef3f6;border-color:var(--line-2)}
+.cx__faq .acc__q{padding:clamp(1rem,1.6vw,1.25rem) 0;font-weight:600;color:var(--navy);
+  font-size:clamp(.95rem,1.1vw,1.04rem);gap:1rem}
+.cx__faq .acc__a-in{padding-bottom:clamp(1rem,1.6vw,1.25rem);max-width:none}
+
 /* ============================================================
    16 · FINAL CINEMATIC CTA — "See You On The Water"
    ============================================================ */
@@ -980,8 +1013,9 @@ ul{margin:0;padding:0;list-style:none}
    RESPONSIVE
    ============================================================ */
 @media (max-width:1040px){
-  .about__grid,.about2__grid,.coll__feature,.why,.whyx,.food__grid,.contact,.stories{grid-template-columns:1fr}
+  .about__grid,.about2__grid,.coll__feature,.why,.whyx,.food__grid,.contact,.cx__grid,.stories{grid-template-columns:1fr}
   .whyx__cards{max-width:640px}
+  .cx__panel,.cx__faq{max-width:640px;margin-inline:auto;width:100%}
   .about2__grid{gap:clamp(2.6rem,7vw,3.6rem)}
   .coll__feature{gap:2rem}
   .why__media{max-width:560px}
@@ -1056,7 +1090,7 @@ ul{margin:0;padding:0;list-style:none}
   .hero__cta .btn{flex:1;justify-content:center}
   .stats{grid-template-columns:1fr 1fr;gap:1.4rem}
   .stat{border-left:0;padding-left:0}
-  .frow{grid-template-columns:1fr}
+  .frow,.cx__row{grid-template-columns:1fr}
   .coll__specs{gap:1.4rem}
   .stories__side{flex-direction:column}
   .food__inset{width:38%}
