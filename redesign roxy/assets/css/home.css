@@ -682,6 +682,36 @@ ul{margin:0;padding:0;list-style:none}
 .gal__foot{margin-top:clamp(2rem,4vw,3rem);text-align:center}
 
 /* ============================================================
+   GALLERY — "Our Houseboats" themed mosaic
+   ============================================================ */
+.gal2__head{display:flex;align-items:flex-end;justify-content:space-between;gap:1.5rem;
+  flex-wrap:wrap;margin-bottom:clamp(2rem,3.6vw,3.1rem)}
+.gal2__script{display:block;font-family:'Dancing Script',cursive;font-weight:600;
+  font-size:clamp(1.5rem,2.6vw,2.1rem);color:var(--aqua);line-height:1}
+.gal2__title{font-family:var(--sans);font-weight:700;text-transform:uppercase;
+  font-size:clamp(1.7rem,3.6vw,2.8rem);letter-spacing:.04em;color:var(--navy);
+  margin:.3rem 0 0;line-height:1.1}
+.gal2__more{display:inline-flex;align-items:center;gap:.6em;
+  padding:.9em 1.7em;border-radius:999px;background:var(--navy);color:#fff;
+  font-family:var(--sans);font-weight:600;font-size:.9rem;letter-spacing:.04em;text-transform:uppercase;
+  transition:background .4s var(--ease),transform .4s var(--ease)}
+.gal2__more svg{width:15px;height:15px;transition:transform .4s var(--ease)}
+.gal2__more:hover{background:var(--ink);transform:translateY(-2px)}
+.gal2__more:hover svg{transform:translateX(3px)}
+
+.gal2__grid{display:grid;grid-template-columns:repeat(3,1fr);
+  grid-auto-rows:clamp(240px,25vw,330px);gap:clamp(.9rem,1.4vw,1.3rem)}
+.gal2__tile{position:relative;overflow:hidden;border-radius:20px;margin:0}
+.gal2__tile img{width:100%;height:100%;object-fit:cover;display:block;
+  transition:transform 1.4s var(--ease)}
+.gal2__tile::after{content:"";position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(10,22,30,0) 62%,rgba(10,22,30,.34));
+  opacity:0;transition:opacity .5s var(--ease)}
+.gal2__tile:hover img{transform:scale(1.06)}
+.gal2__tile:hover::after{opacity:1}
+.gal2__tile--wide{grid-column:span 2}
+
+/* ============================================================
    12 · TESTIMONIALS — "Stories From The Water"
    ============================================================ */
 .stories{display:grid;grid-template-columns:1.4fr .9fr;gap:clamp(2.4rem,5vw,5rem);align-items:center}
@@ -900,6 +930,12 @@ ul{margin:0;padding:0;list-style:none}
   .rev-card{flex-basis:100%}
   .rev__nav--prev{left:-6px}
   .rev__nav--next{right:-6px}
+  .gal2__grid{grid-template-columns:repeat(2,1fr);grid-auto-rows:clamp(210px,42vw,280px)}
+  .gal2__tile--wide{grid-column:span 2}
+}
+@media (max-width:560px){
+  .gal2__grid{grid-template-columns:1fr;grid-auto-rows:clamp(220px,58vw,300px)}
+  .gal2__tile--wide{grid-column:span 1}
 }
 /* --- hero on tablet + mobile: SIMPLE clean photo hero (no behind-boat effect) --- */
 @media (max-width:1024px){
