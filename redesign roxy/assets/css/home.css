@@ -1458,8 +1458,8 @@ ul{margin:0;padding:0;list-style:none}
    — same scene + foreground cut-out as the About/Services hero
    ============================================================ */
 .hero__ghost--packages{
-  left:32%;top:58%;transform:translateX(-50%) scaleY(1.45);
-  font-weight:700;letter-spacing:-.055em;font-size:11cqw;
+  left:32%;top:63%;transform:translateX(-50%) scaleY(1.45);
+  font-weight:700;letter-spacing:-.055em;font-size:11.5cqw;
   text-shadow:0 2px 30px rgba(8,20,28,.18);
 }
 @media (max-width:1024px){
