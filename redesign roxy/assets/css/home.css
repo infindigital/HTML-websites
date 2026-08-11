@@ -1586,3 +1586,59 @@ ul{margin:0;padding:0;list-style:none}
 @media (max-width:560px){
   .galx{gap:10px;grid-auto-rows:37vw}
 }
+
+/* ============================================================
+   CONTACT · full-bleed backwater hero with big "CONTACT US" type
+   — banner scene, left-anchored legibility scrim, layered heading
+   ============================================================ */
+.hero__stage--contact{aspect-ratio:auto;height:clamp(440px,60vh,600px)}
+.hero__bg--contact{background-position:60% 56%}
+/* darkening wash — heavier on the left where the type sits */
+.chero__scrim{position:absolute;inset:0;z-index:2;pointer-events:none;
+  background:linear-gradient(90deg,rgba(8,22,30,.62) 0%,rgba(8,22,30,.42) 30%,rgba(8,22,30,.12) 56%,rgba(8,22,30,0) 78%),
+             linear-gradient(0deg,rgba(8,22,30,.32) 0%,rgba(8,22,30,0) 34%)}
+.chero__cap{position:absolute;z-index:6;left:0;top:50%;transform:translateY(-50%);
+  padding-inline:clamp(1.6rem,5vw,4.4rem);max-width:min(720px,92%)}
+.chero__eyebrow{display:inline-flex;align-items:center;gap:.6em;color:#fff;
+  font-size:.74rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;
+  margin-bottom:clamp(.9rem,1.6vw,1.3rem);opacity:.94}
+.chero__eyebrow svg{width:15px;height:15px;color:var(--aqua)}
+.chero__small{display:block;font-family:var(--sans);font-weight:600;color:#fff;
+  text-transform:uppercase;letter-spacing:.16em;line-height:1;
+  font-size:clamp(1.4rem,3.4vw,2.7rem);text-shadow:0 2px 24px rgba(8,20,28,.4)}
+.chero__big{display:block;font-family:var(--sans);font-weight:800;color:#fff;
+  text-transform:uppercase;letter-spacing:-.02em;line-height:.9;margin-top:.06em;
+  font-size:clamp(3.8rem,11vw,8rem);text-shadow:0 6px 40px rgba(8,20,28,.42)}
+.chero__rule{display:block;width:clamp(56px,7vw,104px);height:3px;border-radius:3px;
+  background:var(--aqua);margin-top:clamp(1.1rem,2vw,1.6rem)}
+@media (max-width:600px){
+  .hero__stage--contact{height:clamp(360px,66vh,440px)}
+  .hero__bg--contact{background-position:66% 56%}
+  .chero__scrim{background:linear-gradient(90deg,rgba(8,22,30,.66) 0%,rgba(8,22,30,.42) 46%,rgba(8,22,30,.14) 82%),
+                linear-gradient(0deg,rgba(8,22,30,.4) 0%,rgba(8,22,30,0) 40%)}
+}
+
+/* ============================================================
+   CONTACT · location map — rounded, framed to match the system
+   ============================================================ */
+.cmap{position:relative;border-radius:var(--radius);overflow:hidden;
+  box-shadow:0 40px 80px -48px rgba(10,32,44,.5);border:1px solid var(--line);
+  background:var(--bg-2)}
+.cmap iframe{display:block;width:100%;height:clamp(340px,46vw,520px);border:0}
+/* contact split — form panel beside the detail rail */
+.cx__grid--contact{grid-template-columns:1.05fr .95fr;align-items:stretch}
+.cx__info{align-self:center}
+.cx__info-eyebrow{display:block;font-family:'Dancing Script',cursive;font-weight:600;
+  color:var(--aqua-deep);font-size:clamp(1.35rem,2vw,1.7rem);line-height:1;margin-bottom:.3rem}
+.cx__info-title{font-family:var(--sans);font-weight:700;color:var(--navy);
+  letter-spacing:-.01em;font-size:clamp(1.5rem,2.4vw,2rem);margin:0 0 .7rem}
+.cx__info-lead{color:var(--ink-2);line-height:1.72;font-size:.98rem;max-width:44ch;margin:0}
+.cx__info .cdet:first-child{border-top:1px solid var(--line);margin-top:1.6rem}
+.cx__info .cdet:last-child{border-bottom:1px solid var(--line)}
+.cx__info .btn{margin-top:1.6rem}
+@media (max-width:860px){
+  .cx__grid--contact{grid-template-columns:1fr}
+  .cx__info{text-align:center}
+  .cx__info-lead{margin-inline:auto}
+  .cx__info .cdet{text-align:left}
+}
