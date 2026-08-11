@@ -383,6 +383,70 @@ ul{margin:0;padding:0;list-style:none}
   .wwa__info{flex-wrap:wrap}
 }
 
+/* ============================================================
+   03 · OUR VISION — cinematic band + WHAT SETS US APART cards
+   ============================================================ */
+/* --- vision band --- */
+.vis__band{position:relative;isolation:isolate;overflow:hidden;border-radius:var(--radius);
+  min-height:clamp(400px,54vw,540px);display:flex;align-items:center;
+  padding:clamp(2.4rem,6vw,5.5rem) clamp(1.6rem,5vw,4.5rem);color:#fff}
+.vis__band-bg{position:absolute;inset:0;z-index:-2}
+.vis__band-bg img{width:100%;height:100%;object-fit:cover;transition:transform 8s var(--ease)}
+.vis__band:hover .vis__band-bg img{transform:scale(1.06)}
+.vis__band::after{content:"";position:absolute;inset:0;z-index:-1;
+  background:linear-gradient(100deg,rgba(9,24,32,.82) 0%,rgba(9,24,32,.58) 46%,rgba(9,24,32,.2) 100%)}
+.vis__band-in{max-width:44rem}
+.vis__script{display:block;font-family:'Dancing Script',cursive;font-weight:600;
+  font-size:clamp(1.5rem,2.6vw,2.1rem);color:#7fe0ff;line-height:1;margin-bottom:.5rem}
+.vis__title{font-family:var(--sans);font-weight:700;line-height:1.06;letter-spacing:-.02em;
+  font-size:clamp(2.1rem,4.6vw,3.7rem);color:#fff;margin:0;text-wrap:balance}
+.vis__title em{font-style:italic;font-weight:400;color:rgba(255,255,255,.86)}
+.vis__text{color:rgba(255,255,255,.9);font-size:clamp(1rem,1.35vw,1.16rem);line-height:1.8;
+  max-width:46ch;margin:clamp(1.1rem,2vw,1.6rem) 0 0}
+.vis__badges{display:flex;flex-wrap:wrap;gap:.7rem;margin-top:clamp(1.6rem,2.6vw,2.2rem)}
+.vis__badge{display:inline-flex;align-items:center;gap:.5em;font-size:.82rem;font-weight:600;
+  letter-spacing:.01em;color:#fff;padding:.5em 1em .5em .7em;border-radius:100px;
+  background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22)}
+.vis__badge svg{width:15px;height:15px;color:#7fe0ff}
+
+/* --- what sets us apart --- */
+.wsa{margin-top:clamp(3rem,6vw,5.5rem)}
+.wsa__head{text-align:center;max-width:42rem;margin:0 auto clamp(2.4rem,4.4vw,3.6rem)}
+.wsa__script{display:block;font-family:'Dancing Script',cursive;font-weight:600;
+  font-size:clamp(1.5rem,2.6vw,2.1rem);color:var(--aqua);line-height:1}
+.wsa__title{font-family:var(--sans);font-weight:800;line-height:1.12;letter-spacing:-.02em;
+  font-size:clamp(1.9rem,3.8vw,3rem);color:var(--navy);margin:.3rem 0 0;text-wrap:balance}
+.wsa__sub{color:var(--ink-2);font-size:clamp(1rem,1.2vw,1.1rem);line-height:1.7;margin:.9rem 0 0}
+.wsa__grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(1.2rem,2.2vw,1.8rem)}
+.wsa-card{position:relative;isolation:isolate;overflow:hidden;background:var(--white);
+  border:1px solid var(--line);border-radius:var(--radius);
+  padding:clamp(2rem,3vw,2.8rem) clamp(1.6rem,2.4vw,2.2rem) clamp(2rem,3vw,2.6rem);
+  text-align:center;transition:transform .45s var(--ease),box-shadow .45s var(--ease),border-color .45s var(--ease)}
+.wsa-card::before{content:"";position:absolute;top:0;left:0;right:0;height:4px;z-index:2;
+  background:linear-gradient(90deg,var(--aqua),#7fe0ff);transform:scaleX(0);transform-origin:left;
+  transition:transform .5s var(--ease)}
+.wsa-card:hover{transform:translateY(-6px);border-color:transparent;
+  box-shadow:0 26px 54px rgba(15,50,66,.14)}
+.wsa-card:hover::before{transform:scaleX(1)}
+.wsa-card__no{position:absolute;top:clamp(1rem,1.8vw,1.5rem);right:clamp(1.2rem,2vw,1.7rem);z-index:2;
+  font-family:var(--sans);font-weight:800;font-size:clamp(2rem,3vw,2.7rem);line-height:1;
+  color:var(--navy);opacity:.06;font-variant-numeric:tabular-nums}
+.wsa-card__ic{position:relative;display:inline-grid;place-items:center;width:clamp(82px,8vw,96px);
+  height:clamp(82px,8vw,96px);margin:0 auto clamp(1.2rem,1.8vw,1.5rem);color:var(--aqua-deep)}
+.wsa-card__ic::before{content:"";position:absolute;inset:0;z-index:-1;border-radius:46% 54% 58% 42%/52% 44% 56% 48%;
+  background:radial-gradient(circle at 35% 30%,rgba(18,168,216,.2),rgba(18,168,216,.08));
+  transition:transform .6s var(--ease)}
+.wsa-card:hover .wsa-card__ic::before{transform:rotate(28deg) scale(1.05)}
+.wsa-card__ic svg{width:42%;height:42%}
+.wsa-card__title{font-family:var(--sans);font-weight:700;color:var(--navy);
+  font-size:clamp(1.24rem,1.7vw,1.5rem);line-height:1.2;margin:0}
+.wsa-card__text{color:var(--ink-2);font-size:clamp(.94rem,1.05vw,1.02rem);line-height:1.65;
+  margin:.7rem 0 0}
+
+@media (max-width:860px){
+  .wsa__grid{grid-template-columns:1fr;max-width:30rem;margin-inline:auto}
+}
+
 /* hero rating strip beneath the frame */
 .hero__meta{display:flex;align-items:center;justify-content:space-between;gap:1.4rem;flex-wrap:wrap;
   margin-top:clamp(1.4rem,2.4vw,2rem)}
