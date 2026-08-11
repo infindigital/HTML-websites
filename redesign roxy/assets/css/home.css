@@ -1553,7 +1553,7 @@ ul{margin:0;padding:0;list-style:none}
    — same scene + foreground cut-out as the other page heroes
    ============================================================ */
 .hero__ghost--gallery{
-  left:31%;top:60.5%;transform:translateX(-50%) scaleY(1.45);
+  left:31%;top:58%;transform:translateX(-50%) scaleY(1.45);
   font-weight:700;letter-spacing:-.055em;font-size:12.4cqw;
   text-shadow:0 2px 30px rgba(8,20,28,.18);
 }
@@ -1564,20 +1564,21 @@ ul{margin:0;padding:0;list-style:none}
 /* ============================================================
    GALLERY · uniform rounded grid — perfectly aligned, no repeats
    ============================================================ */
-.galx{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(12px,1.4vw,20px)}
-.galx__item{position:relative;margin:0;aspect-ratio:4/3;overflow:hidden;
-  border-radius:clamp(14px,1.4vw,20px);
+/* natural masonry — images keep their own proportions, aligned in columns */
+.galx{column-count:3;column-gap:clamp(12px,1.4vw,20px)}
+.galx__item{position:relative;margin:0 0 clamp(12px,1.4vw,20px);break-inside:avoid;
+  overflow:hidden;border-radius:clamp(14px,1.4vw,20px);
   box-shadow:0 22px 44px -32px rgba(10,32,44,.55)}
-.galx__item img{width:100%;height:100%;object-fit:cover;display:block;
-  transition:transform 1.2s var(--ease)}
-.galx__item:hover img{transform:scale(1.07)}
+.galx__item img{width:100%;height:auto;display:block;transition:transform 1.2s var(--ease)}
+.galx__item:hover img{transform:scale(1.06)}
 .galx__item::after{content:"";position:absolute;inset:0;pointer-events:none;
   background:linear-gradient(180deg,transparent 55%,rgba(9,26,33,.32) 100%);
   opacity:0;transition:opacity .45s var(--ease)}
 .galx__item:hover::after{opacity:1}
 @media (max-width:900px){
-  .galx{grid-template-columns:repeat(3,1fr)}
+  .galx{column-count:2}
 }
 @media (max-width:560px){
-  .galx{grid-template-columns:repeat(2,1fr);gap:10px}
+  .galx{column-count:2;column-gap:10px}
+  .galx__item{margin-bottom:10px}
 }
