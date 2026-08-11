@@ -1594,7 +1594,7 @@ ul{margin:0;padding:0;list-style:none}
 /* giant "CONTACT US" settled into the water, tail tucked behind the boat —
    same layered scene + foreground cut-out as the Packages / Gallery heroes */
 .hero__ghost--contact{
-  left:30%;top:60.5%;transform:translateX(-50%) scaleY(1.45);
+  left:34%;top:60.5%;transform:translateX(-50%) scaleY(1.45);
   font-weight:700;letter-spacing:-.06em;font-size:9.3cqw;
   text-shadow:0 2px 30px rgba(8,20,28,.18);
 }
