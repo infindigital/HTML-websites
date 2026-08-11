@@ -1452,3 +1452,98 @@ ul{margin:0;padding:0;list-style:none}
 @media (max-width:480px){
   .svcf__list{grid-template-columns:1fr}
 }
+
+/* ============================================================
+   PACKAGES · hero giant word ("PACKAGES") standing in the water
+   — same scene + foreground cut-out as the About/Services hero
+   ============================================================ */
+.hero__ghost--packages{
+  left:32%;top:58%;transform:translateX(-50%) scaleY(1.45);
+  font-weight:700;letter-spacing:-.055em;font-size:11cqw;
+  text-shadow:0 2px 30px rgba(8,20,28,.18);
+}
+@media (max-width:1024px){
+  .hero__ghost--packages{display:none}
+}
+
+/* ============================================================
+   PACKAGES · "Choose your cruise" — fare index + cruise cards
+   teal accent, homepage theme
+   ============================================================ */
+/* --- fare index --- */
+.pfares{display:grid;grid-template-columns:repeat(3,1fr);
+  gap:clamp(12px,1.2vw,16px);margin-bottom:clamp(2.8rem,5vw,4.4rem)}
+.pfare{display:flex;align-items:center;gap:1rem;padding:clamp(.85rem,1.4vw,1.05rem) clamp(1rem,1.6vw,1.25rem);
+  background:var(--white);border:1px solid var(--line);border-radius:14px;
+  transition:border-color .3s var(--ease),box-shadow .3s var(--ease),transform .3s var(--ease)}
+.pfare:hover{border-color:rgba(18,168,216,.4);box-shadow:0 16px 34px -22px rgba(10,32,44,.5);transform:translateY(-2px)}
+.pfare__no{font-family:var(--sans);font-weight:800;font-size:.82rem;color:var(--aqua);letter-spacing:.02em;flex:none}
+.pfare__text{display:flex;flex-direction:column;gap:.15rem;min-width:0;flex:1}
+.pfare__name{font-weight:700;color:var(--navy);font-size:.98rem;line-height:1.15}
+.pfare__time{font-size:.72rem;color:var(--muted);letter-spacing:.01em}
+.pfare__price{font-weight:800;color:var(--aqua-deep);font-size:.95rem;flex:none}
+.pfare__go{width:18px;height:18px;color:var(--aqua);flex:none;transition:transform .3s var(--ease)}
+.pfare:hover .pfare__go{transform:translateX(3px)}
+
+/* --- cruise cards --- */
+.pcards{display:grid;grid-template-columns:1fr 1fr;gap:clamp(1.4rem,2.4vw,2.2rem)}
+.pcard2{display:flex;flex-direction:column;background:var(--white);
+  border:1px solid var(--line);border-radius:clamp(18px,2vw,26px);overflow:hidden;
+  box-shadow:0 24px 50px -40px rgba(10,32,44,.55);
+  transition:transform .5s var(--ease),box-shadow .5s var(--ease)}
+.pcard2:hover{transform:translateY(-5px);box-shadow:0 40px 66px -36px rgba(10,32,44,.5)}
+.pcard2--panel{background:var(--grey);border-color:transparent}
+
+.pcard2__media{position:relative;aspect-ratio:16/10;overflow:hidden}
+.pcard2__media img{width:100%;height:100%;object-fit:cover;display:block;
+  transition:transform 1.4s var(--ease)}
+.pcard2:hover .pcard2__media img{transform:scale(1.06)}
+.pcard2__price{position:absolute;left:clamp(12px,1.4vw,16px);bottom:clamp(12px,1.4vw,16px);
+  background:linear-gradient(135deg,var(--aqua) 0%,var(--aqua-deep) 100%);color:#fff;
+  font-weight:700;font-size:.9rem;letter-spacing:.01em;padding:.42em .95em;border-radius:100px;
+  box-shadow:0 10px 24px -8px rgba(15,126,163,.7)}
+
+.pcard2__body{position:relative;flex:1;display:flex;flex-direction:column;
+  padding:clamp(1.3rem,2.4vw,1.9rem)}
+.pcard2__no{position:absolute;top:clamp(1rem,2vw,1.5rem);right:clamp(1.1rem,2vw,1.6rem);
+  font-family:var(--sans);font-weight:800;line-height:1;letter-spacing:-.03em;
+  font-size:clamp(2.4rem,4.6vw,3.4rem);color:rgba(23,58,77,.10);pointer-events:none}
+.pcard2__title{font-family:var(--sans);font-weight:800;color:var(--navy);line-height:1.15;
+  letter-spacing:-.01em;font-size:clamp(1.25rem,2vw,1.55rem);margin:0;padding-right:2.6rem}
+.pcard2__title::after{content:"";display:block;width:38px;height:3px;border-radius:3px;
+  background:var(--aqua);margin:.75rem 0 0}
+.pcard2__desc{color:var(--ink-2);font-size:clamp(.92rem,1.05vw,1rem);line-height:1.62;margin:.95rem 0 0}
+
+.pcard2__specs{display:grid;grid-template-columns:1fr 1fr;gap:1rem;
+  margin:1.25rem 0 0;padding:1.15rem 0 0;border-top:1px solid rgba(23,58,77,.12)}
+.pcard2__spec{display:flex;gap:.6rem;align-items:flex-start}
+.pcard2__spec svg{width:18px;height:18px;color:var(--aqua);flex:none;margin-top:.15rem}
+.pcard2__spec small{display:block;font-size:.6rem;font-weight:700;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--muted)}
+.pcard2__spec b{display:block;font-size:.82rem;font-weight:600;color:var(--ink);
+  margin-top:.25rem;line-height:1.35}
+
+.pcard2__incl{margin:1.15rem 0 clamp(1.4rem,2.4vw,1.8rem)}
+.pcard2__inclLabel{display:block;font-size:.6rem;font-weight:700;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--muted);margin-bottom:.6rem}
+.pchips{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:.5rem}
+.pchips li{font-size:.75rem;font-weight:600;color:var(--navy);background:var(--white);
+  border:1px solid var(--line-2);padding:.38em .85em;border-radius:100px}
+
+.pcard2__book{align-self:flex-start;margin-top:auto;display:inline-flex;align-items:center;gap:.5rem;
+  background:linear-gradient(135deg,var(--aqua) 0%,var(--aqua-deep) 100%);color:#fff;
+  font-weight:700;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;
+  padding:.95em 1.5em;border-radius:100px;
+  box-shadow:0 16px 30px -14px rgba(15,126,163,.85);
+  transition:transform .3s var(--ease),box-shadow .3s var(--ease),gap .3s var(--ease)}
+.pcard2__book svg{width:16px;height:16px}
+.pcard2__book:hover{gap:.75rem;transform:translateY(-2px);box-shadow:0 22px 38px -14px rgba(15,126,163,.9)}
+
+@media (max-width:900px){
+  .pfares{grid-template-columns:1fr 1fr}
+  .pcards{grid-template-columns:1fr;max-width:520px;margin-inline:auto}
+}
+@media (max-width:560px){
+  .pfares{grid-template-columns:1fr}
+  .pcard2__specs{grid-template-columns:1fr;gap:.85rem}
+}
