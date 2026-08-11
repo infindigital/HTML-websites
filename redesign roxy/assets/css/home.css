@@ -44,7 +44,7 @@
   --wrap:1400px;
   --wrap-narrow:1200px;
   --gut:clamp(20px,5vw,56px);
-  --nav-h:80px;
+  --nav-h:98px;
   --radius:22px;
   --radius-sm:14px;
   --pad:clamp(46px,6.2vw,94px);   /* section vertical padding */
@@ -169,7 +169,7 @@ ul{margin:0;padding:0;list-style:none}
   height:var(--nav-h);display:flex;align-items:center;justify-content:space-between;gap:1.5rem;
 }
 .brand{display:flex;align-items:center;z-index:2;position:relative}
-.brand img{height:62px;width:auto}
+.brand img{height:82px;width:auto}
 .brand__light{display:none}
 .brand__dark{display:block}
 .navmenu{display:flex;align-items:center;gap:clamp(1.4rem,2.4vw,2.4rem)}
@@ -1310,7 +1310,8 @@ ul{margin:0;padding:0;list-style:none}
   .food__inset{bottom:-1rem}
 }
 @media (max-width:860px){
-  :root{--nav-h:70px}
+  :root{--nav-h:76px}
+  .brand img{height:64px}
   .navmenu,.nav-call{display:none}
   .burger{display:block}
   .btn{white-space:nowrap}
