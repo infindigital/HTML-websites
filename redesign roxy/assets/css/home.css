@@ -239,9 +239,9 @@ ul{margin:0;padding:0;list-style:none}
      so the boat's real roofline + the treeline mask the letters pixel-perfectly —
      X and Y tuck cleanly behind the houseboat with no gap */
 .hero__ghost{
-  position:absolute;left:44%;top:31%;transform:translateX(-50%);z-index:3;
+  position:absolute;left:40%;top:34%;transform:translateX(-50%);z-index:3;
   font-family:var(--sans);font-weight:800;letter-spacing:-.015em;line-height:.8;
-  font-size:11.4cqw;color:#fff;white-space:nowrap;pointer-events:none;user-select:none;
+  font-size:12.6cqw;color:#fff;white-space:nowrap;pointer-events:none;user-select:none;
 }
 .hero__scrim{position:absolute;inset:0;pointer-events:none}
 .hero__scrim--top{z-index:2;
