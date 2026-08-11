@@ -41,7 +41,7 @@
   --ease-out:cubic-bezier(.16,1,.3,1);
 
   /* layout */
-  --wrap:1320px;
+  --wrap:1200px;
   --wrap-narrow:1140px;
   --gut:clamp(20px,5vw,56px);
   --nav-h:80px;
@@ -239,9 +239,9 @@ ul{margin:0;padding:0;list-style:none}
      so the boat's real roofline + the treeline mask the letters pixel-perfectly —
      X and Y tuck cleanly behind the houseboat with no gap */
 .hero__ghost{
-  position:absolute;left:44.5%;top:22%;transform:translateX(-50%);z-index:3;
-  font-family:var(--sans);font-weight:800;letter-spacing:.005em;line-height:.8;
-  font-size:23.5cqw;color:#fff;white-space:nowrap;pointer-events:none;user-select:none;
+  position:absolute;left:50%;top:31%;transform:translateX(-50%);z-index:3;
+  font-family:var(--sans);font-weight:800;letter-spacing:-.015em;line-height:.8;
+  font-size:14.8cqw;color:#fff;white-space:nowrap;pointer-events:none;user-select:none;
 }
 .hero__scrim{position:absolute;inset:0;pointer-events:none}
 .hero__scrim--top{z-index:2;
@@ -249,12 +249,12 @@ ul{margin:0;padding:0;list-style:none}
 .hero__scrim--bot{z-index:5;
   background:linear-gradient(0deg,rgba(8,20,28,.78) 0%,rgba(8,20,28,.46) 24%,rgba(8,20,28,.16) 44%,rgba(8,20,28,0) 62%)}
 .hero__content{position:absolute;z-index:6;left:0;bottom:0;
-  padding:clamp(1.6rem,4vw,3.6rem);max-width:min(780px,94%)}
+  padding:clamp(1.6rem,4vw,3.6rem);padding-bottom:clamp(1.1rem,2.2vw,1.5rem);max-width:min(780px,94%)}
 .hero__loc{display:inline-flex;align-items:center;gap:.5em;font-size:.74rem;font-weight:700;
-  letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.92);margin-bottom:1.6rem}
+  letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.92);margin-bottom:.9rem}
 .hero__loc svg{width:16px;height:16px;opacity:.9}
-.hero__title{font-family:var(--sans);font-weight:800;color:#fff;line-height:1.06;letter-spacing:-.02em;
-  font-size:clamp(1.7rem,3.5vw,2.7rem);}
+.hero__title{font-family:var(--sans);font-weight:800;color:#fff;line-height:1.05;letter-spacing:-.02em;
+  font-size:clamp(1.6rem,3.1vw,2.45rem);}
 .hero__title span{color:#fff}
 .hero__text{color:rgba(255,255,255,.92);font-size:clamp(1rem,1.35vw,1.16rem);line-height:1.6;max-width:46ch;
   margin-top:clamp(.9rem,1.6vw,1.3rem);}
@@ -357,30 +357,50 @@ ul{margin:0;padding:0;list-style:none}
    ============================================================ */
 .statx{
   display:grid;grid-template-columns:repeat(4,1fr);
-  background:var(--grey);
-  border:1px solid var(--line-2);
-  border-radius:clamp(20px,2.6vw,32px);
-  padding:clamp(1.7rem,3.2vw,2.8rem) clamp(1.1rem,2.2vw,1.8rem);
+  gap:clamp(.9rem,1.6vw,1.4rem);
+  background:linear-gradient(135deg,var(--navy) 0%,#0f3247 52%,#0c283a 100%);
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:clamp(22px,2.8vw,34px);
+  padding:clamp(1.5rem,2.6vw,2.4rem);
+  box-shadow:0 30px 70px -34px rgba(13,54,72,.55);
+  position:relative;overflow:hidden;
+}
+/* faint watermark waves for houseboat-water feel */
+.statx::before{
+  content:"";position:absolute;inset:0;z-index:0;pointer-events:none;opacity:.5;
+  background:
+    radial-gradient(120% 120% at 88% -10%,rgba(18,168,216,.22),transparent 46%),
+    radial-gradient(90% 90% at 6% 120%,rgba(199,167,107,.12),transparent 50%);
 }
 .statx-item{
-  position:relative;
+  position:relative;z-index:1;
   display:flex;flex-direction:column;align-items:flex-start;
-  padding:clamp(.2rem,.8vw,.5rem) clamp(1rem,2vw,2rem);
+  padding:clamp(1.1rem,2vw,1.65rem) clamp(1rem,1.7vw,1.5rem);
+  border-radius:clamp(16px,1.8vw,22px);
+  background:rgba(255,255,255,.045);
+  border:1px solid rgba(255,255,255,.09);
+  transition:transform .5s var(--ease),background .5s var(--ease),border-color .5s var(--ease);
 }
-.statx-item + .statx-item{border-left:1px solid var(--line-2)}
+.statx-item:hover{transform:translateY(-5px);background:rgba(255,255,255,.08);border-color:rgba(18,168,216,.4)}
 .statx-item__ic{
-  width:clamp(40px,3.6vw,48px);height:clamp(40px,3.6vw,48px);
-  display:grid;place-items:center;border-radius:50%;
-  background:var(--white);color:var(--navy);
-  margin-bottom:clamp(.9rem,1.6vw,1.25rem);
+  width:clamp(46px,4vw,56px);height:clamp(46px,4vw,56px);
+  display:grid;place-items:center;border-radius:16px;
+  background:linear-gradient(140deg,rgba(18,168,216,.9),rgba(15,126,163,.9));
+  color:#fff;box-shadow:0 12px 26px -12px rgba(18,168,216,.8);
+  margin-bottom:clamp(1rem,1.8vw,1.4rem);
 }
 .statx-item__ic svg{width:52%;height:52%}
 .statx-item__n{
-  font-family:var(--sans);font-weight:500;
-  font-size:clamp(2.3rem,4.5vw,3.5rem);line-height:1;color:var(--navy);
-  font-variant-numeric:tabular-nums;display:flex;align-items:flex-start}
-.statx-item__u{font-size:.44em;color:var(--aqua-deep);margin-left:.08em;transform:translateY(.4em);white-space:nowrap}
-.statx-item__l{margin-top:.8rem;font-size:.82rem;line-height:1.55;letter-spacing:.02em;color:var(--ink-2);max-width:18ch}
+  font-family:var(--sans);font-weight:700;
+  font-size:clamp(2.4rem,4.6vw,3.6rem);line-height:1;color:#fff;
+  font-variant-numeric:tabular-nums;display:flex;align-items:flex-start;letter-spacing:-.02em}
+.statx-item__u{font-size:.42em;color:var(--gold);font-weight:700;margin-left:.1em;transform:translateY(.35em);white-space:nowrap}
+.statx-item__l{margin-top:.7rem;font-size:.82rem;line-height:1.55;letter-spacing:.015em;
+  color:rgba(255,255,255,.66);max-width:18ch}
+/* gold accent rule under each number */
+.statx-item__n::after{content:none}
+.statx-item__l::before{content:"";display:block;width:26px;height:3px;border-radius:2px;
+  background:linear-gradient(90deg,var(--gold),transparent);margin:0 0 .7rem}
 
 /* ============================================================
    04 · COLLECTION — asymmetric houseboats
@@ -448,18 +468,34 @@ ul{margin:0;padding:0;list-style:none}
   will-change:transform,opacity;cursor:pointer;background:var(--line)}
 .svc-card img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
 .svc-card__body{position:absolute;inset:auto 0 0 0;z-index:2;
-  padding:clamp(1.1rem,1.8vw,1.6rem);display:flex;flex-direction:column;gap:.85rem;
-  background:linear-gradient(180deg,rgba(10,22,30,0),rgba(9,20,28,.82) 78%);
-  opacity:0;transform:translateY(14px);transition:opacity .5s var(--ease) .1s,transform .5s var(--ease) .1s}
-.svc-card.is-active .svc-card__body{opacity:1;transform:none}
+  padding:clamp(1.1rem,1.8vw,1.5rem);display:flex;flex-direction:column;align-items:flex-start;gap:.9rem;
+  background:linear-gradient(180deg,rgba(10,22,30,0) 8%,rgba(9,20,28,.55) 52%,rgba(7,17,24,.92) 100%)}
+/* cruise name — a persistent, highlighted pill on EVERY card */
 .svc-card__loc{display:inline-flex;align-items:center;gap:.5rem;color:#fff;
-  font-family:var(--sans);font-weight:600;font-size:clamp(1.05rem,1.5vw,1.25rem);letter-spacing:.005em}
-.svc-card__loc svg{width:18px;height:18px;flex:0 0 auto;color:#fff}
+  font-family:var(--sans);font-weight:700;font-size:clamp(1rem,1.35vw,1.2rem);letter-spacing:.005em;
+  padding:.5em .95em;border-radius:999px;
+  background:rgba(9,22,30,.42);border:1px solid rgba(255,255,255,.28);
+  backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
+  box-shadow:0 10px 26px -14px rgba(0,0,0,.7);
+  transition:background .45s var(--ease),border-color .45s var(--ease),transform .45s var(--ease)}
+.svc-card__loc svg{width:18px;height:18px;flex:0 0 auto;color:var(--aqua)}
+/* the focused card gets a solid aqua highlight so the active package pops */
+.svc-card.is-active .svc-card__loc{background:linear-gradient(135deg,var(--aqua),var(--aqua-deep));
+  border-color:transparent;transform:translateY(-1px);
+  box-shadow:0 14px 30px -12px rgba(18,168,216,.75)}
+.svc-card.is-active .svc-card__loc svg{color:#fff}
 .svc-card__cta{display:inline-flex;align-items:center;justify-content:center;
-  padding:.85em 1.4em;border-radius:999px;background:var(--aqua);color:#fff;
-  font-family:var(--sans);font-weight:600;font-size:.92rem;letter-spacing:.01em;
-  transition:background .4s var(--ease),transform .4s var(--ease)}
-.svc-card__cta:hover{background:var(--aqua-deep);transform:translateY(-2px)}
+  padding:.85em 1.5em;border-radius:999px;background:#fff;color:var(--navy);
+  font-family:var(--sans);font-weight:700;font-size:.9rem;letter-spacing:.01em;
+  opacity:0;transform:translateY(10px);pointer-events:none;
+  transition:opacity .5s var(--ease) .05s,transform .5s var(--ease) .05s,background .4s var(--ease),color .4s var(--ease)}
+.svc-card.is-active .svc-card__cta{opacity:1;transform:none;pointer-events:auto}
+.svc-card__cta:hover{background:var(--aqua);color:#fff;transform:translateY(-2px)}
+/* dim the non-focused cards slightly so the active package clearly stands out */
+.svc-card::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:rgba(9,20,28,.34);opacity:1;transition:opacity .6s var(--ease)}
+.svc-card.is-active::after{opacity:0}
+.svc-card.is-active{box-shadow:0 40px 80px -30px rgba(13,54,72,.6)}
 
 /* nav arrows */
 .svc__nav{position:absolute;top:50%;transform:translateY(-50%);z-index:8;
@@ -764,12 +800,17 @@ ul{margin:0;padding:0;list-style:none}
 }
 .discover__photo{position:absolute;inset:0;z-index:1;
   background:url("../images/2178bd98-a6ff-429c-ab60-a9da83d7a745 (2).png") no-repeat;
-  background-size:118%;background-position:4% center}
+  background-size:cover;background-position:14% center}
 /* deepen the right side so the white type stays legible over the water */
 .discover__scrim{position:absolute;inset:0;z-index:2;pointer-events:none;
-  background:linear-gradient(90deg,rgba(12,58,77,0) 46%,rgba(12,58,77,.4) 62%,rgba(13,54,72,.7) 100%)}
-.discover__panel{position:absolute;z-index:3;top:50%;right:clamp(1.2rem,3.4vw,3.4rem);
-  transform:translateY(-50%);width:min(40%,430px);color:#fff}
+  background:linear-gradient(90deg,rgba(12,58,77,0) 34%,rgba(12,58,77,.42) 56%,rgba(13,54,72,.82) 100%)}
+.discover__panel{position:absolute;z-index:3;top:50%;right:clamp(1.1rem,2.6vw,2.6rem);
+  transform:translateY(-50%);width:min(42%,440px);color:#fff;
+  padding:clamp(1.6rem,2.6vw,2.4rem);border-radius:clamp(18px,2vw,26px);
+  background:linear-gradient(150deg,rgba(13,54,72,.5),rgba(9,32,45,.34));
+  border:1px solid rgba(255,255,255,.16);
+  backdrop-filter:blur(9px);-webkit-backdrop-filter:blur(9px);
+  box-shadow:0 30px 70px -34px rgba(6,26,38,.7)}
 .discover__title{font-family:var(--sans);font-weight:800;color:#fff;line-height:1.05;
   letter-spacing:-.015em;font-size:clamp(1.6rem,2.7vw,2.5rem);margin:0}
 .discover__script{display:flex;align-items:center;gap:.4em;
@@ -1063,10 +1104,7 @@ ul{margin:0;padding:0;list-style:none}
   .navmenu,.nav-call{display:none}
   .burger{display:block}
   .btn{white-space:nowrap}
-  .statx{grid-template-columns:1fr 1fr;row-gap:clamp(1.4rem,3vw,2rem)}
-  .statx-item{border-left:0}
-  .statx-item:nth-child(even){border-left:1px solid var(--line-2)}
-  .statx-item:nth-child(n+3){padding-top:clamp(1.4rem,3vw,2rem);border-top:1px solid var(--line-2)}
+  .statx{grid-template-columns:1fr 1fr}
   .coll__pair{grid-template-columns:1fr}
   .faq__grid{grid-template-columns:1fr;gap:1.6rem}
   .faq__aside{position:static}
@@ -1087,6 +1125,7 @@ ul{margin:0;padding:0;list-style:none}
   .discover__photo{background-size:cover;background-position:44% 34%}
   .discover__scrim{background:linear-gradient(180deg,rgba(12,58,77,.12) 0%,rgba(12,58,77,.45) 34%,rgba(12,45,61,.9) 62%,rgba(11,40,55,.96) 100%)}
   .discover__panel{position:relative;top:auto;right:auto;transform:none;width:100%;
+    background:none;border:0;backdrop-filter:none;-webkit-backdrop-filter:none;box-shadow:none;border-radius:0;
     padding:clamp(9rem,34vw,13rem) clamp(1.5rem,6vw,2.4rem) clamp(1.9rem,6vw,2.6rem)}
   .discover__text{max-width:none}
 }
@@ -1116,10 +1155,7 @@ ul{margin:0;padding:0;list-style:none}
   .hero__meta{gap:1rem}
   .hero__cta{width:100%}
   .hero__cta .btn{flex:1;justify-content:center}
-  .statx{grid-template-columns:1fr;row-gap:0;padding:clamp(1.4rem,6vw,2rem) clamp(1.3rem,6vw,1.8rem)}
-  .statx-item{border-left:0!important;padding:clamp(1rem,4vw,1.3rem) 0}
-  .statx-item:nth-child(n+2){border-top:1px solid var(--line-2)}
-  .statx-item:nth-child(n+3){padding-top:clamp(1rem,4vw,1.3rem)}
+  .statx{grid-template-columns:1fr;padding:clamp(1.2rem,5vw,1.6rem)}
   .frow,.cx__row{grid-template-columns:1fr}
   .coll__specs{gap:1.4rem}
   .stories__side{flex-direction:column}
