@@ -269,9 +269,11 @@ ul{margin:0;padding:0;list-style:none}
   font-weight:700;letter-spacing:-.055em;font-size:11.5cqw;
   text-shadow:0 2px 30px rgba(8,20,28,.18);
 }
-/* second copy of the photo clipped to the waterline — its water covers the base
-   of the letters so ABOUT US appears to settle down into the backwater */
-.hero__fg--about{clip-path:inset(70% 0 0 0);}
+/* second copy of the photo clipped along the waterline AND up over the boat's
+   silhouette, so ABOUT US both settles into the water and tucks behind the boat */
+.hero__fg--about{
+  clip-path:polygon(0% 71%, 33% 71%, 62% 68%, 66% 55%, 100% 57%, 100% 100%, 0% 100%);
+}
 
 /* hero rating strip beneath the frame */
 .hero__meta{display:flex;align-items:center;justify-content:space-between;gap:1.4rem;flex-wrap:wrap;
