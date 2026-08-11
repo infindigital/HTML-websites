@@ -1591,26 +1591,28 @@ ul{margin:0;padding:0;list-style:none}
    CONTACT · full-bleed backwater hero with big "CONTACT US" type
    — banner scene, left-anchored legibility scrim, layered heading
    ============================================================ */
-.hero__stage--contact{aspect-ratio:auto;height:clamp(500px,74vh,700px)}
-.hero__bg--contact{background-position:center 44%}
-/* airy wash — keep the bright, misty backwater look; only a soft lift on the
-   lower-left so the white type stays legible over the water */
-.chero__scrim{position:absolute;inset:0;z-index:2;pointer-events:none;
-  background:linear-gradient(100deg,rgba(6,28,34,.30) 0%,rgba(6,28,34,.12) 30%,rgba(6,28,34,0) 56%),
-             linear-gradient(0deg,rgba(6,28,34,.26) 0%,rgba(6,28,34,0) 38%)}
-.chero__cap{position:absolute;z-index:6;left:0;bottom:clamp(2rem,7vw,4.2rem);
-  padding-inline:clamp(1.6rem,5vw,4.4rem);max-width:min(720px,92%)}
+/* giant "CONTACT US" settled into the water, tail tucked behind the boat —
+   same layered scene + foreground cut-out as the Packages / Gallery heroes */
+.hero__ghost--contact{
+  left:30%;top:60.5%;transform:translateX(-50%) scaleY(1.45);
+  font-weight:700;letter-spacing:-.06em;font-size:9.3cqw;
+  text-shadow:0 2px 30px rgba(8,20,28,.18);
+}
+/* --- mobile: behind-boat effect is disabled site-wide (≤1024px), so fall back
+   to a clean stacked CONTACT / US caption over a soft bottom wash --- */
+.chero__cap{display:none}
 .chero__small{display:block;font-family:var(--sans);font-weight:700;color:#fff;
   text-transform:uppercase;letter-spacing:.12em;line-height:1;
-  font-size:clamp(1.5rem,3.6vw,2.9rem);text-shadow:0 3px 26px rgba(6,26,32,.5)}
+  font-size:clamp(1.5rem,4.6vw,2.2rem);text-shadow:0 3px 26px rgba(6,26,32,.5)}
 .chero__big{display:block;font-family:var(--sans);font-weight:800;color:#fff;
   text-transform:uppercase;letter-spacing:-.01em;line-height:.86;margin-top:.04em;
-  font-size:clamp(4rem,12vw,8.6rem);text-shadow:0 8px 44px rgba(6,26,32,.5)}
-@media (max-width:600px){
-  .hero__stage--contact{height:clamp(400px,72vh,520px)}
-  .hero__bg--contact{background-position:64% 46%}
-  .chero__scrim{background:linear-gradient(100deg,rgba(6,28,34,.4) 0%,rgba(6,28,34,.16) 46%,rgba(6,28,34,0) 82%),
-                linear-gradient(0deg,rgba(6,28,34,.34) 0%,rgba(6,28,34,0) 44%)}
+  font-size:clamp(3.4rem,15vw,5rem);text-shadow:0 8px 44px rgba(6,26,32,.5)}
+@media (max-width:1024px){
+  .hero__ghost--contact{display:none}
+  .hero__stage--contact::after{content:"";position:absolute;inset:0;z-index:5;pointer-events:none;
+    background:linear-gradient(0deg,rgba(6,26,32,.66) 0%,rgba(6,26,32,.18) 34%,rgba(6,26,32,0) 56%)}
+  .chero__cap{display:block;position:absolute;z-index:6;left:0;bottom:clamp(1.6rem,6vw,3rem);
+    padding-inline:clamp(1.4rem,5vw,2.4rem);max-width:92%}
 }
 
 /* ============================================================
