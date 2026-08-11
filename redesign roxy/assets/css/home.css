@@ -1486,7 +1486,8 @@ ul{margin:0;padding:0;list-style:none}
 .pfare:hover .pfare__go{transform:translateX(3px)}
 
 /* --- cruise cards --- */
-.pcards{display:grid;grid-template-columns:1fr 1fr;gap:clamp(1.4rem,2.4vw,2.2rem)}
+.pcards{display:grid;grid-template-columns:1fr 1fr;
+  column-gap:clamp(1.4rem,2.4vw,2.2rem);row-gap:clamp(2.6rem,4.4vw,4rem)}
 .pcard2{display:flex;flex-direction:column;background:var(--white);
   border:1px solid var(--line);border-radius:clamp(18px,2vw,26px);overflow:hidden;
   box-shadow:0 24px 50px -40px rgba(10,32,44,.55);
