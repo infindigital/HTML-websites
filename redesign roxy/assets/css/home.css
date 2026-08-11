@@ -268,7 +268,7 @@ ul{margin:0;padding:0;list-style:none}
 .hero__stage--about{aspect-ratio:2/1}
 .hero__ghost--about{
   left:38%;top:58%;transform:translateX(-50%) scaleY(1.45);
-  font-weight:700;letter-spacing:-.055em;font-size:11.5cqw;
+  font-weight:700;letter-spacing:-.055em;font-size:13cqw;
   text-shadow:none;
 }
 /* the foreground is a real cut-out of the boat + water (about-hero-fg.png): its water
@@ -1362,7 +1362,7 @@ ul{margin:0;padding:0;list-style:none}
    ============================================================ */
 .hero__ghost--services{
   left:38%;top:58%;transform:translateX(-50%) scaleY(1.45);
-  font-weight:700;letter-spacing:-.055em;font-size:11.5cqw;
+  font-weight:700;letter-spacing:-.055em;font-size:13cqw;
   text-shadow:none;
 }
 
@@ -1461,7 +1461,7 @@ ul{margin:0;padding:0;list-style:none}
    ============================================================ */
 .hero__ghost--packages{
   left:38%;top:60.5%;transform:translateX(-50%) scaleY(1.45);
-  font-weight:700;letter-spacing:-.055em;font-size:11.5cqw;
+  font-weight:700;letter-spacing:-.055em;font-size:13cqw;
   text-shadow:none;
 }
 @media (max-width:1024px){
@@ -1557,7 +1557,7 @@ ul{margin:0;padding:0;list-style:none}
    ============================================================ */
 .hero__ghost--gallery{
   left:40%;top:58%;transform:translateX(-50%) scaleY(1.45);
-  font-weight:700;letter-spacing:-.055em;font-size:11.5cqw;
+  font-weight:700;letter-spacing:-.055em;font-size:13cqw;
   text-shadow:none;
 }
 @media (max-width:1024px){
@@ -1598,7 +1598,7 @@ ul{margin:0;padding:0;list-style:none}
    same layered scene + foreground cut-out as the Packages / Gallery heroes */
 .hero__ghost--contact{
   left:37%;top:60.5%;transform:translateX(-50%) scaleY(1.45);
-  font-weight:700;letter-spacing:-.06em;font-size:9.3cqw;
+  font-weight:700;letter-spacing:-.06em;font-size:10.6cqw;
   text-shadow:none;
 }
 /* --- mobile: behind-boat effect is disabled site-wide (≤1024px), so fall back
