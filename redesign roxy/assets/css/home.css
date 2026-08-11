@@ -361,7 +361,7 @@ ul{margin:0;padding:0;list-style:none}
 
 /* --- heading + intro copy --- */
 .wwa__head{display:grid;grid-template-columns:1fr 1fr;gap:clamp(2rem,5vw,5rem);align-items:end;
-  margin-top:clamp(2.6rem,4.6vw,4rem)}
+  margin-bottom:clamp(2.6rem,4.6vw,4rem)}
 .wwa__head-l{position:relative}
 .wwa__script{display:block;font-family:'Dancing Script',cursive;font-weight:600;
   font-size:clamp(1.4rem,2.4vw,2rem);color:var(--aqua);line-height:1;margin-bottom:.3rem}
