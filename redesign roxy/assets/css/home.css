@@ -250,6 +250,11 @@ ul{margin:0;padding:0;list-style:none}
   background:linear-gradient(0deg,rgba(8,20,28,.78) 0%,rgba(8,20,28,.46) 24%,rgba(8,20,28,.16) 44%,rgba(8,20,28,0) 62%)}
 .hero__content{position:absolute;z-index:6;left:0;bottom:0;
   padding:clamp(1.6rem,4vw,3.6rem);padding-bottom:clamp(1.1rem,2.2vw,1.5rem);max-width:min(780px,94%)}
+/* homepage hero copy sits a touch higher and further in from the edge */
+.hero__stage:not(.hero__stage--about) .hero__content{
+  padding-left:clamp(2.6rem,5.2vw,4.9rem);
+  padding-bottom:clamp(2.4rem,3.8vw,3.2rem);
+}
 .hero__loc{display:inline-flex;align-items:center;gap:.5em;font-size:.74rem;font-weight:700;
   letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.92);margin-bottom:.7rem}
 .hero__loc svg{width:16px;height:16px;opacity:.9}
