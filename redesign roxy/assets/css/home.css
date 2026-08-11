@@ -234,18 +234,10 @@ ul{margin:0;padding:0;list-style:none}
 /* both photo layers share identical sizing so they stay pixel-aligned */
 .hero__photo{position:absolute;inset:0;background-size:cover;background-position:center;background-repeat:no-repeat}
 .hero__bg{z-index:1}
-.hero__fg{z-index:4;
-  /* top edge hugs the boat's roofline, dropping to the waterline over open water,
-     so the letters are covered more where the boat sits — the "behind the boat" effect */
-  clip-path:polygon(
-    0% 43%, 7% 43.5%, 10% 48%, 12.5% 50.7%, 17% 52%, 24% 52.8%, 28% 54%,
-    31% 55.2%, 35% 55.6%, 38% 56.5%, 41% 57.5%, 44% 57%,
-    45% 56.5%, 48% 52.5%, 51% 50.5%, 54% 48.5%, 57% 47%, 60% 45.5%, 63% 44.5%,
-    66% 44.5%, 69% 43.5%, 72% 43%, 75% 42.5%, 78% 42%, 81% 42.5%,
-    84% 47%, 87% 53%, 90% 59%, 93% 65%, 96% 71%, 100% 78%,
-    100% 100%, 0% 100%
-  );
-}
+.hero__fg{z-index:4}
+  /* foreground is a sky-removed copy of the hero photo (same size/position as the bg),
+     so the boat's real roofline + the treeline mask the letters pixel-perfectly —
+     X and Y tuck cleanly behind the houseboat with no gap */
 .hero__ghost{
   position:absolute;left:44.5%;top:22%;transform:translateX(-50%);z-index:3;
   font-family:var(--sans);font-weight:800;letter-spacing:.005em;line-height:.8;
