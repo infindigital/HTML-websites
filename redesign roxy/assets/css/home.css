@@ -251,7 +251,7 @@ ul{margin:0;padding:0;list-style:none}
 .hero__content{position:absolute;z-index:6;left:0;bottom:0;
   padding:clamp(1.6rem,4vw,3.6rem);max-width:min(780px,94%)}
 .hero__loc{display:inline-flex;align-items:center;gap:.5em;font-size:.74rem;font-weight:700;
-  letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.92);margin-bottom:1rem}
+  letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.92);margin-bottom:1.6rem}
 .hero__loc svg{width:16px;height:16px;opacity:.9}
 .hero__title{font-family:var(--sans);font-weight:800;color:#fff;line-height:1.06;letter-spacing:-.02em;
   font-size:clamp(1.7rem,3.5vw,2.7rem);}
