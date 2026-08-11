@@ -240,7 +240,7 @@ ul{margin:0;padding:0;list-style:none}
      X and Y tuck cleanly behind the houseboat with no gap */
 .hero__ghost{
   position:absolute;left:44%;top:29%;transform:translateX(-50%) scaleY(1.32);z-index:3;
-  font-family:var(--sans);font-weight:400;letter-spacing:-.05em;line-height:.8;
+  font-family:var(--sans);font-weight:600;letter-spacing:-.05em;line-height:.8;
   font-size:12.6cqw;color:#fff;white-space:nowrap;pointer-events:none;user-select:none;
 }
 .hero__scrim{position:absolute;inset:0;pointer-events:none}
