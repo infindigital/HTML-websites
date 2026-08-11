@@ -265,7 +265,7 @@ ul{margin:0;padding:0;list-style:none}
 .hero__sronly{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;
   clip:rect(0 0 0 0);white-space:nowrap;border:0}
 .hero__ghost--about{
-  left:34%;top:58%;transform:translateX(-50%) scaleY(1.45);
+  left:41%;top:58%;transform:translateX(-50%) scaleY(1.45);
   font-weight:700;letter-spacing:-.055em;font-size:11.5cqw;
   text-shadow:none;
 }
@@ -1359,7 +1359,7 @@ ul{margin:0;padding:0;list-style:none}
    word + its position change so the tail letters tuck behind the boat
    ============================================================ */
 .hero__ghost--services{
-  left:33%;top:58%;transform:translateX(-50%) scaleY(1.45);
+  left:41%;top:58%;transform:translateX(-50%) scaleY(1.45);
   font-weight:700;letter-spacing:-.055em;font-size:11.5cqw;
   text-shadow:none;
 }
@@ -1458,7 +1458,7 @@ ul{margin:0;padding:0;list-style:none}
    — same scene + foreground cut-out as the About/Services hero
    ============================================================ */
 .hero__ghost--packages{
-  left:32%;top:60.5%;transform:translateX(-50%) scaleY(1.45);
+  left:41%;top:60.5%;transform:translateX(-50%) scaleY(1.45);
   font-weight:700;letter-spacing:-.055em;font-size:11.5cqw;
   text-shadow:none;
 }
@@ -1554,7 +1554,7 @@ ul{margin:0;padding:0;list-style:none}
    — same scene + foreground cut-out as the other page heroes
    ============================================================ */
 .hero__ghost--gallery{
-  left:31%;top:58%;transform:translateX(-50%) scaleY(1.45);
+  left:43%;top:58%;transform:translateX(-50%) scaleY(1.45);
   font-weight:700;letter-spacing:-.055em;font-size:11.5cqw;
   text-shadow:none;
 }
@@ -1595,7 +1595,7 @@ ul{margin:0;padding:0;list-style:none}
 /* giant "CONTACT US" settled into the water, tail tucked behind the boat —
    same layered scene + foreground cut-out as the Packages / Gallery heroes */
 .hero__ghost--contact{
-  left:34%;top:60.5%;transform:translateX(-50%) scaleY(1.45);
+  left:40%;top:60.5%;transform:translateX(-50%) scaleY(1.45);
   font-weight:700;letter-spacing:-.06em;font-size:9.3cqw;
   text-shadow:none;
 }
