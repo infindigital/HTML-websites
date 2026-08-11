@@ -265,15 +265,13 @@ ul{margin:0;padding:0;list-style:none}
 .hero__sronly{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;
   clip:rect(0 0 0 0);white-space:nowrap;border:0}
 .hero__ghost--about{
-  left:34%;top:61%;transform:translateX(-50%) scaleY(1.45);
+  left:34%;top:57%;transform:translateX(-50%) scaleY(1.45);
   font-weight:700;letter-spacing:-.055em;font-size:11.5cqw;
   text-shadow:0 2px 30px rgba(8,20,28,.18);
 }
-/* second copy of the photo clipped along the waterline AND up over the boat's
-   silhouette, so ABOUT US both settles into the water and tucks behind the boat */
-.hero__fg--about{
-  clip-path:polygon(0% 71%, 33% 71%, 62% 68%, 66% 55%, 100% 57%, 100% 100%, 0% 100%);
-}
+/* second copy of the photo clipped to the waterline — the water covers just the
+   base of the letters so ABOUT US rests in the backwater, fully readable */
+.hero__fg--about{clip-path:inset(72% 0 0 0);}
 
 /* hero rating strip beneath the frame */
 .hero__meta{display:flex;align-items:center;justify-content:space-between;gap:1.4rem;flex-wrap:wrap;
