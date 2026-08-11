@@ -239,9 +239,9 @@ ul{margin:0;padding:0;list-style:none}
      so the boat's real roofline + the treeline mask the letters pixel-perfectly —
      X and Y tuck cleanly behind the houseboat with no gap */
 .hero__ghost{
-  position:absolute;left:45.5%;top:25%;transform:translateX(-50%) scaleY(1.3);z-index:3;
-  font-family:var(--sans);font-weight:700;letter-spacing:-.07em;line-height:.8;
-  font-size:13cqw;color:#fff;white-space:nowrap;pointer-events:none;user-select:none;
+  position:absolute;left:42.5%;top:29%;transform:translateX(-50%) scaleY(1.3);z-index:3;
+  font-family:var(--sans);font-weight:700;letter-spacing:-.05em;line-height:.8;
+  font-size:13.6cqw;color:#fff;white-space:nowrap;pointer-events:none;user-select:none;
 }
 .hero__scrim{position:absolute;inset:0;pointer-events:none}
 .hero__scrim--top{z-index:2;
@@ -264,6 +264,8 @@ ul{margin:0;padding:0;list-style:none}
 /* --- About Us hero: giant word standing in the water --- */
 .hero__sronly{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;
   clip:rect(0 0 0 0);white-space:nowrap;border:0}
+/* internal pages sit a touch shorter than the homepage hero */
+.hero__stage--about{aspect-ratio:16/10}
 .hero__ghost--about{
   left:38%;top:58%;transform:translateX(-50%) scaleY(1.45);
   font-weight:700;letter-spacing:-.055em;font-size:11.5cqw;
