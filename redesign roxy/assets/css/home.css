@@ -239,8 +239,8 @@ ul{margin:0;padding:0;list-style:none}
      so the boat's real roofline + the treeline mask the letters pixel-perfectly —
      X and Y tuck cleanly behind the houseboat with no gap */
 .hero__ghost{
-  position:absolute;left:40%;top:29%;transform:translateX(-50%);z-index:3;
-  font-family:var(--sans);font-weight:800;letter-spacing:-.015em;line-height:.8;
+  position:absolute;left:40%;top:29%;transform:translateX(-50%) scaleY(1.32);z-index:3;
+  font-family:var(--sans);font-weight:600;letter-spacing:-.01em;line-height:.8;
   font-size:12.6cqw;color:#fff;white-space:nowrap;pointer-events:none;user-select:none;
 }
 .hero__scrim{position:absolute;inset:0;pointer-events:none}
@@ -251,13 +251,13 @@ ul{margin:0;padding:0;list-style:none}
 .hero__content{position:absolute;z-index:6;left:0;bottom:0;
   padding:clamp(1.6rem,4vw,3.6rem);padding-bottom:clamp(1.1rem,2.2vw,1.5rem);max-width:min(780px,94%)}
 .hero__loc{display:inline-flex;align-items:center;gap:.5em;font-size:.74rem;font-weight:700;
-  letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.92);margin-bottom:.9rem}
+  letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.92);margin-bottom:.7rem}
 .hero__loc svg{width:16px;height:16px;opacity:.9}
-.hero__title{font-family:var(--sans);font-weight:800;color:#fff;line-height:1.05;letter-spacing:-.02em;
+.hero__title{font-family:var(--sans);font-weight:800;color:#fff;line-height:1.0;letter-spacing:-.02em;
   font-size:clamp(1.6rem,3.1vw,2.45rem);}
 .hero__title span{color:#fff}
-.hero__text{color:rgba(255,255,255,.92);font-size:clamp(1rem,1.35vw,1.16rem);line-height:1.6;max-width:46ch;
-  margin-top:clamp(.9rem,1.6vw,1.3rem);}
+.hero__text{color:rgba(255,255,255,.92);font-size:clamp(1rem,1.35vw,1.16rem);line-height:1.42;max-width:46ch;
+  margin-top:clamp(.7rem,1.2vw,1rem);}
 .hero__cta{display:flex;gap:.8rem;flex-wrap:wrap;margin-top:clamp(1.3rem,2.4vw,1.9rem)}
 .hero__cta .btn svg{width:17px;height:17px}
 
