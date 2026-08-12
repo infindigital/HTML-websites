@@ -272,8 +272,8 @@ ul{margin:0;padding:0;list-style:none}
 /* internal pages sit a touch shorter than the homepage hero */
 .hero__stage--about{aspect-ratio:2.25/1}
 .hero__ghost--about{
-  left:36%;top:60%;transform:translateX(-50%) scaleY(1.45);
-  font-weight:700;letter-spacing:-.055em;font-size:13cqw;
+  left:36%;top:64%;transform:translateX(-50%) scaleY(1.4);
+  font-weight:600;letter-spacing:-.05em;font-size:11.8cqw;
   text-shadow:none;
 }
 /* the foreground is a real cut-out of the boat + water (about-hero-fg.png): its water
@@ -1398,8 +1398,8 @@ ul{margin:0;padding:0;list-style:none}
    word + its position change so the tail letters tuck behind the boat
    ============================================================ */
 .hero__ghost--services{
-  left:36%;top:60%;transform:translateX(-50%) scaleY(1.45);
-  font-weight:700;letter-spacing:-.055em;font-size:13cqw;
+  left:36%;top:64%;transform:translateX(-50%) scaleY(1.4);
+  font-weight:600;letter-spacing:-.05em;font-size:11.8cqw;
   text-shadow:none;
 }
 
@@ -1497,8 +1497,8 @@ ul{margin:0;padding:0;list-style:none}
    — same scene + foreground cut-out as the About/Services hero
    ============================================================ */
 .hero__ghost--packages{
-  left:36%;top:62.5%;transform:translateX(-50%) scaleY(1.45);
-  font-weight:700;letter-spacing:-.055em;font-size:13cqw;
+  left:36%;top:65.5%;transform:translateX(-50%) scaleY(1.4);
+  font-weight:600;letter-spacing:-.05em;font-size:11.8cqw;
   text-shadow:none;
 }
 @media (max-width:1024px){
@@ -1593,8 +1593,8 @@ ul{margin:0;padding:0;list-style:none}
    — same scene + foreground cut-out as the other page heroes
    ============================================================ */
 .hero__ghost--gallery{
-  left:38%;top:60%;transform:translateX(-50%) scaleY(1.45);
-  font-weight:700;letter-spacing:-.055em;font-size:13cqw;
+  left:38%;top:64%;transform:translateX(-50%) scaleY(1.4);
+  font-weight:600;letter-spacing:-.05em;font-size:11.8cqw;
   text-shadow:none;
 }
 @media (max-width:1024px){
@@ -1634,8 +1634,8 @@ ul{margin:0;padding:0;list-style:none}
 /* giant "CONTACT US" settled into the water, tail tucked behind the boat —
    same layered scene + foreground cut-out as the Packages / Gallery heroes */
 .hero__ghost--contact{
-  left:35%;top:65.5%;transform:translateX(-50%) scaleY(1.45);
-  font-weight:700;letter-spacing:-.06em;font-size:10.6cqw;
+  left:35%;top:68%;transform:translateX(-50%) scaleY(1.4);
+  font-weight:600;letter-spacing:-.055em;font-size:9.6cqw;
   text-shadow:none;
 }
 /* --- mobile: behind-boat effect is disabled site-wide (≤1024px), so fall back
