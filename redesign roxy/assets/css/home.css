@@ -270,7 +270,7 @@ ul{margin:0;padding:0;list-style:none}
 .hero__sronly{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;
   clip:rect(0 0 0 0);white-space:nowrap;border:0}
 /* internal pages sit a touch shorter than the homepage hero */
-.hero__stage--about{aspect-ratio:2/1}
+.hero__stage--about{aspect-ratio:2.25/1}
 .hero__ghost--about{
   left:36%;top:60%;transform:translateX(-50%) scaleY(1.45);
   font-weight:700;letter-spacing:-.055em;font-size:13cqw;
