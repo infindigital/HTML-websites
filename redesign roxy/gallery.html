@@ -141,7 +141,20 @@
         <a href="index.html">Home</a>
         <a href="about-us.html">About Us</a>
         <a href="services.html">Services</a>
-        <a href="packages.html">Packages</a>
+        <div class="navdrop">
+          <a href="packages.html" class="navdrop__trigger" aria-haspopup="true" aria-expanded="false">Packages
+            <svg class="navdrop__caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+          </a>
+          <div class="navdrop__menu" role="menu">
+            <a href="packages/day-cruise/">Day Cruise<span class="navdrop__price">₹12,000</span></a>
+            <a href="packages/lunch-cruise/">Lunch Cruise<span class="navdrop__price">₹10,000</span></a>
+            <a href="packages/sunset-cruise/">Sunset Cruise<span class="navdrop__price">₹6,000</span></a>
+            <a href="packages/dinner-cruise/">Dinner Cruise<span class="navdrop__price">₹10,000</span></a>
+            <a href="packages/overnight-cruise/">Overnight Cruise<span class="navdrop__price">₹10,000</span></a>
+            <a href="packages/day-night-cruise/">Day &amp; Night Cruise<span class="navdrop__price">₹16,000</span></a>
+            <a href="packages.html" class="navdrop__all" role="menuitem">All Packages</a>
+          </div>
+        </div>
         <a href="gallery.html" class="is-active">Gallery</a>
         <a href="contact-us.html">Contact</a>
       </nav>

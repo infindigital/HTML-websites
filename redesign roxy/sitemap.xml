@@ -25,6 +25,42 @@
     <priority>0.9</priority>
   </url>
   <url>
+    <loc>https://roxyhouseboat.in/packages/day-cruise/</loc>
+    <lastmod>2026-08-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://roxyhouseboat.in/packages/lunch-cruise/</loc>
+    <lastmod>2026-08-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://roxyhouseboat.in/packages/sunset-cruise/</loc>
+    <lastmod>2026-08-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://roxyhouseboat.in/packages/dinner-cruise/</loc>
+    <lastmod>2026-08-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://roxyhouseboat.in/packages/overnight-cruise/</loc>
+    <lastmod>2026-08-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://roxyhouseboat.in/packages/day-night-cruise/</loc>
+    <lastmod>2026-08-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://roxyhouseboat.in/gallery/</loc>
     <lastmod>2026-08-12</lastmod>
     <changefreq>monthly</changefreq>
