@@ -1453,17 +1453,17 @@ ul{margin:0;padding:0;list-style:none}
 .svcf__eyebrow::before{content:"";height:2px;width:clamp(28px,4vw,52px);background:var(--aqua);border-radius:2px}
 .svcf__title{font-family:var(--sans);font-weight:800;color:var(--navy);line-height:1.1;
   letter-spacing:-.02em;font-size:clamp(1.8rem,3.4vw,2.7rem);margin:1.05rem 0 0}
-.svcf__lead{color:var(--ink-2);font-size:clamp(.98rem,1.15vw,1.08rem);line-height:1.66;
-  margin:1.05rem 0 0}
-.svcf__list{list-style:none;margin:1.5rem 0 0;padding:0;
-  display:grid;grid-template-columns:1fr 1fr;gap:.75rem 1.6rem}
-.svcf__list li{position:relative;padding-left:1.7rem;color:var(--ink);
-  font-size:clamp(.94rem,1.05vw,1rem);line-height:1.45}
+.svcf__lead{color:var(--ink-2);font-size:clamp(.98rem,1.15vw,1.08rem);line-height:1.72;
+  margin:1.15rem 0 0}
+.svcf__list{list-style:none;margin:1.85rem 0 0;padding:0;
+  display:grid;grid-template-columns:1fr 1fr;gap:1.2rem 1.9rem}
+.svcf__list li{position:relative;padding-left:1.8rem;color:var(--ink);
+  font-size:clamp(.94rem,1.05vw,1rem);line-height:1.55}
 .svcf__list li::before{content:"";position:absolute;left:0;top:.16em;width:18px;height:18px;
   border-radius:50%;background:rgba(18,168,216,.14);
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230f7ea3' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6 9 17l-5-5'/%3E%3C/svg%3E");
   background-size:12px;background-repeat:no-repeat;background-position:center}
-.svcf__link{display:inline-flex;align-items:center;gap:.5rem;margin-top:1.7rem;
+.svcf__link{display:inline-flex;align-items:center;gap:.5rem;margin-top:2.1rem;
   font-family:var(--sans);font-weight:700;font-size:.98rem;color:var(--navy);
   border-bottom:2px solid var(--aqua);padding-bottom:.2rem;
   transition:gap .3s var(--ease),color .3s var(--ease)}
@@ -1634,7 +1634,7 @@ ul{margin:0;padding:0;list-style:none}
 /* giant "CONTACT US" settled into the water, tail tucked behind the boat —
    same layered scene + foreground cut-out as the Packages / Gallery heroes */
 .hero__ghost--contact{
-  left:35%;top:62.5%;transform:translateX(-50%) scaleY(1.45);
+  left:35%;top:65.5%;transform:translateX(-50%) scaleY(1.45);
   font-weight:700;letter-spacing:-.06em;font-size:10.6cqw;
   text-shadow:none;
 }
