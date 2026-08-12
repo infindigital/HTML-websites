@@ -1723,20 +1723,21 @@ ul{margin:0;padding:0;list-style:none}
 /* ============================================================
    PACKAGE DETAIL PAGE
    ============================================================ */
-.pkg__intro{display:grid;grid-template-columns:1.02fr .98fr;
+.pkg__intro{display:block}
+.pkg__head{margin-bottom:clamp(1.7rem,3vw,2.4rem)}
+.pkg__cols{display:grid;grid-template-columns:1.08fr .92fr;
   gap:clamp(1.8rem,3.6vw,3rem);align-items:stretch}
-.pkg__side{display:flex;flex-direction:column;min-width:0;justify-content:center}
 .pkg__kicker{display:block;font-family:'Dancing Script',cursive;font-weight:600;color:var(--aqua-deep);
   font-size:clamp(1.3rem,2vw,1.65rem);line-height:1;margin-bottom:.45rem}
 .pkg__h2{font-family:var(--sans);font-weight:800;color:var(--navy);line-height:1.1;letter-spacing:-.01em;
   font-size:clamp(1.7rem,3vw,2.5rem);margin:0}
-.pkg__prose{margin-top:clamp(.9rem,1.8vw,1.3rem);color:var(--ink-2);line-height:1.8;font-size:1rem;max-width:none}
+.pkg__prose{margin-top:clamp(.9rem,1.8vw,1.3rem);color:var(--ink-2);line-height:1.8;font-size:1rem;max-width:74ch}
 .pkg__prose p{margin:0 0 1.05rem}
 .pkg__prose p:last-child{margin-bottom:0}
 .pkg__prose strong{color:var(--ink);font-weight:600}
 /* fare panel — sits below the intro copy in the side column */
 .pkg__panel{background:var(--grey);border-radius:var(--radius);
-  padding:clamp(1.5rem,2.6vw,2.2rem);margin-top:clamp(1.6rem,3vw,2.2rem)}
+  padding:clamp(1.5rem,2.6vw,2.2rem)}
 .pkg__panel-tag{display:block;font-size:.68rem;font-weight:700;letter-spacing:.16em;
   text-transform:uppercase;color:var(--muted);margin-bottom:.4rem}
 .pkg__panel-price{display:flex;align-items:baseline;gap:.5rem;margin:0 0 1.1rem}
@@ -1762,9 +1763,8 @@ ul{margin:0;padding:0;list-style:none}
 .rel__grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(1.2rem,2.4vw,1.8rem)}
 .rel__back{display:flex;justify-content:center;margin-top:clamp(2rem,3.6vw,2.8rem)}
 @media (max-width:920px){
-  .pkg__intro{grid-template-columns:1fr}
+  .pkg__cols{grid-template-columns:1fr;gap:clamp(1.3rem,3vw,1.8rem)}
   .pkg__figure{aspect-ratio:16/10;min-height:0}
-  .pkg__panel{margin-top:clamp(1.3rem,3vw,1.8rem)}
   .rel__grid{grid-template-columns:1fr 1fr}
 }
 @media (max-width:640px){
@@ -1788,7 +1788,7 @@ ul{margin:0;padding:0;list-style:none}
    ============================================================ */
 /* feature image inside the overview left column */
 .pkg__figure{position:relative;border-radius:var(--radius);overflow:hidden;
-  isolation:isolate;margin:0;min-height:360px}
+  isolation:isolate;margin:0;min-height:300px}
 .pkg__figure img{width:100%;height:100%;object-fit:cover;display:block;
   transition:transform 1.7s var(--ease)}
 .pkg__figure:hover img{transform:scale(1.05)}
