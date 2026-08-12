@@ -1831,3 +1831,18 @@ ul{margin:0;padding:0;list-style:none}
   .pxp{grid-template-columns:1fr 1fr}
   .pgal{grid-template-columns:1fr 1fr}
 }
+
+/* ============ 404 PAGE ============ */
+.err404{display:flex;align-items:center;min-height:calc(100vh - var(--nav-h) - 220px);
+  padding:clamp(3rem,8vw,6rem) 0;background:var(--bg)}
+.err404__inner{max-width:760px;text-align:center;margin-inline:auto}
+.err404__kicker{display:inline-block;font-family:'Dancing Script',cursive;font-weight:700;
+  color:var(--aqua-deep);font-size:clamp(1.6rem,3vw,2.1rem);line-height:1;margin-bottom:.4rem}
+.err404__title{font-family:var(--sans);font-weight:800;color:var(--navy);line-height:1.12;
+  letter-spacing:-.01em;font-size:clamp(1.9rem,4.5vw,3rem);margin:.2rem 0 1rem}
+.err404__text{color:var(--ink-2);line-height:1.8;font-size:1.05rem;max-width:56ch;margin:0 auto 2rem}
+.err404__cta{display:flex;flex-wrap:wrap;gap:.8rem;justify-content:center;margin-bottom:2.4rem}
+.err404__links{display:flex;flex-wrap:wrap;gap:.5rem 1.4rem;justify-content:center;
+  padding-top:1.6rem;border-top:1px solid var(--line-2)}
+.err404__links a{color:var(--aqua-deep);font-weight:600;font-size:.95rem;text-decoration:none}
+.err404__links a:hover{text-decoration:underline}
