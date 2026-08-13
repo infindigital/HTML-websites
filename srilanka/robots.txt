@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://arcship.ae/sitemap.xml
+Sitemap: https://arcship.ae/sri-lanka/sitemap.xml
