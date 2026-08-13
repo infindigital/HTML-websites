@@ -96,6 +96,11 @@ def build_home():
     doc += f"""
 <main id="main">
   <section class="hero">
+    <span class="hero__panel" aria-hidden="true">
+      <span class="hero__reg hero__reg--tl"></span>
+      <span class="hero__reg hero__reg--br"></span>
+      <span class="hero__plabel">UAE &middot; KSA</span>
+    </span>
     <div class="container hero__grid">
       <div class="hero__content">
         <p class="eyebrow">Contracting &amp; Industrial Maintenance &middot; UAE &amp; KSA</p>
@@ -106,13 +111,13 @@ def build_home():
           <a class="btn btn--ghost btn--lg" href="/services/">Explore Services</a>
         </div>
         <ul class="hero__marks">
-          <li><strong>05</strong><span>Core disciplines</span></li>
-          <li><strong>04</strong><span>Regional offices</span></li>
+          <li><strong class="hero__num" data-count="5" data-pad="2">05</strong><span>Core disciplines</span></li>
+          <li><strong class="hero__num" data-count="4" data-pad="2">04</strong><span>Regional offices</span></li>
           <li><strong>UAE &amp; KSA</strong><span>Gulf-wide delivery</span></li>
         </ul>
       </div>
       <div class="hero__figure">
-        <div class="hero__img"><img src="{hero_img}" alt="Falcon Rotating technicians overhauling an industrial steam turbine" width="900" height="1125" fetchpriority="high"></div>
+        <div class="hero__img"><img src="{hero_img}" alt="Falcon Rotating technicians overhauling an industrial steam turbine" width="960" height="486" fetchpriority="high"></div>
         <div class="hero__badge">
           <span class="hero__badge-ic">{icon('gear')}</span>
           <span class="hero__badge-tx"><b>Rotating Equipment</b><span>Overhaul &amp; maintenance specialists</span></span>

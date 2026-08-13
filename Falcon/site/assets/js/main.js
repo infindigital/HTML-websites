@@ -79,6 +79,36 @@
     });
   });
 
+  /* ---- Hero stat count-up (Concept C) ---- */
+  var heroNums = document.querySelectorAll(".hero__num[data-count]");
+  if (heroNums.length) {
+    var pad = function (v, n) { var s = String(v); while (s.length < n) s = "0" + s; return s; };
+    var countUp = function (el) {
+      var target = parseInt(el.getAttribute("data-count"), 10) || 0;
+      var digits = parseInt(el.getAttribute("data-pad"), 10) || 0;
+      var dur = 1100, start = null;
+      var frame = function (ts) {
+        if (start === null) start = ts;
+        var p = Math.min((ts - start) / dur, 1);
+        var eased = 1 - Math.pow(1 - p, 3);
+        el.textContent = pad(Math.round(eased * target), digits);
+        if (p < 1) requestAnimationFrame(frame);
+        else el.textContent = pad(target, digits);
+      };
+      requestAnimationFrame(frame);
+    };
+    var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (!reduceMotion && "IntersectionObserver" in window) {
+      var cio = new IntersectionObserver(function (entries) {
+        entries.forEach(function (en) {
+          if (en.isIntersecting) { countUp(en.target); cio.unobserve(en.target); }
+        });
+      }, { threshold: 0.4 });
+      heroNums.forEach(function (el) { cio.observe(el); });
+    }
+    // reduced motion / no IO: leave the static 05 / 04 already in the HTML
+  }
+
   /* ---- Footer year ---- */
   var yr = document.querySelector("[data-year]");
   if (yr) yr.textContent = new Date().getFullYear();
