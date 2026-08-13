@@ -81,7 +81,7 @@ def _mini_loc_cards():
 
 # =====================================================================  HOME
 def build_home():
-    hero_img = f"{IMG}falcon-rotating-steam-turbine-overhaul.webp"
+    hero_img = f"{IMG}falcon-rotating-industrial-maintenance-team.webp"
     ld = [org_ld(), website_ld(),
           breadcrumb_ld([("Home", "/")]),
           faq_ld(HOME_FAQ)]
@@ -95,33 +95,33 @@ def build_home():
     doc += header("home")
     doc += f"""
 <main id="main">
-  <section class="hero">
-    <span class="hero__panel" aria-hidden="true">
-      <span class="hero__reg hero__reg--tl"></span>
-      <span class="hero__reg hero__reg--br"></span>
-      <span class="hero__plabel">UAE &middot; KSA</span>
-    </span>
-    <div class="container hero__grid">
-      <div class="hero__content">
-        <p class="eyebrow">Contracting &amp; Industrial Maintenance &middot; UAE &amp; KSA</p>
-        <h1>Engineering Strength.<br><span class="accent">Delivering Excellence.</span></h1>
-        <p class="hero__lead">Your dependable partner for construction, rotating equipment overhauling, piling, excavation and equipment rental services across the UAE and Saudi Arabia.</p>
-        <div class="btn-row">
-          <a class="btn btn--lg" href="/request-a-quote/">Request a Quote {icon('arrow','ar')}</a>
-          <a class="btn btn--ghost btn--lg" href="/services/">Explore Services</a>
-        </div>
-        <ul class="hero__marks">
-          <li><strong class="hero__num" data-count="5" data-pad="2">05</strong><span>Core disciplines</span></li>
-          <li><strong class="hero__num" data-count="4" data-pad="2">04</strong><span>Regional offices</span></li>
-          <li><strong>UAE &amp; KSA</strong><span>Gulf-wide delivery</span></li>
-        </ul>
+  <section class="hero hero--cine">
+    <div class="hero__slides" aria-hidden="true">
+      <div class="hero__slide is-active"><img src="{IMG}falcon-rotating-industrial-maintenance-team.webp" alt="" width="1400" height="892" fetchpriority="high"></div>
+      <div class="hero__slide"><img src="{IMG}falcon-rotating-steam-turbine-overhaul.webp" alt="" width="960" height="486" loading="lazy"></div>
+      <div class="hero__slide"><img src="{IMG}falcon-rotating-construction-contracting.webp" alt="" width="1500" height="728" loading="lazy"></div>
+    </div>
+    <div class="hero__scrim" aria-hidden="true"></div>
+    <div class="container hero__inner">
+      <p class="eyebrow">Contracting &amp; Industrial Maintenance</p>
+      <h1 class="hero__title">
+        <span class="t-sm">Engineering</span>
+        <span class="t-lg">Strength.</span>
+        <span class="t-md">Delivering excellence in all we do.</span>
+      </h1>
+      <div class="btn-row">
+        <a class="btn btn--lg" href="/request-a-quote/">Request a Quote {icon('arrow','ar')}</a>
+        <a class="btn btn--ghost-white btn--lg" href="/services/">Explore Our Services</a>
       </div>
-      <div class="hero__figure">
-        <div class="hero__img"><img src="{hero_img}" alt="Falcon Rotating technicians overhauling an industrial steam turbine" width="960" height="486" fetchpriority="high"></div>
-        <div class="hero__badge">
-          <span class="hero__badge-ic">{icon('gear')}</span>
-          <span class="hero__badge-tx"><b>Rotating Equipment</b><span>Overhaul &amp; maintenance specialists</span></span>
-        </div>
+      <ul class="hero__marks">
+        <li><strong class="hero__num" data-count="5" data-pad="2">05</strong><span>Core disciplines</span></li>
+        <li><strong class="hero__num" data-count="4" data-pad="2">04</strong><span>Regional offices</span></li>
+        <li><strong>UAE &amp; KSA</strong><span>Gulf-wide delivery</span></li>
+      </ul>
+      <div class="hero__dots">
+        <button type="button" aria-current="true" aria-label="Show slide 1 — industrial maintenance team"></button>
+        <button type="button" aria-current="false" aria-label="Show slide 2 — steam turbine overhaul"></button>
+        <button type="button" aria-current="false" aria-label="Show slide 3 — construction &amp; contracting"></button>
       </div>
     </div>
   </section>

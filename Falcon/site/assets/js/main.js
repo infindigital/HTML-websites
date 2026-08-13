@@ -79,6 +79,37 @@
     });
   });
 
+  /* ---- Hero background slideshow (crossfade, 3 images) ---- */
+  var slidesWrap = document.querySelector(".hero__slides");
+  if (slidesWrap) {
+    var slides = slidesWrap.querySelectorAll(".hero__slide");
+    var dots = document.querySelectorAll(".hero__dots button");
+    var idx = 0, timer = null, DELAY = 5200;
+    var show = function (n) {
+      if (slides[idx]) slides[idx].classList.remove("is-active");
+      if (dots[idx]) dots[idx].setAttribute("aria-current", "false");
+      idx = (n + slides.length) % slides.length;
+      if (slides[idx]) slides[idx].classList.add("is-active");
+      if (dots[idx]) dots[idx].setAttribute("aria-current", "true");
+    };
+    var start = function () {
+      if (!timer && slides.length > 1) {
+        timer = setInterval(function () { show(idx + 1); }, DELAY);
+      }
+    };
+    var stop = function () { if (timer) { clearInterval(timer); timer = null; } };
+    var reduceHero = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    dots.forEach(function (d, i) {
+      d.addEventListener("click", function () { stop(); show(i); if (!reduceHero) start(); });
+    });
+    if (!reduceHero) {
+      start();
+      document.addEventListener("visibilitychange", function () {
+        if (document.hidden) stop(); else start();
+      });
+    }
+  }
+
   /* ---- Hero stat count-up (Concept C) ---- */
   var heroNums = document.querySelectorAll(".hero__num[data-count]");
   if (heroNums.length) {
