@@ -383,7 +383,7 @@ def _service_page(slug, title_tag, meta, h1, hero_img, hero_alt, eyebrow,
                   intro_paras, cap_heading, capabilities, extra_sections, faq,
                   intro_img, intro_alt, intro_tag, intro_tag_icon,
                   band_img, band_alt, band_eyebrow, band_heading, band_text,
-                  related_intro=None):
+                  related_intro=None, intro_cutout=False):
     _, name, short, url = next(s for s in SERVICES if s[0] == slug)
     items = [("Home", "/"), ("Services", "/services/"), (name, None)]
     ld = [breadcrumb_ld(items), service_ld(name, meta, url), faq_ld(faq)]
@@ -412,7 +412,7 @@ def _service_page(slug, title_tag, meta, h1, hero_img, hero_alt, eyebrow,
         {intro_html}
         <div class="btn-row mt-m"><a class="btn btn--ghost" href="/request-a-quote/">Request a Quote {icon('arrow','ar')}</a></div>
       </div>
-      <div class="media-frame media-frame--br reveal" data-d="1">
+      <div class="media-frame{' media-frame--product' if intro_cutout else ' media-frame--br'} reveal" data-d="1">
         <img src="{IMG}falcon-rotating-{intro_img}.webp" alt="{intro_alt}" loading="lazy" width="880" height="1100">
         <span class="media-frame__tag">{icon(intro_tag_icon)}{intro_tag}</span>
       </div>
@@ -499,6 +499,7 @@ def build_service_construction():
          "The most fundamental part of Falcon Rotating is our people. Our teams take extra care about job quality and go the extra step to ensure the correctness of work, supported by open communication and teamwork between management and field personnel."],
         "Major Construction Activities",
         activities, gallery, faq,
+        intro_cutout=True,
         intro_img="construction-worker",
         intro_alt="Falcon Rotating construction worker on an active project site",
         intro_tag="Civil &amp; Industrial", intro_tag_icon="building",
@@ -554,6 +555,7 @@ def build_service_piling():
          "Our piling services provide reliable foundation solutions for construction and infrastructure projects, ensuring structural stability, strength and long-term performance. We undertake piling works with a strong focus on precision, safety and efficient project execution."],
         "Our Piling Capabilities",
         caps, extra, faq,
+        intro_cutout=True,
         intro_img="piling-rig",
         intro_alt="Rotary piling rig installing deep foundation piles",
         intro_tag="Foundation Works", intro_tag_icon="piling",
@@ -682,6 +684,7 @@ def build_service_excavation():
          "Our excavation and backfilling services provide efficient and reliable ground preparation solutions for construction, infrastructure and industrial projects. We undertake excavation works with careful planning and precise execution to achieve the required depths, levels and site conditions."],
         "Our Capabilities",
         caps, extra, faq,
+        intro_cutout=True,
         intro_img="tracked-excavator",
         intro_alt="Tracked excavator performing site excavation and earthworks",
         intro_tag="Earthworks &amp; Groundwork", intro_tag_icon="dig",

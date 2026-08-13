@@ -177,7 +177,7 @@ def header(active=""):
     return f"""<header class="site-header">
   <nav class="container nav" aria-label="Primary">
     <a class="brand" href="/" aria-label="{COMPANY_SHORT} — home">
-      <img src="/assets/images/falcon-rotating-logo.webp" alt="{COMPANY_SHORT} logo" width="222" height="59">
+      <img src="/assets/images/falcon-rotating-logo.webp" alt="{COMPANY_SHORT} logo" width="900" height="605">
     </a>
     <ul class="nav-links" id="nav-links">
       <li><a class="nav-link" href="/"{cur('home')}>Home</a></li>
@@ -232,7 +232,7 @@ def footer():
   <div class="container">
     <div class="footer-top">
       <div class="footer-brand">
-        <img src="/assets/images/falcon-rotating-logo-white.webp" alt="{COMPANY_SHORT} logo" width="222" height="59" loading="lazy">
+        <img src="/assets/images/falcon-rotating-logo-white.webp" alt="{COMPANY_SHORT} logo" width="900" height="605" loading="lazy">
         <p>Your dependable partner for construction, rotating equipment overhauling, piling, excavation and equipment rental services across the UAE and Saudi Arabia.</p>
         <a class="btn btn--ghost-white" href="/request-a-quote/">Request a Quote {icon('arrow','ar')}</a>
       </div>
