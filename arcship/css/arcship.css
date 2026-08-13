@@ -581,6 +581,7 @@ body.nav-open .nav-scrim{ opacity:1; visibility:visible; }
 /* ---------- Company policies ---------- */
 .policy-list{ display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:16px; }
 .policy-card{ display:flex; align-items:center; justify-content:space-between; gap:1rem; background:#fff; border:1px solid var(--line); border-radius:var(--radius-lg); padding:22px 24px; transition:border-color .3s,box-shadow .3s var(--ease),transform .3s var(--ease); }
+a.policy-card{ color:inherit; text-decoration:none; }
 .policy-card:hover{ border-color:var(--brand-200,rgba(23,162,74,.28)); box-shadow:var(--shadow-md); transform:translateY(-3px); }
 .policy-card h3{ font-size:1.02rem; margin:0; }
 .policy-card p{ font-size:.85rem; color:var(--muted); margin:.25rem 0 0; }
