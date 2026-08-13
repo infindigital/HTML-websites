@@ -96,14 +96,27 @@ def build_home():
     doc += f"""
 <main id="main">
   <section class="hero">
-    <div class="hero__media"><img src="{hero_img}" alt="Falcon Rotating technicians overhauling an industrial steam turbine" width="1400" height="900" fetchpriority="high"></div>
-    <div class="container hero__inner">
-      <p class="eyebrow" style="color:#9DBBF0">Contracting &amp; Industrial Maintenance</p>
-      <h1>Engineering Strength.<br><span class="accent">Delivering Excellence.</span></h1>
-      <p class="hero__lead">Your dependable partner for construction, rotating equipment overhauling, piling, excavation and equipment rental services across the UAE and Saudi Arabia.</p>
-      <div class="btn-row">
-        <a class="btn btn--white btn--lg" href="/request-a-quote/">Request a Quote {icon('arrow','ar')}</a>
-        <a class="btn btn--ghost-white btn--lg" href="/services/">Explore Services</a>
+    <div class="container hero__grid">
+      <div class="hero__content">
+        <p class="eyebrow">Contracting &amp; Industrial Maintenance &middot; UAE &amp; KSA</p>
+        <h1>Engineering Strength.<br><span class="accent">Delivering Excellence.</span></h1>
+        <p class="hero__lead">Your dependable partner for construction, rotating equipment overhauling, piling, excavation and equipment rental services across the UAE and Saudi Arabia.</p>
+        <div class="btn-row">
+          <a class="btn btn--lg" href="/request-a-quote/">Request a Quote {icon('arrow','ar')}</a>
+          <a class="btn btn--ghost btn--lg" href="/services/">Explore Services</a>
+        </div>
+        <ul class="hero__marks">
+          <li><strong>05</strong><span>Core disciplines</span></li>
+          <li><strong>04</strong><span>Regional offices</span></li>
+          <li><strong>UAE &amp; KSA</strong><span>Gulf-wide delivery</span></li>
+        </ul>
+      </div>
+      <div class="hero__figure">
+        <div class="hero__img"><img src="{hero_img}" alt="Falcon Rotating technicians overhauling an industrial steam turbine" width="900" height="1125" fetchpriority="high"></div>
+        <div class="hero__badge">
+          <span class="hero__badge-ic">{icon('gear')}</span>
+          <span class="hero__badge-tx"><b>Rotating Equipment</b><span>Overhaul &amp; maintenance specialists</span></span>
+        </div>
       </div>
     </div>
   </section>
@@ -367,14 +380,18 @@ def _related_services(exclude):
 
 
 def _service_page(slug, title_tag, meta, h1, hero_img, hero_alt, eyebrow,
-                  intro_paras, cap_heading, capabilities, extra_sections, faq, related_intro=None):
+                  intro_paras, cap_heading, capabilities, extra_sections, faq,
+                  intro_img, intro_alt, intro_tag, intro_tag_icon,
+                  band_img, band_alt, band_eyebrow, band_heading, band_text,
+                  related_intro=None):
     _, name, short, url = next(s for s in SERVICES if s[0] == slug)
     items = [("Home", "/"), ("Services", "/services/"), (name, None)]
     ld = [breadcrumb_ld(items), service_ld(name, meta, url), faq_ld(faq)]
     doc = head(title_tag, meta, url, og_img=f"/assets/images/falcon-rotating-{hero_img}.webp", jsonld=ld)
     doc += header("services")
     intro_html = "".join(f'<p class="mt-s muted">{p}</p>' for p in intro_paras[1:])
-    caps_html = "".join(f'<li>{icon("check")}<div>{c}</div></li>' for c in capabilities)
+    caps_html = "".join(
+        f'<div class="cap-item">{icon("check")}<span>{c}</span></div>' for c in capabilities)
     doc += f"""
 <main id="main">
   <section class="pagehero">
@@ -388,10 +405,17 @@ def _service_page(slug, title_tag, meta, h1, hero_img, hero_alt, eyebrow,
   </section>
 
   <section class="section">
-    <div class="container narrow reveal">
-      <p class="eyebrow">Overview</p>
-      <h2>{name}</h2>
-      {intro_html}
+    <div class="container split split--wide-text">
+      <div class="reveal">
+        <p class="eyebrow">Overview</p>
+        <h2>{name}</h2>
+        {intro_html}
+        <div class="btn-row mt-m"><a class="btn btn--ghost" href="/request-a-quote/">Request a Quote {icon('arrow','ar')}</a></div>
+      </div>
+      <div class="media-frame media-frame--br reveal" data-d="1">
+        <img src="{IMG}falcon-rotating-{intro_img}.webp" alt="{intro_alt}" loading="lazy" width="880" height="1100">
+        <span class="media-frame__tag">{icon(intro_tag_icon)}{intro_tag}</span>
+      </div>
     </div>
   </section>
 
@@ -401,7 +425,17 @@ def _service_page(slug, title_tag, meta, h1, hero_img, hero_alt, eyebrow,
         <p class="eyebrow">Capabilities</p>
         <h2>{cap_heading}</h2>
       </div>
-      <ul class="checks reveal">{caps_html}</ul>
+      <div class="cap-grid reveal">{caps_html}</div>
+    </div>
+  </section>
+
+  <section class="imgband">
+    <img src="{IMG}falcon-rotating-{band_img}.webp" alt="{band_alt}" loading="lazy" width="1600" height="800">
+    <div class="container imgband__inner reveal">
+      <p class="eyebrow">{band_eyebrow}</p>
+      <h2>{band_heading}</h2>
+      <p>{band_text}</p>
+      <div class="btn-row"><a class="btn btn--white btn--lg" href="/request-a-quote/">Request a Quote {icon('arrow','ar')}</a><a class="btn btn--ghost-white btn--lg" href="/contact/">Talk to Our Team</a></div>
     </div>
   </section>
 {extra_sections}
@@ -428,10 +462,10 @@ def build_service_construction():
     gallery = f"""
   <section class="section">
     <div class="container">
-      <div class="section-head reveal"><p class="eyebrow">On Site</p><h2>Construction in Action</h2></div>
+      <div class="section-head reveal"><p class="eyebrow">On Site</p><h2>Our Teams in Action</h2></div>
       <div class="gallery reveal">
-        <figure><img src="{IMG}falcon-rotating-civil-construction.webp" alt="Civil construction structural works on site" loading="lazy" width="520" height="390"><figcaption>Civil Construction</figcaption></figure>
-        <figure><img src="{IMG}falcon-rotating-construction-worker.webp" alt="Falcon Rotating construction worker handling masonry" loading="lazy" width="520" height="390"><figcaption>Skilled Workforce</figcaption></figure>
+        <figure><img src="{IMG}falcon-rotating-industrial-maintenance-team.webp" alt="Falcon Rotating industrial maintenance team on site" loading="lazy" width="520" height="390"><figcaption>Industrial Maintenance</figcaption></figure>
+        <figure><img src="{IMG}falcon-rotating-technician.webp" alt="Skilled technician carrying out precision works" loading="lazy" width="520" height="390"><figcaption>Skilled Workforce</figcaption></figure>
         <figure><img src="{IMG}falcon-rotating-finishing-works.webp" alt="Interior finishing and tiling works" loading="lazy" width="520" height="390"><figcaption>Finishing Works</figcaption></figure>
       </div>
     </div>
@@ -465,6 +499,14 @@ def build_service_construction():
          "The most fundamental part of Falcon Rotating is our people. Our teams take extra care about job quality and go the extra step to ensure the correctness of work, supported by open communication and teamwork between management and field personnel."],
         "Major Construction Activities",
         activities, gallery, faq,
+        intro_img="construction-worker",
+        intro_alt="Falcon Rotating construction worker on an active project site",
+        intro_tag="Civil &amp; Industrial", intro_tag_icon="building",
+        band_img="civil-construction",
+        band_alt="Civil construction structural works delivered by Falcon Rotating",
+        band_eyebrow="Delivered With Discipline",
+        band_heading="One Team, Many Disciplines",
+        band_text="From civil construction and piping to industrial and electrical maintenance, steel fabrication and finishing works &mdash; we bring the right trades together to deliver complete, dependable results.",
     )
 
 
@@ -475,12 +517,13 @@ def build_service_piling():
             "Quality and safety compliance"]
     extra = f"""
   <section class="section">
-    <div class="container split split--rev">
-      <div class="split__media reveal"><img src="{IMG}falcon-rotating-piling-rig.webp" alt="Rotary piling rig on a foundation works site" loading="lazy" width="900" height="700"></div>
-      <div class="reveal" data-d="1">
-        <p class="eyebrow">Strong Foundations. Built for Performance.</p>
-        <h2>Engineered for Structural Stability</h2>
-        <p class="mt-s muted">With experienced personnel, modern equipment and effective site management, Falcon Rotating delivers piling solutions tailored to project requirements and ground conditions &mdash; with a strong focus on precision, safety and efficient execution.</p>
+    <div class="container">
+      <div class="section-head reveal"><p class="eyebrow">How We Work</p><h2>From Mobilization to Completion</h2></div>
+      <div class="steps reveal">
+        <div class="step"><div class="step__n"></div><div><h3>Site Preparation &amp; Mobilization</h3><p>Access, setup and mobilization of piling equipment, aligned to the project programme and prevailing ground conditions.</p></div></div>
+        <div class="step"><div class="step__n"></div><div><h3>Piling &amp; Foundation Works</h3><p>Installation of piles using modern equipment, executed with precision for structural stability, strength and long-term performance.</p></div></div>
+        <div class="step"><div class="step__n"></div><div><h3>Foundation Support &amp; Civil Works</h3><p>Associated excavation and civil works that integrate the piling into the wider foundation system.</p></div></div>
+        <div class="step"><div class="step__n"></div><div><h3>Quality &amp; Safety Compliance</h3><p>Site coordination, inspection and compliance checks to confirm the works meet the required standards.</p></div></div>
       </div>
     </div>
   </section>"""
@@ -511,6 +554,14 @@ def build_service_piling():
          "Our piling services provide reliable foundation solutions for construction and infrastructure projects, ensuring structural stability, strength and long-term performance. We undertake piling works with a strong focus on precision, safety and efficient project execution."],
         "Our Piling Capabilities",
         caps, extra, faq,
+        intro_img="piling-rig",
+        intro_alt="Rotary piling rig installing deep foundation piles",
+        intro_tag="Foundation Works", intro_tag_icon="piling",
+        band_img="piling-work",
+        band_alt="Piling and foundation works on a Falcon Rotating construction site",
+        band_eyebrow="Strong Foundations",
+        band_heading="Engineered for Structural Stability",
+        band_text="With experienced personnel, modern equipment and effective site management, we deliver piling solutions tailored to each project&rsquo;s requirements and ground conditions &mdash; with precision, safety and efficient execution.",
     )
 
 
@@ -522,14 +573,13 @@ def build_service_rotating():
     gallery = f"""
   <section class="section">
     <div class="container">
-      <div class="section-head reveal"><p class="eyebrow">Machinery We Service</p><h2>Rotating Equipment Gallery</h2></div>
-      <div class="gallery reveal">
-        <figure><img src="{IMG}falcon-rotating-steam-turbine-blades.webp" alt="Steam turbine blade assembly during overhaul" loading="lazy" width="520" height="390"><figcaption>Steam Turbines</figcaption></figure>
-        <figure><img src="{IMG}falcon-rotating-centrifugal-pump.webp" alt="Centrifugal pump units ready for installation" loading="lazy" width="520" height="390"><figcaption>Centrifugal Pumps</figcaption></figure>
-        <figure><img src="{IMG}falcon-rotating-agitator.webp" alt="Industrial agitator with drive assembly" loading="lazy" width="520" height="390"><figcaption>Agitators</figcaption></figure>
-        <figure><img src="{IMG}falcon-rotating-reciprocating-pump.webp" alt="Reciprocating pump on process skid" loading="lazy" width="520" height="390"><figcaption>Reciprocating Pumps</figcaption></figure>
-        <figure><img src="{IMG}falcon-rotating-centrifugal-compressor.webp" alt="Centrifugal compressor package" loading="lazy" width="520" height="390"><figcaption>Compressors</figcaption></figure>
-        <figure><img src="{IMG}falcon-rotating-gearbox.webp" alt="Industrial gearbox internal gearing" loading="lazy" width="520" height="390"><figcaption>Gearboxes</figcaption></figure>
+      <div class="section-head reveal"><p class="eyebrow">Machinery We Service</p><h2>Rotating Equipment We Overhaul</h2></div>
+      <div class="showcase reveal">
+        <figure class="sc-lg" data-label="Steam Turbines"><img src="{IMG}falcon-rotating-steam-turbine-blades.webp" alt="Steam turbine blade assembly during overhaul" loading="lazy" width="880" height="600"></figure>
+        <figure class="sc-tall" data-label="Compressors"><img src="{IMG}falcon-rotating-centrifugal-compressor.webp" alt="Centrifugal compressor package" loading="lazy" width="500" height="600"></figure>
+        <figure class="sc-sm" data-label="Centrifugal Pumps"><img src="{IMG}falcon-rotating-centrifugal-pump.webp" alt="Centrifugal pump units ready for installation" loading="lazy" width="500" height="300"></figure>
+        <figure class="sc-sm" data-label="Gearboxes"><img src="{IMG}falcon-rotating-gearbox.webp" alt="Industrial gearbox internal gearing" loading="lazy" width="500" height="300"></figure>
+        <figure class="sc-sm" data-label="Agitators"><img src="{IMG}falcon-rotating-agitator.webp" alt="Industrial agitator with drive assembly" loading="lazy" width="500" height="300"></figure>
       </div>
     </div>
   </section>"""
@@ -573,6 +623,14 @@ def build_service_rotating():
          "Systematic inspection and condition assessment", "Precision alignment",
          "Repair and performance restoration", "Reliability improvement and downtime reduction"],
         extra, faq,
+        intro_img="turbine-inspection",
+        intro_alt="Technician inspecting an industrial steam turbine rotor",
+        intro_tag="Precision Overhaul", intro_tag_icon="gear",
+        band_img="steam-turbine-rotor",
+        band_alt="Steam turbine rotor undergoing precision overhaul and inspection",
+        band_eyebrow="Reliability First",
+        band_heading="Restoring Performance, Reducing Downtime",
+        band_text="Our experienced technical team works with precision to restore equipment performance, improve operational reliability and minimise unplanned downtime across critical rotating machinery.",
     )
 
 
@@ -583,13 +641,18 @@ def build_service_excavation():
             "Ground preparation and reinstatement", "Safe and efficient equipment operation"]
     extra = f"""
   <section class="section">
-    <div class="container split">
-      <div class="reveal">
-        <p class="eyebrow">Precision in Every Dig. Strength in Every Fill.</p>
-        <h2>Reliable Groundwork for Stronger Projects</h2>
-        <p class="mt-s muted">With experienced operators, modern equipment and a strong focus on safety, Falcon Rotating ensures efficient material handling, controlled backfilling and proper compaction to support stable and durable construction.</p>
+    <div class="container split split--rev">
+      <div class="split__media reveal"><img src="{IMG}falcon-rotating-excavation-backfilling.webp" alt="Layer-wise backfilling and compaction on a construction site" loading="lazy" width="900" height="700"></div>
+      <div class="reveal" data-d="1">
+        <p class="eyebrow">Trenching to Reinstatement</p>
+        <h2>Controlled Backfilling &amp; Compaction</h2>
+        <p class="mt-s muted">From foundation and trench excavation to underground utility works, layer-wise backfilling and final reinstatement, we achieve the required depths, levels and site conditions through careful planning and precise execution.</p>
+        <ul class="checks checks--single mt-m">
+          <li>{icon('check')}<div>Foundation &amp; trench excavation</div></li>
+          <li>{icon('check')}<div>Layer-wise backfilling &amp; compaction</div></li>
+          <li>{icon('check')}<div>Site grading, leveling &amp; reinstatement</div></li>
+        </ul>
       </div>
-      <div class="split__media reveal" data-d="1"><img src="{IMG}falcon-rotating-earthworks.webp" alt="Excavator performing earthworks and site grading" loading="lazy" width="900" height="640"></div>
     </div>
   </section>"""
     faq = [
@@ -619,6 +682,14 @@ def build_service_excavation():
          "Our excavation and backfilling services provide efficient and reliable ground preparation solutions for construction, infrastructure and industrial projects. We undertake excavation works with careful planning and precise execution to achieve the required depths, levels and site conditions."],
         "Our Capabilities",
         caps, extra, faq,
+        intro_img="tracked-excavator",
+        intro_alt="Tracked excavator performing site excavation and earthworks",
+        intro_tag="Earthworks &amp; Groundwork", intro_tag_icon="dig",
+        band_img="earthworks",
+        band_alt="Excavator performing earthworks and site grading for Falcon Rotating",
+        band_eyebrow="Groundwork Done Right",
+        band_heading="Precision in Every Dig. Strength in Every Fill.",
+        band_text="With experienced operators, modern equipment and a strong focus on safety, we ensure efficient material handling, controlled backfilling and proper compaction for stable, durable construction.",
     )
 
 

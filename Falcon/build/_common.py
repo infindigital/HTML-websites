@@ -167,17 +167,17 @@ def header(active=""):
     def cur(key):
         return ' aria-current="page"' if active == key else ""
     svc_items = "".join(
-        f'<li><a href="{url}"><span>{name}</span><small>{desc}</small></a></li>'
+        f'<li><a href="{url}">{name}</a></li>'
         for slug, name, desc, url in SERVICES
     )
     loc_items = "".join(
-        f'<li><a href="/locations/{b["slug"]}/"><span>{b["city"]}</span><small>{b["country"]}</small></a></li>'
+        f'<li><a href="/locations/{b["slug"]}/">{b["city"]}</a></li>'
         for b in BRANCHES
     )
     return f"""<header class="site-header">
   <nav class="container nav" aria-label="Primary">
     <a class="brand" href="/" aria-label="{COMPANY_SHORT} — home">
-      <img src="/assets/images/falcon-rotating-logo.webp" alt="{COMPANY_SHORT} logo" width="180" height="48">
+      <img src="/assets/images/falcon-rotating-logo.webp" alt="{COMPANY_SHORT} logo" width="222" height="59">
     </a>
     <ul class="nav-links" id="nav-links">
       <li><a class="nav-link" href="/"{cur('home')}>Home</a></li>
@@ -232,7 +232,7 @@ def footer():
   <div class="container">
     <div class="footer-top">
       <div class="footer-brand">
-        <img src="/assets/images/falcon-rotating-logo-white.webp" alt="{COMPANY_SHORT} logo" width="180" height="48" loading="lazy">
+        <img src="/assets/images/falcon-rotating-logo-white.webp" alt="{COMPANY_SHORT} logo" width="222" height="59" loading="lazy">
         <p>Your dependable partner for construction, rotating equipment overhauling, piling, excavation and equipment rental services across the UAE and Saudi Arabia.</p>
         <a class="btn btn--ghost-white" href="/request-a-quote/">Request a Quote {icon('arrow','ar')}</a>
       </div>
