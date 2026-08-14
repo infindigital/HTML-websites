@@ -86,10 +86,9 @@ def build_home():
           breadcrumb_ld([("Home", "/")]),
           faq_ld(HOME_FAQ)]
     doc = head(
-        f"{COMPANY_SHORT} | Construction, Rotating Equipment & Piling Contractor UAE & KSA",
-        ("Falcon Rotating Contracting & General Maintenance L.L.C. delivers construction "
-         "contracting, rotating equipment overhauling, piling, excavation and heavy equipment "
-         "rental across the UAE and Saudi Arabia. Request a quote today."),
+        f"Construction & Maintenance Contractor UAE | {COMPANY_SHORT}",
+        ("Falcon Rotating delivers construction contracting, rotating equipment overhauling, "
+         "piling, excavation and equipment rental across the UAE and Saudi Arabia."),
         "/", preload_hero=hero_img, jsonld=ld,
     )
     doc += header("home")
@@ -119,9 +118,9 @@ def build_home():
         <li><strong>UAE &amp; KSA</strong><span>Gulf-wide delivery</span></li>
       </ul>
       <div class="hero__dots">
-        <button type="button" aria-current="true" aria-label="Show slide 1 — industrial maintenance team"></button>
-        <button type="button" aria-current="false" aria-label="Show slide 2 — steam turbine overhaul"></button>
-        <button type="button" aria-current="false" aria-label="Show slide 3 — construction &amp; contracting"></button>
+        <button type="button" aria-current="true" aria-label="Show slide 1: industrial maintenance team"></button>
+        <button type="button" aria-current="false" aria-label="Show slide 2: steam turbine overhaul"></button>
+        <button type="button" aria-current="false" aria-label="Show slide 3: construction &amp; contracting"></button>
       </div>
     </div>
   </section>
@@ -255,9 +254,8 @@ def build_about():
     ld = [org_ld(), breadcrumb_ld(items)]
     doc = head(
         f"About {COMPANY_SHORT} | Engineering & Contracting Company",
-        ("Learn about Falcon Rotating Contracting & General Maintenance L.L.C. — a trusted "
-         "engineering and contracting company serving industrial, infrastructure and construction "
-         "sectors across the UAE and Saudi Arabia."),
+        ("Learn about Falcon Rotating, a trusted engineering and contracting company serving "
+         "industrial, infrastructure and construction sectors in the UAE and KSA."),
         "/about/", og_img="/assets/images/falcon-rotating-industrial-maintenance-team.webp", jsonld=ld,
     )
     doc += header("about")
@@ -342,10 +340,9 @@ def build_services_index():
                      "Integrated construction contracting, piling, rotating equipment maintenance, excavation and equipment rental services.",
                      "/services/")]
     doc = head(
-        f"Services | Construction, Piling, Rotating Equipment & Rental | {COMPANY_SHORT}",
-        ("Explore Falcon Rotating's services: construction contracting, piling work, rotating "
-         "equipment overhauling and maintenance, excavation and backfilling, and heavy equipment "
-         "rental across the UAE and Saudi Arabia."),
+        f"Services | Construction, Piling & Rental | {COMPANY_SHORT}",
+        ("Explore Falcon Rotating services: construction contracting, piling, rotating "
+         "equipment overhauling, excavation and equipment rental in the UAE and KSA."),
         "/services/", og_img="/assets/images/falcon-rotating-construction-contracting.webp", jsonld=ld,
     )
     doc += header("services")
@@ -491,10 +488,9 @@ def build_service_construction():
     ]
     _service_page(
         "construction-contracting",
-        f"Construction Contracting | Civil, Industrial & Steel Works | {COMPANY_SHORT}",
-        ("Falcon Rotating provides construction contracting across civil construction, piping, "
-         "industrial and electrical maintenance, steel fabrication and finishing works for "
-         "commercial and industrial projects."),
+        f"Construction Contracting | Civil & Steel | {COMPANY_SHORT}",
+        ("Falcon Rotating provides construction contracting: civil works, piping, industrial "
+         "and electrical maintenance, steel fabrication and finishing."),
         "Construction Contracting",
         "construction-contracting",
         "Construction site with tower crane and structural works delivered by Falcon Rotating",
@@ -548,10 +544,9 @@ def build_service_piling():
     ]
     _service_page(
         "piling",
-        f"Piling Work | Foundation & Piling Contractor | {COMPANY_SHORT}",
+        f"Piling Work | Foundation Piling Contractor | {COMPANY_SHORT}",
         ("Falcon Rotating delivers reliable piling and foundation works for construction and "
-         "infrastructure projects — engineered for structural stability, strength and long-term "
-         "performance."),
+         "infrastructure projects, engineered for structural stability and strength."),
         "Piling Work",
         "piling-work",
         "Rotary piling rig installing deep foundation piles on a Falcon Rotating site",
@@ -614,10 +609,9 @@ def build_service_rotating():
     ]
     _service_page(
         "rotating-equipment",
-        f"Rotating Equipment Overhauling & Maintenance | {COMPANY_SHORT}",
-        ("Specialized rotating equipment overhauling, maintenance, inspection and repair for steam "
-         "turbines, pumps, compressors, gearboxes and more — restoring performance and minimizing "
-         "downtime."),
+        f"Rotating Equipment Overhaul & Maintenance | {COMPANY_SHORT}",
+        ("Specialized overhauling, maintenance, inspection and repair of rotating equipment: "
+         "steam turbines, pumps, compressors and gearboxes across the Gulf."),
         "Rotating Equipment Overhauling &amp; Maintenance",
         "steam-turbine-overhaul",
         "Falcon Rotating technicians overhauling an industrial steam turbine",
@@ -678,9 +672,9 @@ def build_service_excavation():
     ]
     _service_page(
         "excavation-backfilling",
-        f"Excavation & Backfilling | Earthworks & Groundwork | {COMPANY_SHORT}",
-        ("Falcon Rotating provides excavation and backfilling services — earthworks, trenching, "
-         "soil removal, layer-wise compaction and site grading for stable, durable construction."),
+        f"Excavation & Backfilling | Earthworks | {COMPANY_SHORT}",
+        ("Falcon Rotating provides excavation and backfilling: earthworks, trenching, soil "
+         "removal, layer-wise compaction and site grading for durable construction."),
         "Excavation &amp; Backfilling",
         "excavation-backfilling",
         "Excavator performing site excavation and earthworks for Falcon Rotating",
@@ -715,10 +709,9 @@ def build_equipment_rental():
                      "/equipment-rental/"),
           faq_ld(RENTAL_FAQ)]
     doc = head(
-        f"Equipment Rental | Heavy Machinery & Vehicle Hire | {COMPANY_SHORT}",
-        ("Rent heavy construction machinery and vehicles from Falcon Rotating — cranes, crawler "
-         "cranes, excavators, loaders, dump and boom trucks, generators, compressors and more, "
-         "operated under your control on a flexible rental basis."),
+        f"Equipment Rental | Heavy Machinery Hire | {COMPANY_SHORT}",
+        ("Rent heavy machinery and vehicles from Falcon Rotating: cranes, excavators, loaders, "
+         "dump and boom trucks, generators and compressors on flexible terms."),
         "/equipment-rental/", og_img="/assets/images/falcon-rotating-equipment-rental-fleet.webp", jsonld=ld,
     )
     doc += header("equipment-rental")

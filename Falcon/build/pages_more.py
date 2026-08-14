@@ -32,9 +32,8 @@ def build_locations_index():
     ld = [breadcrumb_ld(items), org_ld()] + [localbusiness_ld(b) for b in BRANCHES]
     doc = head(
         f"Locations | Offices in UAE & Saudi Arabia | {COMPANY_SHORT}",
-        ("Find Falcon Rotating offices across the UAE and Saudi Arabia — Dubai, Abu Dhabi, Yanbu "
-         "(head office) and Al Jubail. Contact your nearest office for construction, maintenance "
-         "and equipment rental services."),
+        ("Find Falcon Rotating offices across the UAE and Saudi Arabia: Dubai, Abu Dhabi, Yanbu "
+         "(head office) and Al Jubail. Contact your nearest branch."),
         "/locations/", jsonld=ld,
     )
     doc += header("")
@@ -71,10 +70,9 @@ def build_location(slug):
     ld = [breadcrumb_ld(items), localbusiness_ld(b)]
     other = [x for x in BRANCHES if x["slug"] != slug]
     doc = head(
-        f"{b['city']} Office | Construction & Equipment Rental | {COMPANY_SHORT}",
-        (f"Contact the Falcon Rotating {b['city']} office ({b['legal']}). Construction "
-         f"contracting, rotating equipment maintenance, piling, excavation and equipment rental "
-         f"services in {b['city']}, {b['country']}."),
+        f"{b['city']} Office | Construction & Rental | {COMPANY_SHORT}",
+        (f"Falcon Rotating {b['city']} office: construction contracting, rotating equipment "
+         f"maintenance, piling, excavation and equipment rental in {b['country']}."),
         f"/locations/{slug}/", jsonld=ld,
     )
     doc += header("")
@@ -152,9 +150,8 @@ def build_contact():
            "url": SITE + "/contact/", "name": f"Contact {COMPANY_SHORT}"}]
     doc = head(
         f"Contact {COMPANY_SHORT} | Get in Touch",
-        ("Contact Falcon Rotating Contracting & General Maintenance L.L.C. Reach our offices in "
-         "Dubai, Abu Dhabi, Yanbu and Al Jubail for construction, maintenance and equipment rental "
-         "enquiries."),
+        ("Contact Falcon Rotating. Reach our offices in Dubai, Abu Dhabi, Yanbu and Al Jubail "
+         "for construction, maintenance and equipment rental enquiries."),
         "/contact/", jsonld=ld,
     )
     doc += header("contact")
@@ -244,7 +241,7 @@ def build_quote():
     doc = head(
         f"Request a Quote | {COMPANY_SHORT}",
         ("Request a quote from Falcon Rotating for construction contracting, rotating equipment "
-         "maintenance, piling, excavation or equipment rental across the UAE and Saudi Arabia."),
+         "maintenance, piling, excavation or equipment rental in the UAE and KSA."),
         "/request-a-quote/", jsonld=ld,
     )
     doc += header("")
@@ -417,7 +414,7 @@ def build_privacy():
       <p>For any questions about this Privacy Policy, contact us at <a href="mailto:{PRIMARY_EMAIL}">{PRIMARY_EMAIL}</a> or <a href="tel:{PRIMARY_PHONE_HREF}">{PRIMARY_PHONE}</a>.</p>
     """
     _legal_page("/privacy-policy/", f"Privacy Policy | {COMPANY_SHORT}",
-                "Privacy Policy for Falcon Rotating Contracting & General Maintenance L.L.C. — how we handle information submitted through this website.",
+                "Privacy Policy for Falcon Rotating Contracting & General Maintenance L.L.C., covering how we handle information submitted through this website.",
                 "Privacy Policy", "Legal", body)
 
 

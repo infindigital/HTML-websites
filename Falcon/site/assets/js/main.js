@@ -72,7 +72,7 @@
       if (status) {
         status.classList.add("show", "ok");
         status.textContent =
-          "Thank you — your enquiry has been prepared. Connect this form to your email/CRM endpoint to receive submissions.";
+          "Thank you. Your enquiry has been prepared. Connect this form to your email/CRM endpoint to receive submissions.";
       }
       form.reset();
       if (status) status.scrollIntoView({ behavior: "smooth", block: "center" });

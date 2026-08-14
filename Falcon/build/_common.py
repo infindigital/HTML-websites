@@ -176,7 +176,7 @@ def header(active=""):
     )
     return f"""<header class="site-header">
   <nav class="container nav" aria-label="Primary">
-    <a class="brand" href="/" aria-label="{COMPANY_SHORT} — home">
+    <a class="brand" href="/" aria-label="{COMPANY_SHORT} home">
       <img src="/assets/images/falcon-rotating-logo.webp" alt="{COMPANY_SHORT} logo" width="900" height="605">
     </a>
     <ul class="nav-links" id="nav-links">
@@ -372,7 +372,7 @@ def website_ld():
 def service_ld(name, desc, path, area="United Arab Emirates"):
     return {
         "@context": "https://schema.org", "@type": "Service",
-        "serviceType": name, "name": f"{name} — {COMPANY_SHORT}",
+        "serviceType": name, "name": f"{name} | {COMPANY_SHORT}",
         "provider": {"@id": SITE + "/#organization"},
         "areaServed": [{"@type": "Country", "name": "United Arab Emirates"},
                        {"@type": "Country", "name": "Saudi Arabia"}],
