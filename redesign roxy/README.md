@@ -1,6 +1,6 @@
-# Roxy Houseboat — Website Redesign
+# Roxy Houseboat - Website Redesign
 
-A premium redesign of the Roxy Houseboat Nileshwar website — a static, hand-built
+A premium redesign of the Roxy Houseboat Nileshwar website - a static, hand-built
 HTML/CSS/JS site with no framework or build step. The design communicates a
 Kerala backwater luxury experience: calm, authentic, trustworthy and premium.
 
@@ -8,12 +8,12 @@ Kerala backwater luxury experience: calm, authentic, trustworthy and premium.
 
 | File | Page |
 | --- | --- |
-| `index.html` | Homepage — hero, about, packages, testimonials, houseboats, CTA, why choose, contact, FAQ |
-| `about-us.html` | About — who we are, our story, vision, what sets us apart |
-| `services.html` | Services — accommodation & dining, events & conferences |
-| `packages.html` | Packages — 6 cruise packages in alternating detail rows |
-| `gallery.html` | Gallery — masonry image mosaic |
-| `contact-us.html` | Contact — form, contact details, map, FAQ |
+| `index.html` | Homepage - hero, about, packages, testimonials, houseboats, CTA, why choose, contact, FAQ |
+| `about-us.html` | About - who we are, our story, vision, what sets us apart |
+| `services.html` | Services - accommodation & dining, events & conferences |
+| `packages.html` | Packages - 6 cruise packages in alternating detail rows |
+| `gallery.html` | Gallery - masonry image mosaic |
+| `contact-us.html` | Contact - form, contact details, map, FAQ |
 
 ## Design system
 
@@ -21,7 +21,7 @@ Kerala backwater luxury experience: calm, authentic, trustworthy and premium.
 - **Type:** Merriweather (serif display, 900/700) + Manrope (sans body, 500/700), via Google Fonts
 - **Tokens & components:** one shared stylesheet (`assets/css/styles.css`) using
   CSS custom properties and reusable component classes across all pages
-- **Behaviour:** one shared script (`assets/js/main.js`) — sticky nav scroll
+- **Behaviour:** one shared script (`assets/js/main.js`) - sticky nav scroll
   state, mobile menu, FAQ accordion, scroll-reveal (IntersectionObserver),
   auto copyright year
 
@@ -45,7 +45,7 @@ redesign roxy/
 - Lazy-loaded images with explicit dimensions
 - Semantic, accessible markup (landmarks, ARIA on interactive controls, focus styles)
 - Subtle motion only, with `prefers-reduced-motion` support
-- Content preserved from the original site — packages, contact details, FAQs and
+- Content preserved from the original site - packages, contact details, FAQs and
   section order are unchanged
 
 ## Local preview

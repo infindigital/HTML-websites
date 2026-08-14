@@ -1,5 +1,5 @@
 /* =============================================================
-   Roxy Houseboat — interactions
+   Roxy Houseboat, interactions
    Nav scroll state · mobile menu · accordion · scroll reveal · year
    ============================================================= */
 (function () {
@@ -157,7 +157,7 @@
       var drag = 0;        // live drag offset in card units (updated while a finger/mouse pulls the deck)
       var dragging = false;
 
-      // Nudge the hero video into playing — some browsers hold autoplay until asked.
+      // Nudge the hero video into playing, some browsers hold autoplay until asked.
       var vid = pkgHero.querySelector(".pkg-hero__video");
       if (vid && typeof vid.play === "function") {
         var tryPlay = function () { var p = vid.play(); if (p && p.catch) p.catch(function () {}); };
@@ -201,7 +201,7 @@
           } else {
             c.style.visibility = "visible";
             c.style.pointerEvents = dragging ? "none" : "auto";
-            c.style.opacity = "1";   // fully opaque — no transparency on the side cards
+            c.style.opacity = "1";   // fully opaque, no transparency on the side cards
           }
           c.style.transition = dragging ? "none" : "";   // 1:1 follow while dragging, smooth snap on release
           var clamped = Math.max(-2, Math.min(2, off));
@@ -262,7 +262,7 @@
         else if (e.key === "ArrowRight") { go(active + 1, true); }
       });
 
-      /* Manual drag / swipe — grab the deck and pull it left/right (touch + mouse). */
+      /* Manual drag / swipe, grab the deck and pull it left/right (touch + mouse). */
       if (stage && window.PointerEvent) {
         var startX = 0, pxPerUnit = 1, activePointer = null;
         stage.style.touchAction = "pan-y";
@@ -352,7 +352,7 @@
       e.preventDefault();
       var note = form.querySelector("[data-form-status]");
       if (note) {
-        note.textContent = "Thank you — your enquiry has been noted. We'll be in touch shortly.";
+        note.textContent = "Thank you, your enquiry has been noted. We'll be in touch shortly.";
         note.style.color = "var(--blue-700)";
       }
       form.reset();

@@ -1,5 +1,5 @@
 /* ============================================================
-   ROXY HOUSEBOAT — HOMEPAGE V3
+   ROXY HOUSEBOAT, HOMEPAGE V3
    Premium editorial hospitality system.
    White space · cinematic photography · oversized layered type.
    Blue/aqua used only as a controlled accent.
@@ -7,20 +7,20 @@
 
 /* ---------- TOKENS ---------- */
 :root{
-  /* neutrals — warm-cool white ground */
+  /* neutrals, warm-cool white ground */
   --white:#ffffff;
-  --bg:#fbfbfa;          /* page ground — barely-warm white */
+  --bg:#fbfbfa;          /* page ground, barely-warm white */
   --bg-2:#f5f6f7;        /* alternating sections */
   --grey:#eef1f2;        /* soft grey blocks / form fields */
   --ghost:#eaedee;       /* giant background typography colour */
   --ghost-2:#e4e8ea;
 
   /* ink */
-  --ink:#17201f;         /* primary text — near-black green-charcoal */
+  --ink:#17201f;         /* primary text, near-black green-charcoal */
   --ink-2:#68716f;       /* secondary text */
   --muted:#91a1b2;       /* muted blue-grey */
-  --slate:#344554;       /* dark blue-grey — buttons / dark UI */
-  --navy:#173a4d;        /* deep teal-navy — editorial headings */
+  --slate:#344554;       /* dark blue-grey, buttons / dark UI */
+  --navy:#173a4d;        /* deep teal-navy, editorial headings */
 
   /* accents (used sparingly, ~5%) */
   --aqua:#12a8d8;        /* accent aqua */
@@ -33,7 +33,7 @@
   --line-dk:rgba(255,255,255,.14);
 
   /* type */
-  --serif:'Poppins',system-ui,-apple-system,'Segoe UI',sans-serif; /* unified to Poppins — single type family across the homepage */
+  --serif:'Poppins',system-ui,-apple-system,'Segoe UI',sans-serif; /* unified to Poppins, single type family across the homepage */
   --sans:'Poppins',system-ui,-apple-system,'Segoe UI',sans-serif;
 
   /* motion */
@@ -221,7 +221,7 @@ ul{margin:0;padding:0;list-style:none}
 .mobile-menu__foot a{color:#fff;font-weight:600}
 
 /* ============================================================
-   01 · HERO — rounded cinematic image + layered giant type
+   01 · HERO, rounded cinematic image + layered giant type
    ============================================================ */
 .hero{position:relative;overflow:hidden;padding-top:clamp(18px,2.6vw,36px);
   padding-bottom:clamp(40px,6vw,72px)}
@@ -236,7 +236,7 @@ ul{margin:0;padding:0;list-style:none}
 .hero__bg{z-index:1}
 .hero__fg{z-index:4}
   /* foreground is a sky-removed copy of the hero photo (same size/position as the bg),
-     so the boat's real roofline + the treeline mask the letters pixel-perfectly —
+     so the boat's real roofline + the treeline mask the letters pixel-perfectly -
      X and Y tuck cleanly behind the houseboat with no gap */
 .hero__ghost{
   position:absolute;left:42.5%;top:29%;transform:translateX(-50%) scaleY(1.3);z-index:3;
@@ -278,10 +278,10 @@ ul{margin:0;padding:0;list-style:none}
 }
 /* the foreground is a real cut-out of the boat + water (about-hero-fg.png): its water
    fades in softly so the bases of ABOUT US settle into the backwater, and the crisp
-   boat silhouette makes the U/S tuck behind the actual boat — no straight cut */
+   boat silhouette makes the U/S tuck behind the actual boat, no straight cut */
 
 /* ============================================================
-   02 · WHO WE ARE — bento showcase (About page)
+   02 · WHO WE ARE, bento showcase (About page)
    ============================================================ */
 .wwa__grid{display:grid;grid-template-columns:1.12fr 1fr;gap:clamp(16px,1.5vw,22px);
   align-items:stretch}
@@ -391,7 +391,7 @@ ul{margin:0;padding:0;list-style:none}
 }
 
 /* ============================================================
-   03 · OUR VISION — cinematic band + WHAT SETS US APART cards
+   03 · OUR VISION, cinematic band + WHAT SETS US APART cards
    ============================================================ */
 /* --- vision band --- */
 .vis__band{position:relative;isolation:isolate;overflow:hidden;border-radius:var(--radius);
@@ -472,7 +472,7 @@ ul{margin:0;padding:0;list-style:none}
 @media (max-width:640px){.hero__gbadge{order:3;width:100%;justify-content:center;margin-top:.4rem}}
 
 /* ============================================================
-   02 · ABOUT — introduction · overlapping images + experience badge
+   02 · ABOUT, introduction · overlapping images + experience badge
    ============================================================ */
 .about__grid{display:grid;grid-template-columns:1fr 1.02fr;gap:clamp(2.4rem,6vw,6rem);align-items:center}
 .about__media{position:relative;isolation:isolate;padding:0 3.4rem 3.4rem 0}
@@ -551,7 +551,7 @@ ul{margin:0;padding:0;list-style:none}
 .about2__guests-tx span{font-size:clamp(.92rem,1.1vw,1.02rem);color:var(--ink-2)}
 
 /* ============================================================
-   03 · STATS — minimal strip
+   03 · STATS, minimal strip
    ============================================================ */
 .statx{
   display:grid;grid-template-columns:repeat(4,1fr);
@@ -601,7 +601,7 @@ ul{margin:0;padding:0;list-style:none}
   background:linear-gradient(90deg,var(--gold),transparent);margin:0 0 .7rem}
 
 /* ============================================================
-   04 · COLLECTION — asymmetric houseboats
+   04 · COLLECTION, asymmetric houseboats
    ============================================================ */
 .sec-head{display:flex;justify-content:space-between;align-items:flex-end;gap:2rem;flex-wrap:wrap;
   margin-bottom:clamp(2.4rem,5vw,4rem)}
@@ -632,7 +632,7 @@ ul{margin:0;padding:0;list-style:none}
 .coll__card__in span{font-size:.82rem;color:rgba(255,255,255,.82);display:block;margin-top:.25rem}
 
 /* ============================================================
-   05 · SIGNATURE — giant ROXY HOUSEBOATS over image
+   05 · SIGNATURE, giant ROXY HOUSEBOATS over image
    ============================================================ */
 .signature{position:relative;overflow:hidden;text-align:center}
 .sig__stack{position:relative;display:inline-flex;flex-direction:column;align-items:center;line-height:.82;
@@ -646,7 +646,7 @@ ul{margin:0;padding:0;list-style:none}
   color:var(--ink-2);font-size:clamp(1rem,1.4vw,1.16rem);line-height:1.7}
 
 /* ============================================================
-   06 · PACKAGES — featured + rail
+   06 · PACKAGES, featured + rail
    ============================================================ */
 .svc__head{text-align:center;margin-bottom:clamp(2.4rem,4.5vw,3.8rem)}
 .svc__script{display:block;font-family:'Dancing Script',cursive;font-weight:600;
@@ -668,7 +668,7 @@ ul{margin:0;padding:0;list-style:none}
 .svc-card__body{position:absolute;inset:auto 0 0 0;z-index:2;
   padding:clamp(1.1rem,1.8vw,1.5rem);display:flex;flex-direction:column;align-items:flex-start;gap:.9rem;
   background:linear-gradient(180deg,rgba(10,22,30,0) 8%,rgba(9,20,28,.55) 52%,rgba(7,17,24,.92) 100%)}
-/* cruise name — a persistent, highlighted pill on EVERY card */
+/* cruise name, a persistent, highlighted pill on EVERY card */
 .svc-card__loc{display:inline-flex;align-items:center;gap:.5rem;color:#fff;
   font-family:var(--sans);font-weight:700;font-size:clamp(1rem,1.35vw,1.2rem);letter-spacing:.005em;
   padding:.5em .95em;border-radius:999px;
@@ -723,7 +723,7 @@ ul{margin:0;padding:0;list-style:none}
 .svc__leg span{display:block;font-size:clamp(.8rem,.95vw,.9rem);color:var(--ink-2);margin-top:.15rem}
 
 /* ============================================================
-   06b · SERVICES BAND — intro panel + two feature cards
+   06b · SERVICES BAND, intro panel + two feature cards
    ============================================================ */
 .svc2__panel{background:#e9edf1;border-radius:clamp(24px,2.6vw,34px);
   padding:clamp(1.6rem,3vw,3rem);display:grid;grid-template-columns:1.08fr 1fr 1fr;
@@ -770,7 +770,7 @@ ul{margin:0;padding:0;list-style:none}
   color:rgba(255,255,255,.86);max-width:34ch;margin:0}
 
 /* ============================================================
-   06c · TESTIMONIALS — google-style review carousel
+   06c · TESTIMONIALS, google-style review carousel
    ============================================================ */
 .rev{background:#fff}
 .rev__head{text-align:center;margin-bottom:clamp(2.4rem,4.5vw,3.6rem)}
@@ -822,7 +822,7 @@ ul{margin:0;padding:0;list-style:none}
 .rev__badge a:hover{transform:translateY(-3px);}
 
 /* ============================================================
-   07 · WATER — cinematic full-bleed story
+   07 · WATER, cinematic full-bleed story
    ============================================================ */
 .water{position:relative;overflow:hidden;color:#fff;isolation:isolate;
   min-height:clamp(520px,80vh,760px);display:flex;align-items:center;
@@ -839,7 +839,7 @@ ul{margin:0;padding:0;list-style:none}
   max-width:48ch;margin:1.6rem 0 2rem}
 
 /* ============================================================
-   08 · WHY ROXY — numbered benefits + image
+   08 · WHY ROXY, numbered benefits + image
    ============================================================ */
 .why{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(2.4rem,6vw,6rem);align-items:center}
 .why__head .h2{margin:1rem 0 1.4rem}
@@ -858,7 +858,7 @@ ul{margin:0;padding:0;list-style:none}
 .why__badge .stars{color:var(--gold);font-size:.78rem;letter-spacing:1px;display:block}
 .why__badge small{font-size:.72rem;color:var(--ink-2)}
 
-/* ---- Why Choose Roxy — split copy + slate feature cards ---- */
+/* ---- Why Choose Roxy, split copy + slate feature cards ---- */
 .whyx{display:grid;grid-template-columns:1fr 1.04fr;gap:clamp(2.2rem,5vw,5rem);align-items:center}
 .whyx__eyebrow{display:flex;align-items:center;gap:.9rem;font-weight:700;font-size:.78rem;
   letter-spacing:.16em;text-transform:uppercase;color:var(--aqua)}
@@ -919,7 +919,7 @@ ul{margin:0;padding:0;list-style:none}
   line-height:1.55;margin:.5rem 0 0}
 
 /* ============================================================
-   09 · NILESHWAR — destination
+   09 · NILESHWAR, destination
    ============================================================ */
 .dest__grid{display:grid;grid-template-columns:1.4fr 1fr;grid-template-rows:auto auto;
   gap:clamp(1.2rem,2.6vw,1.8rem)}
@@ -938,7 +938,7 @@ ul{margin:0;padding:0;list-style:none}
 .dest__copy p{color:var(--ink-2);font-size:.96rem;line-height:1.7;margin-bottom:1.3rem}
 
 /* ============================================================
-   10 · FOOD — "Kerala, Served On Water" · layered TASTE
+   10 · FOOD, "Kerala, Served On Water" · layered TASTE
    ============================================================ */
 .food{position:relative;overflow:hidden}
 .food .ghost-word{position:absolute;z-index:0;right:clamp(-1rem,-2vw,-2rem);top:clamp(6%,8vw,16%);
@@ -957,7 +957,7 @@ ul{margin:0;padding:0;list-style:none}
 .food__inset img{width:100%;height:100%;object-fit:cover}
 
 /* ============================================================
-   11 · GALLERY — editorial masonry
+   11 · GALLERY, editorial masonry
    ============================================================ */
 .gal__grid{display:grid;grid-template-columns:repeat(4,1fr);
   grid-auto-rows:clamp(148px,18.5vw,228px);gap:clamp(.7rem,1.5vw,1.1rem);grid-auto-flow:dense}
@@ -972,7 +972,7 @@ ul{margin:0;padding:0;list-style:none}
 .gal__foot{margin-top:clamp(2rem,4vw,3rem);text-align:center}
 
 /* ============================================================
-   GALLERY — "Our Houseboats" themed mosaic
+   GALLERY, "Our Houseboats" themed mosaic
    ============================================================ */
 .gal2__head{display:flex;align-items:flex-end;justify-content:space-between;gap:1.5rem;
   flex-wrap:wrap;margin-bottom:clamp(2rem,3.6vw,3.1rem)}
@@ -1002,7 +1002,7 @@ ul{margin:0;padding:0;list-style:none}
 .gal2__tile--wide{grid-column:span 2}
 
 /* ============================================================
-   DISCOVER NILESHWAR — cinematic CTA band (hero-matched frame)
+   DISCOVER NILESHWAR, cinematic CTA band (hero-matched frame)
    ============================================================ */
 .discover__stage{
   position:relative;width:100%;border-radius:var(--radius);overflow:hidden;
@@ -1042,7 +1042,7 @@ ul{margin:0;padding:0;list-style:none}
 .discover__cta:hover{background:var(--aqua-deep);transform:translateY(-2px);}
 
 /* ============================================================
-   12 · TESTIMONIALS — "Stories From The Water"
+   12 · TESTIMONIALS, "Stories From The Water"
    ============================================================ */
 .stories{display:grid;grid-template-columns:1.4fr .9fr;gap:clamp(2.4rem,5vw,5rem);align-items:center}
 .stories__q{position:relative}
@@ -1070,7 +1070,7 @@ ul{margin:0;padding:0;list-style:none}
 .stories__foot img{height:44px;width:auto;margin-left:auto}
 
 /* ============================================================
-   13 · BOOKING CTA — "Your Journey Starts Here" · layered
+   13 · BOOKING CTA, "Your Journey Starts Here" · layered
    ============================================================ */
 .journey{position:relative;overflow:hidden;text-align:center}
 .journey__stack{position:relative;display:inline-flex;flex-direction:column;align-items:center;line-height:.84;
@@ -1084,7 +1084,7 @@ ul{margin:0;padding:0;list-style:none}
 .journey__cta{position:relative;z-index:2;display:flex;gap:.8rem;justify-content:center;flex-wrap:wrap}
 
 /* ============================================================
-   14 · CONTACT / ENQUIRY — split
+   14 · CONTACT / ENQUIRY, split
    ============================================================ */
 .contact{display:grid;grid-template-columns:1fr 1.05fr;gap:clamp(2.4rem,5vw,5rem);align-items:start}
 .contact__lead .h2{margin:1rem 0 1.2rem}
@@ -1130,7 +1130,7 @@ ul{margin:0;padding:0;list-style:none}
 .acc__a{max-height:0;overflow:hidden;transition:max-height .5s var(--ease)}
 .acc__a-in{padding-bottom:1.5rem;color:var(--ink-2);line-height:1.8;max-width:60ch}
 
-/* ---- Contact + FAQ — grey curved form panel beside the accordion ---- */
+/* ---- Contact + FAQ, grey curved form panel beside the accordion ---- */
 .cx__grid{display:grid;grid-template-columns:1fr 1.05fr;gap:clamp(2rem,4.5vw,4.5rem);align-items:start}
 .cx__panel{background:#e9edf1;border-radius:clamp(22px,2.4vw,32px);
   padding:clamp(1.6rem,3vw,2.8rem)}
@@ -1163,7 +1163,7 @@ ul{margin:0;padding:0;list-style:none}
 .cx__faq .acc__a-in{padding-bottom:clamp(1rem,1.6vw,1.25rem);max-width:none}
 
 /* ============================================================
-   16 · FINAL CINEMATIC CTA — "See You On The Water"
+   16 · FINAL CINEMATIC CTA, "See You On The Water"
    ============================================================ */
 .final{position:relative;overflow:hidden;color:#fff;isolation:isolate;text-align:center;
   min-height:clamp(460px,72vh,680px);display:flex;align-items:center;justify-content:center;
@@ -1181,7 +1181,7 @@ ul{margin:0;padding:0;list-style:none}
 .final__cta{display:flex;gap:.8rem;justify-content:center;flex-wrap:wrap}
 
 /* ============================================================
-   FOOTER — deep charcoal minimal
+   FOOTER, deep charcoal minimal
    ============================================================ */
 .foot{background:#0d3a4a;color:rgba(255,255,255,.72);position:relative;overflow:hidden;
   border-radius:clamp(48px,9vw,130px) clamp(48px,9vw,130px) 0 0;
@@ -1345,7 +1345,7 @@ ul{margin:0;padding:0;list-style:none}
   .rev__nav--next{right:-6px}
   .gal2__grid{grid-template-columns:repeat(2,1fr);grid-auto-rows:clamp(210px,42vw,280px)}
   .gal2__tile--wide{grid-column:span 2}
-  /* discover: stack — boat up top, panel fills the darkened lower half */
+  /* discover: stack, boat up top, panel fills the darkened lower half */
   .discover__stage{aspect-ratio:auto;min-height:0}
   .discover__photo{background-size:cover;background-position:44% 34%}
   .discover__scrim{background:linear-gradient(180deg,rgba(12,58,77,.12) 0%,rgba(12,58,77,.45) 34%,rgba(12,45,61,.9) 62%,rgba(11,40,55,.96) 100%)}
@@ -1394,7 +1394,7 @@ ul{margin:0;padding:0;list-style:none}
 
 /* ============================================================
    SERVICES · hero giant word ("SERVICES") standing in the water
-   — same scene + foreground cut-out as the About hero, only the
+  , same scene + foreground cut-out as the About hero, only the
    word + its position change so the tail letters tuck behind the boat
    ============================================================ */
 .hero__ghost--services{
@@ -1405,7 +1405,7 @@ ul{margin:0;padding:0;list-style:none}
 
 /* ============================================================
    SERVICES · feature rows (Accommodation & Dining / Events)
-   image-cluster + copy, alternating — homepage theme
+   image-cluster + copy, alternating, homepage theme
    ============================================================ */
 .svcf{display:grid;grid-template-columns:1.02fr 1fr;gap:clamp(2rem,4.5vw,4.6rem);
   align-items:center}
@@ -1494,7 +1494,7 @@ ul{margin:0;padding:0;list-style:none}
 
 /* ============================================================
    PACKAGES · hero giant word ("PACKAGES") standing in the water
-   — same scene + foreground cut-out as the About/Services hero
+  , same scene + foreground cut-out as the About/Services hero
    ============================================================ */
 .hero__ghost--packages{
   left:36%;top:65.5%;transform:translateX(-50%) scaleY(1.4);
@@ -1506,7 +1506,7 @@ ul{margin:0;padding:0;list-style:none}
 }
 
 /* ============================================================
-   PACKAGES · "Choose your cruise" — fare index + cruise cards
+   PACKAGES · "Choose your cruise", fare index + cruise cards
    teal accent, homepage theme
    ============================================================ */
 /* --- fare index --- */
@@ -1590,7 +1590,7 @@ ul{margin:0;padding:0;list-style:none}
 
 /* ============================================================
    GALLERY · hero giant word ("GALLERY") standing in the water
-   — same scene + foreground cut-out as the other page heroes
+  , same scene + foreground cut-out as the other page heroes
    ============================================================ */
 .hero__ghost--gallery{
   left:38%;top:64%;transform:translateX(-50%) scaleY(1.4);
@@ -1602,7 +1602,7 @@ ul{margin:0;padding:0;list-style:none}
 }
 
 /* ============================================================
-   GALLERY · packed grid masonry — varied tiles, gapless, even edges
+   GALLERY · packed grid masonry, varied tiles, gapless, even edges
    ============================================================ */
 .galx{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(12px,1.4vw,20px);
   grid-auto-flow:row dense;grid-auto-rows:clamp(165px,20vw,260px)}
@@ -1629,9 +1629,9 @@ ul{margin:0;padding:0;list-style:none}
 
 /* ============================================================
    CONTACT · full-bleed backwater hero with big "CONTACT US" type
-   — banner scene, left-anchored legibility scrim, layered heading
+  , banner scene, left-anchored legibility scrim, layered heading
    ============================================================ */
-/* giant "CONTACT US" settled into the water, tail tucked behind the boat —
+/* giant "CONTACT US" settled into the water, tail tucked behind the boat -
    same layered scene + foreground cut-out as the Packages / Gallery heroes */
 .hero__ghost--contact{
   left:35%;top:68%;transform:translateX(-50%) scaleY(1.4);
@@ -1656,13 +1656,13 @@ ul{margin:0;padding:0;list-style:none}
 }
 
 /* ============================================================
-   CONTACT · location map — rounded, framed to match the system
+   CONTACT · location map, rounded, framed to match the system
    ============================================================ */
 .cmap{position:relative;border-radius:var(--radius);overflow:hidden;
   box-shadow:none;border:1px solid var(--line);
   background:var(--bg-2)}
 .cmap iframe{display:block;width:100%;height:clamp(340px,46vw,520px);border:0}
-/* contact split — form panel beside the detail rail */
+/* contact split, form panel beside the detail rail */
 .cx__grid--contact{grid-template-columns:1.05fr .95fr;align-items:stretch}
 .cx__info{align-self:center}
 .cx__info-eyebrow{display:block;font-family:'Dancing Script',cursive;font-weight:600;
@@ -1736,7 +1736,7 @@ ul{margin:0;padding:0;list-style:none}
 .pkg__prose p{margin:0 0 1.05rem}
 .pkg__prose p:last-child{margin-bottom:0}
 .pkg__prose strong{color:var(--ink);font-weight:600}
-/* fare panel — sits below the intro copy in the side column */
+/* fare panel, sits below the intro copy in the side column */
 .pkg__panel{background:var(--grey);border-radius:var(--radius);
   padding:clamp(1.5rem,2.6vw,2.2rem)}
 .pkg__panel-tag{display:block;font-size:.68rem;font-weight:700;letter-spacing:.16em;
@@ -1800,7 +1800,7 @@ ul{margin:0;padding:0;list-style:none}
   font-size:clamp(.8rem,1vw,.9rem);letter-spacing:.01em;text-shadow:0 1px 10px rgba(8,20,28,.4)}
 .pkg__figcap svg{width:15px;height:15px;opacity:.95}
 
-/* experience highlight cards — compact */
+/* experience highlight cards, compact */
 .pxp{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(1.1rem,2vw,1.7rem)}
 .pxp__card{display:flex;flex-direction:column}
 .pxp__media{position:relative;border-radius:var(--radius-sm);overflow:hidden;aspect-ratio:4/3;isolation:isolate}
@@ -1814,7 +1814,7 @@ ul{margin:0;padding:0;list-style:none}
   font-size:clamp(.98rem,1.2vw,1.08rem);text-shadow:0 1px 12px rgba(8,20,28,.4)}
 .pxp__text{margin:.8rem 0 0;color:var(--ink-2);line-height:1.6;font-size:.9rem}
 
-/* gallery — neat, equal small images */
+/* gallery, neat, equal small images */
 .pgal{display:grid;gap:clamp(12px,1.5vw,18px);grid-template-columns:repeat(3,1fr)}
 .pgal__item{position:relative;overflow:hidden;border-radius:var(--radius-sm);isolation:isolate;aspect-ratio:4/3}
 .pgal__item img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 1.6s var(--ease)}

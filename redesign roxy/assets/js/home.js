@@ -1,4 +1,4 @@
-/* Roxy Houseboat — homepage v2 interactions (self-contained) */
+/* Roxy Houseboat, homepage v2 interactions (self-contained) */
 (function () {
   "use strict";
   var doc = document, body = doc.body;
@@ -103,7 +103,7 @@
     window.addEventListener("load", revealInView);
     setTimeout(revealInView, 1400);
     /* clip-path reveals (.wipe) start fully clipped, so their IntersectionObserver
-       ratio is ~0 and never crosses the threshold — drive those from the
+       ratio is ~0 and never crosses the threshold, drive those from the
        bounding-box check on scroll, which ignores clip-path. */
     var rvTicking = false;
     window.addEventListener("scroll", function () {
@@ -232,7 +232,7 @@
       e.preventDefault();
       var status = form.querySelector("[data-form-status]");
       if (status) {
-        status.textContent = "Thank you — we’ve received your enquiry and will be in touch shortly.";
+        status.textContent = "Thank you, we’ve received your enquiry and will be in touch shortly.";
         status.style.color = "var(--aqua-deep)";
       }
       form.reset();

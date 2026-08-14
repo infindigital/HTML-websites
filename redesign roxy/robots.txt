@@ -1,5 +1,5 @@
 User-agent: *
 Allow: /
 
-# Block nothing important — CSS, JS and images must remain crawlable
+# Block nothing important - CSS, JS and images must remain crawlable
 Sitemap: https://roxyhouseboat.in/sitemap.xml

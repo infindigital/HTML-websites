@@ -1,12 +1,12 @@
 /* =============================================================
-   Roxy Houseboat — Kerala Luxury Design System
+   Roxy Houseboat, Kerala Luxury Design System
    Palette: Deep Ocean Blue · Warm Gold · Cream · White · Muted Grey
    Type:    Merriweather (serif display 900/700) + Manrope (sans body 500/700)
    ============================================================= */
 
 /* ---------- Design tokens ---------- */
 :root {
-  /* Ocean blues — anchored to brand #1598B8 */
+  /* Ocean blues, anchored to brand #1598B8 */
   --blue-950: #073540;
   --blue-900: #0a4857;
   --blue-800: #0d6277;
@@ -349,7 +349,7 @@ p { margin: 0; }
     linear-gradient(180deg, rgba(7,26,43,0.55) 0%, rgba(7,26,43,0.15) 35%, rgba(7,26,43,0.75) 100%),
     linear-gradient(90deg, rgba(7,26,43,0.65) 0%, rgba(7,26,43,0.05) 60%);
 }
-/* feature hero: show the original photo — only the faintest bottom fade for the booking bar */
+/* feature hero: show the original photo, only the faintest bottom fade for the booking bar */
 .hero--feature::after {
   background: linear-gradient(180deg, rgba(6,22,38,0) 0%, rgba(6,22,38,0) 68%, rgba(6,22,38,0.26) 100%);
 }
@@ -400,7 +400,7 @@ p { margin: 0; }
 .split__body .lead { margin-bottom: 2rem; }
 .split__body .lead + .lead { margin-top: 1.25rem; }
 
-/* Clean single framed photo — About "Who we are" (no badge / no inset) */
+/* Clean single framed photo, About "Who we are" (no badge / no inset) */
 .who-photo {
   position: relative;
   margin: 0;
@@ -445,7 +445,7 @@ p { margin: 0; }
 }
 
 /* ============================================================
-   PACKAGE CARDS (grid — homepage)
+   PACKAGE CARDS (grid, homepage)
    ============================================================ */
 .cards-grid {
   display: grid;
@@ -485,7 +485,7 @@ p { margin: 0; }
 .pkg-card__incl { font-size: 0.85rem; color: var(--muted); font-style: italic; }
 
 /* ============================================================
-   PACKAGE ROWS (alternating — packages page)
+   PACKAGE ROWS (alternating, packages page)
    ============================================================ */
 .pkg-rows { display: flex; flex-direction: column; gap: clamp(3rem, 7vw, 6rem); }
 .pkg-row {
@@ -635,13 +635,13 @@ p { margin: 0; }
   display: flex; align-items: center;
   min-height: clamp(340px, 44vh, 460px);
   /* pull the banner up by the full nav height (logo 74px + 1.2rem padding)
-     so its image sits flush beneath the top bar — no white gap */
+     so its image sits flush beneath the top bar, no white gap */
   margin-top: calc(-1 * (74px + 1.2rem));
   padding-top: calc(74px + 1.2rem);
 }
 .page-banner__bg { position: absolute; inset: 0; z-index: -2; }
 .page-banner__bg img { width: 100%; height: 100%; object-fit: cover; }
-/* keep the banner photo bright — only a light left-anchored wash so the title stays legible */
+/* keep the banner photo bright, only a light left-anchored wash so the title stays legible */
 .page-banner::after {
   content: ""; position: absolute; inset: 0; z-index: -1;
   background: linear-gradient(90deg, rgba(7,26,43,0.42) 0%, rgba(7,26,43,0.08) 55%, rgba(7,26,43,0) 80%),
@@ -809,7 +809,7 @@ p { margin: 0; }
 .stack-btns { display: flex; flex-wrap: wrap; gap: 1rem; }
 
 /* ============================================================
-   HERO — two-tone title, floating cards, booking bar (inspiration)
+   HERO, two-tone title, floating cards, booking bar (inspiration)
    ============================================================ */
 .hero--feature { min-height: min(86vh, 700px); }
 .hero--feature .hero__inner {
@@ -885,7 +885,7 @@ p { margin: 0; }
 }
 
 /* ============================================================
-   SHOWCASE — tabbed experiences (inspiration)
+   SHOWCASE, tabbed experiences (inspiration)
    ============================================================ */
 .showcase__tabs { display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center; margin-bottom: 2.6rem; }
 .showcase__tab {
@@ -913,7 +913,7 @@ p { margin: 0; }
 @media (max-width: 820px) { .showcase__layout { grid-template-columns: 1fr; } .showcase__media { min-height: 300px; } }
 
 /* ============================================================
-   PACKAGE SCROLLER — "book the best" horizontal rail (inspiration)
+   PACKAGE SCROLLER, "book the best" horizontal rail (inspiration)
    ============================================================ */
 .pkg-scroller { display: flex; gap: 1.4rem; overflow-x: auto; padding: 1rem 0.2rem 1.6rem; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; }
 .pkg-scroller::-webkit-scrollbar { height: 6px; }
@@ -928,7 +928,7 @@ p { margin: 0; }
 @media (max-width: 560px) { .pkg-scroller .pkg-card, .pkg-intro { flex-basis: 82vw; } }
 
 /* ============================================================
-   VOICES — bubble testimonials + circled stats (inspiration)
+   VOICES, bubble testimonials + circled stats (inspiration)
    ============================================================ */
 .voices__grid { display: grid; grid-template-columns: 0.85fr 1.15fr; gap: clamp(2rem, 5vw, 4rem); align-items: center; }
 @media (max-width: 900px) { .voices__grid { grid-template-columns: 1fr; } }
@@ -950,7 +950,7 @@ p { margin: 0; }
 .voice-bubble__text { color: var(--muted); font-size: 0.92rem; line-height: 1.6; }
 
 /* ============================================================
-   TILES — image grid + stat card (inspiration category grid)
+   TILES, image grid + stat card (inspiration category grid)
    ============================================================ */
 .tiles__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
 .tile { position: relative; border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-sm); aspect-ratio: 1 / 1; }
@@ -968,7 +968,7 @@ p { margin: 0; }
 @media (max-width: 520px) { .tiles__grid { grid-template-columns: 1fr 1fr; } .tile--wide { grid-column: span 2; aspect-ratio: 2 / 1; } }
 
 /* ============================================================
-   DARK BAND — Discover CTA (inspiration "stay updated")
+   DARK BAND, Discover CTA (inspiration "stay updated")
    ============================================================ */
 .darkband__inner {
   position: relative; overflow: hidden;
@@ -984,7 +984,7 @@ p { margin: 0; }
 .darkband__group h2 { font-size: clamp(1.6rem, 3.6vw, 2.4rem); }
 
 /* ============================================================
-   WHY ROXY — editorial split: framed image + numbered reasons + facts
+   WHY ROXY, editorial split: framed image + numbered reasons + facts
    ============================================================ */
 .whyroxy__grid { display: grid; grid-template-columns: 0.92fr 1.08fr; gap: clamp(2.5rem, 6vw, 5rem); align-items: center; }
 @media (max-width: 900px) { .whyroxy__grid { grid-template-columns: 1fr; } }
@@ -1059,7 +1059,7 @@ p { margin: 0; }
 .whyroxy__facts span { font-size: 0.76rem; letter-spacing: 0.04em; color: var(--muted); text-transform: uppercase; }
 
 /* ============================================================
-   VOICES v2 — editorial testimonials (quote mark, badge, tilted cards)
+   VOICES v2, editorial testimonials (quote mark, badge, tilted cards)
    ============================================================ */
 .voices { position: relative; overflow: hidden; }
 .voices__mark {
@@ -1143,7 +1143,7 @@ p { margin: 0; }
 .voice-card--tiltL:hover, .voice-card--tiltR:hover { transform: rotate(0) translateY(-5px); box-shadow: var(--shadow-md); }
 
 /* ============================================================
-   PACKAGE SCROLLER v2 — creative effects (tags, count, hover)
+   PACKAGE SCROLLER v2, creative effects (tags, count, hover)
    ============================================================ */
 .pkg-intro { position: relative; }
 .pkg-intro__count {
@@ -1180,11 +1180,11 @@ p { margin: 0; }
   color: var(--blue-700); background: var(--cream); border: 1px solid var(--line-soft);
   padding: 0.32rem 0.7rem; border-radius: 999px;
 }
-/* meta no longer the last block — restore its own separator */
+/* meta no longer the last block, restore its own separator */
 .pkg-card__meta { border-top: 1px solid var(--line-soft); }
 
 /* ============================================================
-   FAQ FEATURE — image + on-dark accordion (inspiration)
+   FAQ FEATURE, image + on-dark accordion (inspiration)
    ============================================================ */
 .faq-feature__grid { display: grid; grid-template-columns: 0.8fr 1.2fr; gap: 0; border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-md); }
 .faq-feature__media { position: relative; min-height: 440px; }
@@ -1204,7 +1204,7 @@ p { margin: 0; }
 @media (max-width: 820px) { .faq-feature__grid { grid-template-columns: 1fr; } .faq-feature__media { min-height: 240px; } }
 
 /* ============================================================
-   ABOUT PAGE — editorial redesign
+   ABOUT PAGE, editorial redesign
    ============================================================ */
 .h-sub { font-family: var(--serif); font-weight: 700; font-size: 1.55rem; color: var(--blue-800); margin: 1.7rem 0 0.6rem; }
 
@@ -1298,7 +1298,7 @@ p { margin: 0; }
 .about-cta__btns { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; margin-top: 2.2rem; }
 
 /* ============================================================
-   PACKAGES PAGE — cruise collection redesign
+   PACKAGES PAGE, cruise collection redesign
    (scoped classes; leaves shared .pkg-row untouched)
    ============================================================ */
 
@@ -1354,7 +1354,7 @@ p { margin: 0; }
 @media (max-width: 560px) { .fares { grid-template-columns: 1fr; } }
 
 /* ---- Cruise panels ---- */
-/* Compact card grid — smaller, self-contained cruise cards (no layered inset) */
+/* Compact card grid, smaller, self-contained cruise cards (no layered inset) */
 .cruises {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1446,7 +1446,7 @@ p { margin: 0; }
 }
 
 /* =============================================================
-   PACKAGES — ocean-video hero + 3D coverflow package carousel
+   PACKAGES, ocean-video hero + 3D coverflow package carousel
    ============================================================= */
 .pkg-hero {
   position: relative;
@@ -1616,7 +1616,7 @@ p { margin: 0; }
 }
 
 /* =============================================================
-   ABOUT — video hero with houseboat bursting from an arched frame
+   ABOUT, video hero with houseboat bursting from an arched frame
    ============================================================= */
 .ahero {
   position: relative;
@@ -1698,7 +1698,7 @@ p { margin: 0; }
 }
 .burst__frame {
   position: absolute; inset: 0; z-index: 1; overflow: hidden;
-  /* arched top — echoes a boat window / porthole */
+  /* arched top, echoes a boat window / porthole */
   border-radius: 46% 46% 26px 26px / 30% 30% 26px 26px;
   border: 1px solid rgba(226,205,156,.5);
   box-shadow:
@@ -1715,7 +1715,7 @@ p { margin: 0; }
   position: absolute; inset: 0; pointer-events: none;
   background: linear-gradient(180deg, rgba(6,20,35,0) 46%, rgba(6,20,35,.34) 100%);
 }
-/* the cutout houseboat — sits on the waterline, ends breaking past both edges */
+/* the cutout houseboat, sits on the waterline, ends breaking past both edges */
 .burst__boat {
   position: absolute; z-index: 3;
   width: 184%; height: auto; max-width: none;
@@ -1829,7 +1829,7 @@ p { margin: 0; }
 .ahero__chip .stars { font-style: normal; color: var(--gold-300); letter-spacing: 2px; font-size: 0.82rem; }
 .ahero__chip small { color: rgba(255,255,255,.8); font-size: 0.68rem; letter-spacing: 0.02em; }
 
-/* ---- Editorial service feature — asymmetric image mosaic + stat tile ---- */
+/* ---- Editorial service feature, asymmetric image mosaic + stat tile ---- */
 .svc2-feature {
   display: grid;
   grid-template-columns: minmax(0, 1.02fr) minmax(0, 1fr);
@@ -1847,7 +1847,7 @@ p { margin: 0; }
   gap: 14px;
   aspect-ratio: 1 / 1;
 }
-/* offset gold keyline — an editorial "matted frame" behind the mosaic */
+/* offset gold keyline, an editorial "matted frame" behind the mosaic */
 .svc2-media::before {
   content: ""; position: absolute; z-index: 0; pointer-events: none;
   left: -16px; bottom: -16px; width: 60%; height: 62%;
@@ -1920,7 +1920,7 @@ p { margin: 0; }
 }
 
 /* ============================================================
-   INTRO / WHO-WE-ARE — mirrors homepage About section exactly
+   INTRO / WHO-WE-ARE, mirrors homepage About section exactly
    Self-contained + scoped under .introx so it is independent of
    the page's base tokens and never clashes with generic classes.
    ============================================================ */
