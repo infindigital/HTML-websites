@@ -481,9 +481,9 @@ body.nav-open .nav-toggle span::after{top:0;transform:rotate(-45deg)}
 .footer-bottom .legal{display:flex;gap:20px;flex-wrap:wrap}
 .footer-bottom .legal a{color:#8FA6CC;font-size:13px}
 .footer-bottom .legal a:hover{color:#fff}
-.footer-credit{display:inline-flex;align-items:center;gap:5px;margin-left:10px;padding:5px 12px;
+.footer-credit{display:inline-flex;align-items:center;gap:5px;padding:5px 12px;
   border-radius:999px;background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.18);
-  font-size:12.5px;color:#cdd9ee;white-space:nowrap}
+  font-size:12.5px;color:#cdd9ee;white-space:nowrap;margin-left:22px}
 .footer-credit a{color:#fff;font-weight:700;text-decoration:none}
 .footer-credit a:hover{text-decoration:underline}
 
