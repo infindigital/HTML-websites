@@ -262,11 +262,16 @@ def footer():
       </div>
     </div>
     <div class="footer-bottom">
-      <p>&copy; <span data-year>2026</span> {COMPANY}. All rights reserved. <span class="footer-credit">Developed by <a href="https://infindigital.in/" target="_blank" rel="noopener">In/Fin</a></span></p>
-      <div class="legal">
-        <a href="/privacy-policy/">Privacy Policy</a>
-        <a href="/terms-and-conditions/">Terms &amp; Conditions</a>
-        <a href="/request-a-quote/">Request a Quote</a>
+      <div class="footer-bottom-row">
+        <p>&copy; <span data-year>2026</span> {COMPANY}. All rights reserved.</p>
+        <div class="legal">
+          <a href="/privacy-policy/">Privacy Policy</a>
+          <a href="/terms-and-conditions/">Terms &amp; Conditions</a>
+          <a href="/request-a-quote/">Request a Quote</a>
+        </div>
+      </div>
+      <div class="footer-credit-row">
+        <span class="footer-credit">Developed by <a href="https://infindigital.in/" target="_blank" rel="noopener">In/Fin</a></span>
       </div>
     </div>
   </div>
