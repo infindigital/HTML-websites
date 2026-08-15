@@ -12,18 +12,11 @@ IMG = "/assets/images/"
 # ---- Verified brochure content (source of truth) --------------------------
 OVERVIEW = [
     ("Falcon Rotating Contracting &amp; General Maintenance L.L.C. is a trusted engineering and "
-     "contracting company dedicated to supporting the UAE&rsquo;s rapidly growing industrial, "
-     "infrastructure, and construction sectors. With a strong commitment to quality, safety, and "
-     "customer satisfaction, the company has built a reputation for delivering reliable, "
-     "cost-effective, and timely solutions across a wide range of projects."),
-    ("Driven by technical expertise and a highly skilled workforce, the company has established "
-     "itself as a dependable partner for both private and government clients. Through "
-     "professionalism, operational excellence, and adherence to international standards, Falcon "
-     "Rotating continues to strengthen its position as a preferred contractor in the region."),
-    ("By embracing innovative engineering practices, modern equipment, and efficient project "
-     "management, the company consistently delivers high-quality results while adapting to the "
-     "evolving needs of the industry. Every project is executed with precision, integrity, and a "
-     "commitment to exceeding client expectations."),
+     "contracting company supporting the UAE&rsquo;s industrial, infrastructure and construction "
+     "sectors, with a strong commitment to quality, safety and customer satisfaction."),
+    ("Driven by technical expertise and a highly skilled workforce, we are a dependable partner for "
+     "both private and government clients, delivering reliable, cost-effective and timely solutions "
+     "in line with international standards."),
 ]
 
 SVC_IMG = {
@@ -277,7 +270,7 @@ def build_about():
         <h2>Who We Are</h2>
         <p class="lead mt-s">{OVERVIEW[0]}</p>
         <p class="mt-m muted">{OVERVIEW[1]}</p>
-        <p class="mt-s muted">{OVERVIEW[2]}</p>
+        <div class="btn-row mt-m"><a class="btn btn--ghost" href="/services/">Explore Our Services {icon('arrow','ar')}</a></div>
       </div>
       <div class="split__media reveal" data-d="1">
         <img src="{IMG}falcon-rotating-who-we-are.webp" alt="Falcon Rotating engineering team reviewing project plans on an industrial site" loading="lazy" width="1000" height="1250">
@@ -736,6 +729,7 @@ def build_equipment_rental():
         <h2>Our Equipment Rental Division</h2>
         <p class="lead mt-s">Falcon Rotating has an entire range of heavy construction machinery and services ready at your disposal. We own and operate a fleet of heavy equipment provided directly under our clients&rsquo; control on an agreed rental basis.</p>
         <p class="mt-m muted">Our Equipment Rental Division provides rental services through a network team, with a fleet of hundreds of units. On top of it, our supervisory staff is well experienced and stringently complies with all modern industrial technical standards and safety regulations.</p>
+        <div class="btn-row mt-m"><a class="btn btn--ghost" href="/request-a-quote/">Request a Quote {icon('arrow','ar')}</a></div>
       </div>
       <div class="split__media reveal" data-d="1">
         <img src="{IMG}falcon-rotating-rental-overview.webp" alt="Falcon Rotating heavy equipment fleet operating on a construction site" loading="lazy" width="1200" height="800">
