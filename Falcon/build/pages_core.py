@@ -343,7 +343,7 @@ def build_services_index():
     doc += header("services")
     doc += f"""
 <main id="main">
-  <section class="pagehero">
+  <section class="pagehero pagehero--beam">
     <div class="pagehero__media"><img src="{IMG}falcon-rotating-construction-contracting.webp" alt="Construction site delivered by Falcon Rotating" width="1400" height="700"></div>
     <div class="container pagehero__inner">
       {crumbs(items)}
@@ -380,7 +380,7 @@ def _service_page(slug, title_tag, meta, h1, hero_img, hero_alt, eyebrow,
                   intro_paras, cap_heading, capabilities, extra_sections, faq,
                   intro_img, intro_alt, intro_tag, intro_tag_icon,
                   band_img, band_alt, band_eyebrow, band_heading, band_text,
-                  related_intro=None, intro_cutout=False):
+                  related_intro=None, intro_cutout=False, hero_variant=""):
     _, name, short, url = next(s for s in SERVICES if s[0] == slug)
     items = [("Home", "/"), ("Services", "/services/"), (name, None)]
     ld = [breadcrumb_ld(items), service_ld(name, meta, url), faq_ld(faq)]
@@ -391,7 +391,7 @@ def _service_page(slug, title_tag, meta, h1, hero_img, hero_alt, eyebrow,
         f'<div class="cap-item">{icon("check")}<span>{c}</span></div>' for c in capabilities)
     doc += f"""
 <main id="main">
-  <section class="pagehero">
+  <section class="pagehero {hero_variant}">
     <div class="pagehero__media"><img src="{IMG}falcon-rotating-{hero_img}.webp" alt="{hero_alt}" width="1400" height="700"></div>
     <div class="container pagehero__inner">
       {crumbs(items)}
@@ -504,6 +504,7 @@ def build_service_construction():
         band_eyebrow="Delivered With Discipline",
         band_heading="One Team, Many Disciplines",
         band_text="From civil construction and piping to industrial and electrical maintenance, steel fabrication and finishing works. We bring the right trades together to deliver complete, dependable results.",
+        hero_variant="pagehero--beam",
     )
 
 
@@ -559,6 +560,7 @@ def build_service_piling():
         band_eyebrow="Strong Foundations",
         band_heading="Engineered for Structural Stability",
         band_text="With experienced personnel, modern equipment and effective site management, we deliver piling solutions tailored to each project&rsquo;s requirements and ground conditions, with precision, safety and efficient execution.",
+        hero_variant="pagehero--grid",
     )
 
 
@@ -627,6 +629,7 @@ def build_service_rotating():
         band_eyebrow="Reliability First",
         band_heading="Restoring Performance, Reducing Downtime",
         band_text="Our experienced technical team works with precision to restore equipment performance, improve operational reliability and minimise unplanned downtime across critical rotating machinery.",
+        hero_variant="pagehero--dots",
     )
 
 
@@ -687,6 +690,7 @@ def build_service_excavation():
         band_eyebrow="Groundwork Done Right",
         band_heading="Precision in Every Dig. Strength in Every Fill.",
         band_text="With experienced operators, modern equipment and a strong focus on safety, we ensure efficient material handling, controlled backfilling and proper compaction for stable, durable construction.",
+        hero_variant="pagehero--center",
     )
 
 
@@ -712,7 +716,7 @@ def build_equipment_rental():
     doc += header("equipment-rental")
     doc += f"""
 <main id="main">
-  <section class="pagehero">
+  <section class="pagehero pagehero--dots">
     <div class="pagehero__media"><img src="{IMG}falcon-rotating-equipment-rental-fleet.webp" alt="Falcon Rotating heavy equipment rental fleet" width="1400" height="700"></div>
     <div class="container pagehero__inner">
       {crumbs(items)}

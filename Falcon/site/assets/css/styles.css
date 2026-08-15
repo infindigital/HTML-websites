@@ -232,6 +232,39 @@ body.nav-open .nav-toggle span::after{top:0;transform:rotate(-45deg)}
 .pagehero__inner::after{content:"";display:block;width:66px;height:3px;margin-top:28px;border-radius:2px;
   background:linear-gradient(90deg,#6C9BEC,rgba(108,155,236,0))}
 
+/* ---- Hero variants: each internal page group gets a distinct motif ---- */
+/* BEAM: crossing diagonal light rays, glow low and to the right */
+.pagehero--beam::before{
+  background-image:repeating-linear-gradient(116deg,rgba(255,255,255,.07) 0 1px,transparent 1px 138px),
+                   repeating-linear-gradient(64deg,rgba(255,255,255,.04) 0 1px,transparent 1px 138px);
+  background-size:auto;
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 45%);
+  mask-image:linear-gradient(90deg,transparent,#000 45%)}
+.pagehero--beam::after{top:auto;right:6%;bottom:-220px;
+  background:radial-gradient(circle,rgba(58,118,214,.46),transparent 60%)}
+
+/* DOTS: perforated dot field, glow anchored bottom-left */
+.pagehero--dots::before{
+  background-image:radial-gradient(rgba(255,255,255,.16) 1.5px,transparent 1.5px);
+  background-size:26px 26px;
+  -webkit-mask-image:radial-gradient(130% 110% at 8% 100%,#000,transparent 64%);
+  mask-image:radial-gradient(130% 110% at 8% 100%,#000,transparent 64%)}
+.pagehero--dots::after{top:auto;right:auto;left:-150px;bottom:-170px;
+  background:radial-gradient(circle,rgba(40,102,196,.5),transparent 60%)}
+
+/* CENTER: symmetric composition, copy centered, glow overhead */
+.pagehero--center .pagehero__media::after{
+  background:linear-gradient(180deg,rgba(18,59,120,.92),rgba(18,59,120,.68) 55%,rgba(31,79,163,.5))}
+.pagehero--center::before{
+  background-image:radial-gradient(circle at 50% -10%,rgba(255,255,255,.09),transparent 55%);
+  -webkit-mask-image:none;mask-image:none}
+.pagehero--center::after{left:50%;right:auto;top:-230px;transform:translateX(-50%);width:700px;
+  background:radial-gradient(circle,rgba(40,102,196,.44),transparent 62%)}
+.pagehero--center .pagehero__inner{max-width:780px;margin-inline:auto;text-align:center}
+.pagehero--center .crumbs ol,.pagehero--center .eyebrow{justify-content:center}
+.pagehero--center p{margin-inline:auto}
+.pagehero--center .pagehero__inner::after{margin-inline:auto}
+
 /* ---------- Breadcrumbs ---------- */
 .crumbs{font-size:13px;color:var(--grey)}
 .crumbs ol{list-style:none;display:flex;flex-wrap:wrap;gap:8px;align-items:center}

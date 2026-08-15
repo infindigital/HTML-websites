@@ -40,7 +40,7 @@ def build_locations_index():
     cards = "".join(_loc_card(b, i) for i, b in enumerate(BRANCHES, 1))
     doc += f"""
 <main id="main">
-  <section class="pagehero">
+  <section class="pagehero pagehero--dots">
     <div class="pagehero__media"><img src="{IMG}falcon-rotating-construction-contracting.webp" alt="Falcon Rotating regional operations" width="1400" height="700"></div>
     <div class="container pagehero__inner">
       {crumbs(items)}
@@ -170,7 +170,7 @@ def build_contact():
     )
     doc += f"""
 <main id="main">
-  <section class="pagehero">
+  <section class="pagehero pagehero--center">
     <div class="pagehero__media"><img src="{IMG}falcon-rotating-technician.webp" alt="Falcon Rotating team member" width="1400" height="700"></div>
     <div class="container pagehero__inner">
       {crumbs(items)}
@@ -248,7 +248,7 @@ def build_quote():
     svc_options = "".join(f'<option>{name}</option>' for _, name, _, _ in SERVICES)
     doc += f"""
 <main id="main">
-  <section class="pagehero">
+  <section class="pagehero pagehero--beam">
     <div class="pagehero__media"><img src="{IMG}falcon-rotating-construction-contracting.webp" alt="Falcon Rotating project delivery" width="1400" height="700"></div>
     <div class="container pagehero__inner">
       {crumbs(items)}
@@ -339,7 +339,7 @@ def build_blog():
       </article>"""
     doc += f"""
 <main id="main">
-  <section class="pagehero">
+  <section class="pagehero pagehero--center">
     <div class="pagehero__media"><img src="{IMG}falcon-rotating-turbine-inspection.webp" alt="Falcon Rotating insights" width="1400" height="700"></div>
     <div class="container pagehero__inner">
       {crumbs(items)}
