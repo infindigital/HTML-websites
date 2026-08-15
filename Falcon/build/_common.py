@@ -5,6 +5,7 @@ from urllib.parse import quote_plus
 
 SITE = "https://falconrotating.com"
 OUT = os.path.join(os.path.dirname(__file__), "..", "site")
+ASSET_VER = "20260815"  # bump to force browsers to fetch fresh CSS after an upload
 COMPANY = "Falcon Rotating Contracting & General Maintenance L.L.C."
 COMPANY_SHORT = "Falcon Rotating"
 PRIMARY_PHONE = "+971 56 393 1684"
@@ -155,7 +156,7 @@ def head(title, desc, path, *, og_img="/assets/images/falcon-rotating-steam-turb
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap">
-  <link rel="stylesheet" href="/assets/css/styles.css">{preload}{ld}
+  <link rel="stylesheet" href="/assets/css/styles.css?v={ASSET_VER}">{preload}{ld}
   <noscript><style>.reveal{{opacity:1 !important;transform:none !important}}</style></noscript>
 </head>
 <body>
