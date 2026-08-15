@@ -333,8 +333,8 @@ body.nav-open .nav-scrim{ opacity:1; visibility:visible; }
 @media (max-width:520px){ .gallery-grid{ grid-template-columns:1fr; } }
 
 /* ---------- Saudi map / ecosystem ---------- */
-.ksa{ display:grid; grid-template-columns:1.45fr .55fr; gap:clamp(30px,5vw,64px); align-items:center; }
-.ksa-map{ position:relative; width:100%; max-width:620px; margin-inline:auto; border:1px solid var(--forest-line); border-radius:var(--radius-lg);
+.ksa{ display:grid; grid-template-columns:1.1fr .9fr; gap:clamp(30px,5vw,64px); align-items:center; }
+.ksa-map{ position:relative; width:100%; max-width:430px; margin-inline:auto; border:1px solid var(--forest-line); border-radius:var(--radius-lg);
   overflow:hidden; background:radial-gradient(120% 90% at 60% 30%, rgba(23,162,74,.10), transparent 70%); }
 .ksa-map svg{ width:100%; height:auto; display:block; }
 .ksa-map .pulse{ transform-box:fill-box; transform-origin:center; animation:portPulse 2.8s var(--ease) infinite; }
