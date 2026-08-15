@@ -262,7 +262,7 @@ def footer():
       </div>
     </div>
     <div class="footer-bottom">
-      <p>&copy; <span data-year>2026</span> {COMPANY}. All rights reserved.</p>
+      <p>&copy; <span data-year>2026</span> {COMPANY}. All rights reserved. <span class="footer-credit">Developed by <a href="https://infindigital.in/" target="_blank" rel="noopener">In/Fin</a></span></p>
       <div class="legal">
         <a href="/privacy-policy/">Privacy Policy</a>
         <a href="/terms-and-conditions/">Terms &amp; Conditions</a>

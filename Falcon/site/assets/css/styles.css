@@ -481,6 +481,9 @@ body.nav-open .nav-toggle span::after{top:0;transform:rotate(-45deg)}
 .footer-bottom .legal{display:flex;gap:20px;flex-wrap:wrap}
 .footer-bottom .legal a{color:#8FA6CC;font-size:13px}
 .footer-bottom .legal a:hover{color:#fff}
+.footer-credit{margin-left:6px}
+.footer-credit a{color:#B9C9E6;font-weight:600}
+.footer-credit a:hover{color:#fff}
 
 /* ---------- Scroll reveal ---------- */
 .reveal{opacity:0;transform:translateY(24px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
