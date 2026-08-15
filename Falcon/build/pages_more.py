@@ -46,7 +46,7 @@ def build_locations_index():
       {crumbs(items)}
       <p class="eyebrow" style="color:#9DBBF0">Our Locations</p>
       <h1>Offices Across the UAE &amp; Saudi Arabia</h1>
-      <p>Regional presence with local delivery &mdash; reach the Falcon Rotating team at the office closest to your project.</p>
+      <p>Regional presence with local delivery. Reach the Falcon Rotating team at the office closest to your project.</p>
     </div>
   </section>
 
@@ -92,7 +92,7 @@ def build_location(slug):
       {crumbs(items)}
       <p class="eyebrow" style="color:#9DBBF0">{b['tag']} &middot; {b['country']}</p>
       <h1>Falcon Rotating in {b['city']}</h1>
-      <p>{b['legal']} &mdash; your local partner for construction, industrial maintenance, piling, excavation and equipment rental.</p>
+      <p>{b['legal']}, your local partner for construction, industrial maintenance, piling, excavation and equipment rental.</p>
     </div>
   </section>
 
@@ -285,7 +285,7 @@ def build_quote():
     <div class="container">
       <div class="section-head center reveal"><p class="eyebrow">Prefer to Call?</p><h2>Speak With Our Team</h2></div>
       <div class="values reveal">
-        <div class="value"><div class="value__k">Phone</div><h3><a href="tel:{PRIMARY_PHONE_HREF}">{PRIMARY_PHONE}</a></h3><p>UAE &mdash; Dubai office</p></div>
+        <div class="value"><div class="value__k">Phone</div><h3><a href="tel:{PRIMARY_PHONE_HREF}">{PRIMARY_PHONE}</a></h3><p>UAE, Dubai office</p></div>
         <div class="value"><div class="value__k">Email</div><h3><a href="mailto:{PRIMARY_EMAIL}">Email Us</a></h3><p>{PRIMARY_EMAIL}</p></div>
         <div class="value"><div class="value__k">Offices</div><h3>4 Locations</h3><p>UAE &amp; Saudi Arabia</p></div>
         <div class="value"><div class="value__k">Services</div><h3>5 Disciplines</h3><p>One integrated team</p></div>
@@ -307,7 +307,7 @@ BLOG_POSTS = [
     ("Excavation &amp; Backfilling Done Right", "Excavation",
      "earthworks", "The role of careful planning, controlled backfilling and proper compaction in stable, durable construction."),
     ("Choosing the Right Equipment Rental for Your Site", "Equipment Rental",
-     "equipment-rental-fleet", "Matching machinery to scope &mdash; from cranes and excavators to generators and dewatering pumps."),
+     "equipment-rental-fleet", "Matching machinery to scope, from cranes and excavators to generators and dewatering pumps."),
     ("Construction Contracting: Delivering Quality &amp; Safety", "Construction",
      "civil-construction", "How an ongoing safety program and skilled teams keep commercial and industrial projects on time."),
     ("Why Modern Equipment Matters in Contracting", "Industry Insights",

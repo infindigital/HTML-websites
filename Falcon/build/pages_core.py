@@ -81,7 +81,7 @@ def _mini_loc_cards():
 
 # =====================================================================  HOME
 def build_home():
-    hero_img = f"{IMG}falcon-rotating-industrial-maintenance-team.webp"
+    hero_img = f"{IMG}falcon-rotating-hero-1.webp"
     ld = [org_ld(), website_ld(),
           breadcrumb_ld([("Home", "/")]),
           faq_ld(HOME_FAQ)]
@@ -96,8 +96,8 @@ def build_home():
 <main id="main">
   <section class="hero hero--cine">
     <div class="hero__slides" aria-hidden="true">
-      <div class="hero__slide is-active"><img src="{IMG}falcon-rotating-industrial-maintenance-team.webp" alt="" width="1400" height="892" fetchpriority="high"></div>
-      <div class="hero__slide"><img src="{IMG}falcon-rotating-steam-turbine-overhaul.webp" alt="" width="960" height="486" loading="lazy"></div>
+      <div class="hero__slide is-active"><img src="{IMG}falcon-rotating-hero-1.webp" alt="" width="1600" height="900" fetchpriority="high"></div>
+      <div class="hero__slide"><img src="{IMG}falcon-rotating-hero-2.webp" alt="" width="1600" height="900" loading="lazy"></div>
       <div class="hero__slide"><img src="{IMG}falcon-rotating-construction-contracting.webp" alt="" width="1500" height="728" loading="lazy"></div>
     </div>
     <div class="hero__scrim" aria-hidden="true"></div>
@@ -118,8 +118,8 @@ def build_home():
         <li><strong>UAE &amp; KSA</strong><span>Gulf-wide delivery</span></li>
       </ul>
       <div class="hero__dots">
-        <button type="button" aria-current="true" aria-label="Show slide 1: industrial maintenance team"></button>
-        <button type="button" aria-current="false" aria-label="Show slide 2: steam turbine overhaul"></button>
+        <button type="button" aria-current="true" aria-label="Show slide 1: steam turbine overhaul"></button>
+        <button type="button" aria-current="false" aria-label="Show slide 2: construction and piling site"></button>
         <button type="button" aria-current="false" aria-label="Show slide 3: construction &amp; contracting"></button>
       </div>
     </div>
@@ -145,7 +145,7 @@ def build_home():
       <div class="section-head reveal">
         <p class="eyebrow">What We Do</p>
         <h2>Our Core Services</h2>
-        <p class="lead mt-s">Five integrated disciplines &mdash; delivered by one experienced engineering and contracting team across the Gulf.</p>
+        <p class="lead mt-s">Five integrated disciplines, delivered by one experienced engineering and contracting team across the Gulf.</p>
       </div>
       <div class="grid grid-3">{_svc_cards()}</div>
     </div>
@@ -174,7 +174,7 @@ def build_home():
       <div class="reveal" data-d="1">
         <p class="eyebrow">Rotating Equipment</p>
         <h2>Precision Maintenance. Reliable Performance.</h2>
-        <p class="mt-s muted">Specialized overhauling, maintenance, inspection and repair for critical rotating machinery &mdash; restoring performance, improving reliability and minimizing unplanned downtime.</p>
+        <p class="mt-s muted">Specialized overhauling, maintenance, inspection and repair for critical rotating machinery, restoring performance, improving reliability and minimizing unplanned downtime.</p>
         <div class="chips mt-m">
           <span class="chip">{icon('gear')}Steam Turbines</span>
           <span class="chip">{icon('gear')}Centrifugal Pumps</span>
@@ -231,7 +231,7 @@ HOME_FAQ = [
     ("What services does Falcon Rotating provide?",
      ["Falcon Rotating provides five core services: construction contracting, piling work, "
       "rotating equipment overhauling and maintenance, excavation and backfilling, and heavy "
-      "equipment rental &mdash; supporting industrial, infrastructure and construction projects."]),
+      "equipment rental, supporting industrial, infrastructure and construction projects."]),
     ("Which regions does Falcon Rotating operate in?",
      ["We operate across the United Arab Emirates, with offices in Dubai and Abu Dhabi, and across "
       "the Kingdom of Saudi Arabia, with our head office in Yanbu and a branch in Al Jubail."]),
@@ -272,13 +272,16 @@ def build_about():
   </section>
 
   <section class="section">
-    <div class="container narrow">
+    <div class="container split split--wide-text">
       <div class="reveal">
         <p class="eyebrow">Company Overview</p>
         <h2>Who We Are</h2>
         <p class="lead mt-s">{OVERVIEW[0]}</p>
         <p class="mt-m muted">{OVERVIEW[1]}</p>
         <p class="mt-s muted">{OVERVIEW[2]}</p>
+      </div>
+      <div class="split__media reveal" data-d="1">
+        <img src="{IMG}falcon-rotating-who-we-are.webp" alt="Falcon Rotating engineering team reviewing project plans on an industrial site" loading="lazy" width="1000" height="1250">
       </div>
     </div>
   </section>
@@ -354,7 +357,7 @@ def build_services_index():
       {crumbs(items)}
       <p class="eyebrow" style="color:#9DBBF0">Our Services</p>
       <h1>Integrated Engineering &amp; Contracting Services</h1>
-      <p>Five disciplines delivered by one experienced team &mdash; from civil construction and piling to rotating equipment overhauling and heavy equipment rental.</p>
+      <p>Five disciplines delivered by one experienced team, from civil construction and piling to rotating equipment overhauling and heavy equipment rental.</p>
     </div>
   </section>
 
@@ -508,7 +511,7 @@ def build_service_construction():
         band_alt="Civil construction structural works delivered by Falcon Rotating",
         band_eyebrow="Delivered With Discipline",
         band_heading="One Team, Many Disciplines",
-        band_text="From civil construction and piping to industrial and electrical maintenance, steel fabrication and finishing works &mdash; we bring the right trades together to deliver complete, dependable results.",
+        band_text="From civil construction and piping to industrial and electrical maintenance, steel fabrication and finishing works. We bring the right trades together to deliver complete, dependable results.",
     )
 
 
@@ -563,7 +566,7 @@ def build_service_piling():
         band_alt="Piling and foundation works on a Falcon Rotating construction site",
         band_eyebrow="Strong Foundations",
         band_heading="Engineered for Structural Stability",
-        band_text="With experienced personnel, modern equipment and effective site management, we deliver piling solutions tailored to each project&rsquo;s requirements and ground conditions &mdash; with precision, safety and efficient execution.",
+        band_text="With experienced personnel, modern equipment and effective site management, we deliver piling solutions tailored to each project&rsquo;s requirements and ground conditions, with precision, safety and efficient execution.",
     )
 
 
@@ -723,16 +726,21 @@ def build_equipment_rental():
       {crumbs(items)}
       <p class="eyebrow" style="color:#9DBBF0">Equipment Rental</p>
       <h1>Power Your Projects with Confidence</h1>
-      <p>Quality equipment, dependable performance and flexible rental solutions for every project &mdash; owned and operated by Falcon Rotating.</p>
+      <p>Quality equipment, dependable performance and flexible rental solutions for every project, owned and operated by Falcon Rotating.</p>
     </div>
   </section>
 
   <section class="section">
-    <div class="container narrow reveal">
-      <p class="eyebrow">Overview</p>
-      <h2>Our Equipment Rental Division</h2>
-      <p class="lead mt-s">Falcon Rotating has an entire range of heavy construction machinery and services ready at your disposal. We own and operate a fleet of heavy equipment provided directly under our clients&rsquo; control on an agreed rental basis.</p>
-      <p class="mt-m muted">Our Equipment Rental Division provides rental services through a network team, with a fleet of hundreds of units. On top of it, our supervisory staff is well experienced and stringently complies with all modern industrial technical standards and safety regulations.</p>
+    <div class="container split split--wide-text">
+      <div class="reveal">
+        <p class="eyebrow">Overview</p>
+        <h2>Our Equipment Rental Division</h2>
+        <p class="lead mt-s">Falcon Rotating has an entire range of heavy construction machinery and services ready at your disposal. We own and operate a fleet of heavy equipment provided directly under our clients&rsquo; control on an agreed rental basis.</p>
+        <p class="mt-m muted">Our Equipment Rental Division provides rental services through a network team, with a fleet of hundreds of units. On top of it, our supervisory staff is well experienced and stringently complies with all modern industrial technical standards and safety regulations.</p>
+      </div>
+      <div class="split__media reveal" data-d="1">
+        <img src="{IMG}falcon-rotating-rental-overview.webp" alt="Falcon Rotating heavy equipment fleet operating on a construction site" loading="lazy" width="1200" height="800">
+      </div>
     </div>
   </section>
 
@@ -759,7 +767,7 @@ def build_equipment_rental():
 """
     doc += faq_block(RENTAL_FAQ)
     doc += cta_band("Need Equipment for Your Site?",
-                    "Tell us what you need and for how long &mdash; we&rsquo;ll match the right machinery to your project and provide a rental quotation.")
+                    "Tell us what you need and for how long. We&rsquo;ll match the right machinery to your project and provide a rental quotation.")
     doc += "\n</main>\n"
     doc += footer()
     write("/equipment-rental/", doc)
