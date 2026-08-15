@@ -3,7 +3,7 @@
 import os, datetime, html
 from _common import (
     head, header, crumbs, breadcrumb_ld, footer, cta_band, faq_block, faq_ld,
-    write, org_ld, localbusiness_ld, service_ld, maps_iframe, icon,
+    write, org_ld, localbusiness_ld, service_ld, maps_iframe, icon, pagehero,
     SERVICES, BRANCHES, BR, SITE, OUT, COMPANY, COMPANY_SHORT,
     PRIMARY_PHONE, PRIMARY_PHONE_HREF, PRIMARY_EMAIL,
 )
@@ -38,18 +38,16 @@ def build_locations_index():
     )
     doc += header("")
     cards = "".join(_loc_card(b, i) for i, b in enumerate(BRANCHES, 1))
+    hero = pagehero(
+        items, "Our Locations", "Offices Across the UAE &amp; Saudi Arabia",
+        "Regional presence with local delivery. Reach the Falcon Rotating team at the office closest to your project.",
+        img=IMG + "falcon-rotating-construction-contracting.webp",
+        alt="Falcon Rotating regional operations",
+        layout="stat",
+        stats=[("04", "Regional offices"), ("02", "Countries"), ("UAE &amp; KSA", "Coverage")])
     doc += f"""
 <main id="main">
-  <section class="pagehero pagehero--dots">
-    <div class="pagehero__media"><img src="{IMG}falcon-rotating-construction-contracting.webp" alt="Falcon Rotating regional operations" width="1400" height="700"></div>
-    <div class="container pagehero__inner">
-      {crumbs(items)}
-      <p class="eyebrow" style="color:#9DBBF0">Our Locations</p>
-      <h1>Offices Across the UAE &amp; Saudi Arabia</h1>
-      <p>Regional presence with local delivery. Reach the Falcon Rotating team at the office closest to your project.</p>
-    </div>
-  </section>
-
+{hero}
   <section class="section">
     <div class="container">
       <div class="loc-grid">{cards}</div>
@@ -84,18 +82,15 @@ def build_location(slug):
         f'<a href="/locations/{o["slug"]}/"><strong>{o["city"]}, {o["country"]}</strong><span>{o["legal"]}</span></a>'
         for o in other
     )
+    hero = pagehero(
+        items, f"{b['tag']} &middot; {b['country']}", f"Falcon Rotating in {b['city']}",
+        f"{b['legal']}, your local partner for construction, industrial maintenance, piling, excavation and equipment rental.",
+        img=IMG + "falcon-rotating-industrial-maintenance-team.webp",
+        alt=f"Falcon Rotating {b['city']} operations",
+        layout="panel", tag=f"{b['city']}, {b['country']}", tag_icon="pin")
     doc += f"""
 <main id="main">
-  <section class="pagehero">
-    <div class="pagehero__media"><img src="{IMG}falcon-rotating-industrial-maintenance-team.webp" alt="Falcon Rotating {b['city']} operations" width="1400" height="700"></div>
-    <div class="container pagehero__inner">
-      {crumbs(items)}
-      <p class="eyebrow" style="color:#9DBBF0">{b['tag']} &middot; {b['country']}</p>
-      <h1>Falcon Rotating in {b['city']}</h1>
-      <p>{b['legal']}, your local partner for construction, industrial maintenance, piling, excavation and equipment rental.</p>
-    </div>
-  </section>
-
+{hero}
   <section class="section">
     <div class="container split">
       <div class="reveal">
@@ -168,18 +163,14 @@ def build_contact():
           </dl>
         </div>""" for i, b in enumerate(BRANCHES, 1)
     )
+    hero = pagehero(
+        items, "Contact Us", "Let&rsquo;s Talk About Your Project",
+        "If you have any queries or require further information, please do not hesitate to contact us.",
+        img=IMG + "falcon-rotating-technician.webp",
+        alt="Falcon Rotating team member", layout="center")
     doc += f"""
 <main id="main">
-  <section class="pagehero pagehero--center">
-    <div class="pagehero__media"><img src="{IMG}falcon-rotating-technician.webp" alt="Falcon Rotating team member" width="1400" height="700"></div>
-    <div class="container pagehero__inner">
-      {crumbs(items)}
-      <p class="eyebrow" style="color:#9DBBF0">Contact Us</p>
-      <h1>Let&rsquo;s Talk About Your Project</h1>
-      <p>If you have any queries or require further information, please do not hesitate to contact us.</p>
-    </div>
-  </section>
-
+{hero}
   <section class="section">
     <div class="container split split--wide-text">
       <div class="reveal">
@@ -246,18 +237,14 @@ def build_quote():
     )
     doc += header("")
     svc_options = "".join(f'<option>{name}</option>' for _, name, _, _ in SERVICES)
+    hero = pagehero(
+        items, "Request a Quote", "Get a Tailored Proposal",
+        "Tell us about your project and requirements. Our team will review the details and prepare a quotation suited to your scope.",
+        img=IMG + "falcon-rotating-construction-contracting.webp",
+        alt="Falcon Rotating project delivery", layout="glass")
     doc += f"""
 <main id="main">
-  <section class="pagehero pagehero--beam">
-    <div class="pagehero__media"><img src="{IMG}falcon-rotating-construction-contracting.webp" alt="Falcon Rotating project delivery" width="1400" height="700"></div>
-    <div class="container pagehero__inner">
-      {crumbs(items)}
-      <p class="eyebrow" style="color:#9DBBF0">Request a Quote</p>
-      <h1>Get a Tailored Proposal</h1>
-      <p>Tell us about your project and requirements. Our team will review the details and prepare a quotation suited to your scope.</p>
-    </div>
-  </section>
-
+{hero}
   <section class="section">
     <div class="container narrow">
       <form class="form-wrap reveal" data-demo novalidate>
@@ -337,18 +324,14 @@ def build_blog():
           <p class="mt-m"><span class="badge">Coming soon</span></p>
         </div>
       </article>"""
+    hero = pagehero(
+        items, "Insights", "Insights &amp; News",
+        "Practical perspectives on engineering, contracting and maintenance from the Falcon Rotating team.",
+        img=IMG + "falcon-rotating-turbine-inspection.webp",
+        alt="Falcon Rotating insights", layout="center")
     doc += f"""
 <main id="main">
-  <section class="pagehero pagehero--center">
-    <div class="pagehero__media"><img src="{IMG}falcon-rotating-turbine-inspection.webp" alt="Falcon Rotating insights" width="1400" height="700"></div>
-    <div class="container pagehero__inner">
-      {crumbs(items)}
-      <p class="eyebrow" style="color:#9DBBF0">Insights</p>
-      <h1>Insights &amp; News</h1>
-      <p>Practical perspectives on engineering, contracting and maintenance from the Falcon Rotating team.</p>
-    </div>
-  </section>
-
+{hero}
   <section class="section">
     <div class="container">
       <p class="lead reveal" style="max-width:760px">Our editorial library is being prepared. In the meantime, explore our services or get in touch to discuss your project.</p>

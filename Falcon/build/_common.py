@@ -224,6 +224,98 @@ def breadcrumb_ld(items):
         el.append(item)
     return {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": el}
 
+# ---------------------------------------------------------------- PAGE HERO
+def pagehero(items, eyebrow, h1, sub, img=None, alt="", *, layout="grid",
+             stats=None, watermark=None, tag=None, tag_icon=None):
+    """Render an internal-page hero in one of several professional layouts:
+    grid (default full-bleed), stat (photo + facts strip), panel (copy + framed
+    image card), glass (frosted card over photo), index (large section index),
+    center (centered composition)."""
+    ey = f'<p class="eyebrow" style="color:#9DBBF0">{eyebrow}</p>'
+    media = (f'<div class="pagehero__media"><img src="{img}" alt="{alt}" width="1400" height="700"></div>'
+             if img else "")
+
+    if layout == "panel":
+        badge = ""
+        if tag:
+            ic = icon(tag_icon) if tag_icon else ""
+            badge = f'<span class="pagehero__tag">{ic}{tag}</span>'
+        return f"""
+  <section class="pagehero pagehero--panel">
+    <div class="container pagehero__inner">
+      <div class="pagehero__grid">
+        <div class="pagehero__copy">
+          {crumbs(items)}
+          {ey}
+          <h1>{h1}</h1>
+          <p>{sub}</p>
+        </div>
+        <div class="pagehero__card"><img src="{img}" alt="{alt}" width="900" height="680" loading="lazy">{badge}</div>
+      </div>
+    </div>
+  </section>
+"""
+
+    if layout == "glass":
+        return f"""
+  <section class="pagehero pagehero--glass">
+    {media}
+    <div class="container pagehero__inner">
+      <div class="pagehero__glass">
+        {crumbs(items)}
+        {ey}
+        <h1>{h1}</h1>
+        <p>{sub}</p>
+      </div>
+    </div>
+  </section>
+"""
+
+    if layout == "stat":
+        cells = "".join(
+            f'<div class="pagehero__stat"><strong>{v}</strong><span>{l}</span></div>'
+            for v, l in (stats or []))
+        return f"""
+  <section class="pagehero pagehero--stat">
+    {media}
+    <div class="container pagehero__inner">
+      {crumbs(items)}
+      {ey}
+      <h1>{h1}</h1>
+      <p>{sub}</p>
+      <div class="pagehero__stats">{cells}</div>
+    </div>
+  </section>
+"""
+
+    if layout == "index":
+        wm = f'<span class="pagehero__wm" aria-hidden="true">{watermark}</span>' if watermark else ""
+        return f"""
+  <section class="pagehero pagehero--index">
+    {media}{wm}
+    <div class="container pagehero__inner">
+      {crumbs(items)}
+      {ey}
+      <h1>{h1}</h1>
+      <p>{sub}</p>
+    </div>
+  </section>
+"""
+
+    # grid (default) / center
+    cls = "pagehero pagehero--center" if layout == "center" else "pagehero"
+    return f"""
+  <section class="{cls}">
+    {media}
+    <div class="container pagehero__inner">
+      {crumbs(items)}
+      {ey}
+      <h1>{h1}</h1>
+      <p>{sub}</p>
+    </div>
+  </section>
+"""
+
 # ---------------------------------------------------------------- FOOTER
 def footer():
     svc_links = "".join(f'<li><a href="{url}">{name}</a></li>' for _, name, _, url in SERVICES)

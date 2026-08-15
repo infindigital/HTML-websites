@@ -2,7 +2,7 @@
 """Home, About, Services (index + details) and Equipment Rental pages."""
 from _common import (
     head, header, crumbs, breadcrumb_ld, footer, cta_band, faq_block, faq_ld,
-    write, org_ld, website_ld, service_ld, icon, SERVICES, BRANCHES, BR,
+    write, org_ld, website_ld, service_ld, icon, pagehero, SERVICES, BRANCHES, BR,
     SITE, COMPANY, COMPANY_SHORT, PRIMARY_PHONE, PRIMARY_PHONE_HREF, PRIMARY_EMAIL,
 )
 import html as _html
@@ -250,19 +250,16 @@ def build_about():
          "industrial, infrastructure and construction sectors in the UAE and KSA."),
         "/about/", og_img="/assets/images/falcon-rotating-industrial-maintenance-team.webp", jsonld=ld,
     )
+    hero = pagehero(
+        items, "About Us", "Engineering Trust Across the Gulf",
+        "A trusted engineering and contracting partner dedicated to supporting the region&rsquo;s industrial, infrastructure and construction growth.",
+        img=IMG + "falcon-rotating-industrial-maintenance-team.webp",
+        alt="Falcon Rotating engineering team at an industrial facility",
+        layout="panel", tag="Gulf-wide Delivery", tag_icon="globe")
     doc += header("about")
     doc += f"""
 <main id="main">
-  <section class="pagehero">
-    <div class="pagehero__media"><img src="{IMG}falcon-rotating-industrial-maintenance-team.webp" alt="Falcon Rotating engineering team at an industrial facility" width="1400" height="700"></div>
-    <div class="container pagehero__inner">
-      {crumbs(items)}
-      <p class="eyebrow" style="color:#9DBBF0">About Us</p>
-      <h1>Engineering Trust Across the Gulf</h1>
-      <p>A trusted engineering and contracting partner dedicated to supporting the region&rsquo;s industrial, infrastructure and construction growth.</p>
-    </div>
-  </section>
-
+{hero}
   <section class="section">
     <div class="container split split--wide-text">
       <div class="reveal">
@@ -340,19 +337,17 @@ def build_services_index():
          "equipment overhauling, excavation and equipment rental in the UAE and KSA."),
         "/services/", og_img="/assets/images/falcon-rotating-construction-contracting.webp", jsonld=ld,
     )
+    hero = pagehero(
+        items, "Our Services", "Integrated Engineering &amp; Contracting Services",
+        "Five disciplines delivered by one experienced team, from civil construction and piling to rotating equipment overhauling and heavy equipment rental.",
+        img=IMG + "falcon-rotating-construction-contracting.webp",
+        alt="Construction site delivered by Falcon Rotating",
+        layout="stat",
+        stats=[("05", "Core disciplines"), ("04", "Regional offices"), ("UAE &amp; KSA", "Gulf-wide delivery")])
     doc += header("services")
     doc += f"""
 <main id="main">
-  <section class="pagehero pagehero--beam">
-    <div class="pagehero__media"><img src="{IMG}falcon-rotating-construction-contracting.webp" alt="Construction site delivered by Falcon Rotating" width="1400" height="700"></div>
-    <div class="container pagehero__inner">
-      {crumbs(items)}
-      <p class="eyebrow" style="color:#9DBBF0">Our Services</p>
-      <h1>Integrated Engineering &amp; Contracting Services</h1>
-      <p>Five disciplines delivered by one experienced team, from civil construction and piling to rotating equipment overhauling and heavy equipment rental.</p>
-    </div>
-  </section>
-
+{hero}
   <section class="section">
     <div class="container">
       <div class="grid grid-3">{_svc_cards()}</div>
@@ -385,22 +380,18 @@ def _service_page(slug, title_tag, meta, h1, hero_img, hero_alt, eyebrow,
     items = [("Home", "/"), ("Services", "/services/"), (name, None)]
     ld = [breadcrumb_ld(items), service_ld(name, meta, url), faq_ld(faq)]
     doc = head(title_tag, meta, url, og_img=f"/assets/images/falcon-rotating-{hero_img}.webp", jsonld=ld)
+    svc_no = next(i for i, s in enumerate(SERVICES, 1) if s[0] == slug)
+    hero = pagehero(
+        items, eyebrow, h1, intro_paras[0],
+        img=IMG + f"falcon-rotating-{hero_img}.webp", alt=hero_alt,
+        layout="index", watermark=f"{svc_no:02d}")
     doc += header("services")
     intro_html = "".join(f'<p class="mt-s muted">{p}</p>' for p in intro_paras[1:])
     caps_html = "".join(
         f'<div class="cap-item">{icon("check")}<span>{c}</span></div>' for c in capabilities)
     doc += f"""
 <main id="main">
-  <section class="pagehero {hero_variant}">
-    <div class="pagehero__media"><img src="{IMG}falcon-rotating-{hero_img}.webp" alt="{hero_alt}" width="1400" height="700"></div>
-    <div class="container pagehero__inner">
-      {crumbs(items)}
-      <p class="eyebrow" style="color:#9DBBF0">{eyebrow}</p>
-      <h1>{h1}</h1>
-      <p>{intro_paras[0]}</p>
-    </div>
-  </section>
-
+{hero}
   <section class="section">
     <div class="container split split--wide-text">
       <div class="reveal">
@@ -504,7 +495,6 @@ def build_service_construction():
         band_eyebrow="Delivered With Discipline",
         band_heading="One Team, Many Disciplines",
         band_text="From civil construction and piping to industrial and electrical maintenance, steel fabrication and finishing works. We bring the right trades together to deliver complete, dependable results.",
-        hero_variant="pagehero--beam",
     )
 
 
@@ -560,7 +550,6 @@ def build_service_piling():
         band_eyebrow="Strong Foundations",
         band_heading="Engineered for Structural Stability",
         band_text="With experienced personnel, modern equipment and effective site management, we deliver piling solutions tailored to each project&rsquo;s requirements and ground conditions, with precision, safety and efficient execution.",
-        hero_variant="pagehero--grid",
     )
 
 
@@ -629,7 +618,6 @@ def build_service_rotating():
         band_eyebrow="Reliability First",
         band_heading="Restoring Performance, Reducing Downtime",
         band_text="Our experienced technical team works with precision to restore equipment performance, improve operational reliability and minimise unplanned downtime across critical rotating machinery.",
-        hero_variant="pagehero--dots",
     )
 
 
@@ -690,7 +678,6 @@ def build_service_excavation():
         band_eyebrow="Groundwork Done Right",
         band_heading="Precision in Every Dig. Strength in Every Fill.",
         band_text="With experienced operators, modern equipment and a strong focus on safety, we ensure efficient material handling, controlled backfilling and proper compaction for stable, durable construction.",
-        hero_variant="pagehero--center",
     )
 
 
@@ -713,19 +700,16 @@ def build_equipment_rental():
          "dump and boom trucks, generators and compressors on flexible terms."),
         "/equipment-rental/", og_img="/assets/images/falcon-rotating-equipment-rental-fleet.webp", jsonld=ld,
     )
+    hero = pagehero(
+        items, "Equipment Rental", "Power Your Projects with Confidence",
+        "Quality equipment, dependable performance and flexible rental solutions for every project, owned and operated by Falcon Rotating.",
+        img=IMG + "falcon-rotating-equipment-rental-fleet.webp",
+        alt="Falcon Rotating heavy equipment rental fleet",
+        layout="glass")
     doc += header("equipment-rental")
     doc += f"""
 <main id="main">
-  <section class="pagehero pagehero--dots">
-    <div class="pagehero__media"><img src="{IMG}falcon-rotating-equipment-rental-fleet.webp" alt="Falcon Rotating heavy equipment rental fleet" width="1400" height="700"></div>
-    <div class="container pagehero__inner">
-      {crumbs(items)}
-      <p class="eyebrow" style="color:#9DBBF0">Equipment Rental</p>
-      <h1>Power Your Projects with Confidence</h1>
-      <p>Quality equipment, dependable performance and flexible rental solutions for every project, owned and operated by Falcon Rotating.</p>
-    </div>
-  </section>
-
+{hero}
   <section class="section">
     <div class="container split split--wide-text">
       <div class="reveal">
