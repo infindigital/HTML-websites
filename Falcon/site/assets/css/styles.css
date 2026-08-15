@@ -66,7 +66,7 @@ button{font-family:inherit}
   font-size:13px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
   color:var(--blue);margin:0 0 18px;
 }
-.eyebrow::before{content:"";width:28px;height:2px;background:var(--blue);display:inline-block}
+.eyebrow::before{content:"";width:7px;height:7px;background:var(--blue);display:inline-block;transform:rotate(45deg);border-radius:1px}
 .section--ink .eyebrow{color:#9DBBF0}
 .section--ink .eyebrow::before{background:#9DBBF0}
 .center .eyebrow{justify-content:center}

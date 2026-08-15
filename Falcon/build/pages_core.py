@@ -158,7 +158,7 @@ def build_home():
         <h2>Built Around Reliability</h2>
       </div>
       <div class="values reveal">
-        <div class="value"><div class="value__k">Quality &amp; Safety</div><h3>Standards-Driven Delivery</h3><p>A strong commitment to quality, safety and customer satisfaction on every project, guided by international standards.</p></div>
+        <div class="value"><div class="value__k">Quality &amp; Safety</div><h3>Built on Standards</h3><p>A strong commitment to quality, safety and customer satisfaction on every project, guided by international standards.</p></div>
         <div class="value"><div class="value__k">Skilled Workforce</div><h3>Technical Expertise</h3><p>A highly skilled workforce and experienced technical teams driving precise, professional execution.</p></div>
         <div class="value"><div class="value__k">Modern Equipment</div><h3>Efficient Project Management</h3><p>Innovative engineering practices, modern equipment and efficient management for high-quality results.</p></div>
         <div class="value"><div class="value__k">Trusted Partner</div><h3>Private &amp; Government Clients</h3><p>A dependable partner for both private and government clients, and a preferred contractor in the region.</p></div>
