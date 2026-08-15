@@ -232,49 +232,25 @@ body.nav-open .nav-toggle span::after{top:0;transform:rotate(-45deg)}
 .pagehero__inner::after{content:"";display:block;width:66px;height:3px;margin-top:28px;border-radius:2px;
   background:linear-gradient(90deg,#6C9BEC,rgba(108,155,236,0))}
 
-/* ---- Hero layouts: each internal page uses a distinct professional composition ---- */
-/* STAT: full-bleed photo with a facts strip closing the hero */
-.pagehero--stat .pagehero__inner::after{display:none}
-.pagehero__stats{display:flex;flex-wrap:wrap;gap:clamp(26px,5vw,68px);margin-top:clamp(30px,4vw,44px);
-  padding-top:26px;border-top:1px solid rgba(255,255,255,.18)}
-.pagehero__stat{display:flex;flex-direction:column}
-.pagehero__stat strong{font-size:clamp(1.9rem,3.6vw,2.8rem);font-weight:800;color:#fff;line-height:1;letter-spacing:-.02em}
-.pagehero__stat span{margin-top:7px;font-size:12.5px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:#B9C9E6}
+/* ---- Hero variants: each internal page group gets a distinct motif ---- */
+/* BEAM: crossing diagonal light rays, glow low and to the right */
+.pagehero--beam::before{
+  background-image:repeating-linear-gradient(116deg,rgba(255,255,255,.07) 0 1px,transparent 1px 138px),
+                   repeating-linear-gradient(64deg,rgba(255,255,255,.04) 0 1px,transparent 1px 138px);
+  background-size:auto;
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 45%);
+  mask-image:linear-gradient(90deg,transparent,#000 45%)}
+.pagehero--beam::after{top:auto;right:6%;bottom:-220px;
+  background:radial-gradient(circle,rgba(58,118,214,.46),transparent 60%)}
 
-/* PANEL: copy beside a framed image card on a solid ink field */
-.pagehero--panel .pagehero__inner{max-width:100%}
-.pagehero--panel .pagehero__inner::after{display:none}
-.pagehero__grid{display:grid;grid-template-columns:1.02fr .98fr;gap:clamp(32px,5vw,68px);align-items:center}
-.pagehero__copy::after{content:"";display:block;width:66px;height:3px;margin-top:28px;border-radius:2px;
-  background:linear-gradient(90deg,#6C9BEC,rgba(108,155,236,0))}
-.pagehero__card{position:relative;border-radius:var(--radius-lg);overflow:hidden;
-  border:1px solid rgba(255,255,255,.14);box-shadow:0 34px 70px rgba(0,0,0,.42)}
-.pagehero__card img{display:block;width:100%;height:100%;aspect-ratio:4/3;object-fit:cover;opacity:1}
-.pagehero__tag{position:absolute;left:16px;bottom:16px;display:inline-flex;align-items:center;gap:8px;
-  padding:9px 14px;border-radius:999px;background:rgba(16,42,86,.82);backdrop-filter:blur(6px);
-  -webkit-backdrop-filter:blur(6px);color:#fff;font-size:12.5px;font-weight:700;letter-spacing:.03em}
-.pagehero__tag svg{width:16px;height:16px}
-
-/* GLASS: frosted card holding the copy over the photo */
-.pagehero--glass .pagehero__inner{max-width:100%}
-.pagehero--glass .pagehero__inner::after{display:none}
-.pagehero__glass{max-width:600px;padding:clamp(28px,3.4vw,46px);border-radius:var(--radius-lg);
-  background:rgba(14,38,80,.52);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
-  border:1px solid rgba(255,255,255,.16);box-shadow:0 34px 70px rgba(0,0,0,.36);position:relative}
-.pagehero__glass::after{content:"";display:block;width:66px;height:3px;margin-top:26px;border-radius:2px;
-  background:linear-gradient(90deg,#6C9BEC,rgba(108,155,236,0))}
-
-/* INDEX: oversized section index behind the copy */
-.pagehero--index .pagehero__wm{position:absolute;z-index:1;right:clamp(-8px,3vw,64px);top:50%;
-  transform:translateY(-50%);font-size:clamp(8rem,24vw,20rem);font-weight:800;line-height:.8;
-  letter-spacing:-.04em;color:rgba(255,255,255,.07);pointer-events:none;user-select:none}
-
-@media (max-width:820px){
-  .pagehero__grid{grid-template-columns:1fr;gap:26px}
-  .pagehero__card{order:2;max-width:520px}
-  .pagehero__stats{gap:20px 34px}
-  .pagehero--index .pagehero__wm{display:none}
-}
+/* DOTS: perforated dot field, glow anchored bottom-left */
+.pagehero--dots::before{
+  background-image:radial-gradient(rgba(255,255,255,.16) 1.5px,transparent 1.5px);
+  background-size:26px 26px;
+  -webkit-mask-image:radial-gradient(130% 110% at 8% 100%,#000,transparent 64%);
+  mask-image:radial-gradient(130% 110% at 8% 100%,#000,transparent 64%)}
+.pagehero--dots::after{top:auto;right:auto;left:-150px;bottom:-170px;
+  background:radial-gradient(circle,rgba(40,102,196,.5),transparent 60%)}
 
 /* CENTER: symmetric composition, copy centered, glow overhead */
 .pagehero--center .pagehero__media::after{
