@@ -42,6 +42,8 @@ body{
   overflow-x:hidden;
 }
 img,picture,svg,video{max-width:100%;height:auto;display:block}
+/* Default icon size so inline SVG icons never balloon; scoped rules override. */
+svg{width:20px;height:20px;flex-shrink:0}
 a{color:var(--blue);text-decoration:none;transition:color .2s var(--ease)}
 a:hover{color:var(--blue-hover)}
 ul,ol{margin:0;padding:0}
@@ -89,6 +91,7 @@ h3,.h3{font-size:clamp(1.2rem,1.8vw,1.5rem);font-weight:700}
   background:var(--bg);color:var(--fg);font-weight:700;font-size:15px;letter-spacing:.01em;
   cursor:pointer;transition:all .22s var(--ease);white-space:nowrap;
 }
+.btn svg,.ar{width:18px;height:18px;flex-shrink:0}
 .btn .ar{transition:transform .22s var(--ease)}
 .btn:hover .ar{transform:translateX(4px)}
 .btn:hover{--bg:var(--blue-deep);--bd:var(--blue-deep);color:#fff;box-shadow:var(--shadow)}
@@ -547,7 +550,6 @@ body.nav-open .nav-toggle span::after{top:0;transform:rotate(-45deg)}
   .has-dropdown:hover .dropdown{opacity:1}
   .dropdown a{padding:12px 14px;background:var(--tint);margin-bottom:4px;border-radius:var(--radius)}
   .nav-cta{gap:0}
-  .nav-cta .btn--menu{display:none}
   .nav-mobile-cta{display:block;margin-top:18px}
   .nav-mobile-cta .btn{width:100%}
 }

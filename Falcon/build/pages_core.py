@@ -130,8 +130,7 @@ def build_home():
       <div class="reveal">
         <p class="eyebrow">Who We Are</p>
         <h2>A Dependable Engineering &amp; Contracting Partner</h2>
-        <p class="lead mt-s">{OVERVIEW[0]}</p>
-        <p class="mt-m muted">{OVERVIEW[1]}</p>
+        <p class="lead mt-s">Falcon Rotating Contracting &amp; General Maintenance L.L.C. is a trusted engineering and contracting company supporting the UAE&rsquo;s industrial, infrastructure and construction sectors, delivering reliable, cost-effective and timely solutions across a wide range of projects.</p>
         <div class="btn-row"><a class="btn btn--ghost" href="/about/">About Falcon Rotating {icon('arrow','ar')}</a></div>
       </div>
       <div class="split__media reveal" data-d="1">
