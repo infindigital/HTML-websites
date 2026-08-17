@@ -740,3 +740,24 @@ a.policy-card{ color:inherit; text-decoration:none; }
   .footer-top{ grid-template-columns:1fr; }
   .split-media .badge.br{ right:12px; bottom:-16px; }
 }
+/* ---------- Country switcher (nav) ---------- */
+.country-switch{ position:relative; }
+.country-toggle{ display:inline-flex; align-items:center; gap:.42em; white-space:nowrap; padding:.44rem .7rem; font-size:.86rem; font-weight:500; letter-spacing:.005em; color:var(--ink); background:transparent; border:1px solid var(--line); border-radius:var(--radius); cursor:pointer; transition:color .25s,border-color .25s,background .2s; }
+.country-toggle .globe{ width:1.02em; height:1.02em; flex-shrink:0; opacity:.9; }
+.country-toggle .chev{ width:.66em; height:.66em; flex-shrink:0; transition:transform .3s; }
+.is-transparent .country-toggle{ color:rgba(255,255,255,.9); border-color:rgba(255,255,255,.3); }
+.country-toggle:hover{ color:var(--brand-600); border-color:var(--brand); }
+.is-transparent .country-toggle:hover{ color:#fff; border-color:rgba(255,255,255,.6); }
+.country-switch:hover .chev,.country-switch:focus-within .chev,.country-switch.open .chev{ transform:rotate(180deg); }
+.country-drop{ position:absolute; top:calc(100% + 8px); right:0; left:auto; min-width:190px; background:#fff; border:1px solid var(--line); border-radius:var(--radius-lg); box-shadow:var(--shadow-md); padding:.4rem; list-style:none; margin:0; opacity:0; visibility:hidden; transform:translateY(8px); transition:.25s var(--ease); z-index:130; }
+.country-switch:hover .country-drop,.country-switch:focus-within .country-drop,.country-switch.open .country-drop{ opacity:1; visibility:visible; transform:translateY(0); }
+.country-drop a{ display:block; padding:.55rem .75rem; border-radius:var(--radius); font-size:.88rem; color:var(--ink); white-space:nowrap; transition:background .2s,color .2s; }
+.country-drop a:hover{ background:var(--brand-tint); color:var(--brand-700); }
+
+/* Mobile country block (inside slide-in menu) */
+.mobile-country{ margin-top:1.1rem; padding-top:1rem; border-top:1px solid var(--forest-line); display:flex; flex-direction:column; }
+.mobile-country__label{ font-family:var(--font-body); font-size:.72rem; font-weight:600; letter-spacing:.14em; text-transform:uppercase; color:#8fb5a5; padding-bottom:.3rem; }
+
+@media (max-width:960px){
+  .nav-cta .country-switch{ display:none; }
+}

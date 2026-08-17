@@ -89,3 +89,20 @@
   var y = doc.querySelector("[data-year]");
   if (y) y.textContent = new Date().getFullYear();
 })();
+/* ---- Country switcher (click/tap toggle; hover & focus handled in CSS) ---- */
+(function () {
+  "use strict";
+  var sw = document.querySelector(".country-switch");
+  if (!sw) return;
+  var toggle = sw.querySelector(".country-toggle");
+  function close(){ sw.classList.remove("open"); if (toggle) toggle.setAttribute("aria-expanded", "false"); }
+  if (toggle) {
+    toggle.addEventListener("click", function (e) {
+      e.stopPropagation();
+      var open = sw.classList.toggle("open");
+      toggle.setAttribute("aria-expanded", open ? "true" : "false");
+    });
+  }
+  document.addEventListener("click", function (e) { if (!sw.contains(e.target)) close(); });
+  document.addEventListener("keydown", function (e) { if (e.key === "Escape") close(); });
+})();
