@@ -40,6 +40,15 @@
   doc.querySelectorAll(".mobile-menu__links a").forEach(function (a) {
     a.addEventListener("click", closeMenu);
   });
+  /* ---- mobile Packages accordion ---- */
+  doc.querySelectorAll(".mm-acc__top").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      var acc = btn.closest(".mm-acc");
+      if (!acc) return;
+      var open = acc.classList.toggle("is-open");
+      btn.setAttribute("aria-expanded", open ? "true" : "false");
+    });
+  });
   doc.addEventListener("keydown", function (e) { if (e.key === "Escape") closeMenu(); });
 
   /* ---- smooth in-page anchor scrolling ---- */

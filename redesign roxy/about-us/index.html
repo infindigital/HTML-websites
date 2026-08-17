@@ -180,7 +180,21 @@
       <a href="/"><small>01</small> Home</a>
       <a href="/about-us/" class="is-active"><small>02</small> About Us</a>
       <a href="/services/"><small>03</small> Services</a>
-      <a href="/packages/"><small>04</small> Packages</a>
+      <div class="mm-acc">
+        <button type="button" class="mm-acc__top" aria-expanded="false" aria-controls="mmPkg">
+          <span><small>04</small> Packages</span>
+          <svg class="mm-acc__caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+        </button>
+        <div class="mm-acc__panel" id="mmPkg">
+          <a href="/packages/day-cruise/">Day Cruise<span class="mm-acc__price">₹12,000</span></a>
+          <a href="/packages/lunch-cruise/">Lunch Cruise<span class="mm-acc__price">₹10,000</span></a>
+          <a href="/packages/sunset-cruise/">Sunset Cruise<span class="mm-acc__price">₹6,000</span></a>
+          <a href="/packages/dinner-cruise/">Dinner Cruise<span class="mm-acc__price">₹10,000</span></a>
+          <a href="/packages/overnight-cruise/">Overnight Cruise<span class="mm-acc__price">₹10,000</span></a>
+          <a href="/packages/day-night-cruise/">Day &amp; Night Cruise<span class="mm-acc__price">₹16,000</span></a>
+          <a href="/packages/" class="mm-acc__all">All Packages</a>
+        </div>
+      </div>
       <a href="/gallery/"><small>05</small> Gallery</a>
       <a href="/contact-us/"><small>06</small> Contact</a>
     </nav>

@@ -232,6 +232,29 @@ ul{margin:0;padding:0;list-style:none}
 .mobile-menu__links a:hover{color:var(--aqua);padding-left:.6rem}
 .mobile-menu__foot{margin-top:2.4rem;display:flex;flex-direction:column;gap:.8rem;color:rgba(255,255,255,.6);font-size:.92rem}
 .mobile-menu__foot a{color:#fff;font-weight:600}
+/* mobile Packages accordion (mirrors the desktop dropdown) */
+.mm-acc{border-bottom:1px solid var(--line-dk)}
+.mm-acc__top{width:100%;background:none;border:0;cursor:pointer;color:#fff;text-align:left;
+  font-family:var(--sans);font-weight:500;font-size:clamp(1.9rem,9vw,2.7rem);
+  padding:.5rem 0;display:flex;align-items:center;justify-content:space-between;gap:1rem;
+  transition:color .35s var(--ease),padding-left .4s var(--ease)}
+.mm-acc__top>span{display:inline-flex;align-items:baseline;gap:1rem}
+.mm-acc__top small{font-family:var(--sans);font-size:.72rem;font-weight:700;letter-spacing:.2em;color:var(--aqua);opacity:.9}
+.mm-acc__top:hover,.mm-acc__top.is-active{color:var(--aqua)}
+.mm-acc__caret{width:26px;height:26px;flex:none;color:var(--aqua);transition:transform .4s var(--ease)}
+.mm-acc.is-open .mm-acc__caret{transform:rotate(180deg)}
+.mm-acc__panel{overflow:hidden;max-height:0;transition:max-height .55s var(--ease)}
+.mm-acc.is-open .mm-acc__panel{max-height:36rem}
+.mm-acc__panel a{display:flex;align-items:center;justify-content:space-between;gap:1rem;
+  font-family:var(--sans);font-weight:400;font-size:clamp(1.05rem,4.6vw,1.35rem);
+  color:rgba(255,255,255,.82);padding:.55rem 0 .55rem 1.9rem;
+  border-top:1px solid rgba(255,255,255,.09);border-bottom:0;
+  transition:color .3s var(--ease),padding-left .3s var(--ease)}
+.mm-acc__panel a:first-child{border-top:0;padding-top:.8rem}
+.mm-acc__panel a:last-child{padding-bottom:.4rem}
+.mm-acc__panel a:hover{color:#fff;padding-left:2.2rem}
+.mm-acc__price{font-size:.86em;font-weight:600;color:var(--aqua);font-variant-numeric:tabular-nums}
+.mm-acc__all{color:var(--aqua)!important;font-weight:600}
 
 /* ============================================================
    01 · HERO, rounded cinematic image + layered giant type
@@ -1401,7 +1424,6 @@ a.trust__cell:hover{background:var(--bg-2)}
        flat over the photo, internal pages stay word-free on small screens. --- */
 @media (max-width:1024px){
   .hero__fg,.hero__scrim--top{display:none}
-  .hero__stage--about .hero__ghost{display:none}
   .hero__stage{aspect-ratio:3/2}
   .hero__bg{background-size:cover;background-position:62% 58%}
   .hero__content{max-width:100%}
@@ -1412,6 +1434,18 @@ a.trust__cell:hover{background:var(--bg-2)}
   .hero__stage:not(.hero__stage--about) .hero__ghost{
     display:block;left:50%;top:12%;transform:translateX(-50%) scaleY(1.2);
     font-size:15cqw;color:rgba(255,255,255,.92);text-shadow:0 6px 26px rgba(8,20,28,.32)}
+  /* internal pages (about/services/packages/gallery): the giant page word is laid
+     flat and legible over the lower water, so every hero carries a heading on
+     small screens. Contact keeps its own bottom caption (.chero__cap). */
+  .hero__stage--about:not(.hero__stage--contact){position:relative}
+  .hero__stage--about:not(.hero__stage--contact)::after{
+    content:"";position:absolute;inset:0;z-index:2;pointer-events:none;
+    background:linear-gradient(0deg,rgba(6,20,26,.6) 0%,rgba(6,20,26,.16) 36%,rgba(6,20,26,0) 60%)}
+  .hero__stage--about:not(.hero__stage--contact) .hero__ghost{
+    display:block;left:50%;top:auto;bottom:9%;
+    transform:translateX(-50%) scaleY(1.15);
+    font-size:12.5cqw;font-weight:700;letter-spacing:-.03em;line-height:.86;
+    color:#fff;text-shadow:0 4px 22px rgba(6,20,26,.55),0 2px 6px rgba(6,20,26,.4)}
 }
 @media (max-width:640px){
   .hero__stage{aspect-ratio:auto;height:clamp(500px,80vh,620px)}
@@ -1421,6 +1455,8 @@ a.trust__cell:hover{background:var(--bg-2)}
   .hero__scrim--bot{background:linear-gradient(0deg,rgba(8,20,28,.9) 0%,rgba(8,20,28,.62) 32%,rgba(8,20,28,.28) 52%,rgba(8,20,28,0) 74%)}
   /* phones: keep the full word on screen, sitting high above the heading */
   .hero__stage:not(.hero__stage--about) .hero__ghost{top:16%;font-size:14cqw}
+  /* internal pages: nudge the flat page word so two-word titles stay on screen */
+  .hero__stage--about:not(.hero__stage--contact) .hero__ghost{bottom:8%;font-size:13cqw}
 }
 @media (max-width:560px){
   body{font-size:16px}
