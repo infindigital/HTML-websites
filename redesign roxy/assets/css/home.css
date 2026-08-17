@@ -1358,15 +1358,22 @@ ul{margin:0;padding:0;list-style:none}
   .gal2__grid{grid-template-columns:1fr;grid-auto-rows:clamp(220px,58vw,300px)}
   .gal2__tile--wide{grid-column:span 1}
 }
-/* --- hero on tablet + mobile: SIMPLE clean photo hero (no behind-boat effect) --- */
+/* --- hero on tablet + mobile: clean photo hero. The boat-cutout tuck effect is
+       dropped (fg + top scrim off); the homepage keeps a big HOUSEBOAT word laid
+       flat over the photo, internal pages stay word-free on small screens. --- */
 @media (max-width:1024px){
-  .hero__ghost,.hero__fg,.hero__scrim--top{display:none}
+  .hero__fg,.hero__scrim--top{display:none}
+  .hero__stage--about .hero__ghost{display:none}
   .hero__stage{aspect-ratio:3/2}
   .hero__bg{background-size:cover;background-position:62% 58%}
   .hero__content{max-width:100%}
   .hero__title{font-size:clamp(1.9rem,5vw,2.8rem)}
   .hero__text{max-width:52ch}
   .hero__scrim--bot{background:linear-gradient(0deg,rgba(8,20,28,.82) 0%,rgba(8,20,28,.5) 30%,rgba(8,20,28,.18) 50%,rgba(8,20,28,0) 70%)}
+  /* homepage: big HOUSEBOAT word sits flat over the photo (no behind-boat clip) */
+  .hero__stage:not(.hero__stage--about) .hero__ghost{
+    display:block;left:50%;top:12%;transform:translateX(-50%) scaleY(1.2);
+    font-size:15cqw;color:rgba(255,255,255,.92);text-shadow:0 6px 26px rgba(8,20,28,.32)}
 }
 @media (max-width:640px){
   .hero__stage{aspect-ratio:auto;height:clamp(500px,80vh,620px)}
@@ -1374,6 +1381,8 @@ ul{margin:0;padding:0;list-style:none}
   .hero__title{font-size:clamp(1.6rem,7vw,2.1rem)}
   .hero__text{font-size:1rem;max-width:100%}
   .hero__scrim--bot{background:linear-gradient(0deg,rgba(8,20,28,.9) 0%,rgba(8,20,28,.62) 32%,rgba(8,20,28,.28) 52%,rgba(8,20,28,0) 74%)}
+  /* phones: keep the full word on screen, sitting high above the heading */
+  .hero__stage:not(.hero__stage--about) .hero__ghost{top:10%;font-size:14cqw}
 }
 @media (max-width:560px){
   body{font-size:16px}
