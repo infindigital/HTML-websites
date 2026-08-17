@@ -1449,6 +1449,8 @@ a.trust__cell:hover{background:var(--bg-2)}
 }
 @media (max-width:640px){
   .hero__stage{aspect-ratio:auto;height:clamp(500px,80vh,620px)}
+  /* internal pages get a shorter, more banner-like hero on phones */
+  .hero__stage--about{height:clamp(320px,48vh,420px)}
   .hero__bg{background-position:70% 55%}
   .hero__title{font-size:clamp(1.6rem,7vw,2.1rem)}
   .hero__text{font-size:1rem;max-width:100%}
