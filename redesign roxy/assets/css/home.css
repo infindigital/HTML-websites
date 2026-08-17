@@ -1382,7 +1382,7 @@ ul{margin:0;padding:0;list-style:none}
   .hero__text{font-size:1rem;max-width:100%}
   .hero__scrim--bot{background:linear-gradient(0deg,rgba(8,20,28,.9) 0%,rgba(8,20,28,.62) 32%,rgba(8,20,28,.28) 52%,rgba(8,20,28,0) 74%)}
   /* phones: keep the full word on screen, sitting high above the heading */
-  .hero__stage:not(.hero__stage--about) .hero__ghost{top:10%;font-size:14cqw}
+  .hero__stage:not(.hero__stage--about) .hero__ghost{top:16%;font-size:14cqw}
 }
 @media (max-width:560px){
   body{font-size:16px}
