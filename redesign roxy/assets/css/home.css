@@ -454,22 +454,47 @@ ul{margin:0;padding:0;list-style:none}
   .wsa__grid{grid-template-columns:1fr;max-width:30rem;margin-inline:auto}
 }
 
-/* hero rating strip beneath the frame */
-.hero__meta{display:flex;align-items:center;justify-content:space-between;gap:1.4rem;flex-wrap:wrap;
-  margin-top:clamp(1.4rem,2.4vw,2rem)}
-.hero__rating{display:flex;align-items:center;gap:.8rem}
-.hero__rating b{font-family:var(--sans);font-weight:600;font-size:1.7rem;line-height:1;color:var(--ink)}
-.hero__rating .stars{color:var(--gold);font-size:.9rem;letter-spacing:2px;display:block}
-.hero__rating small{display:block;font-size:.78rem;color:var(--ink-2);margin-top:2px}
-.hero__spots{display:flex;gap:clamp(1.4rem,3vw,2.6rem);flex-wrap:wrap}
-.hero__spots span{font-size:.8rem;font-weight:600;letter-spacing:.02em;color:var(--ink-2);
-  display:inline-flex;align-items:center;gap:.5em}
-.hero__spots span::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--aqua)}
-.hero__gbadge{flex:0 0 auto;display:inline-flex;align-items:center;border-radius:12px;overflow:hidden;
-  transition:transform .35s var(--ease),box-shadow .35s var(--ease)}
-.hero__gbadge img{display:block;width:clamp(150px,15vw,184px);height:auto}
-.hero__gbadge:hover{transform:translateY(-3px);box-shadow:0 14px 30px -18px rgba(23,58,77,.5)}
-@media (max-width:640px){.hero__gbadge{order:3;width:100%;justify-content:center;margin-top:.4rem}}
+/* trust band beneath the hero — 4 cells (Google rating + 3 highlights) that
+   fill the width with hairline dividers, reflowing to 2x2 then a single column */
+.trust{
+  margin-top:clamp(1.4rem,2.4vw,2rem);
+  display:grid;grid-template-columns:1.25fr 1fr 1fr 1fr;align-items:stretch;
+  background:#fff;border:1px solid var(--line);border-radius:var(--radius);
+  box-shadow:0 26px 54px -34px rgba(23,58,77,.34);overflow:hidden;
+}
+.trust__cell{
+  display:flex;align-items:center;gap:.9rem;
+  padding:clamp(1.05rem,1.7vw,1.45rem) clamp(1.1rem,1.8vw,1.6rem);
+  border-left:1px solid var(--line);
+}
+.trust__cell:first-child{border-left:0}
+a.trust__cell{text-decoration:none;color:inherit;transition:background .35s var(--ease)}
+a.trust__cell:hover{background:var(--bg-2)}
+.trust__ico{flex:0 0 auto;width:46px;height:46px;border-radius:50%;
+  display:grid;place-items:center;background:rgba(18,168,216,.1);color:var(--aqua-deep)}
+.trust__ico svg{width:22px;height:22px}
+.trust__txt{display:flex;flex-direction:column;line-height:1.22;min-width:0}
+.trust__txt b{font-weight:600;font-size:.98rem;color:var(--ink)}
+.trust__txt small{font-size:.78rem;color:var(--ink-2);margin-top:2px}
+/* Google rating cell */
+.trust__g{flex:0 0 auto;width:46px;height:46px;border-radius:50%;display:grid;place-items:center;
+  background:#fff;box-shadow:inset 0 0 0 1px var(--line)}
+.trust__rating{display:flex;flex-direction:column;line-height:1.14}
+.trust__rating b{font-weight:700;font-size:1.55rem;color:var(--ink);letter-spacing:-.01em}
+.trust__slash{font-weight:500;font-size:.9rem;color:var(--ink-2);margin-left:1px}
+.trust__stars{color:var(--gold);font-size:.86rem;letter-spacing:2px;margin-top:1px}
+.trust__rating small{font-size:.76rem;color:var(--ink-2);margin-top:2px}
+@media (max-width:900px){
+  .trust{grid-template-columns:1fr 1fr}
+  .trust__cell{border-left:1px solid var(--line)}
+  .trust__cell:nth-child(odd){border-left:0}
+  .trust__cell:nth-child(n+3){border-top:1px solid var(--line)}
+}
+@media (max-width:520px){
+  .trust{grid-template-columns:1fr}
+  .trust__cell{border-left:0;border-top:1px solid var(--line)}
+  .trust__cell:first-child{border-top:0}
+}
 
 /* ============================================================
    02 · ABOUT, introduction · overlapping images + experience badge
@@ -1386,7 +1411,6 @@ ul{margin:0;padding:0;list-style:none}
 }
 @media (max-width:560px){
   body{font-size:16px}
-  .hero__meta{gap:1rem}
   .hero__cta{width:100%}
   .hero__cta .btn{flex:1;justify-content:center}
   .statx{grid-template-columns:1fr;padding:clamp(1.2rem,5vw,1.6rem)}
