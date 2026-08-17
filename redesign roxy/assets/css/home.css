@@ -1864,7 +1864,18 @@ a.trust__cell:hover{background:var(--bg-2)}
   font-size:6.6cqw;line-height:.82;white-space:nowrap;pointer-events:none;user-select:none;
   text-shadow:0 2px 26px rgba(8,20,28,.5),0 1px 2px rgba(8,20,28,.35)}
 .hero__accent--long{font-size:5cqw;top:48%}
-@media (max-width:1024px){.hero__accent{display:none}}
+@media (max-width:1024px){
+  /* package detail heros on tablet + mobile: show the FULL name — the cursive
+     accent word (Day / Lunch / Sunset…) stacked above an enlarged CRUISE —
+     instead of the lone giant CRUISE. Detected via the presence of .hero__accent. */
+  .hero__stage--about:has(.hero__accent) .hero__ghost{bottom:6%;font-size:17cqw}
+  .hero__stage--about:has(.hero__accent) .hero__accent{
+    display:block;position:absolute;z-index:6;left:50%;top:auto;bottom:24%;
+    transform:translateX(-50%);font-family:'Dancing Script',cursive;font-weight:700;
+    text-transform:uppercase;color:#fff;font-size:9.5cqw;line-height:.9;white-space:nowrap;
+    text-align:center;text-shadow:0 4px 22px rgba(6,20,26,.6),0 2px 6px rgba(6,20,26,.45)}
+  .hero__stage--about:has(.hero__accent) .hero__accent--long{font-size:7.6cqw;bottom:25%}
+}
 
 /* ============================================================
    PACKAGE DETAIL · creative image sections
