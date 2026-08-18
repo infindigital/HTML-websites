@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Falcon Rotating">
+  <rect width="64" height="64" rx="12" fill="#1F4FA3"/>
+  <path d="M45 16c-9 1-16 5-21 12 4-3 9-5 15-6-7 3-12 8-15 15 6-9 14-14 24-15-2-3-4-5-3-6z" fill="#FFFFFF" opacity="0.85"/>
+  <path d="M20 20c-6 5-9 12-8 20 1 7 5 12 11 15-9-8-11-19-6-30 1-2 2-4 3-5z" fill="#FFFFFF"/>
+</svg>
