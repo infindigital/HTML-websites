@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test 3D Website</title>
+    <meta name="description" content="A test website built with a live WebGL 3D scene using Three.js.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <canvas id="scene"></canvas>
+
+    <div id="loader">
+        <div class="loader-bar"><span></span></div>
+        <p>Loading scene</p>
+    </div>
+
+    <header class="site-header">
+        <a class="logo" href="#hero">TEST<span>3D</span></a>
+        <nav>
+            <a href="#hero">Home</a>
+            <a href="#features">Features</a>
+            <a href="#contact">Contact</a>
+        </nav>
+    </header>
+
+    <main>
+        <section id="hero" class="panel">
+            <p class="eyebrow">WebGL / Three.js</p>
+            <h1>A test website<br>that moves in 3D</h1>
+            <p class="lead">Scroll to fly the camera through the scene. Move the mouse to look around. Everything you see is rendered live in the browser — no images, no video.</p>
+            <div class="actions">
+                <a class="btn btn-primary" href="#features">Explore</a>
+                <a class="btn btn-ghost" href="#contact">Get in touch</a>
+            </div>
+        </section>
+
+        <section id="features" class="panel">
+            <h2>What is in the scene</h2>
+            <div class="cards">
+                <article class="card">
+                    <h3>Torus knot core</h3>
+                    <p>A physically shaded torus knot with metalness and roughness, lit by three coloured lights that orbit it continuously.</p>
+                </article>
+                <article class="card">
+                    <h3>Instanced field</h3>
+                    <p>Hundreds of small cubes drawn in a single instanced mesh, each one drifting and spinning on its own offset.</p>
+                </article>
+                <article class="card">
+                    <h3>Scroll camera</h3>
+                    <p>The camera position is driven by scroll progress and eased every frame, so the page reads as one continuous flight.</p>
+                </article>
+            </div>
+        </section>
+
+        <section id="contact" class="panel">
+            <h2>Contact</h2>
+            <p class="lead">This is a test page. Swap the copy, colours and geometry in <code>js/main.js</code> to turn it into something real.</p>
+            <a class="btn btn-primary" href="mailto:hello@example.com">hello@example.com</a>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <span>Test 3D Website</span>
+        <span>Built with Three.js</span>
+    </footer>
+
+    <script type="importmap">
+    {
+        "imports": {
+            "three": "./js/vendor/three.module.js"
+        }
+    }
+    </script>
+    <script type="module" src="js/main.js"></script>
+</body>
+</html>
