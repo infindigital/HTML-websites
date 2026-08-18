@@ -173,7 +173,6 @@ h1, h2, h3, h4,
   justify-content: space-between; gap: 20px; flex-wrap: wrap;
 }
 .hero__label { display: flex; align-items: center; gap: 14px; }
-.hero__rule { width: 46px; height: 2px; background: var(--red); flex: none; }
 .hero__scroll {
   font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase;
   color: var(--ink); display: inline-flex; align-items: center; gap: 8px;
@@ -189,13 +188,19 @@ h1, h2, h3, h4,
 /* keeps panning even on hover (does not pause) */
 
 .hcell { flex: none; }
-.hcell--type { display: flex; align-items: flex-start; gap: 10px; }
+.hcell--type {
+  display: flex; align-items: center; gap: 6px;
+  height: clamp(260px, 42vh, 400px);
+}
 .hword {
   font-family: var(--font-display); font-weight: var(--w-semibold);
-  font-size: clamp(58px, 11vw, 150px); line-height: 0.9; letter-spacing: -0.045em;
+  font-size: clamp(52px, 8vw, 108px); line-height: 0.86; letter-spacing: -0.045em;
   white-space: nowrap; color: var(--ink);
 }
-.hword--rot { writing-mode: vertical-rl; transform: rotate(180deg); }
+.hword--rot {
+  writing-mode: vertical-rl; transform: rotate(180deg);
+  font-size: clamp(40px, 5.4vw, 78px);
+}
 .hword--red { color: var(--red); }
 
 .hcell--photo { width: clamp(280px, 30vw, 420px); height: clamp(260px, 42vh, 400px); overflow: hidden; }
