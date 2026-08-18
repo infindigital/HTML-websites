@@ -165,12 +165,12 @@ h1, h2, h3, h4,
 .hero__scroll-ar { display: inline-block; color: var(--red); animation: scroll-nudge 1.5s ease-in-out infinite; }
 @keyframes scroll-nudge { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(6px); } }
 
-/* the moving rail: type, photos and content cells all pan together */
-.hero__rail { width: 100%; overflow: hidden; }
-.hero__track { display: flex; width: max-content; animation: hero-pan 48s linear infinite; will-change: transform; }
+/* the moving rail: type, photos and content cells all pan together.
+   Auto-pans continuously; also draggable / trackpad-scrollable (see main.js). */
+.hero__rail { width: 100%; overflow: hidden; cursor: grab; touch-action: pan-y; }
+.hero__rail.is-grabbing { cursor: grabbing; }
+.hero__track { display: flex; width: max-content; will-change: transform; }
 .hero__group { display: flex; align-items: center; gap: clamp(40px, 5vw, 80px); padding-right: clamp(40px, 5vw, 80px); }
-@keyframes hero-pan { from { transform: translateX(0); } to { transform: translateX(-50%); } }
-/* keeps panning even on hover (does not pause) */
 
 .hcell { flex: none; }
 .hcell--type { display: flex; align-items: flex-start; gap: 10px; }
