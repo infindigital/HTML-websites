@@ -37,17 +37,37 @@
 
 <!-- ============ NAV ============ -->
 <header class="site-header">
+  <!-- utility ticker: scrolling editorial band -->
+  <div class="ticker" aria-hidden="true">
+    <div class="ticker__track">
+      <span class="ticker__group">
+        <b>Engineering Strength. Delivering Excellence.</b><i>✦</i>
+        <span>Construction Contracting</span><i>✦</i><span>Rotating Equipment</span><i>✦</i>
+        <span>Piling &amp; Foundations</span><i>✦</i><span>Excavation &amp; Backfilling</span><i>✦</i>
+        <span>Heavy Equipment Rental</span><i>✦</i><span>Dubai · Abu Dhabi · Yanbu · Al Jubail</span><i>✦</i>
+      </span>
+      <span class="ticker__group">
+        <b>Engineering Strength. Delivering Excellence.</b><i>✦</i>
+        <span>Construction Contracting</span><i>✦</i><span>Rotating Equipment</span><i>✦</i>
+        <span>Piling &amp; Foundations</span><i>✦</i><span>Excavation &amp; Backfilling</span><i>✦</i>
+        <span>Heavy Equipment Rental</span><i>✦</i><span>Dubai · Abu Dhabi · Yanbu · Al Jubail</span><i>✦</i>
+      </span>
+    </div>
+  </div>
+
   <div class="container nav">
     <a class="brand" href="/" aria-label="Falcon Rotating home">
-      <span class="brand__mark">Falcon</span>
-      <span class="brand__sub">Rotating</span>
+      <picture>
+        <source srcset="./assets/images/falcon-rotating-logo.webp" type="image/webp">
+        <img class="brand__logo" src="./assets/images/falcon-rotating-logo.png" alt="Falcon Rotating" width="240" height="160" fetchpriority="high">
+      </picture>
     </a>
     <nav class="nav-links" aria-label="Primary">
-      <a class="nav-link" href="#work" >Work</a>
-      <a class="nav-link" href="#services">Services</a>
-      <a class="nav-link" href="#rental">Rental</a>
-      <a class="nav-link" href="#locations">Locations</a>
-      <a class="nav-link" href="#faq">FAQ</a>
+      <a class="nav-link" href="#work"><span class="nav-link__idx">01</span><span class="nav-link__flip"><span class="nav-link__t">Work</span><span class="nav-link__t nav-link__t--red" aria-hidden="true">Work</span></span></a>
+      <a class="nav-link" href="#services"><span class="nav-link__idx">02</span><span class="nav-link__flip"><span class="nav-link__t">Services</span><span class="nav-link__t nav-link__t--red" aria-hidden="true">Services</span></span></a>
+      <a class="nav-link" href="#rental"><span class="nav-link__idx">03</span><span class="nav-link__flip"><span class="nav-link__t">Rental</span><span class="nav-link__t nav-link__t--red" aria-hidden="true">Rental</span></span></a>
+      <a class="nav-link" href="#locations"><span class="nav-link__idx">04</span><span class="nav-link__flip"><span class="nav-link__t">Locations</span><span class="nav-link__t nav-link__t--red" aria-hidden="true">Locations</span></span></a>
+      <a class="nav-link" href="#faq"><span class="nav-link__idx">05</span><span class="nav-link__flip"><span class="nav-link__t">FAQ</span><span class="nav-link__t nav-link__t--red" aria-hidden="true">FAQ</span></span></a>
     </nav>
     <div class="nav-right">
       <span class="nav-pill" aria-hidden="true">EN <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></span>
@@ -66,7 +86,12 @@
   <!-- ============ HERO ============ -->
   <section class="hero" aria-label="Intro">
     <div class="container hero__head">
-      <p class="eyebrow">Contracting &amp; Industrial Maintenance — UAE &amp; KSA</p>
+      <div class="hero__label">
+        <span class="hero__rule" aria-hidden="true"></span>
+        <span class="hero__index" aria-hidden="true">(01 — 05)</span>
+        <p class="eyebrow">Contracting &amp; Industrial Maintenance — UAE &amp; KSA</p>
+      </div>
+      <p class="hero__scroll" aria-hidden="true">Keeps moving <span class="hero__scroll-ar">→</span></p>
     </div>
 
     <h1 class="visually-hidden">Falcon Rotating — Engineering Strength. Delivering excellence across construction, rotating equipment, piling, excavation and equipment rental in the UAE and Saudi Arabia.</h1>
