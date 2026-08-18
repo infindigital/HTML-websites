@@ -110,21 +110,6 @@ h1, h2, h3, h4,
   background: var(--paper); border-bottom: 1px solid var(--ink);
 }
 
-/* utility ticker — black editorial band, always moving */
-.ticker {
-  background: var(--ink); color: var(--paper);
-  overflow: hidden; border-bottom: 1px solid var(--ink);
-}
-.ticker__track { display: flex; width: max-content; animation: ticker-run 34s linear infinite; will-change: transform; }
-.ticker__group { display: flex; align-items: center; white-space: nowrap; padding-block: 7px; }
-.ticker__group span, .ticker__group b {
-  font-size: 12px; letter-spacing: 0.04em; font-weight: var(--w-regular);
-  text-transform: uppercase; padding-inline: 16px;
-}
-.ticker__group b { font-weight: var(--w-semibold); }
-.ticker__group i { font-style: normal; color: var(--red); font-size: 10px; }
-@keyframes ticker-run { from { transform: translateX(0); } to { transform: translateX(-50%); } }
-
 .nav { display: flex; align-items: center; justify-content: space-between; padding-block: 16px; gap: 20px; }
 
 /* real Falcon logo */
@@ -188,19 +173,13 @@ h1, h2, h3, h4,
 /* keeps panning even on hover (does not pause) */
 
 .hcell { flex: none; }
-.hcell--type {
-  display: flex; align-items: center; gap: 6px;
-  height: clamp(260px, 42vh, 400px);
-}
+.hcell--type { display: flex; align-items: flex-start; gap: 10px; }
 .hword {
   font-family: var(--font-display); font-weight: var(--w-semibold);
-  font-size: clamp(52px, 8vw, 108px); line-height: 0.86; letter-spacing: -0.045em;
+  font-size: clamp(58px, 11vw, 150px); line-height: 0.9; letter-spacing: -0.045em;
   white-space: nowrap; color: var(--ink);
 }
-.hword--rot {
-  writing-mode: vertical-rl; transform: rotate(180deg);
-  font-size: clamp(40px, 5.4vw, 78px);
-}
+.hword--rot { writing-mode: vertical-rl; transform: rotate(180deg); }
 .hword--red { color: var(--red); }
 
 .hcell--photo { width: clamp(280px, 30vw, 420px); height: clamp(260px, 42vh, 400px); overflow: hidden; }
@@ -270,7 +249,7 @@ h1, h2, h3, h4,
 .stack__cards { }
 .pcard {
   position: sticky;
-  top: calc(120px + var(--i) * 24px);
+  top: calc(96px + var(--i) * 24px);
   display: grid; grid-template-columns: 1fr 1fr;
   min-height: min(80vh, 660px);
   background: var(--card-bg); color: var(--card-fg);
@@ -381,7 +360,7 @@ h1, h2, h3, h4,
   .values { grid-template-columns: 1fr 1fr; }
   .footer-top { grid-template-columns: 1fr 1fr; }
   .section-head--between { flex-direction: column; align-items: flex-start; }
-  .pcard { min-height: min(72vh, 560px); top: calc(108px + var(--i) * 20px); }
+  .pcard { min-height: min(72vh, 560px); top: calc(88px + var(--i) * 20px); }
 }
 @media (max-width: 760px) {
   .pcard { position: static; grid-template-columns: 1fr; min-height: 0; }
@@ -418,6 +397,5 @@ h1, h2, h3, h4,
   .grid-3 .card:hover, .grid-3 .card:focus-visible { translate: none !important; }
   .hero__track { animation: none !important; transform: none !important; }
   .hero__rail { overflow-x: auto; }
-  .ticker__track { animation: none !important; transform: none !important; }
   .hero__scroll-ar { animation: none !important; }
 }
