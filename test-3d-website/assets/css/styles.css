@@ -14,8 +14,9 @@
   --pewter: #bfbfbf;
   --red: #ff0000;
 
-  /* Type — sole family: HelveticaNow → Helvetica/Arial system substitute */
-  --font: 'HelveticaNow', 'Helvetica Neue', Helvetica, Arial, 'Inter', system-ui, sans-serif;
+  /* Type — creative editorial pairing (with system fallbacks) */
+  --font: 'Space Grotesk', 'HelveticaNow', 'Helvetica Neue', Helvetica, Arial, system-ui, sans-serif;
+  --font-display: 'Bricolage Grotesque', 'Space Grotesk', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   --w-regular: 400;
   --w-semibold: 600;
 
@@ -46,6 +47,12 @@ a { color: inherit; text-decoration: none; }
 button { font: inherit; color: inherit; background: none; border: none; cursor: pointer; }
 ul { list-style: none; padding: 0; }
 h1, h2, h3, h4 { font-weight: var(--w-regular); }
+/* creative display face on all headline-scale type */
+h1, h2, h3, h4,
+.display, .heading, .heading-lg, .subheading,
+.hword, .hcell__title, .pcard__title,
+.brand__mark, .brand__sub, .footer-mark b, .footer-mark span,
+.faq summary { font-family: var(--font-display); }
 ::selection { background: var(--ink); color: var(--paper); }
 
 .skip-link {
@@ -132,13 +139,13 @@ h1, h2, h3, h4 { font-weight: var(--w-regular); }
 .hero__track { display: flex; width: max-content; animation: hero-pan 48s linear infinite; will-change: transform; }
 .hero__group { display: flex; align-items: center; gap: clamp(40px, 5vw, 80px); padding-right: clamp(40px, 5vw, 80px); }
 @keyframes hero-pan { from { transform: translateX(0); } to { transform: translateX(-50%); } }
-.hero__rail:hover .hero__track { animation-play-state: paused; }
+/* keeps panning even on hover (does not pause) */
 
 .hcell { flex: none; }
 .hcell--type { display: flex; align-items: flex-start; gap: 10px; }
 .hword {
-  font-family: var(--font); font-weight: var(--w-regular);
-  font-size: clamp(58px, 11vw, 150px); line-height: 0.9; letter-spacing: -0.05em;
+  font-family: var(--font-display); font-weight: var(--w-semibold);
+  font-size: clamp(58px, 11vw, 150px); line-height: 0.9; letter-spacing: -0.045em;
   white-space: nowrap; color: var(--ink);
 }
 .hword--rot { writing-mode: vertical-rl; transform: rotate(180deg); }
