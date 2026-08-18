@@ -121,63 +121,78 @@
     </div>
   </section>
 
-  <!-- ============ SERVICES (article-card grid) ============ -->
-  <section class="section section--tint" id="services">
-    <div class="container">
-      <div class="section-head section-head--between reveal">
+  <!-- ============ SERVICES (stacking colour cards) ============ -->
+  <section class="stack" id="services" aria-label="Our core services">
+    <div class="container stack__head reveal">
+      <div class="section-head--between">
         <div>
           <p class="eyebrow">What We Do</p>
           <h2 class="heading mt-s">Our core services</h2>
         </div>
         <a class="btn" href="#contact">See all services</a>
       </div>
-      <div class="grid-3 mt-l">
-        <a class="card reveal" href="#services">
-          <span class="card__img"><img src="./assets/images/falcon-rotating-construction-contracting.webp" alt="Construction site with tower crane and structural works" loading="lazy" width="640" height="480"></span>
-          <span class="card__body">
-            <span class="card__label">Service 01</span>
-            <span class="card__title">Construction Contracting</span>
-            <span class="card__excerpt">Civil construction, industrial maintenance, piping, electrical and steel fabrication delivered end to end.</span>
-            <span class="card__more">Explore service <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
-          </span>
-        </a>
-        <a class="card reveal" href="#services">
-          <span class="card__img"><img src="./assets/images/falcon-rotating-piling-work.webp" alt="Rotary piling rig installing deep foundation piles" loading="lazy" width="640" height="480"></span>
-          <span class="card__body">
-            <span class="card__label">Service 02</span>
-            <span class="card__title">Piling Work</span>
-            <span class="card__excerpt">Reliable piling and foundation works engineered for structural stability on demanding ground.</span>
-            <span class="card__more">Explore service <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
-          </span>
-        </a>
-        <a class="card reveal" href="#services">
-          <span class="card__img"><img src="./assets/images/falcon-rotating-turbine-inspection.webp" alt="Technician inspecting an industrial steam turbine rotor" loading="lazy" width="640" height="480"></span>
-          <span class="card__body">
-            <span class="card__label">Service 03</span>
-            <span class="card__title">Rotating Equipment</span>
-            <span class="card__excerpt">Overhauling, maintenance, inspection and repair of critical rotating machinery and turbomachinery.</span>
-            <span class="card__more">Explore service <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
-          </span>
-        </a>
-        <a class="card reveal" href="#services">
-          <span class="card__img"><img src="./assets/images/falcon-rotating-excavation-backfilling.webp" alt="Excavator performing earthworks and site excavation" loading="lazy" width="640" height="480"></span>
-          <span class="card__body">
-            <span class="card__label">Service 04</span>
-            <span class="card__title">Excavation &amp; Backfilling</span>
-            <span class="card__excerpt">Earthworks, trenching, backfilling and compaction for stable, well-prepared ground.</span>
-            <span class="card__more">Explore service <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
-          </span>
-        </a>
-        <a class="card reveal" href="#rental">
-          <span class="card__img"><img src="./assets/images/falcon-rotating-equipment-rental-fleet.webp" alt="Heavy construction equipment rental fleet" loading="lazy" width="640" height="480"></span>
-          <span class="card__body">
-            <span class="card__label">Service 05</span>
-            <span class="card__title">Equipment Rental</span>
-            <span class="card__excerpt">Heavy construction machinery and vehicles available on a flexible rental basis, operated by our teams.</span>
-            <span class="card__more">Explore service <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
-          </span>
-        </a>
-      </div>
+    </div>
+
+    <div class="stack__cards">
+      <article class="pcard pcard--red" style="--i:0">
+        <div class="pcard__panel">
+          <div class="pcard__top">
+            <span class="pcard__label">Service 01</span>
+            <h3 class="pcard__title">Construction Contracting</h3>
+            <p class="pcard__body">Civil construction, industrial maintenance, piping, electrical and steel fabrication — delivered end to end by one experienced engineering and contracting team.</p>
+          </div>
+          <a class="pcard__btn" href="#contact">Explore service <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        </div>
+        <div class="pcard__media"><img src="./assets/images/falcon-rotating-construction-contracting.webp" alt="Construction site with tower crane and structural works" loading="lazy" width="900" height="800"></div>
+      </article>
+
+      <article class="pcard pcard--blue" style="--i:1">
+        <div class="pcard__panel">
+          <div class="pcard__top">
+            <span class="pcard__label">Service 02</span>
+            <h3 class="pcard__title">Piling Work</h3>
+            <p class="pcard__body">Reliable piling and foundation works engineered for structural stability on demanding ground, using modern rotary rigs and proven methods.</p>
+          </div>
+          <a class="pcard__btn" href="#contact">Explore service <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        </div>
+        <div class="pcard__media"><img src="./assets/images/falcon-rotating-piling-work.webp" alt="Rotary piling rig installing deep foundation piles" loading="lazy" width="900" height="800"></div>
+      </article>
+
+      <article class="pcard pcard--red" style="--i:2">
+        <div class="pcard__panel">
+          <div class="pcard__top">
+            <span class="pcard__label">Service 03</span>
+            <h3 class="pcard__title">Rotating Equipment</h3>
+            <p class="pcard__body">Overhauling, maintenance, inspection and repair of critical rotating machinery — turbines, pumps, compressors, gearboxes and agitators.</p>
+          </div>
+          <a class="pcard__btn" href="#contact">Explore service <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        </div>
+        <div class="pcard__media"><img src="./assets/images/falcon-rotating-turbine-inspection.webp" alt="Technician inspecting an industrial steam turbine rotor" loading="lazy" width="900" height="800"></div>
+      </article>
+
+      <article class="pcard pcard--blue" style="--i:3">
+        <div class="pcard__panel">
+          <div class="pcard__top">
+            <span class="pcard__label">Service 04</span>
+            <h3 class="pcard__title">Excavation &amp; Backfilling</h3>
+            <p class="pcard__body">Earthworks, trenching, backfilling and compaction for stable, well-prepared ground across industrial and infrastructure sites.</p>
+          </div>
+          <a class="pcard__btn" href="#contact">Explore service <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        </div>
+        <div class="pcard__media"><img src="./assets/images/falcon-rotating-excavation-backfilling.webp" alt="Excavator performing earthworks and site excavation" loading="lazy" width="900" height="800"></div>
+      </article>
+
+      <article class="pcard pcard--red" style="--i:4">
+        <div class="pcard__panel">
+          <div class="pcard__top">
+            <span class="pcard__label">Service 05</span>
+            <h3 class="pcard__title">Equipment Rental</h3>
+            <p class="pcard__body">Heavy construction machinery and vehicles available on a flexible rental basis, owned and operated by Falcon Rotating teams.</p>
+          </div>
+          <a class="pcard__btn" href="#rental">Explore service <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        </div>
+        <div class="pcard__media"><img src="./assets/images/falcon-rotating-equipment-rental-fleet.webp" alt="Heavy construction equipment rental fleet" loading="lazy" width="900" height="800"></div>
+      </article>
     </div>
   </section>
 
