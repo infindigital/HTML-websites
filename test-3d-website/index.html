@@ -61,30 +61,46 @@
 
 <main id="main">
   <!-- ============ HERO ============ -->
-  <section class="hero container">
-    <div class="hero__grid">
-      <div class="hero__type">
-        <p class="eyebrow">Contracting &amp; Industrial Maintenance — UAE &amp; KSA</p>
-        <h1 class="hero__display display mt-s">
-          <span class="hero__word">Engineering</span>
-          <span class="hero__word hero__word--rot">Strength</span>
-        </h1>
+  <section class="hero" aria-label="Intro">
+    <div class="container hero__head">
+      <p class="eyebrow">Contracting &amp; Industrial Maintenance — UAE &amp; KSA</p>
+    </div>
+
+    <h1 class="visually-hidden">Falcon Rotating — Engineering Strength. Delivering excellence across construction, rotating equipment, piling, excavation and equipment rental in the UAE and Saudi Arabia.</h1>
+
+    <!-- Oversized display headline as a right-scrolling marquee -->
+    <div class="hero__marquee" aria-hidden="true">
+      <div class="hero__track">
+        <div class="hero__seq">
+          <span class="hero__unit">Engineering Strength <i>&mdash;</i> Falcon Rotating <i>&mdash;</i> Delivering Excellence <i>&mdash;</i></span>
+        </div>
+        <div class="hero__seq">
+          <span class="hero__unit">Engineering Strength <i>&mdash;</i> Falcon Rotating <i>&mdash;</i> Delivering Excellence <i>&mdash;</i></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="container hero__foot">
+      <div class="hero__lead">
         <p class="hero__sub">Delivering excellence across construction, rotating equipment, piling, excavation and heavy equipment rental.</p>
         <div class="btn-row hero__cta">
           <a class="btn btn--fill" href="#contact">Request a Quote
             <svg class="ar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
           <a class="btn" href="#services">Explore Our Services</a>
         </div>
-        <ul class="hero__marks">
-          <li><strong class="hero__num" data-count="5" data-pad="2">05</strong><span>Core disciplines</span></li>
-          <li><strong class="hero__num" data-count="4" data-pad="2">04</strong><span>Regional offices</span></li>
-          <li><strong class="hero__num">UAE &amp; KSA</strong><span>Gulf-wide delivery</span></li>
-        </ul>
       </div>
-      <div class="hero__collage">
-        <img class="tall" src="./assets/images/falcon-rotating-hero-1.webp" alt="Steam turbine overhaul in an industrial workshop" width="800" height="1000" fetchpriority="high">
-        <img class="wide" src="./assets/images/falcon-rotating-construction-contracting.webp" alt="Construction site with tower crane" width="800" height="600" loading="lazy">
-        <img class="wide" src="./assets/images/falcon-rotating-piling-work.webp" alt="Rotary piling rig installing deep foundations" width="800" height="600" loading="lazy">
+      <ul class="hero__marks">
+        <li><strong class="hero__num" data-count="5" data-pad="2">05</strong><span>Core disciplines</span></li>
+        <li><strong class="hero__num" data-count="4" data-pad="2">04</strong><span>Regional offices</span></li>
+        <li><strong class="hero__num">UAE &amp; KSA</strong><span>Gulf-wide delivery</span></li>
+      </ul>
+    </div>
+
+    <div class="container">
+      <div class="hero__strip">
+        <img src="./assets/images/falcon-rotating-hero-1.webp" alt="Steam turbine overhaul in an industrial workshop" width="800" height="600" fetchpriority="high">
+        <img src="./assets/images/falcon-rotating-construction-contracting.webp" alt="Construction site with tower crane" width="800" height="600" loading="lazy">
+        <img src="./assets/images/falcon-rotating-piling-work.webp" alt="Rotary piling rig installing deep foundations" width="800" height="600" loading="lazy">
       </div>
     </div>
   </section>
