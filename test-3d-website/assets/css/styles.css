@@ -178,16 +178,38 @@ h1, h2, h3, h4 { font-weight: var(--w-regular); }
 
 /* ---------- article/service cards ---------- */
 .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-.card { background: transparent; display: flex; flex-direction: column; }
+.card {
+  background: var(--paper); color: var(--ink);
+  display: flex; flex-direction: column;
+}
+/* Transition list is more specific than .reveal, so the scroll reveal
+   (opacity/transform) AND the hover lift (translate/colour) both animate
+   on the same element without clobbering each other. */
+.grid-3 .card {
+  transition: opacity .8s ease, transform .8s ease,
+              translate .45s cubic-bezier(.2,.7,.2,1),
+              background-color .4s ease, color .4s ease;
+}
 .card__img { width: 100%; aspect-ratio: 4/3; overflow: hidden; }
-.card__img img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s ease; }
-.card:hover .card__img img { transform: scale(1.04); }
-.card__label { font-size: 14px; color: var(--red); letter-spacing: 0.015em; margin-top: 16px; }
+.card__img img { width: 100%; height: 100%; object-fit: cover; transition: transform .6s ease; }
+.card__body { padding: 20px; display: flex; flex-direction: column; flex: 1; }
+.card__label { font-size: 14px; color: var(--red); letter-spacing: 0.015em; }
 .card__title { font-size: 19px; font-weight: var(--w-semibold); line-height: 1.2; letter-spacing: -0.01em; margin-top: 8px; }
 .card__excerpt { font-size: 16px; line-height: 1.4; letter-spacing: 0.005em; margin-top: 10px; color: #222;
-  display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
-.card__more { font-size: 14px; margin-top: 12px; display: inline-flex; align-items: center; gap: 8px; border-bottom: 1px solid var(--ink); padding-bottom: 2px; align-self: flex-start; }
+  display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; transition: color .4s ease; }
+.card__more { font-size: 14px; margin-top: 16px; display: inline-flex; align-items: center; gap: 8px; border-bottom: 1px solid var(--ink); padding-bottom: 2px; align-self: flex-start;
+  transition: color .4s ease, border-color .4s ease; }
 .card__more svg { width: 15px; height: 15px; }
+
+/* hover: card moves up + background fills a different colour (inverts to ink) */
+.grid-3 .card:hover, .grid-3 .card:focus-visible {
+  translate: 0 -14px;
+  background-color: var(--ink); color: var(--paper);
+}
+.card:hover .card__title, .card:focus-visible .card__title { color: var(--paper); }
+.card:hover .card__excerpt, .card:focus-visible .card__excerpt { color: #cfcfcf; }
+.card:hover .card__more, .card:focus-visible .card__more { color: var(--paper); border-color: var(--paper); }
+.card:hover .card__img img, .card:focus-visible .card__img img { transform: scale(1.05); }
 
 /* ---------- values (editorial list) ---------- */
 .values { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-top: 40px; border-top: 1px solid var(--ink); }
@@ -296,5 +318,6 @@ h1, h2, h3, h4 { font-weight: var(--w-regular); }
   * { scroll-behavior: auto !important; }
   .reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
   .card__img img { transition: none !important; }
+  .grid-3 .card:hover, .grid-3 .card:focus-visible { translate: none !important; }
   .hero__track { animation: none !important; transform: none !important; }
 }
