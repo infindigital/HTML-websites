@@ -1563,8 +1563,9 @@ a.trust__cell:hover{background:var(--bg-2)}
   .hero__title{font-size:clamp(1.6rem,7vw,2.1rem)}
   .hero__text{font-size:1rem;max-width:100%}
   .hero__scrim--bot{background:linear-gradient(0deg,rgba(8,20,28,.9) 0%,rgba(8,20,28,.62) 32%,rgba(8,20,28,.28) 52%,rgba(8,20,28,0) 74%)}
-  /* phones: keep the full word on screen, sitting high above the heading */
-  .hero__stage:not(.hero__stage--about) .hero__ghost{top:16%;font-size:14cqw}
+  /* phones: bigger, taller HOUSEBOAT stretched nearly edge-to-edge above the heading */
+  .hero__stage:not(.hero__stage--about) .hero__ghost{top:13%;font-size:16.4cqw;
+    transform:translateX(-50%) scaleY(1.5);letter-spacing:-.07em}
   /* internal pages: nudge the flat page word so two-word titles stay on screen */
   .hero__stage--about:not(.hero__stage--contact) .hero__ghost{bottom:8%;font-size:13cqw}
 }
