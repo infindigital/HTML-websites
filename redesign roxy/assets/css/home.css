@@ -5,6 +5,24 @@
    Blue/aqua used only as a controlled accent.
    ============================================================ */
 
+/* ---------- SELF-HOSTED CURSIVE (Dancing Script) ----------
+   Bundled locally so the script font renders even when the
+   Google Fonts CDN is blocked/unreachable. */
+@font-face{
+  font-family:'Dancing Script';
+  font-style:normal;
+  font-weight:600;
+  font-display:swap;
+  src:url('../fonts/dancing-script-600.ttf') format('truetype');
+}
+@font-face{
+  font-family:'Dancing Script';
+  font-style:normal;
+  font-weight:700;
+  font-display:swap;
+  src:url('../fonts/dancing-script-700.ttf') format('truetype');
+}
+
 /* ---------- TOKENS ---------- */
 :root{
   /* neutrals, warm-cool white ground */
