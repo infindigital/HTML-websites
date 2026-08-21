@@ -903,53 +903,33 @@ a.trust__cell:hover{background:var(--bg-2)}
 .svc2__card-text{font-size:clamp(.9rem,1.05vw,1rem);line-height:1.55;
   color:rgba(255,255,255,.86);max-width:34ch;margin:0}
 
-/* --- premium 'A Floating Resort' feature band (below the services panel) --- */
-.resortx{position:relative;overflow:hidden;margin-top:clamp(.9rem,1.4vw,1.3rem);
-  border-radius:clamp(24px,2.6vw,34px);
-  background:linear-gradient(135deg,#2ba6dd 0%,#1685bd 52%,#0f6fa3 100%);
-  border:1px solid rgba(255,255,255,.24);
-  padding:clamp(2.2rem,4.4vw,4rem);
-  display:grid;grid-template-columns:1.12fr .88fr;gap:clamp(1.8rem,3.4vw,3.4rem);
-  align-items:center}
-/* soft glow, top-right */
-.resortx__glow{position:absolute;top:-40%;right:-14%;width:55%;height:150%;
-  background:radial-gradient(50% 50% at 50% 50%,rgba(255,255,255,.16),transparent 70%);
-  pointer-events:none;z-index:0}
-.resortx__inner{position:relative;z-index:1;max-width:60ch}
-/* right-side image of the floating resort */
-.resortx__media{position:relative;z-index:1;margin:0;align-self:stretch;
-  min-height:clamp(280px,30vw,400px);border-radius:20px;overflow:hidden;
-  border:1px solid rgba(255,255,255,.28);
-  box-shadow:0 22px 50px rgba(6,40,60,.32)}
-.resortx__media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
-  display:block;transition:transform 1.6s var(--ease)}
-.resortx:hover .resortx__media img{transform:scale(1.05)}
-.resortx__eyebrow{display:inline-block;font-family:var(--sans);font-weight:600;
-  text-transform:uppercase;letter-spacing:.26em;font-size:.76rem;color:var(--gold);
-  padding-bottom:.5rem;margin-bottom:1.1rem;border-bottom:1px solid rgba(199,167,107,.4)}
-.resortx__title{font-family:var(--sans);font-weight:700;color:#fff;margin:0;
-  font-size:clamp(1.8rem,3.6vw,3rem);line-height:1.08;letter-spacing:-.01em}
-.resortx__title em{font-style:italic;font-weight:600;color:var(--gold)}
-.resortx__text{color:rgba(255,255,255,.82);line-height:1.68;
-  font-size:clamp(1rem,1.2vw,1.12rem);margin:clamp(1.1rem,2vw,1.5rem) 0 0;max-width:56ch}
-.resortx__feats{list-style:none;margin:clamp(1.6rem,2.6vw,2.2rem) 0 0;padding:0;
-  display:grid;grid-template-columns:1fr 1fr;gap:.85rem clamp(1.4rem,3vw,2.6rem)}
-.resortx__feats li{display:flex;align-items:flex-start;gap:.7rem;
-  font-family:var(--sans);font-weight:500;color:rgba(255,255,255,.94);
-  font-size:clamp(.95rem,1.08vw,1.02rem);line-height:1.4}
-.resortx__feats svg{flex:0 0 auto;width:18px;height:18px;margin-top:2px;
-  color:var(--gold)}
-.resortx__cta{display:flex;flex-wrap:wrap;gap:.9rem;margin-top:clamp(1.8rem,3vw,2.6rem)}
-.resortx__btn{display:inline-flex;align-items:center;gap:.6em;
+/* --- slim deep-blue 'Floating Resort' callout band (below the services panel) --- */
+.fresort{margin-top:clamp(.9rem,1.4vw,1.3rem);
+  border-radius:clamp(18px,2vw,26px);
+  background:linear-gradient(120deg,#0f2f42 0%,#0a2430 60%,#07202b 100%);
+  border:1px solid rgba(199,167,107,.26);
+  padding:clamp(1.2rem,2.4vw,1.9rem) clamp(1.6rem,3.2vw,3rem);
+  display:flex;align-items:center;justify-content:space-between;
+  gap:clamp(1.2rem,3vw,2.6rem);flex-wrap:wrap}
+.fresort__title{margin:0;font-family:'Dancing Script','Segoe Script',cursive;
+  font-weight:700;line-height:1.05;color:var(--gold);
+  font-size:clamp(1.9rem,4.2vw,3.1rem)}
+.fresort__title span{color:#eaf4fb}
+.fresort__cta{display:flex;flex-wrap:wrap;gap:.8rem}
+.fresort__btn{display:inline-flex;align-items:center;gap:.55em;
   font-family:var(--sans);font-weight:600;font-size:.94rem;letter-spacing:.01em;
-  padding:.95em 1.9em;border-radius:999px;
+  padding:.85em 1.7em;border-radius:999px;white-space:nowrap;
   transition:background .4s var(--ease),transform .4s var(--ease),color .4s var(--ease)}
-.resortx__btn svg{width:16px;height:16px;transition:transform .4s var(--ease)}
-.resortx__btn--gold{background:var(--gold);color:#20160a}
-.resortx__btn--gold:hover{background:#d8bd86;transform:translateY(-2px)}
-.resortx__btn--gold:hover svg{transform:translateX(3px)}
-.resortx__btn--ghost{color:#fff;border:1px solid rgba(255,255,255,.32)}
-.resortx__btn--ghost:hover{background:rgba(255,255,255,.1);transform:translateY(-2px)}
+.fresort__btn svg{width:16px;height:16px;transition:transform .4s var(--ease)}
+.fresort__btn--gold{background:var(--gold);color:#20160a}
+.fresort__btn--gold:hover{background:#d8bd86;transform:translateY(-2px)}
+.fresort__btn--gold:hover svg{transform:translateX(3px)}
+.fresort__btn--ghost{color:#fff;border:1px solid rgba(255,255,255,.34)}
+.fresort__btn--ghost:hover{background:rgba(255,255,255,.1);transform:translateY(-2px)}
+@media (max-width:640px){
+  .fresort{justify-content:center;text-align:center}
+  .fresort__btn{flex:1 1 auto;justify-content:center}
+}
 
 /* ============================================================
    06c · TESTIMONIALS, google-style review carousel
@@ -1498,10 +1478,6 @@ a.trust__cell:hover{background:var(--bg-2)}
   .svc2__panel{grid-template-columns:1fr;gap:.9rem}
   .svc2__intro{min-height:auto}
   .svc2__card{min-height:clamp(380px,64vw,460px)}
-  .resortx{grid-template-columns:1fr;gap:clamp(1.6rem,4vw,2.4rem)}
-  .resortx__media{order:2;min-height:clamp(220px,50vw,320px)}
-  .resortx__feats{grid-template-columns:1fr}
-  .resortx__btn{flex:1 1 auto;justify-content:center}
   .dest__grid{grid-template-columns:1fr;grid-template-rows:none}
   .dest__lead{grid-column:1;grid-row:auto;min-height:340px}
   .dest__copy{grid-column:1;grid-row:auto}
