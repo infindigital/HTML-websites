@@ -275,14 +275,17 @@ ul{margin:0;padding:0;list-style:none}
 .hero__boatwrap{position:absolute;inset:0;z-index:4;pointer-events:none}
 .hero__boat{position:absolute;inset:0;
   background-size:cover;background-position:center;background-repeat:no-repeat;
-  transform-origin:58% 80%;              /* rock about the waterline, not the roof */
   will-change:transform;
   animation:heroBoatFloat 7s ease-in-out infinite}
+/* PURELY VERTICAL bob — no rotation, no sideways drift. Below the waterline the
+   float layer is a solid opaque block (boat + water), so moving it straight up
+   only ever exposes plain water at the very bottom; any sideways swing or rotation
+   would slide the thin stern tail off the static boat and double it against the
+   tree bank. Rest frame is an exact translateY(0) so it overlays the plate perfectly. */
 @keyframes heroBoatFloat{
-  0%,100%{transform:translateY(0) translateX(0) rotate(.7deg)}
-  25%     {transform:translateY(-9px) translateX(3px) rotate(-.4deg)}
-  50%     {transform:translateY(-15px) translateX(0) rotate(-1.1deg)}
-  75%     {transform:translateY(-9px) translateX(-3px) rotate(-.4deg)}
+  0%,100%{transform:translateY(0)}
+  45%     {transform:translateY(-14px)}
+  70%     {transform:translateY(-7px)}
 }
 @media (prefers-reduced-motion:reduce){
   .hero__boat{animation:none}
