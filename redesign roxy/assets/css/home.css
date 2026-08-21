@@ -906,13 +906,13 @@ a.trust__cell:hover{background:var(--bg-2)}
 /* --- slim deep-blue 'Floating Resort' callout band (below the services panel) --- */
 .fresort{margin-top:clamp(.9rem,1.4vw,1.3rem);
   border-radius:clamp(18px,2vw,26px);
-  background:linear-gradient(120deg,#0f2f42 0%,#0a2430 60%,#07202b 100%);
-  border:1px solid rgba(199,167,107,.26);
+  background:linear-gradient(135deg,var(--navy) 0%,#0f3247 52%,#0c283a 100%);
+  border:1px solid rgba(18,168,216,.28);
   padding:clamp(1.2rem,2.4vw,1.9rem) clamp(1.6rem,3.2vw,3rem);
   display:flex;align-items:center;justify-content:space-between;
   gap:clamp(1.2rem,3vw,2.6rem);flex-wrap:wrap}
 .fresort__title{margin:0;font-family:'Dancing Script','Segoe Script',cursive;
-  font-weight:700;line-height:1.05;color:var(--gold);
+  font-weight:700;line-height:1.05;color:#6fc7ef;
   font-size:clamp(1.9rem,4.2vw,3.1rem)}
 .fresort__title span{color:#eaf4fb}
 .fresort__cta{display:flex;flex-wrap:wrap;gap:.8rem}
@@ -921,8 +921,8 @@ a.trust__cell:hover{background:var(--bg-2)}
   padding:.85em 1.7em;border-radius:999px;white-space:nowrap;
   transition:background .4s var(--ease),transform .4s var(--ease),color .4s var(--ease)}
 .fresort__btn svg{width:16px;height:16px;transition:transform .4s var(--ease)}
-.fresort__btn--gold{background:var(--gold);color:#20160a}
-.fresort__btn--gold:hover{background:#d8bd86;transform:translateY(-2px)}
+.fresort__btn--gold{background:linear-gradient(140deg,var(--aqua) 0%,var(--aqua-deep) 100%);color:#fff}
+.fresort__btn--gold:hover{background:linear-gradient(140deg,#2cbbe6 0%,#1291bb 100%);transform:translateY(-2px)}
 .fresort__btn--gold:hover svg{transform:translateX(3px)}
 .fresort__btn--ghost{color:#fff;border:1px solid rgba(255,255,255,.34)}
 .fresort__btn--ghost:hover{background:rgba(255,255,255,.1);transform:translateY(-2px)}
