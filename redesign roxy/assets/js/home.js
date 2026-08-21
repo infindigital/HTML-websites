@@ -403,7 +403,10 @@
     });
   });
 
-  /* ---- hero: 3-D pointer tilt + boat parallax (desktop, fine pointer) ---- */
+  /* ---- hero: pointer nudges ONLY the boat+water float layer ----
+     the trees, the giant word and the sky stay planted; the cursor gives
+     the floating boat (and the water it rides on) a little parallax drift,
+     on top of its idle bob. desktop / fine-pointer only. */
   (function () {
     var stage = doc.querySelector(".hero__stage");
     var boat = doc.querySelector(".hero__boatwrap");
@@ -413,11 +416,9 @@
     var tx = 0, ty = 0, raf = null;
     function apply() {
       raf = null;
-      // whole card pivots toward the cursor; the boat leads it for depth
-      stage.style.transform =
-        "rotateX(" + (-ty * 3) + "deg) rotateY(" + (tx * 4.2) + "deg)";
+      // only the boat layer drifts — nothing else in the scene moves
       boat.style.transform =
-        "translate3d(" + (tx * 22) + "px," + (ty * 14) + "px,0)";
+        "translate3d(" + (tx * 16) + "px," + (ty * 10) + "px,0)";
     }
     function queue() { if (!raf) raf = window.requestAnimationFrame(apply); }
 

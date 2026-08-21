@@ -280,10 +280,12 @@ ul{margin:0;padding:0;list-style:none}
 .hero__boat{position:absolute;inset:0;
   background-size:cover;background-position:center;background-repeat:no-repeat;
   transform-origin:58% 80%;              /* rock about the waterline, not the roof */
-  animation:heroBoatFloat 6.5s ease-in-out infinite}
+  animation:heroBoatFloat 7s ease-in-out infinite}
 @keyframes heroBoatFloat{
-  0%,100%{transform:translateY(0) rotate(0deg)}
-  50%{transform:translateY(-7px) rotate(-.55deg)}
+  0%,100%{transform:translateY(0) translateX(0) rotate(.7deg)}
+  25%     {transform:translateY(-9px) translateX(3px) rotate(-.4deg)}
+  50%     {transform:translateY(-15px) translateX(0) rotate(-1.1deg)}
+  75%     {transform:translateY(-9px) translateX(-3px) rotate(-.4deg)}
 }
 @media (prefers-reduced-motion:reduce){
   .hero__boat{animation:none}
