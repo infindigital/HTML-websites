@@ -162,12 +162,17 @@ ul{margin:0;padding:0;list-style:none}
 /* solid light bar that sits ABOVE the hero image (menu outside the image) */
 .masthead{
   position:static;z-index:60;
-  background:var(--white);
+  background:transparent;
+  padding:clamp(12px,1.5vw,20px) var(--gut);
 }
 .masthead__inner{
-  max-width:var(--wrap);margin-inline:auto;padding-inline:var(--gut);
+  max-width:var(--wrap);margin-inline:auto;
+  padding-inline:clamp(24px,2.6vw,44px);
   height:var(--nav-h);display:flex;align-items:center;justify-content:flex-start;gap:1.5rem;
+  background:var(--white);border-radius:999px;border:1px solid var(--line);
+  box-shadow:0 14px 40px rgba(16,40,54,.13),0 3px 10px rgba(16,40,54,.06);
 }
+.masthead__inner .btn{white-space:nowrap}
 .brand{display:flex;align-items:center;z-index:2;position:relative}
 .brand img{height:100px;width:auto}
 .brand__light{display:none}
@@ -176,7 +181,7 @@ ul{margin:0;padding:0;list-style:none}
   margin-left:clamp(1.2rem,3vw,2.8rem)}
 .navmenu a{
   position:relative;font-weight:500;font-size:.94rem;letter-spacing:.01em;color:var(--ink);
-  padding-block:.4em;transition:color .35s var(--ease);
+  padding-block:.4em;transition:color .35s var(--ease);white-space:nowrap;
 }
 .navmenu a::after{content:"";position:absolute;left:0;bottom:2px;width:100%;height:2px;border-radius:2px;background:var(--aqua);
   transform:scaleX(0);transform-origin:left;transition:transform .4s var(--ease)}
@@ -191,7 +196,7 @@ ul{margin:0;padding:0;list-style:none}
   background:rgba(18,168,216,.12);color:var(--aqua-deep);transition:background .35s var(--ease),color .35s var(--ease)}
 .nav-callbox__ico svg{width:19px;height:19px}
 .nav-callbox:hover .nav-callbox__ico{background:var(--aqua-deep);color:#fff}
-.nav-callbox__txt{display:flex;flex-direction:column;line-height:1.15}
+.nav-callbox__txt{display:flex;flex-direction:column;line-height:1.15;white-space:nowrap}
 .nav-callbox__txt small{font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2)}
 .nav-callbox__txt b{font-weight:600;font-size:.98rem;color:var(--ink);letter-spacing:.01em;margin-top:4px}
 /* WhatsApp chip */
