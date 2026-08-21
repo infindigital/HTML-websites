@@ -259,7 +259,7 @@ ul{margin:0;padding:0;list-style:none}
 /* ============================================================
    01 · HERO, rounded cinematic image + layered giant type
    ============================================================ */
-.hero{position:relative;overflow:hidden;padding-top:clamp(18px,2.6vw,36px);
+.hero{position:relative;overflow:hidden;padding-top:0;
   padding-bottom:clamp(40px,6vw,72px)}
 .hero__stage{
   position:relative;width:100%;border-radius:var(--radius);overflow:hidden;
