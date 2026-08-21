@@ -403,35 +403,8 @@
     });
   });
 
-  /* ---- hero: pointer nudges ONLY the boat+water float layer ----
-     the trees, the giant word and the sky stay planted; the cursor gives
-     the floating boat (and the water it rides on) a little parallax drift,
-     on top of its idle bob. desktop / fine-pointer only. */
-  (function () {
-    var stage = doc.querySelector(".hero__stage");
-    var boat = doc.querySelector(".hero__boatwrap");
-    if (!stage || !boat || reduce) return;
-    if (!window.matchMedia("(hover: hover) and (pointer: fine) and (min-width: 1025px)").matches) return;
-
-    var tx = 0, ty = 0, raf = null;
-    function apply() {
-      raf = null;
-      // only the boat layer drifts — nothing else in the scene moves
-      boat.style.transform =
-        "translate3d(" + (tx * 16) + "px," + (ty * 10) + "px,0)";
-    }
-    function queue() { if (!raf) raf = window.requestAnimationFrame(apply); }
-
-    stage.addEventListener("pointermove", function (e) {
-      var r = stage.getBoundingClientRect();
-      tx = ((e.clientX - r.left) / r.width) * 2 - 1;   // -1 … 1
-      ty = ((e.clientY - r.top) / r.height) * 2 - 1;
-      if (tx < -1) tx = -1; else if (tx > 1) tx = 1;
-      if (ty < -1) ty = -1; else if (ty > 1) ty = 1;
-      queue();
-    });
-    stage.addEventListener("pointerleave", function () { tx = 0; ty = 0; queue(); });
-  })();
+  /* the hero boat floats on its own (idle CSS bob only) — no mouse tilt,
+     no pointer parallax; the trees never move (keyed out of the float layer) */
 
   /* ---- year ---- */
   var y = new Date().getFullYear();

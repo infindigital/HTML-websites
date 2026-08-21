@@ -261,8 +261,6 @@ ul{margin:0;padding:0;list-style:none}
    ============================================================ */
 .hero{position:relative;overflow:hidden;padding-top:clamp(18px,2.6vw,36px);
   padding-bottom:clamp(40px,6vw,72px)}
-/* the stage pivots in 3-D toward the pointer; give its parent depth */
-.hero .wrap--wide{perspective:1600px;perspective-origin:50% 42%}
 .hero__stage{
   position:relative;width:100%;border-radius:var(--radius);overflow:hidden;
   aspect-ratio:3/2;                   /* == source image ratio (1535x1024), so the clip-path %s map 1:1 */
@@ -273,13 +271,12 @@ ul{margin:0;padding:0;list-style:none}
 .hero__photo{position:absolute;inset:0;background-size:cover;background-position:center;background-repeat:no-repeat}
 .hero__bg{z-index:1}
 .hero__fg{z-index:4}
-/* --- floating boat (desktop) --- */
-.hero__stage{transition:transform .2s ease-out;will-change:transform}
-.hero__boatwrap{position:absolute;inset:0;z-index:4;pointer-events:none;
-  transition:transform .2s ease-out;will-change:transform}
+/* --- floating boat (desktop) : idle bob only, no mouse interaction --- */
+.hero__boatwrap{position:absolute;inset:0;z-index:4;pointer-events:none}
 .hero__boat{position:absolute;inset:0;
   background-size:cover;background-position:center;background-repeat:no-repeat;
   transform-origin:58% 80%;              /* rock about the waterline, not the roof */
+  will-change:transform;
   animation:heroBoatFloat 7s ease-in-out infinite}
 @keyframes heroBoatFloat{
   0%,100%{transform:translateY(0) translateX(0) rotate(.7deg)}
@@ -289,7 +286,6 @@ ul{margin:0;padding:0;list-style:none}
 }
 @media (prefers-reduced-motion:reduce){
   .hero__boat{animation:none}
-  .hero__stage,.hero__boatwrap{transition:none}
 }
   /* foreground is a sky-removed copy of the hero photo (same size/position as the bg),
      so the boat's real roofline + the treeline mask the letters pixel-perfectly -
@@ -1444,7 +1440,6 @@ a.trust__cell:hover{background:var(--bg-2)}
        flat over the photo, internal pages stay word-free on small screens. --- */
 @media (max-width:1024px){
   .hero__fg,.hero__scrim--top,.hero__boatwrap{display:none}
-  .hero__stage{transform:none!important}
   .hero__stage{aspect-ratio:3/2}
   .hero__bg{background-size:cover;background-position:62% 58%}
   .hero__content{max-width:100%}
