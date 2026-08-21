@@ -287,6 +287,31 @@ ul{margin:0;padding:0;list-style:none}
 @media (prefers-reduced-motion:reduce){
   .hero__boat{animation:none}
 }
+/* --- water surface shimmer : soft light streaks drifting on the water --- */
+.hero__water{position:absolute;left:0;right:0;top:58%;bottom:0;z-index:5;
+  pointer-events:none;overflow:hidden;
+  -webkit-mask-image:linear-gradient(to bottom,transparent 0,#000 34%);
+          mask-image:linear-gradient(to bottom,transparent 0,#000 34%)}
+.hero__water span{position:absolute;left:-25%;right:-25%;top:-20%;bottom:-20%;
+  mix-blend-mode:soft-light;opacity:.55;filter:blur(6px);
+  background:repeating-linear-gradient(96deg,
+    transparent 0 34px, rgba(255,255,255,.30) 46px, transparent 60px 96px)}
+.hero__water span:nth-child(1){animation:heroWaterA 11s linear infinite}
+.hero__water span:nth-child(2){opacity:.35;transform:scaleY(-1);
+  background:repeating-linear-gradient(84deg,
+    transparent 0 44px, rgba(255,255,255,.22) 58px, transparent 74px 120px);
+  animation:heroWaterB 16s linear infinite}
+@keyframes heroWaterA{
+  0%{transform:translate3d(0,0,0)}
+  100%{transform:translate3d(-96px,0,0)}
+}
+@keyframes heroWaterB{
+  0%{transform:scaleY(-1) translate3d(0,0,0)}
+  100%{transform:scaleY(-1) translate3d(120px,0,0)}
+}
+@media (prefers-reduced-motion:reduce){
+  .hero__water{display:none}
+}
   /* foreground is a sky-removed copy of the hero photo (same size/position as the bg),
      so the boat's real roofline + the treeline mask the letters pixel-perfectly -
      X and Y tuck cleanly behind the houseboat with no gap */
@@ -1439,7 +1464,7 @@ a.trust__cell:hover{background:var(--bg-2)}
        dropped (fg + top scrim off); the homepage keeps a big HOUSEBOAT word laid
        flat over the photo, internal pages stay word-free on small screens. --- */
 @media (max-width:1024px){
-  .hero__fg,.hero__scrim--top,.hero__boatwrap{display:none}
+  .hero__fg,.hero__scrim--top,.hero__boatwrap,.hero__water{display:none}
   .hero__stage{aspect-ratio:3/2}
   .hero__bg{background-size:cover;background-position:62% 58%}
   .hero__content{max-width:100%}
