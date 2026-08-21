@@ -718,10 +718,10 @@ a.trust__cell:hover{background:var(--bg-2)}
   margin-bottom:clamp(1rem,1.8vw,1.4rem);
 }
 .statx-item__ic svg{width:52%;height:52%}
-/* the timer (clock) icon uses a light sky-blue tile with a deep-blue glyph */
+/* the timer (clock) icon: a bright sky-blue tile with a soft sky-blue glyph */
 .statx-item:first-child .statx-item__ic{
-  background:linear-gradient(140deg,#aee3f8,#7fcdef);
-  color:var(--aqua-deep)}
+  background:linear-gradient(140deg,#9bdcf7,#5cc3ee);
+  color:#1a93c9}
 .statx-item__n{
   font-family:var(--sans);font-weight:700;
   font-size:clamp(2.4rem,4.6vw,3.6rem);line-height:1;color:#fff;
