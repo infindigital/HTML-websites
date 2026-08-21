@@ -162,23 +162,25 @@ ul{margin:0;padding:0;list-style:none}
 /* solid light bar that sits ABOVE the hero image (menu outside the image) */
 .masthead{
   position:static;z-index:60;
-  background:transparent;
-  padding:clamp(12px,1.5vw,20px) var(--gut);
+  background:var(--white);
 }
 .masthead__inner{
-  max-width:var(--wrap);margin-inline:auto;
-  padding-inline:clamp(24px,2.6vw,44px);
+  max-width:var(--wrap);margin-inline:auto;padding-inline:var(--gut);
   height:var(--nav-h);display:flex;align-items:center;justify-content:flex-start;gap:1.5rem;
-  background:var(--white);border-radius:999px;border:1px solid var(--line);
-  box-shadow:0 14px 40px rgba(16,40,54,.13),0 3px 10px rgba(16,40,54,.06);
+  position:relative;
 }
 .masthead__inner .btn{white-space:nowrap}
 .brand{display:flex;align-items:center;z-index:2;position:relative}
 .brand img{height:100px;width:auto}
 .brand__light{display:none}
 .brand__dark{display:block}
-.navmenu{display:flex;align-items:center;justify-content:center;gap:clamp(1.4rem,2.4vw,2.4rem);
-  flex:1;margin-inline:clamp(1rem,2vw,2rem)}
+/* just the menu links sit in an oval, centered between the logo and the contact
+   details; the logo & contact cluster stay on the flat white bar */
+.navmenu{display:inline-flex;align-items:center;gap:clamp(1.2rem,2vw,2rem);
+  margin-inline:auto;
+  background:var(--grey);border:1px solid var(--line-2);border-radius:999px;
+  padding:.75rem clamp(1.5rem,2.4vw,2.4rem);
+  box-shadow:0 6px 18px rgba(16,40,54,.08)}
 .navmenu a{
   position:relative;font-weight:500;font-size:.94rem;letter-spacing:.01em;color:var(--ink);
   padding-block:.4em;transition:color .35s var(--ease);white-space:nowrap;
@@ -187,7 +189,7 @@ ul{margin:0;padding:0;list-style:none}
   transform:scaleX(0);transform-origin:left;transition:transform .4s var(--ease)}
 .navmenu a:hover::after,.navmenu a.is-active::after{transform:scaleX(1)}
 .navmenu a:hover,.navmenu a.is-active{color:var(--aqua-deep)}
-.nav-right{display:flex;align-items:center;gap:.9rem;z-index:2;margin-left:auto}
+.nav-right{display:flex;align-items:center;gap:.9rem;z-index:2}
 /* call cluster: icon chip + label & number */
 .nav-callbox{display:inline-flex;align-items:center;gap:.6rem;text-decoration:none;
   padding:.35rem .5rem .35rem .4rem;border-radius:999px;transition:background .35s var(--ease)}
