@@ -898,6 +898,44 @@ a.trust__cell:hover{background:var(--bg-2)}
 .svc2__card-text{font-size:clamp(.9rem,1.05vw,1rem);line-height:1.55;
   color:rgba(255,255,255,.86);max-width:34ch;margin:0}
 
+/* --- premium 'A Floating Resort' feature band (below the services panel) --- */
+.resortx{position:relative;overflow:hidden;margin-top:clamp(.9rem,1.4vw,1.3rem);
+  border-radius:clamp(24px,2.6vw,34px);
+  background:linear-gradient(135deg,#123244 0%,#0e2a39 46%,#0b2431 100%);
+  border:1px solid rgba(199,167,107,.28);
+  padding:clamp(2.2rem,4.4vw,4rem)}
+/* soft gold glow, top-right */
+.resortx__glow{position:absolute;top:-40%;right:-14%;width:60%;height:150%;
+  background:radial-gradient(50% 50% at 50% 50%,rgba(199,167,107,.22),transparent 70%);
+  pointer-events:none}
+.resortx__inner{position:relative;max-width:64ch}
+.resortx__eyebrow{display:inline-block;font-family:var(--sans);font-weight:600;
+  text-transform:uppercase;letter-spacing:.26em;font-size:.76rem;color:var(--gold);
+  padding-bottom:.5rem;margin-bottom:1.1rem;border-bottom:1px solid rgba(199,167,107,.4)}
+.resortx__title{font-family:var(--sans);font-weight:700;color:#fff;margin:0;
+  font-size:clamp(1.8rem,3.6vw,3rem);line-height:1.08;letter-spacing:-.01em}
+.resortx__title em{font-style:italic;font-weight:600;color:var(--gold)}
+.resortx__text{color:rgba(255,255,255,.82);line-height:1.68;
+  font-size:clamp(1rem,1.2vw,1.12rem);margin:clamp(1.1rem,2vw,1.5rem) 0 0;max-width:56ch}
+.resortx__feats{list-style:none;margin:clamp(1.6rem,2.6vw,2.2rem) 0 0;padding:0;
+  display:grid;grid-template-columns:1fr 1fr;gap:.85rem clamp(1.4rem,3vw,2.6rem)}
+.resortx__feats li{display:flex;align-items:flex-start;gap:.7rem;
+  font-family:var(--sans);font-weight:500;color:rgba(255,255,255,.94);
+  font-size:clamp(.95rem,1.08vw,1.02rem);line-height:1.4}
+.resortx__feats svg{flex:0 0 auto;width:18px;height:18px;margin-top:2px;
+  color:var(--gold)}
+.resortx__cta{display:flex;flex-wrap:wrap;gap:.9rem;margin-top:clamp(1.8rem,3vw,2.6rem)}
+.resortx__btn{display:inline-flex;align-items:center;gap:.6em;
+  font-family:var(--sans);font-weight:600;font-size:.94rem;letter-spacing:.01em;
+  padding:.95em 1.9em;border-radius:999px;
+  transition:background .4s var(--ease),transform .4s var(--ease),color .4s var(--ease)}
+.resortx__btn svg{width:16px;height:16px;transition:transform .4s var(--ease)}
+.resortx__btn--gold{background:var(--gold);color:#20160a}
+.resortx__btn--gold:hover{background:#d8bd86;transform:translateY(-2px)}
+.resortx__btn--gold:hover svg{transform:translateX(3px)}
+.resortx__btn--ghost{color:#fff;border:1px solid rgba(255,255,255,.32)}
+.resortx__btn--ghost:hover{background:rgba(255,255,255,.1);transform:translateY(-2px)}
+
 /* ============================================================
    06c · TESTIMONIALS, google-style review carousel
    ============================================================ */
@@ -1445,6 +1483,8 @@ a.trust__cell:hover{background:var(--bg-2)}
   .svc2__panel{grid-template-columns:1fr;gap:.9rem}
   .svc2__intro{min-height:auto}
   .svc2__card{min-height:clamp(380px,64vw,460px)}
+  .resortx__feats{grid-template-columns:1fr}
+  .resortx__btn{flex:1 1 auto;justify-content:center}
   .dest__grid{grid-template-columns:1fr;grid-template-rows:none}
   .dest__lead{grid-column:1;grid-row:auto;min-height:340px}
   .dest__copy{grid-column:1;grid-row:auto}
