@@ -403,6 +403,35 @@
     });
   });
 
+  /* ---- hero: 3-D pointer tilt + boat parallax (desktop, fine pointer) ---- */
+  (function () {
+    var stage = doc.querySelector(".hero__stage");
+    var boat = doc.querySelector(".hero__boatwrap");
+    if (!stage || !boat || reduce) return;
+    if (!window.matchMedia("(hover: hover) and (pointer: fine) and (min-width: 1025px)").matches) return;
+
+    var tx = 0, ty = 0, raf = null;
+    function apply() {
+      raf = null;
+      // whole card pivots toward the cursor; the boat leads it for depth
+      stage.style.transform =
+        "rotateX(" + (-ty * 3) + "deg) rotateY(" + (tx * 4.2) + "deg)";
+      boat.style.transform =
+        "translate3d(" + (tx * 22) + "px," + (ty * 14) + "px,0)";
+    }
+    function queue() { if (!raf) raf = window.requestAnimationFrame(apply); }
+
+    stage.addEventListener("pointermove", function (e) {
+      var r = stage.getBoundingClientRect();
+      tx = ((e.clientX - r.left) / r.width) * 2 - 1;   // -1 … 1
+      ty = ((e.clientY - r.top) / r.height) * 2 - 1;
+      if (tx < -1) tx = -1; else if (tx > 1) tx = 1;
+      if (ty < -1) ty = -1; else if (ty > 1) ty = 1;
+      queue();
+    });
+    stage.addEventListener("pointerleave", function () { tx = 0; ty = 0; queue(); });
+  })();
+
   /* ---- year ---- */
   var y = new Date().getFullYear();
   doc.querySelectorAll("#year, .rx-year").forEach(function (s) { s.textContent = y; });
