@@ -399,7 +399,7 @@ ul{margin:0;padding:0;list-style:none}
   font-weight:600;letter-spacing:-.05em;font-size:11.8cqw;
   text-shadow:none;
 }
-/* the foreground is a real cut-out of the boat + water (about-hero-fg.png): its water
+/* the foreground is a real cut-out of the boat + water (about-hero-fg.webp): its water
    fades in softly so the bases of ABOUT US settle into the backwater, and the crisp
    boat silhouette makes the U/S tuck behind the actual boat, no straight cut */
 
@@ -1189,7 +1189,7 @@ a.trust__cell:hover{background:var(--bg-2)}
   aspect-ratio:16/7;min-height:clamp(420px,42vw,560px);isolation:isolate;
 }
 .discover__photo{position:absolute;inset:0;z-index:1;
-  background:url("../images/discover-cta.png") no-repeat;
+  background:url("../images/discover-cta.webp") no-repeat;
   background-size:cover;background-position:14% center}
 /* deepen the right side so the white type stays legible over the water */
 .discover__scrim{position:absolute;inset:0;z-index:2;pointer-events:none;
