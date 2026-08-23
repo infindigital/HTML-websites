@@ -580,6 +580,7 @@
 }
 .form-status.is-success { display: block; background: rgba(0,206,166,.14); color: #067a63; border: 1px solid rgba(0,206,166,.4); }
 .form-status.is-error   { display: block; background: rgba(226,59,59,.1); color: #b02a2a; border: 1px solid rgba(226,59,59,.4); }
+.form-status.is-pending { display: block; background: rgba(0,0,0,.05); color: #555; border: 1px solid rgba(0,0,0,.12); }
 
 /* Ask-a-question mini form (home FAQ) */
 .faq-aside { display: grid; gap: 22px; }

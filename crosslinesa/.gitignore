@@ -1,2 +1,5 @@
 # large source archive (assets already extracted into assets/images/)
 crossline.zip
+
+# real mail credentials — copy config.example.php → config.php on the server
+config.php

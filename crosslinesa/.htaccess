@@ -1,0 +1,14 @@
+# Crossline — static site + PHP contact handler (Apache / Hostinger)
+
+# Never serve credentials, Composer metadata, or VCS files.
+<FilesMatch "^(config\.php|config\.example\.php|composer\.(json|lock))$">
+    Require all denied
+</FilesMatch>
+
+RedirectMatch 404 /\.git
+
+# Deny direct browsing of the vendor directory.
+RedirectMatch 403 ^/vendor/
+
+# Send index.html for the site root.
+DirectoryIndex index.html

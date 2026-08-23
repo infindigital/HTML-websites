@@ -34,6 +34,12 @@ crosslinesa/
 ├── contact.html          # Contact Us
 ├── README.md
 │
+├── contact-handler.php   # Form → email (PHPMailer / SMTP)
+├── config.example.php    # SMTP settings sample (copy to config.php)
+├── composer.json/.lock   # PHPMailer dependency
+├── vendor/               # PHPMailer library (bundled for drop-in hosting)
+├── .htaccess             # Protects config/vendor on Apache/Hostinger
+│
 ├── assets/
 │   └── images/           # All supplied Crossline .webp assets
 │
@@ -128,30 +134,66 @@ The footer copyright year updates automatically via `js/main.js`
 
 ---
 
-## 9. Form integration instructions
+## 9. Contact form (live email — PHP + PHPMailer / SMTP)
 
 The contact form (`contact.html`) and the FAQ “ask a question” form
-(`index.html`) are **front-end only**. They perform full client-side
-validation but **do not send anything to a server**, so no false “message
-sent” confirmation is shown.
+(`index.html`) submit to **`contact-handler.php`**, which emails the enquiry
+to `info@crosslinesa.com` over authenticated SMTP using
+[PHPMailer](https://github.com/PHPMailer/PHPMailer) (bundled in `vendor/`).
+The front-end (`js/forms.js`) validates every field, POSTs the data as JSON,
+and shows the success message **only on a real 2xx response** from the server
+— no false “message sent” confirmations.
 
-To make them live, open `js/forms.js` and complete the marked integration
-point:
+This needs PHP (Hostinger and any cPanel/Apache host have it). On a purely
+static host (Netlify/Vercel/GitHub Pages) the PHP file won’t run — use a
+form service there instead.
 
-```js
-// TODO — INTEGRATION POINT
-// Connect this form to your production email / API endpoint, e.g.
-fetch('https://your-endpoint.example/contact', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(/* collected fields */)
-})
-.then(/* show success only on a real 2xx response */)
-.catch(/* show error otherwise */);
+### One-time setup
+
+1. Upload the whole `crosslinesa/` folder to `public_html` (it already
+   contains `vendor/` with PHPMailer, so no Composer step is required on the
+   server).
+2. Copy the sample config and fill in the SMTP details:
+   ```bash
+   cp config.example.php config.php
+   ```
+   `config.php` is **git-ignored** so credentials never enter the repo.
+3. Edit `config.php`. Two options, both explained in the file:
+
+   | | **Hostinger mailbox (recommended)** | **Gmail / Workspace** |
+   |---|---|---|
+   | Host | `smtp.hostinger.com` | `smtp.gmail.com` |
+   | Port / secure | `465` / `ssl` | `587` / `tls` |
+   | Username | full mailbox, e.g. `info@crosslinesa.com` | your Gmail address |
+   | Password | mailbox password | a Google **App Password** |
+   | `SMTP_FROM` | same mailbox (on-domain) | the same Gmail address |
+
+   The client’s mailbox password is only needed for **Option A**. For
+   **Option B** you never touch the client’s password — you authenticate as
+   the sending Gmail account; the enquiry still arrives at `info@crosslinesa.com`
+   (set as `MAIL_TO`).
+
+### Staying out of spam
+
+- **Use an on-domain From.** Because `crosslinesa.com` is on Hostinger,
+  Option A sends from `…@crosslinesa.com`, which Hostinger auto-signs with
+  **SPF + DKIM** — the single biggest anti-spam factor. With Gmail (Option B),
+  keep `SMTP_FROM` = the Gmail address (aligned with what you authenticate as);
+  don’t forge `…@crosslinesa.com` as the From or it fails alignment.
+- Confirm DNS in hPanel → Emails → your domain has **SPF** and **DKIM**
+  records (Hostinger adds these automatically); add a **DMARC** record
+  (`v=DMARC1; p=none; rua=mailto:info@crosslinesa.com`) to round it out.
+- The visitor’s address is set as **Reply-To**, so hitting “Reply” answers the
+  customer directly while the message itself is sent from your own domain.
+- A hidden **honeypot** field and server-side validation drop automated spam.
+
+### Local test
+
+```bash
+cp config.example.php config.php   # fill in real SMTP to actually send
+php -S localhost:8000
+# open http://localhost:8000/contact.html and submit
 ```
-
-Popular no-backend options: Formspree, Web3Forms, Netlify Forms, or your own
-mail API.
 
 ---
 
@@ -174,8 +216,8 @@ mail API.
 - **Contact details** – the live staging site showed placeholder values
   (`info@lightskyblue-gull-443771.hostingersite.com`, `0761-8523-398`,
   `info@halloulr.com`, `www.domainsite.com`). These were replaced everywhere
-  with the supplied production details. The staging website field was set to
-  `www.crosslinesa.com`.
+  with the supplied production details. The website is shown as
+  `crosslinesa.com` (the link points to `https://www.crosslinesa.com`).
 - **Section headings** – a few headings on the original home page are revealed
   by an animation and did not appear in the reference screenshots. They were
   reconstructed from the identical sections on the About/Services pages
@@ -196,8 +238,8 @@ mail API.
 - **`pngegg.webp`** from the ZIP was a corrupt/undecodable file and is not used.
 - **Favicon** – the browser-tab icon (`assets/images/favicon.png`) is the Crossline
   monogram, cropped from the supplied wide logo.
-- **Layout width** – content uses a wide `~1600px` container to match the original
-  site’s proportions (header, hero frame and sections span the fuller width).
+- **Layout width** – content uses a `1200px` container (`1320px` on the few
+  wide sections), matching the original site’s proportions.
 - **Parallax** – the “From Concept to Completion” banner uses a fixed background so
   the image drifts on scroll; it falls back to a normal scrolling background on
   touch devices and when `prefers-reduced-motion` is set.

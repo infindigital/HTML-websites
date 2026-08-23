@@ -1,11 +1,12 @@
 /* =====================================================================
-   forms.js — client-side validation for contact / ask forms
-   NOTE: This is a static website. No message is sent to a server here.
-         Wire the marked TODO up to your production email/API endpoint.
+   forms.js — client-side validation + submission for contact / ask forms
+   Submits to contact-handler.php (PHPMailer / SMTP) and only reports
+   success on a real 2xx response from the server.
    ===================================================================== */
 (function () {
     'use strict';
 
+    var ENDPOINT = 'contact-handler.php';
     var EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     function showError(field, message) {
@@ -39,9 +40,25 @@
         return true;
     }
 
+    function collect(form) {
+        var payload = {};
+        form.querySelectorAll('input, textarea').forEach(function (el) {
+            if (el.name) payload[el.name] = el.value.trim();
+        });
+        payload.form_source = form.getAttribute('data-source') || 'Website';
+        return payload;
+    }
+
+    function setStatus(status, kind, text) {
+        if (!status) return;
+        status.className = 'form-status' + (kind ? ' is-' + kind : '');
+        status.textContent = text || '';
+    }
+
     function initForm(form) {
         var fields = form.querySelectorAll('.field');
         var status = form.querySelector('.form-status');
+        var button = form.querySelector('button[type="submit"]');
 
         // live-clear errors while typing
         fields.forEach(function (field) {
@@ -61,39 +78,48 @@
                 if (!validateField(field)) valid = false;
             });
 
-            if (status) { status.className = 'form-status'; status.textContent = ''; }
+            setStatus(status, '', '');
 
             if (!valid) {
-                if (status) {
-                    status.classList.add('is-error');
-                    status.textContent = 'Please correct the highlighted fields and try again.';
-                }
+                setStatus(status, 'error', 'Please correct the highlighted fields and try again.');
                 var firstError = form.querySelector('.field.has-error input, .field.has-error textarea');
                 if (firstError) firstError.focus();
                 return;
             }
 
-            /* --------------------------------------------------------
-               TODO — INTEGRATION POINT
-               Connect this form to your production email / API endpoint.
-               Example:
-                 fetch('https://your-endpoint.example/contact', {
-                     method: 'POST',
-                     headers: { 'Content-Type': 'application/json' },
-                     body: JSON.stringify(collect(form))
-                 })
-                 .then(...)  // show success only on a real 2xx response
-                 .catch(...) // show error otherwise
+            var originalLabel = button ? button.textContent : '';
+            if (button) { button.disabled = true; button.textContent = 'Sending…'; }
+            setStatus(status, 'pending', 'Sending your message…');
 
-               Until a real backend is connected we DO NOT claim the
-               message was delivered — we only acknowledge validation.
-               -------------------------------------------------------- */
-            if (status) {
-                status.classList.add('is-success');
-                status.textContent = form.getAttribute('data-success') ||
-                    'Thank you — your details are valid. This demo form is not yet connected to a mail server, so please also reach us at info@crosslinesa.com or +966 59 398 1232.';
-            }
-            form.reset();
+            fetch(ENDPOINT, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                body: JSON.stringify(collect(form))
+            })
+                .then(function (res) {
+                    return res.json().catch(function () { return {}; })
+                        .then(function (body) { return { ok: res.ok, body: body }; });
+                })
+                .then(function (result) {
+                    if (result.ok && result.body && result.body.ok) {
+                        setStatus(status, 'success',
+                            result.body.message ||
+                            form.getAttribute('data-success') ||
+                            'Thank you! Your message has been sent.');
+                        form.reset();
+                    } else {
+                        setStatus(status, 'error',
+                            (result.body && result.body.message) ||
+                            'Sorry, your message could not be sent. Please email info@crosslinesa.com or call +966 59 398 1232.');
+                    }
+                })
+                .catch(function () {
+                    setStatus(status, 'error',
+                        'Network error — please email info@crosslinesa.com or call +966 59 398 1232.');
+                })
+                .finally(function () {
+                    if (button) { button.disabled = false; button.textContent = originalLabel; }
+                });
         });
 
         // no native browser bubbles — we handle messaging ourselves
