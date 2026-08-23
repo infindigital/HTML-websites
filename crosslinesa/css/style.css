@@ -412,3 +412,5 @@ button { font-family: inherit; cursor: pointer; }
     font-size: .9rem;
     color: #b3b3b3;
 }
+.footer__bottom .credit { color: #e6e6e6; font-weight: 600; }
+.footer__bottom .credit:hover { color: var(--accent); }
