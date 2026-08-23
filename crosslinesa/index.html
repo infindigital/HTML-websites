@@ -19,7 +19,8 @@
     <meta name="twitter:description" content="End-to-end industrial supply, trading, contracting, HVAC manufacturing and engineering support across Saudi Arabia.">
     <meta name="twitter:image" content="assets/images/Construction-BG.webp">
 
-    <link rel="icon" href="assets/images/CROSSLINE-Logo-wide-1.webp">
+    <link rel="icon" type="image/png" href="assets/images/favicon.png">
+    <link rel="apple-touch-icon" href="assets/images/favicon-180.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -167,7 +168,7 @@
         <!-- ============ CTA BANNER ============ -->
         <section class="section" style="padding-bottom:0;">
             <div class="container">
-                <div class="cta-banner reveal" style="background-image:url('assets/images/saudi-arabia-2.webp');">
+                <div class="cta-banner" style="background-image:url('assets/images/saudi-arabia-2.webp');">
                     <h2>From Concept to Completion, We&rsquo;ve Got You Covered</h2>
                     <p class="sub">Let&rsquo;s Build Success Together.</p>
                     <p>Ready to take your business to the next level? Get in touch with us today and discover how Halloul Al-Riadeh can deliver tailored solutions for your needs.</p>
@@ -193,19 +194,22 @@
             <div class="container">
                 <div class="clients reveal">
                     <div class="clients__track">
+                        <!-- logos -->
+                        <img src="assets/images/42a5cb1639-e1759562435817.webp" alt="Saudi Vision 2030">
                         <img src="assets/images/Armaco-logo.webp" alt="Aramco">
                         <img src="assets/images/sabiq-logo.webp" alt="SABIC">
                         <img src="assets/images/hyundai-construction.webp" alt="Hyundai Engineering &amp; Construction">
                         <img src="assets/images/samsung-eanda.webp" alt="Samsung E&amp;A">
                         <img src="assets/images/alfanar.webp" alt="Alfanar">
                         <img src="assets/images/sinopec.webp" alt="Sinopec">
-                        <img src="assets/images/larsen-and-turbo.webp" alt="Larsen &amp; Toutbro">
+                        <img src="assets/images/larsen-and-turbo.webp" alt="Larsen &amp; Toubro">
                         <img src="assets/images/cox-energy-1.webp" alt="Cox Energy">
                         <img src="assets/images/gs-construction.webp" alt="GS Construction">
                         <img src="assets/images/sepco.webp" alt="SEPCO">
                         <img src="assets/images/sinhydro.webp" alt="Sinohydro">
                         <img src="assets/images/snclavlin.webp" alt="SNC-Lavalin">
                         <!-- duplicate set for seamless marquee -->
+                        <img src="assets/images/42a5cb1639-e1759562435817.webp" alt="" aria-hidden="true">
                         <img src="assets/images/Armaco-logo.webp" alt="" aria-hidden="true">
                         <img src="assets/images/sabiq-logo.webp" alt="" aria-hidden="true">
                         <img src="assets/images/hyundai-construction.webp" alt="" aria-hidden="true">
@@ -351,7 +355,8 @@
             <div class="container">
                 <span class="section-eyebrow">FAQ</span>
                 <div class="faq-layout">
-                    <form class="ask-form reveal" data-form data-success="Thanks for your question! This demo form isn't connected to a mail server yet — we'll also reply if you email info@crosslinesa.com.">
+                    <div class="faq-aside reveal">
+                    <form class="ask-form" data-form data-success="Thanks for your question! This demo form isn't connected to a mail server yet — we'll also reply if you email info@crosslinesa.com.">
                         <div class="field">
                             <label class="sr-only" for="ask-name">Full Name</label>
                             <input type="text" id="ask-name" name="name" placeholder="Full Name" required>
@@ -370,6 +375,11 @@
                         <button type="submit" class="btn btn--accent btn--block">Submit Question</button>
                         <div class="form-status" role="status" aria-live="polite"></div>
                     </form>
+                    <a class="help-box" href="tel:+966593981232" style="background-image:url('assets/images/industry.webp');">
+                        <span class="help-box__title">Need More Help? Contact Us</span>
+                        <span class="help-box__phone"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.6A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2Z"/></svg>+966 59 398 1232</span>
+                    </a>
+                    </div>
                     <div>
                         <p class="lead" id="faq-title" style="margin-bottom:22px;">Have questions about our products, services, or processes? We&rsquo;ve put together some of the most common inquiries to help you better understand how Cross Line works. From product availability and industries we serve to delivery and order placement, you&rsquo;ll find quick answers here.</p>
                         <div class="accordion">
@@ -399,13 +409,6 @@
             </div>
         </section>
 
-        <!-- ============ NEED HELP STRIP ============ -->
-        <section class="section--soft" style="padding:40px 0;">
-            <div class="container text-center">
-                <p style="margin:0;font-weight:600;color:var(--ink);">Need More Help? Contact Us</p>
-                <p style="margin:8px 0 0;"><a class="btn btn--dark" href="tel:+966593981232">+966 59 398 1232</a></p>
-            </div>
-        </section>
     </main>
 
     <!-- ============ FOOTER ============ -->

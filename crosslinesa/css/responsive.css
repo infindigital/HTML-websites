@@ -6,7 +6,17 @@
 /* ---- Large desktop tidy ---- */
 @media (max-width: 1280px) {
     .products-grid { gap: 18px; }
-    .nav__list { gap: 26px; }
+    .nav__list { gap: 30px; }
+    .header__vision img { height: 78px; }
+}
+
+/* ---- Below the wide container : trim header ---- */
+@media (max-width: 1120px) {
+    :root { --header-h: 96px; }
+    .brand img { height: 48px; }
+    .header__vision img { height: 66px; }
+    .nav__list { gap: 22px; }
+    .nav__link { font-size: 1rem; }
 }
 
 /* ---- 1024px : tablet landscape ---- */
@@ -36,6 +46,8 @@
 
 /* ---- Mobile navigation kicks in ---- */
 @media (max-width: 992px) {
+    :root { --header-h: 84px; }
+    .brand img { height: 46px; }
     .nav-toggle { display: block; }
 
     .nav {
@@ -50,6 +62,8 @@
         z-index: 1150;
         padding: 96px 30px 40px;
         overflow-y: auto;
+        display: block;
+        justify-content: flex-start;
     }
     .nav.is-open { transform: translateX(0); }
     .nav__list {
@@ -94,6 +108,8 @@
     .hero__actions { justify-content: flex-start; }
 
     .cta-banner { padding: 44px 28px; }
+    /* fixed backgrounds are janky / unsupported on most mobile browsers */
+    .cta-banner { background-attachment: scroll; }
 
     .faq-layout { grid-template-columns: 1fr; }
     .ask-form { order: 2; }
@@ -145,4 +161,5 @@
     }
     .reveal { opacity: 1; transform: none; }
     .clients__track { animation: none; }
+    .cta-banner { background-attachment: scroll; }
 }

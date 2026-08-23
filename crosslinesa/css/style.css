@@ -30,8 +30,8 @@
     --font-head: 'Poppins', system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
 
     /* Layout */
-    --container: 1200px;
-    --container-wide: 1320px;
+    --container: 1600px;
+    --container-wide: 1600px;
     --radius:      14px;
     --radius-lg:   22px;
     --radius-pill: 999px;
@@ -43,8 +43,8 @@
     --transition: .3s ease;
 
     /* Header heights (used for sticky offset / scroll-margin) */
-    --topbar-h: 44px;
-    --header-h: 84px;
+    --topbar-h: 52px;
+    --header-h: 122px;
 }
 
 /* ------------------------------------------------------------------ */
@@ -128,7 +128,7 @@ button { font-family: inherit; cursor: pointer; }
     width: 100%;
     max-width: var(--container);
     margin-inline: auto;
-    padding-inline: 20px;
+    padding-inline: 24px;
 }
 .container-wide { max-width: var(--container-wide); }
 
@@ -193,14 +193,14 @@ button { font-family: inherit; cursor: pointer; }
 .topbar {
     background: var(--dark);
     color: #eaeaea;
-    font-size: .84rem;
+    font-size: .9rem;
 }
 .topbar__inner {
     display: flex;
     align-items: center;
-    gap: 26px;
+    gap: 34px;
     min-height: var(--topbar-h);
-    padding-block: 8px;
+    padding-block: 15px;
     flex-wrap: wrap;
 }
 .topbar__item {
@@ -209,23 +209,23 @@ button { font-family: inherit; cursor: pointer; }
     gap: 9px;
     color: #eaeaea;
 }
-.topbar__item svg { width: 16px; height: 16px; flex: none; color: var(--accent); }
+.topbar__item svg { width: 17px; height: 17px; flex: none; color: var(--accent); }
 .topbar__item:hover { color: #fff; }
 .topbar__socials {
     margin-left: auto;
     display: inline-flex;
-    gap: 9px;
+    gap: 10px;
 }
 .topbar__socials a {
-    width: 28px; height: 28px;
+    width: 34px; height: 34px;
     display: grid; place-items: center;
-    background: rgba(255,255,255,.12);
+    background: #fff;
     border-radius: 50%;
-    color: #fff;
-    transition: background var(--transition), transform var(--transition);
+    color: #111;
+    transition: background var(--transition), color var(--transition), transform var(--transition);
 }
-.topbar__socials a:hover { background: var(--accent); transform: translateY(-2px); }
-.topbar__socials svg { width: 14px; height: 14px; }
+.topbar__socials a:hover { background: var(--accent); color: #fff; transform: translateY(-2px); }
+.topbar__socials svg { width: 15px; height: 15px; }
 
 /* ------------------------------------------------------------------ */
 /*  5. Header / navigation                                             */
@@ -246,17 +246,23 @@ button { font-family: inherit; cursor: pointer; }
     gap: 20px;
     min-height: var(--header-h);
 }
-.brand img { height: 46px; width: auto; }
+.brand { flex: none; }
+.brand img { height: 56px; width: auto; }
 
+.nav {
+    flex: 1 1 auto;
+    display: flex;
+    justify-content: center;
+}
 .nav__list {
     display: flex;
     align-items: center;
-    gap: 34px;
+    gap: 46px;
 }
 .nav__link {
     font-weight: 500;
     color: #222;
-    font-size: .98rem;
+    font-size: 1.05rem;
     position: relative;
     padding: 6px 0;
 }
@@ -273,7 +279,8 @@ button { font-family: inherit; cursor: pointer; }
 .nav__link:hover::after,
 .nav__link[aria-current="page"]::after { width: 100%; }
 
-.header__vision img { height: 52px; width: auto; }
+.header__vision { flex: none; }
+.header__vision img { height: 92px; width: auto; }
 
 /* Hamburger */
 .nav-toggle {
@@ -313,7 +320,7 @@ button { font-family: inherit; cursor: pointer; }
     position: relative;
     padding: 96px 0;
     color: #fff;
-    background: #12141c center/cover no-repeat;
+    background: #12141c center top/cover no-repeat;
     isolation: isolate;
 }
 .page-hero::before {

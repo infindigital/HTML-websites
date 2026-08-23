@@ -194,4 +194,13 @@ mail API.
   behind some sections is reproduced with an inline SVG (it was not supplied as
   an asset).
 - **`pngegg.webp`** from the ZIP was a corrupt/undecodable file and is not used.
+- **Favicon** – the browser-tab icon (`assets/images/favicon.png`) is the Crossline
+  monogram, cropped from the supplied wide logo.
+- **Layout width** – content uses a wide `~1600px` container to match the original
+  site’s proportions (header, hero frame and sections span the fuller width).
+- **Parallax** – the “From Concept to Completion” banner uses a fixed background so
+  the image drifts on scroll; it falls back to a normal scrolling background on
+  touch devices and when `prefers-reduced-motion` is set.
+- **Client logos** – the logo strip is identical on every page it appears (Home,
+  About, Products), shown in full colour inside a bordered marquee.
 ```
