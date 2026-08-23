@@ -584,8 +584,34 @@
 
 /* Ask-a-question mini form (home FAQ) */
 .faq-aside { display: grid; gap: 22px; }
-.ask-form { background: #ededed; border-radius: var(--radius-lg); padding: 26px; }
-.ask-form .field { margin-bottom: 14px; }
+.ask-form {
+    background: #fff;
+    border: 1px solid #ececec;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    padding: 30px;
+}
+.ask-form .field { margin-bottom: 16px; }
+.ask-form input,
+.ask-form textarea {
+    width: 100%;
+    font-family: inherit;
+    font-size: .95rem;
+    padding: 15px 20px;
+    border: 1px solid #e2e2e2;
+    border-radius: var(--radius-pill);
+    background: #fff;
+    color: var(--ink);
+    transition: border-color var(--transition), box-shadow var(--transition);
+}
+.ask-form textarea { border-radius: 20px; resize: vertical; min-height: 120px; }
+.ask-form input::placeholder,
+.ask-form textarea::placeholder { color: #9a9a9a; }
+.ask-form input:focus,
+.ask-form textarea:focus { border-color: var(--accent); outline: none; box-shadow: 0 0 0 3px rgba(0,206,166,.18); }
+.ask-form .field.has-error input,
+.ask-form .field.has-error textarea { border-color: #e23b3b; }
+.ask-form .field.has-error .field-error { display: block; }
 
 /* "Need More Help?" contact box under the ask form */
 .help-box {
