@@ -2230,12 +2230,22 @@ a.trust__cell:hover{background:var(--bg-2)}
 }
 /* keeps the giant word and the boat perfectly aligned with the background,
    because this layer is the SAME photo cropped identically (object-fit:cover/center) */
-/* boat wrapper carries the float/approach motion; the image stays object-fit aligned */
+/* flowing water: same photo, warped by the animated displacement filter,
+   masked to the central channel so the palms stay crisp */
+.hero--aerial .hero__flow{
+  position:absolute;inset:0;z-index:1;
+  background-size:cover;background-position:center;background-repeat:no-repeat;
+  filter:url(#roxyFlow);
+  -webkit-mask:linear-gradient(90deg,transparent 0,#000 20%,#000 80%,transparent 100%);
+          mask:linear-gradient(90deg,transparent 0,#000 20%,#000 80%,transparent 100%);
+  will-change:filter;
+}
+/* boat wrapper carries the one-directional cruise; the image stays object-fit aligned */
 .hero--aerial .hero__boatwrap{
   position:absolute;inset:0;z-index:4;pointer-events:none;
-  transform-origin:50% 46%;
-  animation:roxyBoatFloat 9s ease-in-out infinite;
-  will-change:transform;
+  transform-origin:50% 50%;
+  animation:roxyBoatCruise 13s linear infinite;
+  will-change:transform,opacity;
 }
 .hero--aerial .hero__boat-fg{
   position:absolute;inset:0;
@@ -2243,25 +2253,29 @@ a.trust__cell:hover{background:var(--bg-2)}
   pointer-events:none;user-select:none;
   filter:drop-shadow(0 20px 34px rgba(4,20,26,.42));
 }
-/* gentle bob + a slight ease-forward & scale-up, reading as the boat cruising toward you */
-@keyframes roxyBoatFloat{
-  0%   {transform:translateY(0)      scale(1)     rotate(0deg)}
-  45%  {transform:translateY(1.15%)  scale(1.011) rotate(.22deg)}
-  70%  {transform:translateY(1.6%)   scale(1.016) rotate(-.12deg)}
-  100% {transform:translateY(0)      scale(1)     rotate(0deg)}
+/* the boat only ever travels forward (down-frame = bow-first); it eases in at the top,
+   grows as it nears, and fades out as it passes — then the next pass begins */
+@keyframes roxyBoatCruise{
+  0%   {transform:translateY(-7%)  scale(.965);opacity:0}
+  9%   {opacity:1}
+  50%  {transform:translateY(0)    scale(1)}
+  90%  {opacity:1}
+  100% {transform:translateY(7%)   scale(1.03);opacity:0}
 }
-/* soft wake fanning out ahead of the bow (bow points down-frame) */
+/* soft wake trailing the stern (up-frame), sliding forward with the boat */
 .hero--aerial .hero__wake{
-  position:absolute;left:50%;top:64%;width:20vw;height:20vw;max-width:320px;max-height:320px;
+  position:absolute;left:50%;top:40%;width:18vw;height:24vw;max-width:280px;max-height:360px;
   transform:translate(-50%,-50%);border-radius:50%;
-  background:radial-gradient(closest-side,rgba(255,255,255,.16),rgba(255,255,255,.05) 55%,rgba(255,255,255,0) 72%);
-  filter:blur(2px);opacity:.0;
-  animation:roxyWake 9s ease-out infinite;
+  background:radial-gradient(closest-side,rgba(255,255,255,.14),rgba(255,255,255,.04) 55%,rgba(255,255,255,0) 72%);
+  filter:blur(3px);opacity:0;
+  animation:roxyWake 13s linear infinite;
 }
 @keyframes roxyWake{
-  0%   {opacity:0;   transform:translate(-50%,-50%) scale(.55)}
-  35%  {opacity:.55; transform:translate(-50%,-46%) scale(.9)}
-  100% {opacity:0;   transform:translate(-50%,-40%) scale(1.5)}
+  0%   {opacity:0;   transform:translate(-50%,-50%) scale(.6)}
+  12%  {opacity:.5}
+  55%  {opacity:.35}
+  90%  {opacity:.28}
+  100% {opacity:0;   transform:translate(-50%,-14%) scale(1.35)}
 }
 /* drifting sun-glitter sheen across the water */
 .hero--aerial .hero__sheen{
@@ -2287,10 +2301,12 @@ a.trust__cell:hover{background:var(--bg-2)}
           mask:linear-gradient(90deg,transparent 0,#000 22%,#000 78%,transparent 100%);
 }
 @media (prefers-reduced-motion:reduce){
-  .hero--aerial .hero__boatwrap{animation:none}
+  .hero--aerial .hero__boatwrap{animation:none;opacity:1}
   .hero--aerial .hero__wake{display:none}
   .hero--aerial .hero__sheen{animation:none}
-  .hero--aerial .hero__caustics animate{display:none}
+  .hero--aerial .hero__flow{filter:none}
+  .hero--aerial .hero__caustics,
+  .hero--aerial .hero__svgdefs{display:none}
 }
 .hero--aerial .hero__aerial-scrim{
   position:absolute;inset:0;z-index:5;pointer-events:none;
