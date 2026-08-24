@@ -2250,10 +2250,22 @@ a.trust__cell:hover{background:var(--bg-2)}
   font-size:18vw;line-height:.9;letter-spacing:-.005em;color:#fff;
   text-shadow:0 6px 40px rgba(4,18,24,.4),0 1px 3px rgba(4,18,24,.28);
 }
-/* LEFT of the boat: intro copy */
+/* LEFT of the boat: CTAs (horizontal row) */
 .hero--aerial .hero__aerial-left{
   position:absolute;left:0;top:56%;transform:translateY(-50%);z-index:6;
-  max-width:min(34%,430px);padding-left:clamp(1.5rem,5vw,4.5rem);padding-right:1rem;
+  padding-left:clamp(1.5rem,5vw,4.5rem);padding-right:1rem;
+}
+.hero--aerial .hero__cta{display:flex;flex-direction:row;flex-wrap:wrap;gap:1rem;align-items:center}
+.hero--aerial .hero__cta .btn{
+  font-family:var(--ui-hero);font-weight:700;text-transform:uppercase;
+  letter-spacing:.14em;font-size:.82rem;padding:1.05em 2em;white-space:nowrap;
+}
+.hero--aerial .hero__cta .btn svg{width:17px;height:17px}
+.hero--aerial .hero__cta .btn--light:hover{background:#f3ecdd;border-color:#f3ecdd}
+/* RIGHT of the boat: intro copy */
+.hero--aerial .hero__aerial-right{
+  position:absolute;right:0;top:56%;transform:translateY(-50%);z-index:6;
+  max-width:min(34%,430px);padding-right:clamp(1.5rem,5vw,4.5rem);padding-left:1rem;
 }
 .hero--aerial .hero__loc{
   display:inline-flex;align-items:center;gap:.5em;
@@ -2273,54 +2285,19 @@ a.trust__cell:hover{background:var(--bg-2)}
   font-size:clamp(.98rem,1.15vw,1.1rem);line-height:1.68;margin-top:1.1rem;
   text-shadow:0 1px 16px rgba(0,0,0,.55);
 }
-/* RIGHT of the boat: CTAs */
-.hero--aerial .hero__aerial-right{
-  position:absolute;right:0;top:56%;transform:translateY(-50%);z-index:6;
-  display:flex;flex-direction:column;gap:1rem;align-items:flex-start;
-  padding-right:clamp(1.5rem,5vw,4.5rem);padding-left:1rem;
-}
-.hero--aerial .hero__aerial-right .btn{
-  font-family:var(--ui-hero);font-weight:700;text-transform:uppercase;
-  letter-spacing:.14em;font-size:.82rem;padding:1.05em 2em;white-space:nowrap;
-}
-.hero--aerial .hero__aerial-right .btn svg{width:17px;height:17px}
-.hero--aerial .hero__aerial-right .btn--light:hover{background:#f3ecdd;border-color:#f3ecdd}
-.hero--aerial .hero__aerial-right .hero__cta{display:flex;flex-direction:column;gap:1rem;align-items:flex-start}
 
-/* feature highlights inside the flanking boxes */
-.hero--aerial .hero__feats{
-  margin-top:1.7rem;display:flex;flex-direction:column;gap:.95rem;
-}
-.hero--aerial .hero__feat{display:flex;align-items:center;gap:.8rem}
-.hero--aerial .hero__feat-ico{
-  flex:0 0 auto;width:42px;height:42px;border-radius:50%;display:grid;place-items:center;
-  color:#fff;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.28);
-  -webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);
-}
-.hero--aerial .hero__feat-ico svg{width:19px;height:19px}
-.hero--aerial .hero__feat-txt{display:flex;flex-direction:column;line-height:1.22}
-.hero--aerial .hero__feat-txt b{
-  font-family:var(--ui-hero);font-weight:700;font-size:.95rem;color:#fff;
-  text-shadow:0 1px 12px rgba(0,0,0,.55);
-}
-.hero--aerial .hero__feat-txt small{
-  font-family:var(--ui-hero);font-weight:400;font-size:.78rem;color:rgba(255,255,255,.82);
-  text-shadow:0 1px 12px rgba(0,0,0,.55);
-}
-
-/* tablet / mobile: stack copy + CTAs at the base, over a bottom scrim */
+/* tablet / mobile: stack copy (upper) + CTAs (lower) at the base */
 @media (max-width:900px){
   .hero--aerial .hero__word{font-size:22vw;top:20%}
   .hero--aerial .hero__aerial-left,
   .hero--aerial .hero__aerial-right{
     position:absolute;left:0;right:0;top:auto;transform:none;max-width:100%;
-    padding-inline:clamp(1.5rem,6vw,3rem);align-items:flex-start;
+    padding-inline:clamp(1.5rem,6vw,3rem);
   }
-  .hero--aerial .hero__aerial-left{bottom:clamp(6.5rem,20vh,9rem)}
-  .hero--aerial .hero__aerial-right{bottom:clamp(1.8rem,5vh,2.6rem)}
-  .hero--aerial .hero__aerial-right .hero__cta{flex-direction:row;flex-wrap:wrap;gap:.7rem}
+  .hero--aerial .hero__aerial-right{bottom:clamp(6.5rem,20vh,9rem)}
+  .hero--aerial .hero__aerial-left{bottom:clamp(1.8rem,5vh,2.6rem)}
+  .hero--aerial .hero__cta{gap:.7rem}
   .hero--aerial .hero__title{font-size:clamp(1.8rem,6vw,2.4rem)}
   .hero--aerial .hero__text{max-width:34ch}
-  .hero--aerial .hero__aerial-right .btn{padding:.95em 1.5em;font-size:.76rem}
-  .hero--aerial .hero__feats{display:none}   /* highlights are a desktop-only touch */
+  .hero--aerial .hero__cta .btn{padding:.95em 1.5em;font-size:.76rem}
 }
