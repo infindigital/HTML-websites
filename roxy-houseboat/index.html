@@ -243,13 +243,30 @@
     <!-- aerial backwater photograph -->
     <div class="hero__aerial-bg" role="img"
          aria-label="Aerial view of a Roxy houseboat cruising the turquoise Nileshwar backwaters, framed by dense coconut palms"
-         style="background-image:url('/assets/images/aerial-hero.webp')"></div>
+         style="background-image:url('/assets/images/aerial-water.webp')"></div>
+    <!-- live water: shifting sun-glitter sheen + fine animated ripple caustics -->
+    <div class="hero__sheen" aria-hidden="true"></div>
+    <svg class="hero__caustics" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+      <filter id="roxyWater" x="0" y="0" width="100%" height="100%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.010 0.026" numOctaves="2" seed="6" stitchTiles="stitch" result="n">
+          <animate attributeName="baseFrequency" dur="26s" repeatCount="indefinite"
+                   values="0.010 0.026; 0.014 0.022; 0.011 0.028; 0.010 0.026"/>
+        </feTurbulence>
+        <feColorMatrix in="n" type="matrix"
+          values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0.7 0.7 0.7 0 -0.9" result="glint"/>
+        <feGaussianBlur in="glint" stdDeviation="0.4"/>
+      </filter>
+      <rect width="100%" height="100%" filter="url(#roxyWater)"/>
+    </svg>
     <!-- top + bottom legibility scrim (nav + footer copy) -->
     <div class="hero__aerial-scrim" aria-hidden="true"></div>
     <!-- giant word, sits on the water BEHIND the boat -->
     <span class="hero__word" aria-hidden="true">Houseboat</span>
-    <!-- the boat, keyed out of the same photo, layered ON TOP of the word -->
-    <img class="hero__boat-fg" src="/assets/images/aerial-boat.webp" alt="" aria-hidden="true" />
+    <!-- the boat, keyed out of the same photo, layered ON TOP of the word — it floats & eases forward -->
+    <span class="hero__boatwrap" aria-hidden="true">
+      <span class="hero__wake"></span>
+      <img class="hero__boat-fg" src="/assets/images/aerial-boat.webp" alt="" aria-hidden="true" />
+    </span>
     <!-- LEFT of the boat (lower): intro copy -->
     <div class="hero__aerial-left">
       <span class="hero__loc">

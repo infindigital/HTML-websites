@@ -2230,11 +2230,67 @@ a.trust__cell:hover{background:var(--bg-2)}
 }
 /* keeps the giant word and the boat perfectly aligned with the background,
    because this layer is the SAME photo cropped identically (object-fit:cover/center) */
+/* boat wrapper carries the float/approach motion; the image stays object-fit aligned */
+.hero--aerial .hero__boatwrap{
+  position:absolute;inset:0;z-index:4;pointer-events:none;
+  transform-origin:50% 46%;
+  animation:roxyBoatFloat 9s ease-in-out infinite;
+  will-change:transform;
+}
 .hero--aerial .hero__boat-fg{
-  position:absolute;inset:0;z-index:4;
+  position:absolute;inset:0;
   width:100%;height:100%;object-fit:cover;object-position:center;
   pointer-events:none;user-select:none;
-  filter:drop-shadow(0 18px 34px rgba(4,20,26,.4));
+  filter:drop-shadow(0 20px 34px rgba(4,20,26,.42));
+}
+/* gentle bob + a slight ease-forward & scale-up, reading as the boat cruising toward you */
+@keyframes roxyBoatFloat{
+  0%   {transform:translateY(0)      scale(1)     rotate(0deg)}
+  45%  {transform:translateY(1.15%)  scale(1.011) rotate(.22deg)}
+  70%  {transform:translateY(1.6%)   scale(1.016) rotate(-.12deg)}
+  100% {transform:translateY(0)      scale(1)     rotate(0deg)}
+}
+/* soft wake fanning out ahead of the bow (bow points down-frame) */
+.hero--aerial .hero__wake{
+  position:absolute;left:50%;top:64%;width:20vw;height:20vw;max-width:320px;max-height:320px;
+  transform:translate(-50%,-50%);border-radius:50%;
+  background:radial-gradient(closest-side,rgba(255,255,255,.16),rgba(255,255,255,.05) 55%,rgba(255,255,255,0) 72%);
+  filter:blur(2px);opacity:.0;
+  animation:roxyWake 9s ease-out infinite;
+}
+@keyframes roxyWake{
+  0%   {opacity:0;   transform:translate(-50%,-50%) scale(.55)}
+  35%  {opacity:.55; transform:translate(-50%,-46%) scale(.9)}
+  100% {opacity:0;   transform:translate(-50%,-40%) scale(1.5)}
+}
+/* drifting sun-glitter sheen across the water */
+.hero--aerial .hero__sheen{
+  position:absolute;inset:0;z-index:2;pointer-events:none;
+  background:
+    radial-gradient(60% 42% at 52% 14%,rgba(255,255,255,.30),rgba(255,255,255,0) 60%),
+    linear-gradient(115deg,rgba(255,255,255,0) 38%,rgba(255,255,255,.10) 50%,rgba(255,255,255,0) 62%);
+  background-size:100% 100%, 260% 100%;
+  mix-blend-mode:soft-light;opacity:.9;
+  -webkit-mask:linear-gradient(90deg,transparent 0,#000 20%,#000 80%,transparent 100%);
+          mask:linear-gradient(90deg,transparent 0,#000 20%,#000 80%,transparent 100%);
+  animation:roxySheen 15s ease-in-out infinite;
+}
+@keyframes roxySheen{
+  0%,100%{background-position:0% 0%, 0% 0%;opacity:.75}
+  50%    {background-position:0% 0%, 100% 0%;opacity:1}
+}
+/* fine animated ripple caustics (SVG turbulence), masked to the central water channel */
+.hero--aerial .hero__caustics{
+  position:absolute;inset:0;z-index:2;width:100%;height:100%;pointer-events:none;
+  mix-blend-mode:overlay;opacity:.55;
+  -webkit-mask:linear-gradient(90deg,transparent 0,#000 22%,#000 78%,transparent 100%);
+          mask:linear-gradient(90deg,transparent 0,#000 22%,#000 78%,transparent 100%);
+}
+@media (prefers-reduced-motion:reduce){
+  .hero--aerial .hero__boatwrap{animation:none}
+  .hero--aerial .hero__wake{display:none}
+  .hero--aerial .hero__sheen{animation:none}
+  .hero--aerial .hero__caustics animate{display:none}
 }
 .hero--aerial .hero__aerial-scrim{
   position:absolute;inset:0;z-index:5;pointer-events:none;
