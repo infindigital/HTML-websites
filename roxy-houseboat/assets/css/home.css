@@ -2205,8 +2205,8 @@ a.trust__cell:hover{background:var(--bg-2)}
    ============================================================ */
 .hero--aerial{
   position:relative;overflow:hidden;isolation:isolate;
-  min-height:100vh;min-height:100svh;
-  padding:0;margin:0;max-width:none;          /* full width */
+  width:100%;aspect-ratio:1672 / 941;          /* show the WHOLE aerial photo, no zoom crop */
+  padding:0;margin:0;max-width:none;            /* full width */
   display:block;
 }
 .hero--aerial .hero__aerial-bg{
@@ -2291,6 +2291,8 @@ a.trust__cell:hover{background:var(--bg-2)}
 
 /* tablet / mobile: stack copy (upper) + CTAs (lower) at the base */
 @media (max-width:900px){
+  /* on phones the 16:9 photo would be a thin strip — keep a tall hero (tuned later per-device) */
+  .hero--aerial{aspect-ratio:auto;min-height:100vh;min-height:100svh}
   .hero--aerial .hero__word{font-size:22vw;top:20%}
   .hero--aerial .hero__aerial-left,
   .hero--aerial .hero__aerial-right{
