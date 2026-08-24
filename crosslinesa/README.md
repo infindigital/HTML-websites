@@ -34,6 +34,9 @@ crosslinesa/
 ├── contact.html          # Contact Us
 ├── README.md
 │
+├── sitemap.xml           # SEO — list of all pages
+├── robots.txt            # SEO — crawler rules + sitemap link
+│
 ├── contact-handler.php   # Form → email (PHPMailer / SMTP)
 ├── config.example.php    # SMTP settings sample (copy to config.php)
 ├── composer.json/.lock   # PHPMailer dependency
@@ -202,12 +205,28 @@ php -S localhost:8000
 - Semantic landmarks (`header`, `nav`, `main`, `section`, `article`, `footer`),
   one `<h1>` per page, logical heading order, skip link, visible focus states,
   keyboard-operable menu and accordion (`aria-expanded` / `aria-controls`).
-- Per-page `<title>`, `meta description`, `canonical`, Open Graph and Twitter
-  card tags; descriptive `alt` text on meaningful images.
+- Per-page `<title>`, `meta description`, `canonical`, `robots`, Open Graph and
+  Twitter card tags (with absolute image URLs); descriptive `alt` text on
+  meaningful images.
+- **Structured data (JSON-LD):** a `LocalBusiness` block on every page (name,
+  logo, phone, email, address, geo, area served); `WebSite` + `FAQPage` on the
+  home page; `BreadcrumbList` on the inner pages. Test with Google’s
+  [Rich Results Test](https://search.google.com/test/rich-results).
+- **`sitemap.xml`** (all 5 pages) and **`robots.txt`** (references the sitemap,
+  blocks server-side/dependency files). After going live, submit the sitemap in
+  [Google Search Console](https://search.google.com/search-console).
+- **Google Analytics 4** (`gtag.js`, ID `G-P4QVT02NWB`) is loaded in the
+  `<head>` of every page. To change or remove it, edit the `<!-- Google tag -->`
+  block near the top of each `.html` file.
 - Lazy-loaded map iframe, deferred scripts, CSS custom properties, no external
   JS libraries. Fonts: Google Fonts **Poppins** (swap for a self-hosted font if
   you prefer zero external requests).
 - Animations respect `@media (prefers-reduced-motion: reduce)`.
+
+> **Note:** `sitemap.xml`, `robots.txt`, the canonical/OG URLs and the JSON-LD
+> all use the domain `https://crosslinesa.com/`. If the site is deployed under a
+> different domain, search-and-replace that host across the `.html` files,
+> `sitemap.xml` and `robots.txt`.
 
 ---
 
