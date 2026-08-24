@@ -2253,12 +2253,12 @@ a.trust__cell:hover{background:var(--bg-2)}
 /* LEFT of the boat (lower): intro copy — clear of the wordmark & boat */
 .hero--aerial .hero__aerial-left{
   position:absolute;left:0;top:72%;transform:translateY(-50%);z-index:6;
-  max-width:min(40%,540px);padding-left:clamp(1.5rem,5vw,4.5rem);padding-right:1rem;
+  max-width:min(40%,540px);padding-left:clamp(3rem,8vw,7.5rem);padding-right:1rem;
 }
 /* RIGHT of the boat (lower): CTAs (horizontal row) */
 .hero--aerial .hero__aerial-right{
   position:absolute;right:0;top:69%;transform:translateY(-50%);z-index:6;
-  padding-right:clamp(1.5rem,5vw,4.5rem);padding-left:1rem;
+  padding-right:clamp(3rem,8vw,7.5rem);padding-left:1rem;
 }
 .hero--aerial .hero__cta{display:flex;flex-direction:row;flex-wrap:wrap;gap:1rem;align-items:center;justify-content:flex-end}
 .hero--aerial .hero__cta .btn{
