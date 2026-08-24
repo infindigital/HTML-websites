@@ -238,31 +238,32 @@
     </div>
   </div>
 
-  <!-- ============ 01 · HERO — full-viewport cinematic video ============ -->
-  <section class="hero hero--video" id="hero">
-    <div class="hero__media">
-      <video class="hero__video" autoplay muted loop playsinline preload="auto"
-             poster="/assets/images/2cda51a6-3861-48ae-883d-2c09d32e87fe.webp"
-             aria-hidden="true" tabindex="-1">
-        <source src="/assets/video/houseboat-moving.mp4" type="video/mp4" />
-      </video>
-    </div>
-    <div class="hero__overlay" aria-hidden="true"></div>
-    <div class="hero__inner">
-      <div class="hero__content">
-        <span class="hero__loc">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>
-          Nileshwar, Kerala
-        </span>
-        <h1 class="hero__title">Luxury Houseboat<span>in Nileshwar, Kerala</span></h1>
-        <p class="hero__text">Your premier choice for an unforgettable houseboat experience in Nileshwar, Kerala. Cruise through serene backwaters, enjoy premium hospitality, and experience Kerala from a completely different perspective.</p>
-        <div class="hero__cta">
-          <a class="btn btn--light" href="/packages/">Explore Packages</a>
-          <a class="btn btn--outline-light" href="tel:+917034099096">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-            Call Now
-          </a>
-        </div>
+  <!-- ============ 01 · HERO — aerial wordmark, boat floats above the type ============ -->
+  <section class="hero hero--aerial" id="hero">
+    <!-- aerial backwater photograph -->
+    <div class="hero__aerial-bg" role="img"
+         aria-label="Aerial view of a Roxy houseboat cruising the turquoise Nileshwar backwaters, framed by dense coconut palms"
+         style="background-image:url('/assets/images/aerial-hero.webp')"></div>
+    <!-- top + bottom legibility scrim (nav + footer copy) -->
+    <div class="hero__aerial-scrim" aria-hidden="true"></div>
+    <!-- giant word, sits on the water BEHIND the boat -->
+    <span class="hero__word" aria-hidden="true">Houseboat</span>
+    <!-- real, screen-reader heading -->
+    <h1 class="hero__sronly">Roxy Houseboat — luxury houseboat cruises on the Nileshwar backwaters, Kerala</h1>
+    <!-- the boat, keyed out of the same photo, layered ON TOP of the word -->
+    <img class="hero__boat-fg" src="/assets/images/aerial-boat.webp" alt="" aria-hidden="true" />
+    <!-- minimal footer: location + CTAs -->
+    <div class="hero__aerial-foot">
+      <span class="hero__loc">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        Nileshwar, Kerala
+      </span>
+      <div class="hero__cta">
+        <a class="btn btn--light" href="/packages/">Explore Packages</a>
+        <a class="btn btn--outline-light" href="tel:+917034099096">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          Call Now
+        </a>
       </div>
     </div>
   </section>
