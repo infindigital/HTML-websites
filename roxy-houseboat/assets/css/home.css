@@ -2063,3 +2063,150 @@ a.trust__cell:hover{background:var(--bg-2)}
   padding-top:1.6rem;border-top:1px solid var(--line-2)}
 .err404__links a{color:var(--aqua-deep);font-weight:600;font-size:.95rem;text-decoration:none}
 .err404__links a:hover{text-decoration:underline}
+
+/* ============================================================
+   01B · HOMEPAGE VIDEO HERO  (scoped: .home-video-hero / .hero--video)
+   Full-viewport cinematic background video, transparent overlay
+   navigation, Playfair Display headline + Lato body/UI.
+   Homepage ONLY — every other page keeps the solid white header.
+   ============================================================ */
+.home-video-hero,
+.hero--video{
+  --display-hero:'Playfair Display',Georgia,'Times New Roman',serif;
+  --ui-hero:'Lato',system-ui,-apple-system,'Segoe UI',sans-serif;
+}
+
+/* ---- transparent overlay navigation (homepage) ---- */
+.home-video-hero .masthead{
+  position:fixed;top:0;left:0;right:0;z-index:70;
+  background:transparent;
+  transition:background .45s var(--ease),backdrop-filter .45s var(--ease),
+             transform .5s var(--ease),box-shadow .45s var(--ease);
+}
+/* gradient scrim behind the bar so white links stay readable on bright video */
+.home-video-hero .masthead::before{
+  content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;
+  background:linear-gradient(180deg,rgba(6,16,22,.58) 0%,rgba(6,16,22,.2) 55%,rgba(6,16,22,0) 100%);
+  transition:opacity .45s var(--ease);
+}
+/* darker, blurred bar once the page is scrolled */
+.home-video-hero .masthead.is-stuck{
+  background:rgba(8,20,28,.74);backdrop-filter:blur(10px);
+  box-shadow:0 1px 0 rgba(255,255,255,.06);
+}
+.home-video-hero .masthead.is-stuck::before{opacity:0}
+/* slide the bar away when scrolling down past the hero, reveal on scroll-up */
+.home-video-hero .masthead.is-hidden{transform:translateY(-100%)}
+
+/* white logo variant over the video */
+.home-video-hero .brand__light{display:block}
+.home-video-hero .brand__dark{display:none}
+.home-video-hero .brand img{height:82px}
+
+/* nav links → white Lato with a soft shadow */
+.home-video-hero .navmenu a,
+.home-video-hero .navdrop__trigger{
+  color:#fff;font-family:var(--ui-hero);font-weight:400;letter-spacing:.02em;
+  text-shadow:0 1px 12px rgba(0,0,0,.4);
+}
+.home-video-hero .navmenu a:hover,
+.home-video-hero .navmenu a.is-active,
+.home-video-hero .navdrop:hover .navdrop__trigger{color:#fff}
+.home-video-hero .navmenu a::after{background:#fff}
+/* dropdown panel keeps its own light background, so restore dark text there */
+.home-video-hero .navdrop__menu a{color:var(--ink);text-shadow:none;font-family:var(--sans)}
+.home-video-hero .navdrop__menu a:hover{color:var(--aqua-deep)}
+
+/* minimal right cluster: hide the heavy call/WhatsApp chips, keep one CTA */
+.home-video-hero .nav-callbox,
+.home-video-hero .nav-wa{display:none}
+.home-video-hero .nav-right .btn--dark{
+  background:transparent;border-color:rgba(255,255,255,.7);color:#fff;
+  font-family:var(--ui-hero);font-weight:700;text-transform:uppercase;
+  letter-spacing:.13em;font-size:.74rem;
+}
+.home-video-hero .nav-right .btn--dark:hover{background:#fff;border-color:#fff;color:var(--ink)}
+.home-video-hero .burger span{background:#fff}
+
+/* ---- the full-viewport video stage ---- */
+.hero--video{
+  position:relative;overflow:hidden;isolation:isolate;
+  min-height:100vh;min-height:100svh;
+  padding:0;margin:0;
+  display:flex;flex-direction:column;justify-content:center;
+}
+.hero--video .hero__media{
+  position:absolute;inset:0;z-index:0;overflow:hidden;
+  background:#0a1a22 url('../images/2cda51a6-3861-48ae-883d-2c09d32e87fe.webp') center/cover no-repeat;
+}
+.hero--video .hero__video{
+  position:absolute;inset:0;width:100%;height:100%;
+  object-fit:cover;object-position:center;display:block;
+}
+/* cinematic legibility overlay — left-weighted + a base gradient */
+.hero--video .hero__overlay{
+  position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:
+    linear-gradient(90deg,rgba(4,12,18,.74) 0%,rgba(4,12,18,.44) 40%,rgba(4,12,18,.08) 70%,rgba(4,12,18,0) 100%),
+    linear-gradient(0deg,rgba(4,12,18,.55) 0%,rgba(4,12,18,.12) 30%,rgba(4,12,18,0) 58%);
+}
+.hero--video .hero__inner{
+  position:relative;z-index:2;width:100%;
+  max-width:var(--wrap);margin-inline:auto;
+  padding-inline:clamp(1.5rem,5vw,4.5rem);
+  padding-block:calc(var(--nav-h) + clamp(.5rem,2vh,1.5rem));
+}
+.hero--video .hero__content{position:static;padding:0;max-width:none}
+.hero--video .hero__loc{
+  font-family:var(--ui-hero);font-weight:700;color:rgba(255,255,255,.9);
+  letter-spacing:.3em;text-transform:uppercase;font-size:.72rem;
+  margin-bottom:1.1rem;text-shadow:0 1px 14px rgba(0,0,0,.4);
+}
+.hero--video .hero__loc svg{width:15px;height:15px;opacity:.9}
+.hero--video .hero__title{
+  font-family:var(--display-hero);font-weight:600;color:#fff;
+  line-height:1.06;letter-spacing:0;
+  font-size:clamp(2.4rem,5vw,4.7rem);
+  max-width:16ch;text-wrap:balance;
+  text-shadow:0 2px 34px rgba(0,0,0,.42);
+}
+.hero--video .hero__title span{
+  display:block;font-style:italic;font-weight:500;color:#f3ecdd;
+}
+.hero--video .hero__text{
+  font-family:var(--ui-hero);font-weight:300;color:rgba(255,255,255,.9);
+  font-size:clamp(1rem,1.3vw,1.18rem);line-height:1.72;
+  max-width:520px;margin-top:clamp(1.2rem,2.2vw,1.7rem);
+  text-shadow:0 1px 18px rgba(0,0,0,.45);
+}
+.hero--video .hero__cta{
+  display:flex;gap:1rem;flex-wrap:wrap;margin-top:clamp(1.8rem,3vw,2.6rem);
+}
+.hero--video .hero__cta .btn{
+  font-family:var(--ui-hero);font-weight:700;text-transform:uppercase;
+  letter-spacing:.14em;font-size:.82rem;padding:1.05em 2em;
+}
+.hero--video .hero__cta .btn--light:hover{background:#f3ecdd;border-color:#f3ecdd}
+.hero--video .hero__cta .btn svg{width:17px;height:17px}
+
+/* ---- social-proof strip, a clean white band just below the video ---- */
+.hero-trust{
+  position:relative;z-index:6;background:var(--bg);
+  padding-top:clamp(1.6rem,3.4vw,2.6rem);
+  padding-bottom:clamp(.4rem,2vw,1rem);
+}
+.hero-trust .trust{margin-top:0}
+
+/* ---- responsive ---- */
+@media (max-width:1024px){
+  .hero--video .hero__title{font-size:clamp(2.4rem,7vw,4rem)}
+}
+@media (max-width:760px){
+  .home-video-hero .nav-right .btn--dark{display:none}
+  .home-video-hero .brand img{height:60px}
+  .hero--video .hero__title{font-size:clamp(2.2rem,9vw,3rem);max-width:14ch}
+  .hero--video .hero__text{max-width:100%}
+  .hero--video .hero__cta{gap:.7rem}
+  .hero--video .hero__cta .btn{padding:.95em 1.5em;font-size:.76rem}
+  .hero-trust{margin-top:0}
+}

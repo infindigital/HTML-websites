@@ -22,7 +22,7 @@
   <meta name="twitter:image" content="https://roxyhouseboat.in/assets/images/houseboat-day-3.jpg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,500&family=Dancing+Script:wght@600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,500&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Lato:wght@300;400;700;900&family=Dancing+Script:wght@600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/assets/css/home.css" />
   <link rel="icon" href="/assets/images/logo.png" />
   <script type="application/ld+json">
@@ -161,7 +161,7 @@
 }
   </script>
 </head>
-<body id="top">
+<body id="top" class="home-video-hero">
 
   <!-- ============ HEADER ============ -->
   <header class="masthead" id="masthead">
@@ -238,68 +238,38 @@
     </div>
   </div>
 
-  <!-- ============ 01 · HERO, giant ROXY tucked behind the houseboat ============ -->
-  <section class="hero" id="hero">
-    <div class="wrap wrap--wide">
-      <div class="hero__stage">
-        <!-- background photograph -->
-        <div class="hero__photo hero__bg" role="img"
-             aria-label="A Roxy houseboat drifting across the turquoise backwaters of Nileshwar, framed by coconut palms under a bright blue sky"
-             style="background-image:url('/assets/images/2cda51a6-3861-48ae-883d-2c09d32e87fe.webp')"></div>
-        <!-- header / top legibility scrim -->
-        <div class="hero__scrim hero__scrim--top" aria-hidden="true"></div>
-        <!-- giant word, sits BEHIND the boat -->
-        <span class="hero__ghost" aria-hidden="true">HOUSEBOAT</span>
-        <!-- identical photo, clipped to the boat + waterline so it covers the lower half of the letters -->
-        <div class="hero__photo hero__fg" aria-hidden="true"
-             style="background-image:url('/assets/images/hero-fg.webp')"></div>
-        <!-- floating boat: a tree-keyed copy of the houseboat that tilts toward the
-             pointer and gently bobs on the water (desktop / fine-pointer only) -->
-        <div class="hero__boatwrap" aria-hidden="true">
-          <div class="hero__boat" style="background-image:url('/assets/images/hero-boat.webp')"></div>
-        </div>
-        <!-- living water surface : the real water pixels ripple + caustic glints (desktop) -->
-        <div class="hero__water" aria-hidden="true">
-          <div class="hero__water-ripple"
-               style="background-image:url('/assets/images/2cda51a6-3861-48ae-883d-2c09d32e87fe.webp')"></div>
-          <span class="hero__water-sheen"></span>
-          <span class="hero__water-glint"></span>
-        </div>
-        <!-- animated turbulence that warps the water copy into moving ripples -->
-        <svg class="hero__water-defs" width="0" height="0" aria-hidden="true" focusable="false">
-          <filter id="roxyWaterRipple" x="-15%" y="-15%" width="130%" height="130%">
-            <feTurbulence type="fractalNoise" baseFrequency="0.010 0.030"
-                          numOctaves="2" seed="7" result="noise">
-              <animate attributeName="baseFrequency"
-                       dur="9s" repeatCount="indefinite"
-                       values="0.010 0.030; 0.014 0.040; 0.010 0.030"/>
-            </feTurbulence>
-            <feDisplacementMap in="SourceGraphic" in2="noise"
-                               xChannelSelector="R" yChannelSelector="G" scale="16">
-              <animate attributeName="scale"
-                       dur="7s" repeatCount="indefinite" values="10;22;10"/>
-            </feDisplacementMap>
-          </filter>
-        </svg>
-        <!-- content legibility scrim -->
-        <div class="hero__scrim hero__scrim--bot" aria-hidden="true"></div>
-        <!-- foreground content -->
-        <div class="hero__content">
-          <span class="hero__loc">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>
-            Nileshwar, Kerala
-          </span>
-          <h1 class="hero__title">Luxury Houseboat<br />in Nileshwar,<br /><span>Kerala</span></h1>
-          <p class="hero__text">Your premier choice for an unforgettable houseboat experience, nestled in the tranquil backwaters of Nileshwar, Kerala.</p>
-          <div class="hero__cta">
-            <a class="btn btn--light" href="tel:+917034099096">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-              Call Now
-            </a>
-            <a class="btn btn--outline-light" href="/packages/">Explore Packages</a>
-          </div>
+  <!-- ============ 01 · HERO — full-viewport cinematic video ============ -->
+  <section class="hero hero--video" id="hero">
+    <div class="hero__media">
+      <video class="hero__video" autoplay muted loop playsinline preload="auto"
+             poster="/assets/images/2cda51a6-3861-48ae-883d-2c09d32e87fe.webp"
+             aria-hidden="true" tabindex="-1">
+        <source src="/assets/video/houseboat-moving.mp4" type="video/mp4" />
+      </video>
+    </div>
+    <div class="hero__overlay" aria-hidden="true"></div>
+    <div class="hero__inner">
+      <div class="hero__content">
+        <span class="hero__loc">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Nileshwar, Kerala
+        </span>
+        <h1 class="hero__title">Luxury Houseboat<span>in Nileshwar, Kerala</span></h1>
+        <p class="hero__text">Your premier choice for an unforgettable houseboat experience in Nileshwar, Kerala. Cruise through serene backwaters, enjoy premium hospitality, and experience Kerala from a completely different perspective.</p>
+        <div class="hero__cta">
+          <a class="btn btn--light" href="/packages/">Explore Packages</a>
+          <a class="btn btn--outline-light" href="tel:+917034099096">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            Call Now
+          </a>
         </div>
       </div>
+    </div>
+  </section>
+
+  <!-- ============ 01b · HERO social-proof strip ============ -->
+  <div class="hero-trust">
+    <div class="wrap">
       <div class="trust" role="list">
         <a class="trust__cell trust__cell--rating" role="listitem" href="https://maps.app.goo.gl/A3qXXDsJed193RYq5" target="_blank" rel="noopener" aria-label="Rated 4.9 out of 5 from 121 Google reviews, read them on Google">
           <span class="trust__g" aria-hidden="true">
@@ -325,7 +295,7 @@
         </div>
       </div>
     </div>
-  </section>
+  </div>
 
   <!-- ============ 02 · ABOUT, introduction ============ -->
   <section class="section" id="about">
