@@ -2285,6 +2285,28 @@ a.trust__cell:hover{background:var(--bg-2)}
 }
 .hero--aerial .hero__aerial-right .btn svg{width:17px;height:17px}
 .hero--aerial .hero__aerial-right .btn--light:hover{background:#f3ecdd;border-color:#f3ecdd}
+.hero--aerial .hero__aerial-right .hero__cta{display:flex;flex-direction:column;gap:1rem;align-items:flex-start}
+
+/* feature highlights inside the flanking boxes */
+.hero--aerial .hero__feats{
+  margin-top:1.7rem;display:flex;flex-direction:column;gap:.95rem;
+}
+.hero--aerial .hero__feat{display:flex;align-items:center;gap:.8rem}
+.hero--aerial .hero__feat-ico{
+  flex:0 0 auto;width:42px;height:42px;border-radius:50%;display:grid;place-items:center;
+  color:#fff;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.28);
+  -webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);
+}
+.hero--aerial .hero__feat-ico svg{width:19px;height:19px}
+.hero--aerial .hero__feat-txt{display:flex;flex-direction:column;line-height:1.22}
+.hero--aerial .hero__feat-txt b{
+  font-family:var(--ui-hero);font-weight:700;font-size:.95rem;color:#fff;
+  text-shadow:0 1px 12px rgba(0,0,0,.55);
+}
+.hero--aerial .hero__feat-txt small{
+  font-family:var(--ui-hero);font-weight:400;font-size:.78rem;color:rgba(255,255,255,.82);
+  text-shadow:0 1px 12px rgba(0,0,0,.55);
+}
 
 /* tablet / mobile: stack copy + CTAs at the base, over a bottom scrim */
 @media (max-width:900px){
@@ -2295,8 +2317,10 @@ a.trust__cell:hover{background:var(--bg-2)}
     padding-inline:clamp(1.5rem,6vw,3rem);align-items:flex-start;
   }
   .hero--aerial .hero__aerial-left{bottom:clamp(6.5rem,20vh,9rem)}
-  .hero--aerial .hero__aerial-right{bottom:clamp(1.8rem,5vh,2.6rem);flex-direction:row;flex-wrap:wrap;gap:.7rem}
+  .hero--aerial .hero__aerial-right{bottom:clamp(1.8rem,5vh,2.6rem)}
+  .hero--aerial .hero__aerial-right .hero__cta{flex-direction:row;flex-wrap:wrap;gap:.7rem}
   .hero--aerial .hero__title{font-size:clamp(1.8rem,6vw,2.4rem)}
   .hero--aerial .hero__text{max-width:34ch}
   .hero--aerial .hero__aerial-right .btn{padding:.95em 1.5em;font-size:.76rem}
+  .hero--aerial .hero__feats{display:none}   /* highlights are a desktop-only touch */
 }
