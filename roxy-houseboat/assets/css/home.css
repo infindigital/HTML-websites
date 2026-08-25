@@ -2422,18 +2422,16 @@ a.trust__cell:hover{background:var(--bg-2)}
   text-shadow:0 1px 16px rgba(0,0,0,.55);
 }
 
-/* tablet: keep the EXACT desktop aerial composition (photo + flowing water +
-   the keyed boat over the wordmark, copy left / CTAs right) — it scales down
-   cleanly on wider small screens. Undo the shared small-screen boat hide. */
+/* tablet + phone: portrait keeps the SAME composition as desktop — the keyed
+   boat sits behind the giant wordmark over the turquoise channel, and the copy
+   + CTAs stack over the open water below. The boat is zoomed OUT (scaled in
+   place) so it tucks under the word instead of filling the frame; the
+   transparent surround lets the flowing water show through around it. Undo the
+   shared small-screen boat hide first. */
 @media (max-width:1024px){
-  .hero--aerial .hero__boatwrap{display:block}
-}
-/* phone: portrait keeps the SAME scene (boat over the turquoise channel — the
-   side palms crop away but the boat and water stay in frame); copy + CTAs
-   stack at the base where there is room. */
-@media (max-width:640px){
   .hero--aerial{aspect-ratio:auto;min-height:100vh;min-height:100svh}
-  .hero--aerial .hero__word{font-size:24vw;top:19%}
+  .hero--aerial .hero__boatwrap{display:block;transform:scale(.58);transform-origin:center 43%}
+  .hero--aerial .hero__word{font-size:30vw;top:33%;letter-spacing:-.01em}
   .hero--aerial .hero__aerial-left,
   .hero--aerial .hero__aerial-right{
     position:absolute;left:0;right:0;top:auto;transform:none;max-width:100%;
@@ -2445,6 +2443,11 @@ a.trust__cell:hover{background:var(--bg-2)}
   .hero--aerial .hero__title{font-size:clamp(1.8rem,6.5vw,2.3rem)}
   .hero--aerial .hero__text{max-width:40ch}
   .hero--aerial .hero__cta .btn{padding:.95em 1.5em;font-size:.76rem}
+  /* stronger bottom scrim so the stacked copy stays legible over the water */
+  .hero--aerial .hero__aerial-scrim{
+    background:
+      linear-gradient(180deg,rgba(6,20,26,.34) 0%,rgba(6,20,26,0) 22%),
+      linear-gradient(0deg,rgba(6,20,26,.78) 0%,rgba(6,20,26,.42) 20%,rgba(6,20,26,0) 46%)}
 }
 
 /* ============================================================
