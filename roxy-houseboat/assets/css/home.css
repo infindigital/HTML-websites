@@ -1317,6 +1317,24 @@ a.trust__cell:hover{background:var(--bg-2)}
   text-shadow:0 1px 16px rgba(6,20,28,.35)}
 .home-video-hero .discover__cta{margin-top:clamp(1rem,1.8vw,1.5rem)}
 
+/* homepage "Enjoy your travel" band on phones/tablets: the slim left panel has
+   no room, so stack it — photo (with the boat) fills the top, the copy + CTA
+   sit centred over a darkened lower half so nothing is clipped. Scoped to
+   .home-video-hero so it out-specifies the base panel rule above. */
+@media (max-width:860px){
+  .home-video-hero .discover__stage{aspect-ratio:auto;min-height:0}
+  .home-video-hero .discover__photo{background-position:50% 32%}
+  .home-video-hero .discover__scrim{
+    background:linear-gradient(180deg,rgba(11,40,55,.12) 0%,rgba(12,58,77,.5) 44%,rgba(11,40,55,.92) 100%)}
+  .home-video-hero .discover__panel{
+    position:relative;top:auto;left:auto;right:auto;transform:none;
+    width:100%;max-width:none;text-align:center;
+    padding:clamp(11rem,46vw,15rem) clamp(1.4rem,6vw,2.4rem) clamp(2rem,7vw,2.8rem)}
+  .home-video-hero .discover__title{font-size:clamp(2rem,8vw,2.7rem)}
+  .home-video-hero .discover__text{max-width:40ch;margin-inline:auto}
+  .home-video-hero .discover__cta{margin-inline:auto}
+}
+
 /* ============================================================
    12 · TESTIMONIALS, "Stories From The Water"
    ============================================================ */
@@ -2404,21 +2422,28 @@ a.trust__cell:hover{background:var(--bg-2)}
   text-shadow:0 1px 16px rgba(0,0,0,.55);
 }
 
-/* tablet / mobile: stack copy (upper) + CTAs (lower) at the base */
-@media (max-width:900px){
-  /* on phones the 16:9 photo would be a thin strip — keep a tall hero (tuned later per-device) */
+/* tablet: keep the EXACT desktop aerial composition (photo + flowing water +
+   the keyed boat over the wordmark, copy left / CTAs right) — it scales down
+   cleanly on wider small screens. Undo the shared small-screen boat hide. */
+@media (max-width:1024px){
+  .hero--aerial .hero__boatwrap{display:block}
+}
+/* phone: portrait keeps the SAME scene (boat over the turquoise channel — the
+   side palms crop away but the boat and water stay in frame); copy + CTAs
+   stack at the base where there is room. */
+@media (max-width:640px){
   .hero--aerial{aspect-ratio:auto;min-height:100vh;min-height:100svh}
-  .hero--aerial .hero__word{font-size:22vw;top:20%}
+  .hero--aerial .hero__word{font-size:24vw;top:19%}
   .hero--aerial .hero__aerial-left,
   .hero--aerial .hero__aerial-right{
     position:absolute;left:0;right:0;top:auto;transform:none;max-width:100%;
-    padding-inline:clamp(1.5rem,6vw,3rem);
+    padding-inline:clamp(1.4rem,6vw,2.4rem);
   }
-  .hero--aerial .hero__aerial-left{bottom:clamp(6.5rem,20vh,9rem)}
+  .hero--aerial .hero__aerial-left{bottom:clamp(6.2rem,19vh,8.5rem)}
   .hero--aerial .hero__aerial-right{bottom:clamp(1.8rem,5vh,2.6rem)}
   .hero--aerial .hero__cta{gap:.7rem;justify-content:flex-start}
-  .hero--aerial .hero__title{font-size:clamp(1.8rem,6vw,2.4rem)}
-  .hero--aerial .hero__text{max-width:34ch}
+  .hero--aerial .hero__title{font-size:clamp(1.8rem,6.5vw,2.3rem)}
+  .hero--aerial .hero__text{max-width:40ch}
   .hero--aerial .hero__cta .btn{padding:.95em 1.5em;font-size:.76rem}
 }
 
