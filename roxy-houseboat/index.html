@@ -494,60 +494,79 @@
     </div>
   </section>
 
-  <!-- ============ 06b · SERVICES BAND (intro + two cards) ============ -->
-  <section class="section svc2">
+  <!-- ============ 06b · SERVICES (feature + two cards) ============ -->
+  <section class="section srv" id="services">
     <div class="wrap">
-      <div class="svc__head reveal">
-        <span class="svc__script">on board</span>
-        <h2 class="svc__title">Our Services</h2>
+      <div class="srv__head reveal">
+        <span class="srv__eyebrow">Our Services</span>
+        <h2 class="srv__title">A floating resort experience</h2>
       </div>
-      <div class="svc2__panel reveal">
-        <div class="svc2__intro">
-          <span class="svc2__intro-ic" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18h18"/><path d="M5 18a7 7 0 0 1 14 0"/><path d="M12 8V6.4"/><circle cx="12" cy="5" r="1"/></svg>
-          </span>
-          <h2 class="svc2__intro-title">A Floating Resort</h2>
-          <span class="svc2__wave" aria-hidden="true"><svg viewBox="0 0 64 12" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M2 8C6 2 10 2 14 8s8 6 12 0 8-6 12 0 8 6 12 0 8-6 12 0"/></svg></span>
-          <p class="svc2__intro-text">Resort-style luxury that drifts with you — curated stays, signature backwater cruises, and premium all-inclusive packages crafted around every guest.</p>
-          <a class="svc2__intro-cta" href="/services/">Explore All Services
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-          </a>
-        </div>
 
-        <article class="svc2__card">
-          <img src="/assets/images/bedroom-2.jpg" alt="A warmly lit family houseboat bedroom with dining on board" loading="lazy" />
-          <span class="svc2__card-ic" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18v-5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v5"/><path d="M3 18v2M21 18v2"/><path d="M3 14.5h18"/><path d="M7 11V9.2a1.2 1.2 0 0 1 1.2-1.2h2.6A1.2 1.2 0 0 1 12 9.2V11"/></svg>
-          </span>
-          <div class="svc2__card-body">
-            <h3 class="svc2__card-title">Accommodation<br />and Dining</h3>
-            <span class="svc2__card-sub">Family Houseboat (Single / Multiple Bed Room)</span>
-            <p class="svc2__card-text">Elegantly appointed suites, chef-crafted Kerala cuisine, and gracious resort-style hospitality — an indulgent, all-inclusive stay on the tranquil backwaters.</p>
+      <div class="srv__grid reveal" data-delay="1">
+        <!-- big feature card (floating resort, with the packages CTAs moved here) -->
+        <article class="srv__feature">
+          <div class="srv__media">
+            <img src="/assets/images/houseboat-day-2.jpg" alt="A Roxy houseboat cruising the tranquil Nileshwar backwaters" loading="lazy" />
+            <span class="srv__badge" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18h18"/><path d="M5 18a7 7 0 0 1 14 0"/><path d="M12 8V6.4"/><circle cx="12" cy="5" r="1"/></svg>
+            </span>
+          </div>
+          <div class="srv__feat-body">
+            <div class="srv__feat-copy">
+              <h3 class="srv__name srv__name--lg">A Floating Resort</h3>
+              <p class="srv__desc">Resort-style luxury that drifts with you — curated stays, signature backwater cruises, and premium all-inclusive packages crafted around every guest.</p>
+            </div>
+            <div class="srv__cta">
+              <a class="srv__btn srv__btn--dark" href="/packages/">View Packages
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+              </a>
+              <a class="srv__btn srv__btn--ghost" href="/services/">Explore the Resort</a>
+            </div>
           </div>
         </article>
 
-        <article class="svc2__card">
-          <img src="/assets/images/conference.jpg" alt="A conference houseboat set up for meetings and events on the backwaters" loading="lazy" />
-          <span class="svc2__card-ic" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8.5" r="2.6"/><path d="M3.5 19a5.5 5.5 0 0 1 11 0"/><path d="M16 6.2a2.6 2.6 0 0 1 0 5"/><path d="M17.5 19a5.5 5.5 0 0 0-3-4.9"/></svg>
-          </span>
-          <div class="svc2__card-body">
-            <h3 class="svc2__card-title">Events &amp;<br />Conferences</h3>
-            <span class="svc2__card-sub">Conference Houseboat</span>
-            <p class="svc2__card-text">Host corporate meetings, celebrations, and milestone events aboard a private floating venue — panoramic backwater views paired with impeccable, white-glove service.</p>
+        <!-- two stacked cards (right) -->
+        <article class="srv__card">
+          <a class="srv__media" href="/services/" aria-label="Accommodation and Dining">
+            <img src="/assets/images/bedroom-2.jpg" alt="A warmly lit family houseboat bedroom with dining on board" loading="lazy" />
+            <span class="srv__badge" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18v-5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v5"/><path d="M3 18v2M21 18v2"/><path d="M3 14.5h18"/><path d="M7 11V9.2a1.2 1.2 0 0 1 1.2-1.2h2.6A1.2 1.2 0 0 1 12 9.2V11"/></svg>
+            </span>
+          </a>
+          <div class="srv__body">
+            <div class="srv__meta">
+              <h3 class="srv__name">Accommodation &amp; Dining</h3>
+              <div class="srv__tags">
+                <span class="srv__tag">Stay</span>
+                <span class="srv__tag">Dining</span>
+              </div>
+            </div>
+            <a class="srv__go" href="/services/" aria-label="Accommodation and Dining">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </a>
           </div>
         </article>
-      </div>
 
-      <!-- slim floating-resort callout band -->
-      <div class="fresort reveal">
-        <p class="fresort__title">Floating Resort <span>with great packages</span></p>
-        <div class="fresort__cta">
-          <a class="fresort__btn fresort__btn--gold" href="/packages/">View Packages
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        <article class="srv__card">
+          <a class="srv__media" href="/services/" aria-label="Events and Conferences">
+            <img src="/assets/images/conference.jpg" alt="A conference houseboat set up for meetings and events on the backwaters" loading="lazy" />
+            <span class="srv__badge" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8.5" r="2.6"/><path d="M3.5 19a5.5 5.5 0 0 1 11 0"/><path d="M16 6.2a2.6 2.6 0 0 1 0 5"/><path d="M17.5 19a5.5 5.5 0 0 0-3-4.9"/></svg>
+            </span>
           </a>
-          <a class="fresort__btn fresort__btn--ghost" href="/services/">Explore the Resort</a>
-        </div>
+          <div class="srv__body">
+            <div class="srv__meta">
+              <h3 class="srv__name">Events &amp; Conferences</h3>
+              <div class="srv__tags">
+                <span class="srv__tag">Meetings</span>
+                <span class="srv__tag">Celebrations</span>
+              </div>
+            </div>
+            <a class="srv__go" href="/services/" aria-label="Events and Conferences">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </a>
+          </div>
+        </article>
       </div>
     </div>
   </section>
