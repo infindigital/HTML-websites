@@ -2438,7 +2438,8 @@ a.trust__cell:hover{background:var(--bg-2)}
   .hero--aerial .hero__aerial-bg,
   .hero--aerial .hero__flow{background-position:center 42%}
   .hero--aerial .hero__flow{-webkit-mask-position:center 42%;mask-position:center 42%}
-  .hero--aerial .hero__word{font-size:19.5vw;top:14%;letter-spacing:-.01em}
+  /* tablet keeps the full horizontal nav, so the word sits clear below it */
+  .hero--aerial .hero__word{font-size:15vw;top:26%;letter-spacing:-.01em}
   .hero--aerial .hero__aerial-left,
   .hero--aerial .hero__aerial-right{
     position:absolute;left:0;right:0;top:auto;transform:none;max-width:100%;
@@ -2450,6 +2451,20 @@ a.trust__cell:hover{background:var(--bg-2)}
   .hero--aerial .hero__title{font-size:clamp(1.8rem,6.5vw,2.3rem)}
   .hero--aerial .hero__text{max-width:40ch}
   .hero--aerial .hero__cta .btn{padding:.95em 1.5em;font-size:.76rem}
+}
+
+/* phone: nav collapses to a hamburger (≤860), so the word can lift to the top.
+   Zoom the photo so the boat reads larger and pull it up toward the word,
+   opening a band of clear water below for the copy + buttons. The flow layer
+   and its water-mask track the exact same size + position so the ripple stays
+   locked to the water. */
+@media (max-width:860px){
+  .hero--aerial .hero__aerial-bg,
+  .hero--aerial .hero__flow{background-size:auto 128%;background-position:center 46%}
+  .hero--aerial .hero__flow{-webkit-mask-size:auto 128%;mask-size:auto 128%;
+                            -webkit-mask-position:center 46%;mask-position:center 46%}
+  .hero--aerial .hero__word{font-size:18vw;top:8.5%}
+  .hero--aerial .hero__aerial-left{bottom:clamp(10.5rem,25vh,13.5rem)}
 }
 
 /* ============================================================
