@@ -240,14 +240,30 @@
 
   <!-- ============ 01 · HERO — aerial wordmark, boat floats above the type ============ -->
   <section class="hero hero--aerial" id="hero">
-    <!-- single high-clarity aerial photograph (boat included) -->
+    <!-- high-clarity aerial photograph (background, crisp & static) -->
     <div class="hero__aerial-bg" role="img"
          aria-label="Aerial view of a Roxy houseboat cruising the turquoise Nileshwar backwaters, framed by dense coconut palms"
          style="background-image:url('/assets/images/aerial-hero.webp')"></div>
-    <!-- top + bottom legibility scrim (nav + footer copy) -->
-    <div class="hero__aerial-scrim" aria-hidden="true"></div>
-    <!-- giant word, laid over the water -->
+    <!-- the SAME photo, gently warped by a subtle displacement filter, masked to
+         the water channel only -> the surface softly floats while palms/boat stay crisp -->
+    <div class="hero__flow" style="background-image:url('/assets/images/aerial-hero.webp')" aria-hidden="true"></div>
+    <svg class="hero__svgdefs" aria-hidden="true" width="0" height="0" xmlns="http://www.w3.org/2000/svg">
+      <filter id="roxyFlow" x="-3%" y="-3%" width="106%" height="106%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.009 0.017" numOctaves="2" seed="3" result="noise">
+          <animate attributeName="baseFrequency" dur="26s" repeatCount="indefinite"
+                   values="0.009 0.017; 0.010 0.016; 0.008 0.018; 0.009 0.017"/>
+        </feTurbulence>
+        <feDisplacementMap in="SourceGraphic" in2="noise" xChannelSelector="R" yChannelSelector="G" scale="1.4">
+          <animate attributeName="scale" dur="13s" repeatCount="indefinite" values="0.9;1.8;0.9"/>
+        </feDisplacementMap>
+      </filter>
+    </svg>
+    <!-- giant word, sits on the water BEHIND the boat -->
     <span class="hero__word" aria-hidden="true">Houseboat</span>
+    <!-- the boat, keyed out of the same photo, layered ON TOP of the word (still) -->
+    <span class="hero__boatwrap" aria-hidden="true">
+      <img class="hero__boat-fg" src="/assets/images/aerial-boat.webp" alt="" aria-hidden="true" />
+    </span>
     <!-- LEFT (lower): intro copy -->
     <div class="hero__aerial-left">
       <span class="hero__loc">
