@@ -1126,41 +1126,32 @@ a.trust__cell:hover{background:var(--bg-2)}
 .why__badge .stars{color:var(--gold);font-size:.78rem;letter-spacing:1px;display:block}
 .why__badge small{font-size:.72rem;color:var(--ink-2)}
 
-/* ---- Why Choose Roxy — white editorial split (intro left, reason list right) ---- */
-.wr{--wr-line:#e6e8ea}
-.wr__top{display:grid;grid-template-columns:0.92fr 1.08fr;gap:clamp(2rem,5vw,5rem);
-  align-items:stretch}
-/* left intro column */
-.wr__intro{max-width:34ch}
+/* ---- Why Choose Roxy — simple centered heading + three cards ---- */
+.wr{--wr-line:#e6e8ea;display:flex;flex-direction:column;align-items:center;text-align:center}
+.wr__head{max-width:56ch}
 .wr__eyebrow{display:inline-block;background:#f1f2f3;color:#3a3f42;font-weight:600;
   font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;padding:.55em 1.1em;border-radius:999px}
-.wr__title{font-family:var(--sans);font-weight:700;color:#0e1113;line-height:1.12;letter-spacing:-.02em;
-  font-size:clamp(1.9rem,3.4vw,2.7rem);margin:1.1rem 0 0;text-wrap:balance}
-.wr__lead{color:#5c6266;font-size:clamp(.98rem,1.15vw,1.08rem);line-height:1.65;margin:1rem 0 0}
-.wr__cta{display:inline-flex;align-items:center;gap:.6em;margin-top:clamp(1.6rem,3vw,2.2rem);
-  padding:.92em 2em;border-radius:999px;background:#101316;color:#fff;font-weight:600;
-  font-size:.9rem;text-decoration:none;transition:transform .4s var(--ease),background .4s var(--ease)}
-.wr__cta svg{width:16px;height:16px;transition:transform .4s var(--ease)}
-.wr__cta:hover{background:#2a2f34;transform:translateY(-2px)}
-.wr__cta:hover svg{transform:translateX(3px)}
-/* right reason list — rows split by hairlines */
-.wr__list{display:flex;flex-direction:column;justify-content:space-between;
-  gap:clamp(1.2rem,2vw,1.6rem)}
-.wr__point{display:flex;align-items:flex-start;gap:clamp(1rem,1.6vw,1.4rem);
-  padding-top:clamp(1.3rem,2.4vw,1.7rem);border-top:1px solid var(--wr-line)}
-.wr__point:first-child{border-top:none;padding-top:0}
-.wr__list:hover .wr__point{opacity:.55;transition:opacity .35s var(--ease)}
-.wr__list:hover .wr__point:hover{opacity:1}
-.wr__ic{flex:none;display:inline-flex;align-items:center;justify-content:center;
-  width:clamp(46px,3.6vw,54px);height:clamp(46px,3.6vw,54px);border-radius:14px;
-  background:#101316;color:#fff;transition:transform .4s var(--ease)}
-.wr__ic svg{width:46%;height:46%}
-.wr__point:hover .wr__ic{transform:translateY(-3px)}
+.wr__title{font-family:var(--sans);font-weight:700;color:#0e1113;line-height:1.14;letter-spacing:-.02em;
+  font-size:clamp(1.9rem,3.4vw,2.6rem);margin:1.1rem auto 0;max-width:24ch;text-wrap:balance}
+.wr__lead{color:#5c6266;font-size:clamp(.98rem,1.15vw,1.08rem);line-height:1.65;
+  margin:1rem auto 0;max-width:58ch}
+/* three cards */
+.wr__cards{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(1.1rem,2vw,1.6rem);
+  width:100%;margin-top:clamp(2.4rem,4.5vw,3.4rem)}
+.wr__card{display:flex;flex-direction:column;align-items:center;text-align:center;
+  background:#fff;border:1px solid var(--wr-line);border-radius:20px;
+  padding:clamp(1.8rem,2.6vw,2.4rem) clamp(1.3rem,2vw,1.8rem);
+  transition:transform .4s var(--ease),box-shadow .4s var(--ease),border-color .4s var(--ease)}
+.wr__card:hover{transform:translateY(-5px);box-shadow:0 18px 40px rgba(16,19,22,.09);border-color:#dcdfe2}
+.wr__ic{display:inline-flex;align-items:center;justify-content:center;
+  width:clamp(54px,4.4vw,64px);height:clamp(54px,4.4vw,64px);border-radius:16px;
+  background:#101316;color:#fff}
+.wr__ic svg{width:44%;height:44%}
 .wr__name{font-family:var(--sans);font-weight:700;color:#0e1113;
-  font-size:clamp(1.05rem,1.35vw,1.22rem);line-height:1.25;margin:.1rem 0 0}
-.wr__text{color:#5c6266;font-size:clamp(.9rem,1vw,.98rem);line-height:1.6;margin:.4rem 0 0}
-/* stats strip — full width beneath the split */
-.wr__stats{display:flex;align-items:stretch;flex-wrap:wrap;width:100%;
+  font-size:clamp(1.08rem,1.4vw,1.24rem);line-height:1.25;margin:1.2rem 0 0}
+.wr__text{color:#5c6266;font-size:clamp(.9rem,1vw,.98rem);line-height:1.6;margin:.55rem 0 0}
+/* stats strip */
+.wr__stats{display:flex;align-items:stretch;flex-wrap:wrap;width:100%;max-width:880px;
   margin-top:clamp(2.6rem,5vw,3.8rem);
   border-top:1px solid var(--wr-line);border-bottom:1px solid var(--wr-line)}
 .wr__stat{flex:1 1 0;min-width:92px;padding:clamp(1.4rem,2.6vw,1.9rem) clamp(.7rem,2vw,1.6rem)}
@@ -1168,9 +1159,15 @@ a.trust__cell:hover{background:var(--bg-2)}
 .wr__num{display:block;font-family:var(--sans);font-weight:700;color:#0e1113;letter-spacing:-.02em;
   font-size:clamp(1.7rem,2.6vw,2.3rem);line-height:1;white-space:nowrap}
 .wr__lbl{display:block;color:#6b7175;font-size:clamp(.78rem,.9vw,.9rem);line-height:1.4;margin-top:.5rem}
+/* centered CTA */
+.wr__cta{display:inline-flex;align-items:center;gap:.6em;margin-top:clamp(2.2rem,4vw,3rem);
+  padding:.92em 2em;border-radius:999px;background:#101316;color:#fff;font-weight:600;
+  font-size:.9rem;text-decoration:none;transition:transform .4s var(--ease),background .4s var(--ease)}
+.wr__cta svg{width:16px;height:16px;transition:transform .4s var(--ease)}
+.wr__cta:hover{background:#2a2f34;transform:translateY(-2px)}
+.wr__cta:hover svg{transform:translateX(3px)}
 @media (max-width:820px){
-  .wr__top{grid-template-columns:1fr;gap:clamp(1.8rem,5vw,2.6rem)}
-  .wr__intro{max-width:52ch}
+  .wr__cards{grid-template-columns:1fr;gap:1.1rem;max-width:440px}
 }
 @media (max-width:760px){
   .wr__num{font-size:1.5rem}
