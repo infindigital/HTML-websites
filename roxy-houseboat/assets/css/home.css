@@ -2221,8 +2221,9 @@ a.trust__cell:hover{background:var(--bg-2)}
   position:absolute;inset:0;z-index:1;
   background-size:cover;background-position:center;background-repeat:no-repeat;
   filter:url(#roxyFlow);
-  -webkit-mask:linear-gradient(90deg,transparent 0,#000 20%,#000 80%,transparent 100%);
-          mask:linear-gradient(90deg,transparent 0,#000 20%,#000 80%,transparent 100%);
+  /* confine the motion to the WATER only — trees stay perfectly still */
+  -webkit-mask:url('/assets/images/water-mask.png') center/cover no-repeat;
+          mask:url('/assets/images/water-mask.png') center/cover no-repeat;
   will-change:filter;
 }
 /* boat sits still, layered over the word and aligned to the background */
