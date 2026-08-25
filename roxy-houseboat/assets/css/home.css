@@ -1145,31 +1145,62 @@ a.trust__cell:hover{background:var(--bg-2)}
 /* ============================================================
    DISCOVER NILESHWAR, cinematic CTA band (hero-matched frame)
    ============================================================ */
+/* ---- base (internal pages: original "Discover with Us" band) ---- */
 .discover__stage{
   position:relative;width:100%;border-radius:var(--radius);overflow:hidden;
-  aspect-ratio:5/2;min-height:clamp(320px,30vw,440px);isolation:isolate;
+  aspect-ratio:16/7;min-height:clamp(420px,42vw,560px);isolation:isolate;
 }
 .discover__photo{position:absolute;inset:0;z-index:1;
-  background:url("../images/3af5e0e8-4522-4afd-bc27-a905af7320bf.png") no-repeat;
-  background-size:cover;background-position:center}
-/* deepen the LEFT side (boat sits on the right) so the white type stays legible over the water */
+  background:url("../images/discover-cta.webp") no-repeat;
+  background-size:cover;background-position:14% center}
+/* deepen the right side so the white type stays legible over the water */
 .discover__scrim{position:absolute;inset:0;z-index:2;pointer-events:none;
-  background:linear-gradient(90deg,rgba(11,40,55,.82) 0%,rgba(12,58,77,.42) 40%,rgba(12,58,77,0) 64%)}
-.discover__panel{position:absolute;z-index:3;top:50%;left:clamp(1.6rem,4vw,4rem);
-  transform:translateY(-50%);width:min(46%,470px);color:#fff}
-.discover__title{font-family:var(--sans);font-weight:700;color:#fff;line-height:1.04;
-  letter-spacing:-.02em;font-size:clamp(2.1rem,3.6vw,3.1rem);margin:0;
-  text-shadow:0 2px 24px rgba(6,20,28,.35)}
-.discover__text{font-family:var(--sans);font-weight:400;color:rgba(255,255,255,.92);
-  line-height:1.5;font-size:clamp(.98rem,1.1vw,1.1rem);
-  margin:clamp(.75rem,1.4vw,1.05rem) 0 0;max-width:32ch;
-  text-shadow:0 1px 16px rgba(6,20,28,.35)}
+  background:linear-gradient(90deg,rgba(12,58,77,0) 34%,rgba(12,58,77,.42) 56%,rgba(13,54,72,.82) 100%)}
+.discover__panel{position:absolute;z-index:3;top:50%;right:clamp(1.1rem,2.6vw,2.6rem);
+  transform:translateY(-50%);width:min(42%,440px);color:#fff;
+  padding:clamp(1.6rem,2.6vw,2.4rem);border-radius:clamp(18px,2vw,26px);
+  background:linear-gradient(150deg,rgba(13,54,72,.5),rgba(9,32,45,.34));
+  border:1px solid rgba(255,255,255,.16);
+  backdrop-filter:blur(9px);-webkit-backdrop-filter:blur(9px);
+  box-shadow:none}
+.discover__title{font-family:var(--sans);font-weight:800;color:#fff;line-height:1.05;
+  letter-spacing:-.015em;font-size:clamp(1.6rem,2.7vw,2.5rem);margin:0}
+.discover__script{display:flex;align-items:center;gap:.4em;
+  font-family:'Dancing Script',cursive;font-weight:700;color:var(--aqua);
+  letter-spacing:0;line-height:1;font-size:clamp(1.45rem,2.5vw,2.25rem);margin-top:.1em}
+.discover__wave{display:inline-flex;color:var(--aqua);opacity:.9}
+.discover__wave svg{width:clamp(34px,3.4vw,48px);height:auto}
+.discover__wave:last-child{transform:scaleX(-1)}
+.discover__text{color:rgba(255,255,255,.9);line-height:1.58;
+  font-size:clamp(.85rem,.92vw,.95rem);margin:clamp(.8rem,1.4vw,1.1rem) 0 0;max-width:42ch}
+.discover__text strong{color:#fff;font-weight:700}
+.discover__sub{font-family:var(--sans);font-weight:800;color:#fff;line-height:1.14;
+  letter-spacing:-.01em;font-size:clamp(1.15rem,1.7vw,1.6rem);margin:clamp(1.2rem,2.1vw,1.6rem) 0 0}
 .discover__cta{display:inline-flex;align-items:center;justify-content:center;
-  margin-top:clamp(1.2rem,2vw,1.7rem);padding:.9em 2.3em;border-radius:12px;
+  margin-top:clamp(1.4rem,2.4vw,1.9rem);padding:.95em 2.4em;border-radius:12px;
   background:var(--aqua);color:#fff;font-weight:600;font-size:.82rem;
   text-transform:uppercase;letter-spacing:.08em;text-decoration:none;
   transition:transform .4s var(--ease),background .4s var(--ease)}
 .discover__cta:hover{background:var(--aqua-deep);transform:translateY(-2px);}
+
+/* ---- homepage only: slim "Enjoy your travel" band on the new backwater photo ---- */
+.home-video-hero .discover__stage{aspect-ratio:3/1;min-height:clamp(260px,22vw,360px)}
+.home-video-hero .discover__photo{
+  background:url("../images/3af5e0e8-4522-4afd-bc27-a905af7320bf.png") no-repeat;
+  background-size:cover;background-position:center}
+.home-video-hero .discover__scrim{
+  background:linear-gradient(90deg,rgba(11,40,55,.82) 0%,rgba(12,58,77,.42) 40%,rgba(12,58,77,0) 64%)}
+.home-video-hero .discover__panel{top:50%;left:clamp(1.6rem,4vw,4rem);right:auto;
+  transform:translateY(-50%);width:min(46%,470px);
+  padding:0;border:0;background:none;backdrop-filter:none;-webkit-backdrop-filter:none;border-radius:0}
+.home-video-hero .discover__title{font-weight:700;line-height:1.04;
+  letter-spacing:-.02em;font-size:clamp(1.9rem,3.2vw,2.8rem);
+  text-shadow:0 2px 24px rgba(6,20,28,.35)}
+.home-video-hero .discover__text{font-weight:400;color:rgba(255,255,255,.92);
+  line-height:1.5;font-size:clamp(.95rem,1.05vw,1.05rem);
+  margin:clamp(.65rem,1.2vw,.9rem) 0 0;max-width:32ch;
+  text-shadow:0 1px 16px rgba(6,20,28,.35)}
+.home-video-hero .discover__cta{margin-top:clamp(1rem,1.8vw,1.5rem)}
 
 /* ============================================================
    12 · TESTIMONIALS, "Stories From The Water"
