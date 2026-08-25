@@ -240,33 +240,15 @@
 
   <!-- ============ 01 · HERO — aerial wordmark, boat floats above the type ============ -->
   <section class="hero hero--aerial" id="hero">
-    <!-- aerial backwater photograph (static — keeps the palms crisp) -->
+    <!-- single high-clarity aerial photograph (boat included) -->
     <div class="hero__aerial-bg" role="img"
-         aria-label="Aerial view of the turquoise Nileshwar backwaters, framed by dense coconut palms"
-         style="background-image:url('/assets/images/aerial-water.webp')"></div>
-    <!-- the SAME water, warped by an animated displacement filter -> the surface gently flows -->
-    <div class="hero__flow" style="background-image:url('/assets/images/aerial-water.webp')" aria-hidden="true"></div>
-    <!-- off-screen filter that drives the flowing-water displacement -->
-    <svg class="hero__svgdefs" aria-hidden="true" width="0" height="0" xmlns="http://www.w3.org/2000/svg">
-      <filter id="roxyFlow" x="-4%" y="-4%" width="108%" height="108%">
-        <feTurbulence type="fractalNoise" baseFrequency="0.010 0.020" numOctaves="2" seed="3" result="noise">
-          <animate attributeName="baseFrequency" dur="24s" repeatCount="indefinite"
-                   values="0.010 0.020; 0.011 0.018; 0.009 0.021; 0.010 0.020"/>
-        </feTurbulence>
-        <feDisplacementMap in="SourceGraphic" in2="noise" xChannelSelector="R" yChannelSelector="G" scale="2">
-          <animate attributeName="scale" dur="12s" repeatCount="indefinite" values="1.2;2.4;1.2"/>
-        </feDisplacementMap>
-      </filter>
-    </svg>
+         aria-label="Aerial view of a Roxy houseboat cruising the turquoise Nileshwar backwaters, framed by dense coconut palms"
+         style="background-image:url('/assets/images/aerial-hero.webp')"></div>
     <!-- top + bottom legibility scrim (nav + footer copy) -->
     <div class="hero__aerial-scrim" aria-hidden="true"></div>
-    <!-- giant word, sits on the water BEHIND the boat -->
+    <!-- giant word, laid over the water -->
     <span class="hero__word" aria-hidden="true">Houseboat</span>
-    <!-- the boat, keyed out of the same photo, layered ON TOP of the word (still) -->
-    <span class="hero__boatwrap" aria-hidden="true">
-      <img class="hero__boat-fg" src="/assets/images/aerial-boat.webp" alt="" aria-hidden="true" />
-    </span>
-    <!-- LEFT of the boat (lower): intro copy -->
+    <!-- LEFT (lower): intro copy -->
     <div class="hero__aerial-left">
       <span class="hero__loc">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>

@@ -2349,15 +2349,10 @@ a.trust__cell:hover{background:var(--bg-2)}
    because this layer is the SAME photo cropped identically (object-fit:cover/center) */
 /* flowing water: same photo, warped by the animated displacement filter,
    masked to the central channel so the palms stay crisp */
-.hero--aerial .hero__flow{
-  position:absolute;inset:0;z-index:1;
-  background-size:cover;background-position:center;background-repeat:no-repeat;
-  filter:url(#roxyFlow);
-  /* confine the motion to the WATER only — trees stay perfectly still */
-  -webkit-mask:url('/assets/images/water-mask.png') center/cover no-repeat;
-          mask:url('/assets/images/water-mask.png') center/cover no-repeat;
-  will-change:filter;
-}
+/* single flat photo (aerial-hero.webp already contains the boat) — the flowing
+   displacement layer and the keyed boat are removed for maximum clarity */
+.hero--aerial .hero__flow{display:none}
+.hero--aerial .hero__boatwrap{display:none}
 /* boat sits still, layered over the word and aligned to the background */
 .hero--aerial .hero__boatwrap{
   position:absolute;inset:0;z-index:4;pointer-events:none;
@@ -2430,8 +2425,9 @@ a.trust__cell:hover{background:var(--bg-2)}
    shared small-screen boat hide first. */
 @media (max-width:1024px){
   .hero--aerial{aspect-ratio:auto;min-height:100vh;min-height:100svh}
-  .hero--aerial .hero__boatwrap{display:block;transform:translateY(-9%) scale(.74);transform-origin:center center}
-  .hero--aerial .hero__word{font-size:19.5vw;top:23%;letter-spacing:-.01em}
+  /* flat photo shows the boat via the background; keep it framed in view */
+  .hero--aerial .hero__aerial-bg{background-position:center 42%}
+  .hero--aerial .hero__word{font-size:19.5vw;top:14%;letter-spacing:-.01em}
   .hero--aerial .hero__aerial-left,
   .hero--aerial .hero__aerial-right{
     position:absolute;left:0;right:0;top:auto;transform:none;max-width:100%;
