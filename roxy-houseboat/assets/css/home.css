@@ -2434,3 +2434,122 @@ a.trust__cell:hover{background:var(--bg-2)}
   .hero--aerial .hero__text{max-width:34ch}
   .hero--aerial .hero__cta .btn{padding:.95em 1.5em;font-size:.76rem}
 }
+
+/* ============================================================
+   HOMEPAGE THEME UNIFICATION — packages / services / about look
+   Applied to the trust band, testimonials, why-roxy, gallery,
+   contact + FAQ. Scoped to .home-video-hero so the shared
+   classes (cx, acc) never change on internal pages.
+   ============================================================ */
+
+/* shared eyebrow pill (packages style) */
+.home-video-hero .rev__eyebrow,
+.home-video-hero .gal2__eyebrow,
+.home-video-hero .whyx__eyebrow,
+.home-video-hero .cx__eyebrow{
+  display:inline-block;background:#f1f2f3;color:#3a3f42;font-family:var(--sans);
+  font-weight:600;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;
+  padding:.55em 1.1em;border-radius:999px;margin:0;width:auto}
+.home-video-hero .whyx__eyebrow::after,
+.home-video-hero .cx__eyebrow::after{content:none;display:none}
+
+/* shared black headings (packages style) */
+.home-video-hero .rev__title,
+.home-video-hero .gal2__title,
+.home-video-hero .whyx__title,
+.home-video-hero .cx__title{
+  font-family:var(--sans);font-weight:700;letter-spacing:-.02em;line-height:1.05;
+  color:#0e1113;text-transform:none}
+.home-video-hero .cx__faq-title{
+  font-family:var(--sans);font-weight:700;letter-spacing:-.02em;color:#0e1113}
+
+/* ---- trust band (banner after hero) ---- */
+.home-video-hero .trust__ico{background:#f1f2f3;color:#101316}
+
+/* ---- testimonials ---- */
+.home-video-hero .rev__head{text-align:left;display:flex;flex-direction:column;
+  align-items:flex-start;gap:clamp(.9rem,1.6vw,1.2rem)}
+.home-video-hero .rev__title{font-size:clamp(2rem,4.4vw,3.3rem);margin:0}
+.home-video-hero .rev-card__avatar{background:#20272e !important;color:#fff}
+.home-video-hero .rev-card__name{color:#0e1113}
+.home-video-hero .rev-card__rating svg{color:#f6a609}
+.home-video-hero .rev__nav{background:#101316;color:#fff;border:0}
+.home-video-hero .rev__nav:hover{background:#2a2f34;transform:translateY(-50%) scale(1.06)}
+.home-video-hero .rev__dot{background:#d7dde2}
+.home-video-hero .rev__dot.is-active{background:#101316}
+
+/* ---- gallery ---- */
+.home-video-hero .gal2__title{font-size:clamp(2rem,4.4vw,3.3rem)}
+.home-video-hero .gal2__more{background:#101316;color:#fff;border-color:#101316}
+.home-video-hero .gal2__more:hover{background:#2a2f34}
+.home-video-hero .gal2__tile::after{background:linear-gradient(180deg,rgba(14,17,19,0) 40%,rgba(14,17,19,.42))}
+
+/* ---- why roxy ---- */
+.home-video-hero .whyx__title{font-weight:700;color:#0e1113;font-size:clamp(1.9rem,3.4vw,2.9rem)}
+.home-video-hero .whyx__cta{background:#101316}
+.home-video-hero .whyx__cta:hover{background:#2a2f34}
+.home-video-hero .whyx-stat__n{color:#0e1113;font-weight:700}
+.home-video-hero .whyx-stat__ic{background:#f1f2f3;color:#101316}
+.home-video-hero .whyx__social a:hover{background:#101316;color:#fff;border-color:#101316}
+.home-video-hero .whyx-card__title{color:#0e1113}
+.home-video-hero .whyx-card__no{color:#e5e9ec}
+.home-video-hero .whyx-card__ic{background:#f1f2f3;color:#101316}
+.home-video-hero .whyx-card::before{background:#101316}
+.home-video-hero .whyx-card:hover{box-shadow:0 20px 44px -30px rgba(12,22,28,.4)}
+
+/* ---- contact + FAQ ---- */
+.home-video-hero .cx__panel{background:#eef2f6}
+.home-video-hero .cx__title{font-size:clamp(2rem,3.6vw,2.9rem)}
+.home-video-hero .cx__form .field input:focus,
+.home-video-hero .cx__form .field textarea:focus{border-color:#101316}
+.home-video-hero .cx__btn{background:#101316;border-radius:999px;
+  text-transform:none;letter-spacing:.01em;font-size:.95rem;font-weight:600;padding:1em 1.6em}
+.home-video-hero .cx__btn:hover{background:#2a2f34}
+.home-video-hero .acc__q{color:#0e1113}
+.home-video-hero .acc__q:hover{color:#0e1113}
+.home-video-hero .acc__item.is-open .acc__q{color:#0e1113}
+.home-video-hero .acc__ic::before,
+.home-video-hero .acc__ic::after{background:#101316}
+
+/* ============================================================
+   HOMEPAGE FOOTER (fh) — light, minimal, rounded top corners,
+   socials in dark circles. Homepage-only classes; internal
+   pages keep their existing .foot markup + styles.
+   ============================================================ */
+.fh{background:#eef2f6;color:#3d4348;border-radius:clamp(24px,3vw,40px) clamp(24px,3vw,40px) 0 0;
+  margin-top:clamp(2rem,4vw,3.4rem);padding-block:clamp(2.6rem,4.6vw,4rem) clamp(1.4rem,2vw,1.9rem)}
+.fh__top{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:clamp(1.8rem,3.5vw,3.4rem);
+  align-items:start;padding-bottom:clamp(2rem,3.4vw,3rem);border-bottom:1px solid #dbe1e7}
+.fh__logo{height:clamp(60px,6vw,84px);width:auto;display:block}
+.fh__blurb{max-width:34ch;line-height:1.7;font-size:.94rem;color:#5a6167;margin:clamp(1rem,1.6vw,1.3rem) 0 0}
+.fh__place{display:inline-flex;align-items:center;gap:.5em;margin-top:clamp(1rem,1.6vw,1.3rem);
+  font-family:var(--sans);font-weight:600;font-size:.9rem;color:#0e1113}
+.fh__place svg{width:16px;height:16px;color:#101316}
+.fh__cols{display:contents}
+.fh__h{font-family:var(--sans);font-weight:700;font-size:.86rem;letter-spacing:.06em;
+  text-transform:uppercase;color:#0e1113;margin:0 0 clamp(1rem,1.6vw,1.3rem)}
+.fh__links{display:flex;flex-direction:column;gap:.85rem;list-style:none;margin:0;padding:0}
+.fh__links a,.fh__links li{font-size:.95rem;color:#5a6167;transition:color .3s var(--ease)}
+.fh__links a:hover{color:#0e1113}
+.fh__bar{display:flex;align-items:center;justify-content:space-between;gap:1.2rem;flex-wrap:wrap;
+  padding-top:clamp(1.3rem,2vw,1.7rem)}
+.fh__copy{font-size:.86rem;color:#6b7280}
+.fh__socials{display:flex;gap:.6rem}
+.fh__socials a{width:42px;height:42px;border-radius:50%;background:#101316;color:#fff;
+  display:inline-flex;align-items:center;justify-content:center;
+  transition:transform .3s var(--ease),background .3s var(--ease)}
+.fh__socials a svg{width:18px;height:18px}
+.fh__socials a:hover{background:#2a2f34;transform:translateY(-3px)}
+
+@media (min-width:901px){
+  /* keep the social row clear of the fixed WhatsApp float in the corner */
+  .fh__socials{margin-right:clamp(48px,5vw,72px)}
+}
+@media (max-width:900px){
+  .fh__top{grid-template-columns:1fr 1fr;gap:clamp(1.6rem,4vw,2.4rem)}
+  .fh__brand{grid-column:1 / -1}
+}
+@media (max-width:560px){
+  .fh__top{grid-template-columns:1fr}
+  .fh__bar{flex-direction:column;align-items:flex-start;gap:1.1rem}
+}
