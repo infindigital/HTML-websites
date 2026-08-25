@@ -249,12 +249,12 @@
     <!-- off-screen filter that drives the flowing-water displacement -->
     <svg class="hero__svgdefs" aria-hidden="true" width="0" height="0" xmlns="http://www.w3.org/2000/svg">
       <filter id="roxyFlow" x="-4%" y="-4%" width="108%" height="108%">
-        <feTurbulence type="fractalNoise" baseFrequency="0.014 0.030" numOctaves="2" seed="3" result="noise">
-          <animate attributeName="baseFrequency" dur="20s" repeatCount="indefinite"
-                   values="0.014 0.030; 0.016 0.026; 0.013 0.032; 0.014 0.030"/>
+        <feTurbulence type="fractalNoise" baseFrequency="0.010 0.020" numOctaves="2" seed="3" result="noise">
+          <animate attributeName="baseFrequency" dur="24s" repeatCount="indefinite"
+                   values="0.010 0.020; 0.011 0.018; 0.009 0.021; 0.010 0.020"/>
         </feTurbulence>
-        <feDisplacementMap in="SourceGraphic" in2="noise" xChannelSelector="R" yChannelSelector="G" scale="6">
-          <animate attributeName="scale" dur="10s" repeatCount="indefinite" values="4;7;4"/>
+        <feDisplacementMap in="SourceGraphic" in2="noise" xChannelSelector="R" yChannelSelector="G" scale="2">
+          <animate attributeName="scale" dur="12s" repeatCount="indefinite" values="1.2;2.4;1.2"/>
         </feDisplacementMap>
       </filter>
     </svg>
