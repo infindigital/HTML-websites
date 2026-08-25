@@ -1126,53 +1126,52 @@ a.trust__cell:hover{background:var(--bg-2)}
 .why__badge .stars{color:var(--gold);font-size:.78rem;letter-spacing:1px;display:block}
 .why__badge small{font-size:.72rem;color:var(--ink-2)}
 
-/* ---- Why Choose Roxy — dark feature panel (distinct from testimonials) ---- */
-.wr{display:flex;flex-direction:column;align-items:center;text-align:center;
-  background:#0e1113;color:#fff;border-radius:clamp(24px,3vw,40px);
-  padding:clamp(2.8rem,5.5vw,4.6rem) clamp(1.4rem,4vw,3.6rem);overflow:hidden}
-.wr__head{max-width:60ch}
-.wr__eyebrow{display:inline-block;background:rgba(255,255,255,.1);color:#e9edf0;font-weight:600;
+/* ---- Why Choose Roxy — white editorial split (intro left, reason list right) ---- */
+.wr{--wr-line:#e6e8ea}
+.wr__top{display:grid;grid-template-columns:0.92fr 1.08fr;gap:clamp(2rem,5vw,5rem);
+  align-items:start}
+/* left intro column */
+.wr__intro{max-width:34ch}
+.wr__eyebrow{display:inline-block;background:#f1f2f3;color:#3a3f42;font-weight:600;
   font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;padding:.55em 1.1em;border-radius:999px}
-.wr__title{font-family:var(--sans);font-weight:700;color:#fff;line-height:1.12;letter-spacing:-.02em;
-  font-size:clamp(1.9rem,3.6vw,2.9rem);margin:1.1rem auto 0;max-width:20ch;text-wrap:balance}
-.wr__lead{color:rgba(255,255,255,.68);font-size:clamp(.98rem,1.15vw,1.08rem);line-height:1.65;
-  margin:1rem auto 0;max-width:56ch}
-/* three plain reason columns, divided by hairlines */
-.wr__points{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(1.6rem,3vw,3rem);
-  width:100%;margin-top:clamp(2.6rem,4.5vw,3.6rem)}
-.wr__point{display:flex;flex-direction:column;align-items:center;padding:0 clamp(.4rem,1.4vw,1.4rem);
-  position:relative}
-.wr__point + .wr__point::before{content:"";position:absolute;left:calc(clamp(1.6rem,3vw,3rem)/-2);
-  top:8%;bottom:8%;width:1px;background:rgba(255,255,255,.12)}
-.wr__ic{display:inline-flex;align-items:center;justify-content:center;
-  width:clamp(58px,5vw,70px);height:clamp(58px,5vw,70px);border-radius:50%;
-  background:#fff;color:#101316;transition:transform .4s var(--ease)}
-.wr__ic svg{width:44%;height:44%}
-.wr__point:hover .wr__ic{transform:translateY(-4px)}
-.wr__name{font-family:var(--sans);font-weight:700;color:#fff;
-  font-size:clamp(1.05rem,1.4vw,1.28rem);line-height:1.25;margin:1.1rem 0 0}
-.wr__text{color:rgba(255,255,255,.62);font-size:clamp(.9rem,1vw,.98rem);line-height:1.6;
-  margin:.55rem 0 0;max-width:34ch}
-/* stats strip */
-.wr__stats{display:flex;justify-content:center;align-items:stretch;flex-wrap:wrap;
-  width:100%;max-width:820px;margin-top:clamp(2.8rem,5vw,4rem);
-  border-top:1px solid rgba(255,255,255,.14);border-bottom:1px solid rgba(255,255,255,.14)}
-.wr__stat{flex:1 1 0;min-width:92px;padding:clamp(1.4rem,2.6vw,1.9rem) clamp(.7rem,2vw,1.6rem)}
-.wr__stat + .wr__stat{border-left:1px solid rgba(255,255,255,.14)}
-.wr__num{display:block;font-family:var(--sans);font-weight:700;color:#fff;letter-spacing:-.02em;
-  font-size:clamp(1.7rem,2.6vw,2.3rem);line-height:1;white-space:nowrap}
-.wr__lbl{display:block;color:rgba(255,255,255,.6);font-size:clamp(.78rem,.9vw,.9rem);line-height:1.4;
-  margin-top:.5rem}
-/* centered CTA — light pill on the dark panel */
-.wr__cta{display:inline-flex;align-items:center;gap:.6em;margin-top:clamp(2.2rem,4vw,3rem);
-  padding:.95em 2.1em;border-radius:999px;background:#fff;color:#101316;font-weight:600;
+.wr__title{font-family:var(--sans);font-weight:700;color:#0e1113;line-height:1.12;letter-spacing:-.02em;
+  font-size:clamp(1.9rem,3.4vw,2.7rem);margin:1.1rem 0 0;text-wrap:balance}
+.wr__lead{color:#5c6266;font-size:clamp(.98rem,1.15vw,1.08rem);line-height:1.65;margin:1rem 0 0}
+.wr__cta{display:inline-flex;align-items:center;gap:.6em;margin-top:clamp(1.6rem,3vw,2.2rem);
+  padding:.92em 2em;border-radius:999px;background:#101316;color:#fff;font-weight:600;
   font-size:.9rem;text-decoration:none;transition:transform .4s var(--ease),background .4s var(--ease)}
 .wr__cta svg{width:16px;height:16px;transition:transform .4s var(--ease)}
-.wr__cta:hover{background:#e6e9ec;transform:translateY(-2px)}
+.wr__cta:hover{background:#2a2f34;transform:translateY(-2px)}
 .wr__cta:hover svg{transform:translateX(3px)}
+/* right reason list — rows split by hairlines */
+.wr__list{display:flex;flex-direction:column}
+.wr__point{display:flex;align-items:flex-start;gap:clamp(1rem,1.6vw,1.4rem);
+  padding:clamp(1.3rem,2.4vw,1.7rem) 0;border-top:1px solid var(--wr-line)}
+.wr__point:first-child{border-top:none;padding-top:0}
+.wr__list:hover .wr__point{opacity:.55;transition:opacity .35s var(--ease)}
+.wr__list:hover .wr__point:hover{opacity:1}
+.wr__ic{flex:none;display:inline-flex;align-items:center;justify-content:center;
+  width:clamp(46px,3.6vw,54px);height:clamp(46px,3.6vw,54px);border-radius:14px;
+  background:#101316;color:#fff;transition:transform .4s var(--ease)}
+.wr__ic svg{width:46%;height:46%}
+.wr__point:hover .wr__ic{transform:translateY(-3px)}
+.wr__name{font-family:var(--sans);font-weight:700;color:#0e1113;
+  font-size:clamp(1.05rem,1.35vw,1.22rem);line-height:1.25;margin:.1rem 0 0}
+.wr__text{color:#5c6266;font-size:clamp(.9rem,1vw,.98rem);line-height:1.6;margin:.4rem 0 0}
+/* stats strip — full width beneath the split */
+.wr__stats{display:flex;align-items:stretch;flex-wrap:wrap;width:100%;
+  margin-top:clamp(2.6rem,5vw,3.8rem);
+  border-top:1px solid var(--wr-line);border-bottom:1px solid var(--wr-line)}
+.wr__stat{flex:1 1 0;min-width:92px;padding:clamp(1.4rem,2.6vw,1.9rem) clamp(.7rem,2vw,1.6rem)}
+.wr__stat + .wr__stat{border-left:1px solid var(--wr-line)}
+.wr__num{display:block;font-family:var(--sans);font-weight:700;color:#0e1113;letter-spacing:-.02em;
+  font-size:clamp(1.7rem,2.6vw,2.3rem);line-height:1;white-space:nowrap}
+.wr__lbl{display:block;color:#6b7175;font-size:clamp(.78rem,.9vw,.9rem);line-height:1.4;margin-top:.5rem}
+@media (max-width:820px){
+  .wr__top{grid-template-columns:1fr;gap:clamp(1.8rem,5vw,2.6rem)}
+  .wr__intro{max-width:52ch}
+}
 @media (max-width:760px){
-  .wr__points{grid-template-columns:1fr;gap:2.2rem;max-width:420px}
-  .wr__point + .wr__point::before{content:none}
   .wr__num{font-size:1.5rem}
   .wr__lbl{font-size:.72rem}
 }
