@@ -2430,8 +2430,8 @@ a.trust__cell:hover{background:var(--bg-2)}
    shared small-screen boat hide first. */
 @media (max-width:1024px){
   .hero--aerial{aspect-ratio:auto;min-height:100vh;min-height:100svh}
-  .hero--aerial .hero__boatwrap{display:block;transform:scale(.58);transform-origin:center 43%}
-  .hero--aerial .hero__word{font-size:30vw;top:33%;letter-spacing:-.01em}
+  .hero--aerial .hero__boatwrap{display:block;transform:translateY(-9%) scale(.74);transform-origin:center center}
+  .hero--aerial .hero__word{font-size:19.5vw;top:23%;letter-spacing:-.01em}
   .hero--aerial .hero__aerial-left,
   .hero--aerial .hero__aerial-right{
     position:absolute;left:0;right:0;top:auto;transform:none;max-width:100%;
