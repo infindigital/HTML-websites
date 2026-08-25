@@ -645,11 +645,15 @@ a.trust__cell:hover{background:var(--bg-2)}
 
 /* ---------- ABOUT (reference layout: image card + right info panel) ---------- */
 .abt{background:var(--white)}
+.abt__head{margin-bottom:clamp(1.6rem,2.6vw,2.4rem)}
+.abt__head .abt__eyebrow{margin-bottom:clamp(.9rem,1.6vw,1.2rem)}
+.abt__heading{font-family:var(--sans);font-weight:700;letter-spacing:-.02em;line-height:1.04;
+  font-size:clamp(2rem,4.4vw,3.3rem);color:#0e1113;margin:0}
 .abt__grid{display:grid;grid-template-columns:1.5fr 1fr;gap:clamp(1rem,1.6vw,1.5rem);align-items:stretch}
 
 /* left: feature image card */
 .abt__card{position:relative;overflow:hidden;border-radius:clamp(20px,2.2vw,28px);
-  aspect-ratio:4/3;isolation:isolate;color:#fff}
+  width:100%;height:100%;min-height:clamp(520px,42vw,640px);isolation:isolate;color:#fff}
 .abt__photo{position:absolute;inset:0;z-index:0;
   background:url("../images/about-fog-houseboat.png") center/cover no-repeat;
   transition:transform 1.6s var(--ease)}
@@ -698,14 +702,15 @@ a.trust__cell:hover{background:var(--bg-2)}
 /* right: info panel (two stacked cards) */
 .abt__side{display:flex;flex-direction:column;gap:clamp(1rem,1.6vw,1.5rem)}
 .abt__intro{position:relative;overflow:hidden;flex:1 1 auto;
-  background:#eaf3f0;border-radius:clamp(20px,2.2vw,28px);
+  background:var(--white);border:1px solid var(--line,#e7ebee);border-radius:clamp(20px,2.2vw,28px);
+  box-shadow:0 1px 2px rgba(12,22,28,.04),0 18px 40px -30px rgba(12,22,28,.26);
   padding:clamp(1.6rem,2.4vw,2.4rem);display:flex;flex-direction:column;align-items:flex-start}
-.abt__eyebrow{display:inline-block;background:#fff;color:#3a3f42;font-family:var(--sans);font-weight:600;
+.abt__eyebrow{display:inline-block;background:#f1f2f3;color:#3a3f42;font-family:var(--sans);font-weight:600;
   font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;padding:.55em 1.1em;border-radius:999px}
-.abt__title{font-family:var(--sans);font-weight:700;letter-spacing:-.02em;line-height:1.0;
-  font-size:clamp(2.2rem,3.4vw,3.2rem);color:#0e1113;margin:clamp(1rem,2vw,1.5rem) 0 0}
+.abt__title{font-family:var(--sans);font-weight:700;letter-spacing:-.015em;line-height:1.12;
+  font-size:clamp(1.4rem,1.9vw,1.85rem);color:#0e1113;margin:0}
 .abt__text{color:#3d4348;font-size:clamp(.95rem,1.05vw,1.05rem);line-height:1.6;
-  margin:clamp(.8rem,1.4vw,1.1rem) 0 0;max-width:34ch;position:relative;z-index:2}
+  margin:clamp(.8rem,1.4vw,1.1rem) 0 auto;max-width:42ch;position:relative;z-index:2}
 .abt__btn{display:inline-flex;align-items:center;gap:.55em;margin-top:clamp(1.3rem,2.2vw,1.9rem);
   padding:.9em 1.7em;border-radius:999px;background:#101316;color:#fff;
   font-family:var(--sans);font-weight:600;font-size:.94rem;position:relative;z-index:2;
