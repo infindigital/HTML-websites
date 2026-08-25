@@ -2453,12 +2453,13 @@ a.trust__cell:hover{background:var(--bg-2)}
   .hero--aerial .hero__cta .btn{padding:.95em 1.5em;font-size:.76rem}
 }
 
-/* phone: nav collapses to a hamburger (≤860), so the word can lift to the top.
-   Zoom the photo so the boat reads larger and pull it up toward the word,
-   opening a band of clear water below for the copy + buttons. The flow layer
-   and its water-mask track the exact same size + position so the ripple stays
-   locked to the water. */
-@media (max-width:860px){
+/* phone only: the header is just a compact logo + hamburger, so the word can
+   lift to the very top. Zoom the photo so the boat reads larger and pull it up
+   toward the word, opening a band of clear water below for the copy + buttons.
+   The flow layer and its water-mask track the exact same size + position so the
+   ripple stays locked to the water. (Tablet portrait keeps the layout above so
+   the word never collides with the logo.) */
+@media (max-width:600px){
   .hero--aerial .hero__aerial-bg,
   .hero--aerial .hero__flow{background-size:auto 128%;background-position:center 46%}
   .hero--aerial .hero__flow{-webkit-mask-size:auto 128%;mask-size:auto 128%;
