@@ -2355,8 +2355,14 @@ a.trust__cell:hover{background:var(--bg-2)}
   position:absolute;inset:0;z-index:1;
   background-size:cover;background-position:center;background-repeat:no-repeat;
   filter:url(#roxyFlow);
-  -webkit-mask:url('/assets/images/water-mask.png') center/cover no-repeat;
-          mask:url('/assets/images/water-mask.png') center/cover no-repeat;
+  /* mask built from the photo itself: opaque over the WATER only, so the ripple
+     never touches the palms or the boat. Longhands let the mask position track
+     the background crop on smaller screens. */
+  -webkit-mask-image:url('/assets/images/water-mask.png');
+          mask-image:url('/assets/images/water-mask.png');
+  -webkit-mask-size:cover;          mask-size:cover;
+  -webkit-mask-position:center;     mask-position:center;
+  -webkit-mask-repeat:no-repeat;    mask-repeat:no-repeat;
   will-change:filter;
 }
 /* boat sits still, layered over the word and aligned to the background */
@@ -2431,6 +2437,7 @@ a.trust__cell:hover{background:var(--bg-2)}
   .hero--aerial .hero__boatwrap{display:none}
   .hero--aerial .hero__aerial-bg,
   .hero--aerial .hero__flow{background-position:center 42%}
+  .hero--aerial .hero__flow{-webkit-mask-position:center 42%;mask-position:center 42%}
   .hero--aerial .hero__word{font-size:19.5vw;top:14%;letter-spacing:-.01em}
   .hero--aerial .hero__aerial-left,
   .hero--aerial .hero__aerial-right{
