@@ -2637,3 +2637,131 @@ a.trust__cell:hover{background:var(--bg-2)}
   .fh__top{grid-template-columns:1fr}
   .fh__bar{flex-direction:column;align-items:flex-start;gap:1.1rem}
 }
+
+/* ============================================================
+   INTERNAL PAGES — BLACK & WHITE THEME UNIFICATION
+   Makes every content section BELOW the hero match the
+   homepage's black / white / neutral-grey design language.
+   Scoped to body:not(.home-video-hero) so it ONLY affects
+   internal pages and NEVER the homepage. Hero + nav classes
+   are intentionally excluded — heroes stay exactly as built,
+   and nav accents already match the homepage's own nav.
+   Palette: heading #0e1113 · solid/icon/button #101316
+   (hover #2a2f34) · eyebrow pill #f1f2f3/#3a3f42 · on-dark #fff
+   ============================================================ */
+
+/* ---- headings (navy -> near-black) ---- */
+body:not(.home-video-hero) .svcf__title,
+body:not(.home-video-hero) .pcard2__title,
+body:not(.home-video-hero) .pfare__name,
+body:not(.home-video-hero) .cx__title,
+body:not(.home-video-hero) .cx__faq-title,
+body:not(.home-video-hero) .cx__faq .acc__q,
+body:not(.home-video-hero) .cx__info-title,
+body:not(.home-video-hero) .pkg__h2,
+body:not(.home-video-hero) .pkg__panel-price b,
+body:not(.home-video-hero) .pkg__note strong,
+body:not(.home-video-hero) .wwa__title,
+body:not(.home-video-hero) .wwa__stat b,
+body:not(.home-video-hero) .wsa__title,
+body:not(.home-video-hero) .wsa-card__title,
+body:not(.home-video-hero) .wsa-card__no,
+body:not(.home-video-hero) .pchips li,
+body:not(.home-video-hero) .err404__title{color:#0e1113}
+
+/* ---- cursive scripts / kickers / eyebrows on light (aqua -> near-black) ---- */
+body:not(.home-video-hero) .wwa__script,
+body:not(.home-video-hero) .wwa__wave,
+body:not(.home-video-hero) .wsa__script,
+body:not(.home-video-hero) .pkg__kicker,
+body:not(.home-video-hero) .cx__info-eyebrow,
+body:not(.home-video-hero) .err404__kicker{color:#101316}
+
+/* ---- eyebrow pills / dashes (homepage pill + dark rule) ---- */
+body:not(.home-video-hero) .cx__eyebrow{color:#3a3f42}
+body:not(.home-video-hero) .cx__eyebrow::after,
+body:not(.home-video-hero) .svcf__eyebrow::before,
+body:not(.home-video-hero) .pcard2__title::after{background:#101316}
+
+/* ---- icons / small marks (aqua -> near-black) ---- */
+body:not(.home-video-hero) .svcf__tag svg,
+body:not(.home-video-hero) .svcf__link svg,
+body:not(.home-video-hero) .pcard2__spec svg,
+body:not(.home-video-hero) .pfare__go,
+body:not(.home-video-hero) .pkg__incl svg,
+body:not(.home-video-hero) .wsa-card__ic,
+body:not(.home-video-hero) .cdet__ic{color:#101316}
+body:not(.home-video-hero) .acc__ic::before,
+body:not(.home-video-hero) .acc__ic::after{background:#101316}
+body:not(.home-video-hero) .wsa-card__ic::before{
+  background:radial-gradient(circle at 35% 30%,rgba(16,19,22,.12),rgba(16,19,22,.05))}
+body:not(.home-video-hero) .svcf__list li::before{
+  background:rgba(16,19,22,.08);
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23101316' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6 9 17l-5-5'/%3E%3C/svg%3E");
+  background-size:12px;background-repeat:no-repeat;background-position:center}
+
+/* ---- links (aqua/navy -> near-black, hover grey) ---- */
+body:not(.home-video-hero) .svcf__link,
+body:not(.home-video-hero) .pfare__no,
+body:not(.home-video-hero) .pfare__price,
+body:not(.home-video-hero) .crumbs [aria-current],
+body:not(.home-video-hero) .acc__item.is-open .acc__q,
+body:not(.home-video-hero) .err404__links a{color:#0e1113}
+body:not(.home-video-hero) .svcf__link:hover,
+body:not(.home-video-hero) .svcf__link:hover svg,
+body:not(.home-video-hero) .crumbs__list a:hover,
+body:not(.home-video-hero) .acc__q:hover,
+body:not(.home-video-hero) .cdet b a:hover{color:#2a2f34}
+body:not(.home-video-hero) .pfare:hover{border-color:rgba(16,19,22,.35)}
+
+/* ---- solid accent cards (aqua gradient -> near-black) ---- */
+body:not(.home-video-hero) .svcf__stat,
+body:not(.home-video-hero) .pcard2__price{background:#101316}
+
+/* ---- buttons (aqua -> near-black, hover grey) ---- */
+body:not(.home-video-hero) .pcard2__book,
+body:not(.home-video-hero) .cx__btn,
+body:not(.home-video-hero) .wwa__info-go,
+body:not(.home-video-hero) .wwa__talk{background:#101316}
+body:not(.home-video-hero) .pcard2__book:hover,
+body:not(.home-video-hero) .cx__btn:hover,
+body:not(.home-video-hero) .wwa__info-go:hover{background:#2a2f34}
+body:not(.home-video-hero) .wwa__mini-go--light{color:#101316}
+body:not(.home-video-hero) .wwa__mini-go--light:hover,
+body:not(.home-video-hero) .wwa__mini-go--dark:hover{color:#0e1113}
+
+/* ---- form focus (aqua -> near-black) ---- */
+body:not(.home-video-hero) .field input:focus,
+body:not(.home-video-hero) .field select:focus,
+body:not(.home-video-hero) .field textarea:focus,
+body:not(.home-video-hero) .cx__form .field input:focus,
+body:not(.home-video-hero) .cx__form .field textarea:focus{border-color:#101316}
+
+/* ---- dark photo bands: vision + discover (blue cast -> neutral, accents -> white) ---- */
+body:not(.home-video-hero) .vis__band::after{
+  background:linear-gradient(100deg,rgba(11,13,15,.82) 0%,rgba(11,13,15,.58) 46%,rgba(11,13,15,.2) 100%)}
+body:not(.home-video-hero) .vis__script,
+body:not(.home-video-hero) .vis__badge svg,
+body:not(.home-video-hero) .wwa__pill svg{color:#fff}
+body:not(.home-video-hero) .discover__script,
+body:not(.home-video-hero) .discover__wave{color:#fff}
+body:not(.home-video-hero) .discover__cta{background:#fff;color:#101316}
+body:not(.home-video-hero) .discover__cta:hover{background:#e9eaec}
+body:not(.home-video-hero) .discover__scrim{
+  background:linear-gradient(90deg,rgba(14,17,19,0) 34%,rgba(14,17,19,.42) 56%,rgba(13,15,17,.82) 100%)}
+body:not(.home-video-hero) .discover__panel{
+  background:linear-gradient(150deg,rgba(20,24,27,.9),rgba(14,17,19,.9))}
+body:not(.home-video-hero) .wsa-card::before{background:#101316}
+
+/* ---- internal footer (teal -> neutral dark, accents -> white/neutral) ---- */
+body:not(.home-video-hero) .foot{background:#14181b}
+body:not(.home-video-hero) .foot__place,
+body:not(.home-video-hero) .foot__col h4{color:#fff}
+body:not(.home-video-hero) .foot__col h4::after{background:#fff}
+body:not(.home-video-hero) .foot__links a::before{border-top-color:#fff;border-right-color:#fff}
+body:not(.home-video-hero) .foot__links a:hover,
+body:not(.home-video-hero) .foot__contact a:hover,
+body:not(.home-video-hero) .foot__legal a:hover{color:#fff}
+body:not(.home-video-hero) .foot__cic{background:rgba(255,255,255,.16);color:#fff}
+body:not(.home-video-hero) .foot__socials a:hover,
+body:not(.home-video-hero) .foot__chat:hover{background:#fff;border-color:#fff;color:#14181b}
