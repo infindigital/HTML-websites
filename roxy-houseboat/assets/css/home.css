@@ -2356,10 +2356,19 @@ a.trust__cell:hover{background:var(--bg-2)}
    z-index, so it creates NO stacking context and the bg/word/fg keep layering
    against the hero exactly as before) */
 .hero--aerial .hero__stage{position:absolute;inset:0}
+/* soft, zoomed backdrop fills the side margins when the whole photo is shown
+   (contain) on wide screens — no hard letterbox bars, no stacking context */
+.hero--aerial .hero__stage::before{
+  content:"";position:absolute;inset:0;z-index:0;
+  background:url('/assets/images/hero-lux.webp') center/cover no-repeat;
+  filter:blur(26px) saturate(1.05) brightness(.96);transform:scale(1.14);
+}
 .hero--aerial .hero__lux-bg,
 .hero--aerial .hero__lux-fg{
   position:absolute;inset:0;
-  background-size:cover;background-position:center;background-repeat:no-repeat;
+  /* show the WHOLE scene (zoomed out, never cropped/zoomed-in on wide screens),
+     so the boat stays smaller and the word keeps a fixed position behind it */
+  background-size:contain;background-position:center;background-repeat:no-repeat;
 }
 .hero--aerial .hero__lux-bg{z-index:1}
 .hero--aerial .hero__lux-fg{
