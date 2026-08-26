@@ -2423,7 +2423,7 @@ a.trust__cell:hover{background:var(--bg-2)}
 /* the giant editorial wordmark — italic, lightly skewed, sitting in the sky
    between the background photo (z1) and the keyed foreground (z3) */
 .hero--aerial .hero__word{
-  position:absolute;left:50%;top:40%;transform:translate(-50%,-50%);
+  position:absolute;left:50%;top:47%;transform:translate(-50%,-50%);
   z-index:2;white-space:nowrap;pointer-events:none;user-select:none;
   font-family:'Anton','Oswald','Arial Narrow',var(--display-hero),sans-serif;
   font-style:normal;font-weight:400;text-transform:uppercase;
@@ -2432,12 +2432,12 @@ a.trust__cell:hover{background:var(--bg-2)}
 }
 /* LEFT (lower): intro copy */
 .hero--aerial .hero__aerial-left{
-  position:absolute;left:0;bottom:clamp(.4rem,1.4vh,1rem);z-index:6;
+  position:absolute;left:0;bottom:clamp(2.5rem,7vh,4.5rem);z-index:6;
   max-width:min(42%,540px);padding-left:clamp(3rem,8vw,7.5rem);padding-right:1rem;
 }
-/* RIGHT (lower): CTAs (horizontal row) */
+/* RIGHT (lower): CTAs (horizontal row) — baseline aligned with the left copy */
 .hero--aerial .hero__aerial-right{
-  position:absolute;right:0;bottom:clamp(3rem,8vh,4.8rem);z-index:6;
+  position:absolute;right:0;bottom:clamp(2.5rem,7vh,4.5rem);z-index:6;
   padding-right:clamp(3rem,8vw,7.5rem);padding-left:1rem;
 }
 .hero--aerial .hero__cta{display:flex;flex-direction:row;flex-wrap:wrap;gap:1rem;align-items:center;justify-content:flex-end}
