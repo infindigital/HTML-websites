@@ -2748,3 +2748,35 @@ body:not(.home-video-hero) .wwa__wave{display:none}
 body:not(.home-video-hero) .svc__title{
   font-family:var(--sans);font-weight:700;letter-spacing:-.02em;line-height:1.04;
   font-size:clamp(2rem,4.4vw,3.3rem);color:#0e1113;margin:0}
+
+/* ============================================================
+   INTERNAL PAGES — black nav accents + black buttons (no blue)
+   Scoped to body:not(.home-video-hero) so the homepage nav and
+   buttons keep their own look.
+   ============================================================ */
+/* nav bar accents */
+body:not(.home-video-hero) .navmenu a:hover,
+body:not(.home-video-hero) .navmenu a.is-active{color:#101316}
+body:not(.home-video-hero) .navmenu a::after{background:#101316}
+body:not(.home-video-hero) .nav-callbox__ico{background:#f1f2f3;color:#101316}
+body:not(.home-video-hero) .nav-callbox:hover .nav-callbox__ico{background:#101316;color:#fff}
+/* packages dropdown */
+body:not(.home-video-hero) .navdrop__menu a:hover,
+body:not(.home-video-hero) .navdrop__price,
+body:not(.home-video-hero) .navdrop__all{color:#101316}
+body:not(.home-video-hero) .navdrop__all:hover{color:#2a2f34}
+/* mobile menu */
+body:not(.home-video-hero) .mobile-menu__links a small,
+body:not(.home-video-hero) .mobile-menu__links a:hover,
+body:not(.home-video-hero) .mm-acc__top small,
+body:not(.home-video-hero) .mm-acc__top:hover,
+body:not(.home-video-hero) .mm-acc__top.is-active,
+body:not(.home-video-hero) .mm-acc__caret,
+body:not(.home-video-hero) .mm-acc__price,
+body:not(.home-video-hero) .mm-acc__all{color:#101316}
+/* dark buttons: nav "Book Now" + "Book This Cruise" -> black */
+body:not(.home-video-hero) .btn--dark{--bg:#101316}
+body:not(.home-video-hero) .btn--dark:hover{background:#2a2f34;border-color:#2a2f34}
+/* discover "Book Now" band button -> black */
+body:not(.home-video-hero) .discover__cta{background:#101316;color:#fff}
+body:not(.home-video-hero) .discover__cta:hover{background:#2a2f34}
