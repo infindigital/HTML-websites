@@ -240,28 +240,16 @@
 
   <!-- ============ 01 · HERO — aerial wordmark, boat floats above the type ============ -->
   <section class="hero hero--aerial" id="hero">
-    <!-- high-clarity aerial photograph (background, crisp & static) -->
-    <div class="hero__aerial-bg" role="img"
-         aria-label="Aerial view of a Roxy houseboat cruising the turquoise Nileshwar backwaters, framed by dense coconut palms"
-         style="background-image:url('/assets/images/aerial-hero.webp')"></div>
-    <!-- the SAME photo, gently warped by a subtle displacement filter, masked to
-         the water channel only -> the surface softly floats while palms/boat stay crisp -->
-    <div class="hero__flow" style="background-image:url('/assets/images/aerial-hero.webp')" aria-hidden="true"></div>
-    <svg class="hero__svgdefs" aria-hidden="true" width="0" height="0" xmlns="http://www.w3.org/2000/svg">
-      <filter id="roxyFlow" x="-5%" y="-5%" width="110%" height="110%">
-        <feTurbulence type="fractalNoise" baseFrequency="0.008 0.015" numOctaves="2" seed="4" result="noise">
-          <animate attributeName="baseFrequency" dur="15s" repeatCount="indefinite"
-                   values="0.008 0.015; 0.011 0.018; 0.007 0.013; 0.008 0.015"/>
-        </feTurbulence>
-        <feDisplacementMap in="SourceGraphic" in2="noise" xChannelSelector="R" yChannelSelector="G" scale="4.5">
-          <animate attributeName="scale" dur="9s" repeatCount="indefinite" values="3;6;3"/>
-        </feDisplacementMap>
-      </filter>
-    </svg>
-    <!-- giant word, sits on the water BEHIND the boat -->
+    <!-- full-bleed luxury Kerala backwaters photograph (background) -->
+    <div class="hero__lux-bg" role="img"
+         aria-label="A traditional Roxy houseboat drifting the calm Nileshwar backwaters, framed by tall coconut palms under a bright tropical sky"
+         style="background-image:url('/assets/images/hero-lux.webp')"></div>
+    <!-- giant editorial wordmark, embedded in the scene between sky and foreground -->
     <span class="hero__word" aria-hidden="true">Houseboat</span>
-    <!-- the boat, keyed out of the same photo, layered ON TOP of the word (still) -->
-    <span class="hero__boatwrap" aria-hidden="true"></span>
+    <!-- the palms + boat, keyed from the SAME photo and layered ON TOP, so the word
+         tucks naturally BEHIND the trees and BEHIND the boat -->
+    <div class="hero__lux-fg" aria-hidden="true"
+         style="background-image:url('/assets/images/hero-lux-fg.webp')"></div>
     <!-- LEFT (lower): intro copy -->
     <div class="hero__aerial-left">
       <span class="hero__loc">

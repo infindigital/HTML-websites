@@ -4,6 +4,12 @@
    White space · cinematic photography · oversized layered type.
    Blue/aqua used only as a controlled accent.
    ============================================================ */
+/* self-hosted display face for the giant hero wordmark (tall condensed grotesque) */
+@font-face{
+  font-family:'Anton';
+  font-style:normal;font-weight:400;font-display:swap;
+  src:url('/assets/fonts/anton-latin-400.woff2') format('woff2');
+}
 
 /* ---------- SELF-HOSTED CURSIVE (Dancing Script) ----------
    Bundled locally so the script font renders even when the
@@ -2331,78 +2337,57 @@ a.trust__cell:hover{background:var(--bg-2)}
 }
 
 /* ============================================================
-   01C · AERIAL WORDMARK HERO (scoped: .hero--aerial)
-   Full-bleed aerial photo · giant "Houseboat" on the water ·
-   the boat keyed out of the same photo, floating ABOVE the type.
+   01C · LUXURY EDITORIAL HERO (scoped: .hero--aerial)
+   Full-bleed Kerala backwaters photograph · giant italic "Houseboat"
+   embedded in the sky · palms + boat keyed from the SAME photo and
+   layered ON TOP, so the word tucks BEHIND the trees and the boat.
+   The foreground cutout is pixel-identical to the background and shares
+   its exact crop at every breakpoint, so it aligns seamlessly — the only
+   thing it visibly covers is the wordmark.
    ============================================================ */
 .hero--aerial{
   position:relative;overflow:hidden;isolation:isolate;
-  width:100%;aspect-ratio:1672 / 941;          /* show the WHOLE aerial photo, no zoom crop */
-  padding:0;margin:0;max-width:none;            /* full width */
-  display:block;
+  width:100%;aspect-ratio:1672 / 941;          /* show the WHOLE photo, no crop */
+  max-height:100vh;
+  padding:0;margin:0;max-width:none;display:block;
+  background:#cfe0ec;                            /* sky tone while the photo loads */
 }
-.hero--aerial .hero__aerial-bg{
-  position:absolute;inset:0;z-index:1;
+.hero--aerial .hero__lux-bg,
+.hero--aerial .hero__lux-fg{
+  position:absolute;inset:0;
   background-size:cover;background-position:center;background-repeat:no-repeat;
 }
-/* keeps the giant word and the boat perfectly aligned with the background,
-   because this layer is the SAME photo cropped identically (object-fit:cover/center) */
-/* flowing water: same photo, warped by the animated displacement filter,
-   masked to the central channel so the palms stay crisp */
-/* flowing water: the SAME crisp photo, gently warped by the displacement filter,
-   masked to the central water channel so palms + boat stay perfectly sharp */
-.hero--aerial .hero__flow{
-  position:absolute;inset:0;z-index:1;
-  background-size:cover;background-position:center;background-repeat:no-repeat;
-  filter:url(#roxyFlow);
-  /* mask built from the photo itself: opaque over the WATER only, so the ripple
-     never touches the palms or the boat. Longhands let the mask position track
-     the background crop on smaller screens. */
-  -webkit-mask-image:url('/assets/images/water-mask.png');
-          mask-image:url('/assets/images/water-mask.png');
-  -webkit-mask-size:cover;          mask-size:cover;
-  -webkit-mask-position:center;     mask-position:center;
-  -webkit-mask-repeat:no-repeat;    mask-repeat:no-repeat;
-  will-change:filter;
+.hero--aerial .hero__lux-bg{z-index:1}
+.hero--aerial .hero__lux-fg{
+  z-index:3;pointer-events:none;
+  filter:drop-shadow(0 14px 26px rgba(6,26,30,.26));   /* lifts palms + boat off the type */
 }
-/* boat sits still, layered OVER the word and aligned to the background photo.
-   Driven as a background layer (not an <img>) so every breakpoint can give it
-   the exact same background-size/position as the bg + flow + water-mask — that
-   keeps the keyed boat locked over the baked-in boat with no doubling, and lets
-   the giant word tuck BEHIND it at any zoom. */
-.hero--aerial .hero__boatwrap{
-  position:absolute;inset:0;z-index:4;pointer-events:none;
-  background-image:url('/assets/images/aerial-boat.webp');
-  background-size:cover;background-position:center;background-repeat:no-repeat;
-  filter:drop-shadow(0 18px 30px rgba(4,20,26,.4));
-}
-.hero--aerial .hero__boat-fg{display:none}
-@media (prefers-reduced-motion:reduce){
-  .hero--aerial .hero__flow{filter:none}
-  .hero--aerial .hero__svgdefs{display:none}
-}
-.hero--aerial .hero__aerial-scrim{
-  position:absolute;inset:0;z-index:5;pointer-events:none;
-  background:
-    linear-gradient(180deg,rgba(6,20,26,.5) 0%,rgba(6,20,26,.12) 16%,rgba(6,20,26,0) 34%),
-    linear-gradient(0deg,rgba(6,20,26,.6) 0%,rgba(6,20,26,.2) 20%,rgba(6,20,26,0) 42%);
-}
-/* the giant wordmark, sitting on the water behind the boat (nudged up) */
+/* subtle, localized readability gradients — never a full dark overlay, so the
+   sky, water, foliage and warm wood keep their natural brightness */
+.hero--aerial::before,
+.hero--aerial::after{content:"";position:absolute;left:0;right:0;z-index:4;pointer-events:none}
+.hero--aerial::before{top:0;height:32%;
+  background:linear-gradient(180deg,rgba(8,26,34,.32),rgba(8,26,34,0));}
+.hero--aerial::after{bottom:0;height:54%;
+  background:linear-gradient(0deg,rgba(6,24,26,.52),rgba(6,24,26,.16) 40%,rgba(6,24,26,0));}
+/* the giant editorial wordmark — italic, lightly skewed, sitting in the sky
+   between the background photo (z1) and the keyed foreground (z3) */
 .hero--aerial .hero__word{
-  position:absolute;left:50%;top:28%;transform:translate(-50%,-50%);
-  z-index:3;white-space:nowrap;pointer-events:none;user-select:none;
-  font-family:var(--display-hero);font-style:italic;font-weight:500;
-  font-size:18vw;line-height:.9;letter-spacing:-.005em;color:#fff;
-  text-shadow:0 6px 40px rgba(4,18,24,.4),0 1px 3px rgba(4,18,24,.28);
+  position:absolute;left:50%;top:44%;transform:translate(-50%,-50%);
+  z-index:2;white-space:nowrap;pointer-events:none;user-select:none;
+  font-family:'Anton','Oswald','Arial Narrow',var(--display-hero),sans-serif;
+  font-style:normal;font-weight:400;text-transform:uppercase;
+  font-size:15vw;line-height:.9;letter-spacing:-.02em;color:#fdfdfb;
+  text-shadow:0 10px 44px rgba(8,32,46,.30),0 2px 10px rgba(8,28,40,.22);
 }
-/* LEFT of the boat (lower): intro copy — clear of the wordmark & boat */
+/* LEFT (lower): intro copy */
 .hero--aerial .hero__aerial-left{
-  position:absolute;left:0;top:72%;transform:translateY(-50%);z-index:6;
-  max-width:min(40%,540px);padding-left:clamp(3rem,8vw,7.5rem);padding-right:1rem;
+  position:absolute;left:0;bottom:clamp(2.6rem,7vh,4.4rem);z-index:6;
+  max-width:min(42%,540px);padding-left:clamp(3rem,8vw,7.5rem);padding-right:1rem;
 }
-/* RIGHT of the boat (lower): CTAs (horizontal row) */
+/* RIGHT (lower): CTAs (horizontal row) */
 .hero--aerial .hero__aerial-right{
-  position:absolute;right:0;top:69%;transform:translateY(-50%);z-index:6;
+  position:absolute;right:0;bottom:clamp(3rem,8vh,4.8rem);z-index:6;
   padding-right:clamp(3rem,8vw,7.5rem);padding-left:1rem;
 }
 .hero--aerial .hero__cta{display:flex;flex-direction:row;flex-wrap:wrap;gap:1rem;align-items:center;justify-content:flex-end}
@@ -2431,53 +2416,39 @@ a.trust__cell:hover{background:var(--bg-2)}
   text-shadow:0 1px 16px rgba(0,0,0,.55);
 }
 
-/* tablet + phone: portrait. The boat is baked into the background photo, so the
-   separate keyed boat is hidden here (it would double up when scaled); the word
-   sits over the water at the top and the copy + CTAs stack over the water below. */
+/* tablet: portrait viewport. The photo fills the screen (cover), the boat stays
+   centred, and the word — still centred and italic — tucks behind whatever palm
+   foliage the crop keeps plus the boat. bg + fg keep ONE identical crop so the
+   cutout never drifts off the background. Copy + CTAs stack over the water below. */
 @media (max-width:1024px){
-  .hero--aerial{aspect-ratio:auto;min-height:100vh;min-height:100svh}
-  /* keep the keyed boat ON TOP so the word tucks behind it, and lift the photo a
-     little so the boat rises toward the enlarged word. bg + flow + boat + mask
-     all share the same crop, so the boat never doubles. */
-  .hero--aerial .hero__boatwrap{display:block}
-  .hero--aerial .hero__aerial-bg,
-  .hero--aerial .hero__flow,
-  .hero--aerial .hero__boatwrap{background-size:auto 116%;background-position:center 38%}
-  .hero--aerial .hero__flow{-webkit-mask-size:auto 116%;mask-size:auto 116%;
-                            -webkit-mask-position:center 38%;mask-position:center 38%}
-  /* tablet keeps the full horizontal nav, so the word sits clear below it,
-     enlarged, with its lower half tucked behind the boat */
-  .hero--aerial .hero__word{font-size:21vw;top:30%;letter-spacing:-.01em}
+  .hero--aerial{aspect-ratio:auto;min-height:100svh;max-height:none}
+  .hero--aerial .hero__lux-bg,
+  .hero--aerial .hero__lux-fg{background-size:cover;background-position:center 52%}
+  /* portrait crops the palms, so the boat carries the layering: the word drops
+     onto the boat and tucks BEHIND its roof */
+  .hero--aerial .hero__word{font-size:22vw;top:45%}
   .hero--aerial .hero__aerial-left,
   .hero--aerial .hero__aerial-right{
-    position:absolute;left:0;right:0;top:auto;transform:none;max-width:100%;
-    padding-inline:clamp(1.4rem,6vw,2.4rem);
+    left:0;right:0;max-width:100%;padding-inline:clamp(1.6rem,6vw,2.6rem);
   }
-  .hero--aerial .hero__aerial-left{bottom:clamp(6.2rem,19vh,8.5rem)}
-  .hero--aerial .hero__aerial-right{bottom:clamp(1.8rem,5vh,2.6rem)}
+  .hero--aerial .hero__aerial-left{bottom:clamp(6.4rem,20vh,9rem)}
+  .hero--aerial .hero__aerial-right{bottom:clamp(2rem,5vh,3rem)}
   .hero--aerial .hero__cta{gap:.7rem;justify-content:flex-start}
   .hero--aerial .hero__title{font-size:clamp(1.8rem,6.5vw,2.3rem)}
   .hero--aerial .hero__text{max-width:40ch}
   .hero--aerial .hero__cta .btn{padding:.95em 1.5em;font-size:.76rem}
 }
 
-/* phone only: the header is just a compact logo + hamburger, so the word can
-   lift to the very top. Zoom the photo so the boat reads larger and pull it up
-   toward the word, opening a band of clear water below for the copy + buttons.
-   The flow layer and its water-mask track the exact same size + position so the
-   ripple stays locked to the water. (Tablet portrait keeps the layout above so
-   the word never collides with the logo.) */
+/* phone: a deliberately recomposed hero. The compact header (logo + hamburger)
+   lets the word lift high into the sky; the photo is framed so the boat stays the
+   focal point, with a clear band of water below for the stacked copy + buttons. */
 @media (max-width:600px){
-  .hero--aerial .hero__boatwrap{display:block}
-  .hero--aerial .hero__aerial-bg,
-  .hero--aerial .hero__flow,
-  .hero--aerial .hero__boatwrap{background-size:auto 134%;background-position:center 46%}
-  .hero--aerial .hero__flow{-webkit-mask-size:auto 134%;mask-size:auto 134%;
-                            -webkit-mask-position:center 46%;mask-position:center 46%}
-  /* word drops clear of the compact header and tucks its lower half behind the
-     lifted boat */
-  .hero--aerial .hero__word{font-size:17vw;top:26%}
-  .hero--aerial .hero__aerial-left{bottom:clamp(10.5rem,25vh,13.5rem)}
+  .hero--aerial .hero__lux-bg,
+  .hero--aerial .hero__lux-fg{background-position:center 54%}
+  .hero--aerial .hero__word{font-size:21vw;top:44%}
+  .hero--aerial .hero__aerial-left{bottom:clamp(10rem,27vh,13rem)}
+  .hero--aerial .hero__cta{flex-direction:column;align-items:stretch;width:100%}
+  .hero--aerial .hero__cta .btn{justify-content:center}
 }
 
 /* ============================================================
