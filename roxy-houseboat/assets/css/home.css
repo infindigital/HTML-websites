@@ -2335,7 +2335,32 @@ a.trust__cell:hover{background:var(--bg-2)}
   z-index:3;pointer-events:none;
   filter:drop-shadow(0 14px 26px rgba(6,26,30,.26));   /* lifts palms + boat off the type */
 }
-/* --- living water: drifting light + glints on the OPEN water only ---------
+/* --- REAL water movement: refraction of the actual water surface -----------
+   A pixel-identical copy of the background photo (same size + position) is
+   distorted by an animated SVG turbulence displacement (#heroWaterFx). It sits
+   at z2 — above the static photo (z1), below the keyed boat+palms foreground
+   (z3) — and is masked to the lower open-water band, feathered at the top. So
+   the water surface genuinely ripples, while the boat and the tree banks
+   (opaque in the foreground cutout) stay perfectly still.                     */
+.hero--aerial .hero__water{
+  position:absolute;inset:0;z-index:2;pointer-events:none;
+  background-size:cover;background-position:center bottom;background-repeat:no-repeat;
+  filter:url("#heroWaterFx");
+  -webkit-mask:linear-gradient(180deg,transparent 46%,#000 66%);
+          mask:linear-gradient(180deg,transparent 46%,#000 66%);
+  will-change:filter;
+}
+.hero__water-defs{position:absolute;width:0;height:0;overflow:hidden;pointer-events:none}
+@media (prefers-reduced-motion:reduce){
+  .hero--aerial .hero__water{filter:none;display:none}
+}
+/* on phones/tablets the hero photo uses a different crop (center 52%) and the
+   displacement filter is costly, so drop the refraction layer there — the
+   lightweight sheen + glints keep the water feeling alive. */
+@media (max-width:860px){
+  .hero--aerial .hero__water{display:none}
+}
+/* --- living water sparkle: drifting light + glints on the OPEN water only ---
    The layer sits at z2 (above the photo, below the keyed foreground at z3),
    so the boat hull and the tree banks — opaque in the foreground cutout —
    naturally mask the motion. It is physically confined to the lower water
