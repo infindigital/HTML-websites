@@ -2486,7 +2486,7 @@ a.trust__cell:hover{background:var(--bg-2)}
   .hero--aerial{
     display:flex;flex-direction:column;aspect-ratio:auto;
     min-height:100svh;max-height:none;
-    background:linear-gradient(180deg,#2c5b53 0%,#173f39 42%,#102e2a 100%);
+    background:#ffffff;                                   /* white copy panel */
   }
   /* photographic banner */
   .hero--aerial .hero__stage{
@@ -2497,7 +2497,7 @@ a.trust__cell:hover{background:var(--bg-2)}
   }
   .hero--aerial .hero__lux-bg,
   .hero--aerial .hero__lux-fg{background-size:cover;background-position:center 46%}
-  .hero--aerial .hero__word{font-size:23vw;top:41%}
+  .hero--aerial .hero__word{font-size:16vw;top:41%}      /* smaller so all letters fit */
   .hero--aerial::before{height:14%}
   .hero--aerial::after{display:none}                              /* no dark band under the boat */
   /* copy panel — normal flow, below the banner, clear of the boat */
@@ -2512,12 +2512,26 @@ a.trust__cell:hover{background:var(--bg-2)}
   .hero--aerial .hero__title{font-size:clamp(1.9rem,6.4vw,2.5rem)}
   .hero--aerial .hero__text{max-width:52ch}
   .hero--aerial .hero__cta .btn{padding:1em 1.6em;font-size:.78rem}
+  /* white panel -> black copy + black-outlined buttons (no green, no shadows) */
+  .hero--aerial .hero__loc{color:#101316;text-shadow:none}
+  .hero--aerial .hero__loc svg{opacity:1}
+  .hero--aerial .hero__title,
+  .hero--aerial .hero__title span{color:#101316;text-shadow:none}
+  .hero--aerial .hero__text{color:#3a3f42;text-shadow:none}
+  .hero--aerial .hero__cta .btn--light,
+  .hero--aerial .hero__cta .btn--outline-light{
+    --bg:transparent;--fg:#101316;background:transparent;color:#101316;border-color:#101316;
+  }
+  .hero--aerial .hero__cta .btn--light:hover,
+  .hero--aerial .hero__cta .btn--outline-light:hover{
+    background:rgba(16,19,22,.06);border-color:#101316;color:#101316;
+  }
 }
 
 /* portrait phones: full-width stacked CTAs, slightly taller banner room */
 @media (max-width:600px) and (orientation:portrait){
   .hero--aerial .hero__stage{height:52svh}
-  .hero--aerial .hero__word{font-size:24vw;top:40%}
+  .hero--aerial .hero__word{font-size:15vw;top:40%}      /* phones: fit all letters */
   .hero--aerial .hero__cta{flex-direction:column;align-items:stretch;width:100%}
   .hero--aerial .hero__cta .btn{justify-content:center}
 }
