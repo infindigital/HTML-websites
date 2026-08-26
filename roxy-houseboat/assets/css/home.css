@@ -2423,7 +2423,7 @@ a.trust__cell:hover{background:var(--bg-2)}
 /* the giant editorial wordmark — italic, lightly skewed, sitting in the sky
    between the background photo (z1) and the keyed foreground (z3) */
 .hero--aerial .hero__word{
-  position:absolute;left:50%;top:44%;transform:translate(-50%,-50%);
+  position:absolute;left:50%;top:40%;transform:translate(-50%,-50%);
   z-index:2;white-space:nowrap;pointer-events:none;user-select:none;
   font-family:'Anton','Oswald','Arial Narrow',var(--display-hero),sans-serif;
   font-style:normal;font-weight:400;text-transform:uppercase;
