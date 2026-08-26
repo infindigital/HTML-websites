@@ -2347,14 +2347,15 @@ a.trust__cell:hover{background:var(--bg-2)}
    ============================================================ */
 .hero--aerial{
   position:relative;overflow:hidden;isolation:isolate;
-  width:100%;height:100svh;max-height:100vh;   /* full viewport; boat anchored low */
+  width:100%;aspect-ratio:2132 / 941;          /* match the photo: whole scene, boat NEVER cropped */
+  max-height:100vh;min-height:560px;
   padding:0;margin:0;max-width:none;display:block;
   background:#cfe0ec;                            /* sky tone while the photo loads */
 }
 /* the stage wraps the photo layers; on desktop it simply fills the hero (no
    z-index, so it creates NO stacking context and the bg/word/fg keep layering
    against the hero exactly as before) */
-.hero--aerial .hero__stage{position:absolute;inset:0}
+.hero--aerial .hero__stage{position:absolute;inset:0;aspect-ratio:auto;height:auto;width:auto}
 .hero--aerial .hero__lux-bg,
 .hero--aerial .hero__lux-fg{
   position:absolute;inset:0;
