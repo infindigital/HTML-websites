@@ -2753,15 +2753,40 @@ body:not(.home-video-hero) .discover__panel{
   background:linear-gradient(150deg,rgba(20,24,27,.9),rgba(14,17,19,.9))}
 body:not(.home-video-hero) .wsa-card::before{background:#101316}
 
-/* ---- internal footer (teal -> neutral dark, accents -> white/neutral) ---- */
-body:not(.home-video-hero) .foot{background:#14181b}
-body:not(.home-video-hero) .foot__place,
-body:not(.home-video-hero) .foot__col h4{color:#fff}
-body:not(.home-video-hero) .foot__col h4::after{background:#fff}
-body:not(.home-video-hero) .foot__links a::before{border-top-color:#fff;border-right-color:#fff}
-body:not(.home-video-hero) .foot__links a:hover,
-body:not(.home-video-hero) .foot__contact a:hover,
-body:not(.home-video-hero) .foot__legal a:hover{color:#fff}
-body:not(.home-video-hero) .foot__cic{background:rgba(255,255,255,.16);color:#fff}
-body:not(.home-video-hero) .foot__socials a:hover,
-body:not(.home-video-hero) .foot__chat:hover{background:#fff;border-color:#fff;color:#14181b}
+/* ---- footer (teal -> neutral dark, accents -> white/neutral) ----
+   Unscoped: the .foot footer is now used on every page (homepage
+   included), so it stays neutral everywhere. ---- */
+.foot{background:#14181b}
+.foot__place,
+.foot__col h4{color:#fff}
+.foot__col h4::after{background:#fff}
+.foot__links a::before{border-top-color:#fff;border-right-color:#fff}
+.foot__links a:hover,
+.foot__contact a:hover,
+.foot__legal a:hover{color:#fff}
+.foot__cic{background:rgba(255,255,255,.16);color:#fff}
+.foot__socials a:hover,
+.foot__chat:hover{background:#fff;border-color:#fff;color:#14181b}
+
+/* ---- section headers: grey pill eyebrow + bold heading (homepage style) ---- */
+body:not(.home-video-hero) .svc__script,
+body:not(.home-video-hero) .svcf__eyebrow,
+body:not(.home-video-hero) .cx__eyebrow,
+body:not(.home-video-hero) .cx__info-eyebrow,
+body:not(.home-video-hero) .pkg__kicker,
+body:not(.home-video-hero) .wwa__script,
+body:not(.home-video-hero) .vis__script,
+body:not(.home-video-hero) .wsa__script{
+  display:inline-block;background:#f1f2f3;color:#3a3f42;
+  border:1px solid rgba(16,19,22,.09);
+  font-family:var(--sans);font-weight:600;font-size:.72rem;letter-spacing:.12em;
+  text-transform:uppercase;padding:.55em 1.1em;border-radius:999px;
+  line-height:1;font-style:normal;margin:0 0 1rem}
+body:not(.home-video-hero) .svcf__eyebrow::before,
+body:not(.home-video-hero) .cx__eyebrow::after{content:none;display:none}
+/* drop the old decorative wave that sat under a script eyebrow */
+body:not(.home-video-hero) .wwa__wave{display:none}
+/* unstyled svc__title -> homepage bold heading */
+body:not(.home-video-hero) .svc__title{
+  font-family:var(--sans);font-weight:700;letter-spacing:-.02em;line-height:1.04;
+  font-size:clamp(2rem,4.4vw,3.3rem);color:#0e1113;margin:0}
