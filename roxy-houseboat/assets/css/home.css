@@ -2497,7 +2497,7 @@ a.trust__cell:hover{background:var(--bg-2)}
   }
   .hero--aerial .hero__lux-bg,
   .hero--aerial .hero__lux-fg{background-size:cover;background-position:center 46%}
-  .hero--aerial .hero__word{font-size:16vw;top:41%}      /* smaller so all letters fit */
+  .hero--aerial .hero__word{font-size:18vw;top:41%}      /* sized so all letters fit */
   .hero--aerial::before{height:14%}
   .hero--aerial::after{display:none}                              /* no dark band under the boat */
   /* copy panel — normal flow, below the banner, clear of the boat */
@@ -2531,7 +2531,7 @@ a.trust__cell:hover{background:var(--bg-2)}
 /* portrait phones: full-width stacked CTAs, slightly taller banner room */
 @media (max-width:600px) and (orientation:portrait){
   .hero--aerial .hero__stage{height:52svh}
-  .hero--aerial .hero__word{font-size:15vw;top:40%}      /* phones: fit all letters */
+  .hero--aerial .hero__word{font-size:18vw;top:40%}      /* phones: larger, still fits */
   .hero--aerial .hero__cta{flex-direction:column;align-items:stretch;width:100%}
   .hero--aerial .hero__cta .btn{justify-content:center}
 }
