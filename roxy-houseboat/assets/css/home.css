@@ -2429,7 +2429,7 @@ a.trust__cell:hover{background:var(--bg-2)}
 }
 /* LEFT (lower): intro copy */
 .hero--aerial .hero__aerial-left{
-  position:absolute;left:0;bottom:clamp(1.1rem,3.4vh,2.4rem);z-index:6;
+  position:absolute;left:0;bottom:clamp(.4rem,1.4vh,1rem);z-index:6;
   max-width:min(42%,540px);padding-left:clamp(3rem,8vw,7.5rem);padding-right:1rem;
 }
 /* RIGHT (lower): CTAs (horizontal row) */
