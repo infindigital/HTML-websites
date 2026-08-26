@@ -2347,8 +2347,8 @@ a.trust__cell:hover{background:var(--bg-2)}
    ============================================================ */
 .hero--aerial{
   position:relative;overflow:hidden;isolation:isolate;
-  width:100%;aspect-ratio:1915 / 821;          /* the 21:9 photo's own ratio: full width, whole scene, boat NEVER cropped, no mirrored banks */
-  max-height:100vh;min-height:560px;
+  width:100%;height:100svh;                     /* fill the viewport: the WHOLE hero is one screen at 100% zoom */
+  max-height:100svh;min-height:600px;
   padding:0;margin:0;max-width:none;display:block;
   background:#cfe0ec;                            /* sky tone while the photo loads */
 }
