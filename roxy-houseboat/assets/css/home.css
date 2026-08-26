@@ -2518,11 +2518,15 @@ a.trust__cell:hover{background:var(--bg-2)}
   .hero--aerial .hero__title,
   .hero--aerial .hero__title span{color:#101316;text-shadow:none}
   .hero--aerial .hero__text{color:#3a3f42;text-shadow:none}
-  .hero--aerial .hero__cta .btn--light,
+  /* EXPLORE PACKAGES -> solid black fill, white text */
+  .hero--aerial .hero__cta .btn--light{
+    --bg:#101316;--fg:#fff;background:#101316;color:#fff;border-color:#101316;
+  }
+  .hero--aerial .hero__cta .btn--light:hover{background:#2a2f34;border-color:#2a2f34;color:#fff}
+  /* CALL NOW -> black text with black outline */
   .hero--aerial .hero__cta .btn--outline-light{
     --bg:transparent;--fg:#101316;background:transparent;color:#101316;border-color:#101316;
   }
-  .hero--aerial .hero__cta .btn--light:hover,
   .hero--aerial .hero__cta .btn--outline-light:hover{
     background:rgba(16,19,22,.06);border-color:#101316;color:#101316;
   }
