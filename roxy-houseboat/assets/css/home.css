@@ -2343,11 +2343,14 @@ a.trust__cell:hover{background:var(--bg-2)}
    the water surface genuinely ripples, while the boat and the tree banks
    (opaque in the foreground cutout) stay perfectly still.                     */
 .hero--aerial .hero__water{
-  position:absolute;inset:0;z-index:2;pointer-events:none;
+  position:absolute;inset:0;z-index:4;pointer-events:none;
   background-size:cover;background-position:center bottom;background-repeat:no-repeat;
   filter:url("#heroWaterFx");
-  -webkit-mask:linear-gradient(180deg,transparent 46%,#000 66%);
-          mask:linear-gradient(180deg,transparent 46%,#000 66%);
+  /* a hand-traced mask that is white ONLY over the open water — the boat, the
+     tree banks, the huts and the sky are all black, so nothing but the water
+     surface can ever move. Sized/positioned identically to the photo. */
+  -webkit-mask:url("/assets/images/hero-lux-water-mask.png?v=hw2") center bottom / cover no-repeat;
+          mask:url("/assets/images/hero-lux-water-mask.png?v=hw2") center bottom / cover no-repeat;
   will-change:filter;
 }
 .hero__water-defs{position:absolute;width:0;height:0;overflow:hidden;pointer-events:none}
