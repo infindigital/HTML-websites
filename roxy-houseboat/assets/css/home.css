@@ -2309,7 +2309,7 @@ a.trust__cell:hover{background:var(--bg-2)}
    ============================================================ */
 .hero--aerial{
   position:relative;overflow:hidden;isolation:isolate;
-  width:100%;aspect-ratio:21 / 9;                 /* wide cinematic band — fits the viewport at 100% zoom */
+  width:100%;aspect-ratio:1672 / 941;          /* show the WHOLE aerial photo, no zoom crop */
   padding:0;margin:0;max-width:none;            /* full width */
   display:block;
 }
