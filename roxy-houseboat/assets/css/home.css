@@ -2366,7 +2366,7 @@ a.trust__cell:hover{background:var(--bg-2)}
   position:absolute;left:50%;top:28%;transform:translate(-50%,-50%);
   z-index:3;white-space:nowrap;pointer-events:none;user-select:none;
   font-family:var(--display-hero);font-style:italic;font-weight:500;
-  font-size:18vw;line-height:.9;letter-spacing:.095em;color:#fff;
+  font-size:18vw;line-height:.9;letter-spacing:-.005em;color:#fff;
   text-shadow:0 6px 40px rgba(4,18,24,.4),0 1px 3px rgba(4,18,24,.28);
 }
 /* LEFT of the boat (lower): intro copy — clear of the wordmark & boat */
