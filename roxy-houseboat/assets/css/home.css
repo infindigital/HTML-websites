@@ -2458,8 +2458,8 @@ a.trust__cell:hover{background:var(--bg-2)}
     -webkit-mask-size:cover;mask-size:cover;
     -webkit-mask-position:center;mask-position:center;
   }
-  /* word on the open water ABOVE the boat, sized so the whole word is visible */
-  .hero--aerial .hero__word{font-size:15vw;top:17%;letter-spacing:-.01em}
+  /* word on the open water ABOVE the boat, centered and sized to just fit */
+  .hero--aerial .hero__word{font-size:16.5vw;top:18%;letter-spacing:-.015em}
   /* copy + CTAs over the open water at the bottom, centered and stacked; the copy
      sits high enough to clear the two stacked buttons below it */
   .hero--aerial .hero__aerial-left,
