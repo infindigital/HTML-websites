@@ -244,18 +244,14 @@
     <div class="hero__aerial-bg" role="img"
          aria-label="Aerial view of a Roxy houseboat cruising the turquoise Nileshwar backwaters, framed by dense coconut palms"
          style="background-image:url('/assets/images/new%20hero.png')"></div>
-    <!-- the SAME photo, gently warped by a subtle displacement filter, masked to
-         the water channel only -> the surface softly floats while palms/boat stay crisp -->
+    <!-- the SAME photo, given a slight STATIC ripple by a subtle displacement
+         filter, masked to the water channel only -> the surface reads as gently
+         rippled water while palms/boat stay crisp. No animation: no movement. -->
     <div class="hero__flow" style="background-image:url('/assets/images/new%20hero.png')" aria-hidden="true"></div>
     <svg class="hero__svgdefs" aria-hidden="true" width="0" height="0" xmlns="http://www.w3.org/2000/svg">
       <filter id="roxyFlow" x="-5%" y="-5%" width="110%" height="110%">
-        <feTurbulence type="fractalNoise" baseFrequency="0.008 0.015" numOctaves="2" seed="4" result="noise">
-          <animate attributeName="baseFrequency" dur="15s" repeatCount="indefinite"
-                   values="0.008 0.015; 0.011 0.018; 0.007 0.013; 0.008 0.015"/>
-        </feTurbulence>
-        <feDisplacementMap in="SourceGraphic" in2="noise" xChannelSelector="R" yChannelSelector="G" scale="4.5">
-          <animate attributeName="scale" dur="9s" repeatCount="indefinite" values="3;6;3"/>
-        </feDisplacementMap>
+        <feTurbulence type="fractalNoise" baseFrequency="0.009 0.016" numOctaves="2" seed="4" result="noise"/>
+        <feDisplacementMap in="SourceGraphic" in2="noise" xChannelSelector="R" yChannelSelector="G" scale="2.5"/>
       </filter>
     </svg>
     <!-- giant word, sits on the water BEHIND the boat -->
