@@ -2430,15 +2430,18 @@ a.trust__cell:hover{background:var(--bg-2)}
     -webkit-mask-position:center;mask-position:center;
   }
   /* word on the water, sized big, with its lower half tucked behind the boat */
-  .hero--aerial .hero__word{font-size:20vw;top:30%;letter-spacing:-.01em}
+  .hero--aerial .hero__word{font-size:22vw;top:30%;letter-spacing:-.01em}
   .hero--aerial .hero__aerial-left,
   .hero--aerial .hero__aerial-right{
     position:absolute;left:0;right:0;top:auto;transform:none;max-width:100%;
     padding-inline:clamp(1.4rem,6vw,2.4rem);
   }
   .hero--aerial .hero__aerial-left{bottom:clamp(6.2rem,19vh,8.5rem)}
-  .hero--aerial .hero__aerial-right{bottom:clamp(1.8rem,5vh,2.6rem)}
-  .hero--aerial .hero__cta{gap:.7rem;justify-content:flex-start}
+  /* CTAs right-aligned; extra right padding keeps them clear of the floating
+     WhatsApp button in the bottom-right corner */
+  .hero--aerial .hero__aerial-right{bottom:clamp(1.8rem,5vh,2.6rem);
+    padding-right:clamp(6rem,14vw,8rem)}
+  .hero--aerial .hero__cta{gap:.7rem;justify-content:flex-end}
   .hero--aerial .hero__title{font-size:clamp(1.8rem,6.5vw,2.3rem)}
   .hero--aerial .hero__text{max-width:40ch}
   .hero--aerial .hero__cta .btn{padding:.95em 1.5em;font-size:.76rem}
