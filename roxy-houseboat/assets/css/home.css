@@ -2409,19 +2409,28 @@ a.trust__cell:hover{background:var(--bg-2)}
    separate keyed boat is hidden here (it would double up when scaled); the word
    sits over the water at the top and the copy + CTAs stack over the water below. */
 @media (max-width:1024px) and (orientation:portrait){
-  .hero--aerial{aspect-ratio:auto;min-height:100vh;min-height:100svh}
-  /* keep the keyed boat ON TOP so the word tucks behind it, and lift the photo a
-     little so the boat rises toward the enlarged word. bg + flow + boat + mask
-     all share the same crop, so the boat never doubles. */
+  .hero--aerial{aspect-ratio:auto;min-height:100vh;min-height:100svh;background:#0b4a51}
+  /* full-bleed portrait TABLET photo (tablet.png) + keyed boat ON TOP so the word
+     tucks behind it + ripple masked to the water — mirrors the desktop/mobile hero.
+     bg + flow + boat + mask all share cover/center so the boat never doubles. */
   .hero--aerial .hero__boatwrap{display:block}
   .hero--aerial .hero__aerial-bg,
-  .hero--aerial .hero__flow,
-  .hero--aerial .hero__boatwrap{background-size:auto 116%;background-position:center 38%}
-  .hero--aerial .hero__flow{-webkit-mask-size:auto 116%;mask-size:auto 116%;
-                            -webkit-mask-position:center 38%;mask-position:center 38%}
-  /* tablet keeps the full horizontal nav, so the word sits clear below it,
-     enlarged, with its lower half tucked behind the boat */
-  .hero--aerial .hero__word{font-size:21vw;top:30%;letter-spacing:-.01em}
+  .hero--aerial .hero__flow{
+    inset:0;background-image:url('/assets/images/tablet.png') !important;
+    background-size:cover;background-position:center;
+  }
+  .hero--aerial .hero__boatwrap{
+    inset:0;background-image:url('/assets/images/tablet-boat.webp');
+    background-size:cover;background-position:center;
+  }
+  .hero--aerial .hero__flow{
+    -webkit-mask-image:url('/assets/images/tablet-water-mask.png');
+            mask-image:url('/assets/images/tablet-water-mask.png');
+    -webkit-mask-size:cover;mask-size:cover;
+    -webkit-mask-position:center;mask-position:center;
+  }
+  /* word on the water, sized big, with its lower half tucked behind the boat */
+  .hero--aerial .hero__word{font-size:20vw;top:30%;letter-spacing:-.01em}
   .hero--aerial .hero__aerial-left,
   .hero--aerial .hero__aerial-right{
     position:absolute;left:0;right:0;top:auto;transform:none;max-width:100%;
