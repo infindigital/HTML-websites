@@ -2406,7 +2406,7 @@ a.trust__cell:hover{background:var(--bg-2)}
 /* tablet + phone: portrait. The boat is baked into the background photo, so the
    separate keyed boat is hidden here (it would double up when scaled); the word
    sits over the water at the top and the copy + CTAs stack over the water below. */
-@media (max-width:1024px){
+@media (max-width:1024px) and (orientation:portrait){
   .hero--aerial{aspect-ratio:auto;min-height:100vh;min-height:100svh}
   /* keep the keyed boat ON TOP so the word tucks behind it, and lift the photo a
      little so the boat rises toward the enlarged word. bg + flow + boat + mask
@@ -2439,7 +2439,7 @@ a.trust__cell:hover{background:var(--bg-2)}
    The flow layer and its water-mask track the exact same size + position so the
    ripple stays locked to the water. (Tablet portrait keeps the layout above so
    the word never collides with the logo.) */
-@media (max-width:600px){
+@media (max-width:600px) and (orientation:portrait){
   .hero--aerial .hero__boatwrap{display:block}
   .hero--aerial .hero__aerial-bg,
   .hero--aerial .hero__flow,
