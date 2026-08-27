@@ -2434,43 +2434,50 @@ a.trust__cell:hover{background:var(--bg-2)}
   .hero--aerial .hero__cta .btn{padding:.95em 1.5em;font-size:.76rem}
 }
 
-/* phone only: show the WHOLE photo at full width so the boat becomes small and
-   sits in the upper third with the giant "Houseboat" word behind it; the photo
-   band fades into a matching water gradient that fills the rest, and the copy +
-   CTAs are pinned to the FOOTER of the hero, centered and stacked. */
+/* phone only: full-bleed mobile hero that mirrors the desktop design, driven by
+   a dedicated PORTRAIT photo (mobile.png). The photo fills the whole screen via
+   cover; the giant "Houseboat" word sits on the water and the boat — keyed out of
+   the same portrait photo — layers ON TOP so the word tucks behind it; the ripple
+   is masked to the water; copy + CTAs sit over the open water at the bottom. */
 @media (max-width:600px) and (orientation:portrait){
-  .hero--aerial{
-    aspect-ratio:auto;min-height:100svh;
-    background:linear-gradient(180deg,#12707a 0%,#106068 44%,#0a464d 100%);
-  }
+  .hero--aerial{aspect-ratio:auto;min-height:100vh;min-height:100svh;background:#0b4a51}
   .hero--aerial .hero__boatwrap{display:block}
-  /* the photo fills a defined rectangle (full width, from below the header down
-     to mid-screen); cover fills that box so the boat reads at a comfortable size
-     with the giant word behind it. All layers share the same box + cover/center
-     so the keyed boat stays locked over the baked-in boat. */
+  /* full-bleed portrait photo + keyed boat + ripple, all sharing cover/center */
   .hero--aerial .hero__aerial-bg,
-  .hero--aerial .hero__flow,
-  .hero--aerial .hero__boatwrap{
-    inset:auto;left:0;right:0;top:8vh;height:48vh;
+  .hero--aerial .hero__flow{
+    inset:0;background-image:url('/assets/images/mobile.png') !important;
     background-size:cover;background-position:center;
   }
-  .hero--aerial .hero__flow{-webkit-mask-size:cover;mask-size:cover;
-                            -webkit-mask-position:center;mask-position:center}
-  /* giant word sits BEHIND the boat, centered on the photo box */
-  .hero--aerial .hero__word{font-size:20vw;top:32vh;letter-spacing:-.015em}
-  /* copy + CTAs pinned to the footer, centered and stacked over the gradient */
+  .hero--aerial .hero__boatwrap{
+    inset:0;background-image:url('/assets/images/mobile-boat.webp');
+    background-size:cover;background-position:center;
+  }
+  .hero--aerial .hero__flow{
+    -webkit-mask-image:url('/assets/images/mobile-water-mask.png');
+            mask-image:url('/assets/images/mobile-water-mask.png');
+    -webkit-mask-size:cover;mask-size:cover;
+    -webkit-mask-position:center;mask-position:center;
+  }
+  /* word on the water, tucked BEHIND the boat (centered on the boat, ~41% down) */
+  .hero--aerial .hero__word{font-size:26vw;top:40%;letter-spacing:-.01em}
+  /* copy + CTAs over the open water at the bottom, centered and stacked; the copy
+     sits high enough to clear the two stacked buttons below it */
   .hero--aerial .hero__aerial-left,
   .hero--aerial .hero__aerial-right{
     position:absolute;left:0;right:0;top:auto;transform:none;max-width:100%;
-    text-align:center;padding-inline:1.6rem;
+    text-align:center;padding-inline:1.5rem;
   }
-  .hero--aerial .hero__aerial-left{bottom:9rem}
-  .hero--aerial .hero__aerial-right{bottom:2.6rem}
-  .hero--aerial .hero__loc{margin-bottom:.7rem}
-  .hero--aerial .hero__title{font-size:clamp(2rem,8.5vw,2.5rem)}
-  .hero--aerial .hero__text{max-width:40ch;margin:.8rem auto 0}
-  .hero--aerial .hero__cta{justify-content:center;gap:.75rem;flex-wrap:wrap}
-  .hero--aerial .hero__cta .btn{padding:.95em 1.7em;font-size:.78rem}
+  .hero--aerial .hero__aerial-left{bottom:11rem}
+  .hero--aerial .hero__aerial-right{bottom:2.4rem}
+  .hero--aerial .hero__loc{margin-bottom:.55rem;font-size:.7rem}
+  .hero--aerial .hero__title{font-size:clamp(1.8rem,7.6vw,2.2rem);line-height:1.05}
+  .hero--aerial .hero__text{max-width:33ch;margin:.6rem auto 0;font-size:.95rem;line-height:1.55}
+  .hero--aerial .hero__cta{justify-content:center;gap:.7rem;flex-wrap:wrap}
+  .hero--aerial .hero__cta .btn{padding:.9em 1.7em;font-size:.76rem}
+  /* a soft dark veil at the very bottom lifts text legibility over the water */
+  .hero--aerial .hero__aerial-scrim{
+    background:linear-gradient(0deg,rgba(6,26,28,.72) 0%,rgba(6,26,28,.30) 26%,rgba(6,26,28,0) 50%);
+  }
 }
 
 /* ============================================================
