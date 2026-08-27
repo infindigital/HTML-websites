@@ -2315,7 +2315,10 @@ a.trust__cell:hover{background:var(--bg-2)}
 }
 .hero--aerial .hero__aerial-bg{
   position:absolute;inset:0;z-index:1;
-  background-size:cover;background-position:center;background-repeat:no-repeat;
+  /* box is locked to the photo's exact 21:9 ratio (aspect-ratio:1915/821), so
+     mapping the image corners straight to the box corners shows the WHOLE photo
+     edge-to-edge with no crop and no sub-pixel shave (unlike cover). */
+  background-size:100% 100%;background-position:center;background-repeat:no-repeat;
 }
 /* keeps the giant word and the boat perfectly aligned with the background,
    because this layer is the SAME photo cropped identically (object-fit:cover/center) */
@@ -2325,14 +2328,14 @@ a.trust__cell:hover{background:var(--bg-2)}
    masked to the central water channel so palms + boat stay perfectly sharp */
 .hero--aerial .hero__flow{
   position:absolute;inset:0;z-index:1;
-  background-size:cover;background-position:center;background-repeat:no-repeat;
+  background-size:100% 100%;background-position:center;background-repeat:no-repeat;
   filter:url(#roxyFlow);
   /* mask built from the photo itself: opaque over the WATER only, so the ripple
      never touches the palms or the boat. Longhands let the mask position track
      the background crop on smaller screens. */
   -webkit-mask-image:url('/assets/images/new-hero-water-mask.png');
           mask-image:url('/assets/images/new-hero-water-mask.png');
-  -webkit-mask-size:cover;          mask-size:cover;
+  -webkit-mask-size:100% 100%;      mask-size:100% 100%;
   -webkit-mask-position:center;     mask-position:center;
   -webkit-mask-repeat:no-repeat;    mask-repeat:no-repeat;
   will-change:filter;
@@ -2345,7 +2348,7 @@ a.trust__cell:hover{background:var(--bg-2)}
 .hero--aerial .hero__boatwrap{
   position:absolute;inset:0;z-index:4;pointer-events:none;
   background-image:url('/assets/images/new-hero-boat.webp');
-  background-size:cover;background-position:center;background-repeat:no-repeat;
+  background-size:100% 100%;background-position:center;background-repeat:no-repeat;
   filter:drop-shadow(0 18px 30px rgba(4,20,26,.4));
 }
 .hero--aerial .hero__boat-fg{display:none}
