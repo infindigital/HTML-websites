@@ -1,0 +1,233 @@
+/* ==========================================================================
+   Reusable components: buttons, cards, badges, placeholders
+   ========================================================================== */
+
+/* ---- Buttons ---- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 1rem;
+  line-height: 1;
+  padding: 1rem 1.6rem;
+  border-radius: var(--radius-pill);
+  transition: transform var(--dur) var(--ease), background-color var(--dur) var(--ease),
+    color var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
+  white-space: nowrap;
+}
+.btn svg { width: 1.05em; height: 1.05em; flex: none; }
+.btn:hover { transform: translateY(-2px); }
+
+.btn--primary { background: var(--color-primary); color: #fff; box-shadow: var(--shadow-sm); }
+.btn--primary:hover { background: var(--color-primary-600); }
+
+.btn--light { background: #fff; color: var(--color-ink); box-shadow: var(--shadow-sm); }
+.btn--light:hover { color: var(--color-primary); }
+
+.btn--ghost { background: transparent; color: var(--color-ink); border: 1.5px solid var(--color-border); }
+.btn--ghost:hover { border-color: var(--color-primary); color: var(--color-primary); }
+
+.btn--outline-light { background: transparent; color: #fff; border: 1.5px solid rgba(255,255,255,0.4); }
+.btn--outline-light:hover { background: #fff; color: var(--color-ink); }
+
+.btn--wa { background: #25d366; color: #fff; }
+.btn--wa:hover { background: #1eb457; }
+
+.btn--block { width: 100%; justify-content: center; }
+.btn--sm { padding: 0.7rem 1.15rem; font-size: 0.92rem; }
+
+/* Arrow that nudges on hover */
+.btn .arrow { transition: transform var(--dur) var(--ease); }
+.btn:hover .arrow { transform: translateX(4px); }
+
+/* ---- Image placeholder (used until real assets are supplied) ---- */
+.media {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius);
+  background: var(--color-bg-soft);
+}
+.media img { width: 100%; height: 100%; object-fit: cover; }
+
+.image-placeholder {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 100%;
+  display: grid;
+  place-items: center;
+  color: #b08a63;
+  background:
+    linear-gradient(135deg, #fff4e6 0%, #ffe9cf 100%);
+  border-radius: inherit;
+}
+.image-placeholder::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    repeating-linear-gradient(45deg, rgba(247,147,30,0.06) 0 12px, transparent 12px 24px);
+}
+.image-placeholder .ph-mark {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+  text-align: center;
+  padding: 1rem;
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 0.78rem;
+  letter-spacing: 0.02em;
+  color: #c07f38;
+}
+.image-placeholder .ph-mark svg { width: 34px; height: 34px; opacity: 0.65; }
+
+/* Aspect ratio boxes */
+.ratio-16x9 { aspect-ratio: 16 / 9; }
+.ratio-4x3 { aspect-ratio: 4 / 3; }
+.ratio-1x1 { aspect-ratio: 1 / 1; }
+.ratio-3x4 { aspect-ratio: 3 / 4; }
+
+/* ---- Cards grid ---- */
+.grid { display: grid; gap: 1.75rem; }
+.grid--3 { grid-template-columns: repeat(3, 1fr); }
+.grid--4 { grid-template-columns: repeat(4, 1fr); }
+.grid--5 { grid-template-columns: repeat(5, 1fr); }
+.grid--2 { grid-template-columns: repeat(2, 1fr); }
+
+/* ---- Product card ---- */
+.product-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  text-align: center;
+  transition: transform var(--dur) var(--ease);
+}
+.product-card:hover { transform: translateY(-6px); }
+.product-card .media { border-radius: var(--radius-lg); aspect-ratio: 1 / 1; box-shadow: var(--shadow-sm); }
+.product-card .media img { transition: transform 0.6s var(--ease); }
+.product-card:hover .media img { transform: scale(1.06); }
+.product-card__title {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 1.02rem;
+  color: var(--color-ink);
+}
+.product-card__link { display: block; }
+.product-card__link:hover .product-card__title { color: var(--color-primary); }
+
+/* ---- Service card (image with overlaid title + Learn More) ---- */
+.service-card {
+  position: relative;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  min-height: 300px;
+  display: flex;
+  box-shadow: var(--shadow-sm);
+  isolation: isolate;
+}
+.service-card .media,
+.service-card .image-placeholder { position: absolute; inset: 0; border-radius: 0; }
+.service-card::after {
+  content: "";
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(16,10,6,0) 45%, rgba(16,10,6,0.72) 100%);
+  z-index: 1;
+}
+.service-card__bar {
+  position: relative;
+  z-index: 2;
+  margin-top: auto;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.1rem 1.2rem;
+}
+.service-card__title { color: #fff; font-size: 1.15rem; font-weight: 600; font-family: var(--font-heading); }
+.service-card__btn {
+  background: var(--color-primary);
+  color: #fff;
+  font-weight: 600;
+  font-size: 0.9rem;
+  padding: 0.6rem 1rem;
+  border-radius: var(--radius-pill);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: background var(--dur) var(--ease), transform var(--dur) var(--ease);
+  white-space: nowrap;
+}
+.service-card:hover .service-card__btn { background: var(--color-primary-600); }
+.service-card:hover .service-card__btn .arrow { transform: translateX(3px); }
+.service-card__btn .arrow { transition: transform var(--dur) var(--ease); }
+
+/* ---- Breadcrumbs ---- */
+.breadcrumbs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  align-items: center;
+  font-size: 0.9rem;
+  color: var(--color-muted);
+}
+.breadcrumbs a:hover { color: var(--color-primary); }
+.breadcrumbs .sep { opacity: 0.5; }
+.breadcrumbs [aria-current="page"] { color: var(--color-ink); font-weight: 600; }
+
+/* ---- Pagination ---- */
+.pagination {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 2.75rem;
+  flex-wrap: wrap;
+}
+.pagination button,
+.pagination a {
+  min-width: 42px;
+  height: 42px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  font-weight: 600;
+  color: var(--color-ink);
+  background: #fff;
+  transition: all var(--dur) var(--ease);
+  padding: 0 0.5rem;
+}
+.pagination button[aria-current="true"] { background: var(--color-primary); border-color: var(--color-primary); color: #fff; }
+.pagination button:hover:not([aria-current="true"]),
+.pagination a:hover { border-color: var(--color-primary); color: var(--color-primary); }
+.pagination button[disabled] { opacity: 0.4; cursor: not-allowed; }
+
+/* ---- Reveal on scroll (progressive enhancement) ----
+   Hidden initial state applies ONLY when JS has added .reveal-ready to <html>,
+   so the content is always visible if JavaScript is disabled or fails. */
+.reveal-ready [data-reveal] {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+}
+.reveal-ready [data-reveal].is-visible { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) {
+  .reveal-ready [data-reveal] { opacity: 1; transform: none; }
+}
+
+/* ---- Chips / badge ---- */
+.badge {
+  display: inline-block;
+  background: var(--color-primary-050);
+  color: var(--color-primary-600);
+  font-weight: 600;
+  font-size: 0.82rem;
+  padding: 0.35rem 0.8rem;
+  border-radius: var(--radius-pill);
+}

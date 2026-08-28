@@ -1,0 +1,137 @@
+/* ==========================================================================
+   Footer + pre-footer CTA
+   ========================================================================== */
+.cta-band {
+  position: relative;
+  background: var(--color-dark);
+  color: #fff;
+  text-align: center;
+  padding: clamp(4rem, 8vw, 7rem) 0 calc(clamp(4rem, 8vw, 7rem) + 90px);
+  overflow: hidden;
+}
+.cta-band__bg {
+  position: absolute; inset: 0;
+  z-index: 0;
+  opacity: 0.35;
+}
+.cta-band__bg img,
+.cta-band__bg .image-placeholder { width: 100%; height: 100%; object-fit: cover; }
+.cta-band__watermark {
+  position: absolute;
+  top: 0; left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--font-heading);
+  font-weight: 800;
+  font-size: clamp(4rem, 14vw, 12rem);
+  color: rgba(255,255,255,0.05);
+  white-space: nowrap;
+  pointer-events: none;
+  line-height: 1;
+}
+.cta-band .container { position: relative; z-index: 2; }
+.cta-band__title { font-size: var(--fs-h2); color: #fff; margin: 0.8rem 0 1rem; }
+.cta-band__text { color: #cbc3bb; max-width: 52ch; margin: 0 auto 2rem; }
+
+.site-footer {
+  position: relative;
+  background: #fff;
+  border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+  margin-top: -90px;
+  padding: clamp(2.75rem, 5vw, 4rem) 0 1.75rem;
+  z-index: 3;
+}
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr 1.3fr;
+  gap: 2.5rem;
+}
+.footer-brand .logo { --logo-color: var(--color-ink); margin-bottom: 1.1rem; }
+.footer-socials { display: flex; gap: 0.6rem; }
+.footer-socials a {
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform var(--dur) var(--ease), background var(--dur) var(--ease);
+}
+.footer-socials a:hover { transform: translateY(-3px); background: var(--color-primary-600); }
+.footer-socials svg { width: 18px; height: 18px; }
+
+.footer-col h4 {
+  font-family: var(--font-heading);
+  font-size: 0.98rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-footer-heading);
+  margin-bottom: 1.1rem;
+}
+.footer-links li { margin-bottom: 0.7rem; }
+.footer-links a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  color: var(--color-text);
+  font-size: 0.98rem;
+  transition: color var(--dur) var(--ease), gap var(--dur) var(--ease);
+}
+.footer-links a .arrow { color: var(--color-primary); flex: none; }
+.footer-links a:hover { color: var(--color-primary); gap: 0.8rem; }
+
+.footer-contact li { display: flex; gap: 0.7rem; margin-bottom: 0.7rem; color: var(--color-text); font-size: 0.98rem; }
+.footer-contact svg { width: 18px; height: 18px; color: var(--color-primary); flex: none; margin-top: 3px; }
+.footer-contact a:hover { color: var(--color-primary); }
+.footer-block { margin-top: 1.4rem; }
+.footer-block h5 {
+  font-family: var(--font-heading);
+  font-size: 0.98rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-footer-heading);
+  margin-bottom: 0.5rem;
+}
+.footer-block p { font-size: 0.98rem; color: var(--color-text); }
+
+.footer-bottom {
+  margin-top: 2.5rem;
+  padding-top: 1.4rem;
+  border-top: 1px solid var(--color-border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  font-size: 0.92rem;
+  color: var(--color-muted);
+}
+.footer-bottom nav { display: flex; gap: 1.5rem; }
+.footer-bottom a:hover { color: var(--color-primary); }
+
+/* Floating WhatsApp button */
+.wa-float {
+  position: fixed;
+  right: 20px; bottom: 22px;
+  z-index: 150;
+  width: 56px; height: 56px;
+  border-radius: 50%;
+  background: #25d366;
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 12px 28px rgba(37,211,102,0.45);
+  transition: transform var(--dur) var(--ease);
+}
+.wa-float:hover { transform: scale(1.08); }
+.wa-float svg { width: 30px; height: 30px; }
+
+@media (max-width: 900px) {
+  .footer-grid { grid-template-columns: 1fr 1fr; gap: 2rem; }
+  .footer-brand { grid-column: 1 / -1; }
+}
+@media (max-width: 560px) {
+  .footer-grid { grid-template-columns: 1fr; }
+  .footer-bottom { justify-content: center; text-align: center; }
+}

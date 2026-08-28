@@ -1,0 +1,57 @@
+/* ==========================================================================
+   Flash Print Solution — Design Tokens
+   Values sampled directly from the reference website.
+   ========================================================================== */
+:root {
+  /* Brand colours */
+  --color-primary: #f7931e;        /* Flash orange */
+  --color-primary-600: #ef8207;    /* hover / darker orange */
+  --color-primary-050: #fff4e6;    /* soft orange tint (inactive tabs) */
+
+  --color-ink: #2a160d;            /* dark-brown headings */
+  --color-dark: #100a06;           /* near-black feature sections */
+  --color-dark-800: #1c130c;       /* process card / dark surfaces */
+
+  --color-text: #3f4145;           /* body copy */
+  --color-muted: #6b7280;          /* secondary copy */
+  --color-footer-heading: #4d5466; /* footer column titles */
+
+  --color-bg: #ffffff;
+  --color-bg-soft: #fbfaf9;        /* very light warm grey */
+  --color-bg-card: #ffffff;
+  --color-border: #ececec;
+  --color-border-soft: #f1eee9;
+
+  --color-white: #ffffff;
+
+  /* Typography */
+  --font-heading: "Poppins", "Segoe UI", system-ui, -apple-system, Arial, sans-serif;
+  --font-body: "Inter", "Segoe UI", system-ui, -apple-system, Arial, sans-serif;
+
+  --fs-hero: clamp(2.4rem, 5vw, 4.25rem);
+  --fs-h2: clamp(2rem, 3.6vw, 3.25rem);
+  --fs-h3: clamp(1.25rem, 2vw, 1.6rem);
+  --fs-lead: clamp(1rem, 1.15vw, 1.15rem);
+
+  /* Layout */
+  --container: 1240px;
+  --container-narrow: 1040px;
+  --gutter: clamp(1.1rem, 4vw, 2.5rem);
+  --header-h: 92px;
+
+  /* Radii */
+  --radius-sm: 10px;
+  --radius: 16px;
+  --radius-lg: 24px;
+  --radius-xl: 34px;
+  --radius-pill: 999px;
+
+  /* Shadows */
+  --shadow-sm: 0 4px 14px rgba(24, 15, 8, 0.06);
+  --shadow: 0 18px 40px rgba(24, 15, 8, 0.10);
+  --shadow-lg: 0 30px 70px rgba(24, 15, 8, 0.14);
+
+  /* Motion */
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --dur: 0.35s;
+}
