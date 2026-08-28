@@ -1,0 +1,13 @@
+/* Flash Prints - base styles */
+:root { --brand: #e63946; --dark: #1d1d1d; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: system-ui, Arial, sans-serif; color: var(--dark); line-height: 1.5; }
+.container { width: min(1100px, 90%); margin: 0 auto; }
+.site-header { padding: 1rem 0; border-bottom: 1px solid #eee; }
+.site-header .container { display: flex; justify-content: space-between; align-items: center; }
+.logo { font-weight: 700; font-size: 1.25rem; color: var(--brand); text-decoration: none; }
+.nav a { margin-left: 1.25rem; text-decoration: none; color: var(--dark); }
+.hero { padding: 6rem 0; text-align: center; background: #fafafa; }
+.hero h1 { font-size: 2.5rem; margin-bottom: .5rem; }
+.btn { display: inline-block; margin-top: 1.5rem; padding: .75rem 1.5rem; background: var(--brand); color: #fff; text-decoration: none; border-radius: 4px; }
+.site-footer { padding: 2rem 0; text-align: center; color: #777; border-top: 1px solid #eee; }
