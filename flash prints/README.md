@@ -23,9 +23,19 @@ no frameworks, no build step required to deploy, no backend.
 
 ## Images
 
-All images are currently **styled placeholders** sized to the final dimensions,
-so real images drop in without breaking layout. See **`IMAGE-ASSETS.md`** for the
-full list of expected files and paths.
+The site ships with the supplied **Flash Print Solution image library** in
+`assets/images/lib/` (AVIF). Every product, service card, gallery and section
+background is wired to a real image:
+
+- `build/imgmap.py` tags each library image and matches products to the best
+  image by keyword (with per-product overrides), spreading usage so the
+  catalogue rarely repeats a shot.
+- Product pages use a main image + thumbnail gallery with a zoom lightbox.
+- A single Open Graph share image is generated at
+  `assets/images/og/flash-print-solution-og.jpg`.
+
+To re-point a product at a different image, edit `BOOST`/`TAGS` in
+`build/imgmap.py` and rebuild.
 
 ## Deploying
 

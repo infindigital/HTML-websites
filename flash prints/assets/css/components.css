@@ -208,6 +208,11 @@
 .pagination a:hover { border-color: var(--color-primary); color: var(--color-primary); }
 .pagination button[disabled] { opacity: 0.4; cursor: not-allowed; }
 
+/* ---- Homepage collections (paginated tab pages) ---- */
+.collection__page[hidden] { display: none; }
+.collection__pager { margin-top: 2.25rem; }
+.collection__nav { font-size: 1.25rem; line-height: 1; }
+
 /* ---- Reveal on scroll (progressive enhancement) ----
    Hidden initial state applies ONLY when JS has added .reveal-ready to <html>,
    so the content is always visible if JavaScript is disabled or fails. */

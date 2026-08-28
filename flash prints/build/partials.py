@@ -270,3 +270,14 @@ def placeholder(label, note="", ratio_class="", extra_class="", show_label=True)
     return (
         '{comment}<div class="image-placeholder {extra}">{mark}</div>'
     ).format(comment=comment, extra=extra_class, mark=mark)
+
+def img(src, alt, depth=0, cls="", w=600, h=600, eager=False, sizes=""):
+    """Render a real <img>. `src` is a site-root-relative path
+    (e.g. assets/images/lib/032.avif); it is prefixed for the page depth."""
+    r = rel(depth)
+    loading = 'decoding="async"' if eager else 'loading="lazy" decoding="async"'
+    dims = (' width="%d" height="%d"' % (w, h)) if (w and h) else ""
+    clsattr = (' class="%s"' % cls) if cls else ""
+    sz = (' sizes="%s"' % esc(sizes)) if sizes else ""
+    return '<img src="%s%s" alt="%s"%s %s%s%s>' % (
+        r, esc(src), esc(alt), dims, loading, sz, clsattr)

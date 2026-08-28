@@ -6,7 +6,8 @@ import os, json, html, re, datetime
 import data as D
 from data import SITE, CATEGORIES, CAT_BY_SLUG, CATEGORY_RULES, DEFAULT_CATEGORY, CATEGORY_OVERRIDES, TABS, FAQS, TESTIMONIALS, PROCESS, AREAS
 import partials as P
-from partials import esc, icon, header, footer, head, scripts, placeholder
+from partials import esc, icon, header, footer, head, scripts, placeholder, img
+import imgmap
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 def out(path, content):
@@ -53,20 +54,71 @@ for p in PRODUCTS:
         seen[base] = 1
     p["category"] = assign_category(p["slug"])
     p["url"] = "product/%s.html" % p["slug"]
-    p["image"] = "%s-dubai.webp" % p["slug"]
+
+# Assign a real brand image to every product from the supplied asset library.
+_IMG = imgmap.assign_images(PRODUCTS)
+for p in PRODUCTS:
+    p["img_index"] = _IMG[p["slug"]]
+    p["image"] = imgmap.img_path(p["img_index"])          # site-root relative
+    p["gallery"] = imgmap.gallery_for(p["img_index"], _IMG)
 
 BY_SLUG = {p["slug"]: p for p in PRODUCTS}
 for c in CATEGORIES:
     c["products"] = [p for p in PRODUCTS if p["category"] == c["slug"]]
 
-# Homepage tab membership (fall back gracefully if a curated slug is missing)
-def tab_products(names):
-    res = []
-    for n in names:
-        if n in BY_SLUG:
-            res.append(BY_SLUG[n])
-    return res
-TAB_SETS = {k: tab_products(v) for k, v in TABS.items()}
+# Representative image for each service / category page.
+CATEGORY_IMG = {
+    "business-printing": 58,
+    "promotional-printing": 158,
+    "large-format-printing": 157,
+    "signage-solutions": 105,
+    "corporate-printing": 57,
+    "custom-event-printing": 5,
+}
+for c in CATEGORIES:
+    c["img_index"] = CATEGORY_IMG.get(c["slug"], imgmap.GENERIC[0])
+    c["image"] = imgmap.img_path(c["img_index"])
+
+# Fixed scene images used for hero / about / process / cta / page backgrounds.
+SCENES = {
+    "hero":          6,    # production printing press
+    "about":         9,    # full brand collection
+    "process_bg":    163,  # dark press / ink closeup
+    "cta_bg":        88,    # dark exhibition backdrop
+    "products_bg":   108,  # retail display
+    "services_bg":   87,   # exhibition booth
+    "about_bg":      57,   # office branding
+    "contact_bg":    22,   # reception counter
+    "faq_bg":        117,  # services poster
+}
+def scene(key, alt, depth=0, w=1280, h=720, eager=False):
+    return img(imgmap.img_path(SCENES[key]), alt, depth=depth, w=w, h=h, eager=eager)
+
+# Homepage tab membership — each of the 3 collections fills 5 pages of products.
+PER_PAGE = 10
+TAB_PAGES = 5
+TAB_TARGET = PER_PAGE * TAB_PAGES  # 50 products per collection
+
+def build_tab_set(curated, offset):
+    """Curated slugs first (in order), then top up from the catalogue so each
+    collection has TAB_TARGET products. Offset staggers the three tabs."""
+    seen, res = set(), []
+    for n in curated:
+        if n in BY_SLUG and n not in seen:
+            seen.add(n); res.append(BY_SLUG[n])
+    L = len(PRODUCTS)
+    i = 0
+    while len(res) < TAB_TARGET and len(seen) < L:
+        p = PRODUCTS[(offset + i) % L]
+        i += 1
+        if p["slug"] in seen:
+            continue
+        seen.add(p["slug"]); res.append(p)
+    return res[:TAB_TARGET]
+
+_TAB_OFFSETS = {"best-selling": 0, "new-arrivals": len(PRODUCTS) // 3,
+                "latest-collection": (2 * len(PRODUCTS)) // 3}
+TAB_SETS = {k: build_tab_set(v, _TAB_OFFSETS.get(k, 0)) for k, v in TABS.items()}
 
 # --------------------------------------------------------------------------
 # JSON-LD helpers
@@ -132,7 +184,7 @@ def ld_product(p, cat):
         "category": cat["short"],
         "brand": {"@type": "Brand", "name": SITE["name"]},
         "url": SITE["domain"] + "/" + p["url"],
-        "image": SITE["domain"] + "/assets/images/products/" + p["image"],
+        "image": SITE["domain"] + "/" + p["image"],
     })
 
 # --------------------------------------------------------------------------
@@ -152,15 +204,16 @@ def breadcrumbs_html(crumbs, depth):
 
 def product_card(p, depth):
     r = "../" * depth
-    ph = placeholder(p["name"], "assets/images/products/%s" % p["image"], extra_class="")
+    im = img(p["image"], "%s — Flash Print Solution Dubai" % p["name"], depth=depth,
+             w=600, h=600, sizes="(max-width:600px) 45vw, 220px")
     return (
         '<article class="product-card product-cell" data-name="{name_l}" data-category="{cat}">'
         '<a class="product-card__link" href="{r}{url}">'
-        '<div class="media">{ph}</div>'
+        '<div class="media">{im}</div>'
         '<h3 class="product-card__title">{name}</h3>'
         '</a></article>'
     ).format(name_l=esc(p["name"].lower()), cat=p["category"], r=r, url=p["url"],
-             ph=ph, name=esc(p["name"]))
+             im=im, name=esc(p["name"]))
 
 def cta_band(depth):
     r = "../" * depth
@@ -175,7 +228,7 @@ def cta_band(depth):
     <a class="btn btn--light" href="{r}contact.html">Get a Quote {arrow}</a>
   </div>
 </section>
-'''.format(bg=placeholder("CTA background", "assets/images/backgrounds/cta-print-workshop.webp", show_label=False),
+'''.format(bg=scene("cta_bg", "Flash Print Solution exhibition backdrop", depth, 1280, 720),
            r=r, arrow=icon("arrow"))
 
 def faq_items_html(faqs):
@@ -216,13 +269,13 @@ def build_home():
     for c in CATEGORIES:
         svc_cards.append('''
 <a class="service-card" href="services/{slug}.html" aria-label="{title}">
-  {ph}
+  <div class="media">{ph}</div>
   <span class="service-card__bar">
     <span class="service-card__title">{nav}</span>
     <span class="service-card__btn">Learn More {arrow}</span>
   </span>
 </a>'''.format(slug=c["slug"], title=esc(c["title"]),
-               ph=placeholder(c["nav"], "assets/images/services/%s.webp" % c["slug"]),
+               ph=img(c["image"], "%s — Flash Print Solution" % c["nav"], depth=0, w=600, h=400),
                nav=esc(c["nav"]), arrow=icon("arrow")))
     services_section = '''
 <section class="section" id="services">
@@ -244,9 +297,29 @@ def build_home():
         sel = "true" if idx == 0 else "false"
         tab_buttons.append('<button class="tab" role="tab" id="tab-{k}" aria-controls="panel-{k}" aria-selected="{sel}" tabindex="{ti}">{label}</button>'.format(
             k=key, sel=sel, ti="0" if idx == 0 else "-1", label=esc(label)))
-        cards = "".join(product_card(p, depth) for p in TAB_SETS[key][:10])
-        panels.append('<div class="tabpanel" role="tabpanel" id="panel-{k}" aria-labelledby="tab-{k}"{hidden}><div class="grid grid--5">{cards}</div></div>'.format(
-            k=key, hidden="" if idx == 0 else " hidden", cards=cards))
+        items = TAB_SETS[key]
+        pages_html = []
+        n_pages = max(1, -(-len(items) // PER_PAGE))  # ceil
+        for pg in range(n_pages):
+            chunk = items[pg * PER_PAGE:(pg + 1) * PER_PAGE]
+            cards = "".join(product_card(p, depth) for p in chunk)
+            pages_html.append('<div class="collection__page grid grid--5" data-page="{n}"{hidden}>{cards}</div>'.format(
+                n=pg + 1, hidden="" if pg == 0 else " hidden", cards=cards))
+        # numbered pager
+        nums = "".join(
+            '<button type="button" class="collection__pagebtn" data-goto="{n}"{cur}>{n}</button>'.format(
+                n=pg + 1, cur=' aria-current="true"' if pg == 0 else "")
+            for pg in range(n_pages))
+        pager = ('<nav class="pagination collection__pager" aria-label="{label} pages">'
+                 '<button type="button" class="collection__nav" data-goto="prev" aria-label="Previous page">{caret_l}</button>'
+                 '{nums}'
+                 '<button type="button" class="collection__nav" data-goto="next" aria-label="Next page">{caret_r}</button>'
+                 '</nav>').format(label=esc(label), nums=nums,
+                                  caret_l="&lsaquo;", caret_r="&rsaquo;")
+        panels.append('<div class="tabpanel" role="tabpanel" id="panel-{k}" aria-labelledby="tab-{k}"{hidden}>'
+                      '<div class="collection" data-collection>{pages}{pager}</div></div>'.format(
+                          k=key, hidden="" if idx == 0 else " hidden",
+                          pages="".join(pages_html), pager=pager))
     products_section = '''
 <section class="section section--soft" id="products">
   <div class="container">
@@ -270,7 +343,7 @@ def build_home():
         <h2 class="section-title">Your Trusted Partner<br>for Complete <span class="accent">Printing Solutions</span></h2>
         <p style="margin-top:1.2rem">Flash Print Solution is a professional printing company dedicated to helping businesses communicate better through high quality print and branding solutions. With modern technology, skilled expertise, and a commitment to deadlines, we support brands of all sizes with reliable and cost effective printing services.</p>
         <div class="about__stats">
-          <div class="about__stat"><b>133+</b><span>Print products</span></div>
+          <div class="about__stat"><b>127+</b><span>Print products</span></div>
           <div class="about__stat"><b>6</b><span>Service categories</span></div>
           <div class="about__stat"><b>100%</b><span>On-time focus</span></div>
         </div>
@@ -279,7 +352,7 @@ def build_home():
       <div class="about__media">{ph}</div>
     </div>
   </div>
-</section>'''.format(arrow=icon("arrow"), ph=placeholder("Flash Print Solution team", "assets/images/home/about-flash-print-solution.webp"))
+</section>'''.format(arrow=icon("arrow"), ph=img(imgmap.img_path(SCENES["about"]), "Flash Print Solution branded print materials", depth=0, w=800, h=640))
 
     # Process
     proc_cards = []
@@ -306,11 +379,12 @@ def build_home():
       </div>
     </div>
   </div>
-</section>'''.format(bg=placeholder("Print workshop", "assets/images/backgrounds/process-dark-workshop.webp", show_label=False), cards="".join(proc_cards))
+</section>'''.format(bg=scene("process_bg", "Printing production line", 0, 1280, 720), cards="".join(proc_cards))
 
     # Testimonials
     t_cards = []
     for body, role, place in TESTIMONIALS[:2]:
+        initials = "".join(w[0] for w in role.split()[:2]).upper()
         t_cards.append('''
 <figure class="testimonial">
   <span class="testimonial__quote" aria-hidden="true">&rdquo;</span>
@@ -324,7 +398,7 @@ def build_home():
     </span>
   </figcaption>
 </figure>'''.format(body=esc(body), role=esc(role), place=esc(place),
-                    av=placeholder("", "client avatar", extra_class="")))
+                    av='<span class="testimonial__initials">%s</span>' % esc(initials)))
     testimonials_section = '''
 <section class="section section--soft">
   <div class="container">
@@ -388,7 +462,7 @@ def build_home():
     <a href="{ig}" target="_blank" rel="noopener" aria-label="Instagram">{ig_i}</a>
     <a href="{fb}" target="_blank" rel="noopener" aria-label="Facebook">{fb_i}</a>
   </div>
-</section>'''.format(bg=placeholder("Hero — printing press", "assets/images/home/hero-printing-services-dubai.webp", show_label=False),
+</section>'''.format(bg=scene("hero", "Printing press producing branded materials in Dubai", 0, 1920, 1080, eager=True),
                      arrow=icon("arrow"),
                      li=SITE["social"]["linkedin"], ig=SITE["social"]["instagram"], fb=SITE["social"]["facebook"],
                      li_i=icon("linkedin"), ig_i=icon("instagram"), fb_i=icon("facebook"))
@@ -402,7 +476,7 @@ def build_home():
         "jsonld": [ld_org(), ld_faq(FAQS),
                    ld_breadcrumbs([("Home", "")])],
     }
-    out("index.html", page_shell(page, depth, body, active="home", light=False, extra_js=["tabs", "faq", "forms"]))
+    out("index.html", page_shell(page, depth, body, active="home", light=False, extra_js=["tabs", "collections", "faq", "forms"]))
 
 # --------------------------------------------------------------------------
 # Shared contact block (home + contact page)
@@ -494,13 +568,13 @@ def build_products():
     <nav class="pagination" id="archivePagination" aria-label="Products pagination"></nav>
   </div>
 </section>
-'''.format(bg=placeholder("Products", "assets/images/backgrounds/products-hero.webp", show_label=False),
+'''.format(bg=scene("products_bg", "Flash Print Solution printed products display", 0, 1280, 720),
            crumbs_ld=breadcrumbs_html(crumbs, depth), n=len(PRODUCTS),
            search=icon("search"), chips="".join(chips), cards=cards)
     body += cta_band(depth)
     page = {
         "title": "Products | Flash Print Solution — Printing Products in Dubai",
-        "description": "Explore 133+ printing products from Flash Print Solution in Dubai — business cards, banners, signage, stickers, corporate stationery, promotional items and more.",
+        "description": "Explore 127+ printing products from Flash Print Solution in Dubai — business cards, banners, signage, stickers, corporate stationery, promotional items and more.",
         "path": "products.html", "og_type": "website",
         "jsonld": [ld_org(), ld_breadcrumbs(crumbs)],
     }
@@ -514,11 +588,32 @@ def build_product(p):
     cat = CAT_BY_SLUG[p["category"]]
     crumbs = [("Home", ""), ("Products", "products.html"), (cat["short"], "services/%s.html" % cat["slug"]), (p["name"], p["url"])]
     desc_html = "".join("<p>%s</p>" % esc(par) for par in p["desc_paras"])
-    related = [x for x in cat["products"] if x["slug"] != p["slug"]][:4]
-    related_cards = "".join(product_card(x, depth) for x in related)
+    related = [x for x in cat["products"] if x["slug"] != p["slug"]][:5]
+    if len(related) < 5:  # top up from full catalogue so the row is always full
+        for x in PRODUCTS:
+            if x["slug"] != p["slug"] and x not in related:
+                related.append(x)
+            if len(related) >= 5:
+                break
+    related_cards = "".join(product_card(x, depth) for x in related[:5])
     wa_text = "Hi Flash Print Solution, I'd like a quote for %s." % p["name"]
     wa_href = "https://wa.me/%s?text=%s" % (SITE["whatsapp"], html.escape(wa_text.replace(" ", "%20"), quote=True))
     meta_desc = (p["intro"][:150] + "…") if len(p["intro"]) > 155 else p["intro"]
+
+    # Gallery: main image + thumbnails (complementary brand shots)
+    gallery = p["gallery"]
+    main_src = imgmap.img_path(gallery[0])
+    main_img = img(main_src, p["name"], depth=depth, w=800, h=800, eager=True)
+    thumbs = []
+    for i, gi in enumerate(gallery):
+        src = imgmap.img_path(gi)
+        thumbs.append(
+            '<button type="button" class="product-thumbs__btn" data-full="{full}"{cur} aria-label="View image {n}">{im}</button>'.format(
+                full=esc(P.rel(depth) + src), n=i + 1,
+                cur=' aria-current="true"' if i == 0 else "",
+                im=img(src, "%s thumbnail %d" % (p["name"], i + 1), depth=depth, w=160, h=160)))
+    thumbs_html = "".join(thumbs)
+
     body = '''
 <section class="page-hero" style="padding-bottom:2rem">
   <div class="page-hero__bg">{bg}</div>
@@ -527,35 +622,59 @@ def build_product(p):
 <section class="section" style="padding-top:2.5rem">
   <div class="container">
     <div class="product-detail">
-      <div class="product-gallery"><div class="media">{ph}</div></div>
+      <div class="product-gallery" data-gallery>
+        <div class="product-gallery__main">
+          <button type="button" class="product-gallery__zoom" data-zoom aria-label="Zoom image">{search}</button>
+          {main}
+        </div>
+        <div class="product-thumbs">{thumbs}</div>
+      </div>
       <div class="product-info">
         <div class="product-meta"><span class="badge">{cat}</span></div>
         <h1>{name}</h1>
         <p class="intro">{intro}</p>
         <div class="product-actions">
           <a class="btn btn--primary" href="../contact.html">Enquire Now {arrow}</a>
-          <a class="btn btn--wa" href="{wa}" target="_blank" rel="noopener">{wa_i} WhatsApp Us</a>
+          <a class="btn btn--wa" href="{wa}" target="_blank" rel="noopener">{wa_i} Whatsapp Us</a>
         </div>
-        <div class="product-desc">
-          <h2>Description</h2>
-          {desc}
+        <div class="product-accordion" data-accordion>
+          <div class="product-accordion__item">
+            <button type="button" class="product-accordion__head" aria-expanded="true" aria-controls="pa-desc">
+              <span>Description</span><span class="pa-icon" aria-hidden="true">&minus;</span>
+            </button>
+            <div class="product-accordion__panel" id="pa-desc">
+              <div class="product-accordion__inner">{desc}</div>
+            </div>
+          </div>
+          <div class="product-accordion__item">
+            <button type="button" class="product-accordion__head" aria-expanded="false" aria-controls="pa-rev">
+              <span>Reviews</span><span class="pa-icon" aria-hidden="true">+</span>
+            </button>
+            <div class="product-accordion__panel" id="pa-rev" hidden>
+              <div class="product-accordion__inner"><p class="product-reviews-empty">There are no reviews yet. Be the first to enquire about {name}.</p></div>
+            </div>
+          </div>
         </div>
-        <div class="product-reviews"><strong>Reviews</strong><p>There are no reviews yet. Be the first to enquire about this product.</p></div>
       </div>
     </div>
   </div>
 </section>
 <section class="section section--soft related">
   <div class="container">
-    <div class="section-head"><p class="eyebrow">You may also like</p><h2 class="section-title">Related <span class="accent">{cat}</span> Products</h2></div>
-    <div class="grid grid--4">{related}</div>
+    <div class="section-head"><p class="eyebrow">You may also like</p><h2 class="section-title">Related <span class="accent">Products</span></h2></div>
+    <div class="grid grid--5">{related}</div>
   </div>
 </section>
-'''.format(bg=placeholder(p["name"], "assets/images/products/%s" % p["image"], show_label=False),
+<div class="lightbox" data-lightbox aria-hidden="true">
+  <button type="button" class="lightbox__close" data-lightbox-close aria-label="Close">&times;</button>
+  <img src="{main_src}" alt="{name}">
+</div>
+'''.format(bg=img(main_src, p["name"], depth=depth, w=1280, h=720),
            crumbs=breadcrumbs_html(crumbs, depth),
-           ph=placeholder(p["name"], "assets/images/products/%s" % p["image"]),
+           search=icon("search"), main=main_img, thumbs=thumbs_html,
            cat=esc(cat["short"]), name=esc(p["name"]), intro=esc(p["intro"]),
-           arrow=icon("arrow"), wa=wa_href, wa_i=icon("wa"), desc=desc_html, related=related_cards)
+           arrow=icon("arrow"), wa=wa_href, wa_i=icon("wa"), desc=desc_html,
+           related=related_cards, main_src=esc(P.rel(depth) + main_src))
     body += cta_band(depth)
     page = {
         "title": "%s in Dubai | Flash Print Solution" % p["name"],
@@ -563,7 +682,7 @@ def build_product(p):
         "path": p["url"], "og_type": "product",
         "jsonld": [ld_org(), ld_breadcrumbs(crumbs), ld_product(p, cat)],
     }
-    out(p["url"], page_shell(page, depth, body, active="products", light=False))
+    out(p["url"], page_shell(page, depth, body, active="products", light=False, extra_js=["product"]))
 
 # --------------------------------------------------------------------------
 # PAGE: Services overview
@@ -583,7 +702,7 @@ def build_services():
     <ul>{chips}</ul>
     <a class="btn btn--ghost" href="services/{slug}.html">View {short} {arrow}</a>
   </div>
-</div>'''.format(ph=placeholder(c["nav"], "assets/images/services/%s.webp" % c["slug"]),
+</div>'''.format(ph=img(c["image"], "%s — Flash Print Solution" % c["nav"], depth=0, w=640, h=480),
                  tag=esc(c["tag"]), title=esc(c["title"]), intro=esc(c["intro"]),
                  chips=chips, slug=c["slug"], short=esc(c["short"]), arrow=icon("arrow")))
     crumbs = [("Home", ""), ("Services", "services.html")]
@@ -598,7 +717,7 @@ def build_services():
   </div></div>
 </section>
 <section class="section"><div class="container">{rows}</div></section>
-'''.format(bg=placeholder("Services", "assets/images/backgrounds/services-hero.webp", show_label=False),
+'''.format(bg=scene("services_bg", "Flash Print Solution exhibition and signage", 0, 1280, 720),
            crumbs=breadcrumbs_html(crumbs, depth), rows="".join(rows))
     body += cta_band(depth)
     page = {
@@ -636,7 +755,7 @@ def build_category(c):
     <div class="services-cta" style="margin-top:2.5rem;gap:.6rem;flex-wrap:wrap">{other}</div>
   </div>
 </section>
-'''.format(bg=placeholder(c["nav"], "assets/images/services/%s.webp" % c["slug"], show_label=False),
+'''.format(bg=img(c["image"], "%s — Flash Print Solution" % c["nav"], depth=1, w=1280, h=720),
            crumbs=breadcrumbs_html(crumbs, depth), tag=esc(c["tag"]), title=esc(c["title"]),
            intro=esc(c["intro"]), arrow=icon("arrow"), n=len(c["products"]), short=esc(c["short"]),
            cards=cards, other=other_links)
@@ -688,9 +807,9 @@ def build_about():
   <div class="section-head section-head--center"><p class="eyebrow eyebrow--center">Why Choose Us</p><h2 class="section-title">Built on <span class="accent">Quality &amp; Trust</span></h2></div>
   <div class="grid grid--4">{vcards}</div>
 </div></section>
-'''.format(bg=placeholder("About hero", "assets/images/backgrounds/about-hero.webp", show_label=False),
+'''.format(bg=scene("about_bg", "Flash Print Solution office branding", 0, 1280, 720),
            crumbs=breadcrumbs_html(crumbs, depth), arrow=icon("arrow"),
-           ph=placeholder("Flash Print Solution team", "assets/images/home/about-flash-print-solution.webp"),
+           ph=img(imgmap.img_path(SCENES["about"]), "Flash Print Solution branded print materials", depth=0, w=800, h=640),
            vcards=vcards)
     body += cta_band(depth)
     page = {
@@ -717,7 +836,7 @@ def build_contact():
     <p class="page-hero__text">Have a question or need a quote for your printing project? Our Dubai team is ready to help with the right solutions, pricing and timelines.</p>
   </div></div>
 </section>
-'''.format(bg=placeholder("Contact hero", "assets/images/backgrounds/contact-hero.webp", show_label=False),
+'''.format(bg=scene("contact_bg", "Flash Print Solution reception", 0, 1280, 720),
            crumbs=breadcrumbs_html(crumbs, depth))
     body += contact_block(depth, "Send a Message",
                           "Let&rsquo;s Talk About Your <span class=\"accent\">Printing</span> Requirements",
@@ -748,7 +867,7 @@ def build_faq():
   </div></div>
 </section>
 <section class="section"><div class="container container--narrow">{faqs}</div></section>
-'''.format(bg=placeholder("FAQ hero", "assets/images/backgrounds/faq-hero.webp", show_label=False),
+'''.format(bg=scene("faq_bg", "Flash Print Solution services", 0, 1280, 720),
            crumbs=breadcrumbs_html(crumbs, depth), faqs=faq_items_html(FAQS))
     body += cta_band(depth)
     page = {
