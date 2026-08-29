@@ -776,6 +776,256 @@ def build_services():
     }
     out("services.html", page_shell(page, depth, body, active="services", light=False))
 
+CHECK_SVG = ('<svg viewBox="0 0 20 20" fill="none" aria-hidden="true">'
+             '<path d="M4 10.5l4 4 8-9" stroke="currentColor" stroke-width="2.4" '
+             'stroke-linecap="round" stroke-linejoin="round"/></svg>')
+_SVC_CARD_ICONS = ["bulb", "gear", "hand"]
+
+# --------------------------------------------------------------------------
+# PAGE: internal service (short marketing template)
+# --------------------------------------------------------------------------
+def build_service_short(slug, d):
+    depth = 1
+    crumbs = [("Home", ""), ("Services", "services.html"), (d["heading"], "services/%s.html" % slug)]
+    feats = "".join('<li><span class="svc-key__check">%s</span>%s</li>' % (CHECK_SVG, esc(f))
+                    for f in d["features"])
+    cards = []
+    for i, (title, text) in enumerate(d["cards"]):
+        cards.append('''
+<article class="svc-num-card{accent}" data-reveal>
+  <span class="svc-num-card__icon">{ic}</span>
+  <h3 class="svc-num-card__title">{title}</h3>
+  <p class="svc-num-card__text">{text}</p>
+  <span class="svc-num-card__n" aria-hidden="true">{n:02d}</span>
+</article>'''.format(accent=" svc-num-card--accent" if i == 0 else "",
+                     ic=icon(_SVC_CARD_ICONS[i % len(_SVC_CARD_ICONS)]),
+                     title=esc(title), text=esc(text), n=i + 1))
+    body = '''
+<section class="page-hero">
+  <div class="page-hero__bg">{bg}</div>
+  <div class="container"><div class="page-hero__inner">
+    {crumbs}
+    <h1 class="page-hero__title">{hero_title}</h1>
+  </div></div>
+</section>
+<section class="section"><div class="container">
+  <div class="svc-intro">
+    <h2 class="svc-intro__title">{heading}</h2>
+    <p class="svc-intro__text">{intro}</p>
+  </div>
+  <div class="svc-feature">
+    <div class="svc-feature__media">{feat_img}</div>
+    <aside class="svc-key">
+      <h3 class="svc-key__title">Service Key Features</h3>
+      <ul class="svc-key__list">{feats}</ul>
+    </aside>
+  </div>
+  <div class="svc-band-head">
+    <h2 class="svc-band-head__title">{band_heading}</h2>
+    <p class="svc-band-head__sub">{band_sub}</p>
+  </div>
+  <div class="svc-num-cards">{cards}</div>
+  <div class="svc-banner">
+    <div class="svc-banner__bg">{banner_bg}</div>
+    <div class="svc-banner__inner">
+      <p class="eyebrow eyebrow--center">Start Today</p>
+      <h2 class="svc-banner__title">{cta}</h2>
+    </div>
+    <a class="svc-banner__btn" href="../contact.html">Contact Us {arrow}</a>
+  </div>
+</div></section>
+'''.format(bg=scene("services_bg", "%s — Flash Print Solution" % d["heading"], depth, 1280, 720),
+           crumbs=breadcrumbs_html(crumbs, depth), hero_title=d["hero_title_html"],
+           heading=esc(d["heading"]), intro=esc(d["intro"]),
+           feat_img=img(imgmap.img_path(d["image"]), "%s — Flash Print Solution" % d["heading"], depth=depth, w=760, h=560),
+           feats=feats, band_heading=esc(d["band_heading"]), band_sub=esc(d["band_sub"]),
+           cards="".join(cards), banner_bg=scene("cta_bg", "Flash Print Solution workspace", depth, 1280, 720),
+           cta=d["cta_html"], arrow=icon("arrow"))
+    body += cta_band(depth)
+    page = {
+        "title": "%s | Flash Print Solution — Dubai" % d["heading"],
+        "description": d["meta"],
+        "path": "services/%s.html" % slug, "og_type": "website",
+        "jsonld": [ld_org(), ld_breadcrumbs(crumbs)],
+    }
+    out("services/%s.html" % slug, page_shell(page, depth, body, active="services", light=False))
+
+# --------------------------------------------------------------------------
+# PAGE: internal service (long-form SEO article template)
+# --------------------------------------------------------------------------
+def build_service_long(slug, d):
+    depth = 1
+
+    def cards_grid(cards, cls="grid--4"):
+        items = []
+        for c in cards:
+            items.append(
+                '<article class="svl-card" data-reveal>'
+                '<h3 class="svl-card__title">%s</h3>'
+                '<p class="svl-card__text">%s</p>'
+                '</article>' % (esc(c["title"]), esc(c["text"])))
+        return '<div class="grid %s svl-grid">%s</div>' % (cls, "".join(items))
+
+    crumbs = [("Home", ""), ("Services", "services.html"),
+              ("Business Printing", "services/%s.html" % slug)]
+
+    # 3 — cover
+    cover = d["cover"]
+    cover_html = '''
+<section class="section"><div class="container">
+  <div class="section-head section-head--center">
+    <p class="eyebrow eyebrow--center">{eb}</p>
+    <h2 class="section-title">{h}</h2>
+    <p class="section-lead">{lead}</p>
+  </div>
+  {cards}
+  <div class="svl-callout" data-reveal><p>{callout}</p></div>
+</div></section>'''.format(eb=esc(cover["eyebrow"]), h=cover["heading_html"],
+                           lead=esc(cover["lead"]), cards=cards_grid(cover["cards"]),
+                           callout=esc(cover["callout"]))
+
+    # 4 — why (blocks + dark callout)
+    why = d["why"]
+    blocks = []
+    for b in why["blocks"]:
+        paras = "".join("<p>%s</p>" % esc(p) for p in b["paragraphs"])
+        blocks.append('<div class="svl-block" data-reveal><h3 class="svl-block__title">%s</h3>%s</div>'
+                      % (esc(b["subheading"]), paras))
+    dc = why["dark_callout"]
+    dc_paras = "".join("<p>%s</p>" % esc(p) for p in dc["paragraphs"])
+    why_html = '''
+<section class="section section--soft"><div class="container">
+  <div class="section-head section-head--center">
+    <p class="eyebrow eyebrow--center">{eb}</p>
+    <h2 class="section-title">{h}</h2>
+  </div>
+  <div class="svl-blocks">{blocks}</div>
+  <div class="svl-dark" data-reveal>
+    <h3 class="svl-dark__title">{dct}</h3>
+    <div class="svl-dark__body">{dcp}</div>
+  </div>
+</div></section>'''.format(eb=esc(why["eyebrow"]), h=why["heading_html"],
+                           blocks="".join(blocks), dct=esc(dc["title"]), dcp=dc_paras)
+
+    # 5 — quality (image feature + subsections)
+    q = d["quality"]
+    subs = []
+    for s in q["subsections"]:
+        paras = "".join("<p>%s</p>" % esc(p) for p in s["paragraphs"])
+        subs.append('<div class="svl-sub" data-reveal><h3 class="svl-sub__title">%s</h3>%s</div>'
+                    % (esc(s["title"]), paras))
+    quality_html = '''
+<section class="section"><div class="container">
+  <div class="svl-feature">
+    <div class="svl-feature__text">
+      <h2 class="section-title">{h}</h2>
+      <p class="svl-feature__lead">{intro}</p>
+    </div>
+    <div class="svl-feature__media">{img}</div>
+  </div>
+  <div class="svl-subs">{subs}</div>
+</div></section>'''.format(h=q["heading_html"], intro=esc(q["intro"]),
+                           img=img(imgmap.img_path(d["image"]),
+                                   "Business stationery printing — Flash Print Solution",
+                                   depth=depth, w=760, h=560),
+                           subs="".join(subs))
+
+    # 6 — choose
+    ch = d["choose"]
+    choose_html = '''
+<section class="section section--soft"><div class="container">
+  <div class="section-head section-head--center">
+    <h2 class="section-title">{h}</h2>
+    <p class="section-lead">{intro}</p>
+  </div>
+  {cards}
+</div></section>'''.format(h=ch["heading_html"], intro=esc(ch["intro"]),
+                           cards=cards_grid(ch["cards"], "grid--3"))
+
+    # 7 — mistakes (numbered)
+    mk = d["mistakes"]
+    mitems = []
+    for i, it in enumerate(mk["items"], 1):
+        mitems.append(
+            '<article class="svl-mistake" data-reveal>'
+            '<span class="svl-mistake__n" aria-hidden="true">{n:02d}</span>'
+            '<div class="svl-mistake__body"><h3 class="svl-mistake__title">{t}</h3>'
+            '<p class="svl-mistake__text">{x}</p></div>'
+            '</article>'.format(n=i, t=esc(it["title"]), x=esc(it["text"])))
+    mistakes_html = '''
+<section class="section"><div class="container">
+  <div class="section-head section-head--center">
+    <h2 class="section-title">{h}</h2>
+    <p class="section-lead">{intro}</p>
+  </div>
+  <div class="svl-mistakes">{items}</div>
+</div></section>'''.format(h=mk["heading_html"], intro=esc(mk["intro"]),
+                           items="".join(mitems))
+
+    # 8 — our services (+ orange callout)
+    os_ = d["our_services"]
+    our_html = '''
+<section class="section section--soft"><div class="container">
+  <div class="section-head section-head--center">
+    <h2 class="section-title">{h}</h2>
+    <p class="section-lead">{intro}</p>
+  </div>
+  {cards}
+  <div class="svl-callout svl-callout--accent" data-reveal><p>{callout}</p></div>
+  <div class="svc-cta" style="justify-content:center;margin-top:2rem">
+    <a class="btn btn--primary" href="../products.html">Browse All Products {arrow}</a>
+    <a class="btn btn--ghost" href="../contact.html">Request a Quote {arrow}</a>
+  </div>
+</div></section>'''.format(h=os_["heading_html"], intro=esc(os_["intro"]),
+                           cards=cards_grid(os_["cards"], "grid--3"),
+                           callout=esc(os_["callout"]), arrow=icon("arrow"))
+
+    # 9 — who
+    wh = d["who"]
+    who_html = '''
+<section class="section"><div class="container">
+  <div class="section-head section-head--center">
+    <h2 class="section-title">{h}</h2>
+    <p class="section-lead">{intro}</p>
+  </div>
+  {cards}
+</div></section>'''.format(h=wh["heading_html"], intro=esc(wh["intro"]),
+                           cards=cards_grid(wh["cards"]))
+
+    body = '''
+<section class="page-hero page-hero--article">
+  <div class="page-hero__bg">{bg}</div>
+  <div class="container"><div class="page-hero__inner">
+    {crumbs}
+    <p class="eyebrow eyebrow--center">{eyebrow}</p>
+    <h1 class="page-hero__title">{hero_title}</h1>
+    <p class="page-hero__text">{hero_sub}</p>
+    <a class="btn btn--light" href="../contact.html">Request a Quote {arrow}</a>
+  </div></div>
+</section>
+<section class="section"><div class="container">
+  <div class="svl-intro" data-reveal>
+    <p class="eyebrow">{intro_eb}</p>
+    <div class="svl-intro__body">{intro_paras}</div>
+  </div>
+</div></section>
+{cover}{why}{quality}{choose}{mistakes}{our}{who}
+'''.format(bg=scene("services_bg", "Business stationery printing — Flash Print Solution", depth, 1280, 720),
+           crumbs=breadcrumbs_html(crumbs, depth), eyebrow=esc(d["hero_eyebrow"]),
+           hero_title=d["hero_title_html"], hero_sub=esc(d["hero_subtitle"]), arrow=icon("arrow"),
+           intro_eb=esc(d["intro_eyebrow"]),
+           intro_paras="".join("<p>%s</p>" % esc(p) for p in d["intro_paragraphs"]),
+           cover=cover_html, why=why_html, quality=quality_html, choose=choose_html,
+           mistakes=mistakes_html, our=our_html, who=who_html)
+    body += cta_band(depth)
+    page = {
+        "title": "Business Stationery Printing Dubai | Flash Print Solution",
+        "description": d["meta"],
+        "path": "services/%s.html" % slug, "og_type": "article",
+        "jsonld": [ld_org(), ld_breadcrumbs(crumbs)],
+    }
+    out("services/%s.html" % slug, page_shell(page, depth, body, active="services", light=False))
+
 # --------------------------------------------------------------------------
 # PAGE: service / category
 # --------------------------------------------------------------------------
@@ -1038,7 +1288,12 @@ def main():
     build_faq()
     build_legal_and_404()
     for c in CATEGORIES:
-        build_category(c)
+        if c["slug"] in D.SERVICE_PAGES:
+            build_service_short(c["slug"], D.SERVICE_PAGES[c["slug"]])
+        elif c["slug"] == "business-printing" and hasattr(D, "SERVICE_LONG"):
+            build_service_long("business-printing", D.SERVICE_LONG)
+        else:
+            build_category(c)
     for p in PRODUCTS:
         build_product(p)
     build_sitemap()
