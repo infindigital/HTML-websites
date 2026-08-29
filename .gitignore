@@ -1,1 +1,6 @@
-*.zip
+# Delivery / build-output zips must never be committed inside the website
+# folders. Source-asset archives live in /source-assets and ARE tracked.
+/flash prints/**/*.zip
+/flash prints/*.zip
+/maskoco.com/**/*.zip
+/maskoco.com/*.zip
