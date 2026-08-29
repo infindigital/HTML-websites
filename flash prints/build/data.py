@@ -9,6 +9,9 @@ SITE = {
     "phone_display": "+971 58 891 7109",
     "phone_e164": "+971588917109",
     "whatsapp": "971588917109",
+    "whatsapp_url": ("https://api.whatsapp.com/send?phone=971588917109"
+                     "&text=Hello%2C%20I%E2%80%99m%20interested%20in%20your%20printing%20"
+                     "products%20and%20would%20like%20more%20information."),
     "email": "sales@flashprintsolution.com",
     "hours": "Monday to Saturday, 9:30 AM to 7:00 PM",
     "address": "Silver Tower – BB-SIT-#87 – 20 Marasi Dr – Business Bay – Za’abeel – Dubai – United Arab Emirates",
@@ -21,7 +24,7 @@ SITE = {
     ),
     "social": {
         "facebook": "https://www.facebook.com/",
-        "instagram": "https://www.instagram.com/",
+        "instagram": "https://www.instagram.com/flashprintingsolution/",
         "linkedin": "https://www.linkedin.com/",
         "youtube": "https://www.youtube.com/",
     },
@@ -143,6 +146,7 @@ SERVICE_PAGES = {
             ("Flexible Quantities", "Printing solutions for both small and large promotional needs."),
         ],
         "cta_html": 'Make Your <span class="accent">Promotions</span> More Visible',
+        "banner_bg": "assets/images/og/prom.webp",
         "meta": "Promotional printing in Dubai from Flash Print Solution — eye catching, vibrant marketing materials for campaigns, promotions and brand awareness.",
     },
     "large-format-printing": {
@@ -164,6 +168,7 @@ SERVICE_PAGES = {
             ("Custom Sizes", "Tailored dimensions to match your space and requirements."),
         ],
         "cta_html": 'Increase Your Brand Visibility with <span class="accent">Large Prints</span>',
+        "banner_bg": "assets/images/og/large.avif",
         "meta": "Large format printing in Dubai from Flash Print Solution — bold, high resolution banners, signage and displays for indoor and outdoor visibility.",
     },
     "signage-solutions": {
@@ -428,6 +433,7 @@ GUIDE = [
 
 SERVICE_LONG = {'hero_title_html': '<span class="accent">Business Stationery Printing Dubai:</span> Everything You Need to Know '
                     'Before You Order',
+ 'cta_html': 'Get Your <span class="accent">Business Printing</span> Started Today',
  'hero_subtitle': 'Professional, fast, and consistent stationery printing for Dubai businesses – from business cards '
                   'to full corporate identity kits.',
  'intro_eyebrow': 'Your Complete Guide',

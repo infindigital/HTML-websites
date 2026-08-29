@@ -277,11 +277,76 @@ def cta_band(depth):
     <p class="eyebrow eyebrow--center">Work With Flash Print Solution</p>
     <h2 class="cta-band__title">Bring Your Print Ideas to Life Today</h2>
     <p class="cta-band__text">Tell us what you need and we&rsquo;ll help you choose the right materials, finishes, and printing solutions for your business.</p>
-    <a class="btn btn--light" href="{r}contact.html">Get a Quote {arrow}</a>
+    <a class="btn btn--light" href="https://flashprintsolution.com/printing-shop-in-dubai/">Get a Quote {arrow}</a>
   </div>
 </section>
 '''.format(bg=scene("cta_bg", "Flash Print Solution exhibition backdrop", depth, 1280, 720),
            r=r, arrow=icon("arrow"))
+
+def svc_banner_bg(d, depth):
+    """Background image for the 'Start Today' svc-banner. Uses a per-service
+    image when one is set (banner_bg), otherwise the shared workspace scene."""
+    path = d.get("banner_bg")
+    if path:
+        return img(path, "Flash Print Solution workspace", depth=depth, w=1280, h=720)
+    return scene("cta_bg", "Flash Print Solution workspace", depth, 1280, 720)
+
+def svc_banner(cta_html, banner_bg_html):
+    """The shared 'Start Today' banner used across every internal service page."""
+    return '''
+  <div class="svc-banner">
+    <div class="svc-banner__bg">{banner_bg}</div>
+    <div class="svc-banner__inner">
+      <p class="eyebrow eyebrow--center">Start Today</p>
+      <h2 class="svc-banner__title">{cta}</h2>
+    </div>
+    <a class="svc-banner__btn" href="../contact.html">Contact Us {arrow}</a>
+  </div>'''.format(banner_bg=banner_bg_html, cta=cta_html, arrow=icon("arrow"))
+
+def review_form(name, slug):
+    """Product review form matching the reference (WooCommerce-style): rating
+    stars, review, name, email, a remember checkbox and a submit button.
+    Submission is handled client-side (product.js) with a thank-you message."""
+    uid = esc(slug)
+    stars = "".join(
+        '<input type="radio" name="rating-{u}" id="star-{u}-{n}" value="{n}" required>'
+        '<label for="star-{u}-{n}" title="{n} star{s}"><svg viewBox="0 0 24 24" aria-hidden="true">'
+        '<path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.1 6.5L12 18.9 6.2 20.5l1.1-6.5-4.8-4.6 6.6-.9z"/>'
+        '</svg><span class="visually-hidden">{n} star{s}</span></label>'.format(
+            u=uid, n=n, s="" if n == 1 else "s")
+        for n in (5, 4, 3, 2, 1)
+    )
+    return '''<div class="product-reviews">
+  <p class="product-reviews-empty">There are no reviews yet.</p>
+  <div class="review-form">
+    <h3 class="review-form__title">Be the first to review &ldquo;{name}&rdquo;</h3>
+    <p class="review-form__note">Your email address will not be published. Required fields are marked <span class="req">*</span></p>
+    <form class="review-form__form" data-review-form novalidate>
+      <div class="review-form__row">
+        <span class="review-form__label">Your rating <span class="req">*</span></span>
+        <div class="star-rating" role="radiogroup" aria-label="Your rating">{stars}</div>
+      </div>
+      <div class="review-form__row">
+        <label class="review-form__label" for="rev-{u}-text">Your review <span class="req">*</span></label>
+        <textarea id="rev-{u}-text" name="review" rows="6" required></textarea>
+      </div>
+      <div class="review-form__row">
+        <label class="review-form__label" for="rev-{u}-name">Name <span class="req">*</span></label>
+        <input type="text" id="rev-{u}-name" name="author" required>
+      </div>
+      <div class="review-form__row">
+        <label class="review-form__label" for="rev-{u}-email">Email <span class="req">*</span></label>
+        <input type="email" id="rev-{u}-email" name="email" required>
+      </div>
+      <label class="review-form__check">
+        <input type="checkbox" id="rev-{u}-save" name="save">
+        <span>Save my name, email, and website in this browser for the next time I comment.</span>
+      </label>
+      <button type="submit" class="btn btn--primary review-form__submit">Submit</button>
+      <p class="review-form__thanks" hidden>Thank you! Your review has been submitted for moderation.</p>
+    </form>
+  </div>
+</div>'''.format(name=esc(name), stars=stars, u=uid)
 
 def faq_items_html(faqs):
     rows = []
@@ -355,7 +420,7 @@ def build_home():
         for pg in range(n_pages):
             chunk = items[pg * PER_PAGE:(pg + 1) * PER_PAGE]
             cards = "".join(product_card(p, depth) for p in chunk)
-            pages_html.append('<div class="collection__page grid grid--5" data-page="{n}"{hidden}>{cards}</div>'.format(
+            pages_html.append('<div class="collection__page grid grid--4" data-page="{n}"{hidden}>{cards}</div>'.format(
                 n=pg + 1, hidden="" if pg == 0 else " hidden", cards=cards))
         # numbered pager
         nums = "".join(
@@ -552,15 +617,9 @@ def build_home():
   <span class="scroll-hint" aria-hidden="true">Scroll Down
     <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M6 13l6 6 6-6"/></svg>
   </span>
-  <div class="hero__socials">
-    <a href="{li}" target="_blank" rel="noopener" aria-label="LinkedIn">{li_i}</a>
-    <a href="{ig}" target="_blank" rel="noopener" aria-label="Instagram">{ig_i}</a>
-    <a href="{fb}" target="_blank" rel="noopener" aria-label="Facebook">{fb_i}</a>
-  </div>
+  <div class="hero__socials">{socials}</div>
 </section>'''.format(bg=scene("hero", "Printing press producing branded materials in Dubai", 0, 1920, 1080, eager=True),
-                     arrow=icon("arrow"),
-                     li=SITE["social"]["linkedin"], ig=SITE["social"]["instagram"], fb=SITE["social"]["facebook"],
-                     li_i=icon("linkedin"), ig_i=icon("instagram"), fb_i=icon("facebook"))
+                     arrow=icon("arrow"), socials=P.social_anchors())
 
     body = (hero + services_section + products_section + about_section
             + process_section + testimonials_section + industry_section
@@ -675,14 +734,14 @@ def build_product(p):
     cat = CAT_BY_SLUG[p["category"]]
     crumbs = [("Home", ""), ("Products", "products.html"), (cat["short"], "services/%s.html" % cat["slug"]), (p["name"], p["url"])]
     desc_html = "".join("<p>%s</p>" % esc(par) for par in p["desc_paras"])
-    related = [x for x in cat["products"] if x["slug"] != p["slug"]][:5]
-    if len(related) < 5:  # top up from full catalogue so the row is always full
+    related = [x for x in cat["products"] if x["slug"] != p["slug"]][:4]
+    if len(related) < 4:  # top up from full catalogue so the row is always full
         for x in PRODUCTS:
             if x["slug"] != p["slug"] and x not in related:
                 related.append(x)
-            if len(related) >= 5:
+            if len(related) >= 4:
                 break
-    related_cards = "".join(product_card(x, depth) for x in related[:5])
+    related_cards = "".join(product_card(x, depth) for x in related[:4])
     wa_text = "Hi Flash Print Solution, I'd like a quote for %s." % p["name"]
     wa_href = "https://wa.me/%s?text=%s" % (SITE["whatsapp"], html.escape(wa_text.replace(" ", "%20"), quote=True))
     meta_desc = (p["intro"][:150] + "…") if len(p["intro"]) > 155 else p["intro"]
@@ -704,8 +763,13 @@ def build_product(p):
     thumbs_html = "".join(thumbs)
 
     body = '''
-<section class="page-hero page-hero--slim">
-  <div class="page-hero__bg">{bg}</div>
+<section class="page-hero">
+  <div class="page-hero__bg">{herobg}</div>
+  <div class="container">
+    <div class="page-hero__inner">
+      <p class="page-hero__title"><span class="accent">{name}</span></p>
+    </div>
+  </div>
   <div class="page-hero__crumb">{crumbs}</div>
 </section>
 <section class="section" style="padding-top:2.5rem">
@@ -740,7 +804,7 @@ def build_product(p):
               <span>Reviews</span><span class="pa-icon" aria-hidden="true">+</span>
             </button>
             <div class="product-accordion__panel" id="pa-rev" hidden>
-              <div class="product-accordion__inner"><p class="product-reviews-empty">There are no reviews yet. Be the first to enquire about {name}.</p></div>
+              <div class="product-accordion__inner">{reviews}</div>
             </div>
           </div>
         </div>
@@ -751,18 +815,19 @@ def build_product(p):
 <section class="section section--soft related">
   <div class="container">
     <div class="section-head"><p class="eyebrow">You may also like</p><h2 class="section-title">Related <span class="accent">Products</span></h2></div>
-    <div class="grid grid--5">{related}</div>
+    <div class="grid grid--4">{related}</div>
   </div>
 </section>
 <div class="lightbox" data-lightbox aria-hidden="true">
   <button type="button" class="lightbox__close" data-lightbox-close aria-label="Close">&times;</button>
   <img src="{main_src}" alt="{name}">
 </div>
-'''.format(bg=img(main_src, p["name"], depth=depth, w=1280, h=720),
+'''.format(herobg=scene("hero", p["name"], depth, 1920, 900),
            crumbs=breadcrumbs_html(crumbs, depth),
            search=icon("search"), main=main_img, thumbs=thumbs_html,
            cat=esc(cat["short"]), name=esc(p["name"]), intro=esc(p["intro"]),
            arrow=icon("arrow"), wa=wa_href, wa_i=icon("wa"), desc=desc_html,
+           reviews=review_form(p["name"], p["slug"]),
            related=related_cards, main_src=esc(P.rel(depth) + main_src))
     body += cta_band(depth)
     page = {
@@ -864,7 +929,7 @@ def build_service_short(slug, d):
            heading=esc(d["heading"]), intro=esc(d["intro"]),
            feat_img=img(imgmap.img_path(d["image"]), "%s — Flash Print Solution" % d["heading"], depth=depth, w=760, h=560),
            feats=feats, band_heading=esc(d["band_heading"]), band_sub=esc(d["band_sub"]),
-           cards="".join(cards), banner_bg=scene("cta_bg", "Flash Print Solution workspace", depth, 1280, 720),
+           cards="".join(cards), banner_bg=svc_banner_bg(d, depth),
            cta=d["cta_html"], arrow=icon("arrow"))
     body += cta_band(depth)
     page = {
@@ -1032,6 +1097,8 @@ def build_service_long(slug, d):
            intro_paras="".join("<p>%s</p>" % esc(p) for p in d["intro_paragraphs"]),
            cover=cover_html, why=why_html, quality=quality_html, choose=choose_html,
            mistakes=mistakes_html, our=our_html, who=who_html)
+    body += '<section class="section"><div class="container">%s</div></section>' % svc_banner(
+        d["cta_html"], svc_banner_bg(d, depth))
     body += cta_band(depth)
     page = {
         "title": "Business Stationery Printing Dubai | Flash Print Solution",
@@ -1056,7 +1123,7 @@ def build_category(c):
 <section class="section">
   <div class="container">
     <div class="section-head"><p class="eyebrow">{n} products</p><h2 class="section-title">{short} <span class="accent">Products</span></h2></div>
-    <div class="grid grid--4">{cards}</div>
+    <div class="grid grid--3">{cards}</div>
     <div class="services-cta" style="margin-top:2.5rem;gap:.6rem;flex-wrap:wrap">{other}</div>
   </div>
 </section>

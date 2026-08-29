@@ -64,4 +64,16 @@
       });
     });
   });
+
+  /* ---- Review form (static site: acknowledge, don't reload) ---- */
+  document.querySelectorAll("[data-review-form]").forEach(function (form) {
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      if (typeof form.reportValidity === "function" && !form.reportValidity()) return;
+      var thanks = form.querySelector(".review-form__thanks");
+      var submit = form.querySelector(".review-form__submit");
+      if (thanks) thanks.hidden = false;
+      if (submit) submit.disabled = true;
+    });
+  });
 })();

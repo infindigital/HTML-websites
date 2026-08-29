@@ -30,6 +30,25 @@ ICONS = {
 def icon(name):
     return ICONS.get(name, "")
 
+def social_anchors():
+    """Standard social-media link row used in the home hero and the footer.
+    WhatsApp uses the pre-filled enquiry link; Instagram points at the real
+    Flash Print Solution profile."""
+    s = SITE
+    wa = s.get("whatsapp_url", "https://wa.me/%s" % s["whatsapp"])
+    order = [
+        ("Facebook", s["social"]["facebook"], "facebook"),
+        ("WhatsApp", wa, "wa"),
+        ("Instagram", s["social"]["instagram"], "instagram"),
+        ("YouTube", s["social"]["youtube"], "youtube"),
+        ("LinkedIn", s["social"]["linkedin"], "linkedin"),
+    ]
+    return "".join(
+        '<a href="%s" target="_blank" rel="noopener" aria-label="%s">%s</a>'
+        % (esc(url), label, icon(ic))
+        for label, url, ic in order
+    )
+
 def logo(dark=False, depth=0, both=False):
     """Brand logo — the original Flash Print Solution artwork (image).
     `both=True` (header) renders both the white knock-out and the dark
@@ -108,7 +127,7 @@ def _nav_links(depth, active):
     def cur(key):
         return ' aria-current="page"' if active == key else ""
     services_dd = "".join(
-        '<a href="%sservices/%s.html">%s</a>' % (r, c["slug"], esc(c["nav"]))
+        '<a href="%sservices/%s.html">%s</a>' % (r, c["slug"], esc(c["short"]))
         for c in CATEGORIES
     )
     return r, cur, services_dd
@@ -150,7 +169,7 @@ def header(depth=0, active="", light=False):
 def mobile_nav(depth=0):
     r = rel(depth)
     services_dd = "".join(
-        '<a href="%sservices/%s.html">%s</a>' % (r, c["slug"], esc(c["nav"]))
+        '<a href="%sservices/%s.html">%s</a>' % (r, c["slug"], esc(c["short"]))
         for c in CATEGORIES
     )
     return '''
@@ -192,22 +211,7 @@ def footer(depth=0):
     quick_links = "".join(
         '<li><a href="%s">%s%s</a></li>' % (href, icon("arrow"), esc(label)) for label, href in quick
     )
-    socials = "".join(
-        '<a href="%s" target="_blank" rel="noopener" aria-label="%s">%s</a>' % (s["social"][k], k.title(), icon(k))
-        for k in ["facebook", "whatsapp_x", "instagram", "youtube", "linkedin"] if k in s["social"]
-    )
-    # explicit social order incl. whatsapp
-    social_order = [
-        ("Facebook", s["social"]["facebook"], "facebook"),
-        ("WhatsApp", "https://wa.me/%s" % s["whatsapp"], "wa"),
-        ("Instagram", s["social"]["instagram"], "instagram"),
-        ("YouTube", s["social"]["youtube"], "youtube"),
-        ("LinkedIn", s["social"]["linkedin"], "linkedin"),
-    ]
-    socials = "".join(
-        '<a href="%s" target="_blank" rel="noopener" aria-label="%s">%s</a>' % (url, label, icon(ic))
-        for label, url, ic in social_order
-    )
+    socials = social_anchors()
     return '''
 <footer class="site-footer">
   <div class="container">
