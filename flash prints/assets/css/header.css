@@ -27,7 +27,7 @@
 
 /* Logo (original artwork image) */
 .logo { display: inline-flex; align-items: center; flex: none; }
-.logo__img { display: block; width: auto; height: 54px; flex: none; }
+.logo__img { display: block; width: auto; height: 72px; flex: none; }
 /* Header renders both variants; show the one that reads on the current bg. */
 .site-header .logo__img--dark { display: none; }
 .site-header.is-sticky .logo__img--light,

@@ -97,21 +97,24 @@ for c in CATEGORIES:
     c["image"] = imgmap.img_path(c["img_index"])
 
 # Fixed scene images used for hero / about / process / cta / page backgrounds.
-# The dark architectural-ceiling photograph is the reference background shared by
-# the home hero, every page hero, the pre-footer CTA band and (through the CTA
-# band) the footer, per the brief: "all hero sections must use the same
-# background image" and "footer must be exact same ... use the same background".
+# The dark architectural-ceiling photograph backs the pre-footer CTA band and the
+# dark full-width process section. The home hero uses the client-supplied printer
+# photograph, and every internal page hero (about, services, products, contact,
+# faq and the service pages) shares the client-supplied brick-office photograph,
+# per the brief: all internal heroes use the exact same reference background.
 ARCH_BG = "assets/images/bg/architecture.webp"
+HERO_IMG = "assets/images/og/hero section.avif"
+INTERNAL_HERO = "assets/images/og/about services products contact herp.webp"
 SCENES = {
-    "hero":          ARCH_BG,
+    "hero":          HERO_IMG,
     "about":         9,       # full brand collection (about teaser visual)
     "process_bg":    ARCH_BG, # dark full-width process section
     "cta_bg":        ARCH_BG,
-    "products_bg":   ARCH_BG,
-    "services_bg":   ARCH_BG,
-    "about_bg":      ARCH_BG,
-    "contact_bg":    ARCH_BG,
-    "faq_bg":        ARCH_BG,
+    "products_bg":   INTERNAL_HERO,
+    "services_bg":   INTERNAL_HERO,
+    "about_bg":      INTERNAL_HERO,
+    "contact_bg":    INTERNAL_HERO,
+    "faq_bg":        INTERNAL_HERO,
 }
 def scene(key, alt, depth=0, w=1280, h=720, eager=False):
     val = SCENES[key]
@@ -230,6 +233,26 @@ def breadcrumbs_html(crumbs, depth):
             href = (r + path) if path else (r + "index.html")
             items.append('<a href="%s">%s</a>' % (href, esc(name)))
     return '<nav class="breadcrumbs" aria-label="Breadcrumb">' + '<span class="sep">/</span>'.join(items) + '</nav>'
+
+def page_hero(title_html, crumbs, depth=0, bg_key="about_bg",
+              alt="Flash Print Solution Dubai", subtitle="", extra=""):
+    """Internal-page hero matching the reference: a full-bleed dark image with a
+    centred title (and optional subtitle), and a single breadcrumb pill notched
+    into the bottom edge of the hero — no eyebrow, no top breadcrumb."""
+    sub = ('<p class="page-hero__text">%s</p>' % subtitle) if subtitle else ""
+    return '''
+<section class="page-hero">
+  <div class="page-hero__bg">{bg}</div>
+  <div class="container">
+    <div class="page-hero__inner">
+      <h1 class="page-hero__title">{title}</h1>
+      {sub}{extra}
+    </div>
+  </div>
+  <div class="page-hero__crumb">{crumbs}</div>
+</section>'''.format(bg=scene(bg_key, alt, depth, 1920, 900),
+                     title=title_html, sub=sub, extra=extra,
+                     crumbs=breadcrumbs_html(crumbs, depth))
 
 def product_card(p, depth):
     r = "../" * depth
@@ -395,27 +418,34 @@ def build_home():
   <span class="process-card__num" aria-hidden="true">0{n}</span>
 </div>'''.format(active=active, icon=icon(ic), title=esc(title), text=esc(text), n=i + 1))
     process_section = '''
-<section class="section">
+<section class="process-full">
+  <div class="process-full__bg">{bg}</div>
   <div class="container">
-    <div class="process section" style="padding-inline:clamp(1.2rem,4vw,3rem)">
-      <div class="process__bg">{bg}</div>
-      <div class="container" style="padding-inline:0">
-        <div class="section-head section-head--center">
-          <p class="eyebrow eyebrow--center">Our Process</p>
-          <h2 class="section-title">Simple, Smooth, and<br>Reliable <span class="accent">Printing Process</span></h2>
-        </div>
-        <div class="grid process-grid">{cards}</div>
-      </div>
+    <div class="section-head section-head--center">
+      <p class="eyebrow eyebrow--center">Our Process</p>
+      <h2 class="section-title">Simple, Smooth, and<br>Reliable <span class="accent">Printing Process</span></h2>
     </div>
+    <div class="grid process-grid">{cards}</div>
   </div>
-</section>'''.format(bg=scene("process_bg", "Printing production line", 0, 1280, 720), cards="".join(proc_cards))
+</section>'''.format(bg=scene("process_bg", "Printing production line", 0, 1920, 900), cards="".join(proc_cards))
 
     # Testimonials (photo left, quote right — photo kept as a placeholder to be
     # supplied later by the client)
+    testi_photos = {
+        "Ravi Kumar":   "assets/images/og/ravi.avif",
+        "Abdul Shuhaid": "assets/images/og/abdul.avif",
+        "Riya":         "assets/images/og/riya.avif",
+        "Asif Yunus":   "assets/images/og/asif.avif",
+    }
     t_cards = []
     for body, name, role in TESTIMONIALS:
-        photo = placeholder(esc(name), note="client photo of %s" % name,
-                            extra_class="testimonial__photo-ph", show_label=False)
+        psrc = testi_photos.get(name)
+        if psrc:
+            photo = img(psrc, "%s — Flash Print Solution client" % name, depth=0,
+                        w=300, h=360, cls="testimonial__img")
+        else:
+            photo = placeholder(esc(name), note="client photo of %s" % name,
+                                extra_class="testimonial__photo-ph", show_label=False)
         t_cards.append('''
 <figure class="testimonial">
   <div class="testimonial__photo">{photo}</div>
@@ -609,18 +639,9 @@ def build_products():
         chips.append('<button class="filter-chip" data-category="%s" aria-pressed="false">%s</button>' % (c["slug"], esc(c["short"])))
     cards = "".join(product_card(p, depth) for p in PRODUCTS)
     crumbs = [("Home", ""), ("Products", "products.html")]
-    body = '''
-<section class="page-hero">
-  <div class="page-hero__bg">{bg}</div>
-  <div class="container">
-    <div class="page-hero__inner">
-      {crumbs_ld}
-      <p class="eyebrow eyebrow--center">Our Products</p>
-      <h1 class="page-hero__title">Quality <span class="accent">Printed Products</span> in Dubai</h1>
-      <p class="page-hero__text">Browse our complete catalogue of {n} print products — from business stationery and promotional items to signage, large format and custom event printing.</p>
-    </div>
-  </div>
-</section>
+    body = page_hero('Our <span class="accent">Printing Products</span>', crumbs, depth,
+                     bg_key="products_bg", alt="Flash Print Solution printed products display")
+    body += '''
 <section class="section">
   <div class="container">
     <div class="archive-toolbar">
@@ -636,9 +657,7 @@ def build_products():
     <nav class="pagination" id="archivePagination" aria-label="Products pagination"></nav>
   </div>
 </section>
-'''.format(bg=scene("products_bg", "Flash Print Solution printed products display", 0, 1280, 720),
-           crumbs_ld=breadcrumbs_html(crumbs, depth), n=len(PRODUCTS),
-           search=icon("search"), chips="".join(chips), cards=cards)
+'''.format(n=len(PRODUCTS), search=icon("search"), chips="".join(chips), cards=cards)
     body += cta_band(depth)
     page = {
         "title": "Products | Flash Print Solution — Printing Products in Dubai",
@@ -685,9 +704,9 @@ def build_product(p):
     thumbs_html = "".join(thumbs)
 
     body = '''
-<section class="page-hero" style="padding-bottom:2rem">
+<section class="page-hero page-hero--slim">
   <div class="page-hero__bg">{bg}</div>
-  <div class="container"><div class="page-hero__inner">{crumbs}</div></div>
+  <div class="page-hero__crumb">{crumbs}</div>
 </section>
 <section class="section" style="padding-top:2.5rem">
   <div class="container">
@@ -771,21 +790,13 @@ def build_services():
 </article>'''.format(ph=img(imgmap.img_path(idx), "%s — Flash Print Solution" % title, depth=0, w=600, h=450),
                      title=esc(title), slug=esc(slug), arrow=icon("arrow")))
     crumbs = [("Home", ""), ("Services", "services.html")]
-    body = '''
-<section class="page-hero">
-  <div class="page-hero__bg">{bg}</div>
-  <div class="container"><div class="page-hero__inner">
-    {crumbs}
-    <p class="eyebrow eyebrow--center">What We Do</p>
-    <h1 class="page-hero__title">Our <span class="accent">Printing Services</span></h1>
-    <p class="page-hero__text">From everyday business stationery to large format signage and complete brand rollouts, Flash Print Solution covers every printing need under one roof.</p>
-  </div></div>
-</section>
+    body = page_hero('Our <span class="accent">Printing Services</span>', crumbs, depth,
+                     bg_key="services_bg", alt="Flash Print Solution exhibition and signage")
+    body += '''
 <section class="section"><div class="container">
   <div class="service-tile-grid">{tiles}</div>
 </div></section>
-'''.format(bg=scene("services_bg", "Flash Print Solution exhibition and signage", 0, 1280, 720),
-           crumbs=breadcrumbs_html(crumbs, depth), tiles="".join(tiles))
+'''.format(tiles="".join(tiles))
     body += cta_band(depth)
     page = {
         "title": "Printing Services in Dubai | Flash Print Solution",
@@ -819,14 +830,9 @@ def build_service_short(slug, d):
 </article>'''.format(accent=" svc-num-card--accent" if i == 0 else "",
                      ic=icon(_SVC_CARD_ICONS[i % len(_SVC_CARD_ICONS)]),
                      title=esc(title), text=esc(text), n=i + 1))
-    body = '''
-<section class="page-hero">
-  <div class="page-hero__bg">{bg}</div>
-  <div class="container"><div class="page-hero__inner">
-    {crumbs}
-    <h1 class="page-hero__title">{hero_title}</h1>
-  </div></div>
-</section>
+    body = page_hero(d["hero_title_html"], crumbs, depth, bg_key="hero",
+                     alt="%s — Flash Print Solution" % d["heading"])
+    body += '''
 <section class="section"><div class="container">
   <div class="svc-intro">
     <h2 class="svc-intro__title">{heading}</h2>
@@ -1011,17 +1017,10 @@ def build_service_long(slug, d):
 </div></section>'''.format(h=wh["heading_html"], intro=esc(wh["intro"]),
                            cards=cards_grid(wh["cards"]))
 
-    body = '''
-<section class="page-hero page-hero--article">
-  <div class="page-hero__bg">{bg}</div>
-  <div class="container"><div class="page-hero__inner">
-    {crumbs}
-    <p class="eyebrow eyebrow--center">{eyebrow}</p>
-    <h1 class="page-hero__title">{hero_title}</h1>
-    <p class="page-hero__text">{hero_sub}</p>
-    <a class="btn btn--light" href="../contact.html">Request a Quote {arrow}</a>
-  </div></div>
-</section>
+    body = page_hero(d["hero_title_html"], crumbs, depth, bg_key="hero",
+                     alt="Business stationery printing — Flash Print Solution",
+                     subtitle=esc(d["hero_subtitle"]))
+    body += '''
 <section class="section"><div class="container">
   <div class="svl-intro" data-reveal>
     <p class="eyebrow">{intro_eb}</p>
@@ -1029,10 +1028,7 @@ def build_service_long(slug, d):
   </div>
 </div></section>
 {cover}{why}{quality}{choose}{mistakes}{our}{who}
-'''.format(bg=scene("services_bg", "Business stationery printing — Flash Print Solution", depth, 1280, 720),
-           crumbs=breadcrumbs_html(crumbs, depth), eyebrow=esc(d["hero_eyebrow"]),
-           hero_title=d["hero_title_html"], hero_sub=esc(d["hero_subtitle"]), arrow=icon("arrow"),
-           intro_eb=esc(d["intro_eyebrow"]),
+'''.format(intro_eb=esc(d["intro_eyebrow"]),
            intro_paras="".join("<p>%s</p>" % esc(p) for p in d["intro_paragraphs"]),
            cover=cover_html, why=why_html, quality=quality_html, choose=choose_html,
            mistakes=mistakes_html, our=our_html, who=who_html)
@@ -1054,17 +1050,9 @@ def build_category(c):
     cards = "".join(product_card(p, depth) for p in c["products"])
     other = [x for x in CATEGORIES if x["slug"] != c["slug"]]
     other_links = "".join('<a class="btn btn--ghost btn--sm" href="%s.html">%s</a>' % (x["slug"], esc(x["short"])) for x in other)
-    body = '''
-<section class="page-hero">
-  <div class="page-hero__bg">{bg}</div>
-  <div class="container"><div class="page-hero__inner">
-    {crumbs}
-    <p class="eyebrow eyebrow--center">{tag}</p>
-    <h1 class="page-hero__title">{title}</h1>
-    <p class="page-hero__text">{intro}</p>
-    <a class="btn btn--light" href="../contact.html">Request a Quote {arrow}</a>
-  </div></div>
-</section>
+    body = page_hero(esc(c["title"]), crumbs, depth, bg_key="hero",
+                     alt="%s — Flash Print Solution" % c["nav"], subtitle=esc(c["intro"]))
+    body += '''
 <section class="section">
   <div class="container">
     <div class="section-head"><p class="eyebrow">{n} products</p><h2 class="section-title">{short} <span class="accent">Products</span></h2></div>
@@ -1072,10 +1060,7 @@ def build_category(c):
     <div class="services-cta" style="margin-top:2.5rem;gap:.6rem;flex-wrap:wrap">{other}</div>
   </div>
 </section>
-'''.format(bg=img(c["image"], "%s — Flash Print Solution" % c["nav"], depth=1, w=1280, h=720),
-           crumbs=breadcrumbs_html(crumbs, depth), tag=esc(c["tag"]), title=esc(c["title"]),
-           intro=esc(c["intro"]), arrow=icon("arrow"), n=len(c["products"]), short=esc(c["short"]),
-           cards=cards, other=other_links)
+'''.format(n=len(c["products"]), short=esc(c["short"]), cards=cards, other=other_links)
     body += cta_band(depth)
     page = {
         "title": "%s | Flash Print Solution" % c["title"],
@@ -1091,16 +1076,9 @@ def build_category(c):
 def build_about():
     depth = 0
     crumbs = [("Home", ""), ("About Us", "about.html")]
-    body = '''
-<section class="page-hero">
-  <div class="page-hero__bg">{bg}</div>
-  <div class="container"><div class="page-hero__inner">
-    {crumbs}
-    <p class="eyebrow eyebrow--center">About Us</p>
-    <h1 class="page-hero__title">About <span class="accent">Flash Print</span></h1>
-    <p class="page-hero__text">A professional printing company in Dubai helping brands of all sizes communicate better through high quality print, signage and branding.</p>
-  </div></div>
-</section>
+    body = page_hero('About <span class="accent">Flash Print</span>', crumbs, depth,
+                     bg_key="about_bg", alt="Flash Print Solution office branding")
+    body += '''
 <section class="section"><div class="container">
   <div class="about">
     <div class="about__body">
@@ -1150,18 +1128,8 @@ def build_about():
 def build_contact():
     depth = 0
     crumbs = [("Home", ""), ("Contact Us", "contact.html")]
-    body = '''
-<section class="page-hero">
-  <div class="page-hero__bg">{bg}</div>
-  <div class="container"><div class="page-hero__inner">
-    {crumbs}
-    <p class="eyebrow eyebrow--center">Get in Touch</p>
-    <h1 class="page-hero__title">Contact <span class="accent">Flash Print Solution</span></h1>
-    <p class="page-hero__text">Have a question or need a quote for your printing project? Our Dubai team is ready to help with the right solutions, pricing and timelines.</p>
-  </div></div>
-</section>
-'''.format(bg=scene("contact_bg", "Flash Print Solution reception", 0, 1280, 720),
-           crumbs=breadcrumbs_html(crumbs, depth))
+    body = page_hero('<span class="accent">Contact</span> Flash Print', crumbs, depth,
+                     bg_key="contact_bg", alt="Flash Print Solution reception")
     body += contact_block(depth, "Send a Message",
                           "Let&rsquo;s Talk About Your <span class=\"accent\">Printing</span> Requirements",
                           "Reach out and our team will assist you with the right printing solutions, pricing, and timelines for your business.")
@@ -1180,19 +1148,11 @@ def build_contact():
 def build_faq():
     depth = 0
     crumbs = [("Home", ""), ("FAQ", "faq.html")]
-    body = '''
-<section class="page-hero">
-  <div class="page-hero__bg">{bg}</div>
-  <div class="container"><div class="page-hero__inner">
-    {crumbs}
-    <p class="eyebrow eyebrow--center">FAQ</p>
-    <h1 class="page-hero__title">Frequently Asked <span class="accent">Questions</span></h1>
-    <p class="page-hero__text">Answers to common questions about our printing services, turnaround times and how to get a quote.</p>
-  </div></div>
-</section>
+    body = page_hero('Frequently Asked <span class="accent">Questions</span>', crumbs, depth,
+                     bg_key="faq_bg", alt="Flash Print Solution services")
+    body += '''
 <section class="section"><div class="container container--narrow">{faqs}</div></section>
-'''.format(bg=scene("faq_bg", "Flash Print Solution services", 0, 1280, 720),
-           crumbs=breadcrumbs_html(crumbs, depth), faqs=faq_items_html(FAQS))
+'''.format(faqs=faq_items_html(FAQS))
     body += cta_band(depth)
     page = {
         "title": "FAQ | Flash Print Solution — Printing Services in Dubai",
@@ -1224,15 +1184,11 @@ def simple_page(path, title, desc, active, h1, blocks, crumbs, depth=0, is404=Fa
   </div>
 </section>'''.format(arrow=icon("arrow"))
     else:
-        body = '''
-<section class="page-hero">
-  <div class="container"><div class="page-hero__inner">
-    {crumbs}
-    <h1 class="page-hero__title">{h1}</h1>
-  </div></div>
-</section>
+        body = page_hero(esc(h1), crumbs, depth, bg_key="about_bg",
+                         alt="Flash Print Solution Dubai")
+        body += '''
 <section class="section"><div class="container"><div class="prose">{inner}</div></div></section>
-'''.format(crumbs=breadcrumbs_html(crumbs, depth), h1=esc(h1), inner=inner)
+'''.format(inner=inner)
     page = {"title": title, "description": desc, "path": path, "og_type": "website",
             "jsonld": [ld_org()] + ([ld_breadcrumbs(crumbs)] if not is404 else [])}
     # 404 should not be indexed

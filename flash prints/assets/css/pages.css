@@ -7,8 +7,13 @@
   position: relative;
   background: var(--color-dark);
   color: #fff;
-  padding-top: calc(var(--header-h) + 2.5rem);
-  padding-bottom: 96px;
+  min-height: 100vh;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-top: calc(var(--header-h) + 1.5rem);
+  padding-bottom: 104px;
   overflow: hidden;
 }
 .hero__bg { position: absolute; inset: 0; z-index: 0; }
@@ -22,7 +27,7 @@
   position: relative;
   z-index: 2;
   text-align: center;
-  padding-block: clamp(3rem, 9vw, 7rem);
+  padding-block: clamp(1rem, 4vw, 2.5rem);
   max-width: 900px;
   margin-inline: auto;
 }
@@ -97,8 +102,12 @@
   position: relative;
   background: var(--color-dark);
   color: #fff;
+  min-height: 56vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   padding-top: calc(var(--header-h) + 3rem);
-  padding-bottom: clamp(3.4rem, 6vw, 5.4rem);
+  padding-bottom: clamp(4.5rem, 7vw, 6.5rem);
   overflow: hidden;
 }
 .page-hero__bg { position: absolute; inset: 0; z-index: 0; }
@@ -106,25 +115,42 @@
 .page-hero__bg::after {
   content: "";
   position: absolute; inset: 0;
-  background: linear-gradient(180deg, rgba(16,10,6,0.62) 0%, rgba(16,10,6,0.45) 42%, rgba(16,10,6,0.9) 100%);
+  background: linear-gradient(180deg, rgba(16,10,6,0.60) 0%, rgba(16,10,6,0.42) 45%, rgba(16,10,6,0.72) 100%);
 }
-/* Notched white footer band — same concave-shoulder shape as the home hero */
-.page-hero::after {
-  content: ""; position: absolute; left: 0; right: 0; bottom: 0; z-index: 3;
-  height: var(--notch-r, 30px);
-  background:
-    radial-gradient(circle at top left,  transparent 0 var(--notch-r,30px), var(--color-bg) calc(var(--notch-r,30px) + 0.5px)) top left  / var(--notch-r,30px) 100% no-repeat,
-    radial-gradient(circle at top right, transparent 0 var(--notch-r,30px), var(--color-bg) calc(var(--notch-r,30px) + 0.5px)) top right / var(--notch-r,30px) 100% no-repeat,
-    linear-gradient(var(--color-bg), var(--color-bg)) center / calc(100% - 2 * var(--notch-r,30px)) 100% no-repeat;
+/* Centred breadcrumb pill notched into the bottom edge of the hero — matches
+   the reference. The white pill has a concave shoulder at each side, so it reads
+   as carved out of the dark hero exactly like the home hero's footer tabs. */
+.page-hero__crumb {
+  position: absolute; left: 50%; bottom: 0; z-index: 4;
+  transform: translateX(-50%);
+  background: var(--color-bg);
+  padding: 0.78rem 2rem 0.9rem;
+  border-top-left-radius: var(--notch-r, 30px);
+  border-top-right-radius: var(--notch-r, 30px);
 }
-.page-hero__inner { position: relative; z-index: 2; text-align: center; max-width: 780px; margin-inline: auto; }
+.page-hero__crumb::before,
+.page-hero__crumb::after {
+  content: ""; position: absolute; bottom: 0;
+  width: var(--notch-r, 30px); height: var(--notch-r, 30px);
+}
+.page-hero__crumb::before {
+  left: calc(-1 * var(--notch-r, 30px));
+  background: radial-gradient(circle at top left, transparent 0 var(--notch-r,30px), var(--color-bg) calc(var(--notch-r,30px) + 0.5px));
+}
+.page-hero__crumb::after {
+  right: calc(-1 * var(--notch-r, 30px));
+  background: radial-gradient(circle at top right, transparent 0 var(--notch-r,30px), var(--color-bg) calc(var(--notch-r,30px) + 0.5px));
+}
+.page-hero__crumb .breadcrumbs { margin: 0; justify-content: center; color: var(--color-muted); }
+.page-hero__crumb .breadcrumbs a { color: var(--color-ink); }
+.page-hero__crumb .breadcrumbs [aria-current="page"] { color: var(--color-primary); }
+/* Slim variant (product detail) — short hero, just the breadcrumb pill */
+.page-hero--slim { min-height: 0; padding-top: calc(var(--header-h) + 2.4rem); padding-bottom: 3.4rem; }
+.page-hero__inner { position: relative; z-index: 2; text-align: center; max-width: 820px; margin-inline: auto; }
 .page-hero .eyebrow { color: #fff; }
-.page-hero__title { font-size: var(--fs-h2); color: #fff; margin: 0.8rem 0 0.8rem; }
+.page-hero__title { font-size: var(--fs-hero); color: #fff; margin: 0 0 0.8rem; letter-spacing: -0.015em; }
 .page-hero__title .accent { color: var(--color-primary); }
-.page-hero__text { color: #d7cfc7; max-width: 60ch; margin: 0 auto 1.2rem; }
-.page-hero .breadcrumbs { justify-content: center; color: #c9bfb5; margin-bottom: 1.1rem; }
-.page-hero .breadcrumbs a { color: #fff; }
-.page-hero .breadcrumbs [aria-current="page"] { color: var(--color-primary); }
+.page-hero__text { color: #e4ddd5; font-size: var(--fs-lead); max-width: 62ch; margin: 0.4rem auto 0; }
 
 /* ---------- Section heading block ---------- */
 .section-head { max-width: 640px; margin-bottom: 2.6rem; }
@@ -366,6 +392,22 @@
 .about__stat b { font-family: var(--font-heading); font-size: 2rem; color: var(--color-primary); display: block; }
 .about__stat span { font-size: 0.92rem; color: var(--color-muted); }
 
+/* ---------- Process (dark, full-bleed band) ---------- */
+.process-full {
+  position: relative;
+  background: var(--color-dark);
+  color: #fff;
+  overflow: hidden;
+  border-radius: var(--radius-xl);
+  padding: clamp(3.5rem, 7vw, 6rem) 0 clamp(4rem, 8vw, 6.5rem);
+  margin: clamp(2rem, 5vw, 4rem) 0;
+}
+.process-full__bg { position: absolute; inset: 0; z-index: 0; opacity: 0.26; }
+.process-full__bg img, .process-full__bg .image-placeholder { width: 100%; height: 100%; object-fit: cover; }
+.process-full .container { position: relative; z-index: 2; }
+.process-full .section-title { color: #fff; }
+.process-full .eyebrow { color: var(--color-primary); }
+
 /* ---------- Process (dark) ---------- */
 .process { position: relative; background: var(--color-dark); color: #fff; border-radius: var(--radius-xl); overflow: hidden; }
 .process__bg { position: absolute; inset: 0; opacity: 0.28; }
@@ -408,7 +450,7 @@
 .testimonial {
   position: relative;
   display: grid;
-  grid-template-columns: 150px 1fr;
+  grid-template-columns: 168px 1fr;
   gap: 1.6rem;
   align-items: stretch;
   background: var(--color-bg-soft);
@@ -417,12 +459,15 @@
   padding: 1.8rem;
 }
 .testimonial__photo {
-  align-self: center;
+  align-self: stretch;
 }
+.testimonial__img,
 .testimonial__photo .image-placeholder {
-  aspect-ratio: 3 / 4;
+  width: 100%;
+  height: 100%;
+  min-height: 210px;
+  object-fit: cover;
   border-radius: var(--radius);
-  min-height: 0;
 }
 .testimonial__content { position: relative; display: flex; flex-direction: column; }
 .testimonial__quote {
