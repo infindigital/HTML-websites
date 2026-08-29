@@ -1,0 +1,12 @@
+{
+  "name": "flash-print/website-mailer",
+  "description": "Contact-form mail handler for the Flash Print Solution website (PHPMailer + Gmail SMTP).",
+  "type": "project",
+  "require": {
+    "php": ">=7.4",
+    "phpmailer/phpmailer": "^6.9"
+  },
+  "config": {
+    "optimize-autoloader": true
+  }
+}

@@ -71,11 +71,11 @@
   top: calc(100% + 8px);
   left: 50%;
   transform: translateX(-50%) translateY(10px);
-  min-width: 260px;
+  min-width: 288px;
   background: #fff;
-  border-radius: var(--radius);
+  border-radius: var(--radius-lg);
   box-shadow: var(--shadow);
-  padding: 0.6rem;
+  padding: 0.7rem;
   opacity: 0;
   visibility: hidden;
   transition: opacity var(--dur) var(--ease), transform var(--dur) var(--ease), visibility var(--dur);
@@ -86,11 +86,11 @@
 }
 .dropdown a {
   display: block;
-  padding: 0.65rem 0.9rem;
+  padding: 0.72rem 1rem;
   border-radius: var(--radius-sm);
   color: var(--color-ink);
-  font-weight: 500;
-  font-size: 0.96rem;
+  font-weight: 600;
+  font-size: 1rem;
   transition: background var(--dur) var(--ease), color var(--dur) var(--ease);
 }
 .dropdown a:hover { background: var(--color-primary-050); color: var(--color-primary-600); }

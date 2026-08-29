@@ -4,3 +4,8 @@
 /flash prints/*.zip
 /maskoco.com/**/*.zip
 /maskoco.com/*.zip
+
+# PHP mailer: never commit real SMTP credentials or the installed library
+/flash prints/send.config.php
+/flash prints/vendor/
+/flash prints/composer.lock

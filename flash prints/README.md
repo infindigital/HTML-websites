@@ -44,9 +44,31 @@ Netlify, Vercel, Cloudflare Pages, GitHub Pages). No server-side code needed.
 Set the site's base domain in the canonical/OG tags via `build/data.py` if it
 differs from `https://flashprintsolution.com`.
 
-The contact form has no backend by default. Set `FORM_ENDPOINT` in
-`assets/js/forms.js` to a real endpoint (Formspree, Web3Forms, a serverless
-function, etc.) to enable live submissions.
+### Contact form email (PHPMailer + Gmail SMTP)
+
+The contact form posts to **`send.php`**, which delivers each enquiry by email
+using [PHPMailer](https://github.com/PHPMailer/PHPMailer) over Gmail SMTP. It
+authenticates with a Google **App Password**, so the site can send from the
+business inbox **without ever storing the account's real login password** — the
+app password is a revocable 16-character code scoped to sending mail only.
+
+One-time setup on a PHP-capable host:
+
+```bash
+cd "flash prints"
+composer require phpmailer/phpmailer          # installs vendor/
+cp send.config.sample.php send.config.php     # then fill in the values
+```
+
+In `send.config.php` set `SMTP_USER` (the Gmail address), `SMTP_PASS` (the
+App Password from Google Account → Security → 2-Step Verification → App
+passwords) and `MAIL_TO` (defaults to `sales@flashprintsolution.com`). You can
+instead provide these as `SMTP_*` environment variables. `send.config.php` and
+`vendor/` are git-ignored so credentials are never committed.
+
+Prefer a hosted endpoint instead? Point `FORM_ENDPOINT` in
+`assets/js/forms.js` at a Formspree/Web3Forms/serverless URL, or set it to an
+empty string for demo mode (a friendly confirmation with no email sent).
 
 ## Rebuilding
 

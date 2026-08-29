@@ -7,8 +7,9 @@
   color: #fff;
   text-align: center;
   /* Taller band: the "Flash Print" watermark sits along the top, the CTA
-     content sits below it. Big top padding reserves the watermark's band. */
-  padding: clamp(8rem, 20vw, 16rem) 0 calc(clamp(4.5rem, 8vw, 7.5rem) + 90px);
+     content sits below it. Big top padding reserves the watermark's band so
+     the heading never overlaps the "Flash Print" wordmark. */
+  padding: clamp(9.5rem, 26vw, 22rem) 0 calc(clamp(4.5rem, 8vw, 7.5rem) + 90px);
   overflow: hidden;
 }
 .cta-band__bg {
@@ -31,6 +32,9 @@
   line-height: 1;
 }
 .cta-band .container { position: relative; z-index: 2; }
+/* "Work With Flash Print Solution" eyebrow reads white on the dark band
+   (the leading dot stays brand orange via .eyebrow::before). */
+.cta-band .eyebrow { color: #fff; }
 .cta-band__title { font-size: var(--fs-h2); color: #fff; margin: 0.8rem 0 1rem; }
 .cta-band__text { color: #cbc3bb; max-width: 52ch; margin: 0 auto 2rem; }
 
@@ -110,6 +114,9 @@
 }
 .footer-bottom nav { display: flex; gap: 1.5rem; }
 .footer-bottom a:hover { color: var(--color-primary); }
+.footer-credit { color: var(--color-muted); }
+.footer-credit a { color: var(--color-primary); font-weight: 600; }
+.footer-credit a:hover { color: var(--color-primary-600); text-decoration: underline; }
 
 /* Floating WhatsApp button */
 .wa-float {

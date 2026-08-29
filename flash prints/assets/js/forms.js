@@ -1,12 +1,13 @@
 /* Client-side contact form validation + submission UI.
-   No backend is configured for this static site. Set FORM_ENDPOINT below to a
-   real POST endpoint (e.g. Formspree, Web3Forms, a Netlify function) to enable
-   live submissions; otherwise a friendly demo confirmation is shown. */
+   Submissions POST to send.php, which delivers the enquiry by email using
+   PHPMailer + Gmail SMTP (see send.php and README for setup). If the endpoint
+   is unreachable — e.g. previewing the static files without PHP — a friendly
+   demo confirmation is shown instead. */
 (function () {
   "use strict";
 
-  /* >>> Configure your real form endpoint here <<< */
-  var FORM_ENDPOINT = "";
+  /* PHP mail handler (PHPMailer + Gmail SMTP). Leave blank to force demo mode. */
+  var FORM_ENDPOINT = "send.php";
 
   var form = document.querySelector(".contact-form");
   if (!form) return;
@@ -69,7 +70,9 @@
       body: JSON.stringify({
         name: name ? name.value.trim() : "",
         email: email ? email.value.trim() : "",
-        message: message ? message.value.trim() : ""
+        message: message ? message.value.trim() : "",
+        /* honeypot — real users leave this empty */
+        company: (form.querySelector('[name="company"]') || {}).value || ""
       })
     })
       .then(function (r) { done(r.ok); })
