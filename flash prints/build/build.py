@@ -62,6 +62,23 @@ for p in PRODUCTS:
     p["image"] = imgmap.img_path(p["img_index"])          # site-root relative
     p["gallery"] = imgmap.gallery_for(p["img_index"], _IMG)
 
+# Exact per-product imagery from the client Product Catalogue PDF.
+# pdf_asset_map.json maps each product's catalogue number -> the "Image asset #N"
+# the PDF assigns it; those images are extracted verbatim from the PDF into
+# assets/images/catalogue/aNNN.avif. This overrides the keyword-matched image
+# above so every product (and the homepage "Our Products" tabs) shows the exact
+# image the catalogue specifies.
+with open(os.path.join(os.path.dirname(__file__), "pdf_asset_map.json"),
+          encoding="utf-8") as f:
+    PDF_ASSET_MAP = {int(k): v for k, v in json.load(f).items()}
+for p in PRODUCTS:
+    asset = PDF_ASSET_MAP.get(p.get("num"))
+    if asset is None:
+        continue
+    p["pdf_asset"] = asset
+    p["image"] = "assets/images/catalogue/a%03d.avif" % asset
+    p["gallery_paths"] = [p["image"]]
+
 BY_SLUG = {p["slug"]: p for p in PRODUCTS}
 for c in CATEGORIES:
     c["products"] = [p for p in PRODUCTS if p["category"] == c["slug"]]
@@ -651,13 +668,15 @@ def build_product(p):
     wa_href = "https://wa.me/%s?text=%s" % (SITE["whatsapp"], html.escape(wa_text.replace(" ", "%20"), quote=True))
     meta_desc = (p["intro"][:150] + "…") if len(p["intro"]) > 155 else p["intro"]
 
-    # Gallery: main image + thumbnails (complementary brand shots)
-    gallery = p["gallery"]
-    main_src = imgmap.img_path(gallery[0])
+    # Gallery: the exact catalogue image for this product (from the PDF).
+    if p.get("gallery_paths"):
+        gallery = p["gallery_paths"]
+    else:
+        gallery = [imgmap.img_path(gi) for gi in p["gallery"]]
+    main_src = gallery[0]
     main_img = img(main_src, p["name"], depth=depth, w=800, h=800, eager=True)
     thumbs = []
-    for i, gi in enumerate(gallery):
-        src = imgmap.img_path(gi)
+    for i, src in enumerate(gallery):
         thumbs.append(
             '<button type="button" class="product-thumbs__btn" data-full="{full}"{cur} aria-label="View image {n}">{im}</button>'.format(
                 full=esc(P.rel(depth) + src), n=i + 1,
