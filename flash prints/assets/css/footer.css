@@ -77,7 +77,7 @@
   font-size: 0.98rem;
   transition: color var(--dur) var(--ease), gap var(--dur) var(--ease);
 }
-.footer-links a .arrow { color: var(--color-primary); flex: none; }
+.footer-links a .arrow { width: 16px; height: 16px; color: var(--color-primary); flex: none; }
 .footer-links a:hover { color: var(--color-primary); gap: 0.8rem; }
 
 .footer-contact li { display: flex; gap: 0.7rem; margin-bottom: 0.7rem; color: var(--color-text); font-size: 0.98rem; }

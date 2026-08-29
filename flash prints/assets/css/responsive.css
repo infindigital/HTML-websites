@@ -5,9 +5,14 @@
   .archive-grid { grid-template-columns: repeat(3, 1fr); }
   .grid--5 { grid-template-columns: repeat(4, 1fr); }
 }
+@media (max-width: 1100px) {
+  .industry-grid { grid-template-columns: repeat(2, 1fr); }
+}
 @media (max-width: 992px) {
   .services-grid,
+  .service-tile-grid,
   .process-grid { grid-template-columns: repeat(2, 1fr); }
+  .guide-grid { grid-template-columns: 1fr; gap: 2rem; }
   .about,
   .contact,
   .product-detail,
@@ -25,6 +30,7 @@
 @media (max-width: 540px) {
   .testimonial { grid-template-columns: 1fr; gap: 1.1rem; }
   .testimonial__photo { max-width: 150px; }
+  .service-tile-grid { grid-template-columns: 1fr; }
 }
 @media (max-width: 640px) {
   .grid--5,
@@ -43,7 +49,8 @@
   .grid--4,
   .grid--3,
   .archive-grid,
-  .services-grid { grid-template-columns: 1fr; }
+  .services-grid,
+  .industry-grid { grid-template-columns: 1fr; }
   .process-grid { grid-template-columns: 1fr; }
   .hero__socials { display: none; }
   .tab { padding: 0.7rem 1.1rem; font-size: 0.92rem; }

@@ -87,6 +87,38 @@ CATEGORIES = [
 ]
 CAT_BY_SLUG = {c["slug"]: c for c in CATEGORIES}
 
+# Services landing catalogue — the full grid of service tiles shown on the
+# Services page (mirrors the reference layout). Each tile: (title, library
+# image index, internal service page slug it links to).
+SERVICES_CATALOG = [
+    ("Business Stationery", 4, "business-printing"),
+    ("Marketing & Promotional Printing", 158, "promotional-printing"),
+    ("Large Format & Signage", 8, "large-format-printing"),
+    ("Outdoor Signage", 3, "signage-solutions"),
+    ("Corporate Printing", 58, "corporate-printing"),
+    ("Event & Exhibition", 87, "large-format-printing"),
+    ("Indoor Signage", 10, "signage-solutions"),
+    ("Branding & Corporate Identity", 11, "corporate-printing"),
+    ("Vehicle Branding", 13, "signage-solutions"),
+    ("Sticker & Label Printing", 14, "custom-event-printing"),
+    ("Apparel & Fabric Printing", 15, "promotional-printing"),
+    ("Packaging Printing", 16, "custom-event-printing"),
+    ("Safety & Industrial Printing", 18, "signage-solutions"),
+    ("Laser Cutting & Engraving", 101, "custom-event-printing"),
+    ("POS & Retail Display Printing", 104, "promotional-printing"),
+    ("Wall, Floor & Glass Branding", 112, "signage-solutions"),
+    ("Construction & Site Printing", 96, "large-format-printing"),
+    ("Architectural & Interior Graphics", 57, "signage-solutions"),
+    ("Educational & Institutional Printing", 24, "business-printing"),
+    ("Hospitality Printing", 25, "business-printing"),
+    ("Healthcare & Medical Printing", 26, "business-printing"),
+    ("Government & Compliance Printing", 27, "business-printing"),
+    ("Sticker Materials", 17, "custom-event-printing"),
+    ("Fabrication & Installation Services", 31, "signage-solutions"),
+    ("Design & Creative Services", 149, "corporate-printing"),
+    ("Maintenance & Replacement Services", 155, "signage-solutions"),
+]
+
 # Priority-ordered keyword rules (first hit wins) mapping a product slug to a
 # category slug. Tuned against the real 133-item catalogue.
 CATEGORY_RULES = [
@@ -145,8 +177,14 @@ CATEGORY_OVERRIDES = {
     "id-cards": "business-printing",
 }
 
-# Homepage product tabs. Curated slug lists (first page mirrors the live site).
+# Homepage product tabs. Exact per-page ordering mirrored from the live-site
+# reference screenshots (Best Selling / New Arrivals / Latest Collection), each
+# collection paginated 10 per page. `new-arrivals` and `latest-collection` are
+# fully specified (rendered verbatim); `best-selling` lists the referenced first
+# page and is topped up from the catalogue for the remaining pages.
+TABS_EXACT = {"new-arrivals", "latest-collection"}
 TABS = {
+    # Reference: Screenshot 185109 (page 1). Remaining pages auto-filled.
     "best-selling": [
         "sticker-removal", "logo-design", "graphic-design", "on-site-branding",
         "transparent-stickers", "warning-labels", "medical-forms", "table-mats",
@@ -154,19 +192,49 @@ TABS = {
         "3d-letter-signage", "acp-sign-boards", "flyers-and-leaflets", "mugs",
         "custom-t-shirts", "vinyl-stickers", "foam-board-printing", "company-profile-printing",
     ],
+    # Reference: Screenshots 185130 / 185204 / 185244 / 185319 / 185357 (pages 1-5).
     "new-arrivals": [
-        "led-light-boxes", "neon-sign-boards", "full-vehicle-wrapping", "canvas-printing",
-        "wall-murals", "floor-graphics", "custom-boxes", "product-packaging",
-        "pop-up-displays", "x-banners", "acrylic-sign-boards", "reflective-signage",
-        "corporate-identity-kits", "brand-manuals", "die-cut-stickers", "one-way-vision",
-        "hoodies", "polo-shirts", "paper-bags", "usb-flash-drives",
+        # p1
+        "damage-replacement-printing", "rebranding-services", "sign-maintenance",
+        "sign-board-installation", "magnetic-stickers", "pvc-stickers", "patient-boards",
+        "prescription-pads", "door-hangers", "restaurant-menus",
+        # p2
+        "exam-papers", "project-sign-boards", "wallpaper-printing", "floor-graphics",
+        "glass-stickers", "wall-murals", "end-cap-displays", "metal-engraving",
+        "wood-engraving", "reflective-signage",
+        # p3
+        "stage-branding", "exhibition-stands", "labels-and-tags", "product-packaging",
+        "kraft-bags", "pens", "custom-t-shirts", "magnetic-stickers", "product-labels",
+        "die-cut-stickers",
+        # p4
+        "full-vehicle-wrapping", "brand-manuals", "neon-sign-boards", "flex-sign-boards",
+        "office-name-boards", "acrylic-sign-boards", "one-way-vision", "x-banners",
+        "roll-up-banners", "tent-cards",
+        # p5
+        "danglers", "posters", "files-and-folders",
+        "invoice-receipt-books-header-printing", "business-cards-and-gold-foil",
     ],
+    # Reference: Screenshots 185147 / 185222 / 185301 / 185337 / 185413 (pages 1-5).
     "latest-collection": [
-        "wallpaper-printing", "frosted-glass-film", "window-displays", "counter-displays",
-        "shelf-talkers", "wobblers", "wood-engraving", "metal-engraving",
-        "plaques-and-trophies", "exhibition-stands", "event-backdrops", "stage-branding",
-        "restaurant-menus", "tent-cards", "door-hangers", "keychains",
-        "pens", "caps", "diaries", "certificates",
+        # p1
+        "print-ready-file-setup", "artwork-correction", "sticker-fixing",
+        "vehicle-branding-installation", "reflective-stickers", "paper-stickers",
+        "facility-identification-boards", "regulatory-stickers", "mandatory-signage",
+        "hospital-signage",
+        # p2
+        "tent-cards", "room-signage", "report-cards", "hoarding-graphics", "safety-boards",
+        "window-displays", "interior-panels", "canvas-printing", "wayfinding-graphics",
+        "frosted-glass-film",
+        # p3
+        "counter-displays", "standee-displays", "shelf-talkers", "construction-boards",
+        "warning-labels", "event-backdrops", "labels-and-tags", "custom-boxes",
+        "polo-shirts", "t-shirt-printing",
+        # p4
+        "diaries", "barcode-labels", "transparent-stickers", "partial-wraps",
+        "company-profile-printing", "led-light-boxes", "acp-sign-boards", "foam-board-signs",
+        "foam-board-printing", "flex-banners",
+        # p5
+        "stickers", "flyers-and-leaflets", "ncr-carbonless-forms", "envelopes",
     ],
 }
 
@@ -208,4 +276,40 @@ AREAS = [
     "Bur Dubai", "Al Quoz", "Dubai Silicon Oasis", "Dubai Internet City",
     "Dubai Media City", "JBR", "Palm Jumeirah", "Mirdif", "Al Barsha",
     "Dubai South", "Jebel Ali", "Sharjah", "Abu Dhabi", "Ajman",
+]
+
+# "Who We Work With" — Printing Solutions Across Every Industry (emoji, title, copy).
+INDUSTRIES = [
+    ("\U0001F3E2", "Corporate & Finance",
+     "Branded stationery, letterheads, folders, annual reports, and presentation materials that reflect your company's professionalism."),
+    ("\U0001F6CD️", "Retail & E-Commerce",
+     "Product packaging, shopping bags, hang tags, shelf talkers, and in-store signage that drive purchases and build brand recall."),
+    ("\U0001F3E8", "Hospitality & Tourism",
+     "Hotel menus, room cards, banners, welcome kits, and event collateral designed to create memorable guest experiences."),
+    ("\U0001F3D7️", "Construction & Real Estate",
+     "Site hoardings, property brochures, floor plan printouts, safety signage, and large-format materials for project sites."),
+    ("\U0001FA7A", "Healthcare & Medical",
+     "Patient forms, awareness posters, clinic branding, prescription pads, and compliance-friendly safety labels and signage."),
+    ("\U0001F393", "Education & Institutions",
+     "School stationery, certificates, event banners, prospectuses, and institutional branding materials for campuses and universities."),
+    ("\U0001F4C5", "Events & Exhibitions",
+     "Exhibition stands, backdrop banners, pop-up displays, event signage, and branded giveaways for trade shows and corporate events."),
+    ("\U0001F37D️", "Food & Beverage",
+     "Custom menus, food labels, takeaway packaging, promotional flyers, and branded packaging for restaurants, cafes, and cloud kitchens."),
+]
+
+# "Everything You Should Know About Getting Printed in Dubai" — guide blocks.
+GUIDE = [
+    ("Why quality printing still matters in a digital world",
+     "It's easy to assume that everything has moved online — but the reality in Dubai is different. Walk into any business meeting, trade show, or retail outlet and you'll find printed materials doing a job that no digital ad can fully replace. A well-designed business card, a sharp brochure, or a striking outdoor banner creates a physical impression that stays with people. In a city as competitive and image-conscious as Dubai, the quality of your print materials directly reflects the quality of your brand."),
+    ("What to expect from professional printing services in Dubai",
+     "Not all print providers are the same. When you're choosing a printing partner in Dubai, look beyond just price. Good print quality comes down to the machines being used, the paper or substrate you're printing on, and the expertise of the team doing the color work. At Flash Print Solution, we run quality checks at every stage — from the pre-press proof to the final packaged delivery — because we know that one color mismatch or a poorly trimmed edge can undo an otherwise great design."),
+    ("How we handle both small and large print orders",
+     "Whether you need 100 business cards or 10,000 product labels, our process stays the same. You get a proper consultation, a clear quote, a digital proof before printing begins, and a finished product delivered on time. We don't treat small orders as less important — because for a small business owner, those 100 cards are just as critical as a bulk corporate run is for a large brand. Every job goes through the same workflow."),
+    ("Same-day and express printing — when you need it fast",
+     "Dubai moves quickly, and sometimes print deadlines catch you off guard. We offer express and same-day printing services for clients who need materials urgently — whether it's a last-minute event, an unexpected client meeting, or a promotional campaign that got pushed forward. Just get in touch with us, tell us what you need and by when, and we'll tell you honestly whether we can do it. No false promises, just straight answers."),
+    ("Corporate printing packages for businesses in the UAE",
+     "If your company regularly needs printed materials — stationery, branded collateral, packaging, or marketing print — it makes sense to work with a single printing partner who understands your brand guidelines and maintains consistency across every order. We work with several corporate clients in Dubai on a retainer basis, handling everything from monthly stationery restocks to large campaign rollouts. One point of contact, consistent quality, and reliable turnarounds."),
+    ("Large format and outdoor printing for Dubai's market",
+     "Dubai's outdoor advertising landscape is one of the most active in the region. From highway billboards to building wraps, mall banners to vehicle graphics — large format printing is in constant demand here. Our wide-format printing capabilities cover everything from standard vinyl banners and flex signs to premium-grade exhibition displays and architectural graphics. We use UV-resistant inks and high-durability substrates built to withstand Dubai's heat and sun exposure."),
 ]

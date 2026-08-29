@@ -30,22 +30,28 @@ ICONS = {
 def icon(name):
     return ICONS.get(name, "")
 
-def logo(dark=False):
-    """Brand logo as inline SVG (orange lightning-bolt P) + wordmark."""
+def logo(dark=False, depth=0, both=False):
+    """Brand logo — the original Flash Print Solution artwork (image).
+    `both=True` (header) renders both the white knock-out and the dark
+    wordmark; CSS shows the correct one for the transparent-over-hero state
+    vs. the sticky/light state. Otherwise a single variant is rendered:
+    `dark=True` -> original dark wordmark (white footer card, mobile panel);
+    `dark=False` -> white knock-out."""
+    r = rel(depth)
+    dark_src = "assets/images/logo/flash-logo.avif"
+    light_src = "assets/images/logo/flash-logo-white.avif"
+    if both:
+        imgs = (
+            '<img class="logo__img logo__img--light" src="%s%s" alt="Flash Print Solution" width="196" height="74" decoding="async">'
+            '<img class="logo__img logo__img--dark" src="%s%s" alt="Flash Print Solution" width="196" height="74" decoding="async">'
+        ) % (r, esc(light_src), r, esc(dark_src))
+    else:
+        src = dark_src if dark else light_src
+        imgs = '<img class="logo__img" src="%s%s" alt="Flash Print Solution" width="196" height="74" decoding="async">' % (r, esc(src))
     return (
         '<a class="logo" href="{home}" aria-label="Flash Print Solution — home">'
-        '<svg class="logo__bolt" viewBox="0 0 48 48" fill="none" aria-hidden="true">'
-        '<rect x="1.5" y="1.5" width="45" height="45" rx="12" fill="#F7931E"/>'
-        '<path d="M17 10h13.5c5 0 8 3 8 7.3 0 4.6-3.4 7.4-8.6 7.4h-4.3l-3.2 13H15L17 10Z" fill="#fff" opacity="0.16"/>'
-        '<path d="M26 9 15 26h7l-2 13 13-18h-7l2.4-12Z" fill="#fff"/>'
-        '</svg>'
-        '<span class="logo__divider" aria-hidden="true"></span>'
-        '<span class="logo__text">'
-        '<span class="logo__name">FLASH</span>'
-        '<span class="logo__tag">Print Solution</span>'
-        '</span>'
-        '</a>'
-    ).format(home="{home}")
+        '%s</a>'
+    ) % imgs
 
 def rel(depth):
     """Relative path prefix for a page nested `depth` folders deep."""
@@ -110,7 +116,7 @@ def _nav_links(depth, active):
 def header(depth=0, active="", light=False):
     r, cur, services_dd = _nav_links(depth, active)
     cls = "site-header" + (" site-header--light" if light else "")
-    logo_html = logo().replace("{home}", r + "index.html")
+    logo_html = logo(depth=depth, both=True).replace("{home}", r + "index.html")
     return '''
 <header class="{cls}">
   <div class="container">
@@ -169,7 +175,7 @@ def mobile_nav(depth=0):
     <a class="btn btn--primary btn--block mobile-nav__cta" href="{r}contact.html">Get in Touch</a>
   </div>
 </div>
-'''.format(logo=logo().replace("{home}", r + "index.html"), r=r, services_dd=services_dd)
+'''.format(logo=logo(dark=True, depth=depth).replace("{home}", r + "index.html"), r=r, services_dd=services_dd)
 
 def footer(depth=0):
     r = rel(depth)
@@ -246,7 +252,7 @@ def footer(depth=0):
 </footer>
 <a class="wa-float" href="https://wa.me/{whatsapp}" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">{wa}</a>
 '''.format(
-        logo=logo().replace("{home}", r + "index.html"),
+        logo=logo(dark=True, depth=depth).replace("{home}", r + "index.html"),
         socials=socials, services_links=services_links, quick_links=quick_links,
         ph=icon("phone"), ml=icon("mail"), phone_e164=s["phone_e164"],
         phone_display=esc(s["phone_display"]), email=esc(s["email"]),

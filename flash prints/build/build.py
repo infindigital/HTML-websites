@@ -4,7 +4,7 @@ Reads products.json (parsed from the supplied PDF) + data.py and emits every
 HTML page, sitemap.xml and robots.txt into the site root (parent folder)."""
 import os, json, html, re, datetime
 import data as D
-from data import SITE, CATEGORIES, CAT_BY_SLUG, CATEGORY_RULES, DEFAULT_CATEGORY, CATEGORY_OVERRIDES, TABS, FAQS, TESTIMONIALS, PROCESS, AREAS
+from data import SITE, CATEGORIES, CAT_BY_SLUG, CATEGORY_RULES, DEFAULT_CATEGORY, CATEGORY_OVERRIDES, TABS, TABS_EXACT, FAQS, TESTIMONIALS, PROCESS, AREAS, INDUSTRIES, GUIDE, SERVICES_CATALOG
 import partials as P
 from partials import esc, icon, header, footer, head, scripts, placeholder, img
 import imgmap
@@ -80,30 +80,39 @@ for c in CATEGORIES:
     c["image"] = imgmap.img_path(c["img_index"])
 
 # Fixed scene images used for hero / about / process / cta / page backgrounds.
+# The dark architectural-ceiling photograph is the reference background shared by
+# the home hero, every page hero, the pre-footer CTA band and (through the CTA
+# band) the footer, per the brief: "all hero sections must use the same
+# background image" and "footer must be exact same ... use the same background".
+ARCH_BG = "assets/images/bg/architecture.webp"
 SCENES = {
-    "hero":          6,    # production printing press
-    "about":         9,    # full brand collection
-    "process_bg":    163,  # dark press / ink closeup
-    "cta_bg":        88,    # dark exhibition backdrop
-    # Every page hero shares the same background image as the home hero (image 6),
-    # per the reference brief ("all hero sections must use the same background image").
-    "products_bg":   6,
-    "services_bg":   6,
-    "about_bg":      6,
-    "contact_bg":    6,
-    "faq_bg":        6,
+    "hero":          ARCH_BG,
+    "about":         9,       # full brand collection (about teaser visual)
+    "process_bg":    ARCH_BG, # dark full-width process section
+    "cta_bg":        ARCH_BG,
+    "products_bg":   ARCH_BG,
+    "services_bg":   ARCH_BG,
+    "about_bg":      ARCH_BG,
+    "contact_bg":    ARCH_BG,
+    "faq_bg":        ARCH_BG,
 }
 def scene(key, alt, depth=0, w=1280, h=720, eager=False):
-    return img(imgmap.img_path(SCENES[key]), alt, depth=depth, w=w, h=h, eager=eager)
+    val = SCENES[key]
+    src = val if isinstance(val, str) else imgmap.img_path(val)
+    return img(src, alt, depth=depth, w=w, h=h, eager=eager)
 
 # Homepage tab membership — each of the 3 collections fills 5 pages of products.
 PER_PAGE = 10
 TAB_PAGES = 5
 TAB_TARGET = PER_PAGE * TAB_PAGES  # 50 products per collection
 
-def build_tab_set(curated, offset):
-    """Curated slugs first (in order), then top up from the catalogue so each
-    collection has TAB_TARGET products. Offset staggers the three tabs."""
+def build_tab_set(curated, offset, exact=False):
+    """For an `exact` tab, render the curated slugs verbatim (order preserved,
+    repeats allowed) exactly as they appear on the reference screenshots.
+    Otherwise: curated slugs first (deduped, in order), then top up from the
+    catalogue so the collection has TAB_TARGET products. Offset staggers tabs."""
+    if exact:
+        return [BY_SLUG[n] for n in curated if n in BY_SLUG]
     seen, res = set(), []
     for n in curated:
         if n in BY_SLUG and n not in seen:
@@ -120,7 +129,8 @@ def build_tab_set(curated, offset):
 
 _TAB_OFFSETS = {"best-selling": 0, "new-arrivals": len(PRODUCTS) // 3,
                 "latest-collection": (2 * len(PRODUCTS)) // 3}
-TAB_SETS = {k: build_tab_set(v, _TAB_OFFSETS.get(k, 0)) for k, v in TABS.items()}
+TAB_SETS = {k: build_tab_set(v, _TAB_OFFSETS.get(k, 0), exact=(k in TABS_EXACT))
+            for k, v in TABS.items()}
 
 # --------------------------------------------------------------------------
 # JSON-LD helpers
@@ -412,30 +422,66 @@ def build_home():
   </div>
 </section>'''.format(cards="".join(t_cards))
 
-    # SEO content + areas
-    areas_html = ", ".join(AREAS)
-    seo_section = '''
-<section class="section">
-  <div class="container container--narrow">
-    <div class="section-head section-head--center">
-      <p class="eyebrow eyebrow--center">Printing Company in Dubai</p>
-      <h2 class="section-title">High Quality <span class="accent">Printing Services in Dubai</span></h2>
+    # Who We Work With — Printing Solutions Across Every Industry (8 cards)
+    ind_cards = "".join('''
+<article class="industry-card">
+  <span class="industry-card__icon" aria-hidden="true">{emoji}</span>
+  <h3 class="industry-card__title">{title}</h3>
+  <p class="industry-card__text">{text}</p>
+</article>'''.format(emoji=emoji, title=esc(title), text=esc(text))
+        for emoji, title, text in INDUSTRIES)
+    industry_section = '''
+<section class="section section--soft" id="industries">
+  <div class="container">
+    <div class="section-head">
+      <p class="eyebrow">Who We Work With</p>
+      <h2 class="section-title">Printing Solutions <span class="accent">Across Every Industry</span></h2>
+      <p class="section-lead">Dubai is home to some of the world&rsquo;s most competitive industries. We&rsquo;ve built our services to meet the specific printing demands of each one.</p>
     </div>
-    <div class="prose">
-      <p>Flash Print Solution is a trusted printing press in Dubai offering a complete range of digital printing, business printing and large format printing services. From business card printing and corporate stationery to signage printing, promotional printing and event branding, we help companies present themselves professionally across every medium.</p>
-      <p>Whether you need a small run of premium business cards or a full corporate rollout of signage and branded materials, our team combines modern printing technology with careful finishing to deliver sharp, vibrant and durable results. We handle both small and large print orders, and offer fast, express options when your deadline is tight.</p>
-      <p>We proudly serve businesses across Dubai and the wider UAE, including {areas} and beyond. Tell us what you need and our team will recommend the right materials, finishes and printing solutions for your brand.</p>
-    </div>
+    <div class="grid industry-grid" data-reveal>{cards}</div>
   </div>
-</section>'''.format(areas=esc(areas_html))
+</section>'''.format(cards=ind_cards)
+
+    # Everything You Should Know About Getting Printed in Dubai (6 guide blocks)
+    guide_blocks = "".join('''
+<div class="guide-block">
+  <h3 class="guide-block__title">{title}</h3>
+  <p class="guide-block__text">{text}</p>
+</div>'''.format(title=esc(title), text=esc(text)) for title, text in GUIDE)
+    guide_section = '''
+<section class="section">
+  <div class="container">
+    <div class="section-head section-head--center">
+      <p class="eyebrow eyebrow--center">Printing Services in Dubai</p>
+      <h2 class="section-title">Everything You Should Know About <span class="accent">Getting Printed in Dubai</span></h2>
+      <p class="section-lead">A straightforward guide to how printing works here, what to look for, and how we make it easy for you.</p>
+    </div>
+    <div class="grid guide-grid">{blocks}</div>
+  </div>
+</section>'''.format(blocks=guide_blocks)
+
+    # Serving Businesses Across All of Dubai (area chips + CTA)
+    area_chips = "".join('<span class="area-chip">%s</span>' % esc(a) for a in AREAS)
+    serving_section = '''
+<section class="section section--soft" id="reach">
+  <div class="container">
+    <div class="section-head section-head--center">
+      <p class="eyebrow eyebrow--center">Our Reach Across the City</p>
+      <h2 class="section-title">Serving Businesses Across <span class="accent">All of Dubai</span></h2>
+      <p class="section-lead">Based in Business Bay, we deliver printing services to clients across every major district in Dubai — and across the wider UAE. Whether you&rsquo;re setting up in a free zone, running a retail outlet on Sheikh Zayed Road, or operating from a villa office in Jumeirah, we&rsquo;ve got your printing covered.</p>
+    </div>
+    <div class="area-chips">{chips}</div>
+    <div class="services-cta"><a class="btn btn--primary" href="contact.html">Get a Quote for Your Location {arrow}</a></div>
+  </div>
+</section>'''.format(chips=area_chips, arrow=icon("arrow"))
 
     # FAQ (dark)
     faq_section = '''
 <section class="section section--dark">
   <div class="container container--narrow">
     <div class="section-head section-head--center">
-      <p class="eyebrow eyebrow--center">FAQ</p>
-      <h2 class="section-title">Frequently Asked <span class="accent">Questions</span></h2>
+      <p class="eyebrow eyebrow--center">Get in Touch</p>
+      <h2 class="section-title">Common Questions About Our <span class="accent">Printing Services in Dubai</span></h2>
     </div>
     {faqs}
   </div>
@@ -469,7 +515,10 @@ def build_home():
                      li=SITE["social"]["linkedin"], ig=SITE["social"]["instagram"], fb=SITE["social"]["facebook"],
                      li_i=icon("linkedin"), ig_i=icon("instagram"), fb_i=icon("facebook"))
 
-    body = hero + services_section + products_section + about_section + process_section + testimonials_section + seo_section + faq_section + contact_section + cta_band(depth)
+    body = (hero + services_section + products_section + about_section
+            + process_section + testimonials_section + industry_section
+            + guide_section + serving_section + faq_section + contact_section
+            + cta_band(depth))
 
     page = {
         "title": "Flash Print Solution | Printing Services in Dubai",
@@ -691,22 +740,17 @@ def build_product(p):
 # --------------------------------------------------------------------------
 def build_services():
     depth = 0
-    rows = []
-    for c in CATEGORIES:
-        chips = "".join("<li>%s</li>" % esc(x["name"]) for x in c["products"][:6])
-        rows.append('''
-<div class="service-row">
-  <div class="service-row__media">{ph}</div>
-  <div class="service-row__body">
-    <p class="eyebrow">{tag}</p>
-    <h2>{title}</h2>
-    <p>{intro}</p>
-    <ul>{chips}</ul>
-    <a class="btn btn--ghost" href="services/{slug}.html">View {short} {arrow}</a>
+    tiles = []
+    for title, idx, slug in SERVICES_CATALOG:
+        tiles.append('''
+<article class="service-tile" data-reveal>
+  <a class="service-tile__media" href="services/{slug}.html" aria-label="{title}">{ph}</a>
+  <div class="service-tile__foot">
+    <h3 class="service-tile__title">{title}</h3>
+    <a class="service-tile__link" href="services/{slug}.html">Learn More {arrow}</a>
   </div>
-</div>'''.format(ph=img(c["image"], "%s — Flash Print Solution" % c["nav"], depth=0, w=640, h=480),
-                 tag=esc(c["tag"]), title=esc(c["title"]), intro=esc(c["intro"]),
-                 chips=chips, slug=c["slug"], short=esc(c["short"]), arrow=icon("arrow")))
+</article>'''.format(ph=img(imgmap.img_path(idx), "%s — Flash Print Solution" % title, depth=0, w=600, h=450),
+                     title=esc(title), slug=esc(slug), arrow=icon("arrow")))
     crumbs = [("Home", ""), ("Services", "services.html")]
     body = '''
 <section class="page-hero">
@@ -714,13 +758,15 @@ def build_services():
   <div class="container"><div class="page-hero__inner">
     {crumbs}
     <p class="eyebrow eyebrow--center">What We Do</p>
-    <h1 class="page-hero__title">Our <span class="accent">Printing Services</span> in Dubai</h1>
-    <p class="page-hero__text">From everyday business stationery to large format signage and complete brand rollouts, Flash Print Solution offers six core service areas covering every printing need.</p>
+    <h1 class="page-hero__title">Our <span class="accent">Printing Services</span></h1>
+    <p class="page-hero__text">From everyday business stationery to large format signage and complete brand rollouts, Flash Print Solution covers every printing need under one roof.</p>
   </div></div>
 </section>
-<section class="section"><div class="container">{rows}</div></section>
+<section class="section"><div class="container">
+  <div class="service-tile-grid">{tiles}</div>
+</div></section>
 '''.format(bg=scene("services_bg", "Flash Print Solution exhibition and signage", 0, 1280, 720),
-           crumbs=breadcrumbs_html(crumbs, depth), rows="".join(rows))
+           crumbs=breadcrumbs_html(crumbs, depth), tiles="".join(tiles))
     body += cta_band(depth)
     page = {
         "title": "Printing Services in Dubai | Flash Print Solution",
@@ -776,43 +822,50 @@ def build_category(c):
 def build_about():
     depth = 0
     crumbs = [("Home", ""), ("About Us", "about.html")]
-    values = [
-        ("Quality First", "Every job is produced with modern technology and careful finishing for sharp, consistent results."),
-        ("On-Time Delivery", "We respect your deadlines and offer fast, express options when time is tight."),
-        ("End-to-End Support", "From design and artwork to printing, finishing and delivery, we handle the whole process."),
-        ("Fair, Clear Pricing", "Cost-effective printing for businesses of every size, with transparent quotes."),
-    ]
-    vcards = "".join('<div class="process-card" style="min-height:auto"><h3 style="font-size:1.15rem">{t}</h3><p>{d}</p></div>'.format(t=esc(t), d=esc(d)) for t, d in values)
     body = '''
 <section class="page-hero">
   <div class="page-hero__bg">{bg}</div>
   <div class="container"><div class="page-hero__inner">
     {crumbs}
     <p class="eyebrow eyebrow--center">About Us</p>
-    <h1 class="page-hero__title">Your Trusted Partner for <span class="accent">Printing Solutions</span></h1>
+    <h1 class="page-hero__title">About <span class="accent">Flash Print</span></h1>
     <p class="page-hero__text">A professional printing company in Dubai helping brands of all sizes communicate better through high quality print, signage and branding.</p>
   </div></div>
 </section>
 <section class="section"><div class="container">
   <div class="about">
     <div class="about__body">
-      <p class="eyebrow">Who We Are</p>
-      <h2 class="section-title">Complete <span class="accent">Printing Solutions</span> in Dubai</h2>
-      <p style="margin-top:1.2rem">Flash Print Solution is a professional printing company dedicated to helping businesses communicate better through high quality print and branding solutions. With modern technology, skilled expertise, and a commitment to deadlines, we support brands of all sizes with reliable and cost effective printing services.</p>
-      <p>From business stationery and promotional materials to large format signage, corporate branding and custom event printing, we bring your ideas to life with precision and care — handling both small and large print orders across Dubai and the wider UAE.</p>
-      <a class="btn btn--primary" href="contact.html">Work With Us {arrow}</a>
+      <p class="eyebrow">About Us</p>
+      <h2 class="section-title">Your Reliable Partner for Professional <span class="accent">Printing Solutions</span></h2>
+      <p style="margin-top:1.2rem">Flash Print Solution is a professional printing company in Dubai focused on delivering high quality, reliable, and timely print solutions for businesses and individuals. From everyday business printing to large format, corporate, and custom projects, we combine modern printing technology with skilled expertise to ensure consistent results. Our approach is simple. Understand the requirement clearly, execute with precision, and deliver on time without compromise.</p>
+      <a class="btn btn--primary" href="services.html">Learn More {arrow}</a>
     </div>
     <div class="about__media">{ph}</div>
   </div>
 </div></section>
 <section class="section section--soft"><div class="container">
-  <div class="section-head section-head--center"><p class="eyebrow eyebrow--center">Why Choose Us</p><h2 class="section-title">Built on <span class="accent">Quality &amp; Trust</span></h2></div>
-  <div class="grid grid--4">{vcards}</div>
+  <div class="grid grid--2 about-pillars">
+    <div class="about-pillar">
+      <h3 class="about-pillar__title">Our Vision</h3>
+      <p class="about-pillar__text">To become a trusted printing partner known for quality, innovation, and reliable service, helping businesses bring their ideas to life through impactful print solutions.</p>
+    </div>
+    <div class="about-pillar">
+      <h3 class="about-pillar__title">Our Mission</h3>
+      <p class="about-pillar__text">To deliver high quality printing with attention to detail, quick turnaround times, and professional support, ensuring every client receives consistent and dependable results.</p>
+    </div>
+  </div>
+</div></section>
+<section class="section"><div class="container">
+  <div class="section-head section-head--center">
+    <p class="eyebrow eyebrow--center">Our Purpose</p>
+    <h2 class="section-title">Helping Businesses Communicate Better Through <span class="accent">Quality Printing</span></h2>
+    <p class="section-lead">Our goal is to support brands with dependable printing solutions that enhance visibility, professionalism, and trust. We focus on clarity, quality, and consistency in every project we handle.</p>
+    <div style="margin-top:2rem"><a class="btn btn--primary" href="services.html">Explore Our Services {arrow}</a></div>
+  </div>
 </div></section>
 '''.format(bg=scene("about_bg", "Flash Print Solution office branding", 0, 1280, 720),
            crumbs=breadcrumbs_html(crumbs, depth), arrow=icon("arrow"),
-           ph=img(imgmap.img_path(SCENES["about"]), "Flash Print Solution branded print materials", depth=0, w=800, h=640),
-           vcards=vcards)
+           ph=img(imgmap.img_path(SCENES["about"]), "Flash Print Solution branded print materials", depth=0, w=800, h=640))
     body += cta_band(depth)
     page = {
         "title": "About Us | Flash Print Solution — Printing Company in Dubai",
