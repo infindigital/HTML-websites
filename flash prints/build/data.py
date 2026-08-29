@@ -183,15 +183,16 @@ FAQS = [
      "Simply tell us what you need — the product, quantity, size and timeline — through our contact form, by phone on +971 58 891 7109, or on WhatsApp. Our team will recommend the right solution and send you a clear quote."),
 ]
 
+# (quote, name, role) — names/roles/quotes taken from the live site references.
 TESTIMONIALS = [
     ("Flash Print Solution consistently delivers high quality printing services in Dubai and always meets our deadlines. The team is professional, responsive, and very easy to work with.",
-     "Operations Manager", "Business Bay, Dubai"),
+     "Ravi Kumar", "Marketing Manager"),
     ("We have been using their printing services in Dubai for our business needs, and the results are always reliable. The quality is excellent and the turnaround time is impressive.",
-     "Marketing Lead", "Downtown Dubai"),
-    ("From signage to corporate stationery, everything was produced to a premium standard. Great communication and genuine attention to detail on every order.",
-     "Brand Manager", "DIFC, Dubai"),
-    ("Their large format printing made our exhibition stand look fantastic. Fast, dependable and competitively priced — exactly what we needed.",
-     "Events Coordinator", "Dubai Marina"),
+     "Abdul Shuhaid", "Business Owner"),
+    ("The team at Flash Print Solution understands exactly what we need. Their printing services in Dubai are efficient, detail oriented, and always delivered on time without compromising quality.",
+     "Riya", "Operations Head"),
+    ("For all our branding and marketing materials, we depend on their printing services in Dubai. The consistency, professionalism, and finish of their work truly stand out.",
+     "Asif Yunus", "Brand Consultant"),
 ]
 
 PROCESS = [

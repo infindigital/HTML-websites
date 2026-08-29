@@ -22,6 +22,10 @@
   .archive-grid { grid-template-columns: repeat(3, 1fr); }
   .testimonials-grid { grid-template-columns: 1fr; }
 }
+@media (max-width: 540px) {
+  .testimonial { grid-template-columns: 1fr; gap: 1.1rem; }
+  .testimonial__photo { max-width: 150px; }
+}
 @media (max-width: 640px) {
   .grid--5,
   .grid--4,

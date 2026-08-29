@@ -85,11 +85,13 @@ SCENES = {
     "about":         9,    # full brand collection
     "process_bg":    163,  # dark press / ink closeup
     "cta_bg":        88,    # dark exhibition backdrop
-    "products_bg":   108,  # retail display
-    "services_bg":   87,   # exhibition booth
-    "about_bg":      57,   # office branding
-    "contact_bg":    22,   # reception counter
-    "faq_bg":        117,  # services poster
+    # Every page hero shares the same background image as the home hero (image 6),
+    # per the reference brief ("all hero sections must use the same background image").
+    "products_bg":   6,
+    "services_bg":   6,
+    "about_bg":      6,
+    "contact_bg":    6,
+    "faq_bg":        6,
 }
 def scene(key, alt, depth=0, w=1280, h=720, eager=False):
     return img(imgmap.img_path(SCENES[key]), alt, depth=depth, w=w, h=h, eager=eager)
@@ -381,24 +383,24 @@ def build_home():
   </div>
 </section>'''.format(bg=scene("process_bg", "Printing production line", 0, 1280, 720), cards="".join(proc_cards))
 
-    # Testimonials
+    # Testimonials (photo left, quote right — photo kept as a placeholder to be
+    # supplied later by the client)
     t_cards = []
-    for body, role, place in TESTIMONIALS[:2]:
-        initials = "".join(w[0] for w in role.split()[:2]).upper()
+    for body, name, role in TESTIMONIALS:
+        photo = placeholder(esc(name), note="client photo of %s" % name,
+                            extra_class="testimonial__photo-ph", show_label=False)
         t_cards.append('''
 <figure class="testimonial">
-  <span class="testimonial__quote" aria-hidden="true">&rdquo;</span>
-  <blockquote class="testimonial__body">{body}</blockquote>
-  <figcaption class="testimonial__person">
-    <span class="testimonial__avatar">{av}</span>
-    <span>
-      <span class="testimonial__name">{role}</span>
-      <span class="testimonial__role">{place}</span>
-      <span class="stars" aria-label="5 out of 5 stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
-    </span>
-  </figcaption>
-</figure>'''.format(body=esc(body), role=esc(role), place=esc(place),
-                    av='<span class="testimonial__initials">%s</span>' % esc(initials)))
+  <div class="testimonial__photo">{photo}</div>
+  <div class="testimonial__content">
+    <span class="testimonial__quote" aria-hidden="true">&rdquo;</span>
+    <blockquote class="testimonial__body">{body}</blockquote>
+    <figcaption class="testimonial__person">
+      <span class="testimonial__name">{name}</span>
+      <span class="testimonial__role">{role}</span>
+    </figcaption>
+  </div>
+</figure>'''.format(body=esc(body), name=esc(name), role=esc(role), photo=photo))
     testimonials_section = '''
 <section class="section section--soft">
   <div class="container">
