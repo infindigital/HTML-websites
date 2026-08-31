@@ -292,14 +292,27 @@ body.show-cursor #cursor{display:block}
    ============================================================ */
 #hero{
   position:relative;min-height:100svh;overflow:hidden;
-  background:var(--ink);color:var(--paper);
+  background:#0A0A0A;color:var(--paper);
 }
-/* atmosphere (subtle colour auras on black) */
+/* cinematic atmosphere (deep, restrained) */
 .hero-atmos{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden}
-.hglow{position:absolute;border-radius:50%;filter:blur(100px);opacity:.5;will-change:transform}
-.hg1{width:46vw;height:46vw;left:-8vw;top:-6vw;background:radial-gradient(circle,rgba(233,108,255,.42),transparent 70%)}
-.hg2{width:42vw;height:42vw;right:-6vw;top:8vw;background:radial-gradient(circle,rgba(93,231,224,.4),transparent 70%)}
-.hg3{width:44vw;height:44vw;left:26vw;bottom:-14vw;background:radial-gradient(circle,rgba(255,113,69,.34),transparent 70%)}
+.hglow{position:absolute;border-radius:50%;filter:blur(120px);opacity:.42;will-change:transform}
+.hg1{width:44vw;height:44vw;left:-10vw;top:-8vw;background:radial-gradient(circle,rgba(140,92,255,.4),transparent 70%)}
+.hg2{width:40vw;height:40vw;right:-8vw;top:6vw;background:radial-gradient(circle,rgba(93,231,224,.32),transparent 70%)}
+.hg3{width:42vw;height:42vw;left:30vw;bottom:-16vw;background:radial-gradient(circle,rgba(255,113,69,.26),transparent 70%)}
+/* faint technical grid */
+.hero-grid{
+  position:absolute;inset:0;z-index:0;pointer-events:none;opacity:.05;
+  background-image:linear-gradient(rgba(239,236,230,1) 1px,transparent 1px),
+                   linear-gradient(90deg,rgba(239,236,230,1) 1px,transparent 1px);
+  background-size:clamp(58px,6vw,108px) clamp(58px,6vw,108px);
+  -webkit-mask-image:radial-gradient(130% 100% at 62% 42%,#000,transparent 92%);
+          mask-image:radial-gradient(130% 100% at 62% 42%,#000,transparent 92%);
+}
+/* 3D canvas + editorial frame */
+#hero-canvas{position:absolute;inset:0;z-index:1}
+.hero-frame{position:absolute;inset:clamp(10px,1.2vw,18px);z-index:6;pointer-events:none;
+  border:1px solid rgba(239,236,230,.2);border-radius:5px}
 
 /* UI text layer */
 .hero-ui{position:absolute;inset:0;z-index:4;padding:clamp(6.5rem,14vh,9.5rem) var(--pad-x) 0;pointer-events:none;will-change:transform,opacity}
@@ -347,34 +360,31 @@ body.show-cursor #cursor{display:block}
 .hero-scroll .hs-line::after{content:"";position:absolute;inset:0;width:45%;background:var(--h-yellow);animation:hsMove 1.9s var(--ease) infinite}
 @keyframes hsMove{0%{transform:translateX(-110%)}100%{transform:translateX(320%)}}
 
-/* giant wordmark — black letters, yellow slash */
-.hero-wordmark{
-  position:absolute;left:50%;bottom:clamp(-3.5vw,-3vh,-1.5rem);transform:translateX(-50%);z-index:2;
-  font-family:var(--font-display);font-weight:700;font-size:clamp(6.5rem,24vw,25rem);line-height:.78;letter-spacing:-.055em;
-  color:#0a0a0a;-webkit-text-stroke:1.5px rgba(255,255,255,.18);
-  white-space:nowrap;pointer-events:none;text-transform:lowercase;will-change:transform,opacity;
+/* bottom IN/FIN box — contains only the wordmark */
+.hero-wm-box{
+  position:absolute;z-index:2;overflow:hidden;
+  left:clamp(10px,1.2vw,18px);right:clamp(10px,1.2vw,18px);bottom:clamp(10px,1.2vw,18px);
+  height:clamp(6rem,21vh,15.5rem);
+  border-top:1px solid rgba(239,236,230,.2);
+  display:flex;align-items:flex-end;justify-content:center;
+  background:linear-gradient(to top,#0A0A0A 42%,rgba(10,10,10,0));
 }
-.hero-wordmark .wm-slash{color:var(--h-yellow);-webkit-text-stroke:0}
+.hero-wordmark{
+  font-family:var(--font-display);font-weight:700;font-size:clamp(6rem,23vw,24rem);line-height:.78;letter-spacing:-.06em;
+  color:var(--paper);white-space:nowrap;pointer-events:none;text-transform:lowercase;will-change:transform,opacity;
+}
+.hero-wordmark .wm-slash{color:var(--paper);font-weight:700}
 
 @media(max-width:767px){
   .hero-ui{padding-top:clamp(5rem,11vh,6.5rem)}
   .hero-h1{font-size:clamp(2.6rem,13vw,4.6rem);max-width:100%;margin-top:1rem}
-  .hero-sub{margin-top:1rem}
-  .hero-cta{margin-top:1.2rem}
-  /* keep 6 pills, place them in a band below the copy and above the wordmark */
-  .hero-pills .pill-wrap:nth-child(3),
-  .hero-pills .pill-wrap:nth-child(7),
-  .hero-pills .pill-wrap:nth-child(8),
-  .hero-pills .pill-wrap:nth-child(9),
-  .hero-pills .pill-wrap:nth-child(10){display:none}
-  .pill{font-size:1.15rem!important}
-  .hero-pills .pill-wrap:nth-child(1){left:56%!important;top:48%!important}
-  .hero-pills .pill-wrap:nth-child(2){left:22%!important;top:54%!important}
-  .hero-pills .pill-wrap:nth-child(4){left:60%!important;top:57%!important}
-  .hero-pills .pill-wrap:nth-child(5){left:28%!important;top:63%!important}
-  .hero-pills .pill-wrap:nth-child(6){left:64%!important;top:67%!important}
-  .hero-pills .pill-wrap:nth-child(11){left:24%!important;top:72%!important}
-  .hero-wordmark{font-size:38vw;bottom:-2vw}
+  .pill{font-size:1.1rem!important}
+  .hero-pills .pill-wrap:nth-child(1){left:62%!important;top:47%!important}
+  .hero-pills .pill-wrap:nth-child(2){left:26%!important;top:53%!important}
+  .hero-pills .pill-wrap:nth-child(3){left:64%!important;top:60%!important}
+  .hero-pills .pill-wrap:nth-child(4){left:30%!important;top:66%!important}
+  .hero-wm-box{height:clamp(4.5rem,15vh,8rem)}
+  .hero-wordmark{font-size:34vw}
 }
 
 /* ============================================================

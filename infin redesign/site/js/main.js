@@ -685,13 +685,12 @@ function revealHero() {
 -------------------------------------------------------------- */
 async function init3D() {
   if (REDUCED) return;
-  // On phones we keep the CSS gradient fallback (no heavy WebGL). 3D is a
-  // desktop/tablet enhancement only.
+  // 3D is a desktop/tablet enhancement; phones keep the flat cinematic bg.
   const smallScreen = window.innerWidth < 900;
-  if (smallScreen) return;
   const lowPower = window.innerWidth < 1200;
   try {
     const mod = await import('./scene.js');
+    if (!smallScreen) mod.initHeroScene({ canvas: $('#hero-canvas'), interactive: !TOUCH, lowPower });
     mod.initCtaScene({ canvas: $('#cta-canvas'), interactive: !TOUCH, lowPower });
   } catch (e) {
     console.warn('3D disabled:', e);

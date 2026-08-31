@@ -96,17 +96,10 @@ export function initHeroScene({ canvas, interactive, lowPower }) {
   card.position.set(1.35, -0.9, -0.3); card.rotation.set(0.1, -0.5, -0.05);
   root.add(card);
 
-  // Ad creative card (magenta, upper-right)
-  const ad = new THREE.Mesh(roundedPanel(1.3, 1.7, 0.1), glassMat(ACCENTS.magenta, 0.92));
-  ad.position.set(1.25, 1.05, -0.8); ad.rotation.set(0.1, -0.7, 0.15);
-  root.add(ad);
-
-  // Floating spheres (colored glass "signals")
+  // Floating spheres (colored glass "signals") — restrained: two orbs only
   const sphereData = [
-    { c: ACCENTS.cyan, r: 0.42, p: [-1.6, -0.9, 0.5] },
-    { c: ACCENTS.orange, r: 0.30, p: [1.7, 0.5, 0.4] },
-    { c: ACCENTS.yellow, r: 0.26, p: [-0.5, -1.7, 0.6] },
-    { c: ACCENTS.violet, r: 0.46, p: [0.5, 1.7, -0.9] },
+    { c: ACCENTS.violet, r: 0.5, p: [1.5, 1.2, -0.6] },
+    { c: ACCENTS.orange, r: 0.34, p: [1.9, -0.7, 0.4] },
   ];
   const spheres = sphereData.map(s => {
     const m = new THREE.Mesh(new THREE.IcosahedronGeometry(s.r, lowPower ? 1 : 2), glassMat(s.c, 0.9));
@@ -118,10 +111,10 @@ export function initHeroScene({ canvas, interactive, lowPower }) {
   torus.position.set(-1.3, 1.5, -0.4); torus.rotation.set(1, 0.4, 0);
   root.add(torus);
 
-  // Particles
+  // Particles (few, cinematic)
   let points = null;
   if (!lowPower) {
-    const count = 140;
+    const count = 55;
     const geo = new THREE.BufferGeometry();
     const pos = new Float32Array(count * 3);
     for (let i = 0; i < count; i++) {
@@ -132,7 +125,7 @@ export function initHeroScene({ canvas, interactive, lowPower }) {
     scene.add(points);
   }
 
-  const floaters = [win, card, ad, torus, ...spheres];
+  const floaters = [win, card, torus, ...spheres];
 
   // Interaction + scroll
   let mx = 0, my = 0, tmx = 0, tmy = 0;
