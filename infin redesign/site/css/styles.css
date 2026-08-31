@@ -517,10 +517,10 @@ body.show-cursor #cursor{display:block}
 .growth-head{text-align:center;margin-bottom:clamp(2rem,5vw,4rem)}
 .growth-head h2{font-size:clamp(2.6rem,8vw,7rem);text-transform:uppercase;line-height:.9}
 .growth-stage{position:relative;height:100vh;display:flex;align-items:center;overflow:hidden}
-.growth-track{display:flex;will-change:transform}
+.growth-track{display:flex;width:100vw;flex:none;will-change:transform}
 .growth-step{
-  flex:0 0 100%;min-width:100%;height:100vh;display:grid;align-content:center;gap:1.4rem;
-  padding-inline:var(--pad-x);position:relative;
+  flex:0 0 100vw;width:100vw;min-width:100vw;height:100vh;display:grid;align-content:center;gap:1.4rem;
+  padding-inline:var(--pad-x);position:relative;overflow:hidden;
 }
 .growth-step .gs-num{
   font-family:var(--font-display);font-weight:700;font-size:clamp(6rem,26vw,24rem);line-height:.8;letter-spacing:-.05em;
@@ -531,9 +531,39 @@ body.show-cursor #cursor{display:block}
 .growth-step h3{font-size:clamp(2.6rem,10vw,9rem);text-transform:uppercase;line-height:.9}
 .growth-step p{max-width:44ch;font-size:clamp(1rem,1.5vw,1.35rem);color:var(--stone);line-height:1.55}
 .growth-step .gs-accent{color:var(--blue)}
-.growth-progress{position:absolute;left:var(--pad-x);bottom:clamp(2rem,5vh,4rem);display:flex;gap:.5rem;z-index:3}
+.growth-progress{position:absolute;left:var(--pad-x);bottom:clamp(2rem,5vh,4rem);display:flex;gap:.5rem;z-index:4}
 .growth-progress i{width:34px;height:3px;background:rgba(11,11,12,.2);border-radius:3px;overflow:hidden;position:relative}
 .growth-progress i b{position:absolute;inset:0;width:0;background:var(--ink);display:block}
+
+/* --- Growth: per-step colour + 3D, layout unchanged --- */
+.growth-step[data-accent="blue"]{--gs:var(--blue)}
+.growth-step[data-accent="violet"]{--gs:var(--violet)}
+.growth-step[data-accent="cyan"]{--gs:var(--cyan)}
+.growth-step[data-accent="orange"]{--gs:var(--orange)}
+.growth-step[data-accent="magenta"]{--gs:var(--magenta)}
+.growth-step[data-accent="lime"]{--gs:var(--lime)}
+.growth-step::before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
+  background:radial-gradient(42% 55% at 72% 46%,var(--gs),transparent 70%);opacity:.16}
+.growth-step .gs-index,.growth-step h3,.growth-step p{position:relative;z-index:3}
+.growth-step .gs-index{color:var(--gs);font-weight:700;display:inline-flex;align-items:center;gap:.65em}
+.growth-step .gs-dot{width:.6em;height:.6em;border-radius:50%;background:var(--gs);box-shadow:0 0 14px var(--gs);flex:0 0 auto}
+.growth-step .gs-accent{color:var(--gs)}
+.growth-step .gs-num{color:transparent;-webkit-text-stroke:2px var(--gs);opacity:.62;z-index:1;
+  filter:drop-shadow(4px 7px 7px rgba(11,11,12,.14))}
+/* Floating 3D cube (desktop/tablet enhancement) */
+.gs-cube-wrap{--cs:clamp(120px,15vw,230px);position:absolute;right:clamp(4%,9vw,11%);top:50%;transform:translateY(-50%);
+  width:var(--cs);height:var(--cs);perspective:1000px;pointer-events:none;z-index:2}
+.gs-cube{position:absolute;inset:0;transform-style:preserve-3d;animation:gs-spin 17s linear infinite;will-change:transform}
+.gs-cube .gf{position:absolute;width:var(--cs);height:var(--cs);border-radius:16px;background:var(--gs);
+  border:1px solid rgba(255,255,255,.32);box-shadow:inset 0 0 55px rgba(255,255,255,.22)}
+.gs-cube .gf-front{transform:translateZ(calc(var(--cs)/2))}
+.gs-cube .gf-back{transform:rotateY(180deg) translateZ(calc(var(--cs)/2));filter:brightness(.8)}
+.gs-cube .gf-right{transform:rotateY(90deg) translateZ(calc(var(--cs)/2));filter:brightness(.9)}
+.gs-cube .gf-left{transform:rotateY(-90deg) translateZ(calc(var(--cs)/2));filter:brightness(.82)}
+.gs-cube .gf-top{transform:rotateX(90deg) translateZ(calc(var(--cs)/2));filter:brightness(1.2)}
+.gs-cube .gf-bottom{transform:rotateX(-90deg) translateZ(calc(var(--cs)/2));filter:brightness(.68)}
+@keyframes gs-spin{from{transform:rotateX(-22deg) rotateY(0deg)}to{transform:rotateX(-22deg) rotateY(360deg)}}
+@media(max-width:767px){.gs-cube-wrap{display:none}}
 
 /* ============================================================
    WORK — horizontal scroll

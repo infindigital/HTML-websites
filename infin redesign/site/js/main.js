@@ -358,7 +358,27 @@ function initServices() {
 /* --------------------------------------------------------------
    GROWTH SYSTEM — pinned horizontal steps
 -------------------------------------------------------------- */
+function initGrowthDecor() {
+  // Inject a floating 3D cube into each step (colour comes from --gs)
+  $$('.growth-step').forEach(step => {
+    if ($('.gs-cube-wrap', step)) return;
+    const wrap = document.createElement('div');
+    wrap.className = 'gs-cube-wrap';
+    wrap.setAttribute('aria-hidden', 'true');
+    const cube = document.createElement('div');
+    cube.className = 'gs-cube';
+    ['front', 'back', 'right', 'left', 'top', 'bottom'].forEach(f => {
+      const face = document.createElement('span');
+      face.className = 'gf gf-' + f;
+      cube.appendChild(face);
+    });
+    wrap.appendChild(cube);
+    step.appendChild(wrap);
+  });
+}
+
 function initGrowth() {
+  initGrowthDecor();
   const stage = $('[data-growth]');
   const track = $('[data-growth-track]');
   if (!stage || !track) return;
