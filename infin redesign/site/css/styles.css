@@ -321,8 +321,8 @@ body.show-cursor #cursor{display:block}
 .hero-label span{color:var(--taupe)}
 .hero-h1{
   font-family:var(--font-display);font-weight:700;
-  font-size:clamp(2.8rem,9vw,9.5rem);line-height:.9;letter-spacing:-.045em;text-transform:uppercase;
-  margin-top:clamp(1.2rem,3.2vh,2.2rem);max-width:12ch;color:var(--paper);
+  font-size:clamp(2.6rem,7.4vw,7.8rem);line-height:.92;letter-spacing:-.045em;text-transform:uppercase;
+  margin-top:clamp(1rem,2.6vh,1.8rem);max-width:12ch;color:var(--paper);
 }
 .hero-h1 .ln{display:block;overflow:hidden;padding-bottom:.03em}
 .hero-h1 .ln>span{display:block}
@@ -360,31 +360,30 @@ body.show-cursor #cursor{display:block}
 .hero-scroll .hs-line::after{content:"";position:absolute;inset:0;width:45%;background:var(--h-yellow);animation:hsMove 1.9s var(--ease) infinite}
 @keyframes hsMove{0%{transform:translateX(-110%)}100%{transform:translateX(320%)}}
 
-/* bottom IN/FIN box — contains only the wordmark */
+/* bottom IN/FIN box — contains only the wordmark (fully visible) */
 .hero-wm-box{
   position:absolute;z-index:2;overflow:hidden;
   left:clamp(10px,1.2vw,18px);right:clamp(10px,1.2vw,18px);bottom:clamp(10px,1.2vw,18px);
-  height:clamp(6rem,21vh,15.5rem);
+  height:clamp(4.5rem,17vh,12rem);
   border-top:1px solid rgba(239,236,230,.2);
-  display:flex;align-items:flex-end;justify-content:center;
-  background:linear-gradient(to top,#0A0A0A 42%,rgba(10,10,10,0));
+  display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(to top,#0A0A0A 55%,rgba(10,10,10,0));
 }
 .hero-wordmark{
-  font-family:var(--font-display);font-weight:700;font-size:clamp(6rem,23vw,24rem);line-height:.78;letter-spacing:-.06em;
+  font-family:var(--font-display);font-weight:700;font-size:clamp(3.6rem,13.5vw,14rem);line-height:.9;letter-spacing:.01em;
   color:var(--paper);white-space:nowrap;pointer-events:none;text-transform:lowercase;will-change:transform,opacity;
 }
 .hero-wordmark .wm-slash{color:var(--paper);font-weight:700}
 
 @media(max-width:767px){
   .hero-ui{padding-top:clamp(5rem,11vh,6.5rem)}
-  .hero-h1{font-size:clamp(2.6rem,13vw,4.6rem);max-width:100%;margin-top:1rem}
+  .hero-h1{font-size:clamp(2.6rem,12vw,4.4rem);max-width:100%;margin-top:1rem}
   .pill{font-size:1.1rem!important}
-  .hero-pills .pill-wrap:nth-child(1){left:62%!important;top:47%!important}
-  .hero-pills .pill-wrap:nth-child(2){left:26%!important;top:53%!important}
-  .hero-pills .pill-wrap:nth-child(3){left:64%!important;top:60%!important}
-  .hero-pills .pill-wrap:nth-child(4){left:30%!important;top:66%!important}
-  .hero-wm-box{height:clamp(4.5rem,15vh,8rem)}
-  .hero-wordmark{font-size:34vw}
+  .hero-pills .pill-wrap:nth-child(1){left:62%!important;top:50%!important}
+  .hero-pills .pill-wrap:nth-child(2){left:28%!important;top:57%!important}
+  .hero-pills .pill-wrap:nth-child(3){left:60%!important;top:64%!important}
+  .hero-wm-box{height:clamp(3.8rem,12vh,6.5rem)}
+  .hero-wordmark{font-size:26vw}
 }
 
 /* ============================================================
