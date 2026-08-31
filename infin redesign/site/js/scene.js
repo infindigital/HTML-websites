@@ -66,10 +66,12 @@ export function initHeroScene({ canvas, interactive, lowPower }) {
   // The composition floats to the RIGHT of the headline. A base x-offset is
   // applied to `root` in resize() so it lives in the hero's negative space.
 
-  // The in/fin slash — signature object
-  const slashGeo = new THREE.BoxGeometry(0.4, 3.0, 0.4);
+  // Objects are laid out as a wide HORIZONTAL band on the right of the hero.
+
+  // The in/fin slash — signature object (centre of the band)
+  const slashGeo = new THREE.BoxGeometry(0.38, 2.6, 0.38);
   const slash = new THREE.Mesh(slashGeo, glassMat(ACCENTS.lime, 0.95));
-  slash.rotation.z = 0.42; slash.position.set(0, 0, 0);
+  slash.rotation.z = 0.5; slash.position.set(0.55, -0.1, 0.35);
   root.add(slash);
 
   // Floating browser window (upper-left of the cluster)
@@ -82,7 +84,7 @@ export function initHeroScene({ canvas, interactive, lowPower }) {
     dot.position.set(x, 0.62, 0.08); win.add(dot);
   });
   win.add(winBody, winBar);
-  win.position.set(-1.5, 1.0, -0.4); win.rotation.set(-0.15, 0.5, 0.06);
+  win.position.set(-0.5, 0.15, 0.0); win.rotation.set(-0.12, 0.42, 0.05);
   root.add(win);
 
   // Analytics card with rising bars (lower-right)
@@ -93,22 +95,22 @@ export function initHeroScene({ canvas, interactive, lowPower }) {
     const bar = new THREE.Mesh(new THREE.BoxGeometry(0.16, h, 0.08), new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: .3, emissive: 0xffffff, emissiveIntensity: .05 }));
     bar.position.set(-0.55 + i * 0.28, -0.35 + h / 2, 0.1); card.add(bar);
   });
-  card.position.set(1.35, -0.9, -0.3); card.rotation.set(0.1, -0.5, -0.05);
+  card.position.set(1.7, -0.2, -0.2); card.rotation.set(0.1, -0.5, -0.05);
   root.add(card);
 
   // Floating spheres (colored glass "signals") — restrained: two orbs only
   const sphereData = [
-    { c: ACCENTS.violet, r: 0.5, p: [1.5, 1.2, -0.6] },
-    { c: ACCENTS.orange, r: 0.34, p: [1.9, -0.7, 0.4] },
+    { c: ACCENTS.violet, r: 0.48, p: [0.55, 0.95, 0.5] },
+    { c: ACCENTS.orange, r: 0.34, p: [2.25, 0.55, 0.35] },
   ];
   const spheres = sphereData.map(s => {
     const m = new THREE.Mesh(new THREE.IcosahedronGeometry(s.r, lowPower ? 1 : 2), glassMat(s.c, 0.9));
     m.position.set(...s.p); root.add(m); return m;
   });
 
-  // Torus (SEO orbit signal, upper-left)
-  const torus = new THREE.Mesh(new THREE.TorusGeometry(0.62, 0.085, 12, 40), glassMat(ACCENTS.lime, 0.9));
-  torus.position.set(-1.3, 1.5, -0.4); torus.rotation.set(1, 0.4, 0);
+  // Torus (SEO orbit signal, left of the band)
+  const torus = new THREE.Mesh(new THREE.TorusGeometry(0.6, 0.08, 12, 40), glassMat(ACCENTS.lime, 0.9));
+  torus.position.set(-1.35, 0.5, 0.1); torus.rotation.set(1, 0.4, 0);
   root.add(torus);
 
   // Particles (few, cinematic)
@@ -143,7 +145,7 @@ export function initHeroScene({ canvas, interactive, lowPower }) {
     renderer.setSize(w, h, true); // true → also sets canvas CSS size
     camera.aspect = w / h; camera.updateProjectionMatrix();
     const ar = w / h;
-    offsetX = ar > 1.4 ? 2.15 : ar > 1.05 ? 1.4 : 0.4;
+    offsetX = ar > 1.4 ? 1.85 : ar > 1.05 ? 1.15 : 0.3;
   }
   resize(); window.addEventListener('resize', resize);
 
@@ -157,7 +159,7 @@ export function initHeroScene({ canvas, interactive, lowPower }) {
     root.rotation.y = mx * 0.4 + t * 0.05 + scrollN * 0.5;
     root.rotation.x = my * 0.3 - scrollN * 0.25;
     root.position.x = offsetX + mx * 0.6;
-    root.position.y = scrollN * 1.6;
+    root.position.y = -0.55 + scrollN * 1.6;
     root.position.z = -scrollN * 3;
 
     slash.rotation.z = 0.42 + Math.sin(t * 0.4) * 0.05;
