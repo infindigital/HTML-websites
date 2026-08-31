@@ -172,6 +172,7 @@ function initHeader() {
   $$('a[href^="#"]').forEach(a => {
     a.addEventListener('click', e => {
       const id = a.getAttribute('href');
+      if (id === '#') { e.preventDefault(); return; } // placeholder link — no jump
       if (id.length < 2) return;
       const target = document.querySelector(id);
       if (!target) return;
@@ -327,13 +328,8 @@ function initServices() {
   const shots = $$('.svc-shot');
   const badgeIcon = $('[data-badge-icon]');
   const badgeLabel = $('[data-badge-label]');
-  const iconMap = {
-    webdev: 'web-dark', ecom: 'svc-meta', seo: 'svc-seo', perf: 'svc-perf',
-    gads: 'svc-gads', social: 'svc-meta', brand: 'svc-seo', ai: 'svc-perf', content: 'svc-seo', cro: 'svc-perf'
-  };
   const iconFile = {
-    webdev: 'svc-gmb', ecom: 'svc-meta', seo: 'svc-seo', perf: 'svc-perf',
-    gads: 'svc-gads', social: 'svc-meta', brand: 'svc-gmb', ai: 'svc-perf', content: 'svc-seo', cro: 'svc-perf'
+    brand: 'svc-meta', web: 'svc-gmb', digital: 'svc-perf', seo: 'svc-seo'
   };
   function activate(key, name) {
     shots.forEach(s => s.classList.toggle('show', s.dataset.shot === key));
@@ -390,19 +386,26 @@ function initGrowth() {
    WORK — pinned horizontal scroll
 -------------------------------------------------------------- */
 function initWork() {
-  const stage = $('[data-hscroll]');
-  const track = $('[data-hscroll-track]');
-  const bar = $('[data-hscroll-bar]');
-  if (!stage || !track) return;
-  if (REDUCED) { stage.style.height = 'auto'; track.style.flexWrap = 'wrap'; return; }
-  const getScroll = () => track.scrollWidth - window.innerWidth + parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--pad-x'));
-  gsap.to(track, {
-    x: () => -getScroll(),
-    ease: 'none',
-    scrollTrigger: {
-      trigger: stage, start: 'top top', end: () => '+=' + getScroll(),
-      pin: true, scrub: 1, anticipatePin: 1, invalidateOnRefresh: true,
-      onUpdate: self => { if (bar) bar.style.width = (self.progress * 100) + '%'; }
+  const grid = $('[data-work-grid]');
+  if (!grid) return;
+  const cards = $$('.work-card', grid);
+  cards.forEach(card => {
+    const media = $('.wc-media', card);
+    const body = $('.wc-body', card);
+    gsap.set(media, { autoAlpha: 0, y: 60, scale: .96 });
+    gsap.set(body, { autoAlpha: 0, y: 24 });
+    ScrollTrigger.create({
+      trigger: card, start: 'top 85%',
+      onEnter: () => {
+        gsap.to(media, { autoAlpha: 1, y: 0, scale: 1, duration: 1, ease: 'power3.out' });
+        gsap.to(body, { autoAlpha: 1, y: 0, duration: .8, delay: .15, ease: 'power3.out' });
+      }
+    });
+    // subtle parallax on the image while scrolling
+    if (!REDUCED) {
+      const img = $('img', media);
+      gsap.fromTo(img, { yPercent: -4 }, { yPercent: 4, ease: 'none',
+        scrollTrigger: { trigger: card, start: 'top bottom', end: 'bottom top', scrub: 1 } });
     }
   });
 }
@@ -424,17 +427,41 @@ function initLab() {
     const depth = parseFloat(im.dataset.depth || '.3');
     gsap.to(im, { yPercent: -depth * 120, ease: 'none', scrollTrigger: { trigger: lab, start: 'top bottom', end: 'bottom top', scrub: 1 } });
   });
-  // cursor movement
+  // cursor movement (skip whatever poster is being hovered/zoomed)
   if (CAN_HOVER && !TOUCH && !REDUCED) {
     lab.addEventListener('mousemove', e => {
       const nx = e.clientX / window.innerWidth - .5;
       const ny = e.clientY / window.innerHeight - .5;
       imgs.forEach(im => {
+        if (im._zoom) return;
         const depth = parseFloat(im.dataset.depth || '.3');
         gsap.to(im, { x: nx * depth * 120, y: ny * depth * 80, duration: .8, ease: 'power2.out' });
       });
     });
   }
+  // hover a poster -> enlarge to full view so the design reads clearly
+  const scaleFor = im => {
+    // scale so the poster's width reaches ~34% of the viewport, capped
+    const w = im.getBoundingClientRect().width || 1;
+    const target = Math.min(window.innerWidth, window.innerHeight * 1.1) * 0.34;
+    return gsap.utils.clamp(1.3, 2.6, target / w);
+  };
+  imgs.forEach(im => {
+    im.addEventListener('mouseenter', () => {
+      if (TOUCH) return;
+      im._zoom = true;
+      im.classList.add('zoomed');
+      im.style.zIndex = 60;
+      gsap.to(im, { scale: scaleFor(im), x: 0, y: 0, rotate: 0, duration: .55, ease: 'power3.out', overwrite: 'auto' });
+      imgs.forEach(o => { if (o !== im) gsap.to(o, { opacity: .35, duration: .4 }); });
+    });
+    im.addEventListener('mouseleave', () => {
+      im._zoom = false;
+      im.classList.remove('zoomed');
+      gsap.to(im, { scale: 1, duration: .5, ease: 'power3.out', overwrite: 'auto', onComplete: () => { im.style.zIndex = ''; } });
+      imgs.forEach(o => gsap.to(o, { opacity: 1, duration: .4 }));
+    });
+  });
 }
 
 /* --------------------------------------------------------------
