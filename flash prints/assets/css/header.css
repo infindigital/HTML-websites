@@ -176,9 +176,12 @@
   justify-content: space-between;
   padding: 0.85rem 0.6rem;
   font-family: var(--font-heading);
+  font-size: 1rem;           /* buttons don't inherit font-size — match .m-link */
+  line-height: inherit;
   font-weight: 500;
   color: var(--color-ink);
   border-bottom: 1px solid var(--color-border-soft);
+  text-align: left;
 }
 .m-accordion__toggle .plus { color: var(--color-primary); font-size: 1.2rem; transition: transform var(--dur) var(--ease); }
 .m-accordion.is-open .m-accordion__toggle .plus { transform: rotate(45deg); }

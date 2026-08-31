@@ -61,3 +61,32 @@
   .hero__socials { display: none; }
   .tab { padding: 0.7rem 1.1rem; font-size: 0.92rem; }
 }
+
+/* --------------------------------------------------------------------------
+   Phone: inner-page hero (About / Services / Products / Contact / detail
+   pages). On narrow screens the vertically-centred title could drift down
+   into the absolutely-positioned breadcrumb pill (worst on product-detail
+   pages with a long title + 4-item trail). Keep the title centred (as on
+   desktop) but reserve bottom space so it can never reach the pill, let the
+   pill widen and wrap tidily, and ease the title type down so long titles
+   stay to ~2 lines.
+   -------------------------------------------------------------------------- */
+@media (max-width: 640px) {
+  .page-hero {
+    min-height: 60vh;
+    padding-bottom: 7rem;          /* reserve room for the breadcrumb pill */
+  }
+  .page-hero__title { font-size: clamp(1.9rem, 8vw, 2.6rem); }
+  .page-hero__text  { font-size: 1rem; }
+
+  .page-hero__crumb {
+    max-width: calc(100% - 2rem);  /* centred, wraps inside the hero width */
+    padding: 0.7rem 1.4rem 0.8rem;
+  }
+  .page-hero__crumb .breadcrumbs {
+    flex-wrap: wrap;
+    font-size: 0.9rem;
+  }
+
+  .page-hero--slim { padding-top: calc(var(--header-h) + 1.8rem); padding-bottom: 7rem; }
+}
