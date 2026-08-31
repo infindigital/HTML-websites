@@ -509,6 +509,14 @@ body.show-cursor #cursor{display:block}
 .svc-visual-badge .chip{width:36px;height:36px;border-radius:8px;background:var(--white);display:grid;place-items:center;overflow:hidden}
 .svc-visual-badge .chip img{width:74%;height:74%;object-fit:contain}
 .svc-visual-badge span{font-family:var(--font-mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase}
+/* Tablet + phone: show the preview image ABOVE the list. It sticks under the
+   header and swaps as each service scrolls to centre (same behaviour as
+   desktop), so "what we do" always has its matching visual. */
+@media(max-width:1023px){
+  .svc-visual-col{display:block;order:-1;margin-bottom:clamp(1.6rem,5vw,2.4rem)}
+  .svc-visual-sticky{position:sticky;top:clamp(64px,9vh,84px);height:auto;display:block}
+  .svc-visual-stage{width:100%;max-width:100%;height:clamp(230px,44vh,380px);aspect-ratio:auto}
+}
 
 /* ============================================================
    GROWTH SYSTEM — sticky steps
@@ -563,7 +571,11 @@ body.show-cursor #cursor{display:block}
 .gs-cube .gf-top{transform:rotateX(90deg) translateZ(calc(var(--cs)/2));filter:brightness(1.2)}
 .gs-cube .gf-bottom{transform:rotateX(-90deg) translateZ(calc(var(--cs)/2));filter:brightness(.68)}
 @keyframes gs-spin{from{transform:rotateX(-22deg) rotateY(0deg)}to{transform:rotateX(-22deg) rotateY(360deg)}}
-@media(max-width:767px){.gs-cube-wrap{display:none}}
+@media(max-width:767px){
+  /* On phones the cube floats centred in the lower half of each step so it
+     fills the empty space and never sits over the copy. */
+  .gs-cube-wrap{--cs:clamp(110px,32vw,190px);right:auto;left:50%;top:auto;bottom:clamp(8%,10vh,14%);transform:translateX(-50%)}
+}
 
 /* ============================================================
    WORK — horizontal scroll
@@ -672,6 +684,19 @@ body.show-cursor #cursor{display:block}
 .lab-img{position:absolute;border-radius:12px;overflow:hidden;box-shadow:0 30px 60px -25px rgba(0,0,0,.6);will-change:transform;pointer-events:auto;cursor:pointer}
 .lab-img img{width:100%;height:100%;object-fit:cover;display:block}
 .lab-img.zoomed{box-shadow:0 50px 100px -20px rgba(0,0,0,.8)}
+/* Phone: enlarge the scattered posters so they fill the section and are easy
+   to tap, keeping the same collage feel around the centred title. Tapping a
+   poster enlarges it to full view (handled in JS). */
+@media(max-width:767px){
+  #lab{min-height:150vh}
+  .lab-note{font-size:.66rem;padding:.65em 1em}
+  .lab-layer[data-lab-layer="1"] .lab-img:nth-child(1){width:46vw!important;left:3%!important;top:5%!important;bottom:auto!important;right:auto!important}
+  .lab-layer[data-lab-layer="1"] .lab-img:nth-child(2){width:40vw!important;right:4%!important;top:8%!important;left:auto!important;bottom:auto!important}
+  .lab-layer[data-lab-layer="1"] .lab-img:nth-child(3){width:42vw!important;left:5%!important;bottom:5%!important;top:auto!important;right:auto!important}
+  .lab-layer[data-lab-layer="2"] .lab-img:nth-child(1){width:36vw!important;left:31%!important;top:23%!important;bottom:auto!important;right:auto!important}
+  .lab-layer[data-lab-layer="2"] .lab-img:nth-child(2){width:40vw!important;right:4%!important;bottom:7%!important;left:auto!important;top:auto!important}
+  .lab-layer[data-lab-layer="2"] .lab-img:nth-child(3){width:34vw!important;left:33%!important;bottom:26%!important;right:auto!important;top:auto!important}
+}
 
 /* ============================================================
    RESULTS — counters
@@ -701,6 +726,14 @@ body.show-cursor #cursor{display:block}
 .case-card.cc1{width:clamp(200px,42vw,520px);top:0;left:0;z-index:1}
 .case-card.cc2{width:clamp(180px,36vw,440px);top:18%;right:2%;z-index:2}
 .case-card.cc3{width:clamp(160px,32vw,400px);bottom:0;left:12%;z-index:3}
+/* Phone: the overlapping collage becomes a clean staggered stack so every
+   step reads in order without cards sitting on top of each other. */
+@media(max-width:767px){
+  .case-stage{height:auto;display:flex;flex-direction:column;gap:clamp(1rem,4vw,1.6rem)}
+  .case-card{position:relative!important;top:auto!important;left:auto!important;right:auto!important;bottom:auto!important;width:86%!important;box-shadow:0 24px 50px -26px rgba(0,0,0,.7)}
+  .case-card.cc2{align-self:flex-end}
+  .case-card.cc3{align-self:center}
+}
 
 /* ============================================================
    WHY INFIN
@@ -816,6 +849,8 @@ body.show-cursor #cursor{display:block}
   .growth-step .gs-num{font-size:32vw}
   .result{border-right:none}
   .result:nth-child(odd){border-right:1px solid rgba(255,255,255,.25)}
+  /* Bigger, bolder hero headline on phones */
+  .hero-title{font-size:clamp(3.4rem,16vw,5.6rem);line-height:.92;letter-spacing:-.04em}
 }
 
 /* ============================================================

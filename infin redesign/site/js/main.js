@@ -459,21 +459,60 @@ function initLab() {
       });
     });
   }
-  // hover a poster -> enlarge to full view so the design reads clearly
+  // hover / tap a poster -> enlarge to full view so the design reads clearly
   const scaleFor = im => {
-    // scale so the poster's width reaches ~32% of the viewport, capped
     const w = im.getBoundingClientRect().width || 1;
-    const target = Math.min(window.innerWidth, window.innerHeight * 1.05) * 0.32;
-    return gsap.utils.clamp(1.3, 2.3, target / w);
+    // On phones enlarge toward ~72% of the viewport so the poster is readable;
+    // on desktop reach ~32% of the negative space.
+    const target = TOUCH
+      ? Math.min(window.innerWidth * 0.74, window.innerHeight * 0.52)
+      : Math.min(window.innerWidth, window.innerHeight * 1.05) * 0.32;
+    return gsap.utils.clamp(1.25, TOUCH ? 3.6 : 2.3, target / w);
   };
-  // grow into view: top posters expand downward, bottom posters upward
+  // grow toward the centre of the screen so the enlarged poster stays in view
   const originFor = im => {
-    const top = im.style.top ? parseFloat(im.style.top) : NaN;
-    if (im.style.bottom && isNaN(top)) return 'center bottom';
-    if (!isNaN(top) && top < 40) return 'center top';
-    return 'center center';
+    const r = im.getBoundingClientRect();
+    const cx = r.left + r.width / 2, cy = r.top + r.height / 2;
+    const hx = cx < window.innerWidth / 2 ? 'left' : 'right';
+    const hy = cy < window.innerHeight / 2 ? 'top' : 'bottom';
+    return `${hx} ${hy}`;
   };
   const title = $('.lab-title', lab);
+  // Instruction copy matches the interaction available on this device
+  const note = $('.lab-note', lab);
+  if (note && TOUCH) {
+    note.childNodes.forEach(n => {
+      if (n.nodeType === Node.TEXT_NODE && /Hover/i.test(n.textContent)) {
+        n.textContent = n.textContent.replace(/Hover/i, 'Tap');
+      }
+    });
+  }
+  // Touch: tap a poster to enlarge, tap it (or empty space) again to reset
+  if (TOUCH) {
+    const reset = () => {
+      imgs.forEach(o => {
+        o._zoom = false; o.classList.remove('zoomed');
+        gsap.to(o, { scale: 1, opacity: 1, duration: .4, ease: 'power3.out', overwrite: 'auto',
+          onComplete: () => { o.style.zIndex = ''; const l = o.closest('.lab-layer'); if (l) l.style.zIndex = ''; } });
+      });
+      if (title) gsap.to(title, { opacity: 1, duration: .3 });
+    };
+    imgs.forEach(im => {
+      const layer = im.closest('.lab-layer');
+      im.addEventListener('click', e => {
+        e.stopPropagation();
+        const wasZoom = im.classList.contains('zoomed');
+        reset();
+        if (wasZoom) return;
+        im._zoom = true; im.classList.add('zoomed');
+        if (layer) layer.style.zIndex = 40; im.style.zIndex = 60;
+        gsap.to(im, { scale: scaleFor(im), x: 0, y: 0, rotate: 0, transformOrigin: originFor(im), duration: .5, ease: 'power3.out', overwrite: 'auto' });
+        imgs.forEach(o => { if (o !== im) gsap.to(o, { opacity: .22, duration: .35 }); });
+        if (title) gsap.to(title, { opacity: .12, duration: .35 });
+      });
+    });
+    lab.addEventListener('click', reset);
+  }
   imgs.forEach(im => {
     const layer = im.closest('.lab-layer');
     im.addEventListener('mouseenter', () => {
