@@ -565,26 +565,40 @@ body.show-cursor #cursor{display:block}
 .work-card:hover .wc-body h3{color:var(--lime)}
 .wc-body p{color:var(--taupe);max-width:46ch;font-size:.98rem;line-height:1.55}
 
-/* Trusted & Certified table */
-.cert{background:var(--paper);color:var(--ink);padding-block:clamp(3rem,8vh,6rem)}
-.cert-head{display:flex;justify-content:space-between;align-items:flex-end;gap:2rem;flex-wrap:wrap;margin-bottom:clamp(2rem,5vw,3.5rem)}
-.cert-head h2{font-size:clamp(2.2rem,6vw,5rem);text-transform:uppercase;line-height:.9}
-.cert-rows{border-top:1px solid rgba(11,11,12,.16)}
-.cert-row{display:grid;grid-template-columns:minmax(90px,auto) 60px 1.5fr 1fr 1fr auto;align-items:center;gap:clamp(.8rem,2.2vw,2rem);padding-block:clamp(1.1rem,2.4vw,1.7rem);border-bottom:1px solid rgba(11,11,12,.16);color:var(--ink);transition:background .35s,padding-left .35s var(--ease)}
-.cert-row:hover{background:rgba(11,11,12,.035);padding-left:.7rem}
-.cr-status{font-family:var(--font-mono);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--stone)}
-.cr-badge{width:60px;height:42px;background:#fff;border:1px solid rgba(11,11,12,.08);border-radius:9px;display:grid;place-items:center;overflow:hidden;flex:0 0 auto}
-.cr-badge img{max-width:84%;max-height:74%;object-fit:contain}
-.cr-name{font-family:var(--font-display);font-weight:700;font-size:clamp(1.05rem,1.9vw,1.55rem);letter-spacing:-.015em;line-height:1.05}
-.cr-src{color:var(--stone);font-size:.95rem}
-.cr-url{font-family:var(--font-mono);font-size:.8rem;color:var(--stone)}
-.cr-arrow{font-size:1.25rem;transition:transform .4s var(--ease);justify-self:end}
-.cert-row:hover .cr-arrow{transform:translate(4px,-4px)}
-@media(max-width:860px){
-  .cert-row{grid-template-columns:auto 50px 1fr auto;gap:1rem}
-  .cert-row .cr-src,.cert-row .cr-url{display:none}
+/* Trusted & Certified — colourful 3D cards */
+.cert{background:var(--ink);color:var(--paper);padding-block:clamp(4rem,10vh,8rem)}
+.cert-head{display:flex;justify-content:space-between;align-items:flex-end;gap:2rem;flex-wrap:wrap;margin-bottom:clamp(2.5rem,5vw,4rem)}
+.cert-head h2{font-size:clamp(2.4rem,6.5vw,5.5rem);text-transform:uppercase;line-height:.9}
+.cert-cards{display:grid;grid-template-columns:1fr;gap:clamp(1.1rem,2vw,1.6rem);perspective:1600px}
+@media(min-width:600px){.cert-cards{grid-template-columns:1fr 1fr}}
+@media(min-width:1120px){.cert-cards{grid-template-columns:repeat(4,1fr)}}
+.cert-card{
+  position:relative;overflow:hidden;border-radius:24px;
+  padding:clamp(1.4rem,2vw,1.9rem);
+  min-height:clamp(290px,30vw,360px);
+  display:flex;flex-direction:column;justify-content:space-between;gap:1rem;
+  transform-style:preserve-3d;will-change:transform;
+  box-shadow:0 24px 44px -26px rgba(0,0,0,.7);
+  transition:box-shadow .5s var(--ease);isolation:isolate;
 }
-@media(max-width:520px){.cert-row .cr-status{display:none}}
+.cert-card:hover{box-shadow:0 46px 80px -22px rgba(0,0,0,.75)}
+.c-blue{background:var(--blue);color:#fff}
+.c-lime{background:var(--lime);color:var(--ink)}
+.c-orange{background:var(--orange);color:var(--ink)}
+.c-violet{background:var(--violet);color:#fff}
+.cc-top{display:flex;align-items:flex-start;justify-content:space-between;transform:translateZ(45px)}
+.cc-badge{width:66px;height:48px;background:#fff;border-radius:11px;display:grid;place-items:center;overflow:hidden;box-shadow:0 8px 18px -8px rgba(0,0,0,.4)}
+.cc-badge img{max-width:84%;max-height:74%;object-fit:contain}
+.cc-arrow{font-size:1.4rem;transition:transform .4s var(--ease)}
+.cert-card:hover .cc-arrow{transform:translate(5px,-5px)}
+.cc-big{font-family:var(--font-display);font-weight:700;font-size:clamp(3.6rem,6vw,5.2rem);line-height:.88;letter-spacing:-.045em;display:flex;align-items:baseline;gap:.08em;transform:translateZ(35px)}
+.cc-big.cc-word{font-size:clamp(2.2rem,3.6vw,3.2rem);text-transform:uppercase}
+.cc-unit{font-size:.42em;letter-spacing:0}
+.cc-foot{display:flex;flex-direction:column;gap:.3rem;transform:translateZ(25px)}
+.cc-name{font-family:var(--font-display);font-weight:700;font-size:clamp(1.1rem,1.5vw,1.4rem);line-height:1.05;letter-spacing:-.01em}
+.cc-src{font-family:var(--font-mono);font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;opacity:.72}
+.cc-glow{position:absolute;width:75%;aspect-ratio:1;border-radius:50%;right:-22%;bottom:-28%;background:rgba(255,255,255,.2);filter:blur(34px);pointer-events:none;z-index:-1}
+.c-lime .cc-glow,.c-orange .cc-glow{background:rgba(255,255,255,.35)}
 
 /* Footer logo */
 .footer-logo{margin-bottom:1.6rem}

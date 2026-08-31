@@ -441,26 +441,62 @@ function initLab() {
   }
   // hover a poster -> enlarge to full view so the design reads clearly
   const scaleFor = im => {
-    // scale so the poster's width reaches ~34% of the viewport, capped
+    // scale so the poster's width reaches ~32% of the viewport, capped
     const w = im.getBoundingClientRect().width || 1;
-    const target = Math.min(window.innerWidth, window.innerHeight * 1.1) * 0.34;
-    return gsap.utils.clamp(1.3, 2.6, target / w);
+    const target = Math.min(window.innerWidth, window.innerHeight * 1.05) * 0.32;
+    return gsap.utils.clamp(1.3, 2.3, target / w);
   };
+  // grow into view: top posters expand downward, bottom posters upward
+  const originFor = im => {
+    const top = im.style.top ? parseFloat(im.style.top) : NaN;
+    if (im.style.bottom && isNaN(top)) return 'center bottom';
+    if (!isNaN(top) && top < 40) return 'center top';
+    return 'center center';
+  };
+  const title = $('.lab-title', lab);
   imgs.forEach(im => {
+    const layer = im.closest('.lab-layer');
     im.addEventListener('mouseenter', () => {
       if (TOUCH) return;
       im._zoom = true;
       im.classList.add('zoomed');
+      // lift the poster's whole layer above the title, and the poster above its siblings
+      if (layer) layer.style.zIndex = 40;
       im.style.zIndex = 60;
-      gsap.to(im, { scale: scaleFor(im), x: 0, y: 0, rotate: 0, duration: .55, ease: 'power3.out', overwrite: 'auto' });
-      imgs.forEach(o => { if (o !== im) gsap.to(o, { opacity: .35, duration: .4 }); });
+      gsap.to(im, { scale: scaleFor(im), x: 0, y: 0, rotate: 0, transformOrigin: originFor(im), duration: .55, ease: 'power3.out', overwrite: 'auto' });
+      imgs.forEach(o => { if (o !== im) gsap.to(o, { opacity: .28, duration: .4 }); });
+      if (title) gsap.to(title, { opacity: .12, duration: .4 }); // let the design read clearly
     });
     im.addEventListener('mouseleave', () => {
       im._zoom = false;
       im.classList.remove('zoomed');
-      gsap.to(im, { scale: 1, duration: .5, ease: 'power3.out', overwrite: 'auto', onComplete: () => { im.style.zIndex = ''; } });
+      gsap.to(im, { scale: 1, duration: .5, ease: 'power3.out', overwrite: 'auto',
+        onComplete: () => { im.style.zIndex = ''; if (layer) layer.style.zIndex = ''; } });
       imgs.forEach(o => gsap.to(o, { opacity: 1, duration: .4 }));
+      if (title) gsap.to(title, { opacity: 1, duration: .4 });
     });
+  });
+}
+
+/* --------------------------------------------------------------
+   3D TILT (cert cards)
+-------------------------------------------------------------- */
+function initTilt() {
+  const cards = $$('[data-tilt]');
+  cards.forEach((card, i) => {
+    gsap.set(card, { autoAlpha: 0, y: 44 });
+    ScrollTrigger.create({
+      trigger: card, start: 'top 90%',
+      onEnter: () => gsap.to(card, { autoAlpha: 1, y: 0, duration: .8, delay: (i % 4) * .08, ease: 'power3.out' })
+    });
+    if (!CAN_HOVER || TOUCH || REDUCED) return;
+    card.addEventListener('mousemove', e => {
+      const r = card.getBoundingClientRect();
+      const nx = (e.clientX - r.left) / r.width - .5;
+      const ny = (e.clientY - r.top) / r.height - .5;
+      gsap.to(card, { rotationY: nx * 15, rotationX: -ny * 15, y: -8, duration: .4, ease: 'power2.out', transformPerspective: 900, transformOrigin: 'center' });
+    });
+    card.addEventListener('mouseleave', () => gsap.to(card, { rotationY: 0, rotationX: 0, y: 0, duration: .7, ease: 'power2.out' }));
   });
 }
 
@@ -623,6 +659,7 @@ function boot() {
   initGrowth();
   initWork();
   initLab();
+  initTilt();
   initCounters();
   initCase();
   initWhy();
