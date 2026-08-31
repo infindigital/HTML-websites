@@ -145,7 +145,7 @@ export function initHeroScene({ canvas, interactive, lowPower }) {
     renderer.setSize(w, h, true); // true → also sets canvas CSS size
     camera.aspect = w / h; camera.updateProjectionMatrix();
     const ar = w / h;
-    offsetX = ar > 1.4 ? 1.85 : ar > 1.05 ? 1.15 : 0.3;
+    offsetX = ar > 1.4 ? 2.75 : ar > 1.05 ? 1.9 : 0.5;
   }
   resize(); window.addEventListener('resize', resize);
 
