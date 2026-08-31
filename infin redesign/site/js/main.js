@@ -645,11 +645,10 @@ function revealHero() {
 -------------------------------------------------------------- */
 async function init3D() {
   if (REDUCED) return;
-  // On phones we keep the CSS gradient fallback (no heavy WebGL). 3D is a
-  // desktop/tablet enhancement only.
-  const smallScreen = window.innerWidth < 900;
-  if (smallScreen) return;
-  const lowPower = window.innerWidth < 1200;
+  // The 3D growth machine now renders on every screen so tablet and phone
+  // match the desktop composition (no empty hero band). Smaller screens use
+  // the lighter (lowPower) scene for performance.
+  const lowPower = window.innerWidth < 1100;
   try {
     const mod = await import('./scene.js');
     mod.initHeroScene({ canvas: $('#hero-canvas'), interactive: !TOUCH, lowPower });

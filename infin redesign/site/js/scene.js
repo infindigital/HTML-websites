@@ -143,6 +143,7 @@ export function initHeroScene({ canvas, interactive, lowPower }) {
   }, { passive: true });
 
   let offsetX = 2.0; // pushes composition into the right-hand negative space
+  let offsetY = 0;   // lifts the composition on portrait screens (fills top)
   function resize() {
     const parent = canvas.parentElement || document.body;
     const w = parent.clientWidth || window.innerWidth;
@@ -150,7 +151,14 @@ export function initHeroScene({ canvas, interactive, lowPower }) {
     renderer.setSize(w, h, true); // true → also sets canvas CSS size
     camera.aspect = w / h; camera.updateProjectionMatrix();
     const ar = w / h;
-    offsetX = ar > 1.4 ? 2.15 : ar > 1.05 ? 1.4 : 0.4;
+    // Wide screens: machine sits to the RIGHT of the headline (desktop look).
+    // Portrait screens: machine lifts into the top negative space above the
+    // headline and scales down, so the composition still reads the same way
+    // and no empty band is left behind.
+    if (ar > 1.4)        { offsetX = 2.15; offsetY = 0;   root.scale.setScalar(1); }
+    else if (ar > 1.05)  { offsetX = 1.45; offsetY = 0;   root.scale.setScalar(0.96); }
+    else if (ar > 0.72)  { offsetX = 0.15; offsetY = 1.35; root.scale.setScalar(0.86); } // portrait tablet
+    else                 { offsetX = 0.05; offsetY = 1.55; root.scale.setScalar(0.72); } // phone
   }
   resize(); window.addEventListener('resize', resize);
 
@@ -164,7 +172,7 @@ export function initHeroScene({ canvas, interactive, lowPower }) {
     root.rotation.y = mx * 0.4 + t * 0.05 + scrollN * 0.5;
     root.rotation.x = my * 0.3 - scrollN * 0.25;
     root.position.x = offsetX + mx * 0.6;
-    root.position.y = scrollN * 1.6;
+    root.position.y = offsetY + scrollN * 1.6;
     root.position.z = -scrollN * 3;
 
     slash.rotation.z = 0.42 + Math.sin(t * 0.4) * 0.05;
