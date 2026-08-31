@@ -27,16 +27,6 @@
   --orange:#FF6A2C;
   --yellow:#FFD23F;
 
-  /* Hero (INFIN in motion) palette */
-  --h-paper:#F4F1EA;
-  --h-blue:#1655D1;
-  --h-cyan:#5DE7E0;
-  --h-magenta:#E96CFF;
-  --h-purple:#8C5CFF;
-  --h-lime:#D9F23F;
-  --h-orange:#FF7145;
-  --h-yellow:#FFD633;
-
   /* Semantic */
   --bg:var(--ink);
   --fg:var(--paper);
@@ -179,13 +169,19 @@ body.show-cursor #cursor{display:block}
 /* ============================================================
    HEADER
    ============================================================ */
-/* Non-sticky header: sits at the top of the hero and scrolls away with the page */
 #header{
-  position:absolute;top:0;left:0;width:100%;z-index:500;
+  position:fixed;top:0;left:0;width:100%;z-index:500;
   padding:clamp(1rem,2.2vw,1.6rem) var(--pad-x);
   display:flex;align-items:center;justify-content:space-between;
-  color:var(--paper);
+  transition:background .5s var(--ease),backdrop-filter .5s,padding .4s,transform .5s var(--ease);
 }
+#header.scrolled{
+  background:rgba(11,11,12,.62);
+  backdrop-filter:blur(14px) saturate(1.2);
+  padding-block:clamp(.7rem,1.4vw,1rem);
+  border-bottom:1px solid rgba(255,255,255,.06);
+}
+#header.hide{transform:translateY(-110%)}
 .brand{display:flex;align-items:center;gap:.55rem;z-index:2;perspective:600px}
 
 /* 3D extruded INFIN wordmark */
@@ -291,100 +287,62 @@ body.show-cursor #cursor{display:block}
    HERO
    ============================================================ */
 #hero{
-  position:relative;min-height:100svh;overflow:hidden;
-  background:#0A0A0A;color:var(--paper);
+  position:relative;min-height:100svh;
+  display:flex;flex-direction:column;justify-content:flex-end;
+  padding-top:clamp(6rem,15vh,9rem);
+  padding-bottom:clamp(2rem,5vh,4rem);
+  overflow:hidden;
+  background:var(--ink);
 }
-/* cinematic atmosphere (deep, restrained) */
-.hero-atmos{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden}
-.hglow{position:absolute;border-radius:50%;filter:blur(120px);opacity:.42;will-change:transform}
-.hg1{width:44vw;height:44vw;left:-10vw;top:-8vw;background:radial-gradient(circle,rgba(140,92,255,.4),transparent 70%)}
-.hg2{width:40vw;height:40vw;right:-8vw;top:6vw;background:radial-gradient(circle,rgba(93,231,224,.32),transparent 70%)}
-.hg3{width:42vw;height:42vw;left:30vw;bottom:-16vw;background:radial-gradient(circle,rgba(255,113,69,.26),transparent 70%)}
-/* faint technical grid */
-.hero-grid{
-  position:absolute;inset:0;z-index:0;pointer-events:none;opacity:.05;
-  background-image:linear-gradient(rgba(239,236,230,1) 1px,transparent 1px),
-                   linear-gradient(90deg,rgba(239,236,230,1) 1px,transparent 1px);
-  background-size:clamp(58px,6vw,108px) clamp(58px,6vw,108px);
-  -webkit-mask-image:radial-gradient(130% 100% at 62% 42%,#000,transparent 92%);
-          mask-image:radial-gradient(130% 100% at 62% 42%,#000,transparent 92%);
-}
-/* 3D canvas + editorial frame */
 #hero-canvas{position:absolute;inset:0;z-index:1}
-.hero-frame{position:absolute;inset:clamp(10px,1.2vw,18px);z-index:6;pointer-events:none;
-  border:1px solid rgba(239,236,230,.2);border-radius:5px}
-
-/* UI text layer */
-.hero-ui{position:absolute;inset:0;z-index:4;padding:clamp(6.5rem,14vh,9.5rem) var(--pad-x) 0;pointer-events:none;will-change:transform,opacity}
-.hero-ui>*{pointer-events:auto}
-.hero-label{font-family:var(--font-mono);font-size:.76rem;letter-spacing:.14em;text-transform:uppercase;line-height:1.7;color:var(--paper)}
-.hero-label span{color:var(--taupe)}
-.hero-h1{
+#hero-fallback{
+  position:absolute;inset:0;z-index:0;opacity:.9;
+  background:
+    radial-gradient(60% 60% at 70% 30%,rgba(122,60,255,.5),transparent 60%),
+    radial-gradient(50% 50% at 25% 70%,rgba(43,77,255,.45),transparent 60%),
+    radial-gradient(40% 45% at 60% 80%,rgba(255,106,44,.35),transparent 60%);
+  filter:blur(20px);
+}
+.hero-grid{
+  position:absolute;inset:0;z-index:1;pointer-events:none;opacity:.5;
+  background-image:linear-gradient(rgba(255,255,255,.045) 1px,transparent 1px),
+                   linear-gradient(90deg,rgba(255,255,255,.045) 1px,transparent 1px);
+  background-size:clamp(48px,6vw,90px) clamp(48px,6vw,90px);
+  -webkit-mask-image:linear-gradient(to bottom,transparent,#000 30%,#000 70%,transparent);
+          mask-image:linear-gradient(to bottom,transparent,#000 30%,#000 70%,transparent);
+}
+.hero-top{
+  position:absolute;top:clamp(6rem,13vh,8.5rem);left:0;width:100%;z-index:3;
+  display:flex;justify-content:flex-end;gap:1rem;
+  padding-inline:var(--pad-x);pointer-events:none;
+}
+.hero-top .label{opacity:.6;max-width:22ch}
+.hero-top .hero-top-r{text-align:right}
+.hero-content{position:relative;z-index:3;width:100%;padding-inline:var(--pad-x)}
+.hero-title{
   font-family:var(--font-display);font-weight:700;
-  font-size:clamp(2.4rem,8.9vw,9.6rem);line-height:.94;letter-spacing:-.02em;text-transform:uppercase;
-  margin-top:clamp(1rem,2.4vh,1.7rem);max-width:none;color:var(--paper);
+  font-size:clamp(2.7rem,10.5vw,11rem);line-height:.9;letter-spacing:-.045em;
+  text-transform:uppercase;
 }
-.hero-h1 .ln{display:block;overflow:hidden;white-space:nowrap;padding-bottom:.04em}
-.hero-h1 .ln>span{display:inline-block}
-.hero-h1 .accent{color:var(--lime)}
-.hero-h1 .outline{color:transparent;-webkit-text-stroke:1.6px var(--paper)}
-.hero-sub{margin-top:1.4rem;font-family:var(--font-mono);font-size:.82rem;letter-spacing:.1em;text-transform:uppercase;color:var(--taupe)}
-.hero-cta{
-  display:inline-flex;align-items:center;gap:.7em;margin-top:1.8rem;
-  font-family:var(--font-mono);font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;font-weight:700;
-  padding:1.05em 1.7em;border-radius:100px;background:var(--lime);color:var(--ink);
-  will-change:transform;transition:background .35s;
+.hero-title .ln{display:block;overflow:hidden}
+.hero-title .ln > span{display:block}
+.hero-title .accent{color:var(--lime)}
+.hero-title .outline{
+  color:transparent;-webkit-text-stroke:1.4px var(--paper);
 }
-.hero-cta:hover{background:var(--paper)}
-.hero-cta .arrow{transition:transform .4s var(--ease)}
-.hero-cta:hover .arrow{transform:translateX(4px)}
-
-/* floating pills */
-.hero-pills{position:absolute;inset:0;z-index:3;pointer-events:none;will-change:transform,opacity}
-.pill-wrap{position:absolute;left:var(--x);top:var(--y);will-change:transform;pointer-events:auto}
-.pill{
-  display:inline-block;white-space:nowrap;
-  font-family:var(--font-display);font-weight:700;line-height:1;letter-spacing:-.02em;
-  padding:.42em .82em;border-radius:100px;color:#111;cursor:pointer;
-  box-shadow:0 22px 40px -16px rgba(0,0,0,.6), inset 0 2px 0 rgba(255,255,255,.5), inset 0 -4px 10px rgba(0,0,0,.08);
-  will-change:transform;
+.hero-foot{
+  margin-top:clamp(1.5rem,4vh,2.6rem);
+  display:flex;align-items:flex-end;justify-content:space-between;gap:2rem;flex-wrap:wrap;
 }
-.pill.is-outline{background:transparent;border:1.5px solid rgba(255,255,255,.85);color:var(--paper);box-shadow:0 18px 34px -18px rgba(0,0,0,.5)}
-
-/* scroll cue */
-.hero-scroll{
-  position:absolute;left:var(--pad-x);bottom:clamp(1.6rem,4vh,2.6rem);z-index:5;
-  display:flex;align-items:center;gap:.8rem;font-family:var(--font-mono);font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--taupe);
+.hero-foot p{max-width:42ch;color:var(--taupe);font-size:clamp(.95rem,1.3vw,1.15rem);line-height:1.55}
+.hero-foot p strong{color:var(--paper);font-weight:600}
+.scroll-cue{
+  display:flex;align-items:center;gap:.8rem;
+  font-family:var(--font-mono);font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--taupe);
 }
-.hero-scroll .hs-line{width:44px;height:1px;background:rgba(255,255,255,.28);position:relative;overflow:hidden}
-.hero-scroll .hs-line::after{content:"";position:absolute;inset:0;width:45%;background:var(--h-yellow);animation:hsMove 1.9s var(--ease) infinite}
-@keyframes hsMove{0%{transform:translateX(-110%)}100%{transform:translateX(320%)}}
-
-/* bottom IN/FIN box — contains only the wordmark (fully visible) */
-.hero-wm-box{
-  position:absolute;z-index:2;overflow:hidden;
-  left:clamp(10px,1.2vw,18px);right:clamp(10px,1.2vw,18px);bottom:clamp(10px,1.2vw,18px);
-  height:clamp(4.5rem,17vh,12rem);
-  border-top:1px solid rgba(239,236,230,.2);
-  display:flex;align-items:center;justify-content:center;
-  background:linear-gradient(to top,#0A0A0A 55%,rgba(10,10,10,0));
-}
-.hero-wordmark{
-  font-family:var(--font-display);font-weight:700;font-size:clamp(3.4rem,12vw,12.5rem);line-height:.9;letter-spacing:.035em;
-  color:var(--paper);white-space:nowrap;pointer-events:none;text-transform:lowercase;will-change:transform,opacity;
-}
-.hero-wordmark .wm-slash{color:var(--paper);font-weight:700}
-
-@media(max-width:767px){
-  .hero-ui{padding-top:clamp(5rem,11vh,6.5rem)}
-  .hero-h1{font-size:clamp(1.9rem,8.2vw,3.4rem);max-width:100%;margin-top:1rem}
-  .pill{font-size:1.1rem!important}
-  .hero-pills .pill-wrap:nth-child(1){left:62%!important;top:50%!important}
-  .hero-pills .pill-wrap:nth-child(2){left:28%!important;top:57%!important}
-  .hero-pills .pill-wrap:nth-child(3){left:60%!important;top:64%!important}
-  .hero-wm-box{height:clamp(3.8rem,12vh,6.5rem)}
-  .hero-wordmark{font-size:26vw}
-}
+.scroll-cue .dot{width:26px;height:42px;border:1px solid rgba(255,255,255,.3);border-radius:20px;position:relative}
+.scroll-cue .dot::after{content:"";position:absolute;top:7px;left:50%;transform:translateX(-50%);width:4px;height:8px;border-radius:2px;background:var(--lime);animation:scrolldot 1.8s var(--ease) infinite}
+@keyframes scrolldot{0%{opacity:0;transform:translate(-50%,0)}30%{opacity:1}70%{opacity:1}100%{opacity:0;transform:translate(-50%,14px)}}
 
 /* ============================================================
    MARQUEE
@@ -674,7 +632,7 @@ body.show-cursor #cursor{display:block}
 
 /* Footer logo */
 .footer-logo{margin-bottom:1.6rem}
-.footer-logo .logo3d{font-size:clamp(2rem,4vw,3rem);color:var(--paper)}
+.footer-logo .logo3d{font-size:clamp(2rem,4vw,3rem)}
 .hscroll{position:relative;height:100vh;display:flex;align-items:center;overflow:hidden}
 .hscroll-track{display:flex;gap:clamp(1.5rem,3vw,3rem);padding-inline:var(--pad-x);will-change:transform}
 .project{
