@@ -572,9 +572,10 @@ body.show-cursor #cursor{display:block}
 .gs-cube .gf-bottom{transform:rotateX(-90deg) translateZ(calc(var(--cs)/2));filter:brightness(.68)}
 @keyframes gs-spin{from{transform:rotateX(-22deg) rotateY(0deg)}to{transform:rotateX(-22deg) rotateY(360deg)}}
 @media(max-width:767px){
-  /* On phones the cube floats centred in the lower half of each step so it
-     fills the empty space and never sits over the copy. */
-  .gs-cube-wrap{--cs:clamp(110px,32vw,190px);right:auto;left:50%;top:auto;bottom:clamp(8%,10vh,14%);transform:translateX(-50%)}
+  /* On phones keep the cube paired with its number on the right (same as
+     desktop), just sized down. It sits directly under the big outlined
+     number, above the centred copy. */
+  .gs-cube-wrap{--cs:clamp(92px,24vw,148px);right:clamp(6%,9vw,11%);top:22%;bottom:auto;transform:none}
 }
 
 /* ============================================================
