@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1088" height="1445" viewBox="0 0 1088 1445">
+  <defs>
+    <pattern id="grid" width="90.67" height="90" patternUnits="userSpaceOnUse">
+      <path d="M0 0H90.67M0 0V90" fill="none" stroke="#14130F" stroke-opacity="0.07" stroke-width="1"/>
+    </pattern>
+  </defs>
+
+  <rect width="1088" height="1445" fill="#EFECE6"/>
+  <rect width="1088" height="790" fill="url(#grid)"/>
+
+  <!-- Three small marks, echoing the rhythm above the fold. -->
+  <g fill="#14130F">
+    <path d="M119.3 80H127.9L98.6 170H90Z"/>
+    <path d="M184.3 80H192.9L163.6 170H155Z"/>
+    <path d="M249.3 80H257.9L228.6 170H220Z"/>
+  </g>
+
+  <!-- Measured growth: a plotted series climbing towards the mark. -->
+  <g fill="#14130F">
+    <rect x="80"  y="702" width="50" height="48"/>
+    <rect x="146" y="675" width="50" height="75"/>
+    <rect x="212" y="638" width="50" height="112"/>
+    <rect x="278" y="600" width="50" height="150"/>
+    <rect x="344" y="545" width="50" height="205"/>
+    <rect x="410" y="475" width="50" height="275"/>
+    <rect x="476" y="380" width="50" height="370"/>
+    <rect x="542" y="270" width="50" height="480"/>
+  </g>
+  <path d="M80 762H592" stroke="#14130F" stroke-opacity="0.35" stroke-width="3"/>
+
+  <!-- The in/fin slash, blown up and cropped by the frame. -->
+  <path d="M950.6 -40H1029.9L759.3 790H680Z" fill="#14130F"/>
+
+  <rect y="790" width="1088" height="655" fill="#14130F"/>
+  <path d="M0 790H1088" stroke="#B5AEA2" stroke-opacity="0.45" stroke-width="2"/>
+</svg>
