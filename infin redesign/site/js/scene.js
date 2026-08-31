@@ -145,7 +145,7 @@ export function initHeroScene({ canvas, interactive, lowPower }) {
     renderer.setSize(w, h, true); // true → also sets canvas CSS size
     camera.aspect = w / h; camera.updateProjectionMatrix();
     const ar = w / h;
-    offsetX = ar > 1.4 ? 3.25 : ar > 1.05 ? 2.3 : 0.6;
+    offsetX = ar > 1.4 ? 3.75 : ar > 1.05 ? 2.7 : 0.7;
   }
   resize(); window.addEventListener('resize', resize);
 
@@ -159,7 +159,7 @@ export function initHeroScene({ canvas, interactive, lowPower }) {
     root.rotation.y = mx * 0.4 + t * 0.05 + scrollN * 0.5;
     root.rotation.x = my * 0.3 - scrollN * 0.25;
     root.position.x = offsetX + mx * 0.6;
-    root.position.y = -0.55 + scrollN * 1.6;
+    root.position.y = -0.85 + scrollN * 1.6;
     root.position.z = -scrollN * 3;
 
     slash.rotation.z = 0.42 + Math.sin(t * 0.4) * 0.05;
