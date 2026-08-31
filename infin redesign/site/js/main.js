@@ -156,18 +156,7 @@ function initMagnetic() {
    HEADER scroll state + hide on scroll down
 -------------------------------------------------------------- */
 function initHeader() {
-  const header = $('#header');
-  let last = 0;
-  ScrollTrigger.create({
-    start: 60, end: 'max',
-    onUpdate: self => {
-      const y = self.scroll();
-      header.classList.toggle('scrolled', y > 60);
-      if (y > last && y > 400) header.classList.add('hide');
-      else header.classList.remove('hide');
-      last = y;
-    }
-  });
+  // Header is non-sticky (absolute) — it simply scrolls away with the hero.
   // smooth anchor links
   $$('a[href^="#"]').forEach(a => {
     a.addEventListener('click', e => {
@@ -613,31 +602,82 @@ function initTestimonials() {
 }
 
 /* --------------------------------------------------------------
-   HERO title subtle scroll transform
+   HERO — floating pills (entrance, float, parallax, hover)
+-------------------------------------------------------------- */
+let heroPillsIn = () => {};
+function initHeroPills() {
+  const wraps = $$('.pill-wrap');
+  if (!wraps.length) return;
+  wraps.forEach(w => {
+    const pill = $('.pill', w);
+    const rot = parseFloat(pill.dataset.rot || '0');
+    gsap.set(pill, { rotation: rot });
+    gsap.set(w, { autoAlpha: 0, scale: .5 });
+  });
+  heroPillsIn = () => {
+    wraps.forEach((w, i) => {
+      gsap.to(w, { autoAlpha: 1, scale: 1, duration: .8, ease: 'back.out(1.6)', delay: i * .06 });
+    });
+    if (REDUCED) return;
+    // continuous float on the inner pill (separate transform channel from wrap parallax)
+    wraps.forEach((w, i) => {
+      const pill = $('.pill', w);
+      const rot = parseFloat(pill.dataset.rot || '0');
+      gsap.to(pill, {
+        y: gsap.utils.random(-16, -6), rotation: rot + gsap.utils.random(-2.5, 2.5),
+        duration: gsap.utils.random(3.6, 6.2), ease: 'sine.inOut', yoyo: true, repeat: -1, delay: .8 + i * .05
+      });
+    });
+  };
+  // hover
+  if (CAN_HOVER && !TOUCH && !REDUCED) {
+    wraps.forEach(w => {
+      const pill = $('.pill', w);
+      w.addEventListener('mouseenter', () => gsap.to(pill, { scale: 1.08, duration: .35, ease: 'power3.out' }));
+      w.addEventListener('mouseleave', () => gsap.to(pill, { scale: 1, duration: .5, ease: 'power3.out' }));
+    });
+    // mouse parallax on wraps + wordmark + atmosphere (lerped)
+    const wm = $('[data-wordmark]');
+    const glows = $$('.hglow');
+    let mx = 0, my = 0, tx = 0, ty = 0;
+    window.addEventListener('mousemove', e => { tx = e.clientX / window.innerWidth - .5; ty = e.clientY / window.innerHeight - .5; });
+    gsap.ticker.add(() => {
+      mx = lerp(mx, tx, .06); my = lerp(my, ty, .06);
+      wraps.forEach(w => {
+        const d = parseFloat(w.dataset.depth || '.3');
+        gsap.set(w, { x: -mx * d * 90, y: -my * d * 70 });
+      });
+      if (wm) gsap.set(wm, { x: -mx * 22 });
+      glows.forEach((g, i) => gsap.set(g, { x: mx * (10 + i * 6), y: my * (10 + i * 6) }));
+    });
+  }
+}
+
+/* --------------------------------------------------------------
+   HERO scroll transition
 -------------------------------------------------------------- */
 function initHeroScroll() {
-  const title = $('[data-hero-title]');
-  if (!title || REDUCED) return;
-  const lines = $$('.ln > span', title);
-  gsap.to(lines, {
-    yPercent: (i) => -20 - i * 12, autoAlpha: .15, ease: 'none',
-    stagger: .04,
-    scrollTrigger: { trigger: '#hero', start: 'top top', end: 'bottom top', scrub: 1 }
-  });
-  gsap.to('.hero-grid', { yPercent: 24, ease: 'none', scrollTrigger: { trigger: '#hero', start: 'top top', end: 'bottom top', scrub: 1 } });
+  if (REDUCED) return;
+  const st = { trigger: '#hero', start: 'top top', end: 'bottom top', scrub: 1 };
+  gsap.to('.hero-ui', { yPercent: -14, autoAlpha: 0, ease: 'none', scrollTrigger: st });
+  gsap.to('.hero-pills', { yPercent: -22, autoAlpha: 0, ease: 'none', scrollTrigger: st });
+  gsap.to('[data-wordmark]', { yPercent: -42, ease: 'none', scrollTrigger: st });
+  gsap.to('.hero-atmos', { yPercent: 24, ease: 'none', scrollTrigger: st });
 }
 
 /* --------------------------------------------------------------
    HERO reveal after loader
 -------------------------------------------------------------- */
 function revealHero() {
-  const words = $$('.hero-title .ln > span');
-  gsap.set(words, { yPercent: 110 });
-  gsap.set('.hero-foot [data-fade], .hero-top .label', { autoAlpha: 0, y: 20 });
+  const words = $$('.hero-h1 .ln > span');
+  gsap.set(words, { yPercent: 115 });
+  gsap.set('[data-hero-fade]', { autoAlpha: 0, y: 18 });
+  gsap.set('[data-wordmark]', { yPercent: 55, autoAlpha: 0 });
   const tl = gsap.timeline();
-  tl.to(words, { yPercent: 0, duration: 1.1, stagger: .09, ease: 'power4.out' }, 0)
-    .to('.hero-top .label', { autoAlpha: 1, y: 0, duration: .8, stagger: .1, ease: 'power3.out' }, .3)
-    .to('.hero-foot [data-fade]', { autoAlpha: 1, y: 0, duration: .8, stagger: .12, ease: 'power3.out' }, .5);
+  tl.to(words, { yPercent: 0, duration: 1, stagger: .09, ease: 'power4.out' }, 0)
+    .to('[data-hero-fade]', { autoAlpha: 1, y: 0, duration: .7, stagger: .1, ease: 'power3.out' }, .2)
+    .add(() => heroPillsIn(), .25)
+    .to('[data-wordmark]', { yPercent: 0, autoAlpha: 1, duration: 1.1, ease: 'back.out(1.1)' }, .45);
 }
 
 /* --------------------------------------------------------------
@@ -652,12 +692,8 @@ async function init3D() {
   const lowPower = window.innerWidth < 1200;
   try {
     const mod = await import('./scene.js');
-    mod.initHeroScene({ canvas: $('#hero-canvas'), interactive: !TOUCH, lowPower });
     mod.initCtaScene({ canvas: $('#cta-canvas'), interactive: !TOUCH, lowPower });
-    const fb = $('#hero-fallback');
-    if (fb) gsap.to(fb, { autoAlpha: 0, duration: 1 });
   } catch (e) {
-    // fallback stays visible
     console.warn('3D disabled:', e);
   }
 }
@@ -684,6 +720,7 @@ function boot() {
   initCase();
   initWhy();
   initTestimonials();
+  initHeroPills();
   initHeroScroll();
   revealHero();
   init3D();
