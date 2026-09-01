@@ -297,7 +297,7 @@ body.show-cursor #cursor{display:block}
 .infin{
   position:relative;isolation:isolate;
   display:grid;place-items:center;
-  width:min(95vw,1560px);
+  width:min(98vw,1820px);
   filter:hue-rotate(0deg);
   animation:infinHue 34s ease-in-out infinite;
 }
@@ -308,11 +308,11 @@ body.show-cursor #cursor{display:block}
 .il{
   grid-area:1/1;display:block;text-align:center;
   font-family:var(--font-display);font-weight:700;
-  font-size:clamp(4rem,23vw,20rem);line-height:.92;
+  font-size:clamp(4.5rem,27vw,26rem);line-height:.9;
   /* padding keeps the clipped background box larger than the glyphs so the
      slash descender (and any overshoot) stays filled, not hollow */
   padding:.08em 0 .16em;
-  letter-spacing:-.055em;text-transform:uppercase;
+  letter-spacing:-.06em;text-transform:uppercase;
   color:transparent;-webkit-text-fill-color:transparent;
   -webkit-background-clip:text;background-clip:text;
   background-repeat:no-repeat;background-position:50% 50%;
@@ -348,17 +348,28 @@ body.show-cursor #cursor{display:block}
     0% 50%,33.33% 50%,66.66% 50%,100% 50%,
     0% 100%,33.33% 100%,66.66% 100%,100% 100%;
 }
-/* 2 — thin dark grid between the tiles (the funky collage grout / black lines) */
+/* 2 — funky black stripes over the mosaic (diagonal bars + a tile grid) */
 .il-grid{
-  mix-blend-mode:multiply;opacity:.85;
+  mix-blend-mode:multiply;opacity:.8;
   background-image:
-    repeating-linear-gradient(90deg, rgba(6,4,12,.9) 0 2px, transparent 2px 25%),
-    repeating-linear-gradient(0deg,  rgba(6,4,12,.9) 0 2px, transparent 2px 33.333%);
+    repeating-linear-gradient(135deg, rgba(6,4,12,.92) 0 10px, transparent 10px 46px),
+    repeating-linear-gradient(90deg, rgba(6,4,12,.8) 0 2px, transparent 2px 25%),
+    repeating-linear-gradient(0deg,  rgba(6,4,12,.8) 0 2px, transparent 2px 33.333%);
+  background-position:calc(50% + var(--mx)*10px) 50%, 0 0, 0 0;
 }
-/* 3 — soft vignette to seat the mosaic and lift legibility on white */
+/* 3 — funky colour stripes: pink · orange · blue · lime diagonals washed over
+   the posters so the whole word reads bright and playful */
 .il-tint{
-  mix-blend-mode:multiply;opacity:.5;
-  background-image:radial-gradient(120% 130% at 50% 40%, transparent 42%, rgba(8,5,18,.6) 100%);
+  mix-blend-mode:overlay;opacity:.7;
+  background-image:repeating-linear-gradient(48deg,
+    rgba(240,60,150,.95) 0 26px,   /* pink */
+    rgba(255,120,30,.95) 26px 52px,/* orange */
+    rgba(255,214,40,.9)  52px 78px,/* yellow */
+    rgba(40,120,240,.92) 78px 104px,/* blue */
+    rgba(150,255,60,.9)  104px 130px,/* lime */
+    rgba(150,70,255,.92) 130px 156px);/* violet */
+  background-size:200% 200%;
+  background-position:calc(50% + var(--mx)*24px) calc(50% + var(--my)*24px);
 }
 /* 4 — fine digital grain */
 .il-grain{
@@ -374,17 +385,13 @@ body.show-cursor #cursor{display:block}
   animation:infinSheen 8s var(--ease) infinite;
 }
 @keyframes infinSheen{0%,18%{background-position:210% 0}72%,100%{background-position:-130% 0}}
-/* 6 — a thin dark outline so IN/FIN stays readable over the imagery */
-.il-edge{
-  background:none;
-  -webkit-text-fill-color:transparent;
-  -webkit-text-stroke:1.6px rgba(11,11,12,.62);
-}
+/* 6 — (no outline) kept as an inert layer so markup/JS stay unchanged */
+.il-edge{background:none}
 
 /* --- the glossy eye-sphere: overlaps the word; its pupil shows our designs --- */
 .hero-eye{
-  position:absolute;z-index:4;left:50%;top:37%;
-  width:clamp(170px,24vw,430px);aspect-ratio:1;border-radius:50%;
+  position:absolute;z-index:4;left:50%;top:24%;
+  width:clamp(160px,22vw,400px);aspect-ratio:1;border-radius:50%;
   transform:translate(-50%,-50%) translate(calc(var(--mx)*20px),calc(var(--my)*16px));
   background:radial-gradient(130% 130% at 33% 26%, #ffffff 0%, #f4f4f6 26%, #dcdce0 52%, #bcbcc6 74%, #9494a0 100%);
   box-shadow:
