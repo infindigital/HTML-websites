@@ -297,7 +297,9 @@ body.show-cursor #cursor{display:block}
 .infin{
   position:relative;isolation:isolate;
   display:grid;place-items:center;
-  width:min(99vw,2040px);
+  /* full-bleed to the viewport so the word is centred regardless of the
+     hero's side padding (justify-self:start so only this margin positions it) */
+  justify-self:start;width:100vw;margin-left:calc(50% - 50vw);
   filter:hue-rotate(0deg);
   animation:infinHue 34s ease-in-out infinite;
 }
@@ -308,7 +310,7 @@ body.show-cursor #cursor{display:block}
 .il{
   grid-area:1/1;display:block;text-align:center;
   font-family:var(--font-display);font-weight:700;
-  font-size:clamp(5rem,30vw,34rem);line-height:.88;
+  font-size:clamp(5rem,39vw,48rem);line-height:.86;
   /* padding keeps the clipped background box larger than the glyphs so the
      slash descender (and any overshoot) stays filled, not hollow */
   padding:.08em 0 .16em;
@@ -352,9 +354,9 @@ body.show-cursor #cursor{display:block}
    the rest of the letters stay as the clean poster mosaic */
 .il-grid{
   mix-blend-mode:multiply;opacity:.94;
-  background-image:repeating-linear-gradient(0deg, rgba(6,4,12,.97) 0 18px, transparent 18px 46px);
-  -webkit-mask-image:linear-gradient(90deg, transparent 0 12%, #000 16% 31%, transparent 36%);
-          mask-image:linear-gradient(90deg, transparent 0 12%, #000 16% 31%, transparent 36%);
+  background-image:repeating-linear-gradient(90deg, rgba(6,4,12,.97) 0 7px, transparent 7px 18px);
+  -webkit-mask-image:linear-gradient(90deg, transparent 0 13%, #000 15% 22%, transparent 24%);
+          mask-image:linear-gradient(90deg, transparent 0 13%, #000 15% 22%, transparent 24%);
 }
 /* 3 — (no funky colour overlay) inert */
 .il-tint{background:none}
@@ -377,7 +379,7 @@ body.show-cursor #cursor{display:block}
 
 /* --- the glossy eye-sphere: overlaps the word; its pupil shows our designs --- */
 .hero-eye{
-  position:absolute;z-index:4;left:50%;top:24%;
+  position:absolute;z-index:4;left:50%;top:19%;
   width:clamp(160px,22vw,400px);aspect-ratio:1;border-radius:50%;
   transform:translate(-50%,-50%) translate(calc(var(--mx)*20px),calc(var(--my)*16px));
   background:radial-gradient(130% 130% at 33% 26%, #ffffff 0%, #f4f4f6 26%, #dcdce0 52%, #bcbcc6 74%, #9494a0 100%);
