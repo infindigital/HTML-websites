@@ -673,49 +673,60 @@ function initHero() {
   if (!hero) return;
   const word = $('.infin', hero);
 
-  const stage = $('[data-infin]', hero);
-
   // Entrance — quiet, staged reveal
   if (!REDUCED) {
     const ins = $$('[data-hero-in]', hero);
     gsap.set('.infin-word', { autoAlpha: 0, yPercent: 8 });
+    gsap.set('.hpanel', { autoAlpha: 0 });
     gsap.set(ins, { autoAlpha: 0, y: 16 });
     const tl = gsap.timeline({ delay: .35 });
     tl.to('.infin-word', { autoAlpha: 1, yPercent: 0, duration: 1.1, ease: 'power3.out' }, 0)
-      .to(ins, { autoAlpha: 1, y: 0, duration: .9, stagger: .08, ease: 'power3.out' }, .5);
+      .to('.hpanel', { autoAlpha: 1, duration: 1.2, stagger: .08, ease: 'power2.out' }, .35)
+      .to(ins, { autoAlpha: 1, y: 0, duration: .9, stagger: .08, ease: 'power3.out' }, .55);
   }
 
-  // Restrained scroll parallax — the word lifts & softens
+  // Restrained scroll parallax — the word lifts & softens, panels drift
   if (!REDUCED) {
     gsap.to(word, {
-      yPercent: -6, ease: 'none',
+      yPercent: -6, scale: 1.02, ease: 'none',
       scrollTrigger: { trigger: hero, start: 'top top', end: 'bottom top', scrub: true }
     });
     gsap.to('.hero-say', {
       yPercent: -14, autoAlpha: .35, ease: 'none',
       scrollTrigger: { trigger: hero, start: 'top top', end: 'bottom top', scrub: true }
     });
+    $$('.hpanel', hero).forEach(p => {
+      const d = parseFloat(p.dataset.depth || '0.06');
+      gsap.to(p, {
+        yPercent: -d * 320, ease: 'none',
+        scrollTrigger: { trigger: hero, start: 'top top', end: 'bottom top', scrub: true }
+      });
+    });
   }
 
   if (REDUCED || TOUCH) return;
 
-  // 3D tilt: the extruded wordmark leans toward the cursor. Smoothed, subtle.
-  const MAXY = 12, MAXX = 8; // degrees
-  let tRy = 0, tRx = 0, cRy = 0, cRx = 0;
+  // Soft spotlight that follows the cursor: reveals the imagery beneath the ink
+  // and gently parallaxes the panels. Everything smoothed for a premium feel.
+  let tx = 50, ty = 50, cx = 50, cy = 50, tHole = 0, cHole = 0;
   hero.addEventListener('pointermove', e => {
-    const r = hero.getBoundingClientRect();
-    const nx = (e.clientX - r.left) / r.width - .5;   // -0.5..0.5
-    const ny = (e.clientY - r.top) / r.height - .5;
-    tRy = nx * 2 * MAXY;      // rotateY follows horizontal cursor
-    tRx = -ny * 2 * MAXX;     // rotateX follows vertical cursor (inverted)
+    const r = word.getBoundingClientRect();
+    tx = ((e.clientX - r.left) / r.width) * 100;
+    ty = ((e.clientY - r.top) / r.height) * 100;
+    tHole = 7;
   }, { passive: true });
-  hero.addEventListener('pointerleave', () => { tRy = 0; tRx = 0; }, { passive: true });
+  hero.addEventListener('pointerleave', () => { tHole = 0; }, { passive: true });
 
   const tick = () => {
-    cRy += (tRy - cRy) * 0.07;
-    cRx += (tRx - cRx) * 0.07;
-    stage.style.setProperty('--ry', cRy.toFixed(3) + 'deg');
-    stage.style.setProperty('--rx', cRx.toFixed(3) + 'deg');
+    cx += (tx - cx) * 0.10;
+    cy += (ty - cy) * 0.10;
+    cHole += (tHole - cHole) * 0.06;
+    hero.style.setProperty('--sx', cx.toFixed(2) + '%');
+    hero.style.setProperty('--sy', cy.toFixed(2) + '%');
+    hero.style.setProperty('--hole', cHole.toFixed(2) + '%');
+    // panel parallax around the cursor centre (-1..1)
+    hero.style.setProperty('--mx', ((cx - 50) / 50).toFixed(4));
+    hero.style.setProperty('--my', ((cy - 50) / 50).toFixed(4));
     requestAnimationFrame(tick);
   };
   requestAnimationFrame(tick);
