@@ -7,6 +7,7 @@ const REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 const TOUCH = window.matchMedia('(hover: none), (pointer: coarse)').matches;
 const CAN_HOVER = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
 const DESKTOP = window.matchMedia('(min-width: 1024px)').matches;
+const MOBILE = window.matchMedia('(max-width: 767px)').matches;
 
 document.documentElement.classList.add('js');
 gsap.registerPlugin(ScrollTrigger);
@@ -445,11 +446,14 @@ function initLab() {
     gsap.set(im, { autoAlpha: 0, scale: .8, rotate: gsap.utils.random(-4, 4) });
     ScrollTrigger.create({ trigger: lab, start: 'top 70%', onEnter: () => gsap.to(im, { autoAlpha: 1, scale: 1, duration: 1, delay: i * .08, ease: 'power3.out' }) });
   });
-  // scroll parallax by depth
-  imgs.forEach(im => {
-    const depth = parseFloat(im.dataset.depth || '.3');
-    gsap.to(im, { yPercent: -depth * 120, ease: 'none', scrollTrigger: { trigger: lab, start: 'top bottom', end: 'bottom top', scrub: 1 } });
-  });
+  // scroll parallax by depth — skip on phones, where posters sit in a fixed
+  // grid and a vertical offset would drag them out of their cells
+  if (!MOBILE) {
+    imgs.forEach(im => {
+      const depth = parseFloat(im.dataset.depth || '.3');
+      gsap.to(im, { yPercent: -depth * 120, ease: 'none', scrollTrigger: { trigger: lab, start: 'top bottom', end: 'bottom top', scrub: 1 } });
+    });
+  }
   // cursor movement (skip whatever poster is being hovered/zoomed)
   if (CAN_HOVER && !TOUCH && !REDUCED) {
     lab.addEventListener('mousemove', e => {
