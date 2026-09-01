@@ -297,7 +297,7 @@ body.show-cursor #cursor{display:block}
 .infin{
   position:relative;isolation:isolate;
   display:grid;place-items:center;
-  width:min(98vw,1820px);
+  width:min(99vw,2040px);
   filter:hue-rotate(0deg);
   animation:infinHue 34s ease-in-out infinite;
 }
@@ -308,7 +308,7 @@ body.show-cursor #cursor{display:block}
 .il{
   grid-area:1/1;display:block;text-align:center;
   font-family:var(--font-display);font-weight:700;
-  font-size:clamp(4.5rem,27vw,26rem);line-height:.9;
+  font-size:clamp(5rem,30vw,34rem);line-height:.88;
   /* padding keeps the clipped background box larger than the glyphs so the
      slash descender (and any overshoot) stays filled, not hollow */
   padding:.08em 0 .16em;
@@ -348,14 +348,13 @@ body.show-cursor #cursor{display:block}
     0% 50%,33.33% 50%,66.66% 50%,100% 50%,
     0% 100%,33.33% 100%,66.66% 100%,100% 100%;
 }
-/* 2 — bold black stripes over just the LEFT HALF of the word (funky accent);
+/* 2 — bold straight black stripes over just the first N (funky accent);
    the rest of the letters stay as the clean poster mosaic */
 .il-grid{
-  mix-blend-mode:multiply;opacity:.92;
-  background-image:repeating-linear-gradient(135deg, rgba(6,4,12,.96) 0 16px, transparent 16px 44px);
-  background-position:calc(50% + var(--mx)*8px) 50%;
-  -webkit-mask-image:linear-gradient(90deg, #000 0 40%, transparent 52%);
-          mask-image:linear-gradient(90deg, #000 0 40%, transparent 52%);
+  mix-blend-mode:multiply;opacity:.94;
+  background-image:repeating-linear-gradient(0deg, rgba(6,4,12,.97) 0 18px, transparent 18px 46px);
+  -webkit-mask-image:linear-gradient(90deg, transparent 0 12%, #000 16% 31%, transparent 36%);
+          mask-image:linear-gradient(90deg, transparent 0 12%, #000 16% 31%, transparent 36%);
 }
 /* 3 — (no funky colour overlay) inert */
 .il-tint{background:none}
