@@ -210,6 +210,9 @@ function closeMenu() {
 function initMenu() {
   const toggle = $('.menu-toggle');
   toggle.addEventListener('click', () => menuOpen ? closeMenu() : openMenu());
+  // Close the menu on any link tap (external links like Contact/WhatsApp
+  // aren't caught by the smooth-anchor handler above).
+  $$('#mobile-menu nav a').forEach(a => a.addEventListener('click', closeMenu));
 }
 
 /* --------------------------------------------------------------
