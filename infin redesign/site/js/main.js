@@ -673,17 +673,33 @@ function initHero() {
   if (!stage) return;
   const layers = $$('.il', stage);
 
-  // Entrance — build the world, then reveal the eye within it
+  // Pupil slideshow — cycle through website designs we've made
+  const eyeA = $('[data-eye-a]'), eyeB = $('[data-eye-b]');
+  if (eyeA && eyeB) {
+    const shots = ['web-realestate', 'ecom-purity', 'work-soulish', 'work-earthy',
+      'seo-dashboard', 'work-localsouq', 'ads-dashboard', 'work-nkn', 'work-mededge', 'work-arvento'];
+    shots.forEach(s => { const im = new Image(); im.src = `assets/img/${s}.webp`; });
+    let i = 0, cur = eyeA, nxt = eyeB;
+    cur.style.backgroundImage = `url(assets/img/${shots[0]}.webp)`;
+    cur.classList.add('show');
+    setInterval(() => {
+      i = (i + 1) % shots.length;
+      nxt.style.backgroundImage = `url(assets/img/${shots[i]}.webp)`;
+      nxt.classList.add('show'); cur.classList.remove('show');
+      const t = cur; cur = nxt; nxt = t;
+    }, 2600);
+  }
+
+  // Entrance — mosaic letters fade up, then the eye
   if (!REDUCED) {
     gsap.set(layers, { autoAlpha: 0 });
+    gsap.set('.hero-eye', { autoAlpha: 0 });
     gsap.set('.hm-id, .hm-tag, .scroll-cue', { autoAlpha: 0, y: 18 });
     const tl = gsap.timeline({ delay: .25 });
-    tl.to(['.il-base', '.il-edge'], { autoAlpha: 1, duration: .9, ease: 'power2.out' }, 0)
-      .to('.il-blob', { autoAlpha: 1, duration: 1.1, ease: 'power2.out' }, .25)
-      .to(['.il-chrome', '.il-grain'], { autoAlpha: 1, duration: 1.1, ease: 'power2.out' }, .45)
-      .to('.il-sheen', { autoAlpha: 1, duration: 1.1, ease: 'power2.out' }, .7)
-      .to(['.il-eye', '.il-eye-core'], { autoAlpha: 1, duration: 1.6, ease: 'power3.out' }, .8)
-      .to('.hm-id, .hm-tag, .scroll-cue', { autoAlpha: 1, y: 0, duration: .8, stagger: .1, ease: 'power3.out' }, .9);
+    tl.to('.il-base', { autoAlpha: 1, duration: .9, ease: 'power2.out' }, 0)
+      .to(['.il-grid', '.il-tint', '.il-grain', '.il-sheen', '.il-edge'], { autoAlpha: 1, duration: 1, stagger: .06, ease: 'power2.out' }, .2)
+      .to('.hero-eye', { autoAlpha: 1, duration: 1.3, ease: 'power3.out' }, .5)
+      .to('.hm-id, .hm-tag, .scroll-cue', { autoAlpha: 1, y: 0, duration: .8, stagger: .1, ease: 'power3.out' }, .7);
   }
 
   // Scroll depth: the world drifts inside the letters, the word stays dominant
@@ -703,12 +719,12 @@ function initHero() {
   let tx = 0, ty = 0, cx = 0, cy = 0;
   const t0 = performance.now();
   if (!TOUCH) {
-    stage.addEventListener('pointermove', e => {
+    // Track the cursor across the whole hero so the eye/pupil follow it
+    window.addEventListener('pointermove', e => {
       const r = stage.getBoundingClientRect();
       tx = Math.max(-1, Math.min(1, ((e.clientX - r.left) / r.width - .5) * 2));
       ty = Math.max(-1, Math.min(1, ((e.clientY - r.top) / r.height - .5) * 2));
     }, { passive: true });
-    stage.addEventListener('pointerleave', () => { tx = 0; ty = 0; });
   }
   const tick = now => {
     const t = now - t0;
