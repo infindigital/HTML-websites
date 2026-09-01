@@ -309,7 +309,7 @@ body.show-cursor #cursor{display:block}
    the letterforms line up to the pixel. */
 .il{
   grid-area:1/1;display:block;text-align:center;
-  font-family:var(--font-display);font-weight:700;
+  font-family:var(--font-display);font-weight:500;
   font-size:clamp(5rem,39vw,48rem);line-height:.86;
   /* padding keeps the clipped background box larger than the glyphs so the
      slash descender (and any overshoot) stays filled, not hollow */
