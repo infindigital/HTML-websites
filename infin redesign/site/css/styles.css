@@ -184,29 +184,14 @@ body.show-cursor #cursor{display:block}
 #header.hide{transform:translateY(-110%)}
 .brand{display:flex;align-items:center;gap:.55rem;z-index:2;perspective:600px}
 
-/* 3D extruded INFIN wordmark */
+/* Plain white INFIN wordmark */
 .logo3d{
   font-family:var(--font-display);font-weight:700;
   font-size:clamp(1.7rem,2.8vw,2.4rem);
-  letter-spacing:-.045em;line-height:1;color:var(--paper);
-  display:inline-block;transform-style:preserve-3d;
-  transition:transform .45s var(--ease),text-shadow .45s var(--ease);
-  text-shadow:
-    1px 1px 0 rgba(198,255,58,.95),
-    2px 2px 0 rgba(198,255,58,.6),
-    3px 3px 0 rgba(0,0,0,.4),
-    4px 6px 10px rgba(0,0,0,.55);
+  letter-spacing:-.045em;line-height:1;color:#fff;
+  display:inline-block;text-shadow:none;
 }
-.logo3d .sl{color:var(--lime);display:inline-block}
-.brand:hover .logo3d{
-  transform:rotateX(14deg) rotateY(-16deg) translateZ(8px);
-  text-shadow:
-    1px 1px 0 rgba(198,255,58,1),
-    2px 2px 0 rgba(198,255,58,.75),
-    3px 3px 0 rgba(198,255,58,.45),
-    4px 4px 0 rgba(0,0,0,.4),
-    6px 8px 16px rgba(0,0,0,.6);
-}
+.logo3d .sl{color:#fff;display:inline-block}
 .brand .brand-dot{width:9px;height:9px;border-radius:50%;background:var(--lime);box-shadow:0 0 10px rgba(198,255,58,.8);align-self:flex-start;margin-top:.15em}
 
 .nav{display:flex;align-items:center;gap:clamp(1.2rem,2.4vw,2.4rem)}
