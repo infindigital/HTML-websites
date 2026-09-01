@@ -932,9 +932,11 @@ body.show-cursor #cursor{display:block}
 /* Phone: stack IN/ over FIN so the wordmark stays huge, and let the eye grow
    to match the taller stacked letters. Meta copy stacks and left-aligns. */
 @media(max-width:680px){
-  .brk{display:block}
-  .il{font-size:clamp(5.2rem,40vw,12rem);line-height:.82;--eye:clamp(150px,34vw,300px)}
-  .infin{width:min(92vw,560px)}
+  /* Keep IN/FIN on ONE line, exactly like desktop — no stacking. */
+  .brk{display:none}
+  .il{font-size:clamp(3rem,39vw,48rem);--eye:clamp(120px,26vw,300px)}
+  .infin{width:100vw;margin-left:calc(50% - 50vw)}
+  .hero-eye{top:22%;width:clamp(150px,40vw,300px)}
   .hero-meta{flex-direction:column;align-items:flex-start;gap:1rem}
 }
 @media(max-width:620px){
