@@ -93,27 +93,45 @@
 
 <main>
 
-<!-- ============ 01 · HERO ============ -->
-<section id="hero" aria-label="Intro">
-  <canvas id="hero-canvas"></canvas>
-  <div id="hero-fallback" aria-hidden="true"></div>
-  <div class="hero-grid" aria-hidden="true"></div>
+<!-- Organic liquid distortion used by the hero eye layer -->
+<svg class="hero-defs" width="0" height="0" aria-hidden="true" focusable="false">
+  <defs>
+    <filter id="infin-liquid" x="-20%" y="-20%" width="140%" height="140%" color-interpolation-filters="sRGB">
+      <feTurbulence type="fractalNoise" baseFrequency="0.006 0.010" numOctaves="2" seed="7" result="noise">
+        <animate attributeName="baseFrequency" dur="30s" values="0.006 0.010;0.010 0.006;0.006 0.010" repeatCount="indefinite"/>
+      </feTurbulence>
+      <feDisplacementMap in="SourceGraphic" in2="noise" scale="9" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+  </defs>
+</svg>
 
-  <div class="hero-top">
-    <div class="label hero-top-r">Design · Search · Media<br>One growth system</div>
+<!-- ============ 01 · HERO — typographic IN/FIN with an eye-world clipped inside the letters ============ -->
+<section id="hero" aria-label="INFIN Digital">
+  <h1 class="sr-only">INFIN Digital — We make digital growth move. A creative and digital growth studio in Mangaluru, India, working worldwide.</h1>
+
+  <!-- The giant wordmark. Every layer is the same "IN/FIN" clipped to its glyphs
+       (background-clip:text); stacked and blended they form a moving visual
+       universe seen only through the letters. The eye emerges from within it. -->
+  <div class="infin-stage" data-infin aria-hidden="true">
+    <div class="infin">
+      <span class="il il-base">IN/<br class="brk">FIN</span>
+      <span class="il il-blob">IN/<br class="brk">FIN</span>
+      <span class="il il-eye">IN/<br class="brk">FIN</span>
+      <span class="il il-eye-core">IN/<br class="brk">FIN</span>
+      <span class="il il-chrome">IN/<br class="brk">FIN</span>
+      <span class="il il-grain">IN/<br class="brk">FIN</span>
+      <span class="il il-sheen">IN/<br class="brk">FIN</span>
+      <span class="il il-edge">IN/<br class="brk">FIN</span>
+    </div>
   </div>
 
-  <div class="hero-content">
-    <h1 class="hero-title" data-hero-title>
-      <span class="ln"><span>We make</span></span>
-      <span class="ln"><span class="outline">digital</span></span>
-      <span class="ln"><span class="accent">growth</span></span>
-      <span class="ln"><span>move.</span></span>
-    </h1>
-    <div class="hero-foot">
-      <p data-fade>A Mangalore agency building <strong>websites, brands and campaigns</strong> that bring in real customers, design, search and paid media working as one growth system.</p>
-      <div class="scroll-cue" data-fade><span class="dot"></span>Scroll to explore</div>
+  <div class="hero-meta">
+    <div class="hm-id">
+      <span class="hm-name">INFIN Digital</span>
+      <span class="hm-loc">Mangaluru, India · Working worldwide</span>
     </div>
+    <p class="hm-tag">We make digital growth move.</p>
+    <div class="scroll-cue"><span class="dot"></span>Scroll</div>
   </div>
 </section>
 

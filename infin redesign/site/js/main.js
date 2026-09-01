@@ -661,29 +661,66 @@ function initTestimonials() {
 /* --------------------------------------------------------------
    HERO title subtle scroll transform
 -------------------------------------------------------------- */
-function initHeroScroll() {
-  const title = $('[data-hero-title]');
-  if (!title || REDUCED) return;
-  const lines = $$('.ln > span', title);
-  gsap.to(lines, {
-    yPercent: (i) => -20 - i * 12, autoAlpha: .15, ease: 'none',
-    stagger: .04,
-    scrollTrigger: { trigger: '#hero', start: 'top top', end: 'bottom top', scrub: 1 }
-  });
-  gsap.to('.hero-grid', { yPercent: 24, ease: 'none', scrollTrigger: { trigger: '#hero', start: 'top top', end: 'bottom top', scrub: 1 } });
-}
-
 /* --------------------------------------------------------------
-   HERO reveal after loader
+   HERO — the IN/FIN universe
+   The letters never move. A smoothed pointer + slow autonomous drift
+   shift the world (and the eye) INSIDE the glyphs via CSS vars; scroll
+   adds a second depth axis. An entrance sequence lets the eye be
+   discovered rather than announced.
 -------------------------------------------------------------- */
-function revealHero() {
-  const words = $$('.hero-title .ln > span');
-  gsap.set(words, { yPercent: 110 });
-  gsap.set('.hero-foot [data-fade], .hero-top .label', { autoAlpha: 0, y: 20 });
-  const tl = gsap.timeline();
-  tl.to(words, { yPercent: 0, duration: 1.1, stagger: .09, ease: 'power4.out' }, 0)
-    .to('.hero-top .label', { autoAlpha: 1, y: 0, duration: .8, stagger: .1, ease: 'power3.out' }, .3)
-    .to('.hero-foot [data-fade]', { autoAlpha: 1, y: 0, duration: .8, stagger: .12, ease: 'power3.out' }, .5);
+function initHero() {
+  const stage = $('[data-infin]');
+  if (!stage) return;
+  const layers = $$('.il', stage);
+
+  // Entrance — build the world, then reveal the eye within it
+  if (!REDUCED) {
+    gsap.set(layers, { autoAlpha: 0 });
+    gsap.set('.hm-id, .hm-tag, .scroll-cue', { autoAlpha: 0, y: 18 });
+    const tl = gsap.timeline({ delay: .25 });
+    tl.to(['.il-base', '.il-edge'], { autoAlpha: 1, duration: .9, ease: 'power2.out' }, 0)
+      .to('.il-blob', { autoAlpha: 1, duration: 1.1, ease: 'power2.out' }, .25)
+      .to(['.il-chrome', '.il-grain'], { autoAlpha: 1, duration: 1.1, ease: 'power2.out' }, .45)
+      .to('.il-sheen', { autoAlpha: 1, duration: 1.1, ease: 'power2.out' }, .7)
+      .to(['.il-eye', '.il-eye-core'], { autoAlpha: 1, duration: 1.6, ease: 'power3.out' }, .8)
+      .to('.hm-id, .hm-tag, .scroll-cue', { autoAlpha: 1, y: 0, duration: .8, stagger: .1, ease: 'power3.out' }, .9);
+  }
+
+  // Scroll depth: the world drifts inside the letters, the word stays dominant
+  if (!REDUCED) {
+    gsap.to(stage, {
+      '--sy': 1, ease: 'none',
+      scrollTrigger: { trigger: '#hero', start: 'top top', end: 'bottom top', scrub: true }
+    });
+    gsap.to('.infin', {
+      yPercent: -8, ease: 'none',
+      scrollTrigger: { trigger: '#hero', start: 'top top', end: 'bottom top', scrub: true }
+    });
+  }
+
+  // Smoothed pointer + slow autonomous drift → CSS vars (letters unaffected)
+  if (REDUCED) return;
+  let tx = 0, ty = 0, cx = 0, cy = 0;
+  const t0 = performance.now();
+  if (!TOUCH) {
+    stage.addEventListener('pointermove', e => {
+      const r = stage.getBoundingClientRect();
+      tx = Math.max(-1, Math.min(1, ((e.clientX - r.left) / r.width - .5) * 2));
+      ty = Math.max(-1, Math.min(1, ((e.clientY - r.top) / r.height - .5) * 2));
+    }, { passive: true });
+    stage.addEventListener('pointerleave', () => { tx = 0; ty = 0; });
+  }
+  const tick = now => {
+    const t = now - t0;
+    const dx = Math.sin(t * 0.00019) * 0.5 + Math.sin(t * 0.00007) * 0.2;
+    const dy = Math.cos(t * 0.00016) * 0.5 + Math.cos(t * 0.00005) * 0.2;
+    cx += (tx * 0.9 + dx - cx) * 0.045;
+    cy += (ty * 0.9 + dy - cy) * 0.045;
+    stage.style.setProperty('--mx', cx.toFixed(4));
+    stage.style.setProperty('--my', cy.toFixed(4));
+    requestAnimationFrame(tick);
+  };
+  requestAnimationFrame(tick);
 }
 
 /* --------------------------------------------------------------
@@ -697,12 +734,10 @@ async function init3D() {
   const lowPower = window.innerWidth < 1100;
   try {
     const mod = await import('./scene.js');
-    mod.initHeroScene({ canvas: $('#hero-canvas'), interactive: !TOUCH, lowPower });
+    // The hero is now a pure CSS/GSAP typographic universe; only the CTA
+    // keeps a 3D scene.
     mod.initCtaScene({ canvas: $('#cta-canvas'), interactive: !TOUCH, lowPower });
-    const fb = $('#hero-fallback');
-    if (fb) gsap.to(fb, { autoAlpha: 0, duration: 1 });
   } catch (e) {
-    // fallback stays visible
     console.warn('3D disabled:', e);
   }
 }
@@ -729,8 +764,7 @@ function boot() {
   initCase();
   initWhy();
   initTestimonials();
-  initHeroScroll();
-  revealHero();
+  initHero();
   init3D();
   requestAnimationFrame(() => ScrollTrigger.refresh());
   window.addEventListener('load', () => ScrollTrigger.refresh());

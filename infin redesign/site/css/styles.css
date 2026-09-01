@@ -270,62 +270,159 @@ body.show-cursor #cursor{display:block}
 /* ============================================================
    HERO
    ============================================================ */
+/* ============================================================
+   01 · HERO — the IN/FIN typographic universe
+   A white editorial canvas. The word IN/FIN is the whole artwork:
+   each stacked layer is the same word clipped to its glyphs
+   (background-clip:text); blended together they form a dark,
+   colourful moving world with an abstract eye that lives INSIDE
+   the letters. Nothing floats outside the type.
+   ============================================================ */
 #hero{
   position:relative;min-height:100svh;
-  display:flex;flex-direction:column;justify-content:flex-end;
-  padding-top:clamp(6rem,15vh,9rem);
-  padding-bottom:clamp(2rem,5vh,4rem);
-  overflow:hidden;
-  background:var(--ink);
+  display:flex;flex-direction:column;justify-content:center;align-items:center;
+  padding:clamp(6rem,14vh,9rem) var(--pad-x) clamp(1.8rem,5vh,3.2rem);
+  overflow:hidden;background:var(--white);
 }
-#hero-canvas{position:absolute;inset:0;z-index:1}
-#hero-fallback{
-  position:absolute;inset:0;z-index:0;opacity:.9;
-  background:
-    radial-gradient(60% 60% at 70% 30%,rgba(122,60,255,.5),transparent 60%),
-    radial-gradient(50% 50% at 25% 70%,rgba(43,77,255,.45),transparent 60%),
-    radial-gradient(40% 45% at 60% 80%,rgba(255,106,44,.35),transparent 60%);
-  filter:blur(20px);
+.hero-defs{position:absolute;width:0;height:0;overflow:hidden}
+.sr-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+
+/* Stage carries the smoothed pointer + scroll as plain numbers (-1..1 / 0..1),
+   written by JS. Letters never move; only the world INSIDE them shifts. */
+.infin-stage{
+  position:relative;z-index:2;flex:1;width:100%;
+  display:grid;place-items:center;
+  --mx:0;--my:0;--sy:0;
 }
-.hero-grid{
-  position:absolute;inset:0;z-index:1;pointer-events:none;opacity:.5;
-  background-image:linear-gradient(rgba(255,255,255,.045) 1px,transparent 1px),
-                   linear-gradient(90deg,rgba(255,255,255,.045) 1px,transparent 1px);
-  background-size:clamp(48px,6vw,90px) clamp(48px,6vw,90px);
-  -webkit-mask-image:linear-gradient(to bottom,transparent,#000 30%,#000 70%,transparent);
-          mask-image:linear-gradient(to bottom,transparent,#000 30%,#000 70%,transparent);
+.infin{
+  position:relative;isolation:isolate;
+  display:grid;place-items:center;
+  width:min(95vw,1560px);
+  filter:hue-rotate(0deg);
+  animation:infinHue 34s ease-in-out infinite;
 }
-.hero-top{
-  position:absolute;top:clamp(6rem,13vh,8.5rem);left:0;width:100%;z-index:3;
-  display:flex;justify-content:flex-end;gap:1rem;
-  padding-inline:var(--pad-x);pointer-events:none;
-}
-.hero-top .label{opacity:.6;max-width:22ch}
-.hero-top .hero-top-r{text-align:right}
-.hero-content{position:relative;z-index:3;width:100%;padding-inline:var(--pad-x)}
-.hero-title{
+@keyframes infinHue{0%,100%{filter:hue-rotate(-6deg)}50%{filter:hue-rotate(6deg)}}
+
+/* Shared glyph geometry — every clipped layer sits in the same grid cell so
+   the letterforms line up to the pixel. */
+.il{
+  grid-area:1/1;display:block;text-align:center;
   font-family:var(--font-display);font-weight:700;
-  font-size:clamp(2.7rem,10.5vw,11rem);line-height:.9;letter-spacing:-.045em;
-  text-transform:uppercase;
+  font-size:clamp(4rem,23vw,20rem);line-height:.92;
+  /* padding keeps the clipped background box larger than the glyphs so the
+     slash descender (and any overshoot) stays filled, not hollow */
+  padding:.08em 0 .16em;
+  letter-spacing:-.055em;text-transform:uppercase;
+  color:transparent;-webkit-text-fill-color:transparent;
+  -webkit-background-clip:text;background-clip:text;
+  background-repeat:no-repeat;background-position:50% 50%;
+  --eye:clamp(180px,18.5vw,380px);
+  will-change:background-position;
 }
-.hero-title .ln{display:block;overflow:hidden}
-.hero-title .ln > span{display:block}
-.hero-title .accent{color:var(--lime)}
-.hero-title .outline{
-  color:transparent;-webkit-text-stroke:1.4px var(--paper);
+.brk{display:none}
+
+/* The internal world is a funky, maximalist pattern COLLAGE clipped to the
+   letters: bold retro stripe blocks, a checkerboard band, graphic rules and a
+   rainbow sunburst "eye", all in a saturated retro palette. Nothing floats
+   outside the type; the dark edge layer keeps IN/FIN readable on white. */
+
+/* 1 — base: bold vertical retro stripe blocks fill every letter with colour */
+.il-base{
+  background-image:repeating-linear-gradient(90deg,
+    #E23B6E 0 3.6%, #F2A31C 3.6% 7.2%, #1C8C8C 7.2% 10.8%,
+    #EE5A22 10.8% 14.4%, #23306E 14.4% 18%, #E9DCBE 18% 21.6%,
+    #1E8C46 21.6% 25.2%, #EB8FB0 25.2% 28.8%, #6E2CC0 28.8% 32.4%, #2440C0 32.4% 36%);
+  background-size:230% 100%;
+  background-position:calc(50% + var(--mx)*18px + var(--sy)*-22px) 50%;
 }
-.hero-foot{
-  margin-top:clamp(1.5rem,4vh,2.6rem);
-  display:flex;align-items:flex-end;justify-content:space-between;gap:2rem;flex-wrap:wrap;
+/* 2 — horizontal colour bands + fine rules crossing the stripes → woven collage */
+.il-blob{
+  mix-blend-mode:multiply;opacity:.92;
+  background-image:
+    repeating-linear-gradient(0deg,
+      rgba(18,8,34,0) 0 8.5%, rgba(18,8,34,.42) 8.5% 10%),
+    repeating-linear-gradient(90deg,
+      rgba(255,255,255,0) 0 42px, rgba(255,255,255,.16) 42px 45px);
+  background-size:auto,auto;
+  background-position:
+    calc(50% + var(--my)*8px) calc(50% + var(--my)*16px + var(--sy)*44px),
+    calc(50% + var(--mx)*10px) 50%;
 }
-.hero-foot p{max-width:42ch;color:var(--taupe);font-size:clamp(.95rem,1.3vw,1.15rem);line-height:1.55}
-.hero-foot p strong{color:var(--paper);font-weight:600}
+/* 3 — the eye: a rainbow sunburst wheel, masked to a circle, centred in the word */
+.il-eye{
+  filter:url(#infin-liquid);
+  -webkit-mask-image:radial-gradient(circle at 50% 50%, #000 45%, rgba(0,0,0,.4) 48%, transparent 52%);
+          mask-image:radial-gradient(circle at 50% 50%, #000 45%, rgba(0,0,0,.4) 48%, transparent 52%);
+  -webkit-mask-size:var(--eye) var(--eye);mask-size:var(--eye) var(--eye);
+  -webkit-mask-position:50% 50%;mask-position:50% 50%;
+  -webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;
+  background-image:repeating-conic-gradient(from 0deg at 50% 50%,
+    #EE3B2E 0deg 6deg,#F2A31C 6deg 12deg,#F2E11C 12deg 18deg,#1E8C46 18deg 24deg,
+    #1C8C8C 24deg 30deg,#2440C0 30deg 36deg,#6E2CC0 36deg 42deg,#E23B8E 42deg 48deg);
+  background-size:var(--eye) var(--eye);
+  background-position:calc(50% + var(--mx)*5px) calc(50% + var(--my)*5px);
+}
+/* 4 — the pupil + glass catch-light over the wheel centre (parallax depth) */
+.il-eye-core{
+  background-image:
+    radial-gradient(circle at 43% 40%, #fff 0 2.6%, rgba(255,255,255,.45) 5%, transparent 8.5%),
+    radial-gradient(circle at 50% 50%, #0a0512 0 11%, rgba(10,5,18,.85) 13%, transparent 16.5%),
+    radial-gradient(circle at 50% 50%, transparent 15%, rgba(255,255,255,.6) 16.5%, transparent 19%);
+  background-size:var(--eye) var(--eye);
+  background-position:
+    calc(50% + var(--mx)*12px) calc(50% + var(--my)*12px),
+    calc(50% + var(--mx)*10px) calc(50% + var(--my)*10px),
+    calc(50% + var(--mx)*10px) calc(50% + var(--my)*10px);
+}
+/* 5 — a checkerboard band woven across the middle of the word */
+.il-chrome{
+  mix-blend-mode:multiply;opacity:.55;
+  background-image:conic-gradient(#160f2e 0 25%, transparent 0 50%, #160f2e 0 75%, transparent 0 100%);
+  background-size:54px 54px;
+  -webkit-mask-image:linear-gradient(0deg, transparent 0 8%, #000 20% 40%, transparent 55%);
+          mask-image:linear-gradient(0deg, transparent 0 8%, #000 20% 40%, transparent 55%);
+  background-position:calc(50% + var(--mx)*8px) calc(50% + var(--sy)*30px);
+}
+/* 6 — fine digital grain */
+.il-grain{
+  mix-blend-mode:overlay;opacity:.2;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='0.6'/></svg>");
+  background-size:150px 150px;background-repeat:repeat;
+  background-position:calc(50% + var(--mx)*4px) calc(50% + var(--my)*4px);
+}
+/* 7 — a slow specular streak sweeping the whole word */
+.il-sheen{
+  mix-blend-mode:screen;opacity:.6;
+  background-image:linear-gradient(105deg,transparent 32%,rgba(255,255,255,.5) 48%,transparent 60%);
+  background-size:260% 100%;background-position:210% 0;
+  animation:infinSheen 8s var(--ease) infinite;
+}
+@keyframes infinSheen{0%,18%{background-position:210% 0}72%,100%{background-position:-130% 0}}
+/* 8 — a thin dark outline so the word stays perfectly readable on white,
+   whatever brightness the internal world reaches */
+.il-edge{
+  background:none;
+  -webkit-text-fill-color:transparent;
+  -webkit-text-stroke:1.4px rgba(11,11,12,.5);
+}
+
+/* --- meta / positioning copy — small, deliberately quiet under the type --- */
+.hero-meta{
+  position:relative;z-index:3;width:100%;
+  display:flex;justify-content:space-between;align-items:flex-end;gap:1.5rem 2rem;flex-wrap:wrap;
+  padding-top:clamp(1.2rem,3.5vh,2.2rem);
+}
+.hm-id{display:flex;flex-direction:column;gap:.35rem;
+  font-family:var(--font-mono);font-size:clamp(.66rem,.8vw,.76rem);letter-spacing:.16em;text-transform:uppercase;color:var(--stone)}
+.hm-name{color:var(--ink);font-weight:700}
+.hm-tag{font-family:var(--font-display);font-weight:700;
+  font-size:clamp(1.05rem,2.3vw,1.7rem);letter-spacing:-.02em;line-height:1;color:var(--ink)}
 .scroll-cue{
-  display:flex;align-items:center;gap:.8rem;
-  font-family:var(--font-mono);font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--taupe);
+  display:flex;align-items:center;gap:.75rem;
+  font-family:var(--font-mono);font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--stone);
 }
-.scroll-cue .dot{width:26px;height:42px;border:1px solid rgba(255,255,255,.3);border-radius:20px;position:relative}
-.scroll-cue .dot::after{content:"";position:absolute;top:7px;left:50%;transform:translateX(-50%);width:4px;height:8px;border-radius:2px;background:var(--lime);animation:scrolldot 1.8s var(--ease) infinite}
+.scroll-cue .dot{width:24px;height:38px;border:1px solid rgba(11,11,12,.3);border-radius:20px;position:relative}
+.scroll-cue .dot::after{content:"";position:absolute;top:7px;left:50%;transform:translateX(-50%);width:4px;height:8px;border-radius:2px;background:var(--pop);animation:scrolldot 1.8s var(--ease) infinite}
 @keyframes scrolldot{0%{opacity:0;transform:translate(-50%,0)}30%{opacity:1}70%{opacity:1}100%{opacity:0;transform:translate(-50%,14px)}}
 
 /* ============================================================
@@ -830,7 +927,14 @@ body.show-cursor #cursor{display:block}
   .menu-toggle.open i:nth-child(2){opacity:0}
   .menu-toggle.open i:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
   .plate{width:clamp(150px,42vw,220px)}
-  .hero-top{display:none}
+}
+/* Phone: stack IN/ over FIN so the wordmark stays huge, and let the eye grow
+   to match the taller stacked letters. Meta copy stacks and left-aligns. */
+@media(max-width:680px){
+  .brk{display:block}
+  .il{font-size:clamp(5.2rem,40vw,12rem);line-height:.82;--eye:clamp(150px,34vw,300px)}
+  .infin{width:min(92vw,560px)}
+  .hero-meta{flex-direction:column;align-items:flex-start;gap:1rem}
 }
 @media(max-width:620px){
   .plates{height:clamp(360px,90vw,460px)}
@@ -838,8 +942,6 @@ body.show-cursor #cursor{display:block}
   .growth-step .gs-num{font-size:32vw}
   .result{border-right:none}
   .result:nth-child(odd){border-right:1px solid rgba(255,255,255,.25)}
-  /* Bigger, bolder hero headline on phones */
-  .hero-title{font-size:clamp(3.4rem,16vw,5.6rem);line-height:.92;letter-spacing:-.04em}
 }
 
 /* ============================================================
@@ -848,7 +950,12 @@ body.show-cursor #cursor{display:block}
 @media(prefers-reduced-motion:reduce){
   *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important}
   .scroll-cue .dot::after{animation:none}
-  #hero-fallback{filter:none}
+  /* Hero: keep the artwork, drop the motion. Freeze the world in a composed
+     resting state and remove the liquid displacement. */
+  .infin{animation:none!important;filter:none!important}
+  .il-sheen{animation:none!important;opacity:.35}
+  .il-eye{filter:none!important}
+  .infin-stage{--mx:0;--my:0;--sy:0}
 }
 
 /* Utility to hide until JS ready for split reveals */
@@ -908,17 +1015,9 @@ body{background:var(--white);color:var(--ink)}
 .btn-ghost{border-color:rgba(11,11,12,.25);color:var(--ink)}
 .btn-ghost:hover{background:var(--ink);color:var(--white);border-color:var(--ink)}
 
-/* Hero */
+/* Hero — the IN/FIN universe is authored white-first in the main block above,
+   so the light-theme layer only needs to keep the surface white. */
 #hero{background:var(--white)}
-.hero-grid{background-image:linear-gradient(rgba(11,11,12,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(11,11,12,.05) 1px,transparent 1px)}
-#hero-fallback{opacity:.5}
-.hero-title .outline{-webkit-text-stroke-color:var(--ink)}
-.hero-title .accent{color:var(--pop)}
-.hero-foot p{color:var(--stone)}
-.hero-foot p strong{color:var(--ink)}
-.scroll-cue{color:var(--stone)}
-.scroll-cue .dot{border-color:rgba(11,11,12,.3)}
-.scroll-cue .dot::after{background:var(--pop)}
 
 /* Marquee (dark → white) */
 .marquee{border-color:rgba(11,11,12,.14)}
