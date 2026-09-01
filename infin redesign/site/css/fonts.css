@@ -7,3 +7,5 @@
 @font-face{font-family:"Inter";font-style:normal;font-weight:600;font-display:swap;src:url("fonts/inter-600.woff2") format("woff2")}
 @font-face{font-family:"Space Mono";font-style:normal;font-weight:400;font-display:swap;src:url("fonts/sm-400.woff2") format("woff2")}
 @font-face{font-family:"Space Mono";font-style:normal;font-weight:700;font-display:swap;src:url("fonts/sm-700.woff2") format("woff2")}
+/* High-contrast editorial display serif (variable, 400–900) — used for the giant IN/FIN wordmark */
+@font-face{font-family:"Playfair Display";font-style:normal;font-weight:400 900;font-display:swap;src:url("fonts/playfair.woff2") format("woff2")}

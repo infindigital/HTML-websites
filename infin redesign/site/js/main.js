@@ -669,71 +669,64 @@ function initTestimonials() {
    discovered rather than announced.
 -------------------------------------------------------------- */
 function initHero() {
-  const stage = $('[data-infin]');
-  if (!stage) return;
-  const layers = $$('.il', stage);
+  const hero = $('#hero.hero-editorial');
+  if (!hero) return;
+  const word = $('.infin', hero);
 
-  // Pupil slideshow — cycle through website designs we've made
-  const eyeA = $('[data-eye-a]'), eyeB = $('[data-eye-b]');
-  if (eyeA && eyeB) {
-    const shots = ['web-realestate', 'ecom-purity', 'work-soulish', 'work-earthy',
-      'seo-dashboard', 'work-localsouq', 'ads-dashboard', 'work-nkn', 'work-mededge', 'work-arvento'];
-    shots.forEach(s => { const im = new Image(); im.src = `assets/img/${s}.webp`; });
-    let i = 0, cur = eyeA, nxt = eyeB;
-    cur.style.backgroundImage = `url(assets/img/${shots[0]}.webp)`;
-    cur.classList.add('show');
-    setInterval(() => {
-      i = (i + 1) % shots.length;
-      nxt.style.backgroundImage = `url(assets/img/${shots[i]}.webp)`;
-      nxt.classList.add('show'); cur.classList.remove('show');
-      const t = cur; cur = nxt; nxt = t;
-    }, 2600);
+  // Entrance — quiet, staged reveal
+  if (!REDUCED) {
+    const ins = $$('[data-hero-in]', hero);
+    gsap.set('.infin-word', { autoAlpha: 0, yPercent: 8 });
+    gsap.set('.hpanel', { autoAlpha: 0 });
+    gsap.set(ins, { autoAlpha: 0, y: 16 });
+    const tl = gsap.timeline({ delay: .35 });
+    tl.to('.infin-word', { autoAlpha: 1, yPercent: 0, duration: 1.1, ease: 'power3.out' }, 0)
+      .to('.hpanel', { autoAlpha: 1, duration: 1.2, stagger: .08, ease: 'power2.out' }, .35)
+      .to(ins, { autoAlpha: 1, y: 0, duration: .9, stagger: .08, ease: 'power3.out' }, .55);
   }
 
-  // Entrance — mosaic letters fade up, then the eye
+  // Restrained scroll parallax — the word lifts & softens, panels drift
   if (!REDUCED) {
-    gsap.set(layers, { autoAlpha: 0 });
-    gsap.set('.hero-eye', { autoAlpha: 0 });
-    gsap.set('.hm-id, .hm-tag, .scroll-cue', { autoAlpha: 0, y: 18 });
-    const tl = gsap.timeline({ delay: .25 });
-    tl.to('.il-base', { autoAlpha: 1, duration: .9, ease: 'power2.out' }, 0)
-      .to(['.il-grid', '.il-tint', '.il-grain', '.il-sheen', '.il-edge'], { autoAlpha: 1, duration: 1, stagger: .06, ease: 'power2.out' }, .2)
-      .to('.hero-eye', { autoAlpha: 1, duration: 1.3, ease: 'power3.out' }, .5)
-      .to('.hm-id, .hm-tag, .scroll-cue', { autoAlpha: 1, y: 0, duration: .8, stagger: .1, ease: 'power3.out' }, .7);
-  }
-
-  // Scroll depth: the world drifts inside the letters, the word stays dominant
-  if (!REDUCED) {
-    gsap.to(stage, {
-      '--sy': 1, ease: 'none',
-      scrollTrigger: { trigger: '#hero', start: 'top top', end: 'bottom top', scrub: true }
+    gsap.to(word, {
+      yPercent: -6, scale: 1.02, ease: 'none',
+      scrollTrigger: { trigger: hero, start: 'top top', end: 'bottom top', scrub: true }
     });
-    gsap.to('.infin', {
-      yPercent: -8, ease: 'none',
-      scrollTrigger: { trigger: '#hero', start: 'top top', end: 'bottom top', scrub: true }
+    gsap.to('.hero-say', {
+      yPercent: -14, autoAlpha: .35, ease: 'none',
+      scrollTrigger: { trigger: hero, start: 'top top', end: 'bottom top', scrub: true }
+    });
+    $$('.hpanel', hero).forEach(p => {
+      const d = parseFloat(p.dataset.depth || '0.06');
+      gsap.to(p, {
+        yPercent: -d * 320, ease: 'none',
+        scrollTrigger: { trigger: hero, start: 'top top', end: 'bottom top', scrub: true }
+      });
     });
   }
 
-  // Smoothed pointer + slow autonomous drift → CSS vars (letters unaffected)
-  if (REDUCED) return;
-  let tx = 0, ty = 0, cx = 0, cy = 0;
-  const t0 = performance.now();
-  if (!TOUCH) {
-    // Track the cursor across the whole hero so the eye/pupil follow it
-    window.addEventListener('pointermove', e => {
-      const r = stage.getBoundingClientRect();
-      tx = Math.max(-1, Math.min(1, ((e.clientX - r.left) / r.width - .5) * 2));
-      ty = Math.max(-1, Math.min(1, ((e.clientY - r.top) / r.height - .5) * 2));
-    }, { passive: true });
-  }
-  const tick = now => {
-    const t = now - t0;
-    const dx = Math.sin(t * 0.00019) * 0.5 + Math.sin(t * 0.00007) * 0.2;
-    const dy = Math.cos(t * 0.00016) * 0.5 + Math.cos(t * 0.00005) * 0.2;
-    cx += (tx * 0.9 + dx - cx) * 0.045;
-    cy += (ty * 0.9 + dy - cy) * 0.045;
-    stage.style.setProperty('--mx', cx.toFixed(4));
-    stage.style.setProperty('--my', cy.toFixed(4));
+  if (REDUCED || TOUCH) return;
+
+  // Soft spotlight that follows the cursor: reveals the imagery beneath the ink
+  // and gently parallaxes the panels. Everything smoothed for a premium feel.
+  let tx = 50, ty = 50, cx = 50, cy = 50, tHole = 0, cHole = 0;
+  hero.addEventListener('pointermove', e => {
+    const r = word.getBoundingClientRect();
+    tx = ((e.clientX - r.left) / r.width) * 100;
+    ty = ((e.clientY - r.top) / r.height) * 100;
+    tHole = 7;
+  }, { passive: true });
+  hero.addEventListener('pointerleave', () => { tHole = 0; }, { passive: true });
+
+  const tick = () => {
+    cx += (tx - cx) * 0.10;
+    cy += (ty - cy) * 0.10;
+    cHole += (tHole - cHole) * 0.06;
+    hero.style.setProperty('--sx', cx.toFixed(2) + '%');
+    hero.style.setProperty('--sy', cy.toFixed(2) + '%');
+    hero.style.setProperty('--hole', cHole.toFixed(2) + '%');
+    // panel parallax around the cursor centre (-1..1)
+    hero.style.setProperty('--mx', ((cx - 50) / 50).toFixed(4));
+    hero.style.setProperty('--my', ((cy - 50) / 50).toFixed(4));
     requestAnimationFrame(tick);
   };
   requestAnimationFrame(tick);
