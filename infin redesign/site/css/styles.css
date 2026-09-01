@@ -373,7 +373,7 @@ body.show-cursor #cursor{display:block}
 .il-edge{
   background-image:linear-gradient(90deg,
     #0000 33.2%, #0b0b0c 33.6%, #0b0b0c 46%, #0000 46.4%,
-    #0000 66.4%, #0b0b0c 66.9%, #0b0b0c 73.6%, #0000 74%);
+    #0000 66.2%, #0b0b0c 66.5%, #0b0b0c 74.1%, #0000 74.4%);
   background-size:100% 100%;background-position:0 0;
 }
 
