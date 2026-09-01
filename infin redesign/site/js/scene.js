@@ -74,8 +74,8 @@ export function initHeroScene({ canvas, interactive, lowPower }) {
 
   // Floating browser window (upper-left of the cluster)
   const win = new THREE.Group();
-  const winBody = new THREE.Mesh(roundedPanel(2.2, 1.5, 0.1), glassMat(0xffffff, 0.9));
-  const winBar = new THREE.Mesh(new THREE.BoxGeometry(2.2, 0.26, 0.02), new THREE.MeshStandardMaterial({ color: 0x0B0B0C, roughness: .4 }));
+  const winBody = new THREE.Mesh(roundedPanel(2.2, 1.5, 0.1), glassMat(0x141416, 0.94));
+  const winBar = new THREE.Mesh(new THREE.BoxGeometry(2.2, 0.26, 0.02), new THREE.MeshStandardMaterial({ color: 0xEFECE6, roughness: .4 }));
   winBar.position.set(0, 0.62, 0.06);
   [-0.92, -0.82, -0.72].forEach((x, i) => {
     const dot = new THREE.Mesh(new THREE.CircleGeometry(0.035, 12), new THREE.MeshBasicMaterial({ color: [ACCENTS.magenta, ACCENTS.yellow, ACCENTS.lime][i] }));
@@ -128,7 +128,7 @@ export function initHeroScene({ canvas, interactive, lowPower }) {
       pos[i*3] = (Math.random()-.5)*16; pos[i*3+1] = (Math.random()-.5)*10; pos[i*3+2] = (Math.random()-.5)*8;
     }
     geo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
-    points = new THREE.Points(geo, new THREE.PointsMaterial({ color: 0xEFECE6, size: 0.035, transparent: true, opacity: 0.5 }));
+    points = new THREE.Points(geo, new THREE.PointsMaterial({ color: 0x0B0B0C, size: 0.035, transparent: true, opacity: 0.35 }));
     scene.add(points);
   }
 

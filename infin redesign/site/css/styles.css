@@ -849,3 +849,150 @@ body.show-cursor #cursor{display:block}
 
 /* Utility to hide until JS ready for split reveals */
 .js .pre-reveal{opacity:0}
+
+/* =====================================================================
+   LIGHT THEME
+   Black/dark sections become white with dark text; sections that carry a
+   real colour (violet CTA, the colourful certification cards) are kept.
+   The old blue "numbers" band becomes lime with dark text.
+   Appended last so these declarations win over the dark rules above.
+   Lime is unreadable as text on white, so functional accents (hovers,
+   active states, links, the in/fin slash) use --pop (violet); the vivid
+   per-section accents (magenta lab, colourful cards) stay as they are.
+   ===================================================================== */
+:root{--pop:var(--violet)}
+
+/* Base surface */
+body{background:var(--white);color:var(--ink)}
+::selection{background:var(--pop);color:#fff}
+
+/* Loader */
+#loader{background:var(--white)}
+#loader .loader-mark{color:var(--ink)}
+#loader .loader-mark .slash{color:var(--pop)}
+#loader .loader-sub{color:var(--stone)}
+#loader .loader-bar{background:rgba(11,11,12,.1)}
+#loader .loader-count{color:var(--ink)}
+
+/* Custom cursor — dark so it reads on white */
+#cursor{background:var(--ink)}
+#cursor.big{background:var(--pop)}
+#cursor.big .cursor-label{color:var(--white)}
+#cursor.ring{border-color:var(--ink)}
+
+/* Header */
+#header.scrolled{background:rgba(255,255,255,.72);border-bottom:1px solid rgba(11,11,12,.08)}
+.logo3d,.logo3d .sl{color:var(--ink)}   /* dark wordmark so it reads on white */
+
+/* Mobile menu */
+#mobile-menu{background:var(--white)}
+#mobile-menu nav a{color:var(--ink)}
+#mobile-menu .mm-foot{color:var(--stone)}
+#mobile-menu .mm-foot a:hover{color:var(--pop)}
+
+/* Ghost button on white */
+.btn-ghost{border-color:rgba(11,11,12,.25);color:var(--ink)}
+.btn-ghost:hover{background:var(--ink);color:var(--white);border-color:var(--ink)}
+
+/* Hero */
+#hero{background:var(--white)}
+.hero-grid{background-image:linear-gradient(rgba(11,11,12,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(11,11,12,.05) 1px,transparent 1px)}
+#hero-fallback{opacity:.5}
+.hero-title .outline{-webkit-text-stroke-color:var(--ink)}
+.hero-title .accent{color:var(--pop)}
+.hero-foot p{color:var(--stone)}
+.hero-foot p strong{color:var(--ink)}
+.scroll-cue{color:var(--stone)}
+.scroll-cue .dot{border-color:rgba(11,11,12,.3)}
+.scroll-cue .dot::after{background:var(--pop)}
+
+/* Marquee (dark → white) */
+.marquee{border-color:rgba(11,11,12,.14)}
+.marquee-track .sep{color:var(--pop)}
+
+/* Section theming */
+.sec-dark{background:var(--white);color:var(--ink)}
+.sec-paper{background:var(--white)}
+#growth{background:var(--white)}      /* was warm paper — unify to white */
+#testimonials{background:var(--white)}
+
+/* Services (dark → white) */
+#services{background:var(--white)}
+.svc-list{border-top-color:rgba(11,11,12,.14)}
+.svc-item{border-bottom-color:rgba(11,11,12,.14)}
+.svc-item .svc-num{color:var(--stone)}
+.svc-item .svc-arrow{color:var(--stone)}
+.svc-item .svc-desc{color:var(--stone)}
+.svc-item .svc-tags b{border-color:rgba(11,11,12,.2);color:var(--ink)}
+.svc-item .svc-points li{color:var(--char);opacity:1}
+.svc-item .svc-points li::before{color:var(--pop)}
+.svc-item.active .svc-name{color:var(--pop)}
+.svc-item.active .svc-arrow{color:var(--pop)}
+.svc-item:hover .svc-name{color:var(--pop)}
+
+/* Growth cube faces read on the light page */
+.growth-step .gs-num{filter:drop-shadow(4px 7px 7px rgba(11,11,12,.14))}
+
+/* Work (dark → white) */
+#work{background:var(--white)}
+.work-card{color:var(--ink)}
+.wc-idx{color:var(--stone)}
+.wc-arrow{color:var(--stone)}
+.work-card:hover .wc-arrow{color:var(--pop)}
+.work-card:hover .wc-body h3{color:var(--pop)}
+.wc-body p{color:var(--stone)}
+
+/* Certification band (dark → white; colourful cards kept) */
+.cert{background:var(--white);color:var(--ink)}
+
+/* Creative Lab (dark → white) */
+#lab{background:var(--white)}
+.lab-title{mix-blend-mode:normal;color:var(--ink)}
+.lab-title .accent{color:var(--magenta)}
+.lab-note{background:var(--ink);color:var(--white)}
+.lab-note .ln-dot{color:var(--magenta)}
+
+/* Results — the "numbers move" band: blue → lime, text → dark */
+#results{background:var(--lime);color:var(--ink)}
+.results-head .muted{color:rgba(11,11,12,.4)}
+.results-grid{border-top-color:rgba(11,11,12,.22)}
+.result{border-bottom-color:rgba(11,11,12,.22);border-right-color:rgba(11,11,12,.22)}
+.result .r-label{color:rgba(11,11,12,.65)}
+.result .r-note{color:rgba(11,11,12,.5)}
+
+/* Case study (dark → white) */
+#case{background:var(--white);color:var(--ink)}
+.case-card{border-color:rgba(11,11,12,.1)}
+
+/* Why (dark → white) */
+#why{background:var(--white)}
+.why-item{border-top-color:rgba(11,11,12,.1)}
+
+/* Insights (dark → white) */
+#insights{background:var(--white);color:var(--ink)}
+.article{border-top-color:rgba(11,11,12,.14)}
+.article .a-cat{color:var(--stone)}
+.article:hover .a-cat{color:var(--pop)}
+.article p{color:var(--stone)}
+
+/* Horizontal-scroll progress (if present) */
+.hscroll-progress{background:rgba(11,11,12,.14)}
+.hscroll-progress i{background:var(--pop)}
+
+/* Footer (dark → white) */
+#footer{background:var(--white);color:var(--ink)}
+.footer-big .accent{color:var(--pop)}
+.footer-grid{border-top-color:rgba(11,11,12,.14)}
+.footer-col h4{color:var(--stone)}
+.footer-col a,.footer-col p{color:var(--ink)}
+.footer-col a:hover{color:var(--pop)}
+.footer-col .muted{color:var(--stone)}
+.footer-brand p{color:var(--stone)}
+.footer-brand .tagline{color:var(--ink)}
+.footer-bottom{border-top-color:rgba(11,11,12,.14);color:var(--stone)}
+.footer-bottom a:hover{color:var(--pop)}
+
+/* Results odd-cell border on small screens */
+@media(max-width:620px){
+  .result:nth-child(odd){border-right-color:rgba(11,11,12,.22)}
+}

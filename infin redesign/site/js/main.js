@@ -616,10 +616,10 @@ function initWhy() {
       }
     });
   });
-  // reset to dark when leaving section entirely
+  // reset to the light page background when leaving the section entirely
   ScrollTrigger.create({ trigger: section, start: 'top 80%', end: 'bottom 20%',
-    onLeave: () => gsap.to(section, { backgroundColor: '#0B0B0C', color: '#EFECE6', duration: .6 }),
-    onLeaveBack: () => gsap.to(section, { backgroundColor: '#0B0B0C', color: '#EFECE6', duration: .6 }) });
+    onLeave: () => gsap.to(section, { backgroundColor: '#FFFFFF', color: '#0B0B0C', duration: .6 }),
+    onLeaveBack: () => gsap.to(section, { backgroundColor: '#FFFFFF', color: '#0B0B0C', duration: .6 }) });
 }
 
 /* --------------------------------------------------------------
