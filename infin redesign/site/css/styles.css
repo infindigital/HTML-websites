@@ -408,14 +408,14 @@ body.show-cursor #cursor{display:block}
 .trust-head h2{font-size:clamp(1.9rem,4.6vw,4rem);text-transform:uppercase;max-width:16ch}
 .trust-badges{display:flex;gap:1rem;flex-wrap:wrap;align-items:center}
 .trust-badges img{height:clamp(38px,4vw,54px);width:auto;border-radius:8px}
-.logo-wall{display:flex;flex-direction:column;gap:1.2rem;overflow:hidden}
-.logo-row{display:flex;gap:1.2rem;white-space:nowrap;will-change:transform}
+.logo-wall{display:flex;flex-direction:column;gap:.5rem;overflow:hidden}
+.logo-row{display:flex;gap:0;white-space:nowrap;will-change:transform}
 .logo-chip{
   flex:0 0 auto;display:grid;place-items:center;
-  height:clamp(74px,9vw,110px);min-width:clamp(150px,20vw,240px);padding:0 2rem;
-  background:var(--white);border-radius:14px;border:1px solid rgba(11,11,12,.06);
+  height:clamp(60px,6.5vw,84px);min-width:clamp(130px,16vw,190px);padding:0 1rem;
+  background:var(--white);border-radius:10px;border:1px solid rgba(11,11,12,.06);
 }
-.logo-chip img{max-height:68%;max-width:84%;width:auto;opacity:1;transition:transform .4s var(--ease)}
+.logo-chip img{max-height:82%;max-width:88%;width:auto;opacity:1;transition:transform .4s var(--ease)}
 .logo-chip:hover img{transform:scale(1.06)}
 
 /* ============================================================
