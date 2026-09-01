@@ -860,10 +860,20 @@ body.show-cursor #cursor{display:block}
    active states, links, the in/fin slash) use --pop (violet); the vivid
    per-section accents (magenta lab, colourful cards) stay as they are.
    ===================================================================== */
-:root{--pop:var(--violet)}
+:root{
+  --pop:var(--violet);
+  /* Darken the secondary / description greys — the light-theme page needs
+     stronger body copy than the dark theme did. Both tokens now only sit on
+     light surfaces, so this lifts every description at once. */
+  --stone:#3d3d3b;
+  --taupe:#4a4844;
+}
 
 /* Base surface */
 body{background:var(--white);color:var(--ink)}
+
+/* Service preview badge sits on a dark glass pill over the image */
+.svc-visual-badge span{color:var(--white)}
 ::selection{background:var(--pop);color:#fff}
 
 /* Loader */
