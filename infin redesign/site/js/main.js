@@ -770,4 +770,5 @@ function boot() {
   window.addEventListener('load', () => ScrollTrigger.refresh());
 }
 
-runLoader(boot);
+// Intro preloader removed — boot straight into the page.
+boot();
