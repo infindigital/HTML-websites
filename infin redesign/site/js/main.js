@@ -677,15 +677,13 @@ function initHero() {
   if (!REDUCED) {
     const ins = $$('[data-hero-in]', hero);
     gsap.set('.infin-word', { autoAlpha: 0, yPercent: 8 });
-    gsap.set('.hpanel', { autoAlpha: 0 });
     gsap.set(ins, { autoAlpha: 0, y: 16 });
     const tl = gsap.timeline({ delay: .35 });
     tl.to('.infin-word', { autoAlpha: 1, yPercent: 0, duration: 1.1, ease: 'power3.out' }, 0)
-      .to('.hpanel', { autoAlpha: 1, duration: 1.2, stagger: .08, ease: 'power2.out' }, .35)
-      .to(ins, { autoAlpha: 1, y: 0, duration: .9, stagger: .08, ease: 'power3.out' }, .55);
+      .to(ins, { autoAlpha: 1, y: 0, duration: .9, stagger: .08, ease: 'power3.out' }, .5);
   }
 
-  // Restrained scroll parallax — the word lifts & softens, panels drift
+  // Restrained scroll parallax — the word lifts & softens
   if (!REDUCED) {
     gsap.to(word, {
       yPercent: -6, scale: 1.02, ease: 'none',
@@ -694,13 +692,6 @@ function initHero() {
     gsap.to('.hero-say', {
       yPercent: -14, autoAlpha: .35, ease: 'none',
       scrollTrigger: { trigger: hero, start: 'top top', end: 'bottom top', scrub: true }
-    });
-    $$('.hpanel', hero).forEach(p => {
-      const d = parseFloat(p.dataset.depth || '0.06');
-      gsap.to(p, {
-        yPercent: -d * 320, ease: 'none',
-        scrollTrigger: { trigger: hero, start: 'top top', end: 'bottom top', scrub: true }
-      });
     });
   }
 
