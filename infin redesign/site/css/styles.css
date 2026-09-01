@@ -348,29 +348,17 @@ body.show-cursor #cursor{display:block}
     0% 50%,33.33% 50%,66.66% 50%,100% 50%,
     0% 100%,33.33% 100%,66.66% 100%,100% 100%;
 }
-/* 2 — funky black stripes over the mosaic (diagonal bars + a tile grid) */
+/* 2 — bold black stripes over just the LEFT HALF of the word (funky accent);
+   the rest of the letters stay as the clean poster mosaic */
 .il-grid{
-  mix-blend-mode:multiply;opacity:.8;
-  background-image:
-    repeating-linear-gradient(135deg, rgba(6,4,12,.92) 0 10px, transparent 10px 46px),
-    repeating-linear-gradient(90deg, rgba(6,4,12,.8) 0 2px, transparent 2px 25%),
-    repeating-linear-gradient(0deg,  rgba(6,4,12,.8) 0 2px, transparent 2px 33.333%);
-  background-position:calc(50% + var(--mx)*10px) 50%, 0 0, 0 0;
+  mix-blend-mode:multiply;opacity:.92;
+  background-image:repeating-linear-gradient(135deg, rgba(6,4,12,.96) 0 16px, transparent 16px 44px);
+  background-position:calc(50% + var(--mx)*8px) 50%;
+  -webkit-mask-image:linear-gradient(90deg, #000 0 40%, transparent 52%);
+          mask-image:linear-gradient(90deg, #000 0 40%, transparent 52%);
 }
-/* 3 — funky colour stripes: pink · orange · blue · lime diagonals washed over
-   the posters so the whole word reads bright and playful */
-.il-tint{
-  mix-blend-mode:overlay;opacity:.7;
-  background-image:repeating-linear-gradient(48deg,
-    rgba(240,60,150,.95) 0 26px,   /* pink */
-    rgba(255,120,30,.95) 26px 52px,/* orange */
-    rgba(255,214,40,.9)  52px 78px,/* yellow */
-    rgba(40,120,240,.92) 78px 104px,/* blue */
-    rgba(150,255,60,.9)  104px 130px,/* lime */
-    rgba(150,70,255,.92) 130px 156px);/* violet */
-  background-size:200% 200%;
-  background-position:calc(50% + var(--mx)*24px) calc(50% + var(--my)*24px);
-}
+/* 3 — (no funky colour overlay) inert */
+.il-tint{background:none}
 /* 4 — fine digital grain */
 .il-grain{
   mix-blend-mode:overlay;opacity:.16;
