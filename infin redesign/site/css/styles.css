@@ -659,8 +659,8 @@ body.show-cursor #cursor{display:block}
 .c-orange{background:var(--orange);color:var(--ink)}
 .c-violet{background:var(--violet);color:#fff}
 .cc-top{display:flex;align-items:flex-start;justify-content:space-between;transform:translateZ(45px)}
-.cc-badge{width:66px;height:48px;background:#fff;border-radius:11px;display:grid;place-items:center;overflow:hidden;box-shadow:0 8px 18px -8px rgba(0,0,0,.4)}
-.cc-badge img{max-width:84%;max-height:74%;object-fit:contain}
+.cc-badge{width:82px;height:60px;background:#fff;border-radius:12px;display:grid;place-items:center;overflow:hidden;box-shadow:0 8px 18px -8px rgba(0,0,0,.4)}
+.cc-badge img{max-width:92%;max-height:84%;object-fit:contain}
 .cc-arrow{font-size:1.4rem;transition:transform .4s var(--ease)}
 .cert-card:hover .cc-arrow{transform:translate(5px,-5px)}
 .cc-big{font-family:var(--font-display);font-weight:700;font-size:clamp(3.6rem,6vw,5.2rem);line-height:.88;letter-spacing:-.045em;display:flex;align-items:baseline;gap:.08em;transform:translateZ(35px)}
