@@ -955,11 +955,12 @@ body{background:var(--white);color:var(--ink)}
 #loader .loader-bar{background:rgba(11,11,12,.1)}
 #loader .loader-count{color:var(--ink)}
 
-/* Custom cursor — dark so it reads on white */
-#cursor{background:var(--ink)}
-#cursor.big{background:var(--pop)}
+/* Custom cursor — solid dark so it reads on white (no difference-blend, which
+   would turn a dark dot near-white and make it invisible on the light theme) */
+#cursor{background:var(--ink);mix-blend-mode:normal}
+#cursor.big{background:var(--pop);mix-blend-mode:normal}
 #cursor.big .cursor-label{color:var(--white)}
-#cursor.ring{border-color:var(--ink)}
+#cursor.ring{border-color:var(--ink);mix-blend-mode:normal}
 
 /* Header */
 #header.scrolled{background:rgba(255,255,255,.72);border-bottom:1px solid rgba(11,11,12,.08)}
@@ -1081,6 +1082,8 @@ body{background:var(--white);color:var(--ink)}
 .legal-page #mobile-menu nav a span{transform:none}
 
 .legal-main{padding-top:clamp(6.5rem,13vh,9rem)}
+/* Centre the reading column so whitespace is balanced (not all on the right) */
+.legal-hero,.legal-body{max-width:860px;margin-inline:auto}
 .legal-hero{padding-bottom:clamp(1.8rem,4vh,2.8rem);border-bottom:1px solid #EAEAEA}
 .legal-hero h1{
   font-family:var(--font-display);font-weight:700;letter-spacing:-.03em;line-height:1;
@@ -1091,8 +1094,9 @@ body{background:var(--white);color:var(--ink)}
 .legal-updated{font-family:var(--font-mono);font-size:.72rem;letter-spacing:.16em;
   text-transform:uppercase;color:var(--stone);margin-top:1.4rem}
 
-.legal-body{max-width:760px;margin-top:clamp(2.4rem,6vh,3.6rem);
+.legal-body{max-width:860px;margin-top:clamp(2.4rem,6vh,3.6rem);
   padding-bottom:clamp(3.5rem,9vh,6rem)}
+.legal-body p,.legal-body li{max-width:none}
 .legal-body section{margin-bottom:clamp(1.8rem,3.5vh,2.6rem)}
 .legal-body h2{
   font-family:var(--font-display);font-weight:700;letter-spacing:-.02em;line-height:1.18;
