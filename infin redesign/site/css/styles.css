@@ -1069,3 +1069,63 @@ body{background:var(--white);color:var(--ink)}
 @media(max-width:620px){
   .result:nth-child(odd){border-right-color:rgba(11,11,12,.22)}
 }
+
+/* ============================================================
+   LEGAL PAGES (Privacy Policy / Terms & Conditions)
+   Lightweight, white, readable. Reuses the site header/footer and
+   type tokens; no JS-driven reveals so the pages work without GSAP.
+   ============================================================ */
+.legal-page{background:var(--white);color:var(--ink)}
+/* mobile-menu link text is GSAP-revealed on the homepage; on the legal
+   pages (no GSAP) show it directly. The menu is still hidden when closed. */
+.legal-page #mobile-menu nav a span{transform:none}
+
+.legal-main{padding-top:clamp(6.5rem,13vh,9rem)}
+.legal-hero{padding-bottom:clamp(1.8rem,4vh,2.8rem);border-bottom:1px solid #EAEAEA}
+.legal-hero h1{
+  font-family:var(--font-display);font-weight:700;letter-spacing:-.03em;line-height:1;
+  font-size:clamp(2.4rem,6vw,4.6rem);margin:.7rem 0 1.1rem;color:var(--ink);
+}
+.legal-intro{max-width:62ch;color:var(--stone);line-height:1.65;
+  font-size:clamp(1rem,1.4vw,1.15rem)}
+.legal-updated{font-family:var(--font-mono);font-size:.72rem;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--stone);margin-top:1.4rem}
+
+.legal-body{max-width:760px;margin-top:clamp(2.4rem,6vh,3.6rem);
+  padding-bottom:clamp(3.5rem,9vh,6rem)}
+.legal-body section{margin-bottom:clamp(1.8rem,3.5vh,2.6rem)}
+.legal-body h2{
+  font-family:var(--font-display);font-weight:700;letter-spacing:-.02em;line-height:1.18;
+  font-size:clamp(1.25rem,2.3vw,1.65rem);margin-bottom:.75rem;color:var(--ink);
+  display:flex;gap:.55em;align-items:baseline;
+}
+.legal-body h2 .num{font-family:var(--font-mono);font-weight:400;font-size:.72em;color:var(--pop);flex:none}
+.legal-body h3{font-family:var(--font-display);font-weight:600;font-size:1.05rem;
+  color:var(--ink);margin:1.25rem 0 .5rem}
+.legal-body p{color:var(--char);font-size:1rem;line-height:1.72;margin-bottom:.9rem;max-width:70ch}
+.legal-body ul,.legal-body ol{margin:0 0 1.1rem;padding:0}
+.legal-body li{position:relative;padding-left:1.5em;margin-bottom:.5rem;color:var(--char);line-height:1.6;max-width:70ch}
+.legal-body ul li::before{content:"";position:absolute;left:.25em;top:.62em;width:6px;height:6px;border-radius:50%;background:var(--pop)}
+.legal-body ol{counter-reset:li}
+.legal-body ol li{counter-increment:li}
+.legal-body ol li::before{content:counter(li);position:absolute;left:0;top:.02em;font-family:var(--font-mono);font-size:.82em;color:var(--pop)}
+.legal-body a{color:var(--ink);border-bottom:1px solid var(--pop);transition:color .2s}
+.legal-body a:hover{color:var(--pop)}
+.legal-body strong{font-weight:600;color:var(--ink)}
+
+.legal-contact{margin-top:2.2rem;padding:clamp(1.4rem,3vw,2rem);
+  border:1px solid #EAEAEA;border-radius:var(--radius)}
+.legal-contact h2{margin-bottom:.7rem}
+.legal-contact address{font-style:normal;color:var(--char);line-height:1.75}
+.legal-contact a{color:var(--ink);border-bottom:1px solid var(--pop)}
+.legal-contact a:hover{color:var(--pop)}
+.legal-note{margin-top:2rem;padding-top:1.2rem;border-top:1px solid #EAEAEA;
+  font-size:.82rem;color:var(--stone);line-height:1.65}
+
+/* Clear, visible keyboard focus on the legal pages */
+.legal-page a:focus-visible,.legal-page button:focus-visible{outline:2px solid var(--pop);outline-offset:3px}
+
+@media(max-width:600px){
+  .legal-body{margin-top:2rem}
+  .legal-body h2{gap:.4em}
+}
