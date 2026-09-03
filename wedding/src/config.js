@@ -2,6 +2,7 @@
 //  Azeem & Noora — Wedding Invitation · CENTRAL CONFIG
 //  Edit couple details, date, venue and assets here. All visible wording
 //  lives in src/i18n.js (translations), keyed to these values where needed.
+//  Deploys on Vercel with the project Root Directory set to `wedding`.
 // =====================================================================
 
 const mapQuery =
