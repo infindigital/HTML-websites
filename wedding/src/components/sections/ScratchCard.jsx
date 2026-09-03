@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState, useCallback } from 'react'
 import config from '../../config.js'
 import { useLanguage } from '../../context/LanguageContext.jsx'
+import { fireConfetti } from '../../lib/confetti.js'
 import ArchFrame from '../ui/ArchFrame.jsx'
 import Reveal from '../ui/Reveal.jsx'
 import { Flourish } from '../ui/Ornaments.jsx'
@@ -78,6 +79,16 @@ export default function ScratchCard() {
     if (stateRef.current.revealed) return
     stateRef.current.revealed = true
     setRevealed(true)
+    // Birthday-style confetti pop bursting from the card's centre.
+    const wrap = wrapRef.current
+    if (wrap) {
+      const r = wrap.getBoundingClientRect()
+      const cx = r.left + r.width / 2
+      const cy = r.top + r.height / 2
+      fireConfetti(cx, cy)
+      // a second, softer puff a beat later for a fuller pop
+      setTimeout(() => fireConfetti(cx, cy - 12, { count: 70, power: 0.85 }), 180)
+    }
   }, [])
 
   // Percentage of the cover that has been scratched away.
