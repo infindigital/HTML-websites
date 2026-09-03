@@ -1002,6 +1002,62 @@ canvas {
 }
 
 /* =====================================================================
+   Larger screens — the phone column opens into a full invitation page.
+   Mobile (< 700px) is intentionally left exactly as designed; from here up
+   everything scales proportionally (root rem zoom) and the frame widens so
+   the invitation fills the screen instead of floating in a narrow box.
+   ===================================================================== */
+@media (min-width: 700px) {
+  html {
+    font-size: 17.5px; /* gentle proportional zoom of all rem-based sizing */
+  }
+  body {
+    font-size: 18px;
+  }
+  .app {
+    max-width: 600px;
+  }
+}
+
+@media (min-width: 1024px) {
+  html {
+    font-size: 19px; /* fuller zoom for desktop */
+  }
+  body {
+    font-size: 19px;
+  }
+  .app {
+    max-width: min(74vw, 960px); /* fills the screen like a printed invitation */
+    box-shadow: none; /* drop the floating phone-card frame */
+  }
+  .section {
+    padding: 90px 44px;
+  }
+
+  /* hero grows to match the wider frame */
+  .arch {
+    padding: 54px 44px 46px;
+  }
+  .bismillah {
+    font-size: clamp(2.2rem, 5vw, 2.9rem);
+    margin-bottom: 1.1rem;
+  }
+  .main-invite__lead {
+    max-width: 30rem;
+  }
+
+  /* inner cards were pinned to phone width — let them grow with the page */
+  .scratch__arch,
+  .venue__arch,
+  .verse__arch {
+    max-width: 32rem;
+  }
+  .countdown__grid {
+    max-width: 36rem;
+  }
+}
+
+/* =====================================================================
    RTL & reduced-motion
    ===================================================================== */
 :root[dir='rtl'] .lang-switch__eng {
