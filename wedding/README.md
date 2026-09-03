@@ -28,17 +28,19 @@ npm run preview    # serve the production build locally
 
 ---
 
-## Add your two assets
+## Assets
 
-Put these in `public/` (see `public/README.md`):
+They live in `public/` (see `public/README.md`):
 
 | File                 | What it is                        | Status                |
 | -------------------- | --------------------------------- | --------------------- |
-| `public/song.mp3`    | Looping background music          | **TODO — add yours**  |
+| `public/song.mp3`    | Looping background music          | ✅ included           |
 | `public/preview.jpg` | 1200×630 social share image (OG)  | Placeholder included  |
 
-The invitation works without the music file — the music button just stays
-silent until you add `song.mp3`.
+Music playback (and every loop) starts **13 seconds in** to skip the intro —
+adjust with `audioStartOffset` in `src/config.js` (`0` = from the start). The
+invitation still works if the music file is ever removed; the button just
+stays silent.
 
 ---
 

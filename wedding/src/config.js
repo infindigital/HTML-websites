@@ -32,10 +32,11 @@ const config = {
     address: 'Jeppinamogaru, Mangaluru, Karnataka 575002',
     short: 'Mangaluru, Karnataka',
     mapQuery,
-    // Keyless Google Maps embed + directions, built from mapQuery.
-    googleMapsEmbedUrl: `https://www.google.com/maps?q=${encodeURIComponent(
-      mapQuery,
-    )}&output=embed`,
+    // Exact Google "Embed a map" URL pinned to the venue (no API key needed).
+    // To replace: Google Maps → Share → Embed a map → copy the iframe src.
+    googleMapsEmbedUrl:
+      'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3697.3666128432315!2d74.86407927483921!3d12.854107587450569!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba35b9f07ef1f07%3A0x8fe4cfe13b636e12!2sINDIANA%20CONVENTION%20CENTER!5e1!3m2!1sen!2sin!4v1788439456905!5m2!1sen!2sin',
+    // "Get Directions" button target, built from mapQuery.
     directionsUrl: `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(
       mapQuery,
     )}`,
@@ -55,6 +56,9 @@ const config = {
 
   // Assets — drop your own files into /public (see README).
   audioSrc: '/song.mp3',
+  // The track has a short intro; playback (and every loop) begins here, in
+  // seconds. Set to 0 to play from the very start.
+  audioStartOffset: 13,
   previewImage: '/preview.jpg',
 
   defaultLanguage: 'en',
