@@ -962,7 +962,7 @@ canvas {
 .venue__address {
   color: var(--ink-soft);
   font-size: 1.02rem;
-  margin-top: 0.3rem;
+  margin: 0.3rem auto 0;
   max-width: 20rem;
 }
 .venue__directions {
