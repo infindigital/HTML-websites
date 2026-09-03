@@ -24,7 +24,7 @@ export default function App() {
       document
         .getElementById('invitation')
         ?.scrollIntoView({ behavior: 'smooth', block: 'start' })
-    }, 850)
+    }, 1050)
   }, [play])
 
   return (

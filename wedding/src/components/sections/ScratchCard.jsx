@@ -6,6 +6,10 @@ import Reveal from '../ui/Reveal.jsx'
 import { Flourish } from '../ui/Ornaments.jsx'
 
 // Section 4 — Scratch-to-Reveal Card.
+// Fraction of the gold cover that must be cleared before it auto-reveals.
+// Kept low so a light scratch is enough — the rest fades away on its own.
+const REVEAL_AT = 0.12
+
 export default function ScratchCard() {
   const { t, lang } = useLanguage()
   const canvasRef = useRef(null)
@@ -113,7 +117,7 @@ export default function ScratchCard() {
 
     function scratchTo(p) {
       ctx.globalCompositeOperation = 'destination-out'
-      const r = 20
+      const r = 30
       const last = stateRef.current.last
       if (last) {
         ctx.lineWidth = r * 2
@@ -142,14 +146,14 @@ export default function ScratchCard() {
       e.preventDefault()
       scratchTo(pos(e))
       stateRef.current.moves++
-      if (stateRef.current.moves % 6 === 0) {
-        if (sampleCleared() > 0.5) doReveal()
+      if (stateRef.current.moves % 4 === 0) {
+        if (sampleCleared() > REVEAL_AT) doReveal()
       }
     }
     function onUp() {
       stateRef.current.drawing = false
       stateRef.current.last = null
-      if (!stateRef.current.revealed && sampleCleared() > 0.5) doReveal()
+      if (!stateRef.current.revealed && sampleCleared() > REVEAL_AT) doReveal()
     }
 
     canvas.addEventListener('pointerdown', onDown)

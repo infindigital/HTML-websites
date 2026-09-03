@@ -554,7 +554,18 @@ canvas {
   height: 158px;
   border-radius: 50%;
   border: none;
+  padding: 0;
   cursor: pointer;
+  background: transparent;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  -webkit-user-select: none;
+}
+/* The wax body — reused whole and, on break, inside each falling half. */
+.seal__face {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
   background: radial-gradient(
     circle at 35% 28%,
     #f4e5a6 0%,
@@ -569,9 +580,41 @@ canvas {
   align-items: center;
   justify-content: center;
   color: #4a3a1c;
-  -webkit-tap-highlight-color: transparent;
-  user-select: none;
-  -webkit-user-select: none;
+}
+/* Two halves split along a jagged crack down the middle; they share the exact
+   same crack vertices so they tile the whole face seamlessly before the tap. */
+.seal__half {
+  position: absolute;
+  inset: 0;
+  will-change: transform, opacity;
+}
+.seal__half--left {
+  clip-path: polygon(
+    0 0,
+    50% 0,
+    46% 18%,
+    54% 35%,
+    44% 52%,
+    55% 70%,
+    47% 86%,
+    51% 100%,
+    0 100%
+  );
+  transform-origin: 58% 42%;
+}
+.seal__half--right {
+  clip-path: polygon(
+    50% 0,
+    100% 0,
+    100% 100%,
+    51% 100%,
+    47% 86%,
+    55% 70%,
+    44% 52%,
+    54% 35%,
+    46% 18%
+  );
+  transform-origin: 42% 42%;
 }
 .seal__ring {
   position: absolute;
