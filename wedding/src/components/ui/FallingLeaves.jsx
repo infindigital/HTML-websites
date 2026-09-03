@@ -51,8 +51,9 @@ export default function FallingLeaves() {
 
     function build() {
       const area = width * height
-      const leafCount = Math.round(Math.min(34, Math.max(12, area / 34000)))
-      const speckCount = Math.round(Math.min(28, Math.max(8, area / 46000)))
+      // Sparse, calm drift — a few leaves and a handful of specks.
+      const leafCount = Math.round(Math.min(12, Math.max(5, area / 100000)))
+      const speckCount = Math.round(Math.min(9, Math.max(3, area / 150000)))
       particles = []
       for (let i = 0; i < leafCount; i++) particles.push(makeParticle('leaf', true))
       for (let i = 0; i < speckCount; i++) particles.push(makeParticle('speck', true))

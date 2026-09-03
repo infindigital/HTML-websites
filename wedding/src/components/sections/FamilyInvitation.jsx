@@ -1,4 +1,3 @@
-import config from '../../config.js'
 import { useLanguage } from '../../context/LanguageContext.jsx'
 import ArchFrame from '../ui/ArchFrame.jsx'
 import Reveal from '../ui/Reveal.jsx'
@@ -7,7 +6,6 @@ import { AmpersandDivider, Flourish } from '../ui/Ornaments.jsx'
 // Section 3 — Family Invitation.
 export default function FamilyInvitation() {
   const { t } = useLanguage()
-  const { couple } = config
 
   return (
     <section className="section family-invite" aria-label="Family invitation">
@@ -26,8 +24,8 @@ export default function FamilyInvitation() {
 
         <div className="party">
           <Reveal className="party__member">
-            <h2 className="cormorant party__name">{couple.groomFullName}</h2>
-            <p className="party__parentage">{couple.groomParentage}</p>
+            <h2 className="cormorant party__name">{t('nameGroomFull')}</h2>
+            <p className="party__parentage">{t('nameGroomParentage')}</p>
           </Reveal>
 
           <Reveal delay={0.08}>
@@ -35,8 +33,8 @@ export default function FamilyInvitation() {
           </Reveal>
 
           <Reveal delay={0.12} className="party__member">
-            <h2 className="cormorant party__name">{couple.brideFullName}</h2>
-            <p className="party__parentage">{couple.brideParentage}</p>
+            <h2 className="cormorant party__name">{t('nameBrideFull')}</h2>
+            <p className="party__parentage">{t('nameBrideParentage')}</p>
           </Reveal>
         </div>
 

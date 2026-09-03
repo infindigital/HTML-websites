@@ -17,7 +17,7 @@ export default function Closing() {
       </Reveal>
 
       <Reveal as="p" delay={0.08} className="cormorant closing__names">
-        {couple.combined}
+        {t('nameCombined')}
       </Reveal>
 
       <Reveal as="p" delay={0.14} className="eyebrow closing__love">

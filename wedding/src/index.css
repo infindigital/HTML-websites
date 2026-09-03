@@ -112,7 +112,8 @@ canvas {
     .lang-switch__menu,
     .countdown__box,
     .scratch__wrap,
-    .arch__border,
+    .arch__body,
+    .arch__crown-line,
     .btn-gold
   ) {
   transition: background-color 0.5s ease, color 0.5s ease, border-color 0.5s ease;
@@ -371,30 +372,48 @@ canvas {
 }
 
 /* =====================================================================
-   Arch frame (mihrab)
+   Arch frame (mihrab) — a pointed ogee crown over straight double-lined
+   walls, with a diamond finial at the point and at the base.
    ===================================================================== */
 .arch {
   position: relative;
-  padding: 42px 26px 36px;
-  margin: 0 auto;
   width: 100%;
+  margin: 0 auto;
+  padding: 0 22px 2px;
+}
+.arch__crown {
+  display: block;
+  width: 100%;
+  height: auto; /* uniform scale: crown height = 0.2 × width */
+  margin-bottom: -1px; /* meet the walls seamlessly at the shoulders */
+  color: var(--gold-1);
+  overflow: visible;
+}
+.arch__crown-line {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5px;
+  vector-effect: non-scaling-stroke;
+}
+.arch__body {
+  position: relative;
+  border: 1.5px solid var(--gold-1);
+  border-top: none; /* the crown provides the top */
+  border-radius: 0 0 14px 14px;
+}
+.arch__body-inner {
+  position: absolute;
+  inset: 5px;
+  border: 1px solid var(--gold-1);
+  border-top: none;
+  border-radius: 0 0 11px 11px;
+  opacity: 0.5;
+  pointer-events: none;
 }
 .arch__content {
   position: relative;
   z-index: 1;
-}
-.arch__border {
-  position: absolute;
-  inset: 0;
-  border: 1.5px solid var(--gold-1);
-  border-radius: 50% 50% 12px 12px / 92px 92px 12px 12px;
-  pointer-events: none;
-}
-.arch__border--inner {
-  inset: 6px;
-  border-width: 1px;
-  opacity: 0.5;
-  border-radius: 50% 50% 10px 10px / 84px 84px 10px 10px;
+  padding: 26px 22px 34px;
 }
 .arch__finial {
   position: absolute;
@@ -404,9 +423,10 @@ canvas {
   background: var(--gold-grad);
   transform: translateX(-50%) rotate(45deg);
   box-shadow: 0 0 8px rgba(184, 145, 47, 0.5);
+  z-index: 2;
 }
 .arch__finial--top {
-  top: -6px;
+  top: -5px;
 }
 .arch__finial--bottom {
   bottom: -6px;
@@ -1036,7 +1056,10 @@ canvas {
 
   /* hero grows to match the wider frame */
   .arch {
-    padding: 54px 44px 46px;
+    padding: 0 34px 2px;
+  }
+  .arch__content {
+    padding: 38px 40px 46px;
   }
   .bismillah {
     font-size: clamp(2.2rem, 5vw, 2.9rem);

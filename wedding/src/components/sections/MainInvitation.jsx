@@ -9,7 +9,6 @@ import { ChevronDownIcon } from '../ui/Icons.jsx'
 // Section 2 — Main Invitation.
 export default function MainInvitation({ id }) {
   const { t } = useLanguage()
-  const { couple } = config
 
   return (
     <section className="section main-invite" id={id} aria-label="Wedding invitation">
@@ -28,13 +27,13 @@ export default function MainInvitation({ id }) {
 
         <div className="names">
           <Reveal as="h1" delay={0.12} className="cormorant name">
-            {couple.groomFirst}
+            {t('nameGroomFirst')}
           </Reveal>
           <Reveal delay={0.18}>
             <AmpersandDivider />
           </Reveal>
           <Reveal as="h1" delay={0.24} className="cormorant name">
-            {couple.brideFirst}
+            {t('nameBrideFirst')}
           </Reveal>
         </div>
 

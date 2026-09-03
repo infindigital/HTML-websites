@@ -32,6 +32,15 @@ export const translations = {
     themeToDark: 'Switch to dark mode',
     themeToLight: 'Switch to light mode',
 
+    // names — transliterated into each script so they change with the language
+    nameGroomFirst: 'Azeem',
+    nameBrideFirst: 'Noora',
+    nameCombined: 'Azeem & Noora',
+    nameGroomFull: 'Mohammed Azeem',
+    nameBrideFull: 'Noora Fathima',
+    nameGroomParentage: 'S/O. K. Badruddin & Sabeena',
+    nameBrideParentage: 'D/O. Dr. Naseer P.M. & Rahima',
+
     // 1 · seal intro
     youAreInvited: 'YOU ARE INVITED',
     tapToOpen: 'Tap the seal to open',
@@ -87,6 +96,14 @@ export const translations = {
     themeToDark: 'ಡಾರ್ಕ್ ಮೋಡ್‌ಗೆ ಬದಲಿಸಿ',
     themeToLight: 'ಲೈಟ್ ಮೋಡ್‌ಗೆ ಬದಲಿಸಿ',
 
+    nameGroomFirst: 'ಅಜೀಂ',
+    nameBrideFirst: 'ನೂರಾ',
+    nameCombined: 'ಅಜೀಂ & ನೂರಾ',
+    nameGroomFull: 'ಮೊಹಮ್ಮದ್ ಅಜೀಂ',
+    nameBrideFull: 'ನೂರಾ ಫಾತಿಮಾ',
+    nameGroomParentage: 'ಪುತ್ರ · ಕೆ. ಬದ್ರುದ್ದೀನ್ & ಸಬೀನಾ',
+    nameBrideParentage: 'ಪುತ್ರಿ · ಡಾ. ನಸೀರ್ ಪಿ.ಎಂ. & ರಹೀಮಾ',
+
     youAreInvited: 'ನೀವು ಆಹ್ವಾನಿತರು',
     tapToOpen: 'ತೆರೆಯಲು ಮುದ್ರೆಯನ್ನು ಸ್ಪರ್ಶಿಸಿ',
 
@@ -134,6 +151,14 @@ export const translations = {
     themeToDark: 'डार्क मोड पर जाएँ',
     themeToLight: 'लाइट मोड पर जाएँ',
 
+    nameGroomFirst: 'अज़ीम',
+    nameBrideFirst: 'नूरा',
+    nameCombined: 'अज़ीम & नूरा',
+    nameGroomFull: 'मोहम्मद अज़ीम',
+    nameBrideFull: 'नूरा फ़ातिमा',
+    nameGroomParentage: 'पुत्र · के. बदरुद्दीन & सबीना',
+    nameBrideParentage: 'पुत्री · डॉ. नसीर पी.एम. & रहीमा',
+
     youAreInvited: 'आप आमंत्रित हैं',
     tapToOpen: 'खोलने के लिए मुहर को स्पर्श करें',
 
@@ -180,6 +205,14 @@ export const translations = {
     musicPause: 'إيقاف الموسيقى',
     themeToDark: 'التحويل إلى الوضع الداكن',
     themeToLight: 'التحويل إلى الوضع الفاتح',
+
+    nameGroomFirst: 'عزيم',
+    nameBrideFirst: 'نورا',
+    nameCombined: 'عزيم & نورا',
+    nameGroomFull: 'محمد عزيم',
+    nameBrideFull: 'نورة فاطمة',
+    nameGroomParentage: 'ابن · ك. بدر الدين & سبينة',
+    nameBrideParentage: 'ابنة · د. نصير بي.إم. & رحيمة',
 
     youAreInvited: 'أنتم مدعوّون',
     tapToOpen: 'انقر على الختم لفتح الدعوة',
