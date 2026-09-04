@@ -266,6 +266,29 @@ def cta_band(title="Ready to start your next print project?",
     )
 
 
+def parallax_band(eyebrow, h2, text, bg_path, bg_alt, speed="0.24", cta=None):
+    """Full-bleed statement band with a scroll-parallax image background."""
+    cta_html = ""
+    if cta:
+        cta_html = (
+            '<div class="btn-row btn-row--center parallax__actions">'
+            '<a class="btn btn--accent btn--lg" href="%s">%s %s</a></div>'
+            % (cta[1], esc(cta[0]), icon("arrow-right"))
+        )
+    return (
+        '<section class="parallax">'
+        '<div class="parallax__bg" data-parallax data-parallax-speed="%s" '
+        'role="img" aria-label="%s" style="background-image:url(%s)"></div>'
+        '<div class="parallax__overlay" aria-hidden="true"></div>'
+        '<div class="container parallax__inner reveal">'
+        '<p class="eyebrow eyebrow--center">%s</p>'
+        '<h2>%s</h2><p>%s</p>%s'
+        '</div></section>'
+        % (speed, esc(bg_alt), bg_path.lstrip("/"),
+           esc(eyebrow), esc(h2), esc(text), cta_html)
+    )
+
+
 def footer():
     svc_links = "".join(
         '<a href="%s">%s</a>' % (local(s["slug"]), esc(s["short"]))
@@ -344,7 +367,7 @@ def media_hero(h1, lede, slug, eyebrow, bg_path, bg_alt):
     )
     bg = img(bg_path, bg_alt, eager=True, sizes="100vw")
     return (
-        '<section class="sub-hero"><div class="sub-hero__media">%s</div>'
+        '<section class="sub-hero"><div class="sub-hero__media" data-parallax data-parallax-speed="0.16">%s</div>'
         '<div class="sub-hero__overlay"></div>'
         '<div class="container sub-hero__inner"><div class="sub-hero__content">'
         '%s'
@@ -474,19 +497,25 @@ def ld_website():
 # page bodies
 # ---------------------------------------------------------------------------
 def build_home():
-    hero_srcset = ("assets/img/brand/hero-640.webp 640w, "
-                   "assets/img/brand/hero-1000.webp 1000w, "
-                   "assets/img/brand/hero-1600.webp 1600w")
-    hero_img = img("/assets/img/brand/hero-1600.webp",
-                   "Nearprint print and signage production in Dubai",
+    hero_srcset = ("assets/img/brand/hero-bg-640.webp 640w, "
+                   "assets/img/brand/hero-bg-1000.webp 1000w, "
+                   "assets/img/brand/hero-bg-1600.webp 1600w")
+    hero_img = img("/assets/img/brand/hero-bg-1600.webp",
+                   "Nearprint branded print and signage production facility in Dubai",
                    eager=True, sizes="100vw", srcset=hero_srcset)
     stats = "".join(
         '<div class="hero__stat"><b>%d%s</b><span>%s</span></div>'
         % (st["value"], st["suffix"], esc(st["label"])) for st in data.STATS[:3]
     )
     hero = (
-        '<section class="hero"><div class="hero__media">%s</div>'
+        '<section class="hero" data-tilt>'
+        '<div class="hero__media" data-parallax data-parallax-speed="0.16">%s</div>'
         '<div class="hero__overlay"></div>'
+        '<div class="hero__orbs" aria-hidden="true">'
+        '<span class="hero__orb hero__orb--1" data-depth="0.05"><i></i></span>'
+        '<span class="hero__orb hero__orb--2" data-depth="0.085"><i></i></span>'
+        '<span class="hero__orb hero__orb--3" data-depth="0.06"><i></i></span>'
+        '</div>'
         '<div class="container hero__inner"><div class="hero__content">'
         '<span class="hero__eyebrow"><span class="dot"></span>%s</span>'
         '<h1 class="hero__title">Printing, Signage &amp; <span class="accent">Branding</span> Company in Dubai</h1>'
@@ -571,8 +600,12 @@ def build_home():
         % (st["value"], st["suffix"], esc(st["label"])) for st in data.STATS
     )
     stats_sec = (
-        '<section class="section section--ink section--tight"><div class="container">'
-        '<div class="stats reveal">%s</div></div></section>' % stat_items
+        '<section class="section section--ink section--tight stats-parallax">'
+        '<div class="parallax__bg" data-parallax data-parallax-speed="0.18" '
+        'style="background-image:url(assets/img/machines/uv-flatbed-printer.webp)"></div>'
+        '<div class="stats-parallax__overlay"></div>'
+        '<div class="container"><div class="stats reveal">%s</div></div></section>'
+        % stat_items
     )
 
     # machines
@@ -612,7 +645,18 @@ def build_home():
         '</div></section>' % (logo_items, local("clients"), icon("arrow-right"))
     )
 
-    body = chrome("", hero + pillars_sec + services_sec + why_sec
+    # parallax statement band
+    statement = parallax_band(
+        "In-house Production",
+        "Your whole brand, printed under one roof",
+        "From the first business card to full shopfront signage, our own presses, "
+        "CNC routers and UV flatbed printers keep quality and timing in our hands.",
+        "/assets/img/brand/parallax-1600.webp",
+        "Nearprint in-house production floor with CNC router, laser cutting and UV flatbed printing in Dubai",
+        cta=("Explore Services", local("business-stationery-printing")),
+    )
+
+    body = chrome("", hero + pillars_sec + statement + services_sec + why_sec
                   + stats_sec + machines_sec + clients_sec + cta_band())
     page = {
         "slug": data.HOME["slug"], "title": data.HOME["title"],

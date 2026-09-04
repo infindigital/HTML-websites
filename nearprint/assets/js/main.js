@@ -105,6 +105,64 @@
     nums.forEach(function (el) { cio.observe(el); });
   }
 
+  /* ---- Parallax (scroll) + pointer tilt ---------------------------------- */
+  if (!reduce) {
+    var parEls = [].slice.call(document.querySelectorAll("[data-parallax]"));
+    var ticking = false;
+
+    function applyParallax() {
+      var vh = window.innerHeight || document.documentElement.clientHeight;
+      for (var i = 0; i < parEls.length; i++) {
+        var el = parEls[i];
+        var host = el.closest(".hero, .parallax, .sub-hero, .stats-parallax, .section") || el.parentElement;
+        var rect = host.getBoundingClientRect();
+        if (rect.bottom < -200 || rect.top > vh + 200) continue; /* off-screen: skip */
+        var center = rect.top + rect.height / 2;
+        var prog = (center - vh / 2) / (vh + rect.height); /* ~ -0.5 .. 0.5 */
+        var speed = parseFloat(el.getAttribute("data-parallax-speed")) || 0.2;
+        var offset = -prog * speed * rect.height;
+        el.style.transform = "translate3d(0," + offset.toFixed(1) + "px,0)";
+      }
+      ticking = false;
+    }
+    function requestParallax() {
+      if (!ticking) { ticking = true; window.requestAnimationFrame(applyParallax); }
+    }
+    if (parEls.length) {
+      window.addEventListener("scroll", requestParallax, { passive: true });
+      window.addEventListener("resize", requestParallax);
+      window.addEventListener("load", requestParallax);
+      applyParallax();
+    }
+
+    /* Pointer parallax for decorative layers (desktop, fine pointer only) */
+    if (window.matchMedia && window.matchMedia("(pointer: fine)").matches) {
+      var tiltHosts = [].slice.call(document.querySelectorAll("[data-tilt]"));
+      tiltHosts.forEach(function (host) {
+        var layers = [].slice.call(host.querySelectorAll("[data-depth]"));
+        if (!layers.length) return;
+        var raf = null, lx = 0, ly = 0;
+        function render() {
+          raf = null;
+          for (var j = 0; j < layers.length; j++) {
+            var d = parseFloat(layers[j].getAttribute("data-depth")) || 0.04;
+            layers[j].style.transform =
+              "translate3d(" + (lx * d).toFixed(1) + "px," + (ly * d).toFixed(1) + "px,0)";
+          }
+        }
+        host.addEventListener("mousemove", function (e) {
+          var r = host.getBoundingClientRect();
+          lx = -((e.clientX - r.left) / r.width - 0.5) * r.width;
+          ly = -((e.clientY - r.top) / r.height - 0.5) * r.height;
+          if (!raf) raf = window.requestAnimationFrame(render);
+        });
+        host.addEventListener("mouseleave", function () {
+          for (var j = 0; j < layers.length; j++) layers[j].style.transform = "";
+        });
+      });
+    }
+  }
+
   /* ---- Product lightbox -------------------------------------------------- */
   var lightbox = document.getElementById("lightbox");
   var lbImg = document.getElementById("lightboxImg");

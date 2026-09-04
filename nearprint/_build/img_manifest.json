@@ -1,842 +1,858 @@
 {
-"/assets/img/brand/facility.webp": [
-266,
-898
-],
-"/assets/img/brand/hero-1000.webp": [
-1000,
-563
-],
-"/assets/img/brand/hero-1600.webp": [
-1600,
-900
-],
-"/assets/img/brand/hero-640.webp": [
-640,
-480
-],
-"/assets/img/brand/nearprint-mark-160.png": [
-160,
-201
-],
-"/assets/img/brand/nearprint-mark-160.webp": [
-160,
-201
-],
-"/assets/img/brand/nearprint-mark-320.png": [
-320,
-401
-],
-"/assets/img/brand/nearprint-mark-320.webp": [
-320,
-401
-],
-"/assets/img/brand/nearprint-og.jpg": [
-1200,
-630
-],
-"/assets/img/branding/acrylic-figures.webp": [
-820,
-549
-],
-"/assets/img/branding/adjustable-banner-stand.webp": [
-486,
-466
-],
-"/assets/img/branding/banner-printing.webp": [
-820,
-549
-],
-"/assets/img/branding/billboard.webp": [
-800,
-536
-],
-"/assets/img/branding/broad-base-roll-up.webp": [
-540,
-820
-],
-"/assets/img/branding/brochure-holder.webp": [
-820,
-549
-],
-"/assets/img/branding/car-branding.webp": [
-820,
-548
-],
-"/assets/img/branding/card-holder.webp": [
-820,
-552
-],
-"/assets/img/branding/curved-backdrop.webp": [
-613,
-720
-],
-"/assets/img/branding/custom-trophy.webp": [
-561,
-820
-],
-"/assets/img/branding/exhibition-booth-decoration.webp": [
-820,
-665
-],
-"/assets/img/branding/flag-base.webp": [
-573,
-383
-],
-"/assets/img/branding/frosted-glass-film.webp": [
-736,
-494
-],
-"/assets/img/branding/gold-queue-stand.webp": [
-322,
-333
-],
-"/assets/img/branding/heavy-duty-info-stand.webp": [
-448,
-683
-],
-"/assets/img/branding/indoor-flag.webp": [
-541,
-820
-],
-"/assets/img/branding/info-stand.webp": [
-538,
-820
-],
-"/assets/img/branding/l-shape-flag.webp": [
-541,
-820
-],
-"/assets/img/branding/l-shape-stand.webp": [
-820,
-549
-],
-"/assets/img/branding/metal-a-board.webp": [
-572,
-383
-],
-"/assets/img/branding/metal-brochure-stand.webp": [
-540,
-820
-],
-"/assets/img/branding/mini-truck-branding.webp": [
-820,
-548
-],
-"/assets/img/branding/oneway-vision.webp": [
-820,
-549
-],
-"/assets/img/branding/oval-pop-up-banner.webp": [
-820,
-525
-],
-"/assets/img/branding/podium.webp": [
-557,
-820
-],
-"/assets/img/branding/pop-up-backdrop.webp": [
-504,
-504
-],
-"/assets/img/branding/promotional-tent.webp": [
-613,
-723
-],
-"/assets/img/branding/raffle-drum.webp": [
-820,
-548
-],
-"/assets/img/branding/rollup-stand.webp": [
-589,
-712
-],
-"/assets/img/branding/silver-queue-stand.webp": [
-272,
-349
-],
-"/assets/img/branding/snap-frame-info-stand.webp": [
-539,
-820
-],
-"/assets/img/branding/suggestion-box.webp": [
-820,
-549
-],
-"/assets/img/branding/t-stand.webp": [
-736,
-493
-],
-"/assets/img/branding/table-top-flag.webp": [
-573,
-383
-],
-"/assets/img/branding/tear-drop-flag.webp": [
-367,
-558
-],
-"/assets/img/branding/telescopic-flag.webp": [
-356,
-541
-],
-"/assets/img/branding/tissue-box.webp": [
-820,
-549
-],
-"/assets/img/branding/top-curve-flag.webp": [
-539,
-820
-],
-"/assets/img/branding/truck-branding.webp": [
-820,
-548
-],
-"/assets/img/branding/van-branding.webp": [
-820,
-548
-],
-"/assets/img/branding/vinyl-printing.webp": [
-802,
-578
-],
-"/assets/img/branding/wall-graphics.webp": [
-561,
-820
-],
-"/assets/img/branding/window-tinting.webp": [
-724,
-479
-],
-"/assets/img/branding/wooden-a-board.webp": [
-334,
-383
-],
-"/assets/img/branding/x-banner.webp": [
-607,
-576
-],
-"/assets/img/business-stationery/certificate.webp": [
-649,
-435
-],
-"/assets/img/business-stationery/company-profile.webp": [
-820,
-551
-],
-"/assets/img/business-stationery/customised-notebook.webp": [
-820,
-551
-],
-"/assets/img/business-stationery/envelope.webp": [
-716,
-481
-],
-"/assets/img/business-stationery/id-card.webp": [
-559,
-820
-],
-"/assets/img/business-stationery/letterheads.webp": [
-820,
-550
-],
-"/assets/img/business-stationery/notepad.webp": [
-734,
-493
-],
-"/assets/img/business-stationery/premium-business-card.webp": [
-718,
-482
-],
-"/assets/img/business-stationery/presentation-folder.webp": [
-742,
-498
-],
-"/assets/img/business-stationery/receipt-and-invoice-book.webp": [
-820,
-550
-],
-"/assets/img/business-stationery/seal-and-stamp.webp": [
-820,
-551
-],
-"/assets/img/cards/branding.webp": [
-843,
-563
-],
-"/assets/img/cards/business-stationery.webp": [
-718,
-482
-],
-"/assets/img/cards/corporate-gifts.webp": [
-867,
-578
-],
-"/assets/img/cards/marketing.webp": [
-865,
-581
-],
-"/assets/img/cards/packaging.webp": [
-570,
-384
-],
-"/assets/img/cards/signage.webp": [
-685,
-459
-],
-"/assets/img/cards/stickers-labels.webp": [
-849,
-568
-],
-"/assets/img/cards/workwear.webp": [
-1000,
-717
-],
-"/assets/img/clients/client-01.webp": [
-320,
-190
-],
-"/assets/img/clients/client-02.webp": [
-320,
-190
-],
-"/assets/img/clients/client-03.webp": [
-320,
-190
-],
-"/assets/img/clients/client-04.webp": [
-320,
-190
-],
-"/assets/img/clients/client-05.webp": [
-320,
-190
-],
-"/assets/img/clients/client-06.webp": [
-320,
-190
-],
-"/assets/img/clients/client-07.webp": [
-320,
-190
-],
-"/assets/img/clients/client-08.webp": [
-320,
-190
-],
-"/assets/img/clients/client-09.webp": [
-320,
-190
-],
-"/assets/img/clients/client-10.webp": [
-320,
-190
-],
-"/assets/img/clients/client-12.webp": [
-320,
-190
-],
-"/assets/img/clients/client-13.webp": [
-320,
-190
-],
-"/assets/img/clients/client-14.webp": [
-320,
-190
-],
-"/assets/img/clients/client-15.webp": [
-320,
-190
-],
-"/assets/img/clients/client-16.webp": [
-320,
-190
-],
-"/assets/img/clients/client-17.webp": [
-320,
-190
-],
-"/assets/img/clients/client-18.webp": [
-320,
-190
-],
-"/assets/img/clients/client-19.webp": [
-320,
-190
-],
-"/assets/img/clients/client-20.webp": [
-320,
-190
-],
-"/assets/img/clients/client-21.webp": [
-320,
-190
-],
-"/assets/img/clients/client-22.webp": [
-320,
-190
-],
-"/assets/img/clients/client-23.webp": [
-320,
-190
-],
-"/assets/img/clients/client-24.webp": [
-320,
-190
-],
-"/assets/img/clients/client-25.webp": [
-320,
-190
-],
-"/assets/img/clients/client-26.webp": [
-320,
-190
-],
-"/assets/img/clients/client-27.webp": [
-320,
-190
-],
-"/assets/img/clients/client-28.webp": [
-320,
-190
-],
-"/assets/img/clients/client-29.webp": [
-320,
-190
-],
-"/assets/img/clients/client-30.webp": [
-320,
-190
-],
-"/assets/img/clients/client-31.webp": [
-320,
-190
-],
-"/assets/img/clients/client-32.webp": [
-320,
-190
-],
-"/assets/img/clients/client-33.webp": [
-320,
-190
-],
-"/assets/img/clients/client-34.webp": [
-320,
-190
-],
-"/assets/img/clients/client-35.webp": [
-320,
-190
-],
-"/assets/img/clients/client-36.webp": [
-320,
-190
-],
-"/assets/img/clients/client-38.webp": [
-320,
-190
-],
-"/assets/img/clients/client-39.webp": [
-320,
-190
-],
-"/assets/img/clients/client-40.webp": [
-320,
-190
-],
-"/assets/img/clients/client-41.webp": [
-320,
-190
-],
-"/assets/img/clients/client-43.webp": [
-320,
-190
-],
-"/assets/img/clients/client-44.webp": [
-320,
-190
-],
-"/assets/img/clients/client-46.webp": [
-320,
-190
-],
-"/assets/img/clients/client-47.webp": [
-320,
-190
-],
-"/assets/img/clients/client-49.webp": [
-320,
-190
-],
-"/assets/img/clients/client-50.webp": [
-320,
-190
-],
-"/assets/img/clients/client-51.webp": [
-320,
-190
-],
-"/assets/img/clients/client-52.webp": [
-320,
-190
-],
-"/assets/img/clients/client-53.webp": [
-320,
-190
-],
-"/assets/img/clients/client-54.webp": [
-320,
-190
-],
-"/assets/img/clients/client-55.webp": [
-320,
-190
-],
-"/assets/img/clients/client-56.webp": [
-320,
-190
-],
-"/assets/img/clients/client-58.webp": [
-320,
-190
-],
-"/assets/img/clients/client-60.webp": [
-320,
-190
-],
-"/assets/img/clients/client-61.webp": [
-320,
-190
-],
-"/assets/img/corporate-gifts/business-set.webp": [
-562,
-820
-],
-"/assets/img/corporate-gifts/corporate-set.webp": [
-820,
-547
-],
-"/assets/img/corporate-gifts/drinkware.webp": [
-820,
-549
-],
-"/assets/img/corporate-gifts/employee-welcome-set.webp": [
-728,
-488
-],
-"/assets/img/corporate-gifts/holder-set.webp": [
-820,
-550
-],
-"/assets/img/corporate-gifts/key-chain.webp": [
-820,
-550
-],
-"/assets/img/corporate-gifts/laptop-bags.webp": [
-518,
-347
-],
-"/assets/img/corporate-gifts/notebook.webp": [
-820,
-549
-],
-"/assets/img/corporate-gifts/pen.webp": [
-736,
-494
-],
-"/assets/img/corporate-gifts/premium-memento.webp": [
-820,
-549
-],
-"/assets/img/corporate-gifts/tumblers.webp": [
-690,
-462
-],
-"/assets/img/extra/event-counter.webp": [
-570,
-736
-],
-"/assets/img/extra/event-easel.webp": [
-287,
-383
-],
-"/assets/img/extra/packaging-detail.webp": [
-571,
-383
-],
-"/assets/img/machines/cnc-router-cutting-machine.webp": [
-818,
-573
-],
-"/assets/img/machines/laser-cutting-machine.webp": [
-735,
-551
-],
-"/assets/img/machines/uv-flatbed-printer.webp": [
-841,
-489
-],
-"/assets/img/marketing/brochure.webp": [
-820,
-551
-],
-"/assets/img/marketing/calendar.webp": [
-728,
-489
-],
-"/assets/img/marketing/catalog.webp": [
-717,
-482
-],
-"/assets/img/marketing/danglers.webp": [
-820,
-550
-],
-"/assets/img/marketing/door-hangers.webp": [
-820,
-550
-],
-"/assets/img/marketing/flyers.webp": [
-820,
-551
-],
-"/assets/img/marketing/gift-voucher.webp": [
-802,
-539
-],
-"/assets/img/marketing/leaflet.webp": [
-820,
-551
-],
-"/assets/img/marketing/menu.webp": [
-731,
-492
-],
-"/assets/img/marketing/poster.webp": [
-557,
-820
-],
-"/assets/img/marketing/tent-card.webp": [
-726,
-487
-],
-"/assets/img/packaging/brown-bag.webp": [
-364,
-553
-],
-"/assets/img/packaging/burger-box.webp": [
-573,
-383
-],
-"/assets/img/packaging/cake-box.webp": [
-538,
-820
-],
-"/assets/img/packaging/date-box.webp": [
-538,
-820
-],
-"/assets/img/packaging/e-commerce-box.webp": [
-573,
-383
-],
-"/assets/img/packaging/gift-bags.webp": [
-573,
-383
-],
-"/assets/img/packaging/magnetic-box.webp": [
-573,
-384
-],
-"/assets/img/packaging/meal-box.webp": [
-574,
-384
-],
-"/assets/img/packaging/paper-bag.webp": [
-540,
-820
-],
-"/assets/img/packaging/premium-bag.webp": [
-572,
-383
-],
-"/assets/img/packaging/recycle-bag.webp": [
-539,
-820
-],
-"/assets/img/packaging/rigid-box.webp": [
-570,
-384
-],
-"/assets/img/packaging/shoe-box.webp": [
-573,
-384
-],
-"/assets/img/packaging/sliding-box.webp": [
-574,
-384
-],
-"/assets/img/packaging/snacks-bag.webp": [
-573,
-383
-],
-"/assets/img/packaging/sweet-box.webp": [
-574,
-383
-],
-"/assets/img/packaging/tote-bag.webp": [
-538,
-820
-],
-"/assets/img/signage/3d-letter-sign-board.webp": [
-685,
-459
-],
-"/assets/img/signage/acrylic-sign-board.webp": [
-691,
-462
-],
-"/assets/img/signage/building-led-screens.webp": [
-820,
-669
-],
-"/assets/img/signage/channelium-sign-board.webp": [
-687,
-459
-],
-"/assets/img/signage/custom-fabrication.webp": [
-560,
-820
-],
-"/assets/img/signage/directory-sign-board.webp": [
-691,
-462
-],
-"/assets/img/signage/flex-sign-board.webp": [
-686,
-459
-],
-"/assets/img/signage/led-sign-board.webp": [
-685,
-458
-],
-"/assets/img/signage/led-standees.webp": [
-820,
-820
-],
-"/assets/img/signage/mall-led-pillars.webp": [
-615,
-820
-],
-"/assets/img/signage/neon-sign-board.webp": [
-600,
-402
-],
-"/assets/img/signage/office-door-sign-board.webp": [
-690,
-462
-],
-"/assets/img/signage/powder-coating-letter.webp": [
-514,
-344
-],
-"/assets/img/signage/reception-sign-board.webp": [
-691,
-461
-],
-"/assets/img/signage/shop-sign-board.webp": [
-687,
-459
-],
-"/assets/img/signage/ss-letter-sign-board.webp": [
-686,
-459
-],
-"/assets/img/signage/way-finding-signage.webp": [
-689,
-462
-],
-"/assets/img/stickers-labels/care-labels.webp": [
-786,
-526
-],
-"/assets/img/stickers-labels/die-cut-sticker.webp": [
-820,
-549
-],
-"/assets/img/stickers-labels/food-labels.webp": [
-736,
-493
-],
-"/assets/img/stickers-labels/metallic-label.webp": [
-820,
-549
-],
-"/assets/img/stickers-labels/paper-sticker.webp": [
-708,
-474
-],
-"/assets/img/stickers-labels/plain-labels.webp": [
-820,
-549
-],
-"/assets/img/stickers-labels/printed-labels.webp": [
-820,
-546
-],
-"/assets/img/stickers-labels/sign-sticker.webp": [
-820,
-549
-],
-"/assets/img/stickers-labels/speciality-labels.webp": [
-820,
-549
-],
-"/assets/img/stickers-labels/transparent-sticker.webp": [
-800,
-535
-],
-"/assets/img/stickers-labels/uv-dtf-sticker.webp": [
-564,
-820
-],
-"/assets/img/workwear/business-suit.webp": [
-542,
-820
-],
-"/assets/img/workwear/formal-shirt.webp": [
-542,
-820
-],
-"/assets/img/workwear/house-keeping.webp": [
-505,
-769
-],
-"/assets/img/workwear/ladies-business-suit.webp": [
-541,
-820
-],
-"/assets/img/workwear/polo-t-shirt.webp": [
-522,
-791
-],
-"/assets/img/workwear/restaurant-uniform.webp": [
-820,
-588
-],
-"/assets/img/workwear/safety-jackets.webp": [
-703,
-506
-],
-"/assets/img/workwear/security-set.webp": [
-540,
-820
-],
-"/assets/img/workwear/spa-attire.webp": [
-352,
-535
-],
-"/assets/img/workwear/sublimation-t-shirt.webp": [
-541,
-820
-]
+  "/assets/img/brand/facility.webp": [
+    266,
+    898
+  ],
+  "/assets/img/brand/hero-1000.webp": [
+    1000,
+    563
+  ],
+  "/assets/img/brand/hero-1600.webp": [
+    1600,
+    900
+  ],
+  "/assets/img/brand/hero-640.webp": [
+    640,
+    480
+  ],
+  "/assets/img/brand/nearprint-mark-160.png": [
+    160,
+    201
+  ],
+  "/assets/img/brand/nearprint-mark-160.webp": [
+    160,
+    201
+  ],
+  "/assets/img/brand/nearprint-mark-320.png": [
+    320,
+    401
+  ],
+  "/assets/img/brand/nearprint-mark-320.webp": [
+    320,
+    401
+  ],
+  "/assets/img/brand/nearprint-og.jpg": [
+    1200,
+    630
+  ],
+  "/assets/img/branding/acrylic-figures.webp": [
+    820,
+    549
+  ],
+  "/assets/img/branding/adjustable-banner-stand.webp": [
+    486,
+    466
+  ],
+  "/assets/img/branding/banner-printing.webp": [
+    820,
+    549
+  ],
+  "/assets/img/branding/billboard.webp": [
+    800,
+    536
+  ],
+  "/assets/img/branding/broad-base-roll-up.webp": [
+    540,
+    820
+  ],
+  "/assets/img/branding/brochure-holder.webp": [
+    820,
+    549
+  ],
+  "/assets/img/branding/car-branding.webp": [
+    820,
+    548
+  ],
+  "/assets/img/branding/card-holder.webp": [
+    820,
+    552
+  ],
+  "/assets/img/branding/curved-backdrop.webp": [
+    613,
+    720
+  ],
+  "/assets/img/branding/custom-trophy.webp": [
+    561,
+    820
+  ],
+  "/assets/img/branding/exhibition-booth-decoration.webp": [
+    820,
+    665
+  ],
+  "/assets/img/branding/flag-base.webp": [
+    573,
+    383
+  ],
+  "/assets/img/branding/frosted-glass-film.webp": [
+    736,
+    494
+  ],
+  "/assets/img/branding/gold-queue-stand.webp": [
+    322,
+    333
+  ],
+  "/assets/img/branding/heavy-duty-info-stand.webp": [
+    448,
+    683
+  ],
+  "/assets/img/branding/indoor-flag.webp": [
+    541,
+    820
+  ],
+  "/assets/img/branding/info-stand.webp": [
+    538,
+    820
+  ],
+  "/assets/img/branding/l-shape-flag.webp": [
+    541,
+    820
+  ],
+  "/assets/img/branding/l-shape-stand.webp": [
+    820,
+    549
+  ],
+  "/assets/img/branding/metal-a-board.webp": [
+    572,
+    383
+  ],
+  "/assets/img/branding/metal-brochure-stand.webp": [
+    540,
+    820
+  ],
+  "/assets/img/branding/mini-truck-branding.webp": [
+    820,
+    548
+  ],
+  "/assets/img/branding/oneway-vision.webp": [
+    820,
+    549
+  ],
+  "/assets/img/branding/oval-pop-up-banner.webp": [
+    820,
+    525
+  ],
+  "/assets/img/branding/podium.webp": [
+    557,
+    820
+  ],
+  "/assets/img/branding/pop-up-backdrop.webp": [
+    504,
+    504
+  ],
+  "/assets/img/branding/promotional-tent.webp": [
+    613,
+    723
+  ],
+  "/assets/img/branding/raffle-drum.webp": [
+    820,
+    548
+  ],
+  "/assets/img/branding/rollup-stand.webp": [
+    589,
+    712
+  ],
+  "/assets/img/branding/silver-queue-stand.webp": [
+    272,
+    349
+  ],
+  "/assets/img/branding/snap-frame-info-stand.webp": [
+    539,
+    820
+  ],
+  "/assets/img/branding/suggestion-box.webp": [
+    820,
+    549
+  ],
+  "/assets/img/branding/t-stand.webp": [
+    736,
+    493
+  ],
+  "/assets/img/branding/table-top-flag.webp": [
+    573,
+    383
+  ],
+  "/assets/img/branding/tear-drop-flag.webp": [
+    367,
+    558
+  ],
+  "/assets/img/branding/telescopic-flag.webp": [
+    356,
+    541
+  ],
+  "/assets/img/branding/tissue-box.webp": [
+    820,
+    549
+  ],
+  "/assets/img/branding/top-curve-flag.webp": [
+    539,
+    820
+  ],
+  "/assets/img/branding/truck-branding.webp": [
+    820,
+    548
+  ],
+  "/assets/img/branding/van-branding.webp": [
+    820,
+    548
+  ],
+  "/assets/img/branding/vinyl-printing.webp": [
+    802,
+    578
+  ],
+  "/assets/img/branding/wall-graphics.webp": [
+    561,
+    820
+  ],
+  "/assets/img/branding/window-tinting.webp": [
+    724,
+    479
+  ],
+  "/assets/img/branding/wooden-a-board.webp": [
+    334,
+    383
+  ],
+  "/assets/img/branding/x-banner.webp": [
+    607,
+    576
+  ],
+  "/assets/img/business-stationery/certificate.webp": [
+    649,
+    435
+  ],
+  "/assets/img/business-stationery/company-profile.webp": [
+    820,
+    551
+  ],
+  "/assets/img/business-stationery/customised-notebook.webp": [
+    820,
+    551
+  ],
+  "/assets/img/business-stationery/envelope.webp": [
+    716,
+    481
+  ],
+  "/assets/img/business-stationery/id-card.webp": [
+    559,
+    820
+  ],
+  "/assets/img/business-stationery/letterheads.webp": [
+    820,
+    550
+  ],
+  "/assets/img/business-stationery/notepad.webp": [
+    734,
+    493
+  ],
+  "/assets/img/business-stationery/premium-business-card.webp": [
+    718,
+    482
+  ],
+  "/assets/img/business-stationery/presentation-folder.webp": [
+    742,
+    498
+  ],
+  "/assets/img/business-stationery/receipt-and-invoice-book.webp": [
+    820,
+    550
+  ],
+  "/assets/img/business-stationery/seal-and-stamp.webp": [
+    820,
+    551
+  ],
+  "/assets/img/cards/branding.webp": [
+    843,
+    563
+  ],
+  "/assets/img/cards/business-stationery.webp": [
+    718,
+    482
+  ],
+  "/assets/img/cards/corporate-gifts.webp": [
+    867,
+    578
+  ],
+  "/assets/img/cards/marketing.webp": [
+    865,
+    581
+  ],
+  "/assets/img/cards/packaging.webp": [
+    570,
+    384
+  ],
+  "/assets/img/cards/signage.webp": [
+    685,
+    459
+  ],
+  "/assets/img/cards/stickers-labels.webp": [
+    849,
+    568
+  ],
+  "/assets/img/cards/workwear.webp": [
+    1000,
+    717
+  ],
+  "/assets/img/clients/client-01.webp": [
+    320,
+    190
+  ],
+  "/assets/img/clients/client-02.webp": [
+    320,
+    190
+  ],
+  "/assets/img/clients/client-03.webp": [
+    320,
+    190
+  ],
+  "/assets/img/clients/client-04.webp": [
+    320,
+    190
+  ],
+  "/assets/img/clients/client-05.webp": [
+    320,
+    190
+  ],
+  "/assets/img/clients/client-06.webp": [
+    320,
+    190
+  ],
+  "/assets/img/clients/client-07.webp": [
+    320,
+    190
+  ],
+  "/assets/img/clients/client-08.webp": [
+    320,
+    190
+  ],
+  "/assets/img/clients/client-09.webp": [
+    320,
+    190
+  ],
+  "/assets/img/clients/client-10.webp": [
+    320,
+    190
+  ],
+  "/assets/img/clients/client-12.webp": [
+    320,
+    190
+  ],
+  "/assets/img/clients/client-13.webp": [
+    320,
+    190
+  ],
+  "/assets/img/clients/client-14.webp": [
+    320,
+    190
+  ],
+  "/assets/img/clients/client-15.webp": [
+    320,
+    190
+  ],
+  "/assets/img/clients/client-16.webp": [
+    320,
+    190
+  ],
+  "/assets/img/clients/client-17.webp": [
+    320,
+    190
+  ],
+  "/assets/img/clients/client-18.webp": [
+    320,
+    190
+  ],
+  "/assets/img/clients/client-19.webp": [
+    320,
+    190
+  ],
+  "/assets/img/clients/client-20.webp": [
+    320,
+    190
+  ],
+  "/assets/img/clients/client-21.webp": [
+    320,
+    190
+  ],
+  "/assets/img/clients/client-22.webp": [
+    320,
+    190
+  ],
+  "/assets/img/clients/client-23.webp": [
+    320,
+    190
+  ],
+  "/assets/img/clients/client-24.webp": [
+    320,
+    190
+  ],
+  "/assets/img/clients/client-25.webp": [
+    320,
+    190
+  ],
+  "/assets/img/clients/client-26.webp": [
+    320,
+    190
+  ],
+  "/assets/img/clients/client-27.webp": [
+    320,
+    190
+  ],
+  "/assets/img/clients/client-28.webp": [
+    320,
+    190
+  ],
+  "/assets/img/clients/client-29.webp": [
+    320,
+    190
+  ],
+  "/assets/img/clients/client-30.webp": [
+    320,
+    190
+  ],
+  "/assets/img/clients/client-31.webp": [
+    320,
+    190
+  ],
+  "/assets/img/clients/client-32.webp": [
+    320,
+    190
+  ],
+  "/assets/img/clients/client-33.webp": [
+    320,
+    190
+  ],
+  "/assets/img/clients/client-34.webp": [
+    320,
+    190
+  ],
+  "/assets/img/clients/client-35.webp": [
+    320,
+    190
+  ],
+  "/assets/img/clients/client-36.webp": [
+    320,
+    190
+  ],
+  "/assets/img/clients/client-38.webp": [
+    320,
+    190
+  ],
+  "/assets/img/clients/client-39.webp": [
+    320,
+    190
+  ],
+  "/assets/img/clients/client-40.webp": [
+    320,
+    190
+  ],
+  "/assets/img/clients/client-41.webp": [
+    320,
+    190
+  ],
+  "/assets/img/clients/client-43.webp": [
+    320,
+    190
+  ],
+  "/assets/img/clients/client-44.webp": [
+    320,
+    190
+  ],
+  "/assets/img/clients/client-46.webp": [
+    320,
+    190
+  ],
+  "/assets/img/clients/client-47.webp": [
+    320,
+    190
+  ],
+  "/assets/img/clients/client-49.webp": [
+    320,
+    190
+  ],
+  "/assets/img/clients/client-50.webp": [
+    320,
+    190
+  ],
+  "/assets/img/clients/client-51.webp": [
+    320,
+    190
+  ],
+  "/assets/img/clients/client-52.webp": [
+    320,
+    190
+  ],
+  "/assets/img/clients/client-53.webp": [
+    320,
+    190
+  ],
+  "/assets/img/clients/client-54.webp": [
+    320,
+    190
+  ],
+  "/assets/img/clients/client-55.webp": [
+    320,
+    190
+  ],
+  "/assets/img/clients/client-56.webp": [
+    320,
+    190
+  ],
+  "/assets/img/clients/client-58.webp": [
+    320,
+    190
+  ],
+  "/assets/img/clients/client-60.webp": [
+    320,
+    190
+  ],
+  "/assets/img/clients/client-61.webp": [
+    320,
+    190
+  ],
+  "/assets/img/corporate-gifts/business-set.webp": [
+    562,
+    820
+  ],
+  "/assets/img/corporate-gifts/corporate-set.webp": [
+    820,
+    547
+  ],
+  "/assets/img/corporate-gifts/drinkware.webp": [
+    820,
+    549
+  ],
+  "/assets/img/corporate-gifts/employee-welcome-set.webp": [
+    728,
+    488
+  ],
+  "/assets/img/corporate-gifts/holder-set.webp": [
+    820,
+    550
+  ],
+  "/assets/img/corporate-gifts/key-chain.webp": [
+    820,
+    550
+  ],
+  "/assets/img/corporate-gifts/laptop-bags.webp": [
+    518,
+    347
+  ],
+  "/assets/img/corporate-gifts/notebook.webp": [
+    820,
+    549
+  ],
+  "/assets/img/corporate-gifts/pen.webp": [
+    736,
+    494
+  ],
+  "/assets/img/corporate-gifts/premium-memento.webp": [
+    820,
+    549
+  ],
+  "/assets/img/corporate-gifts/tumblers.webp": [
+    690,
+    462
+  ],
+  "/assets/img/extra/event-counter.webp": [
+    570,
+    736
+  ],
+  "/assets/img/extra/event-easel.webp": [
+    287,
+    383
+  ],
+  "/assets/img/extra/packaging-detail.webp": [
+    571,
+    383
+  ],
+  "/assets/img/machines/cnc-router-cutting-machine.webp": [
+    818,
+    573
+  ],
+  "/assets/img/machines/laser-cutting-machine.webp": [
+    735,
+    551
+  ],
+  "/assets/img/machines/uv-flatbed-printer.webp": [
+    841,
+    489
+  ],
+  "/assets/img/marketing/brochure.webp": [
+    820,
+    551
+  ],
+  "/assets/img/marketing/calendar.webp": [
+    728,
+    489
+  ],
+  "/assets/img/marketing/catalog.webp": [
+    717,
+    482
+  ],
+  "/assets/img/marketing/danglers.webp": [
+    820,
+    550
+  ],
+  "/assets/img/marketing/door-hangers.webp": [
+    820,
+    550
+  ],
+  "/assets/img/marketing/flyers.webp": [
+    820,
+    551
+  ],
+  "/assets/img/marketing/gift-voucher.webp": [
+    802,
+    539
+  ],
+  "/assets/img/marketing/leaflet.webp": [
+    820,
+    551
+  ],
+  "/assets/img/marketing/menu.webp": [
+    731,
+    492
+  ],
+  "/assets/img/marketing/poster.webp": [
+    557,
+    820
+  ],
+  "/assets/img/marketing/tent-card.webp": [
+    726,
+    487
+  ],
+  "/assets/img/packaging/brown-bag.webp": [
+    364,
+    553
+  ],
+  "/assets/img/packaging/burger-box.webp": [
+    573,
+    383
+  ],
+  "/assets/img/packaging/cake-box.webp": [
+    538,
+    820
+  ],
+  "/assets/img/packaging/date-box.webp": [
+    538,
+    820
+  ],
+  "/assets/img/packaging/e-commerce-box.webp": [
+    573,
+    383
+  ],
+  "/assets/img/packaging/gift-bags.webp": [
+    573,
+    383
+  ],
+  "/assets/img/packaging/magnetic-box.webp": [
+    573,
+    384
+  ],
+  "/assets/img/packaging/meal-box.webp": [
+    574,
+    384
+  ],
+  "/assets/img/packaging/paper-bag.webp": [
+    540,
+    820
+  ],
+  "/assets/img/packaging/premium-bag.webp": [
+    572,
+    383
+  ],
+  "/assets/img/packaging/recycle-bag.webp": [
+    539,
+    820
+  ],
+  "/assets/img/packaging/rigid-box.webp": [
+    570,
+    384
+  ],
+  "/assets/img/packaging/shoe-box.webp": [
+    573,
+    384
+  ],
+  "/assets/img/packaging/sliding-box.webp": [
+    574,
+    384
+  ],
+  "/assets/img/packaging/snacks-bag.webp": [
+    573,
+    383
+  ],
+  "/assets/img/packaging/sweet-box.webp": [
+    574,
+    383
+  ],
+  "/assets/img/packaging/tote-bag.webp": [
+    538,
+    820
+  ],
+  "/assets/img/signage/3d-letter-sign-board.webp": [
+    685,
+    459
+  ],
+  "/assets/img/signage/acrylic-sign-board.webp": [
+    691,
+    462
+  ],
+  "/assets/img/signage/building-led-screens.webp": [
+    820,
+    669
+  ],
+  "/assets/img/signage/channelium-sign-board.webp": [
+    687,
+    459
+  ],
+  "/assets/img/signage/custom-fabrication.webp": [
+    560,
+    820
+  ],
+  "/assets/img/signage/directory-sign-board.webp": [
+    691,
+    462
+  ],
+  "/assets/img/signage/flex-sign-board.webp": [
+    686,
+    459
+  ],
+  "/assets/img/signage/led-sign-board.webp": [
+    685,
+    458
+  ],
+  "/assets/img/signage/led-standees.webp": [
+    820,
+    820
+  ],
+  "/assets/img/signage/mall-led-pillars.webp": [
+    615,
+    820
+  ],
+  "/assets/img/signage/neon-sign-board.webp": [
+    600,
+    402
+  ],
+  "/assets/img/signage/office-door-sign-board.webp": [
+    690,
+    462
+  ],
+  "/assets/img/signage/powder-coating-letter.webp": [
+    514,
+    344
+  ],
+  "/assets/img/signage/reception-sign-board.webp": [
+    691,
+    461
+  ],
+  "/assets/img/signage/shop-sign-board.webp": [
+    687,
+    459
+  ],
+  "/assets/img/signage/ss-letter-sign-board.webp": [
+    686,
+    459
+  ],
+  "/assets/img/signage/way-finding-signage.webp": [
+    689,
+    462
+  ],
+  "/assets/img/stickers-labels/care-labels.webp": [
+    786,
+    526
+  ],
+  "/assets/img/stickers-labels/die-cut-sticker.webp": [
+    820,
+    549
+  ],
+  "/assets/img/stickers-labels/food-labels.webp": [
+    736,
+    493
+  ],
+  "/assets/img/stickers-labels/metallic-label.webp": [
+    820,
+    549
+  ],
+  "/assets/img/stickers-labels/paper-sticker.webp": [
+    708,
+    474
+  ],
+  "/assets/img/stickers-labels/plain-labels.webp": [
+    820,
+    549
+  ],
+  "/assets/img/stickers-labels/printed-labels.webp": [
+    820,
+    546
+  ],
+  "/assets/img/stickers-labels/sign-sticker.webp": [
+    820,
+    549
+  ],
+  "/assets/img/stickers-labels/speciality-labels.webp": [
+    820,
+    549
+  ],
+  "/assets/img/stickers-labels/transparent-sticker.webp": [
+    800,
+    535
+  ],
+  "/assets/img/stickers-labels/uv-dtf-sticker.webp": [
+    564,
+    820
+  ],
+  "/assets/img/workwear/business-suit.webp": [
+    542,
+    820
+  ],
+  "/assets/img/workwear/formal-shirt.webp": [
+    542,
+    820
+  ],
+  "/assets/img/workwear/house-keeping.webp": [
+    505,
+    769
+  ],
+  "/assets/img/workwear/ladies-business-suit.webp": [
+    541,
+    820
+  ],
+  "/assets/img/workwear/polo-t-shirt.webp": [
+    522,
+    791
+  ],
+  "/assets/img/workwear/restaurant-uniform.webp": [
+    820,
+    588
+  ],
+  "/assets/img/workwear/safety-jackets.webp": [
+    703,
+    506
+  ],
+  "/assets/img/workwear/security-set.webp": [
+    540,
+    820
+  ],
+  "/assets/img/workwear/spa-attire.webp": [
+    352,
+    535
+  ],
+  "/assets/img/workwear/sublimation-t-shirt.webp": [
+    541,
+    820
+  ],
+  "/assets/img/brand/hero-bg-1600.webp": [
+    1600,
+    900
+  ],
+  "/assets/img/brand/hero-bg-1000.webp": [
+    1000,
+    563
+  ],
+  "/assets/img/brand/hero-bg-640.webp": [
+    640,
+    360
+  ],
+  "/assets/img/brand/parallax-1600.webp": [
+    1600,
+    900
+  ]
 }
