@@ -197,7 +197,6 @@ strong, b { font-weight: 700; color: var(--text-strong); }
 .eyebrow {
   display: inline-flex;
   align-items: center;
-  gap: 0.6em;
   font-family: var(--font-head);
   font-size: var(--fs-eyebrow);
   font-weight: 600;
@@ -205,12 +204,6 @@ strong, b { font-weight: 700; color: var(--text-strong); }
   text-transform: uppercase;
   color: var(--cyan-deep);
   margin: 0 0 0.9rem;
-}
-.eyebrow::before {
-  content: "";
-  width: 26px; height: 2px;
-  background: linear-gradient(90deg, var(--cyan), var(--magenta));
-  border-radius: 2px;
 }
 .eyebrow--center { justify-content: center; }
 .section--ink .eyebrow { color: var(--cyan); }
@@ -1029,6 +1022,9 @@ body.nav-open { overflow: hidden; }
 }
 .about-media__main img {
   width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  object-position: center;
   border-radius: var(--r-lg);
   box-shadow: var(--sh-3);
   display: block;
