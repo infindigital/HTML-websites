@@ -144,8 +144,8 @@ def head(page):
 <link rel="manifest" href="site.webmanifest">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@500;600;700;800&display=swap">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@500;600;700;800&display=swap">
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Inter:wght@400;500;600;700&family=Sora:wght@500;600;700;800&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Inter:wght@400;500;600;700&family=Sora:wght@500;600;700;800&display=swap">
 <link rel="stylesheet" href="assets/css/styles.css">
 %(blocks)s""" % {
         "title": esc(page["title"]), "desc": esc(page["desc"]),
@@ -155,23 +155,14 @@ def head(page):
 
 
 def mega():
-    cards = []
-    for svc in data.SERVICES:
-        cards.append(
-            '<a class="mega__card" href="%s">'
-            '<span class="mega__icon">%s</span>'
-            '<span><span class="mega__title">%s</span>'
-            '<span class="mega__desc">%s</span></span></a>'
-            % (local(svc["slug"]), icon(SVC_ICON[svc["key"]]),
-               esc(svc["short"]), esc(svc["tagline"]))
-        )
+    links = "".join(
+        '<a class="mega__link" href="%s">%s</a>'
+        % (local(svc["slug"]), esc(svc["short"]))
+        for svc in data.SERVICES
+    )
     return (
         '<div class="mega" role="menu" aria-label="Services">'
-        '<div class="mega__grid">%s</div>'
-        '<div class="mega__foot"><p>One print partner for printing, signage, '
-        'branding, packaging and gifts across the UAE.</p>'
-        '<a class="link-arrow" href="%s">Talk to us %s</a></div></div>'
-        % ("".join(cards), local("contact"), icon("arrow-right"))
+        '<div class="mega__list">%s</div></div>' % links
     )
 
 
@@ -304,6 +295,8 @@ def footer():
         '</div>'
         '<div class="site-footer__bottom">'
         '<p>&copy; %d Nearprint. All rights reserved.</p>'
+        '<p class="site-footer__credit">Designed &amp; Developed by '
+        '<a href="https://www.infindigital.in/" target="_blank" rel="noopener">IN/FIN</a></p>'
         '<div class="site-footer__social">'
         '<a href="%s" target="_blank" rel="noopener" aria-label="WhatsApp">%s</a>'
         '</div></div>'
@@ -318,17 +311,54 @@ def footer():
     )
 
 
-def page_hero(h1, lede, slug, eyebrow="Nearprint"):
+def page_hero(h1, lede, slug, eyebrow="Nearprint", icon_name=None):
     crumb = (
         '<nav class="breadcrumb" aria-label="Breadcrumb"><ol>'
         '<li><a href="%s">Home</a></li>'
         '<li aria-current="page">%s</li></ol></nav>'
         % (local(""), esc(h1))
     )
+    watermark = ('<span class="page-hero__mark" aria-hidden="true">%s</span>'
+                 % icon(icon_name)) if icon_name else ""
     return (
-        '<section class="page-hero"><div class="container page-hero__inner">'
-        '%s<p class="eyebrow">%s</p><h1>%s</h1><p>%s</p>'
-        '</div></section>' % (crumb, esc(eyebrow), esc(h1), esc(lede))
+        '<section class="page-hero">'
+        '<span class="page-hero__blob page-hero__blob--1" aria-hidden="true"></span>'
+        '<span class="page-hero__blob page-hero__blob--2" aria-hidden="true"></span>'
+        '<span class="page-hero__dots" aria-hidden="true"></span>'
+        '%s'
+        '<div class="container page-hero__inner reveal">'
+        '%s'
+        '<span class="ink-bar page-hero__bar" aria-hidden="true">'
+        '<span></span><span></span><span></span><span></span></span>'
+        '<p class="eyebrow">%s</p><h1>%s</h1><p>%s</p>'
+        '</div></section>'
+        % (watermark, crumb, esc(eyebrow), esc(h1), esc(lede))
+    )
+
+
+def media_hero(h1, lede, slug, eyebrow, bg_path, bg_alt):
+    """Template-style full-bleed image hero for interior pages (e.g. About)."""
+    crumb = (
+        '<nav class="breadcrumb" aria-label="Breadcrumb"><ol>'
+        '<li><a href="%s">Home</a></li>'
+        '<li aria-current="page">%s</li></ol></nav>'
+        % (local(""), esc(h1))
+    )
+    bg = img(bg_path, bg_alt, eager=True, sizes="100vw")
+    return (
+        '<section class="sub-hero"><div class="sub-hero__media">%s</div>'
+        '<div class="sub-hero__overlay"></div>'
+        '<div class="container sub-hero__inner"><div class="sub-hero__content">'
+        '%s'
+        '<span class="ink-bar" aria-hidden="true">'
+        '<span></span><span></span><span></span><span></span></span>'
+        '<p class="eyebrow">%s</p><h1>%s</h1><p>%s</p>'
+        '<div class="btn-row"><a class="btn btn--accent btn--lg" href="%s">Get a Quote %s</a>'
+        '<a class="btn btn--outline-light btn--lg" href="%s">View Services</a></div>'
+        '</div></div></section>'
+        % (bg, crumb, esc(eyebrow), esc(h1), esc(lede),
+           local("contact"), icon("arrow-right"),
+           local("business-stationery-printing"))
     )
 
 
@@ -566,7 +596,7 @@ def build_home():
     )
 
     # clients strip (subset)
-    logos = client_paths()[:12]
+    logos = client_paths()[:10]
     logo_items = "".join(
         '<div class="logo-wall__item">%s</div>'
         % img(p, "Client of Nearprint") for p in logos
@@ -578,7 +608,7 @@ def build_home():
         '<h2>Trusted by brands across the UAE</h2>'
         '<p>Businesses of every size rely on Nearprint for print, signage and '
         'branding they can count on.</p></div>'
-        '<div class="logo-wall reveal">%s</div>'
+        '<div class="logo-wall stagger">%s</div>'
         '<div class="btn-row btn-row--center reveal" style="margin-top:2rem">'
         '<a class="btn btn--outline" href="%s">See all clients %s</a></div>'
         '</div></section>' % (logo_items, local("clients"), icon("arrow-right"))
@@ -596,15 +626,19 @@ def build_home():
 
 def build_about():
     A = data.ABOUT
-    hero = page_hero(
+    hero = media_hero(
         A["h1"],
         "A UAE printing and branding company with in-house production, "
         "multilingual support and one accountable team for your whole brand.",
-        A["slug"], eyebrow="About Nearprint")
+        A["slug"], "About Nearprint",
+        "/assets/img/brand/hero-1600.webp",
+        "Nearprint printing and branding production in Dubai")
 
     intro = (
         '<section class="section"><div class="container">'
-        '<div class="split"><div class="split__media reveal--left reveal">%s'
+        '<div class="split"><div class="about-media reveal--left reveal">'
+        '<div class="about-media__main">%s</div>'
+        '<div class="about-media__sub">%s</div>'
         '<div class="split__badge"><b>%s</b><span>Years serving the UAE</span></div></div>'
         '<div class="reveal--right reveal"><p class="eyebrow">Who We Are</p>'
         '<h2>%s</h2>'
@@ -621,6 +655,7 @@ def build_about():
         '<li>%s<span>A single team accountable for your whole brand</span></li>'
         '</ul></div></div></div></section>'
         % (img("/assets/img/brand/facility.webp", "Nearprint production facility in Dubai"),
+           img("/assets/img/cards/signage.webp", "Custom signage produced by Nearprint"),
            esc(S["founded_years"]), esc(S["statement"]),
            icon("check"), icon("check"), icon("check"))
     )
@@ -677,7 +712,7 @@ def build_about():
 
 def build_service(svc):
     hero = page_hero(svc["h1"], svc["intro"], svc["slug"],
-                     eyebrow=svc["short"])
+                     eyebrow=svc["short"], icon_name=SVC_ICON[svc["key"]])
 
     # intro lede + tagline
     lede = (
@@ -766,7 +801,7 @@ def build_clients():
         '<h2>Trusted across industries in the UAE</h2>'
         '<p>A selection of the organisations that count on Nearprint as their '
         'print partner.</p></div>'
-        '<div class="logo-wall reveal">%s</div></div></section>' % items
+        '<div class="logo-wall stagger">%s</div></div></section>' % items
     )
     body = chrome("clients", hero + wall + cta_band(
         title="Join the brands that print with us",
