@@ -497,19 +497,28 @@ def ld_website():
 # page bodies
 # ---------------------------------------------------------------------------
 def build_home():
-    hero_srcset = ("assets/img/brand/hero-bg-640.webp 640w, "
-                   "assets/img/brand/hero-bg-1000.webp 1000w, "
-                   "assets/img/brand/hero-bg-1600.webp 1600w")
-    hero_img = img("/assets/img/brand/hero-bg-1600.webp",
-                   "Nearprint branded print and signage production facility in Dubai",
-                   eager=True, sizes="100vw", srcset=hero_srcset)
+    # Hero background carousel: branded facility photo + original hero shot,
+    # crossfading with a slow Ken Burns pan on each.
+    hero_shots = [
+        ("hero-bg", "Nearprint branded print and signage production facility in Dubai"),
+        ("hero", "Large-format printing and signage production floor at Nearprint Dubai"),
+    ]
+    hero_slides = ""
+    for i, (base, alt) in enumerate(hero_shots):
+        srcset = ("assets/img/brand/%s-640.webp 640w, "
+                  "assets/img/brand/%s-1000.webp 1000w, "
+                  "assets/img/brand/%s-1600.webp 1600w" % (base, base, base))
+        slide_img = img("/assets/img/brand/%s-1600.webp" % base, alt,
+                        eager=(i == 0), sizes="100vw", srcset=srcset)
+        hero_slides += ('<div class="hero__slide%s">%s</div>'
+                        % (" is-active" if i == 0 else "", slide_img))
     stats = "".join(
         '<div class="hero__stat"><b>%d%s</b><span>%s</span></div>'
         % (st["value"], st["suffix"], esc(st["label"])) for st in data.STATS[:3]
     )
     hero = (
         '<section class="hero" data-tilt>'
-        '<div class="hero__media" data-parallax data-parallax-speed="0.16">%s</div>'
+        '<div class="hero__media" data-parallax data-parallax-speed="0.16" aria-hidden="true">%s</div>'
         '<div class="hero__overlay"></div>'
         '<div class="hero__orbs" aria-hidden="true">'
         '<span class="hero__orb hero__orb--1" data-depth="0.05"><i></i></span>'
@@ -519,15 +528,14 @@ def build_home():
         '<div class="container hero__inner"><div class="hero__content">'
         '<span class="hero__eyebrow"><span class="dot"></span>%s</span>'
         '<h1 class="hero__title">Printing, Signage &amp; <span class="accent">Branding</span> Company in Dubai</h1>'
-        '<p class="hero__text">%s We are your print partner across all seven '
-        'emirates, with in-house production for sharper quality and faster turnaround.</p>'
+        '<p class="hero__text">%s Your in-house print partner across all seven emirates.</p>'
         '<div class="hero__actions btn-row"><a class="btn btn--accent btn--lg" href="%s">Get a Quote %s</a>'
         '<a class="btn btn--outline-light btn--lg" href="%s">Explore Services</a></div>'
         '<div class="hero__stats">%s</div>'
         '</div></div>'
         '<div class="hero__scroll"><span class="mouse"></span><span>Scroll</span></div>'
         '</section>'
-        % (hero_img, esc(S["tagline"]), esc(S["statement"] + "."),
+        % (hero_slides, esc(S["tagline"]), esc(S["statement"] + "."),
            local("contact"), icon("arrow-right"),
            local("business-stationery-printing"), stats)
     )

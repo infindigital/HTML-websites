@@ -105,6 +105,17 @@
     nums.forEach(function (el) { cio.observe(el); });
   }
 
+  /* ---- Hero background carousel (crossfade) ------------------------------ */
+  var heroSlides = [].slice.call(document.querySelectorAll(".hero__slide"));
+  if (heroSlides.length > 1 && !reduce) {
+    var hIdx = 0;
+    window.setInterval(function () {
+      heroSlides[hIdx].classList.remove("is-active");
+      hIdx = (hIdx + 1) % heroSlides.length;
+      heroSlides[hIdx].classList.add("is-active");
+    }, 7000);
+  }
+
   /* ---- Parallax (scroll) + pointer tilt ---------------------------------- */
   if (!reduce) {
     var parEls = [].slice.call(document.querySelectorAll("[data-parallax]"));

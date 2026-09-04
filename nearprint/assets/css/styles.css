@@ -545,10 +545,21 @@ body.nav-open { overflow: hidden; }
   overflow: hidden;
 }
 .hero__media { position: absolute; inset: -16% 0; z-index: -2; will-change: transform; }
-.hero__media img {
+.hero__slide {
+  position: absolute; inset: 0;
+  opacity: 0;
+  transition: opacity 1.6s var(--ease);
+}
+.hero__slide.is-active { opacity: 1; }
+.hero__slide img {
   width: 100%; height: 100%; object-fit: cover;
   transform-origin: 60% 40%;
   animation: kenburns 26s var(--ease) infinite alternate;
+}
+.hero__slide:nth-child(2) img {
+  transform-origin: 38% 55%;
+  animation-duration: 30s;
+  animation-delay: -9s;
 }
 @keyframes kenburns {
   from { transform: scale(1.06) translate(0, 0); }
@@ -1694,8 +1705,9 @@ body.nav-open { overflow: hidden; }
   }
   .hero__scroll .mouse::after,
   .page-hero__blob { animation: none !important; }
-  .hero__media img, .sub-hero__media img,
+  .hero__slide img, .sub-hero__media img,
   .hero__orb, .hero__orb i { animation: none !important; transform: none !important; }
+  .hero__slide { transition: none !important; }
   .hero__title .accent { animation: none !important; background-position: 0 0 !important; }
   .hero__title .accent::after { animation: none !important; transform: scaleX(1) !important; }
   .parallax__bg, .stats-parallax .parallax__bg { transform: none !important; }
