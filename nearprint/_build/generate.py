@@ -295,8 +295,6 @@ def footer():
         '</div>'
         '<div class="site-footer__bottom">'
         '<p>&copy; %d Nearprint. All rights reserved.</p>'
-        '<p class="site-footer__credit">Designed &amp; Developed by '
-        '<a href="https://www.infindigital.in/" target="_blank" rel="noopener">IN/FIN</a></p>'
         '<div class="site-footer__social">'
         '<a href="%s" target="_blank" rel="noopener" aria-label="WhatsApp">%s</a>'
         '</div></div>'
