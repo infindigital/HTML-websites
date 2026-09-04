@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://nearprint.ae/sitemap.xml

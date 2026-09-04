@@ -1,0 +1,11 @@
+# Source material and working files (not part of the deployable site)
+_extracted/
+*.zip
+*.pdf
+.gitkeep
+
+# Python build caches
+_build/__pycache__/
+__pycache__/
+*.pyc
+_build/_qa_logos.png

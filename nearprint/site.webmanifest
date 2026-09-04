@@ -1,0 +1,26 @@
+{
+  "name": "Nearprint",
+  "short_name": "Nearprint",
+  "description": "Printing, signage and branding company in Dubai, UAE.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#FFFFFF",
+  "theme_color": "#17232F",
+  "icons": [
+    {
+      "src": "/assets/img/brand/favicon-32.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    },
+    {
+      "src": "/assets/img/brand/nearprint-mark-320.png",
+      "sizes": "320x401",
+      "type": "image/png"
+    },
+    {
+      "src": "/assets/img/brand/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ]
+}
