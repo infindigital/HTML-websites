@@ -18,6 +18,7 @@ $dbMissing = defined('CONFIG_MISSING') || !db();
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
 <title>Admin Login · Life Care</title>
+<link rel="icon" type="image/png" sizes="32x32" href="<?= asset('images/brand/favicon-32.png') ?>">
 <link rel="stylesheet" href="<?= asset('css/main.css') ?>">
 <link rel="stylesheet" href="<?= url('admin/assets/admin.css') ?>">
 </head>

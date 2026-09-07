@@ -34,8 +34,9 @@ $bodyCls = $m['body_class'] ?? '';
 <meta name="twitter:description" content="<?= e($desc) ?>">
 <meta name="twitter:image" content="<?= e($ogimg) ?>">
 
-<link rel="icon" href="<?= asset('images/brand/favicon.svg') ?>" type="image/svg+xml">
-<link rel="apple-touch-icon" href="<?= asset('images/brand/logo.png') ?>">
+<link rel="icon" type="image/png" sizes="32x32" href="<?= asset('images/brand/favicon-32.png') ?>">
+<link rel="icon" type="image/png" sizes="16x16" href="<?= asset('images/brand/favicon-16.png') ?>">
+<link rel="apple-touch-icon" href="<?= asset('images/brand/apple-touch-icon.png') ?>">
 
 <!-- Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">

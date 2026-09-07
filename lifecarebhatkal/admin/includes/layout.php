@@ -20,6 +20,8 @@ function admin_head(string $title): void {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
 <title><?= e($title) ?> · Life Care Admin</title>
+<link rel="icon" type="image/png" sizes="32x32" href="<?= asset('images/brand/favicon-32.png') ?>">
+<link rel="apple-touch-icon" href="<?= asset('images/brand/apple-touch-icon.png') ?>">
 <link rel="stylesheet" href="<?= asset('css/main.css') ?>">
 <link rel="stylesheet" href="<?= url('admin/assets/admin.css') ?>">
 </head>
