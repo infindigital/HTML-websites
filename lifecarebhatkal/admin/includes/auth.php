@@ -4,7 +4,12 @@
  * per-account rate limiting (LOGIN_MAX_ATTEMPTS / LOGIN_LOCK_SECONDS).
  */
 
-function admin_url(string $path = ''): string { return url('admin/' . ltrim($path, '/')); }
+function admin_url(string $path = ''): string {
+    $path = ltrim($path, '/');
+    // Use the front-controller directly so the admin works even where
+    // clean-URL rewriting (admin/.htaccess) is unavailable on the host.
+    return url('admin/index.php' . ($path !== '' ? '?p=' . $path : ''));
+}
 
 /** The logged-in admin row, or null. */
 function current_admin(): ?array {
