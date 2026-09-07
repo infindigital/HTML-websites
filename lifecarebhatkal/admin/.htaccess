@@ -1,0 +1,21 @@
+# Admin area — clean-URL routing to the admin front controller.
+Options -Indexes
+DirectoryIndex index.php
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /admin/
+
+  # Serve real files (admin.css, uploaded assets) directly
+  RewriteCond %{REQUEST_FILENAME} -f [OR]
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteRule ^ - [L]
+
+  # Everything else → admin front controller
+  RewriteRule ^(.*)$ index.php?p=$1 [QSA,L]
+</IfModule>
+
+# Never serve admin PHP includes/config directly
+<FilesMatch "\.(sql|md|log)$">
+  Require all denied
+</FilesMatch>

@@ -1,0 +1,20 @@
+# Local configuration (contains DB + mail credentials — never commit)
+/config/config.php
+
+# Uploaded media (managed via the admin; keep the folders, ignore contents)
+/uploads/**
+!/uploads/
+!/uploads/**/
+!/uploads/**/.gitkeep
+
+# Composer (PHPMailer is optional; install on the server if using SMTP)
+/vendor/
+composer.lock
+
+# OS / editor cruft
+.DS_Store
+Thumbs.db
+*.log
+*.swp
+.idea/
+.vscode/
