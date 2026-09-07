@@ -1,10 +1,20 @@
-/* Life Care — Admin UI. Reuses design tokens from main.css. */
+/* Life Care — Admin UI. Brand palette matched to the public website. */
+:root{
+  --teal-900:#0e2a4d;--teal-800:#123a67;--teal-700:#1B71A1;--teal-600:#1CA2E4;
+  --teal-300:#6fbfe8;--teal-200:#bfe0f2;--teal-50:#eef6fb;
+  --ink:#16233d;--ink-soft:#243a5e;--muted:#6a7c93;
+  --line:#e6eef5;--line-2:#d5e3ef;--bg-soft:#f2f7fc;
+  --lc-orange:#F07E20;--lc-green:#2FA84F;
+}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg-soft,#f4f7f7);color:var(--ink,#12312f);font-family:var(--f-body,system-ui,sans-serif)}
+body{margin:0;background:var(--bg-soft,#f2f7fc);color:var(--ink,#16233d);font-family:var(--f-body,system-ui,sans-serif)}
 
 /* ---------- Login ---------- */
 .adm-login-body{min-height:100vh;display:grid;place-items:center;
-  background:linear-gradient(135deg,var(--teal-900,#06302e),var(--teal-700,#0c6b64));padding:24px}
+  background:linear-gradient(135deg,#0a2140 0%,#123a67 55%,#1B71A1 130%);padding:24px}
+.adm-logo-img{display:block;height:44px;width:auto}
+.alert svg{width:20px;height:20px;flex:none;vertical-align:-4px}
+.adm-login-brand .adm-logo-img{height:56px;margin:0 auto 10px}
 .adm-login{width:100%;max-width:420px}
 .adm-login .form-card{box-shadow:var(--shadow-lg,0 20px 50px rgba(0,0,0,.2))}
 .adm-login-brand{color:#fff;text-align:center;font-size:1.3rem;margin-bottom:20px;font-family:var(--f-display,serif)}
@@ -17,9 +27,9 @@ body{margin:0;background:var(--bg-soft,#f4f7f7);color:var(--ink,#12312f);font-fa
 
 /* ---------- Shell ---------- */
 .adm{display:flex;min-height:100vh}
-.adm-side{width:250px;flex:none;background:var(--teal-900,#06302e);color:#fff;display:flex;flex-direction:column;
+.adm-side{width:250px;flex:none;background:linear-gradient(180deg,#0e2a4d 0%,#0a2140 100%);color:#fff;display:flex;flex-direction:column;
   position:sticky;top:0;height:100vh}
-.adm-brand{padding:20px 22px;font-size:1.15rem;border-bottom:1px solid rgba(255,255,255,.1)}
+.adm-brand{padding:16px 20px;font-size:1.15rem;border-bottom:1px solid rgba(255,255,255,.1)}
 .adm-brand a{color:#fff;text-decoration:none;font-family:var(--f-display,serif)}
 .adm-brand b{font-weight:600}
 .adm-nav{display:flex;flex-direction:column;padding:14px 12px;gap:2px;overflow-y:auto;flex:1}
@@ -27,7 +37,7 @@ body{margin:0;background:var(--bg-soft,#f4f7f7);color:var(--ink,#12312f);font-fa
   text-decoration:none;font-size:.92rem;font-weight:550;transition:.15s}
 .adm-nav a svg{width:19px;height:19px;flex:none}
 .adm-nav a:hover{background:rgba(255,255,255,.08);color:#fff}
-.adm-nav a.active{background:var(--teal-600,#0c8b80);color:#fff}
+.adm-nav a.active{background:var(--teal-600,#1CA2E4);color:#fff;box-shadow:inset 3px 0 0 var(--lc-orange,#F07E20)}
 .adm-side-foot{padding:12px;border-top:1px solid rgba(255,255,255,.1);display:flex;flex-direction:column;gap:2px}
 .adm-side-foot a{display:flex;align-items:center;gap:11px;padding:10px 14px;border-radius:10px;
   color:rgba(255,255,255,.72);text-decoration:none;font-size:.9rem}
@@ -96,6 +106,14 @@ body{margin:0;background:var(--bg-soft,#f4f7f7);color:var(--ink,#12312f);font-fa
 .adm-enq-grid b{display:block;font-size:.72rem;text-transform:uppercase;letter-spacing:.04em;color:var(--muted,#6a827f);margin-bottom:2px}
 .adm-enq-grid a,.adm-enq-grid span{font-size:.9rem;color:var(--ink,#12312f)}
 .adm-enq-msg{background:var(--bg-soft,#f4f7f7);border-radius:10px;padding:14px;font-size:.92rem;line-height:1.6}
+
+/* ---------- Instant nav progress bar ---------- */
+.adm-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:100;opacity:0;
+  background:linear-gradient(90deg,var(--teal-600,#1CA2E4),var(--lc-green,#2FA84F))}
+.adm-progress.go{width:82%;opacity:1;transition:width 6s cubic-bezier(.08,.7,.2,1),opacity .2s}
+.adm-progress.done{width:100%;opacity:1;transition:width .2s ease,opacity .3s ease .1s}
+.adm-content{animation:admFade .22s ease}
+@keyframes admFade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
 
 /* ---------- Responsive ---------- */
 @media (max-width:860px){

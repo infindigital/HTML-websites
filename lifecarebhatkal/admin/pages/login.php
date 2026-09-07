@@ -23,7 +23,7 @@ $dbMissing = defined('CONFIG_MISSING') || !db();
 </head>
 <body class="adm-login-body">
   <div class="adm-login">
-    <div class="adm-login-brand"><span class="adm-logo"><?= icon('heart') ?></span><b>Life Care</b> Admin</div>
+    <div class="adm-login-brand"><img class="adm-logo-img" src="<?= asset('images/brand/logo-white.png') ?>" alt="Life Care Specialty Hospital"></div>
     <div class="form-card">
       <h1 style="font-size:1.5rem;margin-bottom:4px">Sign in</h1>
       <p class="muted" style="margin-bottom:22px">Manage your hospital website content.</p>
