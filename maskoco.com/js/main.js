@@ -226,21 +226,114 @@
   });
 
   /* --------------------------------------------------- 7. Contact form      */
+  /* Validates every field, POSTs the enquiry as JSON to contact-handler.php  */
+  /* (PHPMailer / SMTP), and only reports success on a real 2xx response.     */
+  const ENDPOINT = "contact-handler.php";
+  const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  const setFieldError = (field, msg) => {
+    field.classList.add("has-error");
+    const err = $(".field-error", field);
+    if (err && msg) err.textContent = msg;
+  };
+  const clearFieldError = (field) => field.classList.remove("has-error");
+
+  const validateField = (field) => {
+    const input = $("input, textarea", field);
+    if (!input) return true;
+    const value = input.value.trim();
+    const type = input.getAttribute("data-validate");
+    if (input.hasAttribute("required") && !value) {
+      setFieldError(field, "This field is required.");
+      return false;
+    }
+    if (type === "email" && value && !EMAIL_RE.test(value)) {
+      setFieldError(field, "Please enter a valid email address.");
+      return false;
+    }
+    if (type === "phone" && value && value.replace(/\D/g, "").length < 7) {
+      setFieldError(field, "Please enter a valid phone number.");
+      return false;
+    }
+    clearFieldError(field);
+    return true;
+  };
+
+  const collect = (form) => {
+    const payload = {};
+    $$("input, textarea", form).forEach((el) => {
+      if (el.name) payload[el.name] = el.value.trim();
+    });
+    payload.form_source = form.getAttribute("data-source") || "Website";
+    return payload;
+  };
+
+  const setStatus = (status, kind, text) => {
+    if (!status) return;
+    status.className = "form-status" + (kind ? " is-" + kind : "");
+    status.textContent = text || "";
+  };
+
   const form = $("#contact-form");
   if (form) {
+    const fields = $$(".field", form);
     const status = $(".form-status", form);
+    const button = $('button[type="submit"]', form);
+
+    fields.forEach((field) => {
+      const input = $("input, textarea", field);
+      if (!input) return;
+      input.addEventListener("input", () => {
+        if (field.classList.contains("has-error")) validateField(field);
+      });
+      input.addEventListener("blur", () => validateField(field));
+    });
+
     form.addEventListener("submit", (e) => {
       e.preventDefault();
-      const email = form.email;
-      if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim())) {
-        status.textContent = "Please enter a valid email address.";
-        status.style.color = "#e23";
-        email.focus();
+      let valid = true;
+      fields.forEach((field) => { if (!validateField(field)) valid = false; });
+      setStatus(status, "", "");
+
+      if (!valid) {
+        setStatus(status, "error", "Please correct the highlighted fields and try again.");
+        const firstError = $(".field.has-error input, .field.has-error textarea", form);
+        if (firstError) firstError.focus();
         return;
       }
-      status.style.color = "";
-      status.textContent = "Thank you — your message has been prepared. We'll be in touch shortly.";
-      form.reset();
+
+      const originalLabel = button ? button.textContent : "";
+      if (button) { button.disabled = true; button.textContent = "Sending…"; }
+      setStatus(status, "pending", "Sending your message…");
+
+      fetch(ENDPOINT, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify(collect(form)),
+      })
+        .then((res) =>
+          res.json().catch(() => ({})).then((body) => ({ ok: res.ok, body }))
+        )
+        .then((result) => {
+          if (result.ok && result.body && result.body.ok) {
+            setStatus(status, "success",
+              (result.body && result.body.message) ||
+              form.getAttribute("data-success") ||
+              "Thank you! Your message has been sent.");
+            form.reset();
+          } else {
+            setStatus(status, "error",
+              (result.body && result.body.message) ||
+              "Sorry, your message could not be sent. Please email info@maskoco.com or call +966 51 152 2501.");
+          }
+        })
+        .catch(() => {
+          setStatus(status, "error",
+            "Network error — please email info@maskoco.com or call +966 51 152 2501.");
+        })
+        .finally(() => {
+          if (button) { button.disabled = false; button.textContent = originalLabel; }
+        });
     });
   }
 
