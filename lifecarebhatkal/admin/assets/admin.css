@@ -115,6 +115,17 @@ body{margin:0;background:var(--bg-soft,#f2f7fc);color:var(--ink,#16233d);font-fa
 .adm-content{animation:admFade .22s ease}
 @keyframes admFade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
 
+/* ---------- Filter chips (enquiries) ---------- */
+.adm-filterbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.adm-chip{display:inline-flex;align-items:center;gap:6px;padding:7px 14px;border-radius:30px;border:1px solid var(--line-2,#d5e3ef);background:#fff;color:var(--ink-soft,#243a5e);text-decoration:none;font-size:.85rem;font-weight:600;transition:.2s}
+.adm-chip:hover{border-color:var(--teal-600,#1CA2E4);color:var(--teal-700,#1B71A1)}
+.adm-chip.on{background:var(--teal-600,#1CA2E4);border-color:var(--teal-600,#1CA2E4);color:#fff}
+.adm-chip.sm{padding:5px 11px;font-size:.8rem}
+.adm-chip em{font-style:normal;background:rgba(0,0,0,.08);border-radius:20px;padding:0 7px;font-size:.75rem}
+.adm-chip.on em{background:rgba(255,255,255,.25)}
+.adm-tag{display:inline-flex;align-items:center;gap:5px;color:var(--teal-700,#1B71A1);font-weight:600}
+.adm-tag svg{width:14px;height:14px}
+
 /* ---------- Responsive ---------- */
 @media (max-width:860px){
   .adm-side{position:fixed;left:-260px;z-index:60;transition:left .25s;box-shadow:var(--shadow-lg,0 20px 50px rgba(0,0,0,.3))}
