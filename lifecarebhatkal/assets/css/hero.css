@@ -1,21 +1,21 @@
 /* ============================================================
    LIFE CARE — Homepage Hero  (<HomeHero />)
-   Loaded ONLY on the homepage (body.home). The hero shows the brand
-   banners as-is and animates them (cross-transition + drifting objects).
-   The homepage header is transparent so it blends into the banner.
-   Everything is scoped so the teal system on the rest of the site is
+   Loaded ONLY on the homepage (body.home). The brand banner is shown
+   as-is: a static background plate carries the artwork + wordmark, and
+   only the person changes (doctor <-> nurses cutout cross-dissolve).
+   A light 3D scene (perspective tilt + layer parallax + orbit rings)
+   adds depth and movement. Scoped so the teal system elsewhere is
    untouched.
    ============================================================ */
 body.home{
   --hh-navy:#0a2544; --hh-blue:#1667ab; --hh-blue-2:#159bd7; --hh-cyan:#4bc0ea;
   --hh-ink:#0b2a4a; --hh-ease:cubic-bezier(.22,.61,.36,1);
-  --hh-topbar-h:38px; --mx:0; --my:0;
+  --hh-topbar-h:38px; --rx:0deg; --ry:0deg; --mx:0; --my:0;
 }
 
 /* ============================================================
    HOMEPAGE HEADER — transparent, blends into the light banner
    ============================================================ */
-/* thin top information bar (email · phone · short address) */
 body.home .topbar{
   position:fixed; inset:0 0 auto 0; z-index:210; background:transparent;
   color:var(--hh-ink); min-height:var(--hh-topbar-h); font-size:.8rem; font-weight:600;
@@ -30,7 +30,6 @@ body.home .topbar-info span{white-space:nowrap;color:var(--hh-ink)}
 body.home .topbar-right{display:none}
 body.home.hh-scrolled .topbar{opacity:0;transform:translateY(-100%);pointer-events:none}
 
-/* main navigation — transparent over the banner, dark text to read on the light art */
 body.home .site-header{position:fixed; top:var(--hh-topbar-h); left:0; right:0; z-index:200}
 body.home .site-header .nav-wrap{background:transparent;border-bottom:1px solid transparent}
 body.home .site-header .nav-inner{min-height:66px}
@@ -46,8 +45,6 @@ body.home .site-header .nav-cta .btn-primary{
 }
 body.home .site-header .nav-cta .btn-primary:hover{filter:brightness(1.06);transform:translateY(-2px)}
 body.home .nav-toggle{color:var(--hh-ink);background:rgba(255,255,255,.55);border-color:rgba(16,64,116,.2)}
-
-/* scrolled past the banner -> light glass bar so the nav stays readable */
 body.home .site-header.scrolled{top:0}
 body.home .site-header.scrolled .nav-wrap{
   background:rgba(255,255,255,.86);backdrop-filter:saturate(150%) blur(16px);
@@ -56,65 +53,81 @@ body.home .site-header.scrolled .nav-wrap{
 }
 body.home .site-header.scrolled .main-nav>li>a{color:var(--hh-ink);text-shadow:none}
 body.home .site-header.scrolled .main-nav>li>a:hover{background:rgba(21,110,180,.08);color:var(--hh-blue)}
-body.home .site-header.hide{transform:none}   /* keep the homepage bar calm */
+body.home .site-header.hide{transform:none}
 
 /* ============================================================
-   HERO — banner shown as-is
+   HERO — 3D scene: static plate + person cutout cross-dissolve
    ============================================================ */
 .home-hero{position:relative;width:100%;overflow:hidden;background:#dfeaf7;isolation:isolate}
-.hh-slides{position:relative;width:100%;aspect-ratio:1808 / 870}
-.hh-slide{position:absolute;inset:0;opacity:0;transform:scale(1.02);
-  transition:opacity 1.3s var(--hh-ease),transform 6s var(--hh-ease);will-change:opacity,transform}
-.hh-slide.is-show{opacity:1;transform:scale(1)}      /* slow, subtle life; image never crops badly */
-.hh-slide picture,.hh-slide img{display:block;width:100%;height:100%;object-fit:cover;object-position:center}
+.hh-scene{position:relative;width:100%;aspect-ratio:1808 / 870;overflow:hidden;
+  perspective:1300px}
+.hh-stage{position:absolute;inset:0;transform-style:preserve-3d;
+  transform:rotateX(var(--ry)) rotateY(var(--rx));
+  transition:transform .3s ease-out;will-change:transform}
+
+.hh-layer{position:absolute;inset:0;transform:translateZ(var(--z,0px));transform-style:preserve-3d}
+.hh-layer .hh-inner{position:absolute;inset:0}
+.hh-layer :is(img,picture){display:block;width:100%;height:100%;object-fit:cover}
+
+/* background plate sits behind and is scaled up so tilt never reveals an edge */
+.hh-plate{--z:-70px}
+.hh-plate .hh-inner{transform:scale(1.16)}
+
+/* the person cutouts pop forward and cross-dissolve */
+.hh-cut{--z:8px;opacity:0;transition:opacity 1.2s var(--hh-ease);will-change:opacity}
+.hh-cut.is-show{opacity:1}
+.hh-cut .hh-inner{transform:scale(1.03);animation:hhBob 8s ease-in-out infinite}
+@keyframes hhBob{0%,100%{transform:scale(1.03) translateY(0)}50%{transform:scale(1.03) translateY(-1.1%)}}
 
 /* light sweep on each change */
-.hh-sweep{position:absolute;inset:0;z-index:3;pointer-events:none;opacity:0;
+.hh-sweep{position:absolute;inset:0;z-index:3;transform:translateZ(30px);pointer-events:none;opacity:0;
   background:linear-gradient(105deg,transparent 40%,rgba(255,255,255,.55) 50%,transparent 60%);
-  mix-blend-mode:screen;transform:translateX(-110%)}
-.hh-slides.is-switching .hh-sweep{animation:hhSweep 1.3s var(--hh-ease)}
-@keyframes hhSweep{0%{transform:translateX(-110%);opacity:0}30%{opacity:.9}100%{transform:translateX(110%);opacity:0}}
+  mix-blend-mode:screen}
+.hh-stage.is-switching .hh-sweep{animation:hhSweep 1.3s var(--hh-ease)}
+@keyframes hhSweep{0%{transform:translateZ(30px) translateX(-60%);opacity:0}
+  30%{opacity:.9}100%{transform:translateZ(30px) translateX(60%);opacity:0}}
 
-/* ============================================================
-   MOVING OBJECTS drifting over the artwork
-   ============================================================ */
-.hh-objects{position:absolute;inset:0;z-index:2;pointer-events:none;
-  transform:translate3d(calc(var(--mx)*14px),calc(var(--my)*10px),0)}
-.hh-dot{position:absolute;left:var(--x);top:var(--y);width:var(--s);height:var(--s);border-radius:50%;
+/* 3D orbit rings circling the person (one behind, one in front) */
+.hh-orbit{position:absolute;top:52%;left:59%;width:44%;aspect-ratio:1;
+  margin:-22% 0 0 -22%;border-radius:50%;pointer-events:none;
+  border:1.5px solid rgba(120,180,225,.4);box-shadow:0 0 22px rgba(120,180,225,.25) inset}
+.hh-orbit-back{animation:hhOrbitA 26s linear infinite}
+.hh-orbit-front{width:58%;margin:-29% 0 0 -29%;border-color:rgba(255,255,255,.55);
+  animation:hhOrbitB 34s linear infinite}
+@keyframes hhOrbitA{from{transform:translateZ(-60px) rotateX(70deg) rotateZ(0)}
+  to{transform:translateZ(-60px) rotateX(70deg) rotateZ(360deg)}}
+@keyframes hhOrbitB{from{transform:translateZ(40px) rotateX(74deg) rotateZ(360deg)}
+  to{transform:translateZ(40px) rotateX(74deg) rotateZ(0deg)}}
+
+/* drifting particles */
+.hh-objects{position:absolute;inset:0;transform-style:preserve-3d;pointer-events:none}
+.hh-objects i{position:absolute;left:var(--x);top:var(--y);width:var(--s);height:var(--s);border-radius:50%;
+  transform:translateZ(var(--z,60px));
   background:radial-gradient(circle,rgba(255,255,255,.95),rgba(75,192,234,.35));
   box-shadow:0 0 12px rgba(75,160,220,.6);opacity:.7;animation:hhDrift var(--d) ease-in-out infinite}
-@keyframes hhDrift{0%,100%{transform:translateY(0);opacity:.35}50%{transform:translateY(-26px);opacity:.85}}
-.hh-ringobj{position:absolute;border-radius:50%;border:1.5px solid rgba(75,160,220,.28);opacity:.5}
-.hh-ring-1{width:190px;height:190px;left:6%;bottom:-60px;animation:hhFloatObj 17s ease-in-out infinite}
-.hh-ring-2{width:120px;height:120px;right:9%;top:-30px;border-color:rgba(255,255,255,.5);
-  animation:hhFloatObj 21s ease-in-out infinite reverse}
-@keyframes hhFloatObj{0%,100%{transform:translate(0,0)}50%{transform:translate(14px,-18px)}}
-
-/* ============================================================
-   SLIDE INDICATORS
-   ============================================================ */
-.hh-nav{position:absolute;left:50%;bottom:20px;z-index:4;transform:translateX(-50%);
-  display:flex;gap:10px}
-.hh-nav button{width:34px;height:5px;border:0;padding:0;border-radius:99px;cursor:pointer;
-  background:rgba(11,42,74,.28);transition:background .3s var(--hh-ease),width .3s var(--hh-ease)}
-.hh-nav button:hover{background:rgba(11,42,74,.5)}
-.hh-nav button.is-active{width:46px;background:var(--hh-blue)}
+@keyframes hhDrift{0%,100%{transform:translateZ(var(--z,60px)) translateY(0);opacity:.35}
+  50%{transform:translateZ(var(--z,60px)) translateY(-24px);opacity:.85}}
 
 /* ============================================================
    RESPONSIVE
    ============================================================ */
 @media (max-width:640px){
-  body.home .site-header{top:0}          /* global CSS hides the top-bar under 640px */
+  body.home .site-header{top:0}
   body.home .site-header .brand img{height:42px}
-  .hh-nav{bottom:12px}
-  .hh-ringobj{display:none}
+  .hh-scene{perspective:none}
+  .hh-stage{transform:none!important}
+  .hh-orbit,.hh-objects{display:none}
+  .hh-plate{--z:0px}.hh-plate .hh-inner{transform:none}
+  .hh-cut{--z:0px}
 }
 
 /* ============================================================
-   REDUCED MOTION — keep the banners, drop the movement
+   REDUCED MOTION — keep the artwork, drop the movement
    ============================================================ */
 @media (prefers-reduced-motion:reduce){
   .home-hero *{animation:none!important}
-  .hh-slide{transition:opacity .3s linear;transform:none!important}
-  .home-hero{--mx:0!important;--my:0!important}
+  .hh-stage{transform:none!important}
+  .hh-cut{transition:opacity .3s linear}
+  .hh-cut .hh-inner{transform:scale(1.03)!important}
+  .hh-orbit{display:none}
 }

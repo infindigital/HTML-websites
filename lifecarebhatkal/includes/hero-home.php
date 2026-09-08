@@ -1,42 +1,48 @@
 <?php
 /**
  * <HomeHero /> — Life Care Specialty Hospital
- * Homepage-only hero. Shows the supplied brand banners exactly as they are
- * (doctor / two nurses) and animates them:
- *   - a slow cinematic cross-transition between the two banners
- *   - gentle "moving objects" drifting over the artwork (glow dots + rings)
- *   - a soft light sweep on each change
+ * Homepage-only hero. The brand banner is shown as-is via a static
+ * background PLATE (background + wordmark, person removed). Only the
+ * PERSON changes: the doctor cutout cross-dissolves to the two-nurse
+ * cutout and back, on a slow loop. A lightweight 3D scene adds depth:
+ * mouse-driven perspective tilt, layer parallax (plate behind, person
+ * in front), floating 3D orbit rings and drifting particles.
  * Styles: assets/css/hero.css · behaviour: assets/js/hero.js
- * (both loaded only when $meta['home_hero'] is set — see head.php / footer.php)
  */
 ?>
 <section class="home-hero" id="home-hero" aria-label="Welcome to <?= e(setting('site_name')) ?>, Bhatkal">
-  <div class="hh-slides" data-hero-slides>
-    <div class="hh-slide is-show" data-slide="doctor">
-      <?= img('assets/images/hero/banner-doctor.jpg', 'Welcome to ' . setting('site_name') . ', Bhatkal — our specialist doctors', ['eager'=>true,'w'=>1808,'h'=>870]) ?>
-    </div>
-    <div class="hh-slide" data-slide="nurses" aria-hidden="true">
-      <?= img('assets/images/hero/banner-nurses.jpg', 'Welcome to ' . setting('site_name') . ', Bhatkal — our nursing team', ['eager'=>true,'w'=>1808,'h'=>870]) ?>
-    </div>
-    <span class="hh-sweep" aria-hidden="true"></span>
-  </div>
+  <div class="hh-scene">
+    <div class="hh-stage" data-hero-stage>
 
-  <!-- moving objects drifting over the artwork -->
-  <div class="hh-objects" aria-hidden="true">
-    <span class="hh-ringobj hh-ring-1"></span>
-    <span class="hh-ringobj hh-ring-2"></span>
-    <i class="hh-dot" style="--x:12%;--y:30%;--d:11s;--s:8px"></i>
-    <i class="hh-dot" style="--x:22%;--y:68%;--d:14s;--s:6px"></i>
-    <i class="hh-dot" style="--x:38%;--y:20%;--d:12s;--s:5px"></i>
-    <i class="hh-dot" style="--x:63%;--y:74%;--d:15s;--s:7px"></i>
-    <i class="hh-dot" style="--x:80%;--y:26%;--d:13s;--s:6px"></i>
-    <i class="hh-dot" style="--x:90%;--y:60%;--d:16s;--s:5px"></i>
-    <i class="hh-dot" style="--x:50%;--y:88%;--d:12s;--s:6px"></i>
-  </div>
+      <!-- static background plate (wordmark + artwork, person removed) -->
+      <div class="hh-layer hh-plate" aria-hidden="true">
+        <div class="hh-inner"><?= img('assets/images/hero/hero-bg-plate.jpg', '', ['eager'=>true,'w'=>1808,'h'=>870]) ?></div>
+      </div>
 
-  <!-- slide indicators -->
-  <div class="hh-nav" data-hero-nav>
-    <button type="button" class="is-active" data-go="0" aria-label="Show doctor banner"></button>
-    <button type="button" data-go="1" aria-label="Show nursing team banner"></button>
+      <!-- 3D orbit ring behind the person -->
+      <span class="hh-orbit hh-orbit-back" aria-hidden="true"></span>
+
+      <!-- the person — cross-dissolves doctor <-> nurses -->
+      <div class="hh-layer hh-cut hh-doctor is-show" data-person="doctor">
+        <div class="hh-inner"><?= img('assets/images/hero/hero-doctor-cut.png', 'A specialist doctor at ' . setting('site_name') . ', Bhatkal', ['eager'=>true,'w'=>1808,'h'=>870]) ?></div>
+      </div>
+      <div class="hh-layer hh-cut hh-nurses" data-person="nurses" aria-hidden="true">
+        <div class="hh-inner"><?= img('assets/images/hero/hero-nurses-cut.png', 'The nursing team at ' . setting('site_name') . ', Bhatkal', ['eager'=>true,'w'=>1808,'h'=>870]) ?></div>
+      </div>
+
+      <!-- 3D orbit ring in front + light sweep on each change -->
+      <span class="hh-orbit hh-orbit-front" aria-hidden="true"></span>
+      <span class="hh-sweep" aria-hidden="true"></span>
+
+      <!-- drifting particles (front depth) -->
+      <div class="hh-objects" aria-hidden="true">
+        <i style="--x:16%;--y:30%;--d:11s;--s:8px;--z:70px"></i>
+        <i style="--x:26%;--y:66%;--d:14s;--s:6px;--z:40px"></i>
+        <i style="--x:47%;--y:22%;--d:12s;--s:5px;--z:90px"></i>
+        <i style="--x:70%;--y:72%;--d:15s;--s:7px;--z:55px"></i>
+        <i style="--x:82%;--y:30%;--d:13s;--s:6px;--z:80px"></i>
+        <i style="--x:90%;--y:58%;--d:16s;--s:5px;--z:45px"></i>
+      </div>
+    </div>
   </div>
 </section>
