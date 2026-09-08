@@ -96,5 +96,8 @@ $wa = wa_href(setting('whatsapp'), 'Hello Life Care, I would like to make an enq
 <script defer src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/11.1.14/swiper-bundle.min.js"></script>
 <?php endif; ?>
 <script defer src="<?= asset('js/main.js') ?>?v=1"></script>
+<?php if (!empty($meta['home_hero'])): ?>
+<script defer src="<?= asset('js/hero.js') ?>?v=1"></script>
+<?php endif; ?>
 </body>
 </html>

@@ -16,7 +16,11 @@ $wa = wa_href(setting('whatsapp'), 'Hello Life Care, I would like to make an enq
     <div class="topbar-info">
       <span><?= icon('mail') ?><a href="mailto:<?= e(setting('email')) ?>"><?= e(setting('email')) ?></a></span>
       <span class="hide-md"><?= icon('phone') ?><a href="<?= e(tel_href(setting('phone1'))) ?>"><?= e(setting('phone1')) ?></a> / <a href="<?= e(tel_href(setting('phone2'))) ?>"><?= e(setting('phone2')) ?></a></span>
+      <?php if ($hasHero): ?>
+      <span class="hide-md"><?= icon('location') ?>Nawayath Colony, Jali Road, Bhatkal</span>
+      <?php else: ?>
       <span class="hide-md"><?= icon('clock') ?>OPD: <?= e(setting('opd_hours')) ?></span>
+      <?php endif; ?>
     </div>
     <div class="topbar-right">
       <span class="emg"><?= icon('emergency') ?><?= e(t('emergency_line')) ?></span>

@@ -2,7 +2,8 @@
 $meta = [
     'title' => setting('site_name') . ' — ' . setting('tagline') . ' | Bhatkal',
     'desc'  => 'Life Care Specialty Hospital, Bhatkal — 32-slice CT, 24×7 accident & emergency, experienced specialists and modern diagnostics. Keeping you well.',
-    'route' => '', 'has_hero' => true, 'eager_hero' => true, 'use_swiper' => true,
+    'route' => '', 'has_hero' => true, 'home_hero' => true, 'use_swiper' => true,
+    'body_class' => 'home',
 ];
 $depts = get_departments();
 $docs  = get_doctors('resident');
@@ -17,28 +18,8 @@ require ROOT_PATH . '/includes/header.php';
 $wa = wa_href(setting('whatsapp'), 'Hello Life Care, I would like to make an enquiry.');
 ?>
 
-<!-- 01 · HERO -->
-<section class="hero">
-  <div class="hero-media" data-parallax>
-    <?= img('assets/images/hero/hero-1.jpg', 'Life Care Specialty Hospital, Bhatkal', ['eager'=>true, 'w'=>1920,'h'=>1279]) ?>
-  </div>
-  <div class="container hero-inner">
-    <span class="eyebrow kicker">Bhatkal · Uttara Kannada · Karnataka</span>
-    <h1><span class="line">Life Care Specialty</span> <span class="line">Hospital</span></h1>
-    <p class="hero-lead"><span class="tagline">“<?= e(setting('tagline')) ?>”</span> — bringing modern health facilities, advanced diagnostics and round-the-clock emergency care to Bhatkal and its surroundings.</p>
-    <div class="hero-actions">
-      <a href="<?= url('departments') ?>" class="btn btn-primary btn-lg">Explore Departments <?= icon('arrow') ?></a>
-      <a href="<?= e(tel_href(setting('phone1'))) ?>" class="btn btn-on-dark btn-lg"><?= icon('phone') ?><?= t('cta_emergency') ?></a>
-    </div>
-  </div>
-  <aside class="hero-float">
-    <h4>Always here for you</h4>
-    <div class="row"><?= icon('emergency') ?><div><b>24×7 Emergency</b><small>Accident &amp; Casualty</small></div></div>
-    <div class="row"><?= icon('scan') ?><div><b>32-Slice CT Scan</b><small>Advanced imaging</small></div></div>
-    <div class="row"><?= icon('clock') ?><div><b>Duty Doctors 24×7</b><small>Every single day</small></div></div>
-  </aside>
-  <a href="#welcome" class="scroll-cue" aria-label="Scroll down"><span class="mouse"></span>Scroll</a>
-</section>
+<!-- 01 · HERO — <HomeHero /> (homepage-only animated hero) -->
+<?php require ROOT_PATH . '/includes/hero-home.php'; ?>
 
 <!-- Trust marquee -->
 <div class="marquee-strip" aria-hidden="true">
