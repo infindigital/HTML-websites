@@ -446,6 +446,16 @@ h1,h2,h3,h4,h5,h6{color:var(--lc-ink)}
 .hh-doctor{--pscale:.92}
 .hh-nurses{--pscale:.96}
 
+/* ===== headline text on top of ALL decoration; only the person image in front =====
+   push the orbit ring and floating particles behind the wordmark so nothing
+   crosses / nicks the letters (fixes "Life top is cut"). depth order becomes:
+   bg -> orbits/particles -> WORDMARK TEXT -> person image */
+.hh-objects i{--z:-40px}                 /* particles behind the headline */
+.hh-orbit-front{animation:hhOrbitBk 34s linear infinite}
+@keyframes hhOrbitBk{
+  from{transform:translateZ(-46px) rotateX(74deg) rotateZ(360deg)}
+  to{transform:translateZ(-46px) rotateX(74deg) rotateZ(0)} }
+
 </style>
 <section class="home-hero" aria-label="Welcome to Life Care Specialty Hospital, Bhatkal">
   <div class="hh-scene">
