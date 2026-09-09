@@ -47,7 +47,7 @@ $bodyCls = $m['body_class'] ?? '';
 <link rel="stylesheet" href="<?= asset('css/main.css') ?>?v=1">
 <?php if (!empty($m['home_hero'])): ?>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap">
-<link rel="stylesheet" href="<?= asset('css/hero.css') ?>?v=6">
+<link rel="stylesheet" href="<?= asset('css/hero.css') ?>?v=7">
 <link rel="preload" as="image" href="<?= asset('images/hero/background.webp') ?>" type="image/webp">
 <link rel="preload" as="image" href="<?= asset('images/hero/hero-doctor-cut.webp') ?>" type="image/webp">
 <?php elseif (!empty($m['eager_hero'])): ?>

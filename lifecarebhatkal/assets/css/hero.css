@@ -32,7 +32,7 @@ body.home.hh-scrolled .topbar{opacity:0;transform:translateY(-100%);pointer-even
 
 body.home .site-header{position:fixed; top:var(--hh-topbar-h); left:0; right:0; z-index:200}
 body.home .site-header .nav-wrap{background:transparent;border-bottom:1px solid transparent}
-body.home .site-header .nav-inner{min-height:66px;position:relative;z-index:2}
+body.home .site-header .nav-inner{min-height:92px;position:relative;z-index:2}
 /* the navy gradient that merges into the image */
 body.home .site-header:not(.scrolled)::before{
   content:""; position:absolute; left:0; right:0; top:-46px; height:300px; pointer-events:none; z-index:0;
@@ -44,7 +44,7 @@ body.home .site-header:not(.scrolled)::before{
     rgba(14,54,100,.14) 82%,
     transparent 100%);
 }
-body.home .site-header .brand img{height:48px;position:relative;z-index:2}
+body.home .site-header .brand img{height:74px;position:relative;z-index:2}
 body.home .site-header .brand .logo-white{display:block}
 body.home .site-header .brand .logo-dark{display:none}
 body.home .site-header .main-nav>li>a{color:#eaf5ff}
@@ -92,11 +92,11 @@ body.home .site-header.hide{transform:none}
 .hh-text{--z:-24px;--px:-7px;--py:-5px;font-family:"Poppins",var(--f-body);color:var(--hh-navy);-webkit-font-smoothing:antialiased}
 .hh-wordmark{position:absolute;inset:0;margin:0;font-weight:700;line-height:.92;letter-spacing:-.01em}
 .hh-wordmark span{position:absolute;white-space:nowrap;display:block}
-.wm-welcome{left:9.6%;top:26%;font-size:2.8cqw;font-weight:500;letter-spacing:.03em}
-.wm-life{left:9.4%;top:35%;font-size:12.8cqw;font-weight:700}
-.wm-care{right:4.4%;top:35%;font-size:12.8cqw;font-weight:700}
-.wm-sub{right:4.6%;top:59%;font-size:2.4cqw;font-weight:500;letter-spacing:.02em}
-.wm-eyebrow{position:absolute;left:2%;top:46%;margin:0;font-size:.74cqw;font-weight:600;
+.wm-welcome{left:9.6%;top:22%;font-size:2.8cqw;font-weight:500;letter-spacing:.03em}
+.wm-life{left:11%;top:31%;font-size:18.4cqw;font-weight:700}
+.wm-care{right:10.5%;top:31%;font-size:18.4cqw;font-weight:700}
+.wm-sub{right:4.4%;top:63.5%;font-size:2.4cqw;font-weight:500;letter-spacing:.02em}
+.wm-eyebrow{position:absolute;left:2%;top:47%;margin:0;font-size:.74cqw;font-weight:600;
   letter-spacing:.16em;line-height:1.8;text-transform:uppercase;color:var(--hh-navy);
   padding-left:.7em;border-left:2px solid var(--hh-navy)}
 
