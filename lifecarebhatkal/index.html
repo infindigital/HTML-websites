@@ -582,6 +582,27 @@ body.scrolled .mainnav>li>a{color:#eaf5ff!important}
 @media (min-width:992px) and (max-width:1200px){
   .home-hero{padding-top:120px}
 }
+
+
+/* tablet + phones: use the hamburger drawer instead of the horizontal nav
+   (the 7-item inline menu overflows/clips between 641-991px). Header shared,
+   so this corrects the header on every page. */
+@media (max-width:991px){
+  .mnav-burger{display:inline-flex!important;flex:0 0 auto;flex-direction:column;justify-content:center;gap:5px;
+    width:46px;height:42px;padding:8px;margin-left:auto;cursor:pointer;order:3}
+  .mnav-burger span{display:block;height:3px;width:100%;background:#eaf5ff;border-radius:2px;
+    transition:transform .25s,opacity .25s}
+  .siteheader nav[aria-label="Primary"]{position:absolute;left:0;right:0;top:100%;
+    background:#14294d;padding:0 14px;max-height:0;overflow:hidden;
+    box-shadow:0 20px 34px rgba(8,24,48,.36);transition:max-height .32s ease,padding .32s ease}
+  .mnav-tgl:checked ~ nav[aria-label="Primary"]{max-height:82vh;padding:8px 14px 16px;overflow:auto}
+  .mainnav{display:flex!important;flex-direction:column;gap:2px}
+  .mainnav>li>a{color:#eaf5ff!important;padding:14px 12px;font-size:1.02rem;border-radius:10px;
+    justify-content:space-between}
+  .mnav-tgl:checked ~ .mnav-burger span:nth-child(1){transform:translateY(8px) rotate(45deg)}
+  .mnav-tgl:checked ~ .mnav-burger span:nth-child(2){opacity:0}
+  .mnav-tgl:checked ~ .mnav-burger span:nth-child(3){transform:translateY(-8px) rotate(-45deg)}
+}
 </style>
 <section class="home-hero" aria-label="Welcome to Life Care Specialty Hospital, Bhatkal">
   <div class="hh-scene">
