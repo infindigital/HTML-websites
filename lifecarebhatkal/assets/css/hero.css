@@ -58,9 +58,9 @@ body.home .site-header.hide{transform:none}
 /* ============================================================
    HERO — 3D scene: static plate + person cutout cross-dissolve
    ============================================================ */
-.home-hero{position:relative;width:100%;overflow:hidden;background:#dfeaf7;isolation:isolate}
-.hh-scene{position:relative;width:100%;aspect-ratio:1808 / 870;overflow:hidden;
-  perspective:1300px}
+.home-hero{position:relative;width:100%;overflow:hidden;background:#e7eefb;isolation:isolate}
+.hh-scene{position:relative;width:100%;aspect-ratio:1806 / 871;overflow:hidden;
+  perspective:1300px;container-type:inline-size}
 .hh-stage{position:absolute;inset:0;transform-style:preserve-3d;
   transform:rotateX(var(--ry)) rotateY(var(--rx));
   transition:transform .3s ease-out;will-change:transform}
@@ -69,9 +69,22 @@ body.home .site-header.hide{transform:none}
 .hh-layer .hh-inner{position:absolute;inset:0}
 .hh-layer :is(img,picture){display:block;width:100%;height:100%;object-fit:cover}
 
-/* background plate sits behind and is scaled up so tilt never reveals an edge */
-.hh-plate{--z:-70px}
-.hh-plate .hh-inner{transform:scale(1.16)}
+/* clean brand background sits behind, scaled a touch so tilt never reveals an edge */
+.hh-bg{--z:-70px}
+.hh-bg .hh-inner{transform:scale(1.06)}
+
+/* ---------- wordmark (crisp navy HTML text) ---------- */
+.hh-text{--z:-24px;font-family:"Poppins",var(--f-body);color:var(--hh-navy);
+  -webkit-font-smoothing:antialiased}
+.hh-wordmark{position:absolute;inset:0;margin:0;font-weight:700;line-height:.9;letter-spacing:-.01em}
+.hh-wordmark span{position:absolute;white-space:nowrap;display:block}
+.wm-welcome{left:10.6%;top:20.5%;font-size:5cqw;font-weight:500;letter-spacing:.005em}
+.wm-life{left:10.3%;top:31%;font-size:18.4cqw;font-weight:700}
+.wm-care{right:3.2%;top:31%;font-size:18.4cqw;font-weight:700}
+.wm-sub{right:3.4%;top:64.5%;font-size:4cqw;font-weight:500;letter-spacing:.005em}
+.wm-eyebrow{position:absolute;left:2.8%;top:52%;margin:0;font-size:1.04cqw;font-weight:600;
+  letter-spacing:.2em;line-height:1.8;text-transform:uppercase;color:var(--hh-navy);
+  padding-left:.8em;border-left:2px solid var(--hh-navy)}
 
 /* the person cutouts pop forward and cross-dissolve */
 .hh-cut{--z:8px;opacity:0;transition:opacity 1.2s var(--hh-ease);will-change:opacity}
