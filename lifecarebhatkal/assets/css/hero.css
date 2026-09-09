@@ -7,7 +7,7 @@
    into the artwork. Scoped so the teal system elsewhere is untouched.
    ============================================================ */
 body.home{
-  --hh-navy:#0a2544; --hh-navy-2:#0e3a67; --hh-blue:#1667ab; --hh-blue-2:#159bd7; --hh-cyan:#4bc0ea;
+  --hh-navy:#13275f; --hh-navy-2:#0e3a67; --hh-blue:#1667ab; --hh-blue-2:#159bd7; --hh-cyan:#4bc0ea;
   --hh-ink:#0b2a4a; --hh-ease:cubic-bezier(.22,.61,.36,1);
   --hh-topbar-h:38px; --rx:0deg; --ry:0deg; --mx:0; --my:0;
 }
