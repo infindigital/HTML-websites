@@ -97,7 +97,7 @@ $wa = wa_href(setting('whatsapp'), 'Hello Life Care, I would like to make an enq
 <?php endif; ?>
 <script defer src="<?= asset('js/main.js') ?>?v=1"></script>
 <?php if (!empty($meta['home_hero'])): ?>
-<script defer src="<?= asset('js/hero.js') ?>?v=4"></script>
+<script defer src="<?= asset('js/hero.js') ?>?v=6"></script>
 <?php endif; ?>
 </body>
 </html>

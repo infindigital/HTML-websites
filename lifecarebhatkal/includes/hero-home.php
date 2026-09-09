@@ -55,5 +55,8 @@
         <i style="--x:90%;--y:58%;--d:16s;--s:5px;--z:45px"></i>
       </div>
     </div>
+
+    <!-- primary call to action (bottom-centre) -->
+    <a href="<?= url('contact') ?>" class="hh-cta-btn">Book an Appointment <?= icon('arrow') ?></a>
   </div>
 </section>

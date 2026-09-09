@@ -21,14 +21,6 @@ $wa = wa_href(setting('whatsapp'), 'Hello Life Care, I would like to make an enq
 <!-- 01 · HERO — <HomeHero /> (homepage-only animated hero) -->
 <?php require ROOT_PATH . '/includes/hero-home.php'; ?>
 
-<!-- Trust marquee -->
-<div class="marquee-strip" aria-hidden="true">
-  <div class="marquee">
-    <?php $chips=['32-Slice CT Scan','24×7 Accident & Emergency','Modular Operation Theatre','Hi-Tech Laboratory','Ultrasound & Colour Doppler','Digital X-Ray','ICU & Critical Care','24×7 Pharmacy'];
-    for($k=0;$k<2;$k++) foreach($chips as $c) echo '<span>'.icon('check').e($c).'</span>'; ?>
-  </div>
-</div>
-
 <!-- 02 · INTRO / WELCOME -->
 <section class="section" id="welcome">
   <div class="container split">

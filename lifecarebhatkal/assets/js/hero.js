@@ -1,8 +1,8 @@
 /* ============================================================
    Life Care — Homepage Hero controller (<HomeHero />)
-   Loaded only on the homepage. Cross-dissolves the person cutout
-   (doctor <-> nurses) over the static plate, drives the light sweep,
-   and tilts the 3D scene with the pointer. Honours reduced-motion.
+   Intro choreography: doctor fades in -> headline animates in ->
+   person cross-dissolves (doctor <-> nurses) on a loop. Cursor tilts
+   the 3D scene and parallaxes the layers. Honours reduced-motion.
    ============================================================ */
 (function () {
   'use strict';
@@ -14,13 +14,19 @@
 
   var stage = hero.querySelector('[data-hero-stage]');
 
-  /* ---- person cross-dissolve (doctor <-> nurses) ---- */
+  /* ---- intro: doctor first, then the headline loads ---- */
+  requestAnimationFrame(function () {
+    setTimeout(function () { hero.classList.add('hh-in'); }, reduce ? 0 : 90);      // doctor fades in
+    setTimeout(function () { hero.classList.add('hh-loaded'); }, reduce ? 0 : 950); // headline reveals
+  });
+
+  /* ---- person cross-dissolve (starts after the headline is in) ---- */
   (function personSwap() {
     if (!stage) return;
     var persons = stage.querySelectorAll('.hh-cut');
-    if (persons.length < 2 || reduce) return;   // reduced motion: keep doctor static
+    if (persons.length < 2 || reduce) return;
 
-    var idx = 0, timer = null, HOLD = 5600, SWEEP = 1350;
+    var idx = 0, timer = null, HOLD = 5600, SWEEP = 1350, INTRO = 4200;
     function swap() {
       stage.classList.add('is-switching');
       persons[idx].classList.remove('is-show');
@@ -32,37 +38,17 @@
     }
     function start() { if (!timer) timer = setInterval(swap, HOLD); }
     function stop() { clearInterval(timer); timer = null; }
-    start();
+
+    // hold on the doctor through the headline intro, then swap and loop
+    setTimeout(function () { swap(); start(); }, INTRO);
     document.addEventListener('visibilitychange', function () {
       document.hidden ? stop() : start();
     });
   })();
 
-  /* ---- 3D perspective tilt + parallax on pointer move ---- */
-  (function tilt3d() {
-    if (reduce || !stage || !window.matchMedia('(pointer:fine)').matches) return;
-    var MAX = 3.4;                       // degrees — kept subtle
-    var tx = 0, ty = 0, cx = 0, cy = 0, raf = null;
-    function onMove(e) {
-      var r = hero.getBoundingClientRect();
-      tx = ((e.clientX - r.left) / r.width - 0.5) * 2;   // -1..1
-      ty = ((e.clientY - r.top) / r.height - 0.5) * 2;
-      if (!raf) raf = requestAnimationFrame(apply);
-    }
-    function apply() {
-      cx += (tx - cx) * 0.08; cy += (ty - cy) * 0.08;
-      stage.style.setProperty('--rx', (cx * MAX).toFixed(2) + 'deg');   // rotateY
-      stage.style.setProperty('--ry', (-cy * MAX).toFixed(2) + 'deg');  // rotateX
-      hero.style.setProperty('--mx', cx.toFixed(3));
-      hero.style.setProperty('--my', cy.toFixed(3));
-      raf = (Math.abs(tx - cx) > 0.002 || Math.abs(ty - cy) > 0.002)
-        ? requestAnimationFrame(apply) : null;
-    }
-    hero.addEventListener('mousemove', onMove, { passive: true });
-    hero.addEventListener('mouseleave', function () {
-      tx = 0; ty = 0; if (!raf) raf = requestAnimationFrame(apply);
-    });
-  })();
+  /* The hero frame stays fixed — no scene tilt or left/right parallax
+     (neither cursor-driven nor automatic). The doctor<->nurses swap,
+     the headline intro, orbit rings and floating dots provide the life. */
 
   /* ---- scrolled state: fade the thin top-bar, glass the nav ---- */
   (function scrolled() {

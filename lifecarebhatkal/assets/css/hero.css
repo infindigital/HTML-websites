@@ -1,62 +1,78 @@
 /* ============================================================
    LIFE CARE — Homepage Hero  (<HomeHero />)
-   Loaded ONLY on the homepage (body.home). The brand banner is shown
-   as-is: a static background plate carries the artwork + wordmark, and
-   only the person changes (doctor <-> nurses cutout cross-dissolve).
-   A light 3D scene (perspective tilt + layer parallax + orbit rings)
-   adds depth and movement. Scoped so the teal system elsewhere is
-   untouched.
+   Loaded ONLY on the homepage (body.home). A clean, text-free brand
+   background carries the artwork; the wordmark is crisp navy HTML text.
+   On load the doctor appears, the headline animates in, then the person
+   cross-dissolves doctor <-> nurses. A navy gradient melts the header
+   into the artwork. Scoped so the teal system elsewhere is untouched.
    ============================================================ */
 body.home{
-  --hh-navy:#0a2544; --hh-blue:#1667ab; --hh-blue-2:#159bd7; --hh-cyan:#4bc0ea;
+  --hh-navy:#0a2544; --hh-navy-2:#0e3a67; --hh-blue:#1667ab; --hh-blue-2:#159bd7; --hh-cyan:#4bc0ea;
   --hh-ink:#0b2a4a; --hh-ease:cubic-bezier(.22,.61,.36,1);
   --hh-topbar-h:38px; --rx:0deg; --ry:0deg; --mx:0; --my:0;
 }
 
 /* ============================================================
-   HOMEPAGE HEADER — transparent, blends into the light banner
+   HOMEPAGE HEADER — navy gradient melting into the artwork
    ============================================================ */
+/* thin top information bar — pushed to the right end, light text */
 body.home .topbar{
   position:fixed; inset:0 0 auto 0; z-index:210; background:transparent;
-  color:var(--hh-ink); min-height:var(--hh-topbar-h); font-size:.8rem; font-weight:600;
+  color:rgba(255,255,255,.85); min-height:var(--hh-topbar-h); font-size:.8rem; font-weight:600;
   transition:opacity .4s var(--hh-ease), transform .4s var(--hh-ease);
 }
-body.home .topbar-inner{min-height:var(--hh-topbar-h);padding-block:5px}
-body.home .topbar a{color:var(--hh-ink)}
-body.home .topbar a:hover{color:var(--hh-blue)}
-body.home .topbar-info{gap:26px;flex-wrap:nowrap}
-body.home .topbar-info svg{width:14px;height:14px;color:var(--hh-blue)}
-body.home .topbar-info span{white-space:nowrap;color:var(--hh-ink)}
+body.home .topbar-inner{min-height:var(--hh-topbar-h);padding-block:5px;justify-content:flex-end}
+body.home .topbar a{color:#fff}
+body.home .topbar a:hover{color:var(--hh-cyan)}
+body.home .topbar-info{gap:24px;flex-wrap:nowrap}
+body.home .topbar-info svg{width:14px;height:14px;color:var(--hh-cyan)}
+body.home .topbar-info span{white-space:nowrap;color:rgba(255,255,255,.9)}
 body.home .topbar-right{display:none}
 body.home.hh-scrolled .topbar{opacity:0;transform:translateY(-100%);pointer-events:none}
 
 body.home .site-header{position:fixed; top:var(--hh-topbar-h); left:0; right:0; z-index:200}
 body.home .site-header .nav-wrap{background:transparent;border-bottom:1px solid transparent}
-body.home .site-header .nav-inner{min-height:66px}
-body.home .site-header .brand img{height:48px}
-body.home .site-header .brand .logo-white{display:none}
-body.home .site-header .brand .logo-dark{display:block}
-body.home .site-header .main-nav>li>a{color:var(--hh-ink);text-shadow:0 1px 10px rgba(255,255,255,.4)}
-body.home .site-header .main-nav>li>a:hover{background:rgba(21,110,180,.1);color:var(--hh-blue)}
+body.home .site-header .nav-inner{min-height:66px;position:relative;z-index:2}
+/* the navy gradient that merges into the image */
+body.home .site-header:not(.scrolled)::before{
+  content:""; position:absolute; left:0; right:0; top:-46px; height:300px; pointer-events:none; z-index:0;
+  background:linear-gradient(180deg,
+    rgba(9,28,52,.97) 0%,
+    rgba(9,28,52,.9) 14%,
+    rgba(10,34,64,.66) 38%,
+    rgba(12,44,82,.36) 62%,
+    rgba(14,54,100,.14) 82%,
+    transparent 100%);
+}
+body.home .site-header .brand img{height:48px;position:relative;z-index:2}
+body.home .site-header .brand .logo-white{display:block}
+body.home .site-header .brand .logo-dark{display:none}
+body.home .site-header .main-nav>li>a{color:#eaf5ff}
+body.home .site-header .main-nav>li>a:hover{background:rgba(255,255,255,.14);color:#fff}
 body.home .site-header .dropdown a:hover{background:#eaf4fd;color:var(--hh-blue)}
 body.home .site-header .nav-cta .btn-primary{
   background:linear-gradient(120deg,var(--hh-blue-2),var(--hh-blue));
-  box-shadow:0 12px 26px rgba(21,110,180,.32);border-color:transparent;color:#fff;
+  box-shadow:0 12px 26px rgba(21,110,180,.36);border-color:transparent;color:#fff;
 }
-body.home .site-header .nav-cta .btn-primary:hover{filter:brightness(1.06);transform:translateY(-2px)}
-body.home .nav-toggle{color:var(--hh-ink);background:rgba(255,255,255,.55);border-color:rgba(16,64,116,.2)}
+body.home .site-header .nav-cta .btn-primary:hover{filter:brightness(1.07);transform:translateY(-2px)}
+body.home .nav-toggle{color:#fff;background:rgba(255,255,255,.16);border-color:rgba(255,255,255,.34)}
+
+/* scrolled past the hero -> light glass bar, dark text */
 body.home .site-header.scrolled{top:0}
 body.home .site-header.scrolled .nav-wrap{
-  background:rgba(255,255,255,.86);backdrop-filter:saturate(150%) blur(16px);
+  background:rgba(255,255,255,.88);backdrop-filter:saturate(150%) blur(16px);
   -webkit-backdrop-filter:saturate(150%) blur(16px);
   box-shadow:0 8px 30px rgba(10,40,74,.12);border-bottom-color:rgba(16,64,116,.1);
 }
-body.home .site-header.scrolled .main-nav>li>a{color:var(--hh-ink);text-shadow:none}
+body.home .site-header.scrolled .main-nav>li>a{color:var(--hh-ink)}
 body.home .site-header.scrolled .main-nav>li>a:hover{background:rgba(21,110,180,.08);color:var(--hh-blue)}
+body.home .site-header.scrolled .brand .logo-white{display:none}
+body.home .site-header.scrolled .brand .logo-dark{display:block}
+body.home .site-header.scrolled .nav-toggle{color:var(--hh-ink);background:#fff;border-color:rgba(16,64,116,.16)}
 body.home .site-header.hide{transform:none}
 
 /* ============================================================
-   HERO — 3D scene: static plate + person cutout cross-dissolve
+   HERO — 3D scene: clean background + navy wordmark + person cutouts
    ============================================================ */
 .home-hero{position:relative;width:100%;overflow:hidden;background:#e7eefb;isolation:isolate}
 .hh-scene{position:relative;width:100%;aspect-ratio:1806 / 871;overflow:hidden;
@@ -65,61 +81,86 @@ body.home .site-header.hide{transform:none}
   transform:rotateX(var(--ry)) rotateY(var(--rx));
   transition:transform .3s ease-out;will-change:transform}
 
-.hh-layer{position:absolute;inset:0;transform:translateZ(var(--z,0px));transform-style:preserve-3d}
+.hh-layer{position:absolute;inset:0;transform-style:preserve-3d;
+  transform:translateZ(var(--z,0px)) translate3d(calc(var(--mx,0)*var(--px,0px)),calc(var(--my,0)*var(--py,0px)),0)}
 .hh-layer .hh-inner{position:absolute;inset:0}
 .hh-layer :is(img,picture){display:block;width:100%;height:100%;object-fit:cover}
+.hh-bg{--z:-70px;--px:-14px;--py:-9px}
+.hh-bg .hh-inner{transform:scale(1.08)}
 
-/* clean brand background sits behind, scaled a touch so tilt never reveals an edge */
-.hh-bg{--z:-70px}
-.hh-bg .hh-inner{transform:scale(1.06)}
-
-/* ---------- wordmark (crisp navy HTML text) ---------- */
-.hh-text{--z:-24px;font-family:"Poppins",var(--f-body);color:var(--hh-navy);
-  -webkit-font-smoothing:antialiased}
-.hh-wordmark{position:absolute;inset:0;margin:0;font-weight:700;line-height:.9;letter-spacing:-.01em}
+/* ---------- wordmark (crisp navy HTML text) — smaller, clear of the person ---------- */
+.hh-text{--z:-24px;--px:-7px;--py:-5px;font-family:"Poppins",var(--f-body);color:var(--hh-navy);-webkit-font-smoothing:antialiased}
+.hh-wordmark{position:absolute;inset:0;margin:0;font-weight:700;line-height:.92;letter-spacing:-.01em}
 .hh-wordmark span{position:absolute;white-space:nowrap;display:block}
-.wm-welcome{left:10.6%;top:20.5%;font-size:5cqw;font-weight:500;letter-spacing:.005em}
-.wm-life{left:10.3%;top:31%;font-size:18.4cqw;font-weight:700}
-.wm-care{right:3.2%;top:31%;font-size:18.4cqw;font-weight:700}
-.wm-sub{right:3.4%;top:64.5%;font-size:4cqw;font-weight:500;letter-spacing:.005em}
-.wm-eyebrow{position:absolute;left:2.8%;top:52%;margin:0;font-size:1.04cqw;font-weight:600;
-  letter-spacing:.2em;line-height:1.8;text-transform:uppercase;color:var(--hh-navy);
-  padding-left:.8em;border-left:2px solid var(--hh-navy)}
+.wm-welcome{left:9.6%;top:26%;font-size:2.8cqw;font-weight:500;letter-spacing:.03em}
+.wm-life{left:9.4%;top:35%;font-size:12.8cqw;font-weight:700}
+.wm-care{right:4.4%;top:35%;font-size:12.8cqw;font-weight:700}
+.wm-sub{right:4.6%;top:59%;font-size:2.4cqw;font-weight:500;letter-spacing:.02em}
+.wm-eyebrow{position:absolute;left:2%;top:46%;margin:0;font-size:.74cqw;font-weight:600;
+  letter-spacing:.16em;line-height:1.8;text-transform:uppercase;color:var(--hh-navy);
+  padding-left:.7em;border-left:2px solid var(--hh-navy)}
 
-/* the person cutouts pop forward and cross-dissolve */
-.hh-cut{--z:8px;opacity:0;transition:opacity 1.2s var(--hh-ease);will-change:opacity}
+/* ---------- hero CTA button (bottom-centre, over the person's base) ---------- */
+.hh-cta-btn{position:absolute;left:50%;bottom:7%;transform:translateX(-50%);z-index:9;
+  display:inline-flex;align-items:center;gap:.55em;padding:1em 2.1em;border-radius:999px;
+  font-family:var(--f-body);font-weight:650;font-size:clamp(.95rem,1.15cqw,1.1rem);color:#fff;
+  background:linear-gradient(120deg,var(--hh-blue-2),var(--hh-blue));
+  box-shadow:0 16px 34px rgba(21,110,180,.42),inset 0 1px 0 rgba(255,255,255,.25);
+  transition:transform .3s var(--hh-ease),box-shadow .3s var(--hh-ease),filter .3s var(--hh-ease)}
+.hh-cta-btn svg{width:1.15em;height:1.15em;transition:transform .3s var(--hh-ease)}
+.hh-cta-btn:hover{transform:translateX(-50%) translateY(-3px);box-shadow:0 22px 46px rgba(21,110,180,.5);filter:brightness(1.06)}
+.hh-cta-btn:hover svg{transform:translateX(4px)}
+
+/* ---------- person: doctor scaled to match the nurses, cross-dissolve ---------- */
+.hh-cut{--z:8px;--px:10px;--py:6px;--pscale:1.03;opacity:0;transition:opacity 1.2s var(--hh-ease);will-change:opacity}
+.hh-doctor{--pscale:.9}                      /* doctor was larger in frame; match the nurses */
 .hh-cut.is-show{opacity:1}
-.hh-cut .hh-inner{transform:scale(1.03);animation:hhBob 8s ease-in-out infinite}
-@keyframes hhBob{0%,100%{transform:scale(1.03) translateY(0)}50%{transform:scale(1.03) translateY(-1.1%)}}
+.hh-cut .hh-inner{transform:scale(var(--pscale));transform-origin:bottom center;
+  animation:hhBob 8s ease-in-out infinite;animation-play-state:paused}
+.home-hero.hh-in .hh-cut .hh-inner{animation-play-state:running}
+@keyframes hhBob{0%,100%{transform:scale(var(--pscale)) translateY(0)}
+  50%{transform:scale(var(--pscale)) translateY(-1.1%)}}
 
 /* light sweep on each change */
 .hh-sweep{position:absolute;inset:0;z-index:3;transform:translateZ(30px);pointer-events:none;opacity:0;
-  background:linear-gradient(105deg,transparent 40%,rgba(255,255,255,.55) 50%,transparent 60%);
-  mix-blend-mode:screen}
+  background:linear-gradient(105deg,transparent 40%,rgba(255,255,255,.55) 50%,transparent 60%);mix-blend-mode:screen}
 .hh-stage.is-switching .hh-sweep{animation:hhSweep 1.3s var(--hh-ease)}
-@keyframes hhSweep{0%{transform:translateZ(30px) translateX(-60%);opacity:0}
-  30%{opacity:.9}100%{transform:translateZ(30px) translateX(60%);opacity:0}}
+@keyframes hhSweep{0%{transform:translateZ(30px) translateX(-60%);opacity:0}30%{opacity:.9}100%{transform:translateZ(30px) translateX(60%);opacity:0}}
 
-/* 3D orbit rings circling the person (one behind, one in front) */
-.hh-orbit{position:absolute;top:52%;left:59%;width:44%;aspect-ratio:1;
-  margin:-22% 0 0 -22%;border-radius:50%;pointer-events:none;
-  border:1.5px solid rgba(120,180,225,.4);box-shadow:0 0 22px rgba(120,180,225,.25) inset}
+/* 3D orbit rings */
+.hh-orbit{position:absolute;top:52%;left:59%;width:40%;aspect-ratio:1;margin:-20% 0 0 -20%;border-radius:50%;
+  pointer-events:none;border:1.5px solid rgba(120,180,225,.4);box-shadow:0 0 22px rgba(120,180,225,.25) inset}
 .hh-orbit-back{animation:hhOrbitA 26s linear infinite}
-.hh-orbit-front{width:58%;margin:-29% 0 0 -29%;border-color:rgba(255,255,255,.55);
-  animation:hhOrbitB 34s linear infinite}
-@keyframes hhOrbitA{from{transform:translateZ(-60px) rotateX(70deg) rotateZ(0)}
-  to{transform:translateZ(-60px) rotateX(70deg) rotateZ(360deg)}}
-@keyframes hhOrbitB{from{transform:translateZ(40px) rotateX(74deg) rotateZ(360deg)}
-  to{transform:translateZ(40px) rotateX(74deg) rotateZ(0deg)}}
-
-/* drifting particles */
-.hh-objects{position:absolute;inset:0;transform-style:preserve-3d;pointer-events:none}
+.hh-orbit-front{width:52%;margin:-26% 0 0 -26%;border-color:rgba(255,255,255,.55);animation:hhOrbitB 34s linear infinite}
+@keyframes hhOrbitA{from{transform:translateZ(-60px) rotateX(70deg) rotateZ(0)}to{transform:translateZ(-60px) rotateX(70deg) rotateZ(360deg)}}
+@keyframes hhOrbitB{from{transform:translateZ(40px) rotateX(74deg) rotateZ(360deg)}to{transform:translateZ(40px) rotateX(74deg) rotateZ(0deg)}}
+.hh-objects{position:absolute;inset:0;transform-style:preserve-3d;pointer-events:none;
+  transform:translate3d(calc(var(--mx,0)*20px),calc(var(--my,0)*15px),0)}
 .hh-objects i{position:absolute;left:var(--x);top:var(--y);width:var(--s);height:var(--s);border-radius:50%;
-  transform:translateZ(var(--z,60px));
-  background:radial-gradient(circle,rgba(255,255,255,.95),rgba(75,192,234,.35));
+  transform:translateZ(var(--z,60px));background:radial-gradient(circle,rgba(255,255,255,.95),rgba(75,192,234,.35));
   box-shadow:0 0 12px rgba(75,160,220,.6);opacity:.7;animation:hhDrift var(--d) ease-in-out infinite}
-@keyframes hhDrift{0%,100%{transform:translateZ(var(--z,60px)) translateY(0);opacity:.35}
-  50%{transform:translateZ(var(--z,60px)) translateY(-24px);opacity:.85}}
+@keyframes hhDrift{0%,100%{transform:translateZ(var(--z,60px)) translateY(0);opacity:.35}50%{transform:translateZ(var(--z,60px)) translateY(-24px);opacity:.85}}
+
+/* ============================================================
+   INTRO CHOREOGRAPHY
+   1) doctor fades in   2) headline animates in   3) swap loop starts (JS)
+   ============================================================ */
+.home-hero:not(.hh-in) .hh-cut.is-show{opacity:0}           /* hold doctor out until intro */
+.hh-wordmark span,.wm-eyebrow{opacity:0;transition:opacity .9s var(--hh-ease),transform .9s var(--hh-ease),clip-path 1s var(--hh-ease)}
+.wm-welcome{transform:translateY(-16px)}
+.wm-life{clip-path:inset(0 100% 0 0);transform:translateX(-12px)}   /* wipe in from left */
+.wm-care{clip-path:inset(0 0 0 100%);transform:translateX(12px)}    /* wipe in from right */
+.wm-sub{transform:translateY(16px)}
+.wm-eyebrow{transform:translateX(-12px)}
+.home-hero.hh-loaded .wm-eyebrow{opacity:1;transform:none;transition-delay:.05s}
+.home-hero.hh-loaded .wm-welcome{opacity:1;transform:none;transition-delay:.15s}
+.home-hero.hh-loaded .wm-life{opacity:1;clip-path:inset(0 0 0 0);transform:none;transition-delay:.3s}
+.home-hero.hh-loaded .wm-care{opacity:1;clip-path:inset(0 0 0 0);transform:none;transition-delay:.5s}
+.home-hero.hh-loaded .wm-sub{opacity:1;transform:none;transition-delay:.85s}
+.hh-cta-btn{opacity:0;transform:translateX(-50%) translateY(16px);
+  transition:opacity .8s var(--hh-ease),transform .8s var(--hh-ease),box-shadow .3s var(--hh-ease),filter .3s var(--hh-ease)}
+.home-hero.hh-loaded .hh-cta-btn{opacity:1;transform:translateX(-50%) translateY(0);transition-delay:1.05s}
+.home-hero.hh-loaded .hh-cta-btn:hover{transform:translateX(-50%) translateY(-3px)}
 
 /* ============================================================
    RESPONSIVE
@@ -130,17 +171,17 @@ body.home .site-header.hide{transform:none}
   .hh-scene{perspective:none}
   .hh-stage{transform:none!important}
   .hh-orbit,.hh-objects{display:none}
-  .hh-plate{--z:0px}.hh-plate .hh-inner{transform:none}
-  .hh-cut{--z:0px}
+  .hh-bg{--z:0}.hh-bg .hh-inner{transform:none}.hh-cut{--z:0}.hh-text{--z:0}
 }
 
 /* ============================================================
-   REDUCED MOTION — keep the artwork, drop the movement
+   REDUCED MOTION
    ============================================================ */
 @media (prefers-reduced-motion:reduce){
   .home-hero *{animation:none!important}
   .hh-stage{transform:none!important}
-  .hh-cut{transition:opacity .3s linear}
-  .hh-cut .hh-inner{transform:scale(1.03)!important}
+  .home-hero:not(.hh-in) .hh-cut.is-show,.hh-cut{transition:opacity .01s linear}
+  .hh-wordmark span,.wm-eyebrow{opacity:1!important;transform:none!important;clip-path:none!important;transition:none!important}
+  .hh-cut .hh-inner{transform:scale(var(--pscale))!important}
   .hh-orbit{display:none}
 }
