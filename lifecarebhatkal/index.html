@@ -64,6 +64,15 @@ h1,h2,h3,h4,h5,h6{color:var(--lc-ink)}
 .lc-phero .container{position:relative;z-index:3}
 .lc-hero-inner{position:relative;will-change:transform,opacity}
 .lc-phero .lc-hero-inner.rv.in{transform:translateY(var(--pary,0))}
+/* ===== scroll-triggered image slide-in (all pages, all devices) =====
+   Uses the CSS `translate` property so it composes with any `transform`
+   (e.g. hover zoom) an image also has. body{overflow-x:hidden} keeps the
+   off-screen start from creating a horizontal scrollbar. */
+img.lc-slide{opacity:0;transition:opacity .8s ease,translate .95s cubic-bezier(.2,1.08,.3,1);will-change:opacity,translate;backface-visibility:hidden}
+img.lc-slide.lc-slide-l{translate:-56px 0}
+img.lc-slide.lc-slide-r{translate:56px 0}
+img.lc-slide.in{opacity:1;translate:0 0}
+@media (prefers-reduced-motion:reduce){img.lc-slide{opacity:1!important;translate:0 0!important;transition:none!important}}
 .lc-phero h1,.lc-phero p{color:#fff!important}
 .lc-phero h1{text-shadow:0 8px 34px rgba(0,0,0,.34)}
 .lc-phero .lc-eyebrow{color:#9fdcfb!important;text-shadow:0 1px 12px rgba(0,0,0,.3)}
@@ -1590,7 +1599,7 @@ docReady(scrollToTop);
     pages.forEach(function(p){p.hidden=(p!==t);});
     var top=id, base=id.indexOf('dept-')===0?'departments':(id.indexOf('article-')===0?'blog':id);
     document.querySelectorAll('.lc-menubar .nav-link').forEach(function(a){a.classList.toggle('active',a.getAttribute('data-link')===base);});
-    reveals(t);counts(t);initTilt(t);
+    reveals(t);counts(t);initTilt(t);if(window.lcSlideImages)window.lcSlideImages(t);
     history.replaceState(null,'','#'+id);
     if(scroll!==false)window.scrollTo({top:0,behavior:'smooth'});
     var nc=document.getElementById('lcnav'); if(nc&&nc.classList.contains('show')){ try{new bootstrap.Collapse(nc,{toggle:false}).hide();}catch(e){} }
@@ -1648,5 +1657,56 @@ docReady(scrollToTop);
 })();
 </script>
 
+<script>
+/* Scroll-triggered image slide-in — applied on every page, every device.
+   Images already animated by the .rv reveal system, plus the hero, header,
+   logos and small icons, are left untouched so nothing double-animates. */
+(function(){
+  var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion:reduce)').matches;
+  var io = ('IntersectionObserver' in window) ? new IntersectionObserver(function(en){
+    en.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  },{threshold:.12, rootMargin:'0px 0px -5% 0px'}) : null;
+
+  function eligible(im){
+    var page = im.closest('.lc-page');
+    if(!page || page.hasAttribute('hidden')) return false;          // only images on the visible content page
+    if(im.closest('.rv,.rv-stagger')) return false;                 // already handled by the reveal system
+    if(im.closest('.home-hero,.lc-mhero')) return false;            // hero has its own choreography
+    var r = im.getBoundingClientRect();
+    var w = r.width || im.naturalWidth || 0;
+    var h = r.height || im.naturalHeight || 0;
+    if(w < 64 || h < 64) return false;                              // skip hidden(0×0), logos, icons, tiny avatars
+    return true;
+  }
+
+  window.lcSlideImages = function(scope){
+    scope = scope || document;
+    var vw = window.innerWidth || document.documentElement.clientWidth;
+    var vh = window.innerHeight || document.documentElement.clientHeight;
+    var imgs = [].slice.call(scope.querySelectorAll('img')).filter(eligible);
+    imgs.forEach(function(im){
+      if(!im.classList.contains('lc-slide')){
+        var r = im.getBoundingClientRect();
+        im.classList.add('lc-slide', (r.left + r.width/2) < vw/2 ? 'lc-slide-l' : 'lc-slide-r');
+      }
+      if(reduce){ im.classList.add('in'); return; }
+      im.classList.remove('in');
+      var r = im.getBoundingClientRect();
+      if(r.top < vh*0.95 && r.bottom > 0){
+        requestAnimationFrame(function(){ requestAnimationFrame(function(){ im.classList.add('in'); }); });
+      } else if(io){ io.observe(im); }
+      else { im.classList.add('in'); }
+    });
+    /* failsafe: never leave an image hidden */
+    setTimeout(function(){
+      imgs.forEach(function(im){ if(!im.classList.contains('in')){ var r=im.getBoundingClientRect(); if(r.top < vh+80) im.classList.add('in'); } });
+    }, 2800);
+  };
+
+  function run(){ window.lcSlideImages(document); }
+  if(document.readyState === 'loading'){ document.addEventListener('DOMContentLoaded', run); }
+  else { run(); }
+})();
+</script>
 </body>
 </html>
