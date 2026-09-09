@@ -25,6 +25,19 @@ $seg1  = $parts[1] ?? '';
 
 $GLOBALS['CURRENT_ROUTE'] = $route;
 
+// ---- Homepage is the self-contained SPA (index.html) ----
+// Serve it directly for the site root so the live homepage never depends on
+// the server's DirectoryIndex order (some hosts prefer index.php over
+// index.html, which would otherwise show the legacy PHP template hero).
+if ($seg0 === '' || $seg0 === 'home') {
+    $spa = __DIR__ . '/index.html';
+    if (is_file($spa)) {
+        header('Content-Type: text/html; charset=UTF-8');
+        readfile($spa);
+        exit;
+    }
+}
+
 // ---- Map route → view file + params ----
 $view = null; $params = [];
 switch ($seg0) {
