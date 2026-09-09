@@ -2,7 +2,9 @@
 # Life Care Specialty Hospital — Apache config (Hostinger)
 # ============================================================
 Options -Indexes
-DirectoryIndex index.php
+# Homepage is the self-contained SPA (index.html). The PHP front controller
+# (index.php) still handles clean-URL deep links and the styled 404.
+DirectoryIndex index.html index.php
 
 <IfModule mod_rewrite.c>
   RewriteEngine On
