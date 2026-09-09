@@ -384,7 +384,7 @@ img.lc-slide.in{opacity:1;translate:0 0}
     padding-left:.7em;border-left:2px solid var(--navy)}
 
   /* person: doctor scaled to match the nurses */
-  .hh-cut{--z:8px;--pscale:1.03;opacity:0;transition:opacity .35s var(--ease)}
+  .hh-cut{--z:8px;--pscale:1.03;opacity:0;transition:opacity .8s var(--ease)}
   .hh-doctor{--pscale:.9}
   .hh-cut.is-show{opacity:1}
   .hh-cut .hh-inner{transform:scale(var(--pscale));transform-origin:bottom center;animation:hhBob 8s ease-in-out infinite;animation-play-state:paused}
@@ -552,8 +552,8 @@ body.scrolled .mainnav>li>a{color:#eaf5ff!important}
     object-fit:contain;object-position:bottom center;
     -webkit-mask-image:linear-gradient(to bottom,#000 86%,transparent 100%);
             mask-image:linear-gradient(to bottom,#000 86%,transparent 100%);
-    animation:mhSwap 2s ease-in-out infinite}
-  .mh-nurse{animation-delay:-1s}
+    animation:mhSwap 10s ease-in-out infinite}
+  .mh-nurse{animation-delay:-5s}
   @keyframes mhSwap{0%{opacity:1}42%{opacity:1}50%{opacity:0}92%{opacity:0}100%{opacity:1}}
 
   /* ---- mobile hamburger menu: 3-bar toggle -> navy dropdown ---- */
@@ -648,7 +648,7 @@ body.scrolled .mainnav>li>a{color:#eaf5ff!important}
 
   (function personSwap(){
     var persons=stage.querySelectorAll('.hh-cut'); if(persons.length<2||reduce) return;
-    var idx=0,timer=null,HOLD=1000,SWEEP=350,INTRO=1400;
+    var idx=0,timer=null,HOLD=5000,SWEEP=800,INTRO=2500;
     function swap(){ stage.classList.add('is-switching');
       persons[idx].classList.remove('is-show'); persons[idx].setAttribute('aria-hidden','true');
       idx=(idx+1)%persons.length;
