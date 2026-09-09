@@ -30,6 +30,12 @@ require_login();
 
 $GLOBALS['ADMIN_PAGE'] = $seg0;
 
+// ---- Role-based access: sections this account may not open are hidden.
+// Silently send any direct link back to the dashboard (no warning message). ----
+if ($seg0 !== 'dashboard' && !admin_can($seg0)) {
+    redirect('dashboard');
+}
+
 // Entity CRUD?
 if (isset($ENTITIES[$seg0])) {
     $cfg = $ENTITIES[$seg0];

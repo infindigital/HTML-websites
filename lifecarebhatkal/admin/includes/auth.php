@@ -23,6 +23,29 @@ function current_admin(): ?array {
 
 function is_logged_in(): bool { return current_admin() !== null; }
 
+/**
+ * Role-based access.
+ * The agency account (role 'admin') has full access — admin_allowed_sections()
+ * returns null meaning "everything". A hospital account (role 'hospital') is
+ * limited to the sections below; every other section is hidden from the sidebar
+ * and blocked in the router. 'dashboard', 'logout' and "View site" are always
+ * available to any logged-in user.
+ */
+const HOSPITAL_SECTIONS = ['dashboard', 'doctors', 'blog_posts', 'enquiries', 'settings'];
+
+/** Allowed section slugs for the current admin, or null for full access. */
+function admin_allowed_sections(): ?array {
+    $admin = current_admin();
+    $role  = $admin['role'] ?? 'admin';
+    return $role === 'hospital' ? HOSPITAL_SECTIONS : null;
+}
+
+/** True if the current admin may open the given section slug. */
+function admin_can(string $section): bool {
+    $allowed = admin_allowed_sections();
+    return $allowed === null || in_array($section, $allowed, true);
+}
+
 /** Redirect to login if not authenticated. */
 function require_login(): void {
     if (!is_logged_in()) {

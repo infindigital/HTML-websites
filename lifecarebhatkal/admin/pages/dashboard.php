@@ -10,6 +10,8 @@ $cards = [
     ['testimonials','Testimonials','star'],
     ['enquiries','Enquiries','mail'],
 ];
+// Only show tiles the current admin's role may open.
+$cards = array_values(array_filter($cards, fn($c) => admin_can($c[0])));
 $newEnq = q1("SELECT COUNT(*) c FROM enquiries WHERE status='new'");
 $newEnq = $newEnq ? (int)$newEnq['c'] : 0;
 $recent = q("SELECT * FROM enquiries ORDER BY created_at DESC LIMIT 6") ?? [];
@@ -57,7 +59,11 @@ admin_head('Dashboard');
 
 <div class="adm-card" style="margin-top:20px">
   <h2 style="font-size:1.15rem;margin-bottom:6px">Welcome</h2>
+  <?php if (admin_allowed_sections() === null): ?>
   <p class="muted">Use the sidebar to manage doctors, departments, blog posts, events, the gallery, careers, testimonials and FAQs. Edit contact details and stats under <a href="<?= admin_url('settings') ?>">Site Settings</a>. Remember to change your admin password from the default.</p>
+  <?php else: ?>
+  <p class="muted">Use the sidebar to manage doctors, blog posts and enquiries, and edit contact details under <a href="<?= admin_url('settings') ?>">Site Settings</a>. Remember to change your password from the default.</p>
+  <?php endif; ?>
 </div>
 <?php
 admin_foot();

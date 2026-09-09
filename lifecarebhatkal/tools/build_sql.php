@@ -59,15 +59,27 @@ $OUT .= drop_create('admins', <<<SQL
   PRIMARY KEY (`id`),
   UNIQUE KEY `uq_username` (`username`)
 SQL);
-// Default admin — CHANGE THIS PASSWORD after first login!
-$defaultPass = 'lifecare@admin';
-$hash = password_hash($defaultPass, PASSWORD_DEFAULT);
-$OUT .= insert('admins', ['username','email','password_hash','name','role'], [[
-    'username'=>'admin','email'=>$seed['settings']['email'],'password_hash'=>$hash,
-    'name'=>'Hospital Administrator','role'=>'admin',
-]]);
-$OUT .= "-- Default admin login → username: admin  |  password: {$defaultPass}\n"
-      . "-- IMPORTANT: log in and change this password immediately.\n\n";
+// Two accounts — CHANGE THESE PASSWORDS after first login!
+//  • admin    → agency account, full access to every section.
+//  • hospital → hospital staff account, limited to Dashboard, Doctors,
+//               Blog Posts, Enquiries and Site Settings (see admin/includes/auth.php).
+$defaultPass    = 'lifecare@admin';
+$hospitalPass   = 'lifecare@hospital';
+$OUT .= insert('admins', ['username','email','password_hash','name','role'], [
+  [
+    'username'=>'admin','email'=>$seed['settings']['email'],
+    'password_hash'=>password_hash($defaultPass, PASSWORD_DEFAULT),
+    'name'=>'Agency Administrator','role'=>'admin',
+  ],
+  [
+    'username'=>'hospital','email'=>$seed['settings']['email'],
+    'password_hash'=>password_hash($hospitalPass, PASSWORD_DEFAULT),
+    'name'=>'Hospital Administrator','role'=>'hospital',
+  ],
+]);
+$OUT .= "-- Agency login   → username: admin     |  password: {$defaultPass}   (full access)\n"
+      . "-- Hospital login → username: hospital  |  password: {$hospitalPass}  (limited access)\n"
+      . "-- IMPORTANT: log in and change both passwords immediately.\n\n";
 
 /* ==================================================================== site_settings */
 $OUT .= drop_create('site_settings', <<<SQL

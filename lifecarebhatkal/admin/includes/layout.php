@@ -7,7 +7,8 @@ function admin_nav_items(): array {
     foreach ($ENTITIES as $key => $cfg) $items[] = [$key, $cfg['label'], $cfg['icon'] ?? 'check'];
     $items[] = ['enquiries','Enquiries','mail'];
     $items[] = ['settings','Site Settings','shield'];
-    return $items;
+    // Hide sections the current admin's role may not open.
+    return array_values(array_filter($items, fn($it) => admin_can($it[0])));
 }
 
 function admin_head(string $title): void {
@@ -22,6 +23,10 @@ function admin_head(string $title): void {
 <title><?= e($title) ?> · Life Care Admin</title>
 <link rel="icon" type="image/png" sizes="32x32" href="<?= asset('images/brand/favicon-32.png') ?>">
 <link rel="apple-touch-icon" href="<?= asset('images/brand/apple-touch-icon.png') ?>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Manrope:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap">
 <link rel="stylesheet" href="<?= asset('css/main.css') ?>">
 <link rel="stylesheet" href="<?= url('admin/assets/admin.css') ?>">
 </head>
