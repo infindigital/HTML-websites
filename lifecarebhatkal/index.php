@@ -1,76 +1,44 @@
 <?php
 /**
- * Front controller — clean-URL router.
- * .htaccess rewrites all requests here as ?route=<path>.
+ * Public front controller.
+ *
+ * The public website is the single-page app in index.html. This file serves
+ * that SPA for EVERY public URL, so the older PHP page templates in /pages are
+ * never displayed — not on the homepage, not on a deep link like
+ * /departments, and not as a fallback if index.html is briefly missing during
+ * an upload.
+ *
+ * The admin dashboard at /admin is a separate application and is handled by
+ * .htaccess (RewriteRule ^admin ... [L]) before this file ever runs, so it is
+ * not affected. Real files (assets, uploads, api/enquiry.php, sitemap.xml…)
+ * are also served directly by .htaccess and never reach this file.
  */
-// Let PHP's built-in dev server serve real static files (Apache does this via .htaccess).
+
+// Let PHP's built-in dev server serve real static assets directly.
 if (php_sapi_name() === 'cli-server') {
     $p = parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH);
-    if ($p !== '/' && is_file(__DIR__ . $p)) return false;
-}
-
-require __DIR__ . '/includes/init.php';
-
-// ---- Resolve the route ----
-$route = $_GET['route'] ?? '';
-if ($route === '') {
-    // fall back to REQUEST_URI when mod_rewrite isn't passing ?route=
-    $uri = parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH) ?? '/';
-    $route = trim($uri, '/');
-}
-$route = trim(preg_replace('#[^a-zA-Z0-9/_-]#', '', $route), '/');
-$parts = $route === '' ? [] : explode('/', $route);
-$seg0  = $parts[0] ?? '';
-$seg1  = $parts[1] ?? '';
-
-$GLOBALS['CURRENT_ROUTE'] = $route;
-
-// ---- Homepage is the self-contained SPA (index.html) ----
-// Serve it directly for the site root so the live homepage never depends on
-// the server's DirectoryIndex order (some hosts prefer index.php over
-// index.html, which would otherwise show the legacy PHP template hero).
-if ($seg0 === '' || $seg0 === 'home') {
-    $spa = __DIR__ . '/index.html';
-    if (is_file($spa)) {
-        header('Content-Type: text/html; charset=UTF-8');
-        readfile($spa);
-        exit;
+    if ($p !== '/' && is_file(__DIR__ . $p)) {
+        return false;
     }
 }
 
-// ---- Map route → view file + params ----
-$view = null; $params = [];
-switch ($seg0) {
-    case '': case 'home':          $view = 'home'; break;
-    case 'about-us':               $view = 'about'; break;
-    case 'our-facilities':         $view = 'facilities'; break;
-    case 'departments':
-        if ($seg1) { $view = 'department'; $params['slug'] = $seg1; }
-        else       { $view = 'departments'; }
-        break;
-    case 'why-choose-us':          $view = 'why-choose-us'; break;
-    case 'doctors':
-        if ($seg1) { $view = 'doctor'; $params['id'] = (int)$seg1; }
-        else       { $view = 'doctors'; }
-        break;
-    case 'visiting-doctors':       $view = 'visiting-doctors'; break;
-    case 'support-staff':          $view = 'support-staff'; break;
-    case 'careers':                $view = 'careers'; break;
-    case 'events':                 $view = 'events'; break;
-    case 'gallery':                $view = 'gallery'; break;
-    case 'blog':
-        if ($seg1) { $view = 'blog-single'; $params['slug'] = $seg1; }
-        else       { $view = 'blog'; }
-        break;
-    case 'patient-information':     $view = 'patient-information'; break;
-    case 'contact':                $view = 'contact'; break;
-    default:                       $view = null;
+// Serve the single-page app for every public request.
+$spa = __DIR__ . '/index.html';
+if (is_file($spa)) {
+    header('Content-Type: text/html; charset=UTF-8');
+    readfile($spa);
+    exit;
 }
 
-$file = $view ? ROOT_PATH . '/pages/' . $view . '.php' : null;
-if (!$file || !is_file($file)) {
-    http_response_code(404);
-    $file = ROOT_PATH . '/pages/404.php';
-}
-
-require $file;
+// index.html missing (e.g. mid-upload): show a small notice — never the old
+// design.
+http_response_code(503);
+header('Retry-After: 30');
+header('Content-Type: text/html; charset=UTF-8');
+echo '<!doctype html><meta charset="utf-8">'
+   . '<title>Life Care Specialty Hospital</title>'
+   . '<div style="font:16px/1.6 system-ui,-apple-system,sans-serif;max-width:520px;'
+   . 'margin:18vh auto;text-align:center;color:#0b2a4a;padding:0 20px">'
+   . '<h1 style="font-size:20px;margin:0 0 8px">We\'ll be right back</h1>'
+   . 'The website is being updated. Please refresh in a moment.</div>';
+exit;
