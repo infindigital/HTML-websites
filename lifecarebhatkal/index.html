@@ -565,8 +565,8 @@ if(tgl)tgl.addEventListener("change",function(){if(!tgl.checked)document.querySe
    gradient). Anchored to the header's own bottom, so it looks identical on
    desktop, tablet and phone. */
 .topbar{background:#14294d!important}
-.navwrap{background:#14294d!important;border-bottom:1px solid rgba(255,255,255,.08)!important}
-.siteheader::before{top:100%!important;height:24px!important;
+.navwrap{background:#14294d!important;border-bottom:0!important}
+.siteheader::before{top:100%!important;height:8px!important;
   background:#14294d!important}
 
 /* drop the hero's 120px bottom padding — it showed the #e7eefb hero
@@ -580,7 +580,7 @@ if(tgl)tgl.addEventListener("change",function(){if(!tgl.checked)document.querySe
 body.scrolled .navwrap{
   background:#14294d!important;
   -webkit-backdrop-filter:saturate(140%) blur(14px);backdrop-filter:saturate(140%) blur(14px);
-  box-shadow:0 8px 30px rgba(8,24,48,.32)!important;border-bottom-color:rgba(255,255,255,.10)!important}
+  box-shadow:0 8px 30px rgba(8,24,48,.32)!important;border-bottom-color:transparent!important}
 body.scrolled .mainnav>li>a{color:#eaf5ff!important}
 
 /* ================= VERTICAL mobile hero (phones) =================
@@ -677,7 +677,7 @@ body.scrolled .mainnav>li>a{color:#eaf5ff!important}
 
 /* ---------- 1. Top contact bar (neat, airy, single line) ---------- */
 .topbar{background:linear-gradient(90deg,#0c1e3a 0%,#173a66 50%,#0c1e3a 100%)!important;
-  box-shadow:inset 0 -1px 0 rgba(255,255,255,.06)}
+  box-shadow:none}
 .topbar-inner{justify-content:space-between!important;gap:20px;overflow:hidden;padding-top:7px;padding-bottom:7px}
 .tb-left{display:flex;align-items:center;min-width:0}
 .tb-right{display:flex;align-items:center;gap:22px;min-width:0}
