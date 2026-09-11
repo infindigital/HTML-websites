@@ -291,9 +291,17 @@ img.lc-slide.in{opacity:1;translate:0 0}
 
 <div class="topbar">
   <div class="topbar-inner">
-    <span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg><a href="mailto:info@lifecarebhatkal.com">info@lifecarebhatkal.com</a></span>
-    <span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.6A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2Z"/></svg><a href="tel:+918385992233">+91 8385992233</a>&nbsp;/&nbsp;<a href="tel:08385227997">08385 227997</a></span>
-    <span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>Nawayath Colony, Jali Road, Bhatkal</span>
+    <div class="tb-left">
+      <span class="tb-emg"><i class="tb-pulse"></i><b>24×7</b>&nbsp;Emergency &amp; Ambulance</span>
+      <span class="tb-tag">Trusted multi-speciality care in Bhatkal</span>
+    </div>
+    <div class="tb-right">
+      <a class="tb-item tb-sm" href="mailto:info@lifecarebhatkal.com"><span class="tb-ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></span>info@lifecarebhatkal.com</a>
+      <span class="tb-sep tb-sm"></span>
+      <a class="tb-item" href="tel:+918385992233"><span class="tb-ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.6A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2Z"/></svg></span>+91 8385992233</a>
+      <span class="tb-sep tb-md"></span>
+      <span class="tb-item tb-md"><span class="tb-ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg></span>Nawayath Colony, Jali Road, Bhatkal</span>
+    </div>
   </div>
 </div>
 <header class="siteheader">
@@ -304,15 +312,72 @@ img.lc-slide.in{opacity:1;translate:0 0}
       <nav aria-label="Primary">
         <ul class="mainnav">
           <li><a href="#home" data-link="home" aria-current="page">Home</a></li>
-          <li><a href="#about" data-link="about">About Us <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></a></li>
+          <li class="has-drop">
+            <a href="#about" data-link="about">About Us</a>
+            <button class="drop-toggle" type="button" aria-expanded="false" aria-label="Toggle About Us menu"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></button>
+            <ul class="drop">
+              <li><a href="#about" data-link="about">About the Hospital</a></li>
+              <li><a href="#why" data-link="why">Why Choose Us</a></li>
+              <li><a href="#patient" data-link="patient">Patient Information</a></li>
+              <li><a href="#careers" data-link="careers">Careers</a></li>
+            </ul>
+          </li>
           <li><a href="#facilities" data-link="facilities">Our Facilities</a></li>
-          <li><a href="#departments" data-link="departments">Departments <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></a></li>
-          <li><a href="#doctors" data-link="doctors">Our Team <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></a></li>
-          <li><a href="#events" data-link="events">Media <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></a></li>
+          <li class="has-drop has-mega">
+            <a href="#departments" data-link="departments">Departments</a>
+            <button class="drop-toggle" type="button" aria-expanded="false" aria-label="Toggle Departments menu"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></button>
+            <ul class="drop drop--mega">
+              <li><a class="drop-all" href="#departments" data-link="departments">All Departments</a></li>
+              <li><a href="#dept-general-medicine" data-link="dept-general-medicine">General Medicine</a></li>
+              <li><a href="#dept-gynaecology-obstetrics" data-link="dept-gynaecology-obstetrics">Gynaecology &amp; Obstetrics</a></li>
+              <li><a href="#dept-orthopaedics" data-link="dept-orthopaedics">Orthopaedics</a></li>
+              <li><a href="#dept-general-laparoscopic-surgery" data-link="dept-general-laparoscopic-surgery">General &amp; Laparoscopic Surgery</a></li>
+              <li><a href="#dept-dental-maxillofacial" data-link="dept-dental-maxillofacial">Dental &amp; Maxillofacial</a></li>
+              <li><a href="#dept-physiotherapy" data-link="dept-physiotherapy">Physiotherapy</a></li>
+              <li><a href="#dept-cardiology" data-link="dept-cardiology">Cardiology</a></li>
+              <li><a href="#dept-neurology" data-link="dept-neurology">Neurology</a></li>
+              <li><a href="#dept-dermatology" data-link="dept-dermatology">Dermatology</a></li>
+              <li><a href="#dept-psychiatry" data-link="dept-psychiatry">Psychiatry</a></li>
+              <li><a href="#dept-diabetology-endocrinology" data-link="dept-diabetology-endocrinology">Diabetology &amp; Endocrinology</a></li>
+              <li><a href="#dept-pulmonology" data-link="dept-pulmonology">Pulmonology</a></li>
+            </ul>
+          </li>
+          <li class="has-drop">
+            <a href="#doctors" data-link="doctors">Our Team</a>
+            <button class="drop-toggle" type="button" aria-expanded="false" aria-label="Toggle Our Team menu"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></button>
+            <ul class="drop">
+              <li><a href="#doctors" data-link="doctors">Our Doctors</a></li>
+              <li><a href="#visiting" data-link="visiting">Visiting Doctors</a></li>
+              <li><a href="#support" data-link="support">Support Staff</a></li>
+            </ul>
+          </li>
+          <li class="has-drop">
+            <a href="#events" data-link="events">Media</a>
+            <button class="drop-toggle" type="button" aria-expanded="false" aria-label="Toggle Media menu"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></button>
+            <ul class="drop">
+              <li><a href="#events" data-link="events">Events</a></li>
+              <li><a href="#gallery" data-link="gallery">Gallery</a></li>
+              <li><a href="#blog" data-link="blog">Blog &amp; Articles</a></li>
+            </ul>
+          </li>
           <li><a href="#contact" data-link="contact">Contact</a></li>
         </ul>
+        <div class="mnav-foot">
+          <div class="mnf-row">
+            <a class="mnf-btn mnf-call" href="tel:+918385992233"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.6A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2Z"/></svg>Call Now</a>
+            <a class="mnf-btn mnf-wa" href="https://wa.me/918385992233"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2Zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-1.7-.1-.4-.1-.9-.3-1.6-.6-2.8-1.2-4.6-4-4.7-4.2-.2-.2-1.2-1.5-1.2-2.9s.7-2 1-2.3c.2-.2.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .5l-.4.6c-.2.2-.3.4-.1.7.2.3.8 1.4 1.8 2.2 1.2 1.1 2.2 1.4 2.5 1.5.2.1.4.1.6-.1l.7-.9c.2-.2.4-.2.6-.1l2 .9c.2.1.4.2.5.3.1.2.1.7-.1 1.2Z"/></svg>WhatsApp</a>
+          </div>
+          <div class="mnf-info">
+            <a href="mailto:info@lifecarebhatkal.com"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>info@lifecarebhatkal.com</a>
+            <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>Nawayath Colony, Jali Road, Bhatkal 581320</span>
+          </div>
+        </div>
       </nav>
-      <label class="mnav-burger" for="mnav-tgl" role="button" tabindex="0" aria-label="Open menu"><span></span><span></span><span></span></label><script>document.addEventListener("click",function(e){var a=e.target.closest&&e.target.closest(".mainnav a");if(a){var t=document.getElementById("mnav-tgl");if(t)t.checked=false;}});document.addEventListener("keydown",function(e){if(e.key==="Escape"){var t=document.getElementById("mnav-tgl");if(t)t.checked=false;}});</script>
+      <label class="mnav-burger" for="mnav-tgl" role="button" tabindex="0" aria-label="Open menu"><span></span><span></span><span></span></label><script>(function(){var tgl=document.getElementById("mnav-tgl");function closeDrawer(){if(tgl)tgl.checked=false;document.querySelectorAll(".has-drop.open").forEach(function(o){o.classList.remove("open");var b=o.querySelector(".drop-toggle");if(b)b.setAttribute("aria-expanded","false");});}
+document.addEventListener("click",function(e){var b=e.target.closest&&e.target.closest(".drop-toggle");if(b){if(window.matchMedia("(min-width:992px)").matches)return;e.preventDefault();e.stopPropagation();var li=b.closest(".has-drop");if(!li)return;var open=li.classList.contains("open");document.querySelectorAll(".has-drop.open").forEach(function(o){if(o!==li){o.classList.remove("open");var ob=o.querySelector(".drop-toggle");if(ob)ob.setAttribute("aria-expanded","false");}});li.classList.toggle("open",!open);b.setAttribute("aria-expanded",String(!open));return;}
+var a=e.target.closest&&e.target.closest(".mainnav a");if(a)closeDrawer();});
+document.addEventListener("keydown",function(e){if(e.key==="Escape")closeDrawer();});
+if(tgl)tgl.addEventListener("change",function(){if(!tgl.checked)document.querySelectorAll(".has-drop.open").forEach(function(o){o.classList.remove("open");var b=o.querySelector(".drop-toggle");if(b)b.setAttribute("aria-expanded","false");});});})();</script>
       <a class="enquire" href="#contact" data-link="contact"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>Enquire Now</a>
     </div>
   </div>
@@ -603,6 +668,143 @@ body.scrolled .mainnav>li>a{color:#eaf5ff!important}
   .mnav-tgl:checked ~ .mnav-burger span:nth-child(2){opacity:0}
   .mnav-tgl:checked ~ .mnav-burger span:nth-child(3){transform:translateY(-8px) rotate(-45deg)}
 }
+
+/* ============================================================
+   HEADER REFRESH — appended last so it wins the cascade.
+   1) creative single-line contact bar (desktop + tablet)
+   2) working dropdown menus (desktop hover / drawer accordion)
+   3) richer mobile / tablet drawer with CTA footer
+   ============================================================ */
+
+/* ---------- 1. Top contact bar ---------- */
+.topbar{background:linear-gradient(90deg,#0d1f3b 0%,#173a66 50%,#0d1f3b 100%)!important;
+  box-shadow:inset 0 -1px 0 rgba(255,255,255,.06)}
+.topbar-inner{justify-content:space-between!important;gap:18px;overflow:hidden}
+.tb-left{display:flex;align-items:center;gap:16px;min-width:0}
+.tb-right{display:flex;align-items:center;gap:13px;min-width:0}
+.tb-emg{display:inline-flex;align-items:center;gap:7px;white-space:nowrap;
+  padding:4px 13px 4px 10px;border-radius:999px;font-weight:700;letter-spacing:.01em;color:#eaf6ff;
+  background:rgba(75,192,234,.12);border:1px solid rgba(75,192,234,.34)}
+.tb-emg b{color:#7fe0ff;font-weight:800}
+.tb-pulse{width:9px;height:9px;border-radius:50%;background:#ff5d5d;flex:none;
+  box-shadow:0 0 0 0 rgba(255,93,93,.6);animation:tbPulse 1.8s ease-out infinite}
+@keyframes tbPulse{0%{box-shadow:0 0 0 0 rgba(255,93,93,.55)}70%{box-shadow:0 0 0 7px rgba(255,93,93,0)}100%{box-shadow:0 0 0 0 rgba(255,93,93,0)}}
+.tb-tag{color:rgba(226,240,252,.7);font-weight:600;white-space:nowrap;
+  padding-left:16px;border-left:1px solid rgba(255,255,255,.14)}
+.tb-item{display:inline-flex;align-items:center;gap:8px;white-space:nowrap;color:#eaf5ff;font-weight:600}
+.tb-item .tb-ic{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;
+  border-radius:50%;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);flex:none;
+  transition:background .25s,border-color .25s}
+.tb-item .tb-ic svg{width:13px;height:13px;color:var(--cyan)}
+a.tb-item:hover{color:#fff}
+a.tb-item:hover .tb-ic{background:rgba(75,192,234,.22);border-color:rgba(75,192,234,.5)}
+.tb-sep{width:1px;height:16px;background:rgba(255,255,255,.16);flex:none}
+@media (max-width:1279px){.tb-tag{display:none!important}}
+@media (max-width:1199px){.tb-md{display:none!important}}
+@media (max-width:767px){.tb-sm{display:none!important}}
+
+/* ---------- 2. Dropdown menus (shared) ---------- */
+.has-drop{position:relative}
+.drop-toggle{display:none;background:none;border:0;padding:0;cursor:pointer;color:inherit}
+.drop{list-style:none;margin:0;padding:0}
+
+/* desktop: hover / focus popover */
+@media (min-width:992px){
+  .mainnav>li.has-drop{display:inline-flex;align-items:center}
+  .drop-toggle{display:inline-flex;align-items:center;margin-left:-3px;color:#dff1ff;opacity:.72;
+    transition:transform .3s var(--ease),opacity .25s}
+  .drop-toggle svg{width:15px;height:15px}
+  .has-drop:hover .drop-toggle,.has-drop:focus-within .drop-toggle{opacity:1;transform:rotate(180deg)}
+  .has-drop:hover>a,.has-drop:focus-within>a{background:rgba(255,255,255,.14);color:#fff}
+  .drop{position:absolute;top:calc(100% + 15px);left:50%;transform:translate(-50%,10px);
+    min-width:236px;background:#fff;border-radius:14px;padding:8px!important;z-index:80;
+    border:1px solid rgba(16,64,116,.08);
+    box-shadow:0 26px 52px -18px rgba(8,28,54,.5),0 8px 20px -12px rgba(8,28,54,.3);
+    opacity:0;visibility:hidden;pointer-events:none;
+    transition:opacity .26s var(--ease),transform .26s var(--ease),visibility .26s}
+  .drop::before{content:"";position:absolute;left:0;right:0;top:-17px;height:20px}
+  .drop::after{content:"";position:absolute;top:-7px;left:50%;width:14px;height:14px;margin-left:-7px;
+    background:#fff;border-left:1px solid rgba(16,64,116,.08);border-top:1px solid rgba(16,64,116,.08);
+    transform:rotate(45deg);border-radius:3px 0 0 0}
+  .has-drop:hover>.drop,.has-drop:focus-within>.drop{opacity:1;visibility:visible;pointer-events:auto;transform:translate(-50%,0)}
+  .drop>li>a{display:flex;align-items:center;gap:9px;padding:10px 14px;border-radius:9px;
+    font-size:.9rem;font-weight:600;color:#12314f!important;white-space:nowrap;
+    transition:background .2s,color .2s,padding .2s}
+  .drop>li>a::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--blue-2);
+    opacity:0;transform:scale(.4);transition:opacity .2s,transform .2s;flex:none}
+  .drop>li>a:hover{background:#eef6fc;color:var(--blue)!important;padding-left:17px}
+  .drop>li>a:hover::before{opacity:1;transform:scale(1)}
+  .drop-all{font-weight:700!important;color:var(--blue)!important;border-bottom:1px solid #eef1f6;
+    border-radius:9px 9px 0 0;margin-bottom:4px}
+  /* Departments = 2-column mega, right-aligned so it never leaves the viewport */
+  .drop--mega{display:grid;grid-template-columns:1fr 1fr;gap:1px;min-width:452px;
+    left:auto;right:0;transform:translate(0,10px)}
+  .has-drop.has-mega:hover>.drop--mega,.has-drop.has-mega:focus-within>.drop--mega{transform:translate(0,0)}
+  .drop--mega::after{left:auto;right:70px}
+  .drop--mega .drop-all{grid-column:1 / -1}
+}
+
+/* tablet + phone drawer: accordion */
+@media (max-width:991px){
+  .mainnav>li.has-drop{flex-direction:row;flex-wrap:wrap;align-items:stretch}
+  .mainnav>li.has-drop>a{flex:1 1 auto}
+  .drop-toggle{display:inline-flex;align-items:center;justify-content:center;width:48px;flex:none;
+    color:#bfe0f4;border-radius:10px;transition:background .2s}
+  .drop-toggle svg{width:20px;height:20px;transition:transform .3s var(--ease)}
+  .has-drop.open>.drop-toggle{background:rgba(255,255,255,.07)}
+  .has-drop.open>.drop-toggle svg{transform:rotate(180deg)}
+  .drop{flex:1 1 100%;max-height:0;overflow:hidden;margin:0 4px;transition:max-height .34s var(--ease)}
+  .has-drop.open>.drop{max-height:680px}
+  .drop--mega{display:block}
+  .drop>li>a{display:block;padding:11px 14px 11px 30px;font-size:.94rem;font-weight:600;
+    color:#bcd6ee!important;border-radius:9px;position:relative}
+  .drop>li>a::before{content:"";position:absolute;left:14px;top:50%;width:6px;height:6px;margin-top:-3px;
+    border-radius:50%;background:var(--cyan);opacity:.5}
+  .drop>li>a:hover,.drop>li>a:active{background:rgba(75,192,234,.12);color:#fff!important}
+  .drop-all{color:#eaf5ff!important;font-weight:700!important}
+}
+
+/* ---------- 3. Richer drawer styling + CTA footer ---------- */
+.mnav-foot{display:none}
+@media (max-width:991px){
+  .siteheader nav[aria-label="Primary"]{
+    background:linear-gradient(185deg,#132c52 0%,#0d2142 58%,#0a1c39 100%)!important;
+    border-top:1px solid rgba(255,255,255,.07);
+    box-shadow:0 30px 60px -20px rgba(4,14,30,.72)!important}
+  .mnav-tgl:checked ~ nav[aria-label="Primary"]{padding-bottom:20px!important}
+  .mainnav>li{border-bottom:1px solid rgba(255,255,255,.055)}
+  .mainnav>li:last-child{border-bottom:0}
+  .mainnav>li>a{font-weight:650!important}
+  /* staggered reveal when the drawer opens */
+  .mainnav>li{opacity:0;transform:translateY(-8px)}
+  .mnav-tgl:checked ~ nav .mainnav>li{opacity:1;transform:none;transition:opacity .3s ease,transform .3s ease}
+  .mnav-tgl:checked ~ nav .mainnav>li:nth-child(1){transition-delay:.03s}
+  .mnav-tgl:checked ~ nav .mainnav>li:nth-child(2){transition-delay:.06s}
+  .mnav-tgl:checked ~ nav .mainnav>li:nth-child(3){transition-delay:.09s}
+  .mnav-tgl:checked ~ nav .mainnav>li:nth-child(4){transition-delay:.12s}
+  .mnav-tgl:checked ~ nav .mainnav>li:nth-child(5){transition-delay:.15s}
+  .mnav-tgl:checked ~ nav .mainnav>li:nth-child(6){transition-delay:.18s}
+  .mnav-tgl:checked ~ nav .mainnav>li:nth-child(7){transition-delay:.21s}
+  .mnav-foot{display:block;margin:14px 4px 0;padding-top:16px;border-top:1px solid rgba(255,255,255,.1)}
+  .mnf-row{display:flex;gap:10px}
+  .mnf-btn{flex:1;display:inline-flex;align-items:center;justify-content:center;gap:8px;
+    padding:12px 10px;border-radius:12px;font-weight:700;font-size:.94rem;color:#fff;
+    box-shadow:0 12px 26px rgba(8,24,48,.3)}
+  .mnf-call{background:linear-gradient(120deg,var(--blue-2),var(--blue))}
+  .mnf-wa{background:linear-gradient(120deg,#25d366,#12a150)}
+  .mnf-btn svg{width:18px;height:18px}
+  .mnf-info{margin-top:13px;display:flex;flex-direction:column;gap:7px;font-size:.85rem;color:rgba(226,240,252,.72)}
+  .mnf-info a{color:#cfeafd;display:inline-flex;align-items:center;gap:8px}
+  .mnf-info span{display:inline-flex;gap:8px;align-items:flex-start}
+  .mnf-info svg{color:var(--cyan);flex:none;margin-top:1px}
+}
+
+/* ---------- 4. Distinct hover colour for the primary CTAs (all devices) ---------- */
+.enquire:hover,.hh-cta-btn:hover{
+  background:linear-gradient(120deg,#232323 0%,#000 100%)!important;filter:none!important;color:#fff!important}
+.enquire:hover{box-shadow:0 14px 30px rgba(0,0,0,.4)}
+.hh-cta-btn:hover{box-shadow:0 18px 36px rgba(0,0,0,.42),inset 0 1px 0 rgba(255,255,255,.18)}
+.mnf-call:active,.mnf-call:hover{background:linear-gradient(120deg,#232323,#000)!important}
 </style>
 <section class="home-hero" aria-label="Welcome to Life Care Specialty Hospital, Bhatkal">
   <div class="hh-scene">
