@@ -448,7 +448,7 @@ if(tgl)tgl.addEventListener("change",function(){if(!tgl.checked)document.querySe
     padding-left:.7em;border-left:2px solid var(--navy)}
 
   /* person: doctor scaled to match the nurses */
-  .hh-cut{--z:-40px;--pscale:1.03;opacity:0;transition:opacity .8s var(--ease)}
+  .hh-cut{--z:8px;--pscale:1.03;opacity:0;transition:opacity .8s var(--ease)}
   .hh-doctor{--pscale:.9}
   .hh-cut.is-show{opacity:1}
   .hh-cut .hh-inner{transform:scale(var(--pscale));transform-origin:bottom center;animation:hhBob 8s ease-in-out infinite;animation-play-state:paused}
@@ -525,7 +525,7 @@ if(tgl)tgl.addEventListener("change",function(){if(!tgl.checked)document.querySe
    push the orbit ring and floating particles behind the wordmark so nothing
    crosses / nicks the letters (fixes "Life top is cut"). depth order becomes:
    bg -> orbits/particles -> WORDMARK TEXT -> person image */
-.hh-objects i{--z:-58px}                 /* particles behind the person + headline */
+.hh-objects i{--z:-40px}                 /* particles behind the headline */
 .hh-orbit-front{animation:hhOrbitBk 34s linear infinite}
 @keyframes hhOrbitBk{
   from{transform:translateZ(-46px) rotateX(74deg) rotateZ(360deg)}
@@ -538,7 +538,7 @@ if(tgl)tgl.addEventListener("change",function(){if(!tgl.checked)document.querySe
 .wm-life{left:14.4%}
 
 /* ===== bigger "Life" / "Care" wordmark ===== */
-.wm-life,.wm-care{font-size:15cqw;text-transform:uppercase}
+.wm-life,.wm-care{font-size:15cqw}
 
 /* ===== fix clipped letter tops ("i"/"f"/"L" of Life) =====
    the reveal wipe ends at clip-path:inset(0 0 0 0), which clips each word to
@@ -558,6 +558,8 @@ if(tgl)tgl.addEventListener("change",function(){if(!tgl.checked)document.querySe
 /* ===== much bigger header logo ===== */
 .brand img{height:82px!important;width:auto!important}
 @media (max-width:640px){.brand img{height:64px!important}}
+/* give the nav row enough height so the tall logo is never clipped (tablet + desktop) */
+@media (min-width:641px){.navinner{min-height:96px}}
 
 /* ===== solid navy header for ALL devices, with a small fade at its footer =====
    the whole header (topbar + nav bar) is solid navy; the ::before is repurposed
@@ -642,10 +644,10 @@ body.scrolled .mainnav>li>a{color:#eaf5ff!important}
 
 /* tablet: push hero scene below the fixed header so the doctor's head is not clipped */
 @media (min-width:641px) and (max-width:991px){
-  .home-hero{padding-top:150px}
+  .home-hero{padding-top:172px}
 }
 @media (min-width:992px) and (max-width:1200px){
-  .home-hero{padding-top:120px}
+  .home-hero{padding-top:146px}
 }
 
 
@@ -717,7 +719,7 @@ a.tb-item:hover .tb-ic{background:rgba(75,192,234,.24);border-color:rgba(75,192,
   .has-drop:hover>a,.has-drop:focus-within>a{background:rgba(255,255,255,.14);color:#fff}
   .drop{position:absolute;top:calc(100% + 14px);left:0;transform:translateY(8px);
     min-width:228px;background:#fff;border-radius:12px;padding:7px!important;z-index:80;
-    border:1px solid rgba(16,64,116,.08);box-shadow:0 22px 46px -20px rgba(8,28,54,.45);
+    border:1px solid rgba(16,64,116,.16);box-shadow:none;
     opacity:0;visibility:hidden;pointer-events:none;
     transition:opacity .22s var(--ease),transform .22s var(--ease),visibility .22s}
   .drop::before{content:"";position:absolute;left:0;right:0;top:-16px;height:18px}
