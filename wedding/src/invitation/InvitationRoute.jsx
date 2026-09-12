@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { Link, Navigate, useParams } from 'react-router-dom'
 import { ThemeProvider } from '../context/ThemeContext.jsx'
 import { LanguageProvider } from '../context/LanguageContext.jsx'
@@ -6,25 +7,40 @@ import { InvitationProvider } from '../context/InvitationContext.jsx'
 import InvitationExperience from './InvitationExperience.jsx'
 import { getTemplate } from '../studio/templates.js'
 import { templateOrderUrl } from '../studio/whatsapp.js'
-import { cssVars, getTheme } from '../studio/themes.js'
+import { cssVars } from '../studio/themes.js'
 
-// Renders the live cinematic invitation for a template. Only Muslim templates
-// currently drive the engine (its visual language is Islamic — see spec: never
-// mix religious symbols). Other categories show a "coming soon" preview until
-// their own videos/engines are supplied.
+// Override the invitation engine's CSS variables so each template gets its own
+// colour world (e.g. emerald vs midnight), then restore on unmount.
+function useEngineSkin(skin) {
+  useEffect(() => {
+    if (!skin) return undefined
+    const root = document.documentElement
+    const prev = {}
+    Object.entries(skin).forEach(([k, v]) => {
+      prev[k] = root.style.getPropertyValue(k)
+      root.style.setProperty(k, v)
+    })
+    return () => {
+      Object.keys(skin).forEach((k) => {
+        if (prev[k]) root.style.setProperty(k, prev[k])
+        else root.style.removeProperty(k)
+      })
+    }
+  }, [skin])
+}
+
 export default function InvitationRoute() {
-  const { category, slug } = useParams()
-  const template = getTemplate(category, slug)
+  const { slug } = useParams()
+  const template = getTemplate(slug)
+  useEngineSkin(template?.engine === 'live' ? template.engineSkin : null)
 
   if (!template) return <Navigate to="/" replace />
 
   const back = (
-    <Link to={template.href} className="invite-back" aria-label="Back to template">
-      ← Back
-    </Link>
+    <Link to="/" className="invite-back" aria-label="Back to studio">← Back</Link>
   )
 
-  if (template.engine === 'muslim') {
+  if (template.engine === 'live') {
     return (
       <InvitationProvider template={template}>
         <ThemeProvider>
@@ -39,22 +55,21 @@ export default function InvitationRoute() {
     )
   }
 
-  // Non-engine categories: themed placeholder until a preview video is added.
-  const theme = getTheme(template.category)
+  // Designs without a live engine yet — themed placeholder + order CTA.
   return (
-    <div className="invite-soon" data-religion={template.category} style={cssVars(template.category)}>
+    <div className="invite-soon" data-theme-id={template.theme} style={cssVars(template.theme)}>
       {back}
       <div className="invite-soon__inner">
-        <span className="invite-soon__symbol" aria-hidden="true">{theme.symbol}</span>
-        <p className="invite-soon__eyebrow">{theme.label} · {template.subtitle}</p>
+        <span className="invite-soon__mark" aria-hidden="true">✦</span>
+        <p className="invite-soon__eyebrow">{template.subtitle}</p>
         <h1 className="invite-soon__title">{template.title}</h1>
         <p className="invite-soon__desc">{template.description}</p>
         <p className="invite-soon__note">
-          A full cinematic preview for this design is on its way. Meanwhile, you
-          can reserve it and we’ll personalise it with your names.
+          A full cinematic preview for this design is on its way. Reserve it now
+          and we’ll personalise it with your names.
         </p>
         <a className="btn btn--gold" href={templateOrderUrl(template)} target="_blank" rel="noreferrer">
-          Order on WhatsApp
+          Order · ₹499
         </a>
       </div>
     </div>

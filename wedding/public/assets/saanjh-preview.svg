@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="1000" viewBox="0 0 800 1000" role="img" aria-label="Saanjh preview">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0.4" y2="1"><stop offset="0" stop-color="#3a0e14"/><stop offset="1" stop-color="#20080b"/></linearGradient>
+    <radialGradient id="glow" cx="0.5" cy="0.3" r="0.7"><stop offset="0" stop-color="#b0552b" stop-opacity="0.45"/><stop offset="1" stop-color="#b0552b" stop-opacity="0"/></radialGradient>
+  </defs>
+  <rect width="800" height="1000" fill="url(#bg)"/>
+  <rect width="800" height="1000" fill="url(#glow)"/>
+  <rect x="34" y="34" width="732" height="932" fill="none" stroke="#f7efe2" stroke-opacity="0.35" stroke-width="1.5"/>
+  <rect x="44" y="44" width="712" height="912" fill="none" stroke="#b0552b" stroke-opacity="0.6" stroke-width="1"/>
+  <text x="400" y="300" text-anchor="middle" font-family="Georgia, serif" font-size="60" fill="#b0552b">&#10022;</text>
+  <text x="400" y="380" text-anchor="middle" font-family="Georgia, serif" font-size="24" letter-spacing="7" fill="#f7efe2" fill-opacity="0.7">MARIGOLD DUSK</text>
+  <text x="400" y="500" text-anchor="middle" font-family="Georgia, serif" font-size="112" fill="#f7efe2">Saanjh</text>
+  <line x1="330" y1="560" x2="470" y2="560" stroke="#b0552b" stroke-width="1.4"/>
+  <text x="400" y="650" text-anchor="middle" font-family="Georgia, serif" font-size="46" font-style="italic" fill="#f7efe2" fill-opacity="0.92">Aarav &amp; Ananya</text>
+  <text x="400" y="905" text-anchor="middle" font-family="Georgia, serif" font-size="19" letter-spacing="6" fill="#f7efe2" fill-opacity="0.45">PREVIEW · REPLACE WITH ARTWORK</text>
+</svg>

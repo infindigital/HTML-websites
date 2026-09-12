@@ -1,11 +1,13 @@
-import { Link } from 'react-router-dom'
+import { lazy, Suspense } from 'react'
 import { motion } from 'framer-motion'
 import StudioLayout from '../components/studio/StudioLayout.jsx'
-import CategoryTiles from '../components/studio/CategoryTiles.jsx'
 import TemplateGrid from '../components/studio/TemplateGrid.jsx'
-import { byCategory, featuredTemplates } from '../studio/templates.js'
-import { getTheme, CATEGORY_ORDER, cssVars } from '../studio/themes.js'
+
+// Code-split the 3D hero so Three.js loads after first paint.
+const Hero3D = lazy(() => import('../components/studio/Hero3D.jsx'))
+import { TEMPLATES } from '../studio/templates.js'
 import { generalOrderUrl } from '../studio/whatsapp.js'
+import { scrollToId } from '../studio/scroll.js'
 
 const rise = {
   hidden: { opacity: 0, y: 26 },
@@ -14,14 +16,7 @@ const rise = {
 
 function Reveal({ children, className, delay = 0 }) {
   return (
-    <motion.div
-      className={className}
-      variants={rise}
-      initial="hidden"
-      whileInView="show"
-      viewport={{ once: true, amount: 0.3 }}
-      transition={{ delay }}
-    >
+    <motion.div className={className} variants={rise} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.3 }} transition={{ delay }}>
       {children}
     </motion.div>
   )
@@ -30,82 +25,40 @@ function Reveal({ children, className, delay = 0 }) {
 function Hero() {
   return (
     <section className="hero">
-      <div className="hero__bg" aria-hidden="true" />
-      <div className="hero__particles" aria-hidden="true">
-        {Array.from({ length: 14 }).map((_, i) => (
-          <span key={i} style={{ '--i': i }} />
-        ))}
-      </div>
+      <Suspense fallback={<div className="hero3d hero3d--static" aria-hidden="true" />}>
+        <Hero3D />
+      </Suspense>
       <div className="wrap hero__content">
-        <motion.p
-          className="hero__eyebrow"
-          initial={{ opacity: 0, y: 14 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.1 }}
-        >
+        <motion.p className="hero__eyebrow" initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.1 }}>
           Cinematic Wedding Invitations
         </motion.p>
-        <motion.h1
-          className="hero__title"
-          initial={{ opacity: 0, y: 22 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-        >
+        <motion.h1 className="hero__title" initial={{ opacity: 0, y: 22 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.9, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}>
           Your Love Story,<br /><em>Beautifully Invited.</em>
         </motion.h1>
-        <motion.p
-          className="hero__sub"
-          initial={{ opacity: 0, y: 18 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, delay: 0.35 }}
-        >
-          Premium cinematic wedding invitations designed around your celebration,
-          your culture and your story.
+        <motion.p className="hero__sub" initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.9, delay: 0.35 }}>
+          Premium cinematic wedding invitations, personalised with your names and
+          delivered ready to share — just <strong>₹499</strong>.
         </motion.p>
-        <motion.div
-          className="hero__cta"
-          initial={{ opacity: 0, y: 18 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, delay: 0.5 }}
-        >
-          <Link to="/collection" className="btn btn--gold btn--lg">Explore Invitations</Link>
-          <a href="#featured" className="btn btn--ghost btn--lg">Watch a Preview</a>
+        <motion.div className="hero__cta" initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.9, delay: 0.5 }}>
+          <button type="button" className="btn btn--gold btn--lg" onClick={() => scrollToId('templates')}>View Invitations</button>
+          <button type="button" className="btn btn--ghost btn--lg" onClick={() => scrollToId('how')}>How it works</button>
         </motion.div>
       </div>
-      <a href="#choose" className="hero__scroll" aria-label="Scroll down">
+      <button type="button" className="hero__scroll" aria-label="Scroll to invitations" onClick={() => scrollToId('templates')}>
         <span>SCROLL</span><span className="hero__scroll-line" />
-      </a>
-    </section>
-  )
-}
-
-function CategoryRow({ category }) {
-  const theme = getTheme(category)
-  const items = byCategory(category).slice(0, 3)
-  return (
-    <section className="sec catrow" data-religion={category} style={cssVars(category)}>
-      <div className="wrap">
-        <Reveal className="sec__head sec__head--row">
-          <div>
-            <p className="sec__eyebrow">{theme.symbol} {theme.label} Collection</p>
-            <h2 className="sec__title">{theme.label} Invitations</h2>
-          </div>
-          <Link to={`/${category}`} className="sec__more">View all →</Link>
-        </Reveal>
-        <TemplateGrid templates={items} />
-      </div>
+      </button>
     </section>
   )
 }
 
 function HowItWorks() {
   const steps = [
-    { n: '01', t: 'Choose Your Design', d: 'Browse the collection and preview any invitation with its music.' },
+    { n: '01', t: 'Choose Your Design', d: 'Browse the designs and preview any invitation with its music.' },
     { n: '02', t: 'Send Your Details', d: 'Tap Order on WhatsApp and share your names, date and venue.' },
     { n: '03', t: 'Receive Your Invitation', d: 'We personalise your design and send it back, ready to share.' },
   ]
   return (
-    <section className="sec how">
+    <section id="how" className="sec how">
       <div className="wrap">
         <Reveal className="sec__head">
           <p className="sec__eyebrow">How it works</p>
@@ -127,11 +80,11 @@ function HowItWorks() {
 
 function WhyUs() {
   const feats = [
-    { i: '🎬', t: 'Cinematic Video', d: 'Motion, light and typography that feel like a wedding film.' },
+    { i: '🎬', t: 'Cinematic Design', d: 'Motion, light and typography that feel like a wedding film.' },
     { i: '♫', t: 'Music Included', d: 'Every invitation carries a score that sets the mood.' },
-    { i: '✦', t: 'Premium Design', d: 'Culturally intentional design, crafted detail by detail.' },
-    { i: '✎', t: 'Personalised Names', d: 'Your names, date and venue woven into the design.' },
+    { i: '✎', t: 'Personalised', d: 'Your names, date and venue woven into the design.' },
     { i: '↗', t: 'WhatsApp Ordering', d: 'No complicated checkout — order and personalise on chat.' },
+    { i: '₹', t: 'One Simple Price', d: 'Every design is a flat ₹499. No tiers, no surprises.' },
   ]
   return (
     <section className="sec why">
@@ -157,13 +110,13 @@ function WhyUs() {
 function FAQ() {
   const qs = [
     { q: 'How do I order?', a: 'Choose a design, tap “Order on WhatsApp”, and share your names, date and venue. We personalise the invitation and send it back to you.' },
+    { q: 'How much does it cost?', a: 'Every design is a flat ₹499 — personalised with your details and delivered ready to share.' },
     { q: 'Can you change the names, date and venue?', a: 'Yes — every invitation is fully personalised. The demo names you see are placeholders; your details take their place.' },
     { q: 'Do the invitations include music?', a: 'Yes, each design comes with a score. Music never plays until the viewer chooses to start it.' },
     { q: 'How do I share the finished invitation?', a: 'You receive a link you can send on WhatsApp and social media — it opens beautifully on phones and laptops.' },
-    { q: 'Which languages are supported?', a: 'The Muslim collection’s live experience supports English, Kannada, Hindi and Arabic. Tell us what you need for your design.' },
   ]
   return (
-    <section className="sec faq">
+    <section id="faq" className="sec faq">
       <div className="wrap wrap--narrow">
         <Reveal className="sec__head">
           <p className="sec__eyebrow">Questions</p>
@@ -188,12 +141,8 @@ function FinalCTA() {
       <div className="wrap wrap--narrow final__inner">
         <Reveal>
           <h2 className="final__title">Ready to make your invitation unforgettable?</h2>
-          <p className="final__text">
-            Choose your design, send us your details and let your story take the screen.
-          </p>
-          <a href={generalOrderUrl()} className="btn btn--gold btn--lg" target="_blank" rel="noreferrer">
-            Start on WhatsApp
-          </a>
+          <p className="final__text">Choose your design, send us your details and let your story take the screen — for just ₹499.</p>
+          <a href={generalOrderUrl()} className="btn btn--gold btn--lg" target="_blank" rel="noreferrer">Start on WhatsApp</a>
         </Reveal>
       </div>
     </section>
@@ -205,37 +154,16 @@ export default function Landing() {
     <StudioLayout>
       <Hero />
 
-      <section id="choose" className="sec choose">
+      <section id="templates" className="sec templates">
         <div className="wrap">
           <Reveal className="sec__head">
-            <p className="sec__eyebrow">Choose your celebration</p>
-            <h2 className="sec__title">Three traditions, each its own world.</h2>
-            <p className="sec__lead">
-              Every collection has its own visual language — colour, ornament and light —
-              so your invitation feels culturally intentional, never generic.
-            </p>
+            <p className="sec__eyebrow">The collection</p>
+            <h2 className="sec__title">Four cinematic designs.<br />One for every celebration.</h2>
+            <p className="sec__lead">Each design has its own world of colour, light and motion. Preview any of them — with music — then personalise it with your names.</p>
           </Reveal>
-          <CategoryTiles />
+          <TemplateGrid templates={TEMPLATES} />
         </div>
       </section>
-
-      <section id="featured" className="sec featured">
-        <div className="wrap">
-          <Reveal className="sec__head">
-            <p className="sec__eyebrow">Featured invitations</p>
-            <h2 className="sec__title">Not just an invitation.<br />The first moment of your celebration.</h2>
-            <p className="sec__lead">
-              Choose a design that feels like you — then let us turn it into a
-              personalised cinematic invitation.
-            </p>
-          </Reveal>
-          <TemplateGrid templates={featuredTemplates()} />
-        </div>
-      </section>
-
-      {CATEGORY_ORDER.map((c) => (
-        <CategoryRow key={c} category={c} />
-      ))}
 
       <HowItWorks />
       <WhyUs />

@@ -1,12 +1,9 @@
 // =====================================================================
-//  WHATSAPP ORDER FLOW
-//  ---------------------------------------------------------------------
-//  The primary conversion. One place builds every wa.me link so the
-//  number (from studio config) is never hard-coded in a component.
+//  WHATSAPP ORDER FLOW — the primary conversion.
+//  One place builds every wa.me link so the number lives only in config.
 // =====================================================================
 
 import studio from './config.js'
-import { getTheme } from './themes.js'
 import { templatePrice } from './templates.js'
 
 function encode(number, text) {
@@ -14,20 +11,18 @@ function encode(number, text) {
   return `https://wa.me/${digits}?text=${encodeURIComponent(text)}`
 }
 
-// Generic enquiry (hero / final CTA / footer).
+// Generic enquiry (hero / final CTA / footer / nav).
 export function generalOrderUrl() {
   return encode(studio.whatsappNumber, studio.whatsappGeneralMessage)
 }
 
-// Template-specific order. Pre-fills a tidy message the owner can act on.
+// Template-specific order — pre-fills a tidy message.
 export function templateOrderUrl(template) {
   if (!template) return generalOrderUrl()
-  const category = getTheme(template.category).label
   const price = templatePrice(template).display
   const message =
     `Hi ${studio.brandName}! I'd like to order this wedding invitation:\n\n` +
-    `• Template: ${template.title}\n` +
-    `• Category: ${category}\n` +
+    `• Design: ${template.title} — ${template.subtitle}\n` +
     `• Price: ${price}\n\n` +
     `Please share the next steps for personalising it with our names and details.`
   return encode(studio.whatsappNumber, message)

@@ -1,6 +1,6 @@
-import { Link } from 'react-router-dom'
 import studio from '../../studio/config.js'
 import { generalOrderUrl } from '../../studio/whatsapp.js'
+import { scrollToId } from '../../studio/scroll.js'
 
 export default function Footer() {
   const year = new Date().getFullYear()
@@ -8,9 +8,7 @@ export default function Footer() {
     <footer className="foot">
       <div className="wrap foot__grid">
         <div className="foot__brand">
-          <div className="foot__name">
-            <span className="foot__mark">✦</span> {studio.brandName}
-          </div>
+          <div className="foot__name"><span className="foot__mark">✦</span> {studio.brandName}</div>
           <p className="foot__tag">{studio.positioning}</p>
           <a className="btn btn--gold" href={generalOrderUrl()} target="_blank" rel="noreferrer">
             Start on WhatsApp
@@ -18,21 +16,17 @@ export default function Footer() {
         </div>
 
         <div className="foot__col">
-          <h4>Collections</h4>
-          <Link to="/muslim">Muslim Invitations</Link>
-          <Link to="/hindu">Hindu Invitations</Link>
-          <Link to="/christian">Christian Invitations</Link>
-          <Link to="/collection">View all</Link>
+          <h4>Explore</h4>
+          <button type="button" onClick={() => scrollToId('templates')}>Invitations</button>
+          <button type="button" onClick={() => scrollToId('how')}>How it works</button>
+          <button type="button" onClick={() => scrollToId('faq')}>FAQ</button>
         </div>
 
         <div className="foot__col">
-          <h4>Studio</h4>
-          <Link to="/">Home</Link>
-          <Link to="/collection">How it works</Link>
+          <h4>Contact</h4>
           {studio.email && <a href={`mailto:${studio.email}`}>{studio.email}</a>}
-          {studio.instagram && (
-            <a href={studio.instagram} target="_blank" rel="noreferrer">Instagram</a>
-          )}
+          {studio.instagram && <a href={studio.instagram} target="_blank" rel="noreferrer">Instagram</a>}
+          <a href={generalOrderUrl()} target="_blank" rel="noreferrer">WhatsApp</a>
         </div>
       </div>
 

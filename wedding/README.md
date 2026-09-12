@@ -1,21 +1,15 @@
-# Wedding Invitation Studio
+# Wedora Films — Wedding Invitation Studio
 
-A premium, mobile-first **wedding invitation template marketplace** — a luxury
-digital catalogue where couples browse cinematic invitation designs across three
-traditions, preview them with music, see the price, and order on WhatsApp.
+A premium, mobile-first **landing page** for cinematic wedding invitations. A
+white, elegant design with a **3D hero** (Three.js), four signature invitation
+designs, live interactive previews, and **WhatsApp ordering** at a flat **₹499**.
 
 ```
-Landing → Choose your celebration → Template → Preview + price → Order on WhatsApp
+Landing → Preview a design (with music) → Order on WhatsApp
 ```
 
-Three collections, each with its own visual language (no shared religious
-symbols):
-
-- ☪ **Muslim** — emerald · champagne · ivory
-- ॐ **Hindu** — maroon · warm gold · ivory
-- ✝ **Christian** — ivory · champagne · dusty rose · navy
-
-Built with **React 18 + Vite**, **React Router** and **Framer Motion**.
+Built with **React 18 + Vite**, **React Router**, **Framer Motion** and
+**@react-three/fiber** (Three.js).
 
 ---
 
@@ -29,9 +23,8 @@ npm run build      # production build → dist/
 npm run preview    # serve the build → http://localhost:4173
 ```
 
-> **Before going live**, set your brand name, WhatsApp number and prices in
-> `src/studio/config.js`. See **[ASSETS-NEEDED.md](./ASSETS-NEEDED.md)** for the
-> full setup + asset checklist.
+> Set your **WhatsApp number** in `src/studio/config.js`, then see
+> **[ASSETS-NEEDED.md](./ASSETS-NEEDED.md)** for the (optional) asset checklist.
 
 ---
 
@@ -39,36 +32,34 @@ npm run preview    # serve the build → http://localhost:4173
 
 ```
 src/
-  studio/            ← marketplace data & design (single source of truth)
-    config.js          brand, WhatsApp number, pricing tiers
-    themes.js          per-religion colour/accent/symbol tokens
-    templates.js       the 18-template catalogue (demo couples, copy, prices)
+  studio/            ← data & design (single source of truth)
+    config.js          brand (Wedora Films), WhatsApp number, price (₹499)
+    themes.js          per-template colour palettes
+    templates.js       the 4 designs (demo couples, copy, engine skins)
     whatsapp.js        builds the WhatsApp order links
-    studio.css         marketplace design system (scoped under .studio)
-  pages/             ← Landing, Collection, Category, TemplateDetail
-  components/studio/  ← Navbar, Footer, cards, preview modal, tiles, mobile CTA
-  invitation/        ← the live cinematic invitation engine (InvitationExperience)
+    scroll.js          smooth in-page scrolling (HashRouter-safe)
+    studio.css         white design system (scoped under .studio)
+  pages/Landing.jsx  ← the single landing page
+  components/studio/ ← Navbar, Footer, Hero3D, cards, preview modal, mobile CTA
+  invitation/        ← the live cinematic invitation engine + per-design skins
   components/sections ← invitation sections (seal, verse, countdown, venue, …)
   context/           ← Theme, Language (i18n), Audio, Invitation (data override)
 ```
 
-### The invitation engine is data-driven
+### The four designs
 
-The animated invitation (wax-seal → verse → family → countdown →
-scratch-to-reveal → venue → closing, with music and 4 languages) reads the
-couple’s names, monogram, date and venue from data — so **demo names are just
-placeholders and a real customer’s details drop straight in** (see
-`src/context/InvitationContext.jsx` and `src/config.js`). Muslim templates drive
-this live engine; Hindu & Christian previews await their own videos/engines
-(see ASSETS-NEEDED.md).
+Two share the **live, data-driven invitation engine** in different colour worlds
+(**Noor** — emerald; **Layali** — midnight blue); **Amara** and **Saanjh** show a
+“preview coming soon” screen until a video (or a dedicated live build) is added.
+Couple names are demo placeholders — the engine is data-driven, so a real
+customer’s details drop straight in (`src/context/InvitationContext.jsx`).
 
-Adding a template is a single entry in `src/studio/templates.js` — no component
-edits.
+Editing a design is a single entry in `src/studio/templates.js`.
 
 ---
 
 ## Deploy
 
-Deploys as a static site (e.g. Vercel with the project **Root Directory** set to
-`wedding`). Routing uses `HashRouter`, so deep links work on any static host with
-no rewrite config.
+Static site (e.g. Vercel with **Root Directory** = `wedding`). Routing uses
+`HashRouter`, so deep links work on any static host with no rewrite config. The
+3D hero is code-split and lazy-loaded so first paint stays fast.

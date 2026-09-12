@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react'
-import { Link, NavLink } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import studio from '../../studio/config.js'
 import { generalOrderUrl } from '../../studio/whatsapp.js'
+import { scrollToId } from '../../studio/scroll.js'
 
 const LINKS = [
-  { to: '/collection', label: 'Collection' },
-  { to: '/muslim', label: 'Muslim' },
-  { to: '/hindu', label: 'Hindu' },
-  { to: '/christian', label: 'Christian' },
+  { id: 'templates', label: 'Invitations' },
+  { id: 'how', label: 'How it works' },
+  { id: 'faq', label: 'FAQ' },
 ]
 
 export default function Navbar() {
@@ -21,6 +21,8 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
+  const go = (id) => { scrollToId(id); setOpen(false) }
+
   return (
     <header className={`nav ${solid ? 'is-solid' : ''}`}>
       <div className="wrap nav__inner">
@@ -31,14 +33,9 @@ export default function Navbar() {
 
         <nav className={`nav__links ${open ? 'is-open' : ''}`} aria-label="Primary">
           {LINKS.map((l) => (
-            <NavLink
-              key={l.to}
-              to={l.to}
-              className={({ isActive }) => `nav__link ${isActive ? 'is-active' : ''}`}
-              onClick={() => setOpen(false)}
-            >
+            <button key={l.id} type="button" className="nav__link" onClick={() => go(l.id)}>
               {l.label}
-            </NavLink>
+            </button>
           ))}
           <a
             className="btn btn--gold nav__cta"

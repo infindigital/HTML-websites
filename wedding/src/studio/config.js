@@ -9,12 +9,12 @@
 
 const studio = {
   // --- Brand -----------------------------------------------------------
-  brandName: 'AURELIA', //  TODO: your studio name
-  brandFull: 'Aurelia Invitation Studio',
+  brandName: 'Wedora Films',
+  brandFull: 'Wedora Films',
   tagline: 'Cinematic Wedding Invitations',
   // One-line positioning used in the footer / SEO description.
   positioning:
-    'Premium cinematic wedding invitations — Muslim, Hindu & Christian — designed around your celebration, your culture and your story.',
+    'Premium cinematic wedding invitations — designed around your celebration and personalised with your names.',
 
   // --- WhatsApp (primary conversion) ----------------------------------
   //  International format, digits only, no "+", no spaces.
@@ -29,16 +29,10 @@ const studio = {
   instagram: '', //  TODO e.g. 'https://instagram.com/yourstudio'
 
   // --- Pricing --------------------------------------------------------
-  //  PLACEHOLDER tiers. Prices are NOT final — confirm real numbers and
-  //  edit here; every card/detail page reads from these tiers.
+  //  Single flat price for every invitation.
   currency: '₹',
-  priceTiers: {
-    essential: { label: 'Essential', amount: 2999 },
-    signature: { label: 'Signature', amount: 4999 },
-    cinematic: { label: 'Cinematic', amount: 7999 },
-  },
-  // Show prices as "Starting from ₹X,XXX" on cards.
-  priceShowsStartingFrom: true,
+  price: 499,
+  priceShowsStartingFrom: false,
 }
 
 // Format a numeric amount into e.g. "₹4,999" (Indian grouping).
@@ -47,10 +41,9 @@ export function formatPrice(amount) {
   return studio.currency + n.toLocaleString('en-IN')
 }
 
-// Resolve a tier key -> { label, amount, display }.
-export function tier(key) {
-  const t = studio.priceTiers[key] || studio.priceTiers.signature
-  return { ...t, display: formatPrice(t.amount) }
+// Single flat price -> { label, amount, display }.
+export function tier() {
+  return { label: '', amount: studio.price, display: formatPrice(studio.price) }
 }
 
 export default studio
