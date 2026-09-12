@@ -121,7 +121,7 @@
 .hero__eyebrow { font-family: var(--caps); font-weight: 600; letter-spacing: 0.38em; text-transform: uppercase; font-size: 0.76rem; margin-bottom: 20px; }
 .hero__title { font-family: var(--serif); font-weight: 500; font-size: clamp(2.7rem, 7vw, 5.4rem); line-height: 1.02; color: var(--ink); }
 .hero__title em { font-style: italic; background: var(--grad-warm); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent; }
-.hero__sub { max-width: 600px; margin: 24px auto 0; color: var(--ink-soft); font-size: 1.12rem; line-height: 1.6; }
+.hero__sub { max-width: 600px; margin: 24px auto 0; color: var(--ink); font-size: 1.12rem; line-height: 1.6; }
 .hero__sub strong { color: var(--rose); font-weight: 600; }
 .hero__cta { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-top: 36px; }
 .hero__scroll { position: absolute; bottom: 26px; left: 50%; transform: translateX(-50%); z-index: 2; display: flex; flex-direction: column; align-items: center; gap: 10px; color: var(--muted); background: none; border: 0; cursor: pointer; font-family: var(--caps); font-size: 0.64rem; letter-spacing: 0.3em; }
@@ -133,7 +133,7 @@
 .sec__head { max-width: 760px; margin: 0 auto 52px; text-align: center; }
 .sec__eyebrow { font-family: var(--caps); font-weight: 600; letter-spacing: 0.3em; text-transform: uppercase; font-size: 0.74rem; margin-bottom: 14px; background: var(--grad-brand); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent; }
 .sec__title { font-family: var(--serif); font-weight: 500; font-size: clamp(2rem, 4.4vw, 3.2rem); line-height: 1.1; color: var(--ink); }
-.sec__lead { margin-top: 18px; color: var(--muted); font-size: 1.08rem; line-height: 1.6; }
+.sec__lead { margin-top: 18px; color: var(--ink); font-size: 1.08rem; line-height: 1.6; }
 .templates { background: linear-gradient(180deg, rgba(22, 167, 154, 0.05), rgba(124, 92, 255, 0.04)); }
 
 /* ---------------------------------------------------------------- grid + card */
@@ -152,7 +152,7 @@
 .card__head { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; }
 .card__title { font-family: var(--serif); font-weight: 600; font-size: 1.5rem; color: var(--ink); }
 .card__price { color: var(--t-deep); font-family: var(--caps); font-weight: 600; font-size: 0.9rem; letter-spacing: 0.04em; white-space: nowrap; }
-.card__sub { color: var(--muted); font-size: 0.96rem; }
+.card__sub { color: var(--ink); font-size: 0.96rem; }
 .card__meta { display: flex; align-items: center; gap: 8px; color: var(--muted); font-size: 0.82rem; margin-top: 2px; }
 .card__dot { opacity: 0.5; }
 .card__actions { display: flex; gap: 10px; margin-top: 14px; }
@@ -166,7 +166,7 @@
 .step:hover { transform: translateY(-6px); box-shadow: 0 24px 48px rgba(40, 30, 55, 0.1); }
 .step__num { font-family: var(--serif); font-style: italic; font-weight: 600; font-size: 2.8rem; background: var(--grad-warm); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent; }
 .step__title { font-family: var(--serif); font-weight: 600; font-size: 1.4rem; margin-top: 6px; }
-.step__desc { color: var(--muted); margin-top: 8px; line-height: 1.55; }
+.step__desc { color: var(--ink); margin-top: 8px; line-height: 1.55; }
 
 /* ---------------------------------------------------------------- why */
 .why__grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 18px; }
@@ -179,7 +179,7 @@
 .feature:nth-child(4) .feature__icon { background: linear-gradient(135deg, #4d8bef, #16a79a); }
 .feature:nth-child(5) .feature__icon { background: linear-gradient(135deg, #f5993a, #f0c24b); }
 .feature__title { font-family: var(--serif); font-weight: 600; font-size: 1.2rem; margin-top: 14px; }
-.feature__desc { color: var(--muted); font-size: 0.9rem; margin-top: 6px; line-height: 1.5; }
+.feature__desc { color: var(--ink); font-size: 0.9rem; margin-top: 6px; line-height: 1.5; }
 
 /* ---------------------------------------------------------------- faq */
 .faq { background: linear-gradient(180deg, rgba(232, 93, 134, 0.05), rgba(245, 153, 58, 0.04)); }
@@ -190,7 +190,7 @@
 .faq__item summary::-webkit-details-marker { display: none; }
 .faq__item summary::after { content: '+'; color: var(--rose); font-size: 1.5rem; font-family: var(--sans); }
 .faq__item[open] summary::after { content: '–'; }
-.faq__item p { color: var(--muted); padding: 0 0 18px; line-height: 1.6; }
+.faq__item p { color: var(--ink); padding: 0 0 18px; line-height: 1.6; }
 
 /* ---------------------------------------------------------------- final cta */
 .final {
@@ -201,7 +201,7 @@
     radial-gradient(90% 120% at 50% 0%, rgba(124, 92, 255, 0.1), transparent 60%);
 }
 .final__title { font-family: var(--serif); font-weight: 500; font-size: clamp(2rem, 4.6vw, 3.3rem); line-height: 1.12; color: var(--ink); }
-.final__text { color: var(--ink-soft); font-size: 1.1rem; margin: 18px auto 32px; max-width: 560px; }
+.final__text { color: var(--ink); font-size: 1.1rem; margin: 18px auto 32px; max-width: 560px; }
 
 /* ---------------------------------------------------------------- footer */
 .foot { border-top: 1px solid var(--line); background: linear-gradient(180deg, rgba(124, 92, 255, 0.05), rgba(255, 255, 255, 0.6)); padding: 64px 0 0; }
@@ -236,7 +236,7 @@
 .modal__eyebrow { font-family: var(--caps); font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; font-size: 0.72rem; color: var(--t-deep); }
 .modal__title { font-family: var(--serif); font-weight: 600; font-size: 2rem; margin-top: 4px; color: var(--ink); }
 .modal__price { font-family: var(--caps); font-weight: 600; color: var(--t-deep); font-size: 1.1rem; white-space: nowrap; }
-.modal__desc { color: var(--ink-soft); margin-top: 12px; line-height: 1.6; }
+.modal__desc { color: var(--ink); margin-top: 12px; line-height: 1.6; }
 .modal__meta { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; color: var(--muted); font-size: 0.86rem; margin-top: 14px; }
 .modal__actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 22px; }
 
