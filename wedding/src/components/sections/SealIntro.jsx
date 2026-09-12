@@ -1,19 +1,19 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import config from '../../config.js'
 import { useLanguage } from '../../context/LanguageContext.jsx'
+import { useInvitation } from '../../context/InvitationContext.jsx'
 import { Flourish } from '../ui/Ornaments.jsx'
 
 // The wax seal face (gold body + rings + monogram). Rendered whole before the
 // tap, then twice more — clipped left/right — as the two halves that break away.
-function SealFace() {
+function SealFace({ monogram, year }) {
   return (
     <div className="seal__face" aria-hidden="true">
       <span className="seal__ring" />
       <span className="seal__ring seal__ring--inner" />
       <span className="seal__crack" />
-      <span className="seal__monogram">{config.couple.monogram}</span>
-      <span className="seal__year">{config.couple.year}</span>
+      <span className="seal__monogram">{monogram}</span>
+      <span className="seal__year">{year}</span>
     </div>
   )
 }
@@ -23,6 +23,7 @@ function SealFace() {
 // starts the music and reveals the invitation.
 export default function SealIntro({ onOpen }) {
   const { t } = useLanguage()
+  const { monogram, year } = useInvitation()
   const [breaking, setBreaking] = useState(false)
 
   function handleOpen() {
@@ -75,7 +76,7 @@ export default function SealIntro({ onOpen }) {
             whileTap={breaking ? {} : { scale: 0.96 }}
           >
             {/* Whole seal until tapped */}
-            {!breaking && <SealFace />}
+            {!breaking && <SealFace monogram={monogram} year={year} />}
 
             {/* On tap: two halves crack apart and fall to either side */}
             {breaking && (
@@ -86,7 +87,7 @@ export default function SealIntro({ onOpen }) {
                   animate={{ x: -74, y: 200, rotate: -48, opacity: 0 }}
                   transition={fall}
                 >
-                  <SealFace />
+                  <SealFace monogram={monogram} year={year} />
                 </motion.div>
                 <motion.div
                   className="seal__half seal__half--right"
@@ -94,7 +95,7 @@ export default function SealIntro({ onOpen }) {
                   animate={{ x: 74, y: 200, rotate: 48, opacity: 0 }}
                   transition={fall}
                 >
-                  <SealFace />
+                  <SealFace monogram={monogram} year={year} />
                 </motion.div>
 
                 {/* gold dust burst at the crack */}

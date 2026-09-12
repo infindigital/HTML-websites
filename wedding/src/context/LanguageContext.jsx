@@ -8,6 +8,7 @@ import {
 } from 'react'
 import config from '../config.js'
 import { translations, LANGUAGE_META } from '../i18n.js'
+import { InvitationContext } from './InvitationContext.jsx'
 
 const LanguageContext = createContext(null)
 const STORAGE_KEY = 'an-lang'
@@ -24,6 +25,8 @@ function getInitialLanguage() {
 
 export function LanguageProvider({ children }) {
   const [lang, setLang] = useState(getInitialLanguage)
+  // Per-template / per-customer name overrides (null when standalone).
+  const invitation = useContext(InvitationContext)
 
   const dir = LANGUAGE_META[lang]?.dir ?? 'ltr'
 
@@ -37,10 +40,15 @@ export function LanguageProvider({ children }) {
     }
   }, [lang, dir])
 
-  // Translate a key with graceful fallback to English, then the key itself.
+  // Translate a key. Invitation overrides win (so a blank '' still counts),
+  // then the active language, then English, then the key itself.
   const t = useCallback(
-    (key) => translations[lang]?.[key] ?? translations.en?.[key] ?? key,
-    [lang],
+    (key) => {
+      const override = invitation?.labels?.[key]
+      if (override !== undefined) return override
+      return translations[lang]?.[key] ?? translations.en?.[key] ?? key
+    },
+    [lang, invitation],
   )
 
   const changeLanguage = useCallback((next) => {

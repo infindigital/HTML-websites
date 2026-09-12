@@ -25,7 +25,9 @@ export default function FamilyInvitation() {
         <div className="party">
           <Reveal className="party__member">
             <h2 className="cormorant party__name">{t('nameGroomFull')}</h2>
-            <p className="party__parentage">{t('nameGroomParentage')}</p>
+            {t('nameGroomParentage') && (
+              <p className="party__parentage">{t('nameGroomParentage')}</p>
+            )}
           </Reveal>
 
           <Reveal delay={0.08}>
@@ -34,7 +36,9 @@ export default function FamilyInvitation() {
 
           <Reveal delay={0.12} className="party__member">
             <h2 className="cormorant party__name">{t('nameBrideFull')}</h2>
-            <p className="party__parentage">{t('nameBrideParentage')}</p>
+            {t('nameBrideParentage') && (
+              <p className="party__parentage">{t('nameBrideParentage')}</p>
+            )}
           </Reveal>
         </div>
 

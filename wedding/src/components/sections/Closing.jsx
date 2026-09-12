@@ -1,18 +1,18 @@
-import config from '../../config.js'
 import { useLanguage } from '../../context/LanguageContext.jsx'
+import { useInvitation } from '../../context/InvitationContext.jsx'
 import Reveal from '../ui/Reveal.jsx'
 import { Laurel } from '../ui/Ornaments.jsx'
 
 // Section 8 — Closing.
 export default function Closing() {
   const { t } = useLanguage()
-  const { couple } = config
+  const { monogram } = useInvitation()
 
   return (
     <section className="section closing" aria-label="Closing">
       <Reveal>
         <Laurel>
-          <span className="closing__monogram">{couple.monogram}</span>
+          <span className="closing__monogram">{monogram}</span>
         </Laurel>
       </Reveal>
 

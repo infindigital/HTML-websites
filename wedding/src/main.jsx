@@ -1,19 +1,16 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
+import { HashRouter } from 'react-router-dom'
 import App from './App.jsx'
-import { ThemeProvider } from './context/ThemeContext.jsx'
-import { LanguageProvider } from './context/LanguageContext.jsx'
-import { AudioProvider } from './context/AudioContext.jsx'
 import './index.css'
+import './studio/studio.css'
 
+// HashRouter keeps deep links working on any static host (Vercel, a plain
+// upload, even file://) with no server rewrite config.
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <ThemeProvider>
-      <LanguageProvider>
-        <AudioProvider>
-          <App />
-        </AudioProvider>
-      </LanguageProvider>
-    </ThemeProvider>
+    <HashRouter>
+      <App />
+    </HashRouter>
   </React.StrictMode>,
 )

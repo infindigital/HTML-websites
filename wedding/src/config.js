@@ -1,7 +1,11 @@
 // =====================================================================
-//  Azeem & Noora — Wedding Invitation · CENTRAL CONFIG
-//  Edit couple details, date, venue and assets here. All visible wording
-//  lives in src/i18n.js (translations), keyed to these values where needed.
+//  INVITATION ENGINE · DEFAULT (DEMO) DATA
+//  ---------------------------------------------------------------------
+//  This is the DEMO couple/date/venue the invitation engine renders when
+//  no customer data is supplied. It is fully data-driven: per-template
+//  demo names come from src/studio/templates.js via InvitationContext,
+//  and a real customer's names/date/venue replace these at order time.
+//  All visible wording lives in src/i18n.js (translations).
 //  Deploys on Vercel with the project Root Directory set to `wedding`.
 // =====================================================================
 
@@ -10,14 +14,14 @@ const mapQuery =
 
 const config = {
   couple: {
-    groomFirst: 'Azeem',
-    brideFirst: 'Noora',
-    combined: 'Azeem & Noora',
-    monogram: 'A ✦ N',
-    groomFullName: 'Mohammed Azeem',
-    groomParentage: 'S/O. K. Badruddin & Sabeena',
-    brideFullName: 'Noora Fathima',
-    brideParentage: 'D/O. Dr. Naseer P.M. & Rahima',
+    groomFirst: 'Rayyan',
+    brideFirst: 'Inaya',
+    combined: 'Rayyan & Inaya',
+    monogram: 'R ✦ I',
+    groomFullName: 'Rayyan Ahmed',
+    groomParentage: 'S/O. Imran & Ayesha',
+    brideFullName: 'Inaya Fathima',
+    brideParentage: 'D/O. Yusuf & Zara',
     year: 2026,
   },
 

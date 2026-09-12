@@ -8,10 +8,11 @@
 //   3. Add a matching block to `translations` with the same keys as `en`.
 //  Any key missing from a language automatically falls back to English.
 //
-//  NOTE: Names (Azeem, Noora, parents), the venue name & address, the
-//  Bismillah, and date numerals (30, 2026, 7:30) stay as-is across
-//  languages — only wording is translated. Place-name labels are
-//  transliterated into each script for readability.
+//  NOTE: These are DEMO couple names (Rayyan & Inaya) — the invitation is
+//  data-driven, so a customer's real names replace them at order time, and
+//  per-template demo names come from src/studio/templates.js. The venue,
+//  Bismillah and date numerals stay as-is across languages — only wording
+//  is translated. Names are transliterated into each script for readability.
 // =====================================================================
 
 // Order here controls the order shown in the language dropdown.
@@ -33,13 +34,13 @@ export const translations = {
     themeToLight: 'Switch to light mode',
 
     // names — transliterated into each script so they change with the language
-    nameGroomFirst: 'Azeem',
-    nameBrideFirst: 'Noora',
-    nameCombined: 'Azeem & Noora',
-    nameGroomFull: 'Mohammed Azeem',
-    nameBrideFull: 'Noora Fathima',
-    nameGroomParentage: 'S/O. K. Badruddin & Sabeena',
-    nameBrideParentage: 'D/O. Dr. Naseer P.M. & Rahima',
+    nameGroomFirst: 'Rayyan',
+    nameBrideFirst: 'Inaya',
+    nameCombined: 'Rayyan & Inaya',
+    nameGroomFull: 'Rayyan Ahmed',
+    nameBrideFull: 'Inaya Fathima',
+    nameGroomParentage: 'S/O. Imran & Ayesha',
+    nameBrideParentage: 'D/O. Yusuf & Zara',
 
     // 1 · seal intro
     youAreInvited: 'YOU ARE INVITED',
@@ -96,13 +97,13 @@ export const translations = {
     themeToDark: 'ಡಾರ್ಕ್ ಮೋಡ್‌ಗೆ ಬದಲಿಸಿ',
     themeToLight: 'ಲೈಟ್ ಮೋಡ್‌ಗೆ ಬದಲಿಸಿ',
 
-    nameGroomFirst: 'ಅಜೀಂ',
-    nameBrideFirst: 'ನೂರಾ',
-    nameCombined: 'ಅಜೀಂ & ನೂರಾ',
-    nameGroomFull: 'ಮೊಹಮ್ಮದ್ ಅಜೀಂ',
-    nameBrideFull: 'ನೂರಾ ಫಾತಿಮಾ',
-    nameGroomParentage: 'ಪುತ್ರ · ಕೆ. ಬದ್ರುದ್ದೀನ್ & ಸಬೀನಾ',
-    nameBrideParentage: 'ಪುತ್ರಿ · ಡಾ. ನಸೀರ್ ಪಿ.ಎಂ. & ರಹೀಮಾ',
+    nameGroomFirst: 'ರಯ್ಯಾನ್',
+    nameBrideFirst: 'ಇನಾಯಾ',
+    nameCombined: 'ರಯ್ಯಾನ್ & ಇನಾಯಾ',
+    nameGroomFull: 'ರಯ್ಯಾನ್ ಅಹಮದ್',
+    nameBrideFull: 'ಇನಾಯಾ ಫಾತಿಮಾ',
+    nameGroomParentage: 'ಪುತ್ರ · ಇಮ್ರಾನ್ & ಆಯೇಶಾ',
+    nameBrideParentage: 'ಪುತ್ರಿ · ಯೂಸುಫ್ & ಝರಾ',
 
     youAreInvited: 'ನೀವು ಆಹ್ವಾನಿತರು',
     tapToOpen: 'ತೆರೆಯಲು ಮುದ್ರೆಯನ್ನು ಸ್ಪರ್ಶಿಸಿ',
@@ -151,13 +152,13 @@ export const translations = {
     themeToDark: 'डार्क मोड पर जाएँ',
     themeToLight: 'लाइट मोड पर जाएँ',
 
-    nameGroomFirst: 'अज़ीम',
-    nameBrideFirst: 'नूरा',
-    nameCombined: 'अज़ीम & नूरा',
-    nameGroomFull: 'मोहम्मद अज़ीम',
-    nameBrideFull: 'नूरा फ़ातिमा',
-    nameGroomParentage: 'पुत्र · के. बदरुद्दीन & सबीना',
-    nameBrideParentage: 'पुत्री · डॉ. नसीर पी.एम. & रहीमा',
+    nameGroomFirst: 'रय्यान',
+    nameBrideFirst: 'इनाया',
+    nameCombined: 'रय्यान & इनाया',
+    nameGroomFull: 'रय्यान अहमद',
+    nameBrideFull: 'इनाया फ़ातिमा',
+    nameGroomParentage: 'पुत्र · इमरान & आयशा',
+    nameBrideParentage: 'पुत्री · यूसुफ़ & ज़ारा',
 
     youAreInvited: 'आप आमंत्रित हैं',
     tapToOpen: 'खोलने के लिए मुहर को स्पर्श करें',
@@ -206,13 +207,13 @@ export const translations = {
     themeToDark: 'التحويل إلى الوضع الداكن',
     themeToLight: 'التحويل إلى الوضع الفاتح',
 
-    nameGroomFirst: 'عزيم',
-    nameBrideFirst: 'نورا',
-    nameCombined: 'عزيم & نورا',
-    nameGroomFull: 'محمد عزيم',
-    nameBrideFull: 'نورة فاطمة',
-    nameGroomParentage: 'ابن · ك. بدر الدين & سبينة',
-    nameBrideParentage: 'ابنة · د. نصير بي.إم. & رحيمة',
+    nameGroomFirst: 'ريان',
+    nameBrideFirst: 'إناية',
+    nameCombined: 'ريان & إناية',
+    nameGroomFull: 'ريان أحمد',
+    nameBrideFull: 'إناية فاطمة',
+    nameGroomParentage: 'ابن · عمران & عائشة',
+    nameBrideParentage: 'ابنة · يوسف & زارا',
 
     youAreInvited: 'أنتم مدعوّون',
     tapToOpen: 'انقر على الختم لفتح الدعوة',

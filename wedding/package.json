@@ -1,9 +1,9 @@
 {
-  "name": "azeem-noora-invitation",
+  "name": "wedding-invitation-studio",
   "private": true,
   "version": "1.0.0",
   "type": "module",
-  "description": "Interactive digital wedding invitation for Azeem & Noora",
+  "description": "Premium cinematic wedding invitation template marketplace (Muslim, Hindu, Christian) with a data-driven invitation engine.",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -12,7 +12,8 @@
   "dependencies": {
     "framer-motion": "^11.11.0",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^6.30.6"
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^4.3.0",
