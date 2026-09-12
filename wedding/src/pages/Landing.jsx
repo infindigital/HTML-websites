@@ -158,8 +158,8 @@ export default function Landing() {
         <div className="wrap">
           <Reveal className="sec__head">
             <p className="sec__eyebrow">The collection</p>
-            <h2 className="sec__title">Four cinematic designs.<br />One for every celebration.</h2>
-            <p className="sec__lead">Each design has its own world of colour, light and motion. Preview any of them, with music, then personalise it with your names.</p>
+            <h2 className="sec__title">Three cinematic worlds.<br />One for every celebration.</h2>
+            <p className="sec__lead">Muslim, Hindu and Christian, each with its own colour, light and motion. Preview any film, then personalise it with your names.</p>
           </Reveal>
           <TemplateGrid templates={TEMPLATES} />
         </div>

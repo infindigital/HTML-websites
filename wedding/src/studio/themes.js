@@ -1,9 +1,9 @@
 // =====================================================================
 //  PER-TEMPLATE VISUAL PALETTES
 //  ---------------------------------------------------------------------
-//  Each template has its own colour world. No religion labels/symbols are
-//  shown in the UI - templates are premium named designs. Applied via the
-//  inline CSS variables from cssVars() on elements carrying data-theme-id.
+//  Each template has its own colour world, grouped by celebration style
+//  (Muslim / Hindu / Christian). Applied via the inline CSS variables from
+//  cssVars() on elements carrying data-theme-id.
 // =====================================================================
 
 export const THEMES = {
@@ -26,6 +26,16 @@ export const THEMES = {
   saanjh: {
     id: 'saanjh',
     tokens: { ink: '#3a0e14', ivory: '#f7efe2', deep: '#b0552b', glow: 'rgba(176,85,43,0.22)' },
+  },
+  // deep maroon + antique gold (Hindu - Aaranya)
+  aaranya: {
+    id: 'aaranya',
+    tokens: { ink: '#3a0e14', ivory: '#f7efe0', deep: '#a8842c', glow: 'rgba(168,132,44,0.26)' },
+  },
+  // deep navy + champagne gold + blush (Christian - Celeste)
+  celeste: {
+    id: 'celeste',
+    tokens: { ink: '#1b2333', ivory: '#f8f2ea', deep: '#c19a5b', glow: 'rgba(193,154,91,0.24)' },
   },
 }
 

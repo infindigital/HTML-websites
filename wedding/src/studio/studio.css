@@ -136,17 +136,28 @@
 .sec__lead { margin-top: 18px; color: var(--ink); font-size: 1.08rem; line-height: 1.6; }
 .templates { background: linear-gradient(180deg, rgba(22, 167, 154, 0.05), rgba(124, 92, 255, 0.04)); }
 
+/* ---------------------------------------------------------------- religion tabs */
+.tabs { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin: 0 auto 36px; }
+.tab { font-family: var(--caps); font-weight: 600; font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-soft); background: rgba(255, 255, 255, 0.7); border: 1px solid var(--line); padding: 10px 20px; border-radius: 999px; cursor: pointer; transition: color 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease, transform 0.2s ease; backdrop-filter: blur(6px); }
+.tab:hover { transform: translateY(-1px); color: var(--ink); }
+.tab.is-active { color: #fff; background: var(--grad-warm); border-color: transparent; box-shadow: 0 10px 24px rgba(240, 86, 127, 0.28); }
+
 /* ---------------------------------------------------------------- grid + card */
-.grid--templates { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 26px; }
+.grid--templates { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 330px), 1fr)); gap: 24px; }
 .grid__empty { text-align: center; color: var(--muted); padding: 40px 0; }
 .card { position: relative; display: flex; flex-direction: column; border-radius: 18px; overflow: hidden; background: var(--bg2); border: 1px solid var(--line); box-shadow: 0 10px 30px rgba(40, 30, 55, 0.07); transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.4s ease, border-color 0.4s ease; transform-style: preserve-3d; }
 .card::before { content: ''; position: absolute; inset: 0 0 auto 0; height: 4px; background: linear-gradient(90deg, var(--t-deep), color-mix(in srgb, var(--t-deep) 35%, #ffffff)); z-index: 3; }
 .card:hover { transform: translateY(-10px) rotateX(3deg); box-shadow: 0 34px 66px var(--t-glow), 0 20px 46px rgba(40, 30, 55, 0.14); border-color: color-mix(in srgb, var(--t-deep) 45%, var(--line)); }
-.card__media { position: relative; display: block; width: 100%; padding: 0; border: 0; cursor: pointer; aspect-ratio: 4 / 5; overflow: hidden; background: var(--t-ink); }
-.card__poster { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; }
-.card:hover .card__poster { transform: scale(1.05); }
-.card__play { position: absolute; inset: auto 0 0 0; display: flex; align-items: center; justify-content: center; gap: 8px; padding: 13px; color: #fff; background: linear-gradient(0deg, rgba(0, 0, 0, 0.66), transparent); font-family: var(--caps); font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; opacity: 0; transform: translateY(8px); transition: opacity 0.3s ease, transform 0.3s ease; }
-.card__media:hover .card__play, .card__media:focus-visible .card__play { opacity: 1; transform: translateY(0); }
+.card__media { position: relative; display: block; width: 100%; padding: 0; border: 0; cursor: pointer; aspect-ratio: 16 / 9; overflow: hidden; background: var(--t-ink); }
+.card__poster, .card__video { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.6s ease; }
+.card:hover .card__poster, .card:hover .card__video { transform: scale(1.06); }
+.card.is-inview .card__poster { transform: scale(1.03); }
+.card__scrim { position: absolute; inset: 0; z-index: 2; background: linear-gradient(180deg, rgba(10, 8, 16, 0) 45%, rgba(10, 8, 16, 0.5)); opacity: 0.7; transition: opacity 0.3s ease; pointer-events: none; }
+.card:hover .card__scrim { opacity: 0.4; }
+.card__badge { position: absolute; top: 12px; left: 12px; z-index: 3; font-family: var(--caps); font-weight: 600; font-size: 0.62rem; letter-spacing: 0.14em; text-transform: uppercase; color: #fff; background: var(--t-deep); padding: 6px 11px; border-radius: 999px; box-shadow: 0 6px 16px rgba(0, 0, 0, 0.28); }
+.card__dur { position: absolute; bottom: 12px; right: 12px; z-index: 3; font-family: var(--caps); font-size: 0.64rem; letter-spacing: 0.08em; color: #fff; background: rgba(0, 0, 0, 0.5); padding: 5px 10px; border-radius: 999px; backdrop-filter: blur(4px); }
+.card__play { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%) scale(0.94); z-index: 3; display: inline-flex; align-items: center; gap: 8px; padding: 11px 18px; color: #fff; background: rgba(255, 255, 255, 0.14); border: 1px solid rgba(255, 255, 255, 0.5); border-radius: 999px; font-family: var(--caps); font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; backdrop-filter: blur(6px); opacity: 0; transition: opacity 0.3s ease, transform 0.3s ease; }
+.card__media:hover .card__play, .card__media:focus-visible .card__play { opacity: 1; transform: translate(-50%, -50%) scale(1); }
 .card__play-icon { color: #ffd98a; }
 .card__body { padding: 18px 18px 20px; display: flex; flex-direction: column; gap: 6px; }
 .card__head { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; }
@@ -229,7 +240,7 @@
 .modal__video { width: 100%; height: 100%; object-fit: cover; display: block; }
 .modal__poster-wrap { position: relative; width: 100%; height: 100%; }
 .modal__poster { width: 100%; height: 100%; object-fit: cover; }
-.modal__soon { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; text-align: center; padding: 20px; background: linear-gradient(rgba(10, 8, 16, 0.28), rgba(10, 8, 16, 0.58)); }
+.modal__soon { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; gap: 14px; text-align: center; padding: 0 20px 38px; background: linear-gradient(rgba(10, 8, 16, 0) 42%, rgba(10, 8, 16, 0.8)); }
 .modal__soon-title { color: #fff; font-family: var(--serif); font-size: 1.4rem; }
 .modal__info { padding: 24px 26px 28px; }
 .modal__title-row { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; }
@@ -239,6 +250,20 @@
 .modal__desc { color: var(--ink); margin-top: 12px; line-height: 1.6; }
 .modal__meta { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; color: var(--muted); font-size: 0.86rem; margin-top: 14px; }
 .modal__actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 22px; }
+
+/* ---------------------------------------------------------------- fullscreen player */
+.modal--player { background: rgba(12, 9, 18, 0.72); backdrop-filter: blur(20px); }
+.modal--player .modal__panel { max-width: 1180px; width: 95vw; }
+.modal__stage { position: relative; width: 100%; aspect-ratio: 16 / 9; background: var(--t-ink); overflow: hidden; }
+.modal__stage--vertical { aspect-ratio: 9 / 16; width: auto; max-height: 76vh; margin: 0 auto; }
+.modal__stage .modal__video { width: 100%; height: 100%; object-fit: cover; display: block; background: #000; }
+.modal__bar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 14px 20px; padding: 18px 24px 22px; }
+.modal__bar-main { display: flex; align-items: center; gap: 14px; }
+.modal__badge { flex: none; font-family: var(--caps); font-weight: 600; font-size: 0.64rem; letter-spacing: 0.14em; text-transform: uppercase; color: #fff; background: var(--t-deep); padding: 6px 12px; border-radius: 999px; }
+.modal__bar-titles .modal__title { margin: 0; font-size: 1.6rem; }
+.modal__sub { color: var(--muted); font-size: 0.9rem; margin-top: 2px; }
+.modal__bar-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
+.modal__bar-actions .modal__price { font-family: var(--caps); font-weight: 600; color: var(--t-deep); font-size: 1.1rem; }
 
 /* ---------------------------------------------------------------- invite route (outside .studio) */
 .invite-back { position: fixed; top: 16px; left: 50%; transform: translateX(-50%); z-index: 95; padding: 9px 18px; border-radius: 999px; background: rgba(0, 0, 0, 0.5); backdrop-filter: blur(8px); color: #fff; text-decoration: none; font-family: 'Cinzel', Georgia, serif; font-size: 0.72rem; letter-spacing: 0.12em; }
