@@ -13,7 +13,7 @@ import Venue from '../components/sections/Venue.jsx'
 import Verse from '../components/sections/Verse.jsx'
 import Closing from '../components/sections/Closing.jsx'
 
-// The cinematic invitation engine. Fully data-driven — the couple's names,
+// The cinematic invitation engine. Fully data-driven - the couple's names,
 // monogram and labels come from InvitationContext / i18n, so the same engine
 // renders any template's demo couple (and, later, a real customer's details).
 export default function InvitationExperience() {

@@ -37,7 +37,7 @@ function Hero() {
         </motion.h1>
         <motion.p className="hero__sub" initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.9, delay: 0.35 }}>
           Premium cinematic wedding invitations, personalised with your names and
-          delivered ready to share — just <strong>₹499</strong>.
+          delivered ready to share, just <strong>₹499</strong>.
         </motion.p>
         <motion.div className="hero__cta" initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.9, delay: 0.5 }}>
           <button type="button" className="btn btn--gold btn--lg" onClick={() => scrollToId('templates')}>View Invitations</button>
@@ -83,7 +83,7 @@ function WhyUs() {
     { i: '🎬', t: 'Cinematic Design', d: 'Motion, light and typography that feel like a wedding film.' },
     { i: '♫', t: 'Music Included', d: 'Every invitation carries a score that sets the mood.' },
     { i: '✎', t: 'Personalised', d: 'Your names, date and venue woven into the design.' },
-    { i: '↗', t: 'WhatsApp Ordering', d: 'No complicated checkout — order and personalise on chat.' },
+    { i: '↗', t: 'WhatsApp Ordering', d: 'No complicated checkout. Order and personalise on chat.' },
     { i: '₹', t: 'One Simple Price', d: 'Every design is a flat ₹499. No tiers, no surprises.' },
   ]
   return (
@@ -110,10 +110,10 @@ function WhyUs() {
 function FAQ() {
   const qs = [
     { q: 'How do I order?', a: 'Choose a design, tap “Order on WhatsApp”, and share your names, date and venue. We personalise the invitation and send it back to you.' },
-    { q: 'How much does it cost?', a: 'Every design is a flat ₹499 — personalised with your details and delivered ready to share.' },
-    { q: 'Can you change the names, date and venue?', a: 'Yes — every invitation is fully personalised. The demo names you see are placeholders; your details take their place.' },
+    { q: 'How much does it cost?', a: 'Every design is a flat ₹499, personalised with your details and delivered ready to share.' },
+    { q: 'Can you change the names, date and venue?', a: 'Yes, every invitation is fully personalised. The demo names you see are placeholders; your details take their place.' },
     { q: 'Do the invitations include music?', a: 'Yes, each design comes with a score. Music never plays until the viewer chooses to start it.' },
-    { q: 'How do I share the finished invitation?', a: 'You receive a link you can send on WhatsApp and social media — it opens beautifully on phones and laptops.' },
+    { q: 'How do I share the finished invitation?', a: 'You receive a link you can send on WhatsApp and social media. It opens beautifully on phones and laptops.' },
   ]
   return (
     <section id="faq" className="sec faq">
@@ -141,7 +141,7 @@ function FinalCTA() {
       <div className="wrap wrap--narrow final__inner">
         <Reveal>
           <h2 className="final__title">Ready to make your invitation unforgettable?</h2>
-          <p className="final__text">Choose your design, send us your details and let your story take the screen — for just ₹499.</p>
+          <p className="final__text">Choose your design, send us your details and let your story take the screen, for just ₹499.</p>
           <a href={generalOrderUrl()} className="btn btn--gold btn--lg" target="_blank" rel="noreferrer">Start on WhatsApp</a>
         </Reveal>
       </div>
@@ -159,7 +159,7 @@ export default function Landing() {
           <Reveal className="sec__head">
             <p className="sec__eyebrow">The collection</p>
             <h2 className="sec__title">Four cinematic designs.<br />One for every celebration.</h2>
-            <p className="sec__lead">Each design has its own world of colour, light and motion. Preview any of them — with music — then personalise it with your names.</p>
+            <p className="sec__lead">Each design has its own world of colour, light and motion. Preview any of them, with music, then personalise it with your names.</p>
           </Reveal>
           <TemplateGrid templates={TEMPLATES} />
         </div>

@@ -1,14 +1,14 @@
-# Wedora Films — assets & setup
+# Wedora Films - assets & setup
 
 The landing page is live with **placeholder posters** and two working live
-invitations. Drop real assets in as they’re ready — they light up automatically.
+invitations. Drop real assets in as they’re ready - they light up automatically.
 
 ---
 
 ## 1. One thing still to set
 
 Open **`src/studio/config.js`** and set your real **WhatsApp number**
-(international format, digits only — e.g. `9199XXXXXXXX`):
+(international format, digits only - e.g. `9199XXXXXXXX`):
 
 ```js
 whatsappNumber: '910000000000',  // ← replace with your number
@@ -61,22 +61,22 @@ audioUrl: '/assets/amara-music.mp3',
 
 On-brand prompts for 4:5 posters and cinematic loops. No text, no faces, no logos.
 
-**Noor — emerald & gold**
+**Noor - emerald & gold**
 > Luxury wedding invitation backdrop, deep emerald and champagne gold, intricate
 > geometric latticework and a slender arch, soft golden lantern light and floating
 > gold dust, elegant and minimal, cinematic lighting, vertical 4:5.
 
-**Layali — midnight & gold**
+**Layali - midnight & gold**
 > Luxury wedding invitation backdrop, midnight sapphire blue and antique gold,
 > starlit night sky with a fine crescent, delicate star lattice and soft gold
 > constellations, regal and cinematic, vertical 4:5.
 
-**Amara — blush & ivory**
+**Amara - blush & ivory**
 > Elegant wedding invitation backdrop, ivory and champagne with dusty-rose
 > accents, soft florals and candlelight, gentle chapel arch and warm bokeh,
 > romantic cinematic light, vertical 4:5.
 
-**Saanjh — marigold & maroon**
+**Saanjh - marigold & maroon**
 > Luxury wedding invitation backdrop, deep maroon and warm marigold gold, delicate
 > mandala patterns and marigold florals, glowing diya light and soft petals,
 > cinematic warm lighting, vertical 4:5.
@@ -87,5 +87,5 @@ moves, soft particles, elegant type animation, premium easing.
 ---
 
 *Send me the WhatsApp number and any assets (or ask me to generate them), and I’ll
-wire everything up — and I can build dedicated live invitations for Amara & Saanjh
+wire everything up - and I can build dedicated live invitations for Amara & Saanjh
 to match Noor and Layali.*

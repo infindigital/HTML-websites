@@ -4,7 +4,7 @@ import ArchFrame from '../ui/ArchFrame.jsx'
 import Reveal from '../ui/Reveal.jsx'
 import { Flourish } from '../ui/Ornaments.jsx'
 
-// Section 6 — Venue + Map.
+// Section 6 - Venue + Map.
 export default function Venue() {
   const { t } = useLanguage()
   const { venue } = config

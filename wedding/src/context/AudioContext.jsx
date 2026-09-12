@@ -10,7 +10,7 @@ import config from '../config.js'
 
 const AudioContext = createContext(null)
 
-// The track opens with a short intro; playback — and every loop — begins here.
+// The track opens with a short intro; playback - and every loop - begins here.
 const START_OFFSET = Number(config.audioStartOffset) || 0
 
 export function AudioProvider({ children }) {
@@ -30,7 +30,7 @@ export function AudioProvider({ children }) {
         try {
           el.currentTime = START_OFFSET
         } catch {
-          /* not seekable yet — play() will retry the seek */
+          /* not seekable yet - play() will retry the seek */
         }
       }
     }
@@ -79,7 +79,7 @@ export function AudioProvider({ children }) {
     const p = el.play()
     if (p && typeof p.then === 'function') {
       p.then(() => setIsPlaying(true)).catch(() => {
-        // Autoplay blocked or file missing — stay silent, user can retry.
+        // Autoplay blocked or file missing - stay silent, user can retry.
         setIsPlaying(false)
       })
     }

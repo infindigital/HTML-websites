@@ -13,7 +13,7 @@ export function AmpersandDivider({ className = '' }) {
   )
 }
 
-// A short centered gold rule with a diamond at its middle — used under eyebrows.
+// A short centered gold rule with a diamond at its middle - used under eyebrows.
 export function Flourish({ className = '' }) {
   return (
     <span className={`flourish ${className}`} aria-hidden="true">

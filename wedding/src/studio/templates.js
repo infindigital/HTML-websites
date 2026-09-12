@@ -1,7 +1,7 @@
 // =====================================================================
-//  TEMPLATE CATALOGUE (single source of truth) — 4 premium designs.
+//  TEMPLATE CATALOGUE (single source of truth) - 4 premium designs.
 //  ---------------------------------------------------------------------
-//  Names shown are DEMO couples — the invitation engine is data-driven.
+//  Names shown are DEMO couples - the invitation engine is data-driven.
 //
 //  engine: 'live'  -> live cinematic invitation (with `engineSkin` colours).
 //  engine: null    -> preview video pending (see ASSETS-NEEDED.md).
@@ -53,7 +53,7 @@ export const TEMPLATES = [
     slug: 'noor', theme: 'noor',
     title: 'Noor', subtitle: 'Emerald & Gold',
     description:
-      'An invitation wrapped in emerald shadows, warm golden light and timeless geometry — a celebration remembered before it even begins.',
+      'An invitation wrapped in emerald shadows, warm golden light and timeless geometry. A celebration remembered before it even begins.',
     demoCouple: { groom: 'Rayyan', bride: 'Inaya' }, monogram: 'R ✦ I',
     engine: 'live', engineSkin: EMERALD, audioUrl: '/song.mp3', musicTitle: 'Soft Nasheed',
     highlights: ['Elegant geometry & arches', 'Lantern-gold light', 'Emerald & champagne palette'],
@@ -62,7 +62,7 @@ export const TEMPLATES = [
     slug: 'layali', theme: 'layali',
     title: 'Layali', subtitle: 'Midnight & Gold',
     description:
-      'A starlit night in midnight blue and antique gold — crescent light and quiet grandeur for an unforgettable evening.',
+      'A starlit night in midnight blue and antique gold. Crescent light and quiet grandeur for an unforgettable evening.',
     demoCouple: { groom: 'Zayan', bride: 'Aaliya' }, monogram: 'Z ✦ A',
     engine: 'live', engineSkin: MIDNIGHT, audioUrl: '/song.mp3', musicTitle: 'Oud & Strings',
     highlights: ['Starlit midnight blue', 'Crescent & fine lattice', 'Antique-gold detailing'],
@@ -71,7 +71,7 @@ export const TEMPLATES = [
     slug: 'amara', theme: 'amara',
     title: 'Amara', subtitle: 'Blush & Ivory',
     description:
-      'Soft candlelight, timeless florals and ivory grace — an invitation that opens your celebration with quiet romance.',
+      'Soft candlelight, timeless florals and ivory grace. An invitation that opens your celebration with quiet romance.',
     demoCouple: { groom: 'Nathan', bride: 'Grace' }, monogram: 'N ✦ G',
     engine: null, musicTitle: 'Piano & Strings',
     highlights: ['Soft florals & candlelight', 'Ivory, blush & champagne', 'Romantic, understated'],
@@ -80,7 +80,7 @@ export const TEMPLATES = [
     slug: 'saanjh', theme: 'saanjh',
     title: 'Saanjh', subtitle: 'Marigold Dusk',
     description:
-      'The warm glow of dusk in marigold and maroon — mandala detail and golden light for a celebration full of colour and joy.',
+      'The warm glow of dusk in marigold and maroon. Mandala detail and golden light for a celebration full of colour and joy.',
     demoCouple: { groom: 'Aarav', bride: 'Ananya' }, monogram: 'A ✦ A',
     engine: null, musicTitle: 'Sitar & Flute',
     highlights: ['Mandala & marigold detail', 'Warm diya glow', 'Maroon & gold palette'],

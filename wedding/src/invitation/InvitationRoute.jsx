@@ -55,7 +55,7 @@ export default function InvitationRoute() {
     )
   }
 
-  // Designs without a live engine yet — themed placeholder + order CTA.
+  // Designs without a live engine yet - themed placeholder + order CTA.
   return (
     <div className="invite-soon" data-theme-id={template.theme} style={cssVars(template.theme)}>
       {back}

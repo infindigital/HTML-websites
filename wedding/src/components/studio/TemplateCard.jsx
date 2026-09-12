@@ -10,7 +10,7 @@ export default function TemplateCard({ template, onPreview }) {
         <img
           className="card__poster"
           src={template.poster}
-          alt={`${template.title} — ${template.subtitle} wedding invitation`}
+          alt={`${template.title}, ${template.subtitle} wedding invitation`}
           loading="lazy"
           decoding="async"
         />

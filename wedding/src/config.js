@@ -59,7 +59,7 @@ const config = {
     ref: 'Surah Ar-Rum · 30:21',
   },
 
-  // Assets — drop your own files into /public (see README).
+  // Assets - drop your own files into /public (see README).
   audioSrc: '/song.mp3',
   // The track has a short intro; playback (and every loop) begins here, in
   // seconds. Set to 0 to play from the very start.

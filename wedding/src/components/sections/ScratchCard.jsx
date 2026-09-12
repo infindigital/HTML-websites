@@ -6,9 +6,9 @@ import ArchFrame from '../ui/ArchFrame.jsx'
 import Reveal from '../ui/Reveal.jsx'
 import { Flourish } from '../ui/Ornaments.jsx'
 
-// Section 4 — Scratch-to-Reveal Card.
+// Section 4 - Scratch-to-Reveal Card.
 // Fraction of the gold cover that must be cleared before it auto-reveals.
-// Kept low so a light scratch is enough — the rest fades away on its own.
+// Kept low so a light scratch is enough - the rest fades away on its own.
 const REVEAL_AT = 0.12
 
 export default function ScratchCard() {

@@ -3,7 +3,7 @@ import { useInvitation } from '../../context/InvitationContext.jsx'
 import Reveal from '../ui/Reveal.jsx'
 import { Laurel } from '../ui/Ornaments.jsx'
 
-// Section 8 — Closing.
+// Section 8 - Closing.
 export default function Closing() {
   const { t } = useLanguage()
   const { monogram } = useInvitation()

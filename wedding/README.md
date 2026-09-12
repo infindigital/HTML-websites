@@ -1,4 +1,4 @@
-# Wedora Films — Wedding Invitation Studio
+# Wedora Films - Wedding Invitation Studio
 
 A premium, mobile-first **landing page** for cinematic wedding invitations. A
 white, elegant design with a **3D hero** (Three.js), four signature invitation
@@ -49,9 +49,9 @@ src/
 ### The four designs
 
 Two share the **live, data-driven invitation engine** in different colour worlds
-(**Noor** — emerald; **Layali** — midnight blue); **Amara** and **Saanjh** show a
+(**Noor** - emerald; **Layali** - midnight blue); **Amara** and **Saanjh** show a
 “preview coming soon” screen until a video (or a dedicated live build) is added.
-Couple names are demo placeholders — the engine is data-driven, so a real
+Couple names are demo placeholders - the engine is data-driven, so a real
 customer’s details drop straight in (`src/context/InvitationContext.jsx`).
 
 Editing a design is a single entry in `src/studio/templates.js`.

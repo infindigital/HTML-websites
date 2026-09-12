@@ -1,4 +1,4 @@
-// One-shot confetti burst — a "birthday popper" that pops from a point,
+// One-shot confetti burst - a "birthday popper" that pops from a point,
 // shoots up and out, tumbles, then rains down and fades. It paints itself
 // on a throwaway full-screen canvas and removes everything once the pieces
 // have settled, so callers just fire and forget:

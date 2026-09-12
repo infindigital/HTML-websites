@@ -2,7 +2,7 @@
 //  PER-TEMPLATE VISUAL PALETTES
 //  ---------------------------------------------------------------------
 //  Each template has its own colour world. No religion labels/symbols are
-//  shown in the UI — templates are premium named designs. Applied via the
+//  shown in the UI - templates are premium named designs. Applied via the
 //  inline CSS variables from cssVars() on elements carrying data-theme-id.
 // =====================================================================
 

@@ -372,7 +372,7 @@ canvas {
 }
 
 /* =====================================================================
-   Arch frame (mihrab) — a pointed ogee crown over straight double-lined
+   Arch frame (mihrab) - a pointed ogee crown over straight double-lined
    walls, with a diamond finial at the point and at the base.
    ===================================================================== */
 .arch {
@@ -581,7 +581,7 @@ canvas {
   user-select: none;
   -webkit-user-select: none;
 }
-/* The wax body — reused whole and, on break, inside each falling half. */
+/* The wax body - reused whole and, on break, inside each falling half. */
 .seal__face {
   position: absolute;
   inset: 0;
@@ -1022,7 +1022,7 @@ canvas {
 }
 
 /* =====================================================================
-   Larger screens — the phone column opens into a full invitation page.
+   Larger screens - the phone column opens into a full invitation page.
    Mobile (< 700px) is intentionally left exactly as designed; from here up
    everything scales proportionally (root rem zoom) and the frame widens so
    the invitation fills the screen instead of floating in a narrow box.
@@ -1069,7 +1069,7 @@ canvas {
     max-width: 30rem;
   }
 
-  /* inner cards were pinned to phone width — let them grow with the page */
+  /* inner cards were pinned to phone width - let them grow with the page */
   .scratch__arch,
   .venue__arch,
   .verse__arch {

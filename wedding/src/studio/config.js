@@ -14,7 +14,7 @@ const studio = {
   tagline: 'Cinematic Wedding Invitations',
   // One-line positioning used in the footer / SEO description.
   positioning:
-    'Premium cinematic wedding invitations — designed around your celebration and personalised with your names.',
+    'Premium cinematic wedding invitations, designed around your celebration and personalised with your names.',
 
   // --- WhatsApp (primary conversion) ----------------------------------
   //  International format, digits only, no "+", no spaces.

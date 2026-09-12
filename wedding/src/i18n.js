@@ -1,5 +1,5 @@
 // =====================================================================
-//  i18n — every visible string, keyed by language code.
+//  i18n - every visible string, keyed by language code.
 //  Languages: en (English) · kn (Kannada) · hi (Hindi) · ar (Arabic, RTL)
 //
 //  HOW TO ADD A LANGUAGE:
@@ -8,10 +8,10 @@
 //   3. Add a matching block to `translations` with the same keys as `en`.
 //  Any key missing from a language automatically falls back to English.
 //
-//  NOTE: These are DEMO couple names (Rayyan & Inaya) — the invitation is
+//  NOTE: These are DEMO couple names (Rayyan & Inaya) - the invitation is
 //  data-driven, so a customer's real names replace them at order time, and
 //  per-template demo names come from src/studio/templates.js. The venue,
-//  Bismillah and date numerals stay as-is across languages — only wording
+//  Bismillah and date numerals stay as-is across languages - only wording
 //  is translated. Names are transliterated into each script for readability.
 // =====================================================================
 
@@ -33,7 +33,7 @@ export const translations = {
     themeToDark: 'Switch to dark mode',
     themeToLight: 'Switch to light mode',
 
-    // names — transliterated into each script so they change with the language
+    // names - transliterated into each script so they change with the language
     nameGroomFirst: 'Rayyan',
     nameBrideFirst: 'Inaya',
     nameCombined: 'Rayyan & Inaya',

@@ -28,7 +28,7 @@ export function buildInvitation(template) {
   if (sameAsBase) return { labels: {}, monogram, year: base.year }
 
   // Other demo couples: override the visible name strings (Latin across all
-  // languages is fine for a demo). Parentage is blank — demo has no family.
+  // languages is fine for a demo). Parentage is blank - demo has no family.
   const combined = `${c.groom} & ${c.bride}`
   return {
     labels: {

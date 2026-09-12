@@ -5,7 +5,7 @@ import { useInvitation } from '../../context/InvitationContext.jsx'
 import { Flourish } from '../ui/Ornaments.jsx'
 
 // The wax seal face (gold body + rings + monogram). Rendered whole before the
-// tap, then twice more — clipped left/right — as the two halves that break away.
+// tap, then twice more - clipped left/right - as the two halves that break away.
 function SealFace({ monogram, year }) {
   return (
     <div className="seal__face" aria-hidden="true">
@@ -18,7 +18,7 @@ function SealFace({ monogram, year }) {
   )
 }
 
-// Section 1 — Wax-Seal Intro (full viewport).
+// Section 1 - Wax-Seal Intro (full viewport).
 // Tapping the seal cracks it into two halves that fall away to either side,
 // starts the music and reveals the invitation.
 export default function SealIntro({ onOpen }) {

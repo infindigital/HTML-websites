@@ -5,7 +5,7 @@ import { templateOrderUrl } from '../../studio/whatsapp.js'
 import { cssVars } from '../../studio/themes.js'
 
 // Premium preview overlay. Shows the invitation video if uploaded, otherwise
-// the poster + a note. Audio never autoplays — the visitor presses play.
+// the poster + a note. Audio never autoplays - the visitor presses play.
 export default function PreviewModal({ template, onClose }) {
   const audioRef = useRef(null)
   const [playing, setPlaying] = useState(false)

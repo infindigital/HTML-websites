@@ -3,7 +3,7 @@ import ArchFrame from '../ui/ArchFrame.jsx'
 import Reveal from '../ui/Reveal.jsx'
 import { AmpersandDivider, Flourish } from '../ui/Ornaments.jsx'
 
-// Section 3 — Family Invitation.
+// Section 3 - Family Invitation.
 export default function FamilyInvitation() {
   const { t } = useLanguage()
 

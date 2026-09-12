@@ -3,7 +3,7 @@ import ArchFrame from '../ui/ArchFrame.jsx'
 import Reveal from '../ui/Reveal.jsx'
 import { Flourish } from '../ui/Ornaments.jsx'
 
-// Section 7 — Quranic Verse (Surah Ar-Rum 30:21), localized.
+// Section 7 - Quranic Verse (Surah Ar-Rum 30:21), localized.
 export default function Verse() {
   const { t, lang } = useLanguage()
   const isArabic = lang === 'ar'

@@ -6,7 +6,7 @@ import Reveal from '../ui/Reveal.jsx'
 import { AmpersandDivider } from '../ui/Ornaments.jsx'
 import { ChevronDownIcon } from '../ui/Icons.jsx'
 
-// Section 2 — Main Invitation.
+// Section 2 - Main Invitation.
 export default function MainInvitation({ id }) {
   const { t } = useLanguage()
 

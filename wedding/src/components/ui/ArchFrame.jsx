@@ -6,7 +6,7 @@ export default function ArchFrame({ children, className = '', tag = 'div', ...re
   const Tag = tag
   return (
     <Tag className={`arch ${className}`} {...rest}>
-      {/* pointed ogee crown — scales with the frame's width */}
+      {/* pointed ogee crown - scales with the frame's width */}
       <svg className="arch__crown" viewBox="0 0 100 20" aria-hidden="true">
         <path
           className="arch__crown-line"
