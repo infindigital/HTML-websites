@@ -801,6 +801,83 @@ a.tb-item:hover .tb-ic{background:rgba(75,192,234,.24);border-color:rgba(75,192,
 .enquire:hover,.hh-cta-btn:hover{filter:none!important;color:#000!important}
 .mnf-call:active,.mnf-call:hover{background:linear-gradient(120deg,#232323,#000)!important}
 </style>
+<style>
+/* =====================================================================
+   GLOBAL TYPOGRAPHY SYSTEM — derived from the Life Care logo
+   --font-primary   : the "Life Care" wordmark (elegant bold serif)
+   --font-secondary : the "SPECIALTY HOSPITAL" label (clean sans)
+   Loaded last so it consistently governs every component.
+   ===================================================================== */
+:root{
+  --font-primary:"Playfair Display",Georgia,"Times New Roman",Cambria,serif;
+  --font-secondary:"Montserrat",system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+}
+/* Base / body / general typography → secondary (clean sans, readable) */
+body,p,li,a,span,label,input,select,textarea,button,.btn,
+.navbar,.nav,.lc-menubar,.dropdown-item,.footer-link,.badge,
+.lc-act,.lc-hf-card,.lc-doc-cta,.lc-hero-chip,.tb-left,.tb-right,
+.form-control,.form-select,.card,.card-body{
+  font-family:var(--font-secondary);
+}
+/* Headings, display type, section titles, brand headline → primary serif */
+h1,.h1,h2,.h2,h3,.h3,h4,.h4,h5,.h5,h6,.h6,
+.display-1,.display-2,.display-3,.display-4,.display-5,.display-6,
+.hh-wordmark,.wm-life,.wm-care,.mh-title,.lc-why-num,
+.lc-why h5,.lc-act h6,.lc-hf-card h6{
+  font-family:var(--font-primary);
+}
+/* Supporting labels / eyebrows / sub-headings → secondary sans */
+.wm-welcome,.wm-sub,.wm-eyebrow,.mh-welcome,.mh-sub,.mh-eyebrow,
+.lc-eyebrow,.lc-help-eyebrow,.lc-emg-eyebrow,.text-uppercase,
+.dmSpec,.dmQual{
+  font-family:var(--font-secondary);
+}
+/* =====================================================================
+   HERO restructure — text stack on the LEFT, image on the RIGHT.
+   Overrides the original absolute "wordmark-around-person" layout while
+   preserving the existing reveal transitions and cutout swap animation.
+   ===================================================================== */
+.hh-wordmark{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;gap:.5em;padding:0 2% 0 9%;margin:0;text-align:left;width:max-content;max-width:84%;z-index:3;transform:translateY(-6%)}
+.hh-wordmark span{position:static;left:auto;right:auto;top:auto;white-space:nowrap;display:block}
+.wm-welcome{font-size:1.85cqw;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--navy);margin:0}
+.hh-wordmark .wm-lc{display:flex;flex-flow:row nowrap;align-items:baseline;gap:.16em;line-height:.9;font-family:var(--font-primary);opacity:1!important;transform:none!important}
+.wm-life,.wm-care{position:static;left:auto;right:auto;top:auto;font-size:12cqw;font-weight:900;line-height:.9;letter-spacing:-.01em}
+.wm-sub{align-self:center;text-align:center;font-size:2cqw;font-weight:600;letter-spacing:.06em;color:#25406b;margin:.18em 0 0;text-transform:uppercase}
+.wm-eyebrow{position:static;left:auto;top:auto;writing-mode:horizontal-tb;border:0;padding:0;font-size:1.6cqw;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:#1CA2E4;margin:.5em 0 0}
+.hh-cut .hh-inner{justify-content:flex-end;padding-right:2.5%}
+/* "Keep You Well" centered directly above the Book-an-Appointment button */
+.hh-eyebrow-cta{position:absolute;left:0;right:0;bottom:16%;margin:0;padding:0;border:0;
+  writing-mode:horizontal-tb;text-align:center;font-size:1.55cqw;z-index:9}
+@media(min-width:641px) and (max-width:991px){
+  .hh-wordmark{width:max-content;max-width:88%;padding-left:8%;gap:.4em;transform:translateY(-5%)}
+  .wm-life,.wm-care{font-size:11.6cqw;letter-spacing:.04em}
+  .wm-welcome{font-size:2.2cqw}.wm-sub{font-size:2.35cqw}
+  .hh-eyebrow-cta{bottom:26%;font-size:2cqw}
+}
+/* desktop only: more space between "Life" and "Care" */
+@media(min-width:992px){
+  .hh-wordmark .wm-lc{gap:.34em}
+}
+/* Hero entrance sequence: the doctor/nurse IMAGE fades in first, THEN the
+   headline eases in line-by-line and settles fully solid (never a stuck-faded
+   state). Other hero motion — light sweep, orbit rings, floating orbs, the 3D
+   bob and the doctor/nurse cross-fade — is kept. */
+.home-hero .wm-life,.home-hero .wm-care{opacity:1!important;clip-path:none!important;transform:none!important}
+.home-hero .wm-welcome,.home-hero .wm-lc,
+.home-hero .wm-sub,.home-hero .wm-eyebrow{
+  opacity:0;clip-path:none!important;transform:none;transition:none!important;
+}
+/* headline lines animate in only after the image has come up (delays > image fade) */
+.home-hero.hh-in .wm-welcome{animation:wmRise .7s var(--ease) .95s both}
+.home-hero.hh-in .wm-lc     {animation:wmRise .8s var(--ease) 1.15s both}
+.home-hero.hh-in .wm-sub    {animation:wmRise .7s var(--ease) 1.45s both}
+.home-hero.hh-in .wm-eyebrow{animation:wmRise .7s var(--ease) 1.65s both}
+@keyframes wmRise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion: reduce){
+  .home-hero .wm-welcome,.home-hero .wm-lc,.home-hero .wm-sub,.home-hero .wm-eyebrow{
+    opacity:1!important;animation:none!important}
+}
+</style>
 <section class="home-hero" aria-label="Welcome to Life Care Specialty Hospital, Bhatkal">
   <div class="hh-scene">
     <div class="hh-stage" data-hero-stage>
@@ -2032,81 +2109,5 @@ docReady(scrollToTop);
   else { run(); }
 })();
 </script>
-<style>
-/* =====================================================================
-   GLOBAL TYPOGRAPHY SYSTEM — derived from the Life Care logo
-   --font-primary   : the "Life Care" wordmark (elegant bold serif)
-   --font-secondary : the "SPECIALTY HOSPITAL" label (clean sans)
-   Loaded last so it consistently governs every component.
-   ===================================================================== */
-:root{
-  --font-primary:"Playfair Display",Georgia,"Times New Roman",Cambria,serif;
-  --font-secondary:"Montserrat",system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-}
-/* Base / body / general typography → secondary (clean sans, readable) */
-body,p,li,a,span,label,input,select,textarea,button,.btn,
-.navbar,.nav,.lc-menubar,.dropdown-item,.footer-link,.badge,
-.lc-act,.lc-hf-card,.lc-doc-cta,.lc-hero-chip,.tb-left,.tb-right,
-.form-control,.form-select,.card,.card-body{
-  font-family:var(--font-secondary);
-}
-/* Headings, display type, section titles, brand headline → primary serif */
-h1,.h1,h2,.h2,h3,.h3,h4,.h4,h5,.h5,h6,.h6,
-.display-1,.display-2,.display-3,.display-4,.display-5,.display-6,
-.hh-wordmark,.wm-life,.wm-care,.mh-title,.lc-why-num,
-.lc-why h5,.lc-act h6,.lc-hf-card h6{
-  font-family:var(--font-primary);
-}
-/* Supporting labels / eyebrows / sub-headings → secondary sans */
-.wm-welcome,.wm-sub,.wm-eyebrow,.mh-welcome,.mh-sub,.mh-eyebrow,
-.lc-eyebrow,.lc-help-eyebrow,.lc-emg-eyebrow,.text-uppercase,
-.dmSpec,.dmQual{
-  font-family:var(--font-secondary);
-}
-/* =====================================================================
-   HERO restructure — text stack on the LEFT, image on the RIGHT.
-   Overrides the original absolute "wordmark-around-person" layout while
-   preserving the existing reveal transitions and cutout swap animation.
-   ===================================================================== */
-.hh-wordmark{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;gap:.5em;padding:0 2% 0 9%;margin:0;text-align:left;width:max-content;max-width:84%;z-index:3;transform:translateY(-6%)}
-.hh-wordmark span{position:static;left:auto;right:auto;top:auto;white-space:nowrap;display:block}
-.wm-welcome{font-size:1.85cqw;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--navy);margin:0}
-.hh-wordmark .wm-lc{display:flex;flex-flow:row nowrap;align-items:baseline;gap:.16em;line-height:.9;font-family:var(--font-primary);opacity:1!important;transform:none!important}
-.wm-life,.wm-care{position:static;left:auto;right:auto;top:auto;font-size:12cqw;font-weight:900;line-height:.9;letter-spacing:-.01em}
-.wm-sub{align-self:center;text-align:center;font-size:2cqw;font-weight:600;letter-spacing:.06em;color:#25406b;margin:.18em 0 0;text-transform:uppercase}
-.wm-eyebrow{position:static;left:auto;top:auto;writing-mode:horizontal-tb;border:0;padding:0;font-size:1.6cqw;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:#1CA2E4;margin:.5em 0 0}
-.hh-cut .hh-inner{justify-content:flex-end;padding-right:2.5%}
-/* "Keep You Well" centered directly above the Book-an-Appointment button */
-.hh-eyebrow-cta{position:absolute;left:0;right:0;bottom:16%;margin:0;padding:0;border:0;
-  writing-mode:horizontal-tb;text-align:center;font-size:1.55cqw;z-index:9}
-@media(min-width:641px) and (max-width:991px){
-  .hh-wordmark{width:max-content;max-width:88%;padding-left:8%;gap:.4em;transform:translateY(-5%)}
-  .wm-life,.wm-care{font-size:11.6cqw;letter-spacing:.04em}
-  .wm-welcome{font-size:2.2cqw}.wm-sub{font-size:2.35cqw}
-  .hh-eyebrow-cta{bottom:26%;font-size:2cqw}
-}
-/* desktop only: more space between "Life" and "Care" */
-@media(min-width:992px){
-  .hh-wordmark .wm-lc{gap:.34em}
-}
-/* Hero entrance sequence: the doctor/nurse IMAGE fades in first, THEN the
-   headline eases in line-by-line and settles fully solid (never a stuck-faded
-   state). Other hero motion — light sweep, orbit rings, floating orbs, the 3D
-   bob and the doctor/nurse cross-fade — is kept. */
-.home-hero .wm-life,.home-hero .wm-care{opacity:1!important;clip-path:none!important;transform:none!important}
-.home-hero .wm-welcome,.home-hero .wm-lc,
-.home-hero .wm-sub,.home-hero .wm-eyebrow{
-  opacity:0;clip-path:none!important;transform:none;transition:none!important;
-}
-/* headline lines animate in only after the image has come up (delays > image fade) */
-.home-hero.hh-in .wm-welcome{animation:wmRise .7s var(--ease) .95s both}
-.home-hero.hh-in .wm-lc     {animation:wmRise .8s var(--ease) 1.15s both}
-.home-hero.hh-in .wm-sub    {animation:wmRise .7s var(--ease) 1.45s both}
-.home-hero.hh-in .wm-eyebrow{animation:wmRise .7s var(--ease) 1.65s both}
-@keyframes wmRise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
-@media (prefers-reduced-motion: reduce){
-  .home-hero .wm-welcome,.home-hero .wm-lc,.home-hero .wm-sub,.home-hero .wm-eyebrow{
-    opacity:1!important;animation:none!important}
-}
 </body>
 </html>
