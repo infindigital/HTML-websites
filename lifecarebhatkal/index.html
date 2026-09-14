@@ -2069,27 +2069,35 @@ h1,.h1,h2,.h2,h3,.h3,h4,.h4,h5,.h5,h6,.h6,
    ===================================================================== */
 .hh-wordmark{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;gap:.22em;padding:0 2% 0 9%;margin:0;text-align:left;width:64%;z-index:3}
 .hh-wordmark span{position:static;left:auto;right:auto;top:auto;white-space:nowrap;display:block}
-.wm-welcome{font-size:2.4cqw;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--navy);margin:0 0 .12em}
-.hh-wordmark .wm-lc{display:flex;flex-flow:column nowrap;align-items:flex-start;gap:0;line-height:.82;font-family:var(--font-primary);opacity:1!important;transform:none!important}
-.wm-life,.wm-care{position:static;left:auto;right:auto;top:auto;font-size:12cqw;font-weight:700;line-height:.82;letter-spacing:.05em}
-.wm-sub{font-size:2.6cqw;font-weight:600;letter-spacing:.02em;color:#25406b;margin:.15em 0 0;text-transform:none}
+.wm-welcome{font-size:1.85cqw;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--navy);margin:0 0 .1em}
+.hh-wordmark .wm-lc{display:flex;flex-flow:row nowrap;align-items:baseline;gap:.16em;line-height:.9;font-family:var(--font-primary);opacity:1!important;transform:none!important}
+.wm-life,.wm-care{position:static;left:auto;right:auto;top:auto;font-size:9.6cqw;font-weight:700;line-height:.9;letter-spacing:.04em}
+.wm-sub{font-size:2cqw;font-weight:600;letter-spacing:.02em;color:#25406b;margin:.18em 0 0;text-transform:none}
 .wm-eyebrow{position:static;left:auto;top:auto;writing-mode:horizontal-tb;border:0;padding:0;font-size:1.6cqw;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:#1CA2E4;margin:.5em 0 0}
 .hh-cut .hh-inner{justify-content:flex-end;padding-right:2.5%}
 @media(min-width:641px) and (max-width:991px){
-  .hh-wordmark{width:66%;padding-left:8%;gap:.2em}
-  .wm-life,.wm-care{font-size:13.5cqw;letter-spacing:.05em}
-  .wm-welcome{font-size:2.9cqw}.wm-sub{font-size:3cqw}.wm-eyebrow{font-size:1.95cqw}
+  .hh-wordmark{width:72%;padding-left:8%;gap:.18em}
+  .wm-life,.wm-care{font-size:10.6cqw;letter-spacing:.04em}
+  .wm-welcome{font-size:2.2cqw}.wm-sub{font-size:2.35cqw}.wm-eyebrow{font-size:1.8cqw}
 }
-/* Hero headline stays fully solid — never dim / faded, regardless of the
-   reveal timing. The lively hero animations are kept: doctor/nurse cross-fade,
-   light sweep, orbit rings, floating orbs and the 3D bob all still play. */
-.home-hero .hh-wordmark span,
-.home-hero .wm-welcome,.home-hero .wm-life,.home-hero .wm-care,
+/* Hero entrance sequence: the doctor/nurse IMAGE fades in first, THEN the
+   headline eases in line-by-line and settles fully solid (never a stuck-faded
+   state). Other hero motion — light sweep, orbit rings, floating orbs, the 3D
+   bob and the doctor/nurse cross-fade — is kept. */
+.home-hero .wm-life,.home-hero .wm-care{opacity:1!important;clip-path:none!important;transform:none!important}
+.home-hero .wm-welcome,.home-hero .wm-lc,
 .home-hero .wm-sub,.home-hero .wm-eyebrow{
-  opacity:1!important;clip-path:none!important;transform:none!important;
-  transition:none!important;
+  opacity:0;clip-path:none!important;transform:none;transition:none!important;
 }
-/* Make sure the doctor/nurse figure is shown solid (its swap animation stays). */
-.home-hero .hh-cut.is-show{opacity:1!important}
+/* headline lines animate in only after the image has come up (delays > image fade) */
+.home-hero.hh-in .wm-welcome{animation:wmRise .7s var(--ease) .95s both}
+.home-hero.hh-in .wm-lc     {animation:wmRise .8s var(--ease) 1.15s both}
+.home-hero.hh-in .wm-sub    {animation:wmRise .7s var(--ease) 1.45s both}
+.home-hero.hh-in .wm-eyebrow{animation:wmRise .7s var(--ease) 1.65s both}
+@keyframes wmRise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion: reduce){
+  .home-hero .wm-welcome,.home-hero .wm-lc,.home-hero .wm-sub,.home-hero .wm-eyebrow{
+    opacity:1!important;animation:none!important}
+}
 </body>
 </html>
