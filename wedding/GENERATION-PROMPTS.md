@@ -117,30 +117,39 @@ Camera: slow steadicam forward down the aisle toward the glowing doorway.
 Audio: soft piano, warm strings, faint wordless choir, no vocals.
 
 =====================================================================
-## Google Flow (Veo 3) - cinematic version WITH the couple (characters + animation)
+## RECOMMENDED - universal ANIMATED-character prompts (all devices, with text space)
 =====================================================================
-Flow handles characters, wardrobe, motion and audio. These put an elegant
-demo couple in frame. Tips:
-- Text to Video, Veo 3 Quality, 16:9 (make a 9:16 version for mobile too).
-- For a consistent couple across shots, add reference images as "Ingredients".
-- Use "Scene Builder / Extend" to chain shots into a longer ~26s film.
-- Keep the couple mostly over-the-shoulder, in profile, from behind, or soft
-  focus for the most elegant result; regenerate if hands or faces look off.
-- Veo 3 generates audio: keep it (no separate music file needed) or mute and
-  use the Suno/Udio track. Keep names/text OFF screen; I overlay them in code.
-- Characters are generic demo figures, not real or named people.
+Works in any text-to-video tool (Flow / Veo, Runway, Kling, Pika, Luma) and
+also as a first-frame image prompt. Style: premium 3D animated characters
+(stylized Pixar / Disney-quality CGI); swap to "2D hand-drawn animation" if you
+prefer. Two rules are built in so one clip serves every device and leaves room
+for text:
+- Center-safe framing: the couple stays centered with wide margins, so the
+  shot crops cleanly to 16:9 (desktop), 9:16 (mobile) and 1:1 without losing
+  anyone.
+- Clean negative space: the lower third and top are kept uncluttered and
+  evenly toned, so names, dates and the CTA can sit over them and stay
+  readable (I overlay these in code, or you add them in an editor).
+
+How to export for all devices:
+- Generate 16:9 AND 9:16 from the same prompt (or a 1:1 master). Because the
+  couple is centered and the lower third is clean, every crop keeps both the
+  subject and the text space.
+- Keep it text-free in generation. For a consistent couple across shots, use
+  reference images (Ingredients in Flow). Veo audio can stay (no music file
+  needed) or be muted for the Suno/Udio track.
 
 ### NOOR (Muslim) - "The Lantern Court"
-`Cinematic luxury wedding film, 16:9, about 8 to 10 seconds, single flowing shot. An elegant Muslim couple walk slowly hand in hand through a grand candlelit emerald palace courtyard at night. The groom wears an ivory and emerald sherwani with fine gold embroidery; the bride wears an emerald and champagne-gold embroidered gown with a delicate gold-edged dupatta drifting in the air. Rows of golden filigree lanterns glow overhead and reflect on dark polished marble; gold dust and soft petals float through warm volumetric light. The camera glides slowly backward leading the couple, then rises to reveal a towering illuminated Islamic ogee arch glowing ahead. Shown over the shoulder and in graceful profile, faces soft and cinematic. Deep emerald, ivory and champagne-gold palette, shallow depth of field, opulent, elegant, cinematic color grade, 8k, gentle film grain. Audio: soft oud and warm strings with a gentle frame-drum pulse, subtle room tone, no dialogue.`
-Avoid: on-screen text, captions, watermark, distorted hands or faces, extra fingers, modern objects.
+`Premium 3D animated wedding film, stylized Pixar/Disney-quality CGI, single flowing shot. A charming animated Muslim couple stand hand in hand at the center of a candlelit emerald palace courtyard at night; groom in an ivory-and-emerald gold-embroidered sherwani, bride in an emerald and champagne-gold gown with a gold-edged dupatta drifting gently, both with soft expressive stylized features and warm smiles. Golden filigree lanterns glow overhead, gold dust floats in warm volumetric light, an illuminated Islamic ogee arch glows softly behind. Slow graceful motion: the dupatta and petals drift, lanterns flicker, the couple share a gentle glance, the camera eases in slightly. Composition: keep the couple centered with generous headroom and wide side margins so the frame crops cleanly to 16:9, 9:16 and 1:1 on any device; leave clean uncluttered negative space with soft even dark-emerald tones across the lower third and the top for adding text later. Palette: deep emerald, ivory, champagne gold. High-quality 3D render, soft global illumination, subsurface shading, shallow depth of field, opulent, elegant, wholesome, 8k. Audio: soft oud and warm strings, gentle frame-drum, no dialogue. No on-screen text.`
+Avoid: photorealistic, live-action, on-screen text, captions, watermark, distorted hands or faces, extra fingers, clutter in the lower third, modern objects.
 
 ### AARANYA (Hindu) - "The Marigold Mandap"
-`Cinematic royal Indian wedding film, 16:9, about 8 to 10 seconds, single flowing shot. A radiant Hindu couple stand beneath a marigold-draped mandap glowing with brass diyas. The groom wears a deep maroon and antique-gold sherwani with a jewelled turban; the bride wears a richly embroidered red and gold bridal lehenga with fine jewellery and a flowing dupatta. In graceful slow motion they raise and exchange floral jaimala garlands as red rose and marigold petals rain around them. A vast golden mandala on the floor glows beneath, warm amber light and floating gold dust everywhere. The camera slowly cranes and orbits around the couple. Shown in elegant profile and over the shoulder, faces soft and cinematic. Deep maroon, antique gold and ivory palette, shallow depth of field, opulent, festive and elegant, cinematic color grade, 8k, gentle film grain. Audio: elegant sitar and soft tabla with warm strings and shehnai, gentle ambient, no dialogue.`
-Avoid: on-screen text, captions, watermark, distorted hands or faces, extra fingers, modern objects.
+`Premium 3D animated wedding film, stylized Pixar/Disney-quality CGI, single flowing shot. A charming animated Hindu couple stand centered beneath a marigold-draped mandap glowing with brass diyas; groom in a maroon-and-gold sherwani with a jewelled turban, bride in a red-and-gold embroidered lehenga with fine jewellery and dupatta, both with soft expressive stylized features and warm smiles. Slow graceful motion: they exchange floral jaimala garlands as rose and marigold petals rain in slow motion, diya flames flicker, warm gold dust drifts, the camera gently orbits; a glowing gold mandala on the floor beneath them. Composition: keep the couple centered with generous headroom and wide side margins so the frame crops cleanly to 16:9, 9:16 and 1:1 on any device; leave clean uncluttered negative space with soft even deep-maroon tones across the lower third and the top for adding text later. Palette: deep maroon, antique gold, ivory, warm amber. High-quality 3D render, soft global illumination, subsurface shading, shallow depth of field, opulent, festive, wholesome, 8k. Audio: sitar and soft tabla with warm strings, no dialogue. No on-screen text.`
+Avoid: photorealistic, live-action, on-screen text, captions, watermark, distorted hands or faces, extra fingers, clutter in the lower third, modern objects.
 
 ### CELESTE (Christian) - "The Chapel Aisle"
-`Cinematic romantic wedding film, 16:9, about 8 to 10 seconds, single flowing shot. A graceful Christian couple walk slowly down a sunlit chapel aisle lined with white roses, baby's breath and flickering candles. The groom wears a tailored deep navy suit; the bride wears an ivory lace gown with a long sheer veil and a white rose bouquet, her veil and train flowing softly behind her. Warm golden sunlight streams through tall arched windows, dust motes drifting in the beams. The camera glides gently ahead of them on a smooth steadicam toward a radiant arched doorway of soft golden light. Shown from behind and in tender profile, faces soft and cinematic. Ivory, champagne and soft blush palette with deep navy shadows and muted gold, shallow depth of field, airy, romantic and dreamy, cinematic color grade, gentle film grain, 8k. Audio: soft piano and warm strings with a faint wordless choir, quiet ambient, no dialogue.`
-Avoid: on-screen text, captions, watermark, distorted hands or faces, extra fingers, modern objects.
+`Premium 3D animated wedding film, stylized Pixar/Disney-quality CGI, single flowing shot. A charming animated Christian couple stand centered at a sunlit chapel aisle lined with white roses, baby's breath and candles; groom in a tailored navy suit, bride in an ivory lace gown with a long sheer veil and white rose bouquet, both with soft expressive stylized features and warm smiles. Slow graceful motion: the veil and train flow softly, candles flicker, golden sun rays and dust drift, the camera eases forward gently; a radiant arched doorway of soft golden light behind them. Composition: keep the couple centered with generous headroom and wide side margins so the frame crops cleanly to 16:9, 9:16 and 1:1 on any device; leave clean uncluttered negative space with soft even ivory tones across the lower third and the top for adding text later. Palette: ivory, champagne, soft blush, muted gold, deep navy shadows. High-quality 3D render, soft global illumination, subsurface shading, shallow depth of field, airy, romantic, wholesome, 8k. Audio: soft piano and warm strings with faint wordless choir, no dialogue. No on-screen text.`
+Avoid: photorealistic, live-action, on-screen text, captions, watermark, distorted hands or faces, extra fingers, clutter in the lower third, modern objects.
 
 ## After you generate
 - Name files exactly: `noor.mp4`, `noor-poster.webp` (or `.jpg`), `noor.mp3`, `noor-vertical.mp4` (same for aaranya / celeste).
