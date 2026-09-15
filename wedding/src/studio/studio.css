@@ -147,7 +147,7 @@
 .grid__empty { text-align: center; color: var(--muted); padding: 40px 0; }
 .card { position: relative; display: flex; flex-direction: column; border-radius: 18px; overflow: hidden; background: var(--bg2); border: 1px solid var(--line); box-shadow: 0 10px 30px rgba(40, 30, 55, 0.07); transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.4s ease, border-color 0.4s ease; transform-style: preserve-3d; }
 .card::before { content: ''; position: absolute; inset: 0 0 auto 0; height: 4px; background: linear-gradient(90deg, var(--t-deep), color-mix(in srgb, var(--t-deep) 35%, #ffffff)); z-index: 3; }
-.card:hover { transform: translateY(-10px) rotateX(3deg); box-shadow: 0 34px 66px var(--t-glow), 0 20px 46px rgba(40, 30, 55, 0.14); border-color: color-mix(in srgb, var(--t-deep) 45%, var(--line)); }
+.card:hover { box-shadow: 0 34px 66px var(--t-glow), 0 20px 46px rgba(40, 30, 55, 0.14); border-color: color-mix(in srgb, var(--t-deep) 45%, var(--line)); }
 .card__media { position: relative; display: block; width: 100%; padding: 0; border: 0; cursor: pointer; aspect-ratio: 16 / 9; overflow: hidden; background: var(--t-ink); }
 .card__poster, .card__video { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.6s ease; }
 .card:hover .card__poster, .card:hover .card__video { transform: scale(1.06); }
@@ -256,7 +256,7 @@
 .modal--player .modal__panel { max-width: 1180px; width: 95vw; }
 .modal__stage { position: relative; width: 100%; aspect-ratio: 16 / 9; background: var(--t-ink); overflow: hidden; }
 .modal__stage--vertical { aspect-ratio: 9 / 16; width: auto; max-height: 76vh; margin: 0 auto; }
-.modal__stage .modal__video { width: 100%; height: 100%; object-fit: cover; display: block; background: #000; }
+.modal__stage .modal__video { width: 100%; height: 100%; object-fit: contain; display: block; background: #000; }
 .modal__bar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 14px 20px; padding: 18px 24px 22px; }
 .modal__bar-main { display: flex; align-items: center; gap: 14px; }
 .modal__badge { flex: none; font-family: var(--caps); font-weight: 600; font-size: 0.64rem; letter-spacing: 0.14em; text-transform: uppercase; color: #fff; background: var(--t-deep); padding: 6px 12px; border-radius: 999px; }
@@ -264,6 +264,43 @@
 .modal__sub { color: var(--muted); font-size: 0.9rem; margin-top: 2px; }
 .modal__bar-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
 .modal__bar-actions .modal__price { font-family: var(--caps); font-weight: 600; color: var(--t-deep); font-size: 1.1rem; }
+
+/* ---------------------------------------------------------------- premium effects */
+/* scroll progress */
+.scroll-progress { position: fixed; top: 0; left: 0; right: 0; height: 3px; transform-origin: 0 50%; transform: scaleX(0); background: var(--grad-brand); z-index: 200; }
+
+/* hero parallax layers */
+.hero__bg { position: absolute; inset: 0; z-index: 0; will-change: transform; }
+.hero__content { position: relative; z-index: 2; }
+
+/* 3D tilt cards */
+.card { will-change: transform; }
+.card__date { position: absolute; bottom: 12px; left: 12px; z-index: 3; font-family: var(--caps); font-weight: 600; font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; color: #fff; background: rgba(0, 0, 0, 0.42); padding: 5px 10px; border-radius: 999px; backdrop-filter: blur(4px); }
+
+/* date reveal (in the player) */
+.modal__details { padding: 24px 24px 2px; text-align: center; }
+.datereveal { display: inline-flex; flex-direction: column; align-items: center; gap: 4px; }
+.datereveal__couple { font-family: var(--serif); font-style: italic; font-size: 1.5rem; color: var(--ink); }
+.datereveal__eyebrow { font-family: var(--caps); font-weight: 600; letter-spacing: 0.28em; text-transform: uppercase; font-size: 0.68rem; color: var(--t-deep); margin-top: 4px; }
+.datereveal__grid { display: flex; align-items: center; justify-content: center; gap: 16px; margin-top: 6px; }
+.datereveal__day { font-family: var(--serif); font-weight: 600; font-size: clamp(3rem, 8vw, 4.4rem); line-height: 1; color: var(--ink); }
+.datereveal__mid { display: flex; flex-direction: column; align-items: flex-start; gap: 3px; }
+.datereveal__weekday { font-family: var(--caps); letter-spacing: 0.18em; text-transform: uppercase; font-size: 0.68rem; color: var(--muted); }
+.datereveal__month { font-family: var(--serif); font-size: 1.6rem; line-height: 1.05; color: var(--ink); }
+.datereveal__year { font-family: var(--caps); letter-spacing: 0.2em; font-size: 0.9rem; color: var(--t-deep); }
+.datereveal__line { width: 92px; height: 2px; background: linear-gradient(90deg, transparent, var(--t-deep), transparent); transform-origin: 50% 50%; margin: 12px 0 4px; border-radius: 2px; }
+.datereveal__venue { color: var(--ink-soft); font-size: 0.95rem; }
+
+/* animated gold shimmer on gradient text */
+@keyframes shimmer { 0% { background-position: 0% 50%; } 100% { background-position: 200% 50%; } }
+.hero__title em, .nav__brand-mark { background-size: 200% auto; animation: shimmer 8s linear infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  .scroll-progress { display: none; }
+  .card { transform: none !important; }
+  .hero__bg { transform: none !important; }
+  .hero__title em, .nav__brand-mark { animation: none !important; }
+}
 
 /* ---------------------------------------------------------------- invite route (outside .studio) */
 .invite-back { position: fixed; top: 16px; left: 50%; transform: translateX(-50%); z-index: 95; padding: 9px 18px; border-radius: 999px; background: rgba(0, 0, 0, 0.5); backdrop-filter: blur(8px); color: #fff; text-decoration: none; font-family: 'Cinzel', Georgia, serif; font-size: 0.72rem; letter-spacing: 0.12em; }

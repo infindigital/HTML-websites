@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { templatePrice } from '../../studio/templates.js'
 import { templateOrderUrl } from '../../studio/whatsapp.js'
 import { cssVars } from '../../studio/themes.js'
+import DateReveal from './DateReveal.jsx'
 
 // Fullscreen cinematic preview. Plays the film if uploaded (vertical source on
 // phones when available), otherwise the poster + a note. For live designs it
@@ -82,6 +83,12 @@ export default function PreviewModal({ template, onClose }) {
             </div>
           )}
         </div>
+
+        {template.event && (
+          <div className="modal__details">
+            <DateReveal event={template.event} couple={template.couple} />
+          </div>
+        )}
 
         <div className="modal__bar">
           <div className="modal__bar-main">

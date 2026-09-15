@@ -10,8 +10,8 @@ const container = {
   show: { transition: { staggerChildren: 0.12 } },
 }
 const item = {
-  hidden: { opacity: 0, y: 26, scale: 0.97, filter: 'blur(5px)' },
-  show: { opacity: 1, y: 0, scale: 1, filter: 'blur(0px)', transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } },
+  hidden: { opacity: 0, y: 26, scale: 0.97 },
+  show: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } },
 }
 
 // Grid of template cards with religion tabs. Switching tabs re-mounts the grid

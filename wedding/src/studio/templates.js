@@ -45,6 +45,8 @@ function mk(t) {
     poster: t.poster || `/assets/${slug}-poster.svg`,
     previewVideo: t.previewVideo ?? null,
     previewVideoVertical: t.previewVideoVertical ?? null,
+    // Demo event details (personalised per order) - drives the Date Reveal.
+    event: t.event ?? null,
     engine: t.engine ?? null,
     engineSkin: t.engineSkin ?? null,
     highlights: t.highlights || [],
@@ -77,6 +79,8 @@ export const TEMPLATES = [
       'An invitation wrapped in emerald shadows, warm golden light and timeless Islamic geometry. A royal welcome to a celebration remembered before it even begins.',
     demoCouple: { groom: 'Rayyan', bride: 'Inaya' }, monogram: 'R ✦ I',
     engine: 'live', engineSkin: EMERALD, audioUrl: '/song.mp3', musicTitle: 'Soft Oud & Strings',
+    previewVideo: '/assets/noor.mp4',
+    event: { weekday: 'Saturday', day: '24', month: 'January', year: '2027', venue: 'The Royal Palace', time: '7:00 PM' },
     highlights: ['Islamic geometry & arches', 'Lantern-gold light', 'Emerald & champagne palette'],
   }),
   mk({
@@ -87,6 +91,8 @@ export const TEMPLATES = [
       'The warm glow of a royal Indian celebration in deep maroon and antique gold. Mandala light, marigold and diyas for a wedding full of colour and joy.',
     demoCouple: { groom: 'Aarav', bride: 'Ananya' }, monogram: 'A ✦ A',
     engine: null, musicTitle: 'Sitar & Tabla',
+    previewVideo: '/assets/aaranya.mp4',
+    event: { weekday: 'Sunday', day: '15', month: 'November', year: '2026', venue: 'Grand Riverside Gardens', time: '11:00 AM' },
     highlights: ['Mandala & marigold detail', 'Warm diya glow', 'Maroon & antique-gold palette'],
   }),
   mk({
@@ -97,6 +103,8 @@ export const TEMPLATES = [
       'Soft candlelight, white roses and chapel grace in ivory, champagne and blush. A gentle, romantic invitation to the beginning of forever.',
     demoCouple: { groom: 'Nathan', bride: 'Grace' }, monogram: 'N ✦ G',
     engine: null, musicTitle: 'Piano & Strings',
+    previewVideo: '/assets/celeste.mp4',
+    event: { weekday: 'Saturday', day: '06', month: 'June', year: '2026', venue: "St. Mary's Chapel", time: '4:00 PM' },
     highlights: ['Chapel light & candles', "White roses & baby's breath", 'Ivory, champagne & blush palette'],
   }),
 ]

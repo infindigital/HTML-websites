@@ -1,5 +1,5 @@
-import { lazy, Suspense } from 'react'
-import { motion } from 'framer-motion'
+import { lazy, Suspense, useRef } from 'react'
+import { motion, useScroll, useTransform, useSpring } from 'framer-motion'
 import StudioLayout from '../components/studio/StudioLayout.jsx'
 import TemplateGrid from '../components/studio/TemplateGrid.jsx'
 
@@ -23,12 +23,19 @@ function Reveal({ children, className, delay = 0 }) {
 }
 
 function Hero() {
+  const ref = useRef(null)
+  const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end start'] })
+  const y = useTransform(scrollYProgress, [0, 1], [0, 130])
+  const opacity = useTransform(scrollYProgress, [0, 0.78], [1, 0])
+  const scale = useTransform(scrollYProgress, [0, 1], [1, 1.1])
   return (
-    <section className="hero">
-      <Suspense fallback={<div className="hero3d hero3d--static" aria-hidden="true" />}>
-        <Hero3D />
-      </Suspense>
-      <div className="wrap hero__content">
+    <section className="hero" ref={ref}>
+      <motion.div className="hero__bg" style={{ scale }} aria-hidden="true">
+        <Suspense fallback={<div className="hero3d hero3d--static" aria-hidden="true" />}>
+          <Hero3D />
+        </Suspense>
+      </motion.div>
+      <motion.div className="wrap hero__content" style={{ y, opacity }}>
         <motion.p className="hero__eyebrow" initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.1 }}>
           Cinematic Wedding Invitations
         </motion.p>
@@ -43,7 +50,7 @@ function Hero() {
           <button type="button" className="btn btn--gold btn--lg" onClick={() => scrollToId('templates')}>View Invitations</button>
           <button type="button" className="btn btn--ghost btn--lg" onClick={() => scrollToId('how')}>How it works</button>
         </motion.div>
-      </div>
+      </motion.div>
       <button type="button" className="hero__scroll" aria-label="Scroll to invitations" onClick={() => scrollToId('templates')}>
         <span>SCROLL</span><span className="hero__scroll-line" />
       </button>
@@ -150,8 +157,11 @@ function FinalCTA() {
 }
 
 export default function Landing() {
+  const { scrollYProgress } = useScroll()
+  const scaleX = useSpring(scrollYProgress, { stiffness: 120, damping: 30, mass: 0.3 })
   return (
     <StudioLayout>
+      <motion.div className="scroll-progress" style={{ scaleX }} aria-hidden="true" />
       <Hero />
 
       <section id="templates" className="sec templates">

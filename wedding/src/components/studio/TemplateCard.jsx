@@ -1,50 +1,64 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef } from 'react'
 import { templatePrice } from '../../studio/templates.js'
 import { templateOrderUrl } from '../../studio/whatsapp.js'
 import { cssVars } from '../../studio/themes.js'
 
-// A video-first template card. Poster shows first; on desktop hover the
-// (muted, looping) film plays; on tap/click the fullscreen player opens.
-// The film is only fetched when the visitor hovers - the grid stays light.
+const reduceMotion = () =>
+  typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches
+
+// A living, video-first card. The film plays (muted, looping) while the card is
+// in view; the whole card tilts in 3D toward the pointer; tap/click opens the
+// fullscreen player. Poster shows until the film is ready.
 export default function TemplateCard({ template, onPreview }) {
   const price = templatePrice(template)
-  const videoRef = useRef(null)
   const cardRef = useRef(null)
-  const [inView, setInView] = useState(false)
+  const videoRef = useRef(null)
   const hasVideo = !!template.previewVideo
+  const ev = template.event
 
-  // Subtle in-view scale for mobile (no hover there).
   useEffect(() => {
-    const el = cardRef.current
-    if (!el || typeof IntersectionObserver === 'undefined') return undefined
+    const card = cardRef.current
+    const v = videoRef.current
+    if (!card || !v || reduceMotion()) return undefined
     const io = new IntersectionObserver(
-      ([e]) => setInView(e.isIntersecting),
-      { threshold: 0.4 },
+      ([e]) => {
+        if (e.isIntersecting) v.play().catch(() => {})
+        else v.pause()
+      },
+      { threshold: 0.35 },
     )
-    io.observe(el)
+    io.observe(card)
     return () => io.disconnect()
-  }, [])
+  }, [hasVideo])
 
-  const play = () => {
-    const v = videoRef.current
-    if (v) v.play().catch(() => {})
+  const onEnter = () => {
+    const c = cardRef.current
+    if (c && !reduceMotion()) c.style.transition = 'transform 0.12s ease-out'
   }
-  const stop = () => {
-    const v = videoRef.current
-    if (v) {
-      v.pause()
-      v.currentTime = 0
-    }
+  const onMove = (e) => {
+    const c = cardRef.current
+    if (!c || reduceMotion()) return
+    const r = c.getBoundingClientRect()
+    const px = (e.clientX - r.left) / r.width - 0.5
+    const py = (e.clientY - r.top) / r.height - 0.5
+    c.style.transform = `perspective(1000px) rotateX(${(-py * 6).toFixed(2)}deg) rotateY(${(px * 8).toFixed(2)}deg) translateY(-8px)`
+  }
+  const onLeave = () => {
+    const c = cardRef.current
+    if (!c) return
+    c.style.transition = 'transform 0.5s cubic-bezier(0.22, 1, 0.36, 1)'
+    c.style.transform = ''
   }
 
   return (
     <article
       ref={cardRef}
-      className={`card${inView ? ' is-inview' : ''}`}
+      className="card"
       data-theme-id={template.theme}
       style={cssVars(template.theme)}
-      onMouseEnter={play}
-      onMouseLeave={stop}
+      onMouseEnter={onEnter}
+      onMouseMove={onMove}
+      onMouseLeave={onLeave}
     >
       <button
         type="button"
@@ -78,6 +92,11 @@ export default function TemplateCard({ template, onPreview }) {
           <span className="card__play-icon" aria-hidden="true">▶</span> Watch film
         </span>
         <span className="card__dur">{template.duration}</span>
+        {ev && (
+          <span className="card__date">
+            {ev.day} {ev.month} {ev.year}
+          </span>
+        )}
       </button>
 
       <div className="card__body">

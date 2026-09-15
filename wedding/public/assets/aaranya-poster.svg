@@ -29,5 +29,5 @@
     <circle r="30" fill="none" stroke="url(#gold)" stroke-opacity="0.8" stroke-width="1.6"/>
     <path d="M-8,-13 L16,0 L-8,13 Z" fill="url(#gold)"/>
   </g>
-  <text x="800" y="828" text-anchor="middle" font-family="'Cinzel', Georgia, serif" font-size="16" letter-spacing="6" fill="#f7efe0" fill-opacity="0.42">PREVIEW · CINEMATIC FILM COMING SOON</text>
+  <text x="800" y="828" text-anchor="middle" font-family="'Cinzel', Georgia, serif" font-size="16" letter-spacing="6" fill="#f7efe0" fill-opacity="0.42">A CINEMATIC WEDDING FILM</text>
 </svg>
