@@ -5,8 +5,9 @@ import { generalOrderUrl } from '../../studio/whatsapp.js'
 import { scrollToId } from '../../studio/scroll.js'
 
 const LINKS = [
-  { id: 'templates', label: 'Invitations' },
-  { id: 'how', label: 'How it works' },
+  { id: 'templates', label: 'Collection' },
+  { id: 'films', label: 'Films' },
+  { id: 'how', label: 'Process' },
   { id: 'faq', label: 'FAQ' },
 ]
 
@@ -21,30 +22,33 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
-  const go = (id) => { scrollToId(id); setOpen(false) }
+  useEffect(() => {
+    document.body.style.overflow = open ? 'hidden' : ''
+    return () => { document.body.style.overflow = '' }
+  }, [open])
+
+  const go = (id) => {
+    setOpen(false)
+    document.body.style.overflow = ''
+    setTimeout(() => scrollToId(id), 60)
+  }
 
   return (
     <header className={`nav ${solid ? 'is-solid' : ''}`}>
       <div className="wrap nav__inner">
         <Link to="/" className="nav__brand" onClick={() => setOpen(false)}>
-          <span className="nav__brand-mark">✦</span>
+          <span className="nav__brand-mark spark">✦</span>
           <span className="nav__brand-name">{studio.brandName}</span>
         </Link>
 
-        <nav className={`nav__links ${open ? 'is-open' : ''}`} aria-label="Primary">
+        <nav className="nav__links" aria-label="Primary">
           {LINKS.map((l) => (
             <button key={l.id} type="button" className="nav__link" onClick={() => go(l.id)}>
               {l.label}
             </button>
           ))}
-          <a
-            className="btn btn--gold nav__cta"
-            href={generalOrderUrl()}
-            target="_blank"
-            rel="noreferrer"
-            onClick={() => setOpen(false)}
-          >
-            Order on WhatsApp
+          <a className="btn btn--ink nav__cta" href={generalOrderUrl()} target="_blank" rel="noreferrer">
+            Order
           </a>
         </nav>
 
@@ -57,6 +61,27 @@ export default function Navbar() {
         >
           <span /><span /><span />
         </button>
+      </div>
+
+      <div className={`nav__overlay ${open ? 'is-open' : ''}`} aria-hidden={!open}>
+        {LINKS.map((l, i) => (
+          <button key={l.id} type="button" className="nav__overlay-link" onClick={() => go(l.id)}>
+            <span className="idx">0{i + 1}</span>{l.label}
+          </button>
+        ))}
+        <a
+          className="btn btn--ink btn--lg nav__overlay-cta"
+          href={generalOrderUrl()}
+          target="_blank"
+          rel="noreferrer"
+          onClick={() => setOpen(false)}
+        >
+          Order on WhatsApp
+        </a>
+        <div className="nav__overlay-foot">
+          <span>{studio.brandName}</span>
+          <span>{studio.currency}{studio.price} · Personalised</span>
+        </div>
       </div>
     </header>
   )
