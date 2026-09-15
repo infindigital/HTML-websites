@@ -101,17 +101,20 @@ text-free; I overlay the names/dates in code.
 Shared negative prompt:
 `text, letters, words, captions, watermark, logo, people, faces, hands, distorted, warped, blurry, low quality, cartoon, oversaturated, modern objects, clutter`
 
-### NOOR (Muslim) - 10s
-`Cinematic slow dolly-in with shallow depth of field. Open on a deep emerald-green void where a single tiny golden light blooms at the center; delicate golden Islamic geometric patterns bloom outward and an ornate golden ogee arch rises from the darkness as the camera glides slowly forward through it into soft warm champagne-gold light, an ivory paper glow revealed beyond. Floating golden dust and volumetric lantern light throughout. Palette: emerald green, ivory, champagne gold. Luxurious, elegant, timeless, cinematic color grade, 8k, subtle film grain. No people, no text.`
-Optional audio: `soft oud and warm atmospheric strings, gentle frame drum, no vocals`
+### NOOR (Muslim) - 10s | "The Lantern Court"
+`Cinematic wedding film, single continuous shot, 16:9, about 10 seconds. A slow forward dolly skims just above a still black reflecting pool inside a grand emerald palace court at night. Rows of golden filigree lanterns hang overhead and mirror in the water; fine gold dust drifts through soft light beams. Ahead, a towering illuminated Islamic ogee arch with intricate muqarnas glows in warm champagne-gold light and grows to fill the frame as the camera glides toward it. Deep emerald green, ivory and champagne-gold palette, volumetric lantern light, shallow depth of field, opulent and elegant, cinematic color grade, 8k, subtle film grain. No people, no text.`
+Camera: slow low forward dolly toward the glowing arch, soft reflection below.
+Audio: soft oud, warm strings, one low frame-drum pulse, no vocals.
 
-### AARANYA (Hindu) - 10s
-`Cinematic slow zoom-out easing into a gentle push, shallow depth of field. Open on warm golden dust rising through a deep maroon void with a single glowing diya flame; an intricate gold mandala draws itself ring by ring and slowly rotates while marigold and red rose petals drift in from the edges with parallax depth, the camera easing back to reveal a luxurious warm palace glow. Volumetric amber light and floating gold dust throughout. Palette: deep maroon, antique gold, ivory, warm amber. Royal, festive yet elegant, cinematic color grade, 8k, subtle film grain. No people, no text.`
-Optional audio: `elegant sitar and soft tabla, warm orchestral strings, no vocals`
+### AARANYA (Hindu) - 10s | "The Marigold Mandap"
+`Cinematic wedding film, single continuous shot, 16:9, about 10 seconds. The camera cranes gently upward and forward through cascading strands of marigold garlands into a royal Indian mandap draped in deep maroon and antique gold. Below, a vast intricate golden mandala on the floor slowly rotates, ringed by glowing brass diyas, while red rose and marigold petals fall in slow motion. Warm amber volumetric light, floating gold dust, deep maroon and antique-gold palette with ivory accents, shallow depth of field, opulent and festive yet elegant, cinematic color grade, 8k, subtle film grain. No people, no text.`
+Camera: crane up and slow push-in, revealing the rotating mandala at an angle.
+Audio: elegant sitar, soft tabla, warm orchestral strings, no vocals.
 
-### CELESTE (Christian) - 10s
-`Cinematic slow dolly forward, soft and dreamy, shallow depth of field. Open on a soft ivory and champagne haze as warm golden sunlight sweeps across and white roses and baby's breath drift in from the edges; the camera glides gently toward an elegant chapel arch doorway that softly opens to reveal warm golden candlelight inside, delicate floating dust and subtle film grain throughout. Palette: ivory, champagne, soft blush, muted gold, deep navy shadow. Romantic, airy, tender, cinematic color grade, 8k. No people, no text.`
-Optional audio: `soft piano and warm strings, subtle wordless choir, no vocals`
+### CELESTE (Christian) - 10s | "The Chapel Aisle"
+`Cinematic wedding film, single continuous shot, 16:9, about 10 seconds. A smooth steadicam glide moves slowly down a sunlit chapel aisle lined with white roses, baby's breath and flickering candles. Soft golden light rays stream through tall arched windows and dust motes drift in the air. Ahead, an elegant arched doorway glows with warm golden light and softly blooms as the camera approaches. Ivory, champagne and soft blush palette with deep navy shadows and muted gold, airy and romantic, shallow depth of field, dreamy cinematic color grade, gentle film grain, 8k. No people, no text.`
+Camera: slow steadicam forward down the aisle toward the glowing doorway.
+Audio: soft piano, warm strings, faint wordless choir, no vocals.
 
 ## After you generate
 - Name files exactly: `noor.mp4`, `noor-poster.webp` (or `.jpg`), `noor.mp3`, `noor-vertical.mp4` (same for aaranya / celeste).
