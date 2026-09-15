@@ -11,7 +11,9 @@ import DateReveal from './DateReveal.jsx'
 // the film starts muted and the visitor can unmute.
 export default function PreviewModal({ template, onClose }) {
   const audioRef = useRef(null)
+  const videoRef = useRef(null)
   const [playing, setPlaying] = useState(false)
+  const [muted, setMuted] = useState(true)
   const [isMobile, setIsMobile] = useState(false)
 
   useEffect(() => {
@@ -23,6 +25,11 @@ export default function PreviewModal({ template, onClose }) {
       document.body.style.overflow = ''
     }
   }, [onClose])
+
+  // Keep the film muted for autoplay, then let the visitor turn its sound on.
+  useEffect(() => {
+    if (videoRef.current) videoRef.current.muted = muted
+  }, [muted])
 
   useEffect(() => {
     if (typeof window === 'undefined' || !window.matchMedia) return undefined
@@ -51,6 +58,8 @@ export default function PreviewModal({ template, onClose }) {
     }
   }
 
+  const toggleMute = () => setMuted((m) => !m)
+
   return (
     <div className="modal modal--player" role="dialog" aria-modal="true" aria-label={`${template.title} preview`} onClick={onClose}>
       <div className="modal__panel" data-theme-id={template.theme} style={cssVars(template.theme)} onClick={(e) => e.stopPropagation()}>
@@ -58,37 +67,54 @@ export default function PreviewModal({ template, onClose }) {
 
         <div className={`modal__stage${vertical ? ' modal__stage--vertical' : ''}`}>
           {hasVideo ? (
-            <video
-              className="modal__video"
-              src={videoSrc}
-              poster={template.poster}
-              autoPlay
-              muted
-              loop
-              controls
-              playsInline
-              preload="metadata"
-            />
+            <>
+              <video
+                ref={videoRef}
+                className="modal__video"
+                src={videoSrc}
+                autoPlay
+                muted
+                loop
+                playsInline
+                preload="auto"
+              />
+              <div className="modal__scrim" aria-hidden="true" />
+              {template.event && (
+                <div className="invfilm-wrap">
+                  <DateReveal event={template.event} couple={template.couple} intro={template.inviteLine} />
+                </div>
+              )}
+              <button
+                type="button"
+                className="modal__sound"
+                onClick={toggleMute}
+                aria-pressed={!muted}
+              >
+                {muted ? '🔈 Play sound' : '🔊 Sound on'}
+              </button>
+            </>
           ) : (
             <div className="modal__poster-wrap">
               <img className="modal__poster" src={template.poster} alt={`${template.title} preview`} />
-              <div className="modal__soon">
-                <p className="modal__soon-title">
-                  {isLive ? 'A live, interactive invitation' : 'Cinematic film coming soon'}
-                </p>
-                {isLive && (
-                  <Link className="btn btn--gold" to={template.inviteHref}>Open the live invitation →</Link>
-                )}
-              </div>
+              <div className="modal__scrim" aria-hidden="true" />
+              {template.event && (
+                <div className="invfilm-wrap">
+                  <DateReveal event={template.event} couple={template.couple} intro={template.inviteLine} />
+                </div>
+              )}
+              {!template.event && (
+                <div className="modal__soon">
+                  <p className="modal__soon-title">
+                    {isLive ? 'A live, interactive invitation' : 'Cinematic film coming soon'}
+                  </p>
+                  {isLive && (
+                    <Link className="btn btn--gold" to={template.inviteHref}>Open the live invitation →</Link>
+                  )}
+                </div>
+              )}
             </div>
           )}
         </div>
-
-        {template.event && (
-          <div className="modal__details">
-            <DateReveal event={template.event} couple={template.couple} />
-          </div>
-        )}
 
         <div className="modal__bar">
           <div className="modal__bar-main">

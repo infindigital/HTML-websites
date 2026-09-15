@@ -10,32 +10,32 @@ export const THEMES = {
   // emerald + champagne
   noor: {
     id: 'noor',
-    tokens: { ink: '#0b241d', ivory: '#f6f1e4', deep: '#1c6a52', glow: 'rgba(28,106,82,0.22)' },
+    tokens: { ink: '#0b241d', ivory: '#f6f1e4', deep: '#1c6a52', gold: '#e6c879', glow: 'rgba(28,106,82,0.22)' },
   },
   // midnight blue + antique gold
   layali: {
     id: 'layali',
-    tokens: { ink: '#101a30', ivory: '#eef1fa', deep: '#3a568f', glow: 'rgba(58,86,143,0.22)' },
+    tokens: { ink: '#101a30', ivory: '#eef1fa', deep: '#3a568f', gold: '#d9c27e', glow: 'rgba(58,86,143,0.22)' },
   },
   // plum + dusty rose + ivory
   amara: {
     id: 'amara',
-    tokens: { ink: '#2b2440', ivory: '#f8f4ee', deep: '#a2545f', glow: 'rgba(162,84,95,0.22)' },
+    tokens: { ink: '#2b2440', ivory: '#f8f4ee', deep: '#a2545f', gold: '#e3b7a0', glow: 'rgba(162,84,95,0.22)' },
   },
   // maroon + marigold gold
   saanjh: {
     id: 'saanjh',
-    tokens: { ink: '#3a0e14', ivory: '#f7efe2', deep: '#b0552b', glow: 'rgba(176,85,43,0.22)' },
+    tokens: { ink: '#3a0e14', ivory: '#f7efe2', deep: '#b0552b', gold: '#e6b06a', glow: 'rgba(176,85,43,0.22)' },
   },
   // deep maroon + antique gold (Hindu - Aaranya)
   aaranya: {
     id: 'aaranya',
-    tokens: { ink: '#3a0e14', ivory: '#f7efe0', deep: '#a8842c', glow: 'rgba(168,132,44,0.26)' },
+    tokens: { ink: '#3a0e14', ivory: '#f7efe0', deep: '#a8842c', gold: '#f0d183', glow: 'rgba(168,132,44,0.26)' },
   },
   // deep navy + champagne gold + blush (Christian - Celeste)
   celeste: {
     id: 'celeste',
-    tokens: { ink: '#1b2333', ivory: '#f8f2ea', deep: '#c19a5b', glow: 'rgba(193,154,91,0.24)' },
+    tokens: { ink: '#1b2333', ivory: '#f8f2ea', deep: '#c19a5b', gold: '#ebd3a3', glow: 'rgba(193,154,91,0.24)' },
   },
 }
 
@@ -51,6 +51,7 @@ export function cssVars(key) {
     '--t-ink': t.ink,
     '--t-ivory': t.ivory,
     '--t-deep': t.deep,
+    '--t-gold': t.gold || t.deep,
     '--t-glow': t.glow,
   }
 }
