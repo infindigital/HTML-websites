@@ -86,6 +86,33 @@ Style DNA: soft romantic wedding film, ivory, champagne, soft blush, muted gold,
 `Cinematic romantic wedding instrumental, soft piano melody, warm orchestral strings, subtle wordless choir pads, gentle emotional build, elegant and tender, luxury wedding invitation, no vocals, no lyrics`
 
 =====================================================================
+=====================================================================
+## Google Gemini (Veo) - one continuous 10s clip per template
+=====================================================================
+If you generate with Google Gemini / Veo, use ONE prompt per template for a
+single continuous 10-second shot (no stitching needed). A 10s clip loops
+cleanly on the cards and plays in the fullscreen player.
+
+Settings: 16:9 (also make a 9:16 version for mobile if offered), ~10s.
+Veo also generates audio - if you like its score you will NOT need a separate
+music file; otherwise mute it and use the Suno/Udio track above. Keep it
+text-free; I overlay the names/dates in code.
+
+Shared negative prompt:
+`text, letters, words, captions, watermark, logo, people, faces, hands, distorted, warped, blurry, low quality, cartoon, oversaturated, modern objects, clutter`
+
+### NOOR (Muslim) - 10s
+`Cinematic slow dolly-in with shallow depth of field. Open on a deep emerald-green void where a single tiny golden light blooms at the center; delicate golden Islamic geometric patterns bloom outward and an ornate golden ogee arch rises from the darkness as the camera glides slowly forward through it into soft warm champagne-gold light, an ivory paper glow revealed beyond. Floating golden dust and volumetric lantern light throughout. Palette: emerald green, ivory, champagne gold. Luxurious, elegant, timeless, cinematic color grade, 8k, subtle film grain. No people, no text.`
+Optional audio: `soft oud and warm atmospheric strings, gentle frame drum, no vocals`
+
+### AARANYA (Hindu) - 10s
+`Cinematic slow zoom-out easing into a gentle push, shallow depth of field. Open on warm golden dust rising through a deep maroon void with a single glowing diya flame; an intricate gold mandala draws itself ring by ring and slowly rotates while marigold and red rose petals drift in from the edges with parallax depth, the camera easing back to reveal a luxurious warm palace glow. Volumetric amber light and floating gold dust throughout. Palette: deep maroon, antique gold, ivory, warm amber. Royal, festive yet elegant, cinematic color grade, 8k, subtle film grain. No people, no text.`
+Optional audio: `elegant sitar and soft tabla, warm orchestral strings, no vocals`
+
+### CELESTE (Christian) - 10s
+`Cinematic slow dolly forward, soft and dreamy, shallow depth of field. Open on a soft ivory and champagne haze as warm golden sunlight sweeps across and white roses and baby's breath drift in from the edges; the camera glides gently toward an elegant chapel arch doorway that softly opens to reveal warm golden candlelight inside, delicate floating dust and subtle film grain throughout. Palette: ivory, champagne, soft blush, muted gold, deep navy shadow. Romantic, airy, tender, cinematic color grade, 8k. No people, no text.`
+Optional audio: `soft piano and warm strings, subtle wordless choir, no vocals`
+
 ## After you generate
 - Name files exactly: `noor.mp4`, `noor-poster.webp` (or `.jpg`), `noor.mp3`, `noor-vertical.mp4` (same for aaranya / celeste).
 - Drop them in `wedding/public/assets/`, or upload them to me.
