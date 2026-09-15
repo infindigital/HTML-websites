@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import studio from '../../studio/config.js'
 import { generalOrderUrl } from '../../studio/whatsapp.js'
 import { scrollToId } from '../../studio/scroll.js'
+import { MagneticButton } from './Reveal.jsx'
 
 const LINKS = [
   { id: 'templates', label: 'Collection' },
@@ -13,11 +14,28 @@ const LINKS = [
 
 export default function Navbar() {
   const [solid, setSolid] = useState(false)
+  const [hidden, setHidden] = useState(false)
   const [open, setOpen] = useState(false)
 
+  // Solid past the fold; hide when scrolling down, reveal when scrolling up.
   useEffect(() => {
-    const onScroll = () => setSolid(window.scrollY > 24)
-    onScroll()
+    let last = window.scrollY
+    let ticking = false
+    const update = () => {
+      const y = window.scrollY
+      setSolid(y > 24)
+      if (y > 160 && y > last + 4) setHidden(true)
+      else if (y < last - 4 || y < 160) setHidden(false)
+      last = y
+      ticking = false
+    }
+    const onScroll = () => {
+      if (!ticking) {
+        ticking = true
+        requestAnimationFrame(update)
+      }
+    }
+    update()
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
@@ -34,7 +52,7 @@ export default function Navbar() {
   }
 
   return (
-    <header className={`nav ${solid ? 'is-solid' : ''}`}>
+    <header className={`nav ${solid ? 'is-solid' : ''} ${hidden && !open ? 'is-hidden' : ''}`}>
       <div className="wrap nav__inner">
         <Link to="/" className="nav__brand" onClick={() => setOpen(false)}>
           <span className="nav__brand-mark spark">✦</span>
@@ -47,9 +65,11 @@ export default function Navbar() {
               {l.label}
             </button>
           ))}
-          <a className="btn btn--ink nav__cta" href={generalOrderUrl()} target="_blank" rel="noreferrer">
-            Order
-          </a>
+          <MagneticButton>
+            <a className="btn btn--ink nav__cta" href={generalOrderUrl()} target="_blank" rel="noreferrer">
+              Order
+            </a>
+          </MagneticButton>
         </nav>
 
         <button
@@ -64,11 +84,19 @@ export default function Navbar() {
       </div>
 
       <div className={`nav__overlay ${open ? 'is-open' : ''}`} aria-hidden={!open}>
-        {LINKS.map((l, i) => (
-          <button key={l.id} type="button" className="nav__overlay-link" onClick={() => go(l.id)}>
-            <span className="idx">0{i + 1}</span>{l.label}
-          </button>
-        ))}
+        <div className="nav__overlay-links">
+          {LINKS.map((l, i) => (
+            <button
+              key={l.id}
+              type="button"
+              className="nav__overlay-link"
+              style={{ '--i': i }}
+              onClick={() => go(l.id)}
+            >
+              <span className="idx">0{i + 1}</span>{l.label}
+            </button>
+          ))}
+        </div>
         <a
           className="btn btn--ink btn--lg nav__overlay-cta"
           href={generalOrderUrl()}

@@ -14,6 +14,7 @@ export default function TemplateCard({ template, onPreview }) {
   const price = templatePrice(template)
   const cardRef = useRef(null)
   const videoRef = useRef(null)
+  const mediaRef = useRef(null)
   const hasVideo = !!template.previewVideo
   const ev = template.event
 
@@ -33,8 +34,11 @@ export default function TemplateCard({ template, onPreview }) {
   }, [hasVideo])
 
   const onEnter = () => {
+    if (reduceMotion()) return
     const c = cardRef.current
-    if (c && !reduceMotion()) c.style.transition = 'transform 0.12s ease-out'
+    const m = mediaRef.current
+    if (c) c.style.transition = 'transform 0.12s ease-out'
+    if (m) m.style.transition = 'transform 0.18s ease-out'
   }
   const onMove = (e) => {
     const c = cardRef.current
@@ -42,13 +46,22 @@ export default function TemplateCard({ template, onPreview }) {
     const r = c.getBoundingClientRect()
     const px = (e.clientX - r.left) / r.width - 0.5
     const py = (e.clientY - r.top) / r.height - 0.5
+    // Card tilts in 3D; the image parallaxes the opposite way inside its frame.
     c.style.transform = `perspective(1000px) rotateX(${(-py * 6).toFixed(2)}deg) rotateY(${(px * 8).toFixed(2)}deg) translateY(-8px)`
+    const m = mediaRef.current
+    if (m) m.style.transform = `scale(1.08) translate(${(-px * 14).toFixed(1)}px, ${(-py * 14).toFixed(1)}px)`
   }
   const onLeave = () => {
     const c = cardRef.current
-    if (!c) return
-    c.style.transition = 'transform 0.5s cubic-bezier(0.22, 1, 0.36, 1)'
-    c.style.transform = ''
+    const m = mediaRef.current
+    if (c) {
+      c.style.transition = 'transform 0.5s cubic-bezier(0.22, 1, 0.36, 1)'
+      c.style.transform = ''
+    }
+    if (m) {
+      m.style.transition = 'transform 0.6s cubic-bezier(0.22, 1, 0.36, 1)'
+      m.style.transform = ''
+    }
   }
 
   return (
@@ -69,7 +82,10 @@ export default function TemplateCard({ template, onPreview }) {
         <span className="card__badge">{template.religionLabel}</span>
         {hasVideo ? (
           <video
-            ref={videoRef}
+            ref={(el) => {
+              videoRef.current = el
+              mediaRef.current = el
+            }}
             className="card__video"
             src={template.previewVideo}
             poster={template.poster}
@@ -80,6 +96,7 @@ export default function TemplateCard({ template, onPreview }) {
           />
         ) : (
           <img
+            ref={mediaRef}
             className="card__poster"
             src={template.poster}
             alt={`${template.title}, ${template.subtitle} wedding invitation`}

@@ -3,16 +3,11 @@ import { motion } from 'framer-motion'
 import TemplateCard from './TemplateCard.jsx'
 import PreviewModal from './PreviewModal.jsx'
 import { RELIGIONS } from '../../studio/templates.js'
+import { stagger, cardIn } from '../../studio/motion.js'
 
-// Stagger the cards in as they enter view (0ms / 120ms / 240ms...).
-const container = {
-  hidden: {},
-  show: { transition: { staggerChildren: 0.12 } },
-}
-const item = {
-  hidden: { opacity: 0, y: 26, scale: 0.97 },
-  show: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } },
-}
+// Stagger the cards in with a whisper of 3D as they enter view.
+const container = stagger(0.13)
+const item = cardIn
 
 // Grid of template cards with religion tabs. Switching tabs re-mounts the grid
 // (keyed on the filter) so the new set fades/scales/blurs back in; the grid owns

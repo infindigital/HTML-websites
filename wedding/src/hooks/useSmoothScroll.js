@@ -5,6 +5,10 @@ import { useEffect } from 'react'
 // reduced-motion users, never while a modal has locked the body, and it always
 // yields to inner scrollable elements (the fullscreen player, etc.). Touch and
 // keyboard scrolling stay fully native.
+//
+// It also yields to programmatic navigation: nav clicks and "back to top"
+// dispatch a `smoothscroll:stop` event (see studio/scroll.js) that parks the
+// lerp so a native smooth scroll can take over without a tug-of-war.
 export default function useSmoothScroll() {
   useEffect(() => {
     if (typeof window === 'undefined' || !window.matchMedia) return undefined
@@ -20,6 +24,12 @@ export default function useSmoothScroll() {
 
     const maxScroll = () =>
       Math.max(0, document.documentElement.scrollHeight - window.innerHeight)
+
+    const stop = () => {
+      running = false
+      cancelAnimationFrame(raf)
+      target = current = window.scrollY
+    }
 
     const loop = () => {
       const diff = target - current
@@ -57,17 +67,19 @@ export default function useSmoothScroll() {
       if (!running) { running = true; raf = requestAnimationFrame(loop) }
     }
 
-    // Resync when the page is scrolled by other means (anchor jump, keyboard).
+    // Resync when the page is scrolled by other means (keyboard, native smooth).
     const onSync = () => { if (!running) { target = window.scrollY; current = window.scrollY } }
 
     window.addEventListener('wheel', onWheel, { passive: false })
     window.addEventListener('scroll', onSync, { passive: true })
     window.addEventListener('resize', onSync)
+    window.addEventListener('smoothscroll:stop', stop)
     return () => {
       cancelAnimationFrame(raf)
       window.removeEventListener('wheel', onWheel)
       window.removeEventListener('scroll', onSync)
       window.removeEventListener('resize', onSync)
+      window.removeEventListener('smoothscroll:stop', stop)
     }
   }, [])
 }

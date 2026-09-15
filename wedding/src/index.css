@@ -66,7 +66,12 @@
   box-sizing: border-box;
 }
 html {
-  scroll-behavior: smooth;
+  /* NEVER `smooth` here: the weighted JS scroll (useSmoothScroll) drives the
+     page via per-frame window.scrollTo, and CSS smooth would re-animate every
+     one of those calls, fighting the lerp into a frozen/janky scroll. Anchor
+     jumps stay smooth by passing behavior:'smooth' explicitly (see scroll.js),
+     which overrides this per call. */
+  scroll-behavior: auto;
   -webkit-text-size-adjust: 100%;
 }
 body {
@@ -77,7 +82,7 @@ body {
   font-family: var(--serif-font);
   font-size: 17px;
   line-height: 1.55;
-  overflow-x: hidden;
+  overflow-x: clip; /* clip horizontal bleed WITHOUT coercing overflow-y:auto (which breaks window scrolling) */
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   transition: background-color 0.5s ease, color 0.5s ease;
