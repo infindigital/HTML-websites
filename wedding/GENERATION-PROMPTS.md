@@ -116,6 +116,32 @@ Audio: elegant sitar, soft tabla, warm orchestral strings, no vocals.
 Camera: slow steadicam forward down the aisle toward the glowing doorway.
 Audio: soft piano, warm strings, faint wordless choir, no vocals.
 
+=====================================================================
+## Google Flow (Veo 3) - cinematic version WITH the couple (characters + animation)
+=====================================================================
+Flow handles characters, wardrobe, motion and audio. These put an elegant
+demo couple in frame. Tips:
+- Text to Video, Veo 3 Quality, 16:9 (make a 9:16 version for mobile too).
+- For a consistent couple across shots, add reference images as "Ingredients".
+- Use "Scene Builder / Extend" to chain shots into a longer ~26s film.
+- Keep the couple mostly over-the-shoulder, in profile, from behind, or soft
+  focus for the most elegant result; regenerate if hands or faces look off.
+- Veo 3 generates audio: keep it (no separate music file needed) or mute and
+  use the Suno/Udio track. Keep names/text OFF screen; I overlay them in code.
+- Characters are generic demo figures, not real or named people.
+
+### NOOR (Muslim) - "The Lantern Court"
+`Cinematic luxury wedding film, 16:9, about 8 to 10 seconds, single flowing shot. An elegant Muslim couple walk slowly hand in hand through a grand candlelit emerald palace courtyard at night. The groom wears an ivory and emerald sherwani with fine gold embroidery; the bride wears an emerald and champagne-gold embroidered gown with a delicate gold-edged dupatta drifting in the air. Rows of golden filigree lanterns glow overhead and reflect on dark polished marble; gold dust and soft petals float through warm volumetric light. The camera glides slowly backward leading the couple, then rises to reveal a towering illuminated Islamic ogee arch glowing ahead. Shown over the shoulder and in graceful profile, faces soft and cinematic. Deep emerald, ivory and champagne-gold palette, shallow depth of field, opulent, elegant, cinematic color grade, 8k, gentle film grain. Audio: soft oud and warm strings with a gentle frame-drum pulse, subtle room tone, no dialogue.`
+Avoid: on-screen text, captions, watermark, distorted hands or faces, extra fingers, modern objects.
+
+### AARANYA (Hindu) - "The Marigold Mandap"
+`Cinematic royal Indian wedding film, 16:9, about 8 to 10 seconds, single flowing shot. A radiant Hindu couple stand beneath a marigold-draped mandap glowing with brass diyas. The groom wears a deep maroon and antique-gold sherwani with a jewelled turban; the bride wears a richly embroidered red and gold bridal lehenga with fine jewellery and a flowing dupatta. In graceful slow motion they raise and exchange floral jaimala garlands as red rose and marigold petals rain around them. A vast golden mandala on the floor glows beneath, warm amber light and floating gold dust everywhere. The camera slowly cranes and orbits around the couple. Shown in elegant profile and over the shoulder, faces soft and cinematic. Deep maroon, antique gold and ivory palette, shallow depth of field, opulent, festive and elegant, cinematic color grade, 8k, gentle film grain. Audio: elegant sitar and soft tabla with warm strings and shehnai, gentle ambient, no dialogue.`
+Avoid: on-screen text, captions, watermark, distorted hands or faces, extra fingers, modern objects.
+
+### CELESTE (Christian) - "The Chapel Aisle"
+`Cinematic romantic wedding film, 16:9, about 8 to 10 seconds, single flowing shot. A graceful Christian couple walk slowly down a sunlit chapel aisle lined with white roses, baby's breath and flickering candles. The groom wears a tailored deep navy suit; the bride wears an ivory lace gown with a long sheer veil and a white rose bouquet, her veil and train flowing softly behind her. Warm golden sunlight streams through tall arched windows, dust motes drifting in the beams. The camera glides gently ahead of them on a smooth steadicam toward a radiant arched doorway of soft golden light. Shown from behind and in tender profile, faces soft and cinematic. Ivory, champagne and soft blush palette with deep navy shadows and muted gold, shallow depth of field, airy, romantic and dreamy, cinematic color grade, gentle film grain, 8k. Audio: soft piano and warm strings with a faint wordless choir, quiet ambient, no dialogue.`
+Avoid: on-screen text, captions, watermark, distorted hands or faces, extra fingers, modern objects.
+
 ## After you generate
 - Name files exactly: `noor.mp4`, `noor-poster.webp` (or `.jpg`), `noor.mp3`, `noor-vertical.mp4` (same for aaranya / celeste).
 - Drop them in `wedding/public/assets/`, or upload them to me.
