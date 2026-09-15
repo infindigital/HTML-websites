@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react'
+import { Link } from 'react-router-dom'
 import { templatePrice } from '../../studio/templates.js'
 import { templateOrderUrl } from '../../studio/whatsapp.js'
 import { cssVars } from '../../studio/themes.js'
@@ -7,8 +8,8 @@ const reduceMotion = () =>
   typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
 // A living, video-first card. The film plays (muted, looping) while the card is
-// in view; the whole card tilts in 3D toward the pointer; tap/click opens the
-// fullscreen player. Poster shows until the film is ready.
+// in view; the whole card tilts in 3D toward the pointer; tapping the film opens
+// the full interactive invitation, and "Watch film" opens the cinematic player.
 export default function TemplateCard({ template, onPreview }) {
   const price = templatePrice(template)
   const cardRef = useRef(null)
@@ -60,11 +61,10 @@ export default function TemplateCard({ template, onPreview }) {
       onMouseMove={onMove}
       onMouseLeave={onLeave}
     >
-      <button
-        type="button"
+      <Link
         className="card__media"
-        onClick={() => onPreview(template)}
-        aria-label={`Preview ${template.title}, ${template.religionLabel} wedding invitation`}
+        to={template.inviteHref}
+        aria-label={`Open the ${template.title} invitation`}
       >
         <span className="card__badge">{template.religionLabel}</span>
         {hasVideo ? (
@@ -89,7 +89,7 @@ export default function TemplateCard({ template, onPreview }) {
         )}
         <span className="card__scrim" aria-hidden="true" />
         <span className="card__play">
-          <span className="card__play-icon" aria-hidden="true">▶</span> Watch film
+          <span className="card__play-icon" aria-hidden="true">✦</span> Open invitation
         </span>
         <span className="card__dur">{template.duration}</span>
         {ev && (
@@ -97,7 +97,7 @@ export default function TemplateCard({ template, onPreview }) {
             {ev.day} {ev.month} {ev.year}
           </span>
         )}
-      </button>
+      </Link>
 
       <div className="card__body">
         <div className="card__head">
@@ -112,7 +112,7 @@ export default function TemplateCard({ template, onPreview }) {
         </p>
         <div className="card__actions">
           <button type="button" className="btn btn--ghost" onClick={() => onPreview(template)}>
-            View invitation →
+            ▶ Watch film
           </button>
           <a className="btn btn--gold" href={templateOrderUrl(template)} target="_blank" rel="noreferrer">
             Order · {price.display}

@@ -709,6 +709,17 @@ canvas {
   overflow: hidden;
   white-space: nowrap;
 }
+/* Hindu invocation (a phrase, not a single ligature) - allow wrapping. */
+.bismillah.invocation-hi {
+  font-family: 'Noto Serif Devanagari', Georgia, serif;
+  font-size: clamp(1.05rem, 5vw, 1.5rem);
+  white-space: normal;
+}
+/* Christian invocation (cross glyph). */
+.bismillah.invocation-cross {
+  font-family: 'Cinzel', Georgia, serif;
+  font-size: clamp(1.6rem, 7vw, 2.1rem);
+}
 .main-invite__lead {
   color: var(--ink-soft);
   font-size: 1.18rem;

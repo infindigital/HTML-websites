@@ -1,5 +1,5 @@
-import config from '../../config.js'
 import { useLanguage } from '../../context/LanguageContext.jsx'
+import { useInvitation } from '../../context/InvitationContext.jsx'
 import ArchFrame from '../ui/ArchFrame.jsx'
 import Reveal from '../ui/Reveal.jsx'
 import { Flourish } from '../ui/Ornaments.jsx'
@@ -7,7 +7,7 @@ import { Flourish } from '../ui/Ornaments.jsx'
 // Section 6 - Venue + Map.
 export default function Venue() {
   const { t } = useLanguage()
-  const { venue } = config
+  const { venue } = useInvitation()
 
   return (
     <section className="section venue" aria-label="Venue and directions">

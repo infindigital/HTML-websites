@@ -1,14 +1,12 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { motion } from 'framer-motion'
-import config from '../../config.js'
 import { useLanguage } from '../../context/LanguageContext.jsx'
+import { useInvitation } from '../../context/InvitationContext.jsx'
 import Reveal from '../ui/Reveal.jsx'
 import { Flourish } from '../ui/Ornaments.jsx'
 
-const TARGET = new Date(config.date.iso).getTime()
-
-function computeParts() {
-  const diffRaw = TARGET - Date.now()
+function computeParts(target) {
+  const diffRaw = target - Date.now()
   const done = diffRaw <= 0
   let diff = Math.max(0, diffRaw)
   const d = Math.floor(diff / 86400000)
@@ -27,12 +25,15 @@ function pad(n) {
 
 export default function Countdown() {
   const { t } = useLanguage()
-  const [parts, setParts] = useState(computeParts)
+  const { iso } = useInvitation()
+  const target = useMemo(() => new Date(iso).getTime(), [iso])
+  const [parts, setParts] = useState(() => computeParts(target))
 
   useEffect(() => {
-    const id = setInterval(() => setParts(computeParts()), 1000)
+    setParts(computeParts(target))
+    const id = setInterval(() => setParts(computeParts(target)), 1000)
     return () => clearInterval(id)
-  }, [])
+  }, [target])
 
   const units = [
     { value: parts.d, label: t('days') },

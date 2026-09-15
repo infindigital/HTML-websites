@@ -1,18 +1,20 @@
 import { useLanguage } from '../../context/LanguageContext.jsx'
+import { useInvitation } from '../../context/InvitationContext.jsx'
 import ArchFrame from '../ui/ArchFrame.jsx'
 import Reveal from '../ui/Reveal.jsx'
 import { Flourish } from '../ui/Ornaments.jsx'
 
-// Section 7 - Quranic Verse (Surah Ar-Rum 30:21), localized.
+// Section 7 - Scripture / blessing, per religion (localized where available).
 export default function Verse() {
   const { t, lang } = useLanguage()
+  const { verseMark } = useInvitation()
   const isArabic = lang === 'ar'
 
   return (
     <section className="section verse" aria-label="Quranic verse">
       <ArchFrame className="verse__arch">
         <Reveal className="verse__mark" aria-hidden="true">
-          ﴾ ﴿
+          {verseMark}
         </Reveal>
         <Reveal
           as="p"

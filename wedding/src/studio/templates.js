@@ -68,6 +68,22 @@ const MIDNIGHT = {
   '--gold-grad': 'linear-gradient(135deg,#c09a44 0%,#f0dc95 50%,#c09a44 100%)',
   '--line': 'rgba(201,162,74,0.5)', '--shadow': 'rgba(0,0,0,0.6)', '--btn-ink': '#0c1526',
 }
+// maroon + antique gold (Hindu)
+const AARANYA = {
+  '--bg': '#25070b', '--bg-soft': '#1c0508', '--panel': '#3a0e14',
+  '--ink': '#f0dcc0', '--ink-strong': '#f8ecd4', '--ink-soft': '#caa885',
+  '--gold-1': '#c99a3a', '--gold-2': '#f0d183',
+  '--gold-grad': 'linear-gradient(135deg,#b8862c 0%,#f4e2a0 50%,#b8862c 100%)',
+  '--line': 'rgba(224,180,90,0.5)', '--shadow': 'rgba(0,0,0,0.6)', '--btn-ink': '#2a0a0e',
+}
+// deep navy + champagne (Christian)
+const CELESTE = {
+  '--bg': '#10161f', '--bg-soft': '#0b1016', '--panel': '#1b2333',
+  '--ink': '#e8ddc9', '--ink-strong': '#f6eeda', '--ink-soft': '#b9ad97',
+  '--gold-1': '#c19a5b', '--gold-2': '#ebd3a3',
+  '--gold-grad': 'linear-gradient(135deg,#b98f52 0%,#efdcb0 50%,#b98f52 100%)',
+  '--line': 'rgba(210,175,120,0.5)', '--shadow': 'rgba(0,0,0,0.55)', '--btn-ink': '#141a24',
+}
 
 // ---------------------------------------------------------------- flagship 3
 export const TEMPLATES = [
@@ -80,7 +96,7 @@ export const TEMPLATES = [
     demoCouple: { groom: 'Rayyan', bride: 'Inaya' }, monogram: 'R ✦ I',
     engine: 'live', engineSkin: EMERALD, audioUrl: '/song.mp3', musicTitle: 'Soft Oud & Strings',
     previewVideo: '/assets/noor.mp4',
-    event: { weekday: 'Saturday', day: '24', month: 'January', year: '2027', venue: 'The Royal Palace', time: '7:00 PM' },
+    event: { weekday: 'Saturday', day: '24', month: 'January', year: '2027', venue: 'The Royal Palace', time: '7:00 PM', iso: '2027-01-24T19:00:00+05:30', city: 'Hyderabad, Telangana', mapQuery: 'Jubilee Hills, Hyderabad, Telangana' },
     highlights: ['Islamic geometry & arches', 'Lantern-gold light', 'Emerald & champagne palette'],
   }),
   mk({
@@ -90,9 +106,9 @@ export const TEMPLATES = [
     description:
       'The warm glow of a royal Indian celebration in deep maroon and antique gold. Mandala light, marigold and diyas for a wedding full of colour and joy.',
     demoCouple: { groom: 'Aarav', bride: 'Ananya' }, monogram: 'A ✦ A',
-    engine: null, musicTitle: 'Sitar & Tabla',
+    engine: 'live', engineSkin: AARANYA, audioUrl: '/song.mp3', musicTitle: 'Sitar & Tabla',
     previewVideo: '/assets/aaranya.mp4',
-    event: { weekday: 'Sunday', day: '15', month: 'November', year: '2026', venue: 'Grand Riverside Gardens', time: '11:00 AM' },
+    event: { weekday: 'Sunday', day: '15', month: 'November', year: '2026', venue: 'Grand Riverside Gardens', time: '11:00 AM', iso: '2026-11-15T11:00:00+05:30', city: 'Udaipur, Rajasthan', mapQuery: 'Udaipur, Rajasthan' },
     highlights: ['Mandala & marigold detail', 'Warm diya glow', 'Maroon & antique-gold palette'],
   }),
   mk({
@@ -102,9 +118,9 @@ export const TEMPLATES = [
     description:
       'Soft candlelight, white roses and chapel grace in ivory, champagne and blush. A gentle, romantic invitation to the beginning of forever.',
     demoCouple: { groom: 'Nathan', bride: 'Grace' }, monogram: 'N ✦ G',
-    engine: null, musicTitle: 'Piano & Strings',
+    engine: 'live', engineSkin: CELESTE, audioUrl: '/song.mp3', musicTitle: 'Piano & Strings',
     previewVideo: '/assets/celeste.mp4',
-    event: { weekday: 'Saturday', day: '06', month: 'June', year: '2026', venue: "St. Mary's Chapel", time: '4:00 PM' },
+    event: { weekday: 'Saturday', day: '06', month: 'June', year: '2026', venue: "St. Mary's Chapel", time: '4:00 PM', iso: '2026-06-06T16:00:00+05:30', city: 'Bandra, Mumbai', mapQuery: 'Bandra West, Mumbai, Maharashtra' },
     highlights: ['Chapel light & candles', "White roses & baby's breath", 'Ivory, champagne & blush palette'],
   }),
 ]
