@@ -96,7 +96,7 @@ export const TEMPLATES = [
     demoCouple: { groom: 'Rayyan', bride: 'Inaya' }, monogram: 'R ✦ I',
     engine: 'live', engineSkin: EMERALD, audioUrl: '/song.mp3', musicTitle: 'Soft Oud & Strings',
     previewVideo: '/assets/noor.mp4',
-    event: { weekday: 'Saturday', day: '24', month: 'January', year: '2027', venue: 'The Royal Palace', time: '7:00 PM', iso: '2027-01-24T19:00:00+05:30', city: 'Hyderabad, Telangana', mapQuery: 'Jubilee Hills, Hyderabad, Telangana' },
+    event: { weekday: 'Saturday', day: '23', month: 'January', year: '2027', venue: 'The Royal Palace', time: '7:00 PM', iso: '2027-01-23T19:00:00+05:30', city: 'Hyderabad, Telangana', mapQuery: 'Jubilee Hills, Hyderabad, Telangana' },
     highlights: ['Islamic geometry & arches', 'Lantern-gold light', 'Emerald & champagne palette'],
   }),
   mk({
@@ -120,7 +120,7 @@ export const TEMPLATES = [
     demoCouple: { groom: 'Nathan', bride: 'Grace' }, monogram: 'N ✦ G',
     engine: 'live', engineSkin: CELESTE, audioUrl: '/song.mp3', musicTitle: 'Piano & Strings',
     previewVideo: '/assets/celeste.mp4',
-    event: { weekday: 'Saturday', day: '06', month: 'June', year: '2026', venue: "St. Mary's Chapel", time: '4:00 PM', iso: '2026-06-06T16:00:00+05:30', city: 'Bandra, Mumbai', mapQuery: 'Bandra West, Mumbai, Maharashtra' },
+    event: { weekday: 'Saturday', day: '05', month: 'June', year: '2027', venue: "St. Mary's Chapel", time: '4:00 PM', iso: '2027-06-05T16:00:00+05:30', city: 'Bandra, Mumbai', mapQuery: 'Bandra West, Mumbai, Maharashtra' },
     highlights: ['Chapel light & candles', "White roses & baby's breath", 'Ivory, champagne & blush palette'],
   }),
 ]

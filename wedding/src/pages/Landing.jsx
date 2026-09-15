@@ -2,6 +2,7 @@ import { lazy, Suspense, useRef } from 'react'
 import { motion, useScroll, useTransform, useSpring } from 'framer-motion'
 import StudioLayout from '../components/studio/StudioLayout.jsx'
 import TemplateGrid from '../components/studio/TemplateGrid.jsx'
+import VideoShowcase from '../components/studio/VideoShowcase.jsx'
 
 // Code-split the 3D hero so Three.js loads after first paint.
 const Hero3D = lazy(() => import('../components/studio/Hero3D.jsx'))
@@ -173,6 +174,17 @@ export default function Landing() {
           </Reveal>
           <TemplateGrid templates={TEMPLATES} />
         </div>
+      </section>
+
+      <section id="films" className="sec films">
+        <div className="wrap">
+          <Reveal className="sec__head">
+            <p className="sec__eyebrow">Cinematic films</p>
+            <h2 className="sec__title">Wedding films that play<br />like a movie trailer.</h2>
+            <p className="sec__lead">Prefer a film? Each design also comes as a cinematic video invitation — your names, date and venue woven into a shareable trailer for your day.</p>
+          </Reveal>
+        </div>
+        <VideoShowcase templates={TEMPLATES} />
       </section>
 
       <HowItWorks />
