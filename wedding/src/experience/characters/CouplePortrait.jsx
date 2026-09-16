@@ -42,7 +42,6 @@ export default function CouplePortrait({
         transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1] }}
       >
         {img}
-        <span className="cportrait__frame" aria-hidden="true" />
       </motion.div>
     )
   }
@@ -56,7 +55,6 @@ export default function CouplePortrait({
   return (
     <div className={`cportrait cportrait--interactive ${className}`}>
       {img}
-      <span className="cportrait__frame" aria-hidden="true" />
       <button
         type="button"
         className={`cportrait__zone cportrait__zone--l${tapped.g ? ' is-on' : ''}`}

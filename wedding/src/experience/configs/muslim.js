@@ -121,7 +121,7 @@ const muslim = {
   assets: {
     video: '/assets/muslim.mp4',
     poster: '/assets/muslim-poster.jpg',
-    couple: '/assets/muslim-couple.jpg',
+    couple: '/assets/muslim-couple.png',
   },
   music: '/song.mp3',
 

@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Reveal } from '../primitives/Reveal.jsx'
 import InteractiveObject from '../primitives/InteractiveObject.jsx'
+import Confetti from '../primitives/Confetti.jsx'
 import { useExperience } from '../ExperienceContext.js'
 import { EASE } from '../lib/motion.js'
 
@@ -39,7 +40,7 @@ export default function Rsvp() {
 
   return (
     <section className="scene scene--rsvp" aria-label="RSVP">
-      <Reveal as="p" className="scene__eyebrow">Will you join us?</Reveal>
+      <Reveal as="p" className="scene__eyebrow">Celebrate with us</Reveal>
       <Reveal as="h2" className="scene__title">RSVP</Reveal>
 
       <div className="rsvp__stage">
@@ -109,13 +110,24 @@ export default function Rsvp() {
           {sent && (
             <motion.div
               key="done"
-              className="rsvp__done"
+              className={`rsvp__done${form.attending === 'yes' ? ' is-celebrating' : ''}`}
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.7, ease: EASE.out }}
             >
-              <span className="rsvp__done-mark" aria-hidden="true">✿</span>
-              <p className="rsvp__done-title">Thank you, {firstName}.</p>
+              {form.attending === 'yes' && <Confetti className="rsvp__confetti" />}
+              <motion.span
+                className="rsvp__done-mark"
+                aria-hidden="true"
+                initial={{ scale: 0, rotate: -18 }}
+                animate={{ scale: 1, rotate: 0 }}
+                transition={{ type: 'spring', stiffness: 260, damping: 13, delay: 0.12 }}
+              >
+                {form.attending === 'yes' ? '✦' : '✿'}
+              </motion.span>
+              <p className="rsvp__done-title">
+                {form.attending === 'yes' ? `See you there, ${firstName}!` : `Thank you, ${firstName}.`}
+              </p>
               <p className="rsvp__done-msg">
                 {form.attending === 'yes'
                   ? 'We can’t wait to celebrate with you.'
