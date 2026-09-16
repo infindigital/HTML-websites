@@ -5,6 +5,7 @@ import { LanguageProvider } from '../context/LanguageContext.jsx'
 import { AudioProvider } from '../context/AudioContext.jsx'
 import { InvitationProvider } from '../context/InvitationContext.jsx'
 import ImmersiveExperience from '../experience/ImmersiveExperience.jsx'
+import ExperienceBoundary from '../experience/ExperienceBoundary.jsx'
 import { getTemplate } from '../studio/templates.js'
 import { templateOrderUrl } from '../studio/whatsapp.js'
 import { cssVars } from '../studio/themes.js'
@@ -42,16 +43,18 @@ export default function InvitationRoute() {
 
   if (template.engine === 'live') {
     return (
-      <InvitationProvider template={template}>
-        <ThemeProvider>
-          <LanguageProvider>
-            <AudioProvider>
-              {back}
-              <ImmersiveExperience template={template} />
-            </AudioProvider>
-          </LanguageProvider>
-        </ThemeProvider>
-      </InvitationProvider>
+      <ExperienceBoundary>
+        <InvitationProvider template={template}>
+          <ThemeProvider>
+            <LanguageProvider>
+              <AudioProvider>
+                {back}
+                <ImmersiveExperience template={template} />
+              </AudioProvider>
+            </LanguageProvider>
+          </ThemeProvider>
+        </InvitationProvider>
+      </ExperienceBoundary>
     )
   }
 
