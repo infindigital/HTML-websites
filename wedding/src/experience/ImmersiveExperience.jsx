@@ -1,4 +1,4 @@
-import { useCallback, useMemo } from 'react'
+import { useCallback, useEffect, useMemo } from 'react'
 import { useAudio } from '../context/AudioContext.jsx'
 import { ExperienceContext } from './ExperienceContext.js'
 import { configFor, mergeTemplate } from './configs/index.js'
@@ -12,6 +12,19 @@ import { MusicNoteIcon, MusicMuteIcon } from '../components/ui/Icons.jsx'
 
 // A theme-specific seam is inserted before these scenes.
 const TRANSITION_BEFORE = new Set(['ceremony', 'venue', 'closing'])
+
+// (Re)start every film. Called on the first user gesture and on the opening tap,
+// so the films still play on browsers/devices that block muted autoplay.
+function playAllVideos() {
+  try {
+    document.querySelectorAll('video').forEach((v) => {
+      try {
+        v.muted = true
+        v.play?.().catch(() => {})
+      } catch { /* ignore */ }
+    })
+  } catch { /* ignore */ }
+}
 
 // Subtle, safe-area-aware music control (starts only after the opening tap).
 function MusicToggle() {
@@ -41,9 +54,25 @@ export default function ImmersiveExperience({ template }) {
   const M = useMemo(() => motifsFor(religion), [religion])
   const { play } = useAudio()
 
-  // Opening hand-off: start the music (first gesture) then glide down.
+  // Some browsers/devices block muted autoplay until the first interaction.
+  // On the first gesture anywhere, (re)start every film so the videos play.
+  useEffect(() => {
+    const evs = ['pointerdown', 'touchend', 'click', 'keydown']
+    let done = false
+    const kick = () => {
+      if (done) return
+      done = true
+      playAllVideos()
+      evs.forEach((t) => window.removeEventListener(t, kick))
+    }
+    evs.forEach((t) => window.addEventListener(t, kick, { passive: true }))
+    return () => evs.forEach((t) => window.removeEventListener(t, kick))
+  }, [])
+
+  // Opening hand-off: start the music + films (first gesture) then glide down.
   const onBegin = useCallback(() => {
     try { play() } catch { /* autoplay may be blocked; the button stays */ }
+    playAllVideos()
     window.setTimeout(
       () => window.scrollTo({ top: Math.round(window.innerHeight * 0.96), behavior: 'smooth' }),
       60,

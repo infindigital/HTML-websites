@@ -39,18 +39,32 @@ export default function CinematicVideo({
     window.matchMedia?.('(max-width: 640px)').matches
   const source = srcMobile && isNarrow ? srcMobile : src
 
-  // Play only while on screen; pause when scrolled away.
+  const showVideo = !reduced && !failed && !!source
+
+  // Autoplay hardening + viewport-gated playback.
+  //  1) Force the muted *property* on. React only writes the `muted` attribute,
+  //     but the browser's autoplay policy checks the property — without this a
+  //     muted video is treated as unmuted, autoplay is blocked, and the poster
+  //     never lifts (this is why the film "doesn't play" in production).
+  //  2) Play while on screen; pause when scrolled away.
   useEffect(() => {
-    if (reduced || failed) return undefined
+    if (!showVideo) return undefined
     const el = videoRef.current
     const wrap = wrapRef.current
     if (!el || !wrap) return undefined
+    el.muted = true
+    el.defaultMuted = true
+    const play = () => {
+      el.muted = true
+      el.play?.().catch(() => {})
+    }
+    play()
     let io
     try {
       io = new IntersectionObserver(
         (entries) => {
           entries.forEach((e) => {
-            if (e.isIntersecting) el.play?.().catch(() => {})
+            if (e.isIntersecting) play()
             else el.pause?.()
           })
         },
@@ -58,12 +72,10 @@ export default function CinematicVideo({
       )
       io.observe(wrap)
     } catch {
-      el.play?.().catch(() => {})
+      play()
     }
     return () => io?.disconnect()
-  }, [reduced, failed, source])
-
-  const showVideo = !reduced && !failed && !!source
+  }, [showVideo, source])
 
   return (
     <div ref={wrapRef} className={`cvideo ${className}`} {...rest}>
