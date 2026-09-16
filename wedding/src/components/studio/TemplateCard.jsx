@@ -22,9 +22,13 @@ export default function TemplateCard({ template, onPreview }) {
     const card = cardRef.current
     const v = videoRef.current
     if (!card || !v || reduceMotion()) return undefined
+    // Set the muted *property* (React only sets the attribute, which the
+    // autoplay policy ignores) so the muted film is actually allowed to play.
+    v.muted = true
+    v.defaultMuted = true
     const io = new IntersectionObserver(
       ([e]) => {
-        if (e.isIntersecting) v.play().catch(() => {})
+        if (e.isIntersecting) { v.muted = true; v.play().catch(() => {}) }
         else v.pause()
       },
       { threshold: 0.35 },

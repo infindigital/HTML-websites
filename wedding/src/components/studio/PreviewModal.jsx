@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import { createPortal } from 'react-dom'
 import { Link } from 'react-router-dom'
 import { templatePrice } from '../../studio/templates.js'
 import { templateOrderUrl } from '../../studio/whatsapp.js'
@@ -31,6 +32,17 @@ export default function PreviewModal({ template, onClose }) {
     if (videoRef.current) videoRef.current.muted = muted
   }, [muted])
 
+  // Actually start the film. React only writes the `muted` attribute, but the
+  // browser autoplay policy checks the muted *property* — without it the film is
+  // treated as unmuted, blocked, and never plays. Set the property, then play.
+  useEffect(() => {
+    const el = videoRef.current
+    if (!el) return
+    el.muted = true
+    el.defaultMuted = true
+    el.play?.().catch(() => {})
+  }, [template])
+
   useEffect(() => {
     if (typeof window === 'undefined' || !window.matchMedia) return undefined
     const mq = window.matchMedia('(max-width: 640px)')
@@ -60,7 +72,10 @@ export default function PreviewModal({ template, onClose }) {
 
   const toggleMute = () => setMuted((m) => !m)
 
-  return (
+  // Render into <body> so the dialog is never trapped inside a page section's
+  // stacking context (which let an animated heading paint over its buttons and
+  // made "Open full experience" unclickable).
+  return createPortal(
     <div className="modal modal--player" role="dialog" aria-modal="true" aria-label={`${template.title} preview`} onClick={onClose}>
       <div className="modal__panel" data-theme-id={template.theme} style={cssVars(template.theme)} onClick={(e) => e.stopPropagation()}>
         <button type="button" className="modal__close" aria-label="Close preview" onClick={onClose}>×</button>
@@ -141,6 +156,7 @@ export default function PreviewModal({ template, onClose }) {
 
         {hasAudio && <audio ref={audioRef} src={template.music.audioUrl} loop />}
       </div>
-    </div>
+    </div>,
+    document.body,
   )
 }
