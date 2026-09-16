@@ -800,3 +800,19 @@
 }
 .savedate__btn.is-saved { background: transparent; color: var(--x-gold, #f0d183); border: 1px solid var(--x-line, rgba(224, 196, 120, 0.5)); box-shadow: none; }
 .savedate__note { font-style: italic; color: var(--x-ink-soft, #caa885); margin: 6px 0 0; }
+
+/* Save the Date — 3D card depth + floating rings */
+.savedate__stage { display: block; }
+.savedate__card { position: relative; overflow: visible; will-change: transform; }
+.savedate__ring {
+  position: absolute; border-radius: 50%; pointer-events: none; opacity: 0.55;
+  border: 1px solid color-mix(in srgb, var(--x-gold, #f0d183) 48%, transparent);
+}
+.savedate__ring--a { width: 128px; height: 128px; top: -36px; right: -32px; }
+.savedate__ring--b {
+  width: 84px; height: 84px; bottom: -28px; left: -24px;
+  border-color: color-mix(in srgb, var(--x-accent, #c98a5e) 55%, transparent);
+}
+
+/* Discovery popup fits a full ayah. */
+.discovery__msg { max-width: min(80vw, 360px); }

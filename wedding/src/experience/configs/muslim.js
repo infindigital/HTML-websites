@@ -46,12 +46,12 @@ const muslim = {
   discoveryScene: {
     variant: 'moonlight',
     title: 'مَوَدَّةً وَرَحْمَةً',
-    caption: 'Love and mercy between your hearts — tap to uncover a memory.',
+    caption: 'Love and mercy between you — tap a moon to reveal an ayah.',
     messages: [
-      'The night we first spoke until sunrise.',
-      'A promise made under an open sky.',
-      'The city where it all began.',
-      'The first “forever”.',
+      '“And of His signs is that He created for you mates from among yourselves.” — Ar-Rum 30:21',
+      '“They are a garment for you, and you are a garment for them.” — Al-Baqarah 2:187',
+      '“And We created you in pairs.” — An-Naba 78:8',
+      '“That you may find tranquillity in them.” — Ar-Rum 30:21',
     ],
   },
 
