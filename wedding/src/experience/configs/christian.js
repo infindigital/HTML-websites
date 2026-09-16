@@ -39,7 +39,7 @@ const christian = {
     { key: 'date', title: 'The first date', caption: 'Golden hour by the sea, and no wish to leave.' },
     { key: 'journey', title: 'The journey', caption: 'Years of small ordinary days that meant everything.' },
     { key: 'proposal', title: 'The proposal', caption: 'A garden, a ring, and a question with one answer.' },
-    { key: 'wedding', title: 'The wedding day', caption: 'And now — we walk into forever.' },
+    { key: 'wedding', title: 'The wedding day', caption: 'And now, we walk into forever.' },
   ],
 
   // A gentle interactive garden scene (Christian-only in the arc).
@@ -98,8 +98,8 @@ const christian = {
   discovery: {
     lamp: 'A candle, for the light you bring.',
     spark: 'Flowers, freshly picked for you.',
-    bride: 'Grace — sunlight in a room, kindness in a person.',
-    groom: 'Nathan — the calm, the constant, the home.',
+    bride: 'Grace, sunlight in a room, kindness in a person.',
+    groom: 'Nathan, the calm, the constant, the home.',
     together: 'Our day',
   },
 

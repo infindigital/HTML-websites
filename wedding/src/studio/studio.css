@@ -10,30 +10,30 @@
    ===================================================================== */
 
 .studio {
-  /* -- paper palette ------------------------------------------------- */
-  --paper:   #f1efe9;   /* warm light ground */
-  --paper-2: #f7f5f0;   /* raised surfaces */
-  --tint:    #ebe8e0;   /* faint alternating section tint */
+  /* -- white palette ------------------------------------------------- */
+  --paper:   #ffffff;   /* clean white ground */
+  --paper-2: #ffffff;   /* raised surfaces (separated by line + shadow) */
+  --tint:    #f6f5fb;   /* faint cool wash for alternating sections */
   --ink:     #16130f;   /* near-black display ink */
-  --ink-2:   #4c473f;   /* secondary text */
-  --muted:   #8b8478;   /* metadata / captions */
-  --line:    rgba(22, 19, 15, 0.13);
-  --line-2:  rgba(22, 19, 15, 0.08);
+  --ink-2:   #4a453d;   /* secondary text */
+  --muted:   #857f74;   /* metadata / captions */
+  --line:    rgba(20, 18, 15, 0.12);
+  --line-2:  rgba(20, 18, 15, 0.06);
 
-  /* -- restrained accent (used sparingly) ---------------------------- */
-  --gold:    #9a7736;
-  --gold-2:  #c8a45e;
+  /* -- accents. A bright, celebratory set (not one muted metallic) —
+     colour is allowed to sing: eyebrows, glows, footer, the hero paint. */
+  --gold:    #b1832f;
+  --gold-2:  #e3b95e;
   --wa:      #1c9d54;   /* whatsapp only */
-  /* warm eyebrow gradient — the only place colour is allowed to sing,
-     echoing the reference's coloured masthead. */
-  --spark:   linear-gradient(90deg, #d1567f 0%, #e08a3c 52%, #c8a45e 100%);
+  --spark:   linear-gradient(90deg, #ff3d7f 0%, #ff8a3c 48%, #7b5cff 100%);
 
-  /* -- living colour (used for soft washes / glows) ------------------ */
-  --c-emerald: #1c6a52;
-  --c-maroon:  #b0552b;
-  --c-navy:    #3a568f;
-  --c-rose:    #d1567f;
-  --c-amber:   #e08a3c;
+  /* -- living colour (soft washes / glows / the hero paint trail) ---- */
+  --c-rose:    #ff3d7f;
+  --c-amber:   #ff9d3c;
+  --c-violet:  #7b5cff;
+  --c-emerald: #12b886;
+  --c-navy:    #3a6ff0;
+  --c-maroon:  #e0552b;
 
   /* -- motion tokens (mirror src/studio/motion.js) ------------------- */
   --ease-editorial: cubic-bezier(0.16, 1, 0.3, 1);
@@ -57,7 +57,7 @@
 
   /* -- type ---------------------------------------------------------- */
   --serif: 'Fraunces', 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
-  --sans:  'Jost', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --sans:  'Bricolage Grotesque', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
   --caps:  var(--sans);
 
   color: var(--ink);
@@ -131,7 +131,7 @@
    collapsing the fullscreen mobile menu into the 76px nav strip. The slide
    hide/show still animates fine via the transition below. */
 .nav { position: fixed; inset: 0 0 auto 0; z-index: 60; transition: transform 0.5s var(--ease-enter), background 0.4s ease, box-shadow 0.4s ease, backdrop-filter 0.4s ease; }
-.nav.is-solid { background: rgba(241, 239, 233, 0.82); backdrop-filter: blur(14px); box-shadow: 0 1px 0 var(--line-2); }
+.nav.is-solid { background: rgba(255, 255, 255, 0.86); backdrop-filter: blur(14px); box-shadow: 0 1px 0 var(--line-2); }
 .nav__inner { display: flex; align-items: center; justify-content: space-between; min-height: 76px; gap: 20px; }
 .nav__brand { display: inline-flex; align-items: center; gap: 9px; text-decoration: none; color: var(--ink); }
 .nav__brand-mark { font-size: 0.9rem; }
@@ -182,6 +182,10 @@
 .hero__wash::after { content: ''; position: absolute; inset: 0;
   background-image: radial-gradient(rgba(22,19,15,0.06) 1.1px, transparent 1.4px);
   background-size: 7px 7px; -webkit-mask-image: radial-gradient(70% 60% at 50% 38%, #000 0%, transparent 72%); mask-image: radial-gradient(70% 60% at 50% 38%, #000 0%, transparent 72%); opacity: 0.5; }
+/* interactive colour paint — a canvas the cursor "paints" onto as it moves
+   (JS-driven trail). Sits above the wash, beneath the masthead + deck, and
+   blends as translucent colour stains on the white ground. */
+.hero__paint { position: absolute; inset: 0; z-index: 1; pointer-events: none; mix-blend-mode: multiply; }
 .hero__inner { position: relative; z-index: 2; width: 100%; max-width: 1080px; padding: 0 clamp(20px, 4vw, 40px); }
 .hero__eyebrow { font-family: var(--sans); font-weight: 600; letter-spacing: 0.3em; text-transform: uppercase; font-size: clamp(0.68rem, 1.1vw, 0.82rem); margin-bottom: clamp(18px, 3vw, 30px); }
 .hero__title { font-family: var(--serif); font-weight: 400; font-optical-sizing: auto; font-size: clamp(3.1rem, 12vw, 9rem); line-height: 0.95; letter-spacing: -0.015em; color: var(--ink); }
@@ -298,28 +302,44 @@
 .faq__item p { color: var(--ink-2); padding: 0 0 22px; line-height: 1.7; max-width: 62ch; font-size: 1rem; }
 
 /* ---------------------------------------------------------------- final message */
-.final { text-align: center; background: var(--ink); color: #efe9dd; }
-.final__title { font-family: var(--serif); font-weight: 400; font-optical-sizing: auto; font-size: clamp(2.4rem, 6.5vw, 5rem); line-height: 1.0; letter-spacing: -0.015em; color: #f6f1e6; }
+.final { text-align: center; background: linear-gradient(180deg, #ffffff 0%, var(--tint) 100%); color: var(--ink); }
+.final__title { font-family: var(--serif); font-weight: 400; font-optical-sizing: auto; font-size: clamp(2.4rem, 6.5vw, 5rem); line-height: 1.0; letter-spacing: -0.015em; color: var(--ink); }
 .final__title em { font-style: italic; }
-.final__text { color: #c8c0b1; font-size: 1.08rem; margin: 26px auto 38px; max-width: 520px; line-height: 1.6; }
-.final .btn--gold { background: var(--gold-2); color: #201a10; }
-.final .btn--gold:hover { background: #d8b571; }
+.final__text { color: var(--ink-2); font-size: 1.08rem; margin: 26px auto 38px; max-width: 520px; line-height: 1.6; }
+.final .btn--gold { background: var(--spark); background-size: 160% 160%; color: #fff; border: 0; box-shadow: 0 16px 34px rgba(123, 92, 255, 0.28); }
+.final .btn--gold:hover { transform: translateY(-2px); filter: brightness(1.05); box-shadow: 0 22px 46px rgba(255, 46, 116, 0.32); }
 
 /* ---------------------------------------------------------------- footer (last page of the magazine) */
-.foot { background: var(--ink); color: #cfc7b8; padding: clamp(70px, 9vw, 120px) 0 0; }
-.foot__closer { font-family: var(--serif); font-weight: 400; font-optical-sizing: auto; font-size: clamp(2.6rem, 9vw, 7rem); line-height: 0.96; letter-spacing: -0.02em; color: #f4efe4; max-width: 12ch; }
+.foot {
+  position: relative; overflow: hidden;
+  background: linear-gradient(120deg, #6d3bff 0%, #ff2e74 47%, #ff7a2f 100%);
+  background-size: 180% 180%; animation: footShift 20s ease-in-out infinite alternate;
+  color: rgba(255, 255, 255, 0.92); padding: clamp(70px, 9vw, 120px) 0 0;
+}
+@keyframes footShift { 0% { background-position: 0% 50%; } 100% { background-position: 100% 50%; } }
+/* soft coloured light blobs for extra life on the gradient */
+.foot::before {
+  content: ''; position: absolute; inset: 0; z-index: 0; pointer-events: none; mix-blend-mode: screen;
+  background:
+    radial-gradient(38% 56% at 10% 16%, rgba(255, 255, 255, 0.24), transparent 62%),
+    radial-gradient(46% 60% at 90% 92%, rgba(255, 214, 120, 0.32), transparent 64%);
+}
+.foot > * { position: relative; z-index: 1; }
+.foot__closer { font-family: var(--serif); font-weight: 400; font-optical-sizing: auto; font-size: clamp(2.6rem, 9vw, 7rem); line-height: 0.96; letter-spacing: -0.02em; color: #fff; text-shadow: 0 2px 34px rgba(74, 8, 54, 0.3); max-width: 12ch; }
 .foot__closer em { font-style: italic; }
-.foot__grid { display: grid; grid-template-columns: 1.6fr 1fr 1fr; gap: 44px; margin-top: clamp(48px, 7vw, 88px); padding-top: 44px; border-top: 1px solid rgba(255, 255, 255, 0.12); }
-.foot__name { font-family: var(--sans); font-weight: 500; font-size: 1rem; letter-spacing: 0.24em; text-transform: uppercase; color: #f4efe4; }
-.foot__mark { color: var(--gold-2); }
-.foot__tag { color: #a89f8f; margin: 16px 0 24px; max-width: 340px; line-height: 1.65; font-size: 0.96rem; }
+.foot__grid { display: grid; grid-template-columns: 1.6fr 1fr 1fr; gap: 44px; margin-top: clamp(48px, 7vw, 88px); padding-top: 44px; border-top: 1px solid rgba(255, 255, 255, 0.3); }
+.foot__name { font-family: var(--sans); font-weight: 600; font-size: 1rem; letter-spacing: 0.24em; text-transform: uppercase; color: #fff; }
+.foot__mark { color: #ffe9a8; }
+.foot__tag { color: rgba(255, 255, 255, 0.9); margin: 16px 0 24px; max-width: 340px; line-height: 1.65; font-size: 0.96rem; }
+.foot .btn--gold { background: #fff; color: #8a1750; box-shadow: 0 14px 30px rgba(60, 0, 40, 0.24); }
+.foot .btn--gold:hover { background: #fff; transform: translateY(-2px); box-shadow: 0 20px 44px rgba(60, 0, 40, 0.34); }
 .foot__col { display: flex; flex-direction: column; gap: 13px; align-items: flex-start; }
-.foot__col h4 { font-family: var(--sans); font-weight: 500; font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: #8f8778; margin-bottom: 4px; }
-.foot__col a, .foot__col button { color: #cfc7b8; text-decoration: none; background: none; border: 0; padding: 0; cursor: pointer; font: inherit; font-size: 0.98rem; letter-spacing: 0.02em; transition: color 0.25s ease; }
-.foot__col a:hover, .foot__col button:hover { color: #f4efe4; }
-.foot__base { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-top: 56px; padding: 26px clamp(20px, 4vw, 40px); border-top: 1px solid rgba(255, 255, 255, 0.12); color: #8f8778; font-size: 0.78rem; letter-spacing: 0.05em; }
-.foot__totop { display: inline-flex; align-items: center; gap: 9px; background: none; border: 0; color: #cfc7b8; cursor: pointer; font-family: var(--sans); font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase; transition: color 0.25s ease; }
-.foot__totop:hover { color: #f4efe4; }
+.foot__col h4 { font-family: var(--sans); font-weight: 600; font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255, 255, 255, 0.82); margin-bottom: 4px; }
+.foot__col a, .foot__col button { color: rgba(255, 255, 255, 0.9); text-decoration: none; background: none; border: 0; padding: 0; cursor: pointer; font: inherit; font-size: 0.98rem; letter-spacing: 0.02em; transition: color 0.25s ease; }
+.foot__col a:hover, .foot__col button:hover { color: #fff; }
+.foot__base { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-top: 56px; padding: 26px clamp(20px, 4vw, 40px); border-top: 1px solid rgba(255, 255, 255, 0.3); color: rgba(255, 255, 255, 0.85); font-size: 0.78rem; letter-spacing: 0.05em; }
+.foot__totop { display: inline-flex; align-items: center; gap: 9px; background: none; border: 0; color: rgba(255, 255, 255, 0.92); cursor: pointer; font-family: var(--sans); font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase; transition: color 0.25s ease; }
+.foot__totop:hover { color: #fff; }
 .foot__totop span { display: inline-block; transition: transform 0.3s ease; }
 .foot__totop:hover span { transform: translateY(-3px); }
 

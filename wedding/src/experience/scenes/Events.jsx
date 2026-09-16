@@ -6,7 +6,7 @@ import { useExperience } from '../ExperienceContext.js'
 import { EASE } from '../lib/motion.js'
 
 // =====================================================================
-//  EVENTS — interactive celebrations. Each event is an object in the
+//  EVENTS, interactive celebrations. Each event is an object in the
 //  scene; tapping it expands, cinematically (inline, not a modal), to
 //  reveal date / time / venue / description / dress code. One at a time.
 // =====================================================================
@@ -26,7 +26,7 @@ export default function Events() {
             <li className={`events__item${isOpen ? ' is-open' : ''}`} key={e.id}>
               <InteractiveObject
                 className="events__head"
-                label={`${e.name} — ${isOpen ? 'hide' : 'show'} details`}
+                label={`${e.name}, ${isOpen ? 'hide' : 'show'} details`}
                 active={isOpen}
                 hoverScale={1.01}
                 tapScale={0.995}

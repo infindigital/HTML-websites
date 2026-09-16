@@ -6,12 +6,12 @@ import { useExperience } from '../ExperienceContext.js'
 import { EASE } from '../lib/motion.js'
 
 // =====================================================================
-//  SCENE 01 — OPENING
+//  SCENE 01, OPENING
 //  Full-viewport cinematic video + an HTML/SVG layer on top: two flanking
 //  lamps (diya / lantern / candle) you can light, and a central openable
 //  portal (doorway / arch / church door) that IS the button. Tapping it
 //  starts the music, opens the portal, and glides into the invitation.
-//  The lamps/portal are HTML+SVG — never baked into the video (see brief §5).
+//  The lamps/portal are HTML+SVG, never baked into the video (see brief §5).
 // =====================================================================
 export default function Opening({ onBegin }) {
   const { config, M } = useExperience()
@@ -30,7 +30,7 @@ export default function Opening({ onBegin }) {
   }
 
   return (
-    <section className="scene scene--opening" aria-label={`${config.concept} — opening`}>
+    <section className="scene scene--opening" aria-label={`${config.concept}, opening`}>
       <CinematicVideo
         className="scene__bg"
         src={config.assets.video}

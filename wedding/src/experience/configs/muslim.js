@@ -35,23 +35,23 @@ const muslim = {
   },
 
   story: [
-    { key: 'met', title: 'First meeting', caption: 'Two families, one evening — and a quiet certainty.' },
+    { key: 'met', title: 'First meeting', caption: 'Two families, one evening, and a quiet certainty.' },
     { key: 'journey', title: 'The journey', caption: 'Letters, laughter, and patience rewarded.' },
     { key: 'promise', title: 'The promise', caption: 'Beneath the same moon, a promise made.' },
     { key: 'nikah', title: 'The Nikah', caption: 'A sacred bond, witnessed and blessed.' },
-    { key: 'celebration', title: 'The celebration', caption: 'And now, we celebrate — with you.' },
+    { key: 'celebration', title: 'The celebration', caption: 'And now, we celebrate, with you.' },
   ],
 
   // A subtle interactive starfield scene (Muslim-only in the arc).
   discoveryScene: {
     variant: 'moonlight',
     title: 'مَوَدَّةً وَرَحْمَةً',
-    caption: 'Love and mercy between you — tap a moon to reveal an ayah.',
+    caption: 'Love and mercy between you, tap a moon to reveal an ayah.',
     messages: [
-      '“And of His signs is that He created for you mates from among yourselves.” — Ar-Rum 30:21',
-      '“They are a garment for you, and you are a garment for them.” — Al-Baqarah 2:187',
-      '“And We created you in pairs.” — An-Naba 78:8',
-      '“That you may find tranquillity in them.” — Ar-Rum 30:21',
+      '“And of His signs is that He created for you mates from among yourselves.” · Ar-Rum 30:21',
+      '“They are a garment for you, and you are a garment for them.” · Al-Baqarah 2:187',
+      '“And We created you in pairs.” · An-Naba 78:8',
+      '“That you may find tranquillity in them.” · Ar-Rum 30:21',
     ],
   },
 
@@ -98,10 +98,10 @@ const muslim = {
   },
 
   discovery: {
-    lamp: 'Light the lantern — and light the way.',
+    lamp: 'Light the lantern, and light the way.',
     spark: 'A moon, watching over us.',
-    bride: 'Inaya — gentle, luminous, endlessly kind.',
-    groom: 'Rayyan — steady as the north star.',
+    bride: 'Inaya, gentle, luminous, endlessly kind.',
+    groom: 'Rayyan, steady as the north star.',
     together: 'Our day',
   },
 

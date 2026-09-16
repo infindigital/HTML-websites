@@ -5,7 +5,7 @@ import InteractiveObject from '../primitives/InteractiveObject.jsx'
 import { useExperience } from '../ExperienceContext.js'
 
 // =====================================================================
-//  FAMILY — an elegant composition, not profile cards. A central monogram
+//  FAMILY, an elegant composition, not profile cards. A central monogram
 //  medallion with the two families to either side (radial on desktop,
 //  stacked on mobile). Tap a family to reveal the names.
 // =====================================================================
@@ -14,13 +14,13 @@ function Side({ id, data, name, open, onToggle }) {
     <div className={`family__side family__side--${id}`}>
       <InteractiveObject
         className={`family__node${open ? ' is-open' : ''}`}
-        label={`${data.label} — tap to reveal`}
+        label={`${data.label}, tap to reveal`}
         active={open}
         onActivate={onToggle}
       >
         <span className="family__node-kicker">{id === 'groom' ? 'Groom’s family' : 'Bride’s family'}</span>
         <span className="family__node-name">{name}</span>
-        <span className="family__node-hint" aria-hidden="true">{open ? '—' : '+'}</span>
+        <span className="family__node-hint" aria-hidden="true">{open ? '–' : '+'}</span>
       </InteractiveObject>
       <AnimatePresence initial={false}>
         {open && (

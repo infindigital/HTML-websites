@@ -6,7 +6,7 @@ import InteractiveObject from '../primitives/InteractiveObject.jsx'
 import { useExperience } from '../ExperienceContext.js'
 
 // =====================================================================
-//  SAVE THE DATE — replaces the RSVP form (not needed for these invites).
+//  SAVE THE DATE, replaces the RSVP form (not needed for these invites).
 //  A 3D, tilting card with the date and a one-tap "Add to calendar" (.ics)
 //  that pops confetti. Fully client-side, works offline.
 // =====================================================================
@@ -26,7 +26,7 @@ function buildIcs(config) {
     'BEGIN:VEVENT',
     `DTSTART:${fmt(dt)}`,
     `DTEND:${fmt(end)}`,
-    `SUMMARY:${couple.combined} — Wedding`,
+    `SUMMARY:${couple.combined}, Wedding`,
     `LOCATION:${loc}`,
     `DESCRIPTION:With love, ${couple.combined}`,
     'END:VEVENT',
@@ -73,7 +73,7 @@ export default function Rsvp() {
         a.remove()
         window.setTimeout(() => URL.revokeObjectURL(url), 1500)
       } catch {
-        /* download not permitted — still celebrate */
+        /* download not permitted, still celebrate */
       }
     }
     setSaved(true)
@@ -111,7 +111,7 @@ export default function Rsvp() {
               active={saved}
               onActivate={add}
             >
-              <span>{saved ? 'Added — see you there ✓' : 'Add to calendar'}</span>
+              <span>{saved ? 'Added, see you there ✓' : 'Add to calendar'}</span>
             </InteractiveObject>
           </div>
         </motion.div>

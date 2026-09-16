@@ -5,7 +5,7 @@ import InteractiveObject from '../primitives/InteractiveObject.jsx'
 import { useExperience } from '../ExperienceContext.js'
 
 // =====================================================================
-//  DISCOVERY — a quiet interactive field (Muslim starfield / Christian
+//  DISCOVERY, a quiet interactive field (Muslim starfield / Christian
 //  garden). Tap an object to uncover a small memory. Optional by design:
 //  never needed to understand the wedding, only to reward curiosity.
 // =====================================================================
@@ -38,7 +38,7 @@ export default function Discovery() {
             <div className="discovery__spot" key={i} style={{ left: `${s.x}%`, top: `${s.y}%` }}>
               <InteractiveObject
                 className={`discovery__obj${open ? ' is-open' : ''}${isFly ? ' discovery__obj--fly' : ''}`}
-                label={`${M.meta.sparkLabel} — reveal a memory`}
+                label={`${M.meta.sparkLabel}, reveal a memory`}
                 active={open}
                 onActivate={() => setActive(open ? -1 : i)}
               >

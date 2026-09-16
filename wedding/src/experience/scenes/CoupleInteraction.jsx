@@ -5,7 +5,7 @@ import CouplePortrait from '../characters/CouplePortrait.jsx'
 import { useExperience } from '../ExperienceContext.js'
 
 // =====================================================================
-//  COUPLE INTERACTION — the couple stands together. Tap the bride or the
+//  COUPLE INTERACTION, the couple stands together. Tap the bride or the
 //  groom for a small note; tap both and "Our day" appears. Fully optional.
 // =====================================================================
 export default function CoupleInteraction() {
@@ -18,7 +18,7 @@ export default function CoupleInteraction() {
   return (
     <section className="scene scene--couple2" aria-label="Meet the couple">
       <Reveal as="p" className="scene__eyebrow">
-        {both ? d.together : 'Meet the couple — tap each of us'}
+        {both ? d.together : 'Meet the couple, tap each of us'}
       </Reveal>
 
       <CouplePortrait

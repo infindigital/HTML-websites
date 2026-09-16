@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { useRef, useState, useEffect } from 'react'
 import {
   motion,
   useScroll,
@@ -72,7 +72,7 @@ function DeckCard({ t, cfg, index, progress, mx, my, reduced, hovered, setHovere
           <img
             className="deckcard__img"
             src={t.poster}
-            alt={`${t.title} — ${t.subtitle}`}
+            alt={`${t.title}, ${t.subtitle}`}
             loading="eager"
             decoding="async"
           />
@@ -105,6 +105,108 @@ function HeroDeck({ progress, mx, my, reduced }) {
   )
 }
 
+// A canvas the cursor paints colour onto as it moves through the hero — a
+// playful, rainbow gradient trail that softly dissolves. Blends as translucent
+// stains on the white ground (see .hero__paint). Motion-safe only.
+function HeroPaint({ reduced }) {
+  const ref = useRef(null)
+
+  useEffect(() => {
+    if (reduced) return undefined
+    const canvas = ref.current
+    const parent = canvas?.parentElement
+    if (!canvas || !parent) return undefined
+    const ctx = canvas.getContext('2d')
+    let w = 0
+    let h = 0
+    let running = true
+    let raf = 0
+    let last = null
+    let hue = Math.random() * 360
+    const stamps = []
+
+    const resize = () => {
+      const r = parent.getBoundingClientRect()
+      w = r.width
+      h = r.height
+      const dpr = Math.min(window.devicePixelRatio || 1, 2)
+      canvas.width = Math.round(w * dpr)
+      canvas.height = Math.round(h * dpr)
+      canvas.style.width = `${w}px`
+      canvas.style.height = `${h}px`
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
+    }
+    resize()
+    const ro = new ResizeObserver(resize)
+    ro.observe(parent)
+
+    const onMove = (e) => {
+      const r = parent.getBoundingClientRect()
+      const x = e.clientX - r.left
+      const y = e.clientY - r.top
+      if (x < 0 || y < 0 || x > w || y > h) {
+        last = null
+        return
+      }
+      if (last) {
+        const dx = x - last.x
+        const dy = y - last.y
+        const dist = Math.hypot(dx, dy)
+        const n = Math.max(1, Math.floor(dist / 13))
+        for (let i = 1; i <= n; i += 1) {
+          stamps.push({ x: last.x + (dx * i) / n, y: last.y + (dy * i) / n, hue })
+          hue = (hue + 4) % 360
+        }
+      } else {
+        stamps.push({ x, y, hue })
+      }
+      last = { x, y }
+    }
+    const onLeave = () => {
+      last = null
+    }
+    parent.addEventListener('pointermove', onMove)
+    parent.addEventListener('pointerleave', onLeave)
+
+    const tick = () => {
+      if (!running) return
+      // fade the existing paint gently back toward transparent (reveals white)
+      ctx.globalCompositeOperation = 'destination-out'
+      ctx.fillStyle = 'rgba(0,0,0,0.03)'
+      ctx.fillRect(0, 0, w, h)
+      // stamp new soft coloured blobs where the cursor moved
+      ctx.globalCompositeOperation = 'source-over'
+      for (let i = 0; i < stamps.length; i += 1) {
+        const s = stamps[i]
+        const R = 92
+        const g = ctx.createRadialGradient(s.x, s.y, 0, s.x, s.y, R)
+        const col = `hsla(${s.hue}, 92%, 58%,`
+        g.addColorStop(0, `${col}0.24)`)
+        g.addColorStop(0.5, `${col}0.10)`)
+        g.addColorStop(1, `${col}0)`)
+        ctx.fillStyle = g
+        ctx.beginPath()
+        ctx.arc(s.x, s.y, R, 0, Math.PI * 2)
+        ctx.fill()
+      }
+      stamps.length = 0
+      raf = requestAnimationFrame(tick)
+    }
+    raf = requestAnimationFrame(tick)
+
+    return () => {
+      running = false
+      cancelAnimationFrame(raf)
+      ro.disconnect()
+      parent.removeEventListener('pointermove', onMove)
+      parent.removeEventListener('pointerleave', onLeave)
+    }
+  }, [reduced])
+
+  if (reduced) return null
+  return <canvas ref={ref} className="hero__paint" aria-hidden="true" />
+}
+
 function Hero() {
   const ref = useRef(null)
   const reduced = useReducedMotion()
@@ -135,6 +237,7 @@ function Hero() {
   return (
     <section className="hero" ref={ref} onMouseMove={onMove} onMouseLeave={onLeave}>
       <motion.div className="hero__wash" aria-hidden="true" style={{ y: washY }} />
+      <HeroPaint reduced={reduced} />
       <motion.div className="hero__inner" style={{ y: titleY, opacity: innerOpacity }}>
         <motion.p
           className="hero__eyebrow"
@@ -142,7 +245,7 @@ function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: DUR.base, ease: EASE.enter, delay: 0.15 }}
         >
-          <span className="spark">{studio.brandName}</span>&nbsp;&nbsp;—&nbsp;&nbsp;Presents
+          <span className="spark">{studio.brandName}</span>&nbsp;&nbsp;·&nbsp;&nbsp;Presents
         </motion.p>
 
         <LineReveal
@@ -162,7 +265,7 @@ function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: DUR.base, ease: EASE.enter, delay: 0.72 }}
         >
-          Cinematic wedding invitations — personalised with your names, scored with
+          Cinematic wedding invitations, personalised with your names, scored with
           music and delivered ready to share, from <strong>{studio.currency}{studio.price}</strong>.
         </motion.p>
 
@@ -208,7 +311,7 @@ function Hero() {
 // =====================================================================
 const STEPS = [
   { n: '01', t: 'Choose your design', d: 'Browse the collection and preview any invitation, with its film and score. Every world is fully personalised for your celebration.' },
-  { n: '02', t: 'Send your details', d: 'Tap Order on WhatsApp and share your names, date and venue. No forms, no checkout — just a conversation.' },
+  { n: '02', t: 'Send your details', d: 'Tap Order on WhatsApp and share your names, date and venue. No forms, no checkout, just a conversation.' },
   { n: '03', t: 'Receive your invitation', d: 'We weave your details into the design and send it back, ready to share on WhatsApp, Instagram and beyond.' },
 ]
 
@@ -268,7 +371,7 @@ function WhyUs() {
     { t: 'Cinematic design', d: 'Motion, light and typography that feel like a wedding film.' },
     { t: 'Music included', d: 'Every invitation carries a score that sets the mood.' },
     { t: 'Personalised', d: 'Your names, date and venue woven into the design.' },
-    { t: 'WhatsApp ordering', d: 'No complicated checkout — order and personalise on chat.' },
+    { t: 'WhatsApp ordering', d: 'No complicated checkout, just order and personalise on chat.' },
     { t: 'One simple price', d: `Every design is a flat ${studio.currency}${studio.price}. No tiers, no surprises.` },
   ]
   return (
@@ -346,7 +449,7 @@ function FinalCTA() {
       <motion.div className="wrap wrap--narrow" style={{ scale }}>
         <LineReveal as="h2" className="final__title" lines={['Your story deserves', <em key="e">an entrance.</em>]} />
         <Reveal className="final__text" as="p" delay={0.1}>
-          Choose your design, send us your details, and let your celebration open like a film — from {studio.currency}{studio.price}.
+          Choose your design, send us your details, and let your celebration open like a film, from {studio.currency}{studio.price}.
         </Reveal>
         <Reveal delay={0.18}>
           <MagneticButton>
@@ -382,7 +485,7 @@ export default function Landing() {
               lines={['Three cinematic worlds,', <em key="e">one for every celebration.</em>]}
             />
             <Reveal className="sec__lead" as="p" delay={0.1}>
-              Muslim, Hindu and Christian — each with its own colour, light and motion. Preview any world, then personalise it with your names.
+              Muslim, Hindu and Christian, each with its own colour, light and motion. Preview any world, then personalise it with your names.
             </Reveal>
           </div>
           <TemplateGrid templates={TEMPLATES} />
@@ -400,7 +503,7 @@ export default function Landing() {
               lines={['Wedding films that play', <em key="e">like a trailer.</em>]}
             />
             <Reveal className="sec__lead" as="p" delay={0.1}>
-              Prefer a film? Each design also comes as a cinematic video invitation — your names, date and venue woven into a shareable trailer for your day.
+              Prefer a film? Each design also comes as a cinematic video invitation, with your names, date and venue woven into a shareable trailer for your day.
             </Reveal>
           </div>
         </div>

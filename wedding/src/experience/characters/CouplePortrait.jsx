@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { useExperience } from '../ExperienceContext.js'
 
 // =====================================================================
-//  CouplePortrait — the couple as a framed still from their film (the
+//  CouplePortrait, the couple as a framed still from their film (the
 //  same beautiful, rendered characters shown in the preview), replacing
 //  the earlier line-art figures.
 //  * plain mode: an elegant framed portrait
@@ -58,14 +58,14 @@ export default function CouplePortrait({
       <button
         type="button"
         className={`cportrait__zone cportrait__zone--l${tapped.g ? ' is-on' : ''}`}
-        aria-label={`${config.couple.groom} — reveal a note`}
+        aria-label={`${config.couple.groom}, reveal a note`}
         aria-pressed={tapped.g}
         onClick={() => hit('g')}
       />
       <button
         type="button"
         className={`cportrait__zone cportrait__zone--r${tapped.b ? ' is-on' : ''}`}
-        aria-label={`${config.couple.bride} — reveal a note`}
+        aria-label={`${config.couple.bride}, reveal a note`}
         aria-pressed={tapped.b}
         onClick={() => hit('b')}
       />

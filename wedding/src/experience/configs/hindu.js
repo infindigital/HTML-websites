@@ -39,22 +39,22 @@ const hindu = {
 
   // Scene 04 — Our Story (scroll storytelling).
   story: [
-    { key: 'met', title: 'We met', caption: 'A monsoon evening in Mumbai — two strangers, one umbrella.' },
+    { key: 'met', title: 'We met', caption: 'A monsoon evening in Mumbai, two strangers, one umbrella.' },
     { key: 'journey', title: 'The journey', caption: 'Cities, seasons, and a thousand shared cups of chai.' },
-    { key: 'question', title: 'The question', caption: 'On a rooftop at dusk — one knee, one ring.' },
+    { key: 'question', title: 'The question', caption: 'On a rooftop at dusk, one knee, one ring.' },
     { key: 'yes', title: 'The yes', caption: 'There was never going to be any other answer.' },
-    { key: 'forever', title: 'Forever', caption: 'And now, we begin — together.' },
+    { key: 'forever', title: 'Forever', caption: 'And now, we begin, together.' },
   ],
 
   // Scene 05 — Family.
   family: {
     groomSide: {
       label: 'With the blessings of the groom’s family',
-      names: ['Mr. Rajesh & Mrs. Meera Sharma', 'Grandparents — the Sharma family', 'Ishaan Sharma · brother'],
+      names: ['Mr. Rajesh & Mrs. Meera Sharma', 'Grandparents, the Sharma family', 'Ishaan Sharma · brother'],
     },
     brideSide: {
       label: 'With the blessings of the bride’s family',
-      names: ['Mr. Suresh & Mrs. Lakshmi Iyer', 'Grandparents — the Iyer family', 'Diya Iyer · sister'],
+      names: ['Mr. Suresh & Mrs. Lakshmi Iyer', 'Grandparents, the Iyer family', 'Diya Iyer · sister'],
     },
   },
 
@@ -76,7 +76,7 @@ const hindu = {
   },
 
   verse: {
-    text: 'Bound by love, blessed by family and guided by the sacred vows of the seven steps — may their life together be filled with joy, prosperity and lifelong togetherness.',
+    text: 'Bound by love, blessed by family and guided by the sacred vows of the seven steps, may their life together be filled with joy, prosperity and lifelong togetherness.',
     ref: 'A blessing for the couple',
   },
 
@@ -93,9 +93,9 @@ const hindu = {
 
   discovery: {
     lamp: 'May this light guide your path.',
-    spark: 'Marigolds — for joy and new beginnings.',
-    bride: 'Ananya — dreamer, dancer, the calm in every storm.',
-    groom: 'Aarav — the one who finally slowed down for her.',
+    spark: 'Marigolds, for joy and new beginnings.',
+    bride: 'Ananya, dreamer, dancer, the calm in every storm.',
+    groom: 'Aarav, the one who finally slowed down for her.',
     together: 'Our day',
   },
 
