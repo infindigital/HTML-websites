@@ -133,7 +133,7 @@ export default function TemplateCard({ template, onPreview }) {
         </p>
         <div className="card__actions">
           <button type="button" className="btn btn--ghost" onClick={() => onPreview(template)}>
-            ▶ Watch film
+            ▶ Open invitation
           </button>
           <a className="btn btn--gold" href={templateOrderUrl(template)} target="_blank" rel="noreferrer">
             Order · {price.display}
