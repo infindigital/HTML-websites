@@ -312,9 +312,9 @@
 /* ---------------------------------------------------------------- footer (last page of the magazine) */
 .foot {
   position: relative; overflow: hidden;
-  background: linear-gradient(120deg, #6d3bff 0%, #ff2e74 47%, #ff7a2f 100%);
-  background-size: 180% 180%; animation: footShift 20s ease-in-out infinite alternate;
-  color: rgba(255, 255, 255, 0.92); padding: clamp(70px, 9vw, 120px) 0 0;
+  background: linear-gradient(125deg, #7c3aed 0%, #d83a9a 33%, #ff5d73 62%, #ff9a4d 100%);
+  background-size: 190% 190%; animation: footShift 22s ease-in-out infinite alternate;
+  color: rgba(255, 255, 255, 0.94); padding: clamp(70px, 9vw, 120px) 0 0;
 }
 @keyframes footShift { 0% { background-position: 0% 50%; } 100% { background-position: 100% 50%; } }
 /* soft coloured light blobs for extra life on the gradient */
@@ -524,6 +524,8 @@
   .nav__burger { display: flex; }
   .mcta { display: flex; }
   .hero__deck { min-height: clamp(200px, 60vw, 280px); }
+  /* keep the footer's last line clear of the sticky WhatsApp CTA */
+  .foot__base { padding-bottom: calc(94px + env(safe-area-inset-bottom, 0px)); }
 }
 @media (max-width: 560px) {
   .modal__stage:not(.modal__stage--vertical) { aspect-ratio: 3 / 4; }

@@ -123,7 +123,9 @@ function HeroPaint({ reduced }) {
     let raf = 0
     let last = null
     let hue = Math.random() * 360
+    let R = 92
     const stamps = []
+    const inside = (x, y) => x >= 0 && y >= 0 && x <= w && y <= h
 
     const resize = () => {
       const r = parent.getBoundingClientRect()
@@ -135,6 +137,8 @@ function HeroPaint({ reduced }) {
       canvas.style.width = `${w}px`
       canvas.style.height = `${h}px`
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
+      // blob size scales with the hero width (tighter on phones)
+      R = Math.max(46, Math.min(96, w * 0.1))
     }
     resize()
     const ro = new ResizeObserver(resize)
@@ -165,8 +169,28 @@ function HeroPaint({ reduced }) {
     const onLeave = () => {
       last = null
     }
+    // A tap / press (touch or mouse) bursts a small colourful splash, so the
+    // effect is playful on phones where there is no hovering cursor.
+    const onDown = (e) => {
+      const r = parent.getBoundingClientRect()
+      const x = e.clientX - r.left
+      const y = e.clientY - r.top
+      if (!inside(x, y)) return
+      const n = 7
+      for (let i = 0; i < n; i += 1) {
+        const a = (i / n) * Math.PI * 2
+        const rr = R * 0.5 * Math.random()
+        stamps.push({ x: x + Math.cos(a) * rr, y: y + Math.sin(a) * rr, hue })
+        hue = (hue + 20) % 360
+      }
+      stamps.push({ x, y, hue })
+      last = { x, y }
+    }
     parent.addEventListener('pointermove', onMove)
+    parent.addEventListener('pointerdown', onDown)
     parent.addEventListener('pointerleave', onLeave)
+    parent.addEventListener('pointerup', onLeave)
+    parent.addEventListener('pointercancel', onLeave)
 
     const tick = () => {
       if (!running) return
@@ -178,7 +202,6 @@ function HeroPaint({ reduced }) {
       ctx.globalCompositeOperation = 'source-over'
       for (let i = 0; i < stamps.length; i += 1) {
         const s = stamps[i]
-        const R = 92
         const g = ctx.createRadialGradient(s.x, s.y, 0, s.x, s.y, R)
         const col = `hsla(${s.hue}, 92%, 58%,`
         g.addColorStop(0, `${col}0.24)`)
@@ -199,7 +222,10 @@ function HeroPaint({ reduced }) {
       cancelAnimationFrame(raf)
       ro.disconnect()
       parent.removeEventListener('pointermove', onMove)
+      parent.removeEventListener('pointerdown', onDown)
       parent.removeEventListener('pointerleave', onLeave)
+      parent.removeEventListener('pointerup', onLeave)
+      parent.removeEventListener('pointercancel', onLeave)
     }
   }, [reduced])
 
