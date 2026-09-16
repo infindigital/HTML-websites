@@ -1,12 +1,11 @@
-import { useEffect, useRef, useState } from 'react'
+import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useExperience } from '../ExperienceContext.js'
 
 // =====================================================================
-//  CouplePortrait, the couple as a framed still from their film (the
-//  same beautiful, rendered characters shown in the preview), replacing
-//  the earlier line-art figures.
-//  * plain mode: an elegant framed portrait
+//  CouplePortrait, the couple as a transparent cutout that floats on the
+//  scene (the same rendered characters shown in the film / preview).
+//  * plain mode: an elegant portrait that fades in as it scrolls into view
 //  * interactive mode: invisible left/right tap zones (groom / bride) so
 //    the "tap each of us" interaction still works
 // =====================================================================
@@ -21,42 +20,25 @@ export default function CouplePortrait({
   const src = config.assets.couple || config.assets.poster
   const [tapped, setTapped] = useState({ g: false, b: false })
 
-  // Defer this heavy cutout (~1.5MB) until its scene is actually reached, so it
-  // never competes with the opening film for bandwidth on first paint. Native
-  // loading="lazy" does NOT achieve this: the couple reveal sits about one
-  // viewport below the fold, well inside the browser's eager-load distance, so
-  // it downloads immediately anyway. Gating the src behind an IntersectionObserver
-  // (fires on the first downward scroll) reliably holds it back; the whileInView
-  // fade covers the load. priority skips the gate.
-  const wrapRef = useRef(null)
-  const [show, setShow] = useState(priority)
-  useEffect(() => {
-    if (show) return undefined
-    const el = wrapRef.current
-    if (!el) return undefined
-    let io
-    try {
-      io = new IntersectionObserver(
-        (entries) => { if (entries.some((e) => e.isIntersecting)) { setShow(true); io.disconnect() } },
-        { threshold: 0.01, rootMargin: '0px' },
-      )
-      io.observe(el)
-    } catch { setShow(true) }
-    return () => io?.disconnect()
-  }, [show])
-
-  // Serve the light WebP cutout (~230KB) to browsers that support it, and fall
-  // back to the original PNG (~1.6MB) only for the few that don't — modern
-  // browsers never fetch the heavy PNG.
+  // The cutout ships as a light WebP (~230KB) with a PNG fallback, so there is
+  // no bandwidth reason to hold it back. Load it EAGERLY from first paint —
+  // NOT gated behind a scroll observer, which is what made it slow: gating meant
+  // the download only *started* once you reached the scene, so it always popped
+  // in a beat late on every device. fetchPriority="low" keeps it from competing
+  // with the opening film, but it still starts downloading at mount and is
+  // decoded and ready by the time the couple scene scrolls into view — instant.
+  // It is the same image in every scene, so the browser fetches it exactly once
+  // and every later appearance is served from cache.
   const webp = src.replace(/\.(png|jpe?g)$/i, '.webp')
   const img = (
     <picture className="cportrait__pic">
-      {show && <source srcSet={webp} type="image/webp" />}
+      <source srcSet={webp} type="image/webp" />
       <img
         className="cportrait__img"
-        src={show ? src : undefined}
+        src={src}
         alt={config.couple.combined}
-        loading={priority ? 'eager' : 'lazy'}
+        loading="eager"
+        fetchPriority={priority ? 'high' : 'low'}
         decoding="async"
         draggable="false"
       />
@@ -66,7 +48,6 @@ export default function CouplePortrait({
   if (!interactive) {
     return (
       <motion.div
-        ref={wrapRef}
         className={`cportrait ${className}`}
         initial={{ opacity: 0, scale: 1.04 }}
         whileInView={{ opacity: 1, scale: 1 }}
@@ -85,7 +66,7 @@ export default function CouplePortrait({
   }
 
   return (
-    <div ref={wrapRef} className={`cportrait cportrait--interactive ${className}`}>
+    <div className={`cportrait cportrait--interactive ${className}`}>
       {img}
       <button
         type="button"

@@ -67,15 +67,18 @@ export function AudioProvider({ children, src, startOffset }) {
     }
   }, [])
 
-  // Warm the track up in the background so it plays the INSTANT the visitor
-  // taps to open. The <audio> ships as preload="none", and we hold the warm-up
-  // back a beat so it does NOT fight the opening film for bandwidth on first
-  // paint — the film is the immediate visual and must win the pipe; the song
-  // isn't needed until the tap. Once that head start has passed we fetch the
-  // audio and pre-seek it to its start offset, so the buffer is already sitting
-  // at the right spot when play() is called. Warmed immediately on the first
-  // pointer interaction too (that's usually the "begin" tap), whichever comes
-  // first.
+  // Warm the track up in the background so it plays the INSTANT the visitor taps
+  // to open. This is the whole game for "instant music": the <audio> ships as
+  // preload="none" (so it never blocks first paint), and warm() flips it to
+  // "auto" and calls load() to start buffering. We do that EARLY — a few hundred
+  // ms after mount, right after the film's poster has painted — because the
+  // "begin" tap usually lands within a second or two, and if the buffer only
+  // started at 1.6s (as it used to) the tap hit a stone-cold element and the
+  // song lagged. Starting the fetch this early means the track is already
+  // buffered (and, with start:0 configs, sitting at byte 0 ready to go) by the
+  // time play() is called inside the tap gesture. Warmed on the first pointer
+  // interaction too, so a very fast tapper (and iOS, which only buffers after a
+  // gesture) still gets the buffer going the moment they touch the screen.
   useEffect(() => {
     const el = audioRef.current
     if (!el) return undefined
@@ -85,14 +88,13 @@ export function AudioProvider({ children, src, startOffset }) {
       warmed = true
       try {
         el.preload = 'auto'
-        el.load() // loadedmetadata -> seekToStart buffers at the offset
+        el.load()
       } catch {
         /* noop */
       }
     }
-    // Let the opening film get a clear head start before the song starts
-    // downloading; the visitor is still reading the opening for these seconds.
-    const t = window.setTimeout(warm, 1600)
+    // Small head start for the film's poster, then buffer the song right away.
+    const t = window.setTimeout(warm, 300)
     const onFirst = () => warm()
     window.addEventListener('pointerdown', onFirst, { once: true, passive: true })
     window.addEventListener('touchstart', onFirst, { once: true, passive: true })
