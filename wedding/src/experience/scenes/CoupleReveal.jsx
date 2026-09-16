@@ -20,7 +20,11 @@ export default function CoupleReveal() {
     <section className="scene scene--couple" aria-label="The couple">
       <div className="couplereveal">
         <motion.div className="couplereveal__figs" style={{ x: fx, y: fy }}>
-          <CouplePortrait priority />
+          {/* Lazy, not priority: this 1.5MB cutout is the SECOND scene (below the
+              fold). Loading it eagerly made it fight the opening film for
+              bandwidth on first paint, so the film "loaded very slow". It loads
+              as its scene approaches, behind the fade-in. */}
+          <CouplePortrait />
         </motion.div>
 
         <div className="couplereveal__text">

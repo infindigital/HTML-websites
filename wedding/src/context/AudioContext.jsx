@@ -68,13 +68,14 @@ export function AudioProvider({ children, src, startOffset }) {
   }, [])
 
   // Warm the track up in the background so it plays the INSTANT the visitor
-  // taps to open — on mobile and desktop alike. The <audio> ships as
-  // preload="none" so it never competes with the poster on first paint; a
-  // beat later (once the opening has painted, and the film still hasn't
-  // loaded — that waits for the tap) we fetch the audio and pre-seek it to its
-  // start offset, so the buffer is already sitting at the right spot when
-  // play() is called. Also warmed on the first pointer interaction, whichever
-  // comes first.
+  // taps to open. The <audio> ships as preload="none", and we hold the warm-up
+  // back a beat so it does NOT fight the opening film for bandwidth on first
+  // paint — the film is the immediate visual and must win the pipe; the song
+  // isn't needed until the tap. Once that head start has passed we fetch the
+  // audio and pre-seek it to its start offset, so the buffer is already sitting
+  // at the right spot when play() is called. Warmed immediately on the first
+  // pointer interaction too (that's usually the "begin" tap), whichever comes
+  // first.
   useEffect(() => {
     const el = audioRef.current
     if (!el) return undefined
@@ -89,7 +90,9 @@ export function AudioProvider({ children, src, startOffset }) {
         /* noop */
       }
     }
-    const t = window.setTimeout(warm, 350)
+    // Let the opening film get a clear head start before the song starts
+    // downloading; the visitor is still reading the opening for these seconds.
+    const t = window.setTimeout(warm, 1600)
     const onFirst = () => warm()
     window.addEventListener('pointerdown', onFirst, { once: true, passive: true })
     window.addEventListener('touchstart', onFirst, { once: true, passive: true })

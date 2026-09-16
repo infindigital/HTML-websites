@@ -345,6 +345,23 @@
 }
 .couplereveal__date { font-size: clamp(1rem, 3.6vw, 1.35rem); color: var(--x-ink-soft, #caa885); margin: 0; }
 
+/* Phones: cap the couple cutout's height so a tall figure plus the names can
+   never be taller than the screen and clip the couple's heads ("image is cut
+   in mobile" — worst for the christian couple, the tallest art with the most
+   text). svh tracks the visible area, browser chrome included. object-fit:
+   contain keeps the aspect; width:auto lets the figure narrow as it shrinks.
+   Desktop (>=860px, side-by-side layout) has room and is left untouched. */
+@media (max-width: 859px) {
+  .couplereveal__figs .cportrait__img,
+  .couple2__figs .cportrait__img,
+  .closing__figs .cportrait__img {
+    width: auto;
+    max-width: 100%;
+    max-height: 54svh;
+    margin-inline: auto;
+  }
+}
+
 /* characters */
 .couple { display: flex; align-items: flex-end; justify-content: center; gap: clamp(0px, 2vw, 20px); }
 .couple__fig { width: clamp(120px, 40vw, 220px); }
