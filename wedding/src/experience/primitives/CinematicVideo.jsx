@@ -116,8 +116,11 @@ export default function CinematicVideo({
           // No autoPlay attribute on purpose — playback is driven from JS (see
           // the effect above) so it autoplays muted on mobile + desktop without
           // the attribute forcing an eager load. The opening film (priority)
-          // preloads eagerly so it starts instantly behind its poster; later
-          // scenes stay preload="none" and load as they scroll near view. The
+          // preloads eagerly so it starts instantly behind its poster. Later
+          // scenes stay preload="none": every scene reuses the SAME film file,
+          // so by the time one scrolls into view the opening has already cached
+          // it and play() starts from cache — with no mount-time load that a
+          // transient error could turn into a permanent poster fallback. The
           // poster is a real frame (eager), so first paint is always instant.
           preload={priority ? 'auto' : 'none'}
           onCanPlay={() => setReady(true)}

@@ -485,6 +485,14 @@
   padding: calc(env(safe-area-inset-top) + 10vh) var(--x-gutter) calc(env(safe-area-inset-bottom) + 8vh);
   text-align: center;
 }
+/* The ceremony background film lives INSIDE .ceremony__sticky, and a
+   position:sticky element creates its own stacking context. A negative
+   z-index child of that context (the global .scene__bg is z-index:-1) is
+   painted unreliably across browsers — it can drop out entirely once the
+   wrapper becomes "stuck", which is why the film "does not load" here while
+   the opening (a non-sticky section) is fine. Pin it at 0: still behind the
+   art and text, which sit at z-index:1, but reliably painted. */
+.scene--ceremony .scene__bg { z-index: 0; }
 .ceremony__art { width: min(88vw, 560px); position: relative; z-index: 1; }
 .ceremony__svg { width: 100%; height: auto; display: block; filter: drop-shadow(0 10px 30px rgba(0,0,0,0.5)); }
 .ceremony__text { position: relative; z-index: 1; display: flex; flex-direction: column; gap: 6px; align-items: center; }
