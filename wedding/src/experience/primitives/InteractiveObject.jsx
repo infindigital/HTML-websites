@@ -1,5 +1,5 @@
-import { forwardRef } from 'react'
-import { motion } from 'framer-motion'
+import { forwardRef, useState } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
 
 // =====================================================================
 //  InteractiveObject — one accessible, tappable object in the scene.
@@ -27,9 +27,11 @@ const InteractiveObject = forwardRef(function InteractiveObject(
 ) {
   const Comp = motion[as] || motion.button
   const isButton = as === 'button'
+  const [pop, setPop] = useState(0)
 
   const activate = (e) => {
     if (disabled) return
+    setPop((n) => n + 1) // trigger a fresh ripple pop
     onActivate?.(e)
   }
 
@@ -56,6 +58,19 @@ const InteractiveObject = forwardRef(function InteractiveObject(
       {...rest}
     >
       {children}
+      <AnimatePresence>
+        {pop > 0 && (
+          <motion.span
+            key={pop}
+            className="iobj__pop"
+            aria-hidden="true"
+            initial={{ opacity: 0.55, scale: 0.35 }}
+            animate={{ opacity: 0, scale: 2.2 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.6, ease: 'easeOut' }}
+          />
+        )}
+      </AnimatePresence>
     </Comp>
   )
 })

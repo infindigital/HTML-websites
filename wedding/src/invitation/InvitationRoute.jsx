@@ -6,6 +6,7 @@ import { AudioProvider } from '../context/AudioContext.jsx'
 import { InvitationProvider } from '../context/InvitationContext.jsx'
 import ImmersiveExperience from '../experience/ImmersiveExperience.jsx'
 import ExperienceBoundary from '../experience/ExperienceBoundary.jsx'
+import { configFor } from '../experience/configs/index.js'
 import { getTemplate } from '../studio/templates.js'
 import { templateOrderUrl } from '../studio/whatsapp.js'
 import { cssVars } from '../studio/themes.js'
@@ -41,13 +42,18 @@ export default function InvitationRoute() {
     <Link to="/" className="invite-back" aria-label="Back to studio">← Back</Link>
   )
 
+  // Each religion has its own track + start time (see the config `music`).
+  const music = configFor(template.religion)?.music
+  const musicSrc = typeof music === 'string' ? music : music?.src
+  const musicStart = music && typeof music === 'object' ? music.start : undefined
+
   if (template.engine === 'live') {
     return (
       <ExperienceBoundary>
         <InvitationProvider template={template}>
           <ThemeProvider>
             <LanguageProvider>
-              <AudioProvider>
+              <AudioProvider src={musicSrc} startOffset={musicStart}>
                 {back}
                 <ImmersiveExperience template={template} />
               </AudioProvider>

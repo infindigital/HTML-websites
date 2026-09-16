@@ -750,3 +750,53 @@
   color: var(--x-gold, #f0d183);
   text-shadow: 0 0 26px var(--x-glow, rgba(240, 209, 131, 0.5));
 }
+
+/* =====================================================================
+   TAP POP + MONOGRAM LEGIBILITY + ARABIC + SAVE THE DATE
+   ===================================================================== */
+/* A celebratory ripple pops out of every interactive object on tap. */
+.iobj { position: relative; }
+.iobj__pop {
+  position: absolute; inset: 0; margin: auto;
+  width: 100%; height: 100%; border-radius: 50%;
+  border: 2px solid color-mix(in srgb, var(--x-gold, #f0d183) 85%, transparent);
+  box-shadow: 0 0 22px -4px var(--x-glow, rgba(240, 209, 131, 0.6));
+  pointer-events: none; z-index: 4;
+}
+
+/* Monogram stays legible over any motif (incl. the Christian rings). */
+.pattern__center { position: relative; }
+.pattern__mono { position: relative; padding: 0.08em 0.4em; z-index: 1; }
+.pattern__mono::before {
+  content: ''; position: absolute; inset: -34% -12%; z-index: -1; opacity: 0.9;
+  background: radial-gradient(closest-side, var(--x-bg, #10141f) 52%, transparent 100%);
+}
+
+/* Muslim: Arabic discovery heading in a script-correct font. */
+[data-religion="muslim"] .scene--discovery .scene__title {
+  font-family: 'Amiri', var(--xd); direction: rtl; line-height: 1.5;
+}
+
+/* Save the Date (replaces RSVP). */
+.scene--savedate { position: relative; }
+.savedate__confetti { position: fixed; inset: 0; width: 100vw; height: 100svh; z-index: 40; pointer-events: none; }
+.savedate__card {
+  display: flex; flex-direction: column; align-items: center; gap: 6px;
+  padding: clamp(24px, 5vw, 44px) clamp(28px, 7vw, 60px);
+  border: 1px solid var(--x-line, rgba(224, 196, 120, 0.42)); border-radius: 18px;
+  background: color-mix(in srgb, var(--x-panel, #1a1414) 70%, transparent);
+  -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+  box-shadow: 0 30px 70px -40px rgba(0, 0, 0, 0.7); margin-top: 8px;
+}
+.savedate__mono { font-family: var(--xd); font-size: clamp(1.6rem, 6vw, 2.4rem); color: var(--x-gold, #f0d183); letter-spacing: 0.12em; }
+.savedate__day { font-family: var(--xh); font-size: clamp(1.3rem, 5vw, 2rem); color: var(--x-ink); margin: 4px 0 0; text-align: center; }
+.savedate__time { font-family: var(--xl); letter-spacing: 0.18em; text-transform: uppercase; font-size: 0.8rem; color: var(--x-ink-soft, #caa885); margin: 0 0 6px; }
+.savedate__btn {
+  margin-top: 6px; font-family: var(--xl); text-transform: uppercase; letter-spacing: 0.16em;
+  font-size: clamp(0.72rem, 2.6vw, 0.84rem); color: #1b1206;
+  background: linear-gradient(135deg, var(--x-gold, #f0d183), var(--x-gold2, #f7e6b0));
+  padding: 0.9em 1.6em; border-radius: 999px;
+  box-shadow: 0 12px 30px -12px var(--x-glow, rgba(240, 209, 131, 0.5));
+}
+.savedate__btn.is-saved { background: transparent; color: var(--x-gold, #f0d183); border: 1px solid var(--x-line, rgba(224, 196, 120, 0.5)); box-shadow: none; }
+.savedate__note { font-style: italic; color: var(--x-ink-soft, #caa885); margin: 6px 0 0; }

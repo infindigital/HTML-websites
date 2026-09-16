@@ -10,25 +10,30 @@ import config from '../config.js'
 
 const AudioContext = createContext(null)
 
-// The track opens with a short intro; playback - and every loop - begins here.
-const START_OFFSET = Number(config.audioStartOffset) || 0
-
-export function AudioProvider({ children }) {
+// A single shared audio element. `src` and `startOffset` can be supplied per
+// invitation (each religion has its own track and its own start time); they
+// fall back to the studio defaults when omitted. Looping restarts from the
+// offset so any intro is skipped every cycle.
+export function AudioProvider({ children, src, startOffset }) {
   const audioRef = useRef(null)
   const [isPlaying, setIsPlaying] = useState(false)
   const [ready, setReady] = useState(false)
 
-  // Cue the element to the start offset and keep React state in sync with the
-  // element (playback can change for external reasons, e.g. the OS pausing it).
+  const audioSrc = src || config.audioSrc
+  const resolveOffset = () =>
+    startOffset != null ? Number(startOffset) || 0 : Number(config.audioStartOffset) || 0
+  const offsetRef = useRef(resolveOffset())
+  offsetRef.current = resolveOffset()
+
   useEffect(() => {
     const el = audioRef.current
-    if (!el) return
+    if (!el) return undefined
 
     const seekToStart = () => {
-      // Only jump forward past the intro; never rewind a track already playing.
-      if (START_OFFSET > 0 && el.currentTime < START_OFFSET) {
+      const off = offsetRef.current
+      if (off > 0 && el.currentTime < off) {
         try {
-          el.currentTime = START_OFFSET
+          el.currentTime = off
         } catch {
           /* not seekable yet - play() will retry the seek */
         }
@@ -38,13 +43,10 @@ export function AudioProvider({ children }) {
     const onPlay = () => setIsPlaying(true)
     const onPause = () => setIsPlaying(false)
     const onReady = () => setReady(true)
-    // Cue to the offset as soon as we know the track's duration.
     const onMeta = seekToStart
-    // Manual loop: restart from the offset so the intro is skipped every cycle
-    // (native `loop` would rewind to 0 and replay the intro).
     const onEnded = () => {
       try {
-        el.currentTime = START_OFFSET
+        el.currentTime = offsetRef.current
       } catch {
         /* ignore */
       }
@@ -68,20 +70,17 @@ export function AudioProvider({ children }) {
   const play = useCallback(() => {
     const el = audioRef.current
     if (!el) return
-    // Skip the intro if we're starting fresh (metadata seek may not have run).
-    if (START_OFFSET > 0 && el.currentTime < START_OFFSET) {
+    const off = offsetRef.current
+    if (off > 0 && el.currentTime < off) {
       try {
-        el.currentTime = START_OFFSET
+        el.currentTime = off
       } catch {
         /* ignore */
       }
     }
     const p = el.play()
     if (p && typeof p.then === 'function') {
-      p.then(() => setIsPlaying(true)).catch(() => {
-        // Autoplay blocked or file missing - stay silent, user can retry.
-        setIsPlaying(false)
-      })
+      p.then(() => setIsPlaying(true)).catch(() => setIsPlaying(false))
     }
   }, [])
 
@@ -97,9 +96,7 @@ export function AudioProvider({ children }) {
 
   return (
     <AudioContext.Provider value={{ isPlaying, ready, play, pause, toggle }}>
-      {/* Single shared audio element for the whole app. Looping is handled
-          manually (see onEnded) so it repeats from the start offset. */}
-      <audio ref={audioRef} src={config.audioSrc} preload="auto" playsInline />
+      <audio ref={audioRef} src={audioSrc} preload="auto" playsInline />
       {children}
     </AudioContext.Provider>
   )

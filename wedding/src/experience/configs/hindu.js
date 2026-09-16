@@ -117,7 +117,7 @@ const hindu = {
     poster: '/assets/hindu-poster.jpg',
     couple: '/assets/hindu-couple.png',
   },
-  music: '/song.mp3',
+  music: { src: '/assets/phillauri.mp3', start: 99 },
 
   // Scene order — the Hindu arc. Types map to components in the shell.
   scenes: [

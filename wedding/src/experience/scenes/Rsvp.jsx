@@ -1,142 +1,85 @@
 import { useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
 import { Reveal } from '../primitives/Reveal.jsx'
-import InteractiveObject from '../primitives/InteractiveObject.jsx'
 import Confetti from '../primitives/Confetti.jsx'
+import InteractiveObject from '../primitives/InteractiveObject.jsx'
 import { useExperience } from '../ExperienceContext.js'
-import { EASE } from '../lib/motion.js'
 
 // =====================================================================
-//  RSVP — a physical invitation that opens into a form. Tap the card, the
-//  envelope opens and the form emerges. Validated, then a warm confirmation
-//  with a soft bloom. (Front-end only — wire to a form service / WhatsApp
-//  number at go-live; see the note in the config.)
+//  SAVE THE DATE — replaces the RSVP form (not needed for these invites).
+//  A themed card with the date and a one-tap "Add to calendar" (.ics) that
+//  pops confetti. Fully client-side, works offline.
 // =====================================================================
+function buildIcs(config) {
+  const { date, couple, venue } = config
+  const dt = new Date(date.iso)
+  if (Number.isNaN(dt.getTime())) return null
+  const pad = (n) => String(n).padStart(2, '0')
+  const fmt = (d) =>
+    `${d.getUTCFullYear()}${pad(d.getUTCMonth() + 1)}${pad(d.getUTCDate())}T${pad(d.getUTCHours())}${pad(d.getUTCMinutes())}00Z`
+  const end = new Date(dt.getTime() + 4 * 3600 * 1000)
+  const loc = `${venue?.name ? `${venue.name}, ` : ''}${venue?.address || venue?.city || ''}`
+  return [
+    'BEGIN:VCALENDAR',
+    'VERSION:2.0',
+    'PRODID:-//Wedding Invitation//EN',
+    'BEGIN:VEVENT',
+    `DTSTART:${fmt(dt)}`,
+    `DTEND:${fmt(end)}`,
+    `SUMMARY:${couple.combined} — Wedding`,
+    `LOCATION:${loc}`,
+    `DESCRIPTION:With love, ${couple.combined}`,
+    'END:VEVENT',
+    'END:VCALENDAR',
+  ].join('\r\n')
+}
+
 export default function Rsvp() {
   const { config } = useExperience()
-  const [open, setOpen] = useState(false)
-  const [sent, setSent] = useState(false)
-  const [form, setForm] = useState({ name: '', guests: '2', attending: '', message: '' })
-  const [errors, setErrors] = useState({})
-  const set = (k, val) => setForm((f) => ({ ...f, [k]: val }))
+  const [saved, setSaved] = useState(false)
+  const { date, couple } = config
 
-  const validate = () => {
-    const e = {}
-    if (!form.name.trim()) e.name = 'Please tell us your name'
-    const n = Number(form.guests)
-    if (!Number.isFinite(n) || n < 1) e.guests = 'At least one guest'
-    if (!form.attending) e.attending = 'Please let us know'
-    return e
+  const add = () => {
+    const ics = buildIcs(config)
+    if (ics) {
+      try {
+        const blob = new Blob([ics], { type: 'text/calendar' })
+        const url = URL.createObjectURL(blob)
+        const a = document.createElement('a')
+        a.href = url
+        a.download = `${couple.combined.replace(/\s+/g, '-')}.ics`
+        document.body.appendChild(a)
+        a.click()
+        a.remove()
+        window.setTimeout(() => URL.revokeObjectURL(url), 1500)
+      } catch {
+        /* download not permitted — still celebrate */
+      }
+    }
+    setSaved(true)
   }
-
-  const submit = (ev) => {
-    ev.preventDefault()
-    const e = validate()
-    setErrors(e)
-    if (Object.keys(e).length === 0) setSent(true)
-  }
-
-  const firstName = form.name.trim().split(' ')[0] || 'friend'
 
   return (
-    <section className="scene scene--rsvp" aria-label="RSVP">
-      <Reveal as="p" className="scene__eyebrow">Celebrate with us</Reveal>
-      <Reveal as="h2" className="scene__title">RSVP</Reveal>
+    <section className="scene scene--savedate" aria-label="Save the date">
+      {saved && <Confetti className="savedate__confetti" />}
+      <Reveal as="p" className="scene__eyebrow">Save the date</Reveal>
 
-      <div className="rsvp__stage">
-        <AnimatePresence mode="wait">
-          {!open && !sent && (
-            <motion.div key="card" exit={{ opacity: 0, scale: 0.94 }} transition={{ duration: 0.4 }}>
-              <InteractiveObject className="rsvp__card" label="Open the invitation to reply" onActivate={() => setOpen(true)}>
-                <span className="rsvp__flap" aria-hidden="true" />
-                <span className="rsvp__seal" aria-hidden="true">{config.couple.monogram}</span>
-                <span className="rsvp__card-hint">Tap to open</span>
-              </InteractiveObject>
-            </motion.div>
-          )}
-
-          {open && !sent && (
-            <motion.form
-              key="form"
-              className="rsvp__form"
-              onSubmit={submit}
-              noValidate
-              initial={{ opacity: 0, y: 26 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.6, ease: EASE.out }}
-            >
-              <label className="rsvp__field">
-                <span>Your name</span>
-                <input type="text" value={form.name} onChange={(e) => set('name', e.target.value)}
-                  aria-invalid={!!errors.name} autoComplete="name" />
-                {errors.name && <em className="rsvp__err">{errors.name}</em>}
-              </label>
-
-              <label className="rsvp__field">
-                <span>Number of guests</span>
-                <input type="number" min="1" max="20" value={form.guests}
-                  onChange={(e) => set('guests', e.target.value)} aria-invalid={!!errors.guests} />
-                {errors.guests && <em className="rsvp__err">{errors.guests}</em>}
-              </label>
-
-              <fieldset className="rsvp__field rsvp__field--choice" aria-invalid={!!errors.attending}>
-                <span>Will you attend?</span>
-                <div className="rsvp__choices">
-                  {[['yes', 'Joyfully yes'], ['no', 'Sadly no']].map(([val, lbl]) => (
-                    <button
-                      type="button"
-                      key={val}
-                      className={`rsvp__choice${form.attending === val ? ' is-on' : ''}`}
-                      aria-pressed={form.attending === val}
-                      onClick={() => set('attending', val)}
-                    >
-                      {lbl}
-                    </button>
-                  ))}
-                </div>
-                {errors.attending && <em className="rsvp__err">{errors.attending}</em>}
-              </fieldset>
-
-              <label className="rsvp__field">
-                <span>A message for the couple <i>(optional)</i></span>
-                <textarea rows="3" value={form.message} onChange={(e) => set('message', e.target.value)} />
-              </label>
-
-              <button type="submit" className="x-btn rsvp__submit">Send our reply →</button>
-            </motion.form>
-          )}
-
-          {sent && (
-            <motion.div
-              key="done"
-              className={`rsvp__done${form.attending === 'yes' ? ' is-celebrating' : ''}`}
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.7, ease: EASE.out }}
-            >
-              {form.attending === 'yes' && <Confetti className="rsvp__confetti" />}
-              <motion.span
-                className="rsvp__done-mark"
-                aria-hidden="true"
-                initial={{ scale: 0, rotate: -18 }}
-                animate={{ scale: 1, rotate: 0 }}
-                transition={{ type: 'spring', stiffness: 260, damping: 13, delay: 0.12 }}
-              >
-                {form.attending === 'yes' ? '✦' : '✿'}
-              </motion.span>
-              <p className="rsvp__done-title">
-                {form.attending === 'yes' ? `See you there, ${firstName}!` : `Thank you, ${firstName}.`}
-              </p>
-              <p className="rsvp__done-msg">
-                {form.attending === 'yes'
-                  ? 'We can’t wait to celebrate with you.'
-                  : 'We’ll miss you — thank you for letting us know.'}
-              </p>
-            </motion.div>
-          )}
-        </AnimatePresence>
+      <div className="savedate__card">
+        <span className="savedate__mono" aria-hidden="true">{couple.monogram}</span>
+        <p className="savedate__day">{date.dateLabel}</p>
+        <p className="savedate__time">{date.timeLabel}</p>
+        <InteractiveObject
+          className={`savedate__btn${saved ? ' is-saved' : ''}`}
+          label="Add to your calendar"
+          active={saved}
+          onActivate={add}
+        >
+          <span>{saved ? 'Added — see you there ✓' : 'Add to calendar'}</span>
+        </InteractiveObject>
       </div>
+
+      <Reveal as="p" className="savedate__note" delay={0.15}>
+        {saved ? 'We can’t wait to celebrate with you.' : 'Keep this day close to your heart.'}
+      </Reveal>
     </section>
   )
 }

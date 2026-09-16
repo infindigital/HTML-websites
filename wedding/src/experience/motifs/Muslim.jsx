@@ -102,9 +102,14 @@ export function PatternDraw({ progress, className = '' }) {
       </defs>
       <motion.circle cx="160" cy="160" r="150" strokeWidth="1.5" {...common} style={{ pathLength: progress }} />
       <motion.circle cx="160" cy="160" r="120" strokeWidth="1" opacity="0.55" {...common} style={{ pathLength: progress }} />
-      <motion.circle cx="160" cy="160" r="70" strokeWidth="1.5" {...common} style={{ pathLength: progress }} />
-      {/* central crescent moon */}
-      <motion.path d="M188 92 a74 74 0 1 0 30 126 a56 56 0 1 1 -30 -126 Z" strokeWidth="2.5" {...common} style={{ pathLength: progress }} />
+      <motion.circle cx="160" cy="160" r="96" strokeWidth="1" opacity="0.7" {...common} style={{ pathLength: progress }} />
+      {/* petalled inner ring (arabesque, not a star) */}
+      {Array.from({ length: 12 }).map((_, i) => {
+        const a = (i / 12) * Math.PI * 2
+        const cx = 160 + Math.cos(a) * 96
+        const cy = 160 + Math.sin(a) * 96
+        return <motion.circle key={`p${i}`} cx={cx} cy={cy} r="20" strokeWidth="1" opacity="0.5" {...common} style={{ pathLength: progress }} />
+      })}
       {/* soft points around the outer halo (markers, not stars) */}
       {Array.from({ length: 12 }).map((_, i) => {
         const a = (i / 12) * Math.PI * 2
@@ -130,20 +135,32 @@ export function Ceremony({ lit = 0, className = '' }) {
         stroke="url(#nikahGold)" strokeWidth="7" fill="none" />
       <path d="M64 290 V126 Q64 68 122 54 Q180 40 238 54 Q296 68 296 126 V290"
         stroke="url(#nikahGold)" strokeWidth="1.5" opacity="0.55" fill="none" />
-      {/* hanging lanterns */}
+      {/* hanging lanterns — glow as the scene is scrolled and they light */}
       {[90, 140, 180, 220, 270].map((x, i) => {
         const on = i < litCount
-        const y = 70 + (i % 2) * 16
+        const y = 66 + (i % 2) * 14
         return (
-          <g key={x} opacity={on ? 1 : 0.32}>
-            <path d={`M${x} 40 V${y}`} stroke="url(#nikahGold)" strokeWidth="1" />
-            <rect x={x - 6} y={y} width="12" height="18" rx="2" fill={on ? '#ffe9a8' : '#12352c'} stroke="url(#nikahGold)" strokeWidth="1" />
-            {on && <circle cx={x} cy={y + 9} r="14" fill="#e9b64a" opacity="0.35" />}
+          <g key={x}>
+            <path d={`M${x} 40 V${y}`} stroke="url(#nikahGold)" strokeWidth="1" opacity="0.7" />
+            {on && (
+              <motion.circle
+                cx={x} cy={y + 13} r="22" fill="#ffdf9e"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: [0.28, 0.5, 0.28] }}
+                transition={{ duration: 2.4, repeat: Infinity, ease: EASE.soft }}
+              />
+            )}
+            <g opacity={on ? 1 : 0.4}>
+              <path d={`M${x - 5} ${y} L${x + 5} ${y} L${x + 3} ${y + 3} L${x - 3} ${y + 3} Z`} fill="url(#nikahGold)" />
+              <path
+                d={`M${x - 6} ${y + 4} L${x + 6} ${y + 4} Q${x + 8} ${y + 15} ${x} ${y + 23} Q${x - 8} ${y + 15} ${x - 6} ${y + 4} Z`}
+                fill={on ? '#ffe9a8' : '#123a30'} stroke="url(#nikahGold)" strokeWidth="1"
+              />
+              <path d={`M${x - 2} ${y + 23} L${x + 2} ${y + 23} L${x} ${y + 27} Z`} fill="url(#nikahGold)" />
+            </g>
           </g>
         )
       })}
-      {/* crescent finial */}
-      <path d="M180 20 a12 12 0 1 0 6 22 a9 9 0 1 1 -6 -22 Z" fill="#f0d183" />
     </svg>
   )
 }

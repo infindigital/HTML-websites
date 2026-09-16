@@ -24,7 +24,6 @@ export default function PatternReveal() {
         </motion.div>
         <motion.div className="pattern__center" style={{ opacity: centerOpacity, scale: centerScale }}>
           <span className="pattern__mono">{config.couple.monogram}</span>
-          <span className="pattern__names">{config.couple.combined}</span>
         </motion.div>
       </div>
     </section>

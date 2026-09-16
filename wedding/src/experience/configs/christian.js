@@ -121,7 +121,7 @@ const christian = {
     poster: '/assets/christian-poster.jpg',
     couple: '/assets/christian-couple.png',
   },
-  music: '/song.mp3',
+  music: { src: '/assets/phillauri.mp3', start: 30 },
 
   scenes: [
     { type: 'opening' },

@@ -6,7 +6,7 @@ import { venue } from './_shared.js'
 // =====================================================================
 const muslim = {
   religion: 'muslim',
-  concept: 'Under the Same Moon',
+  concept: 'Mawaddah wa Rahmah',
 
   couple: {
     groom: 'Rayyan',
@@ -45,8 +45,8 @@ const muslim = {
   // A subtle interactive starfield scene (Muslim-only in the arc).
   discoveryScene: {
     variant: 'moonlight',
-    title: 'Under the same moon',
-    caption: 'Tap a moon to uncover a small memory.',
+    title: 'مَوَدَّةً وَرَحْمَةً',
+    caption: 'Love and mercy between your hearts — tap to uncover a memory.',
     messages: [
       'The night we first spoke until sunrise.',
       'A promise made under an open sky.',
@@ -123,7 +123,7 @@ const muslim = {
     poster: '/assets/muslim-poster.jpg',
     couple: '/assets/muslim-couple.png',
   },
-  music: '/song.mp3',
+  music: { src: '/song.mp3', start: 13 },
 
   scenes: [
     { type: 'opening' },
