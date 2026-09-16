@@ -67,6 +67,39 @@ export function AudioProvider({ children, src, startOffset }) {
     }
   }, [])
 
+  // Warm the track up in the background so it plays the INSTANT the visitor
+  // taps to open — on mobile and desktop alike. The <audio> ships as
+  // preload="none" so it never competes with the poster on first paint; a
+  // beat later (once the opening has painted, and the film still hasn't
+  // loaded — that waits for the tap) we fetch the audio and pre-seek it to its
+  // start offset, so the buffer is already sitting at the right spot when
+  // play() is called. Also warmed on the first pointer interaction, whichever
+  // comes first.
+  useEffect(() => {
+    const el = audioRef.current
+    if (!el) return undefined
+    let warmed = false
+    const warm = () => {
+      if (warmed) return
+      warmed = true
+      try {
+        el.preload = 'auto'
+        el.load() // loadedmetadata -> seekToStart buffers at the offset
+      } catch {
+        /* noop */
+      }
+    }
+    const t = window.setTimeout(warm, 350)
+    const onFirst = () => warm()
+    window.addEventListener('pointerdown', onFirst, { once: true, passive: true })
+    window.addEventListener('touchstart', onFirst, { once: true, passive: true })
+    return () => {
+      window.clearTimeout(t)
+      window.removeEventListener('pointerdown', onFirst)
+      window.removeEventListener('touchstart', onFirst)
+    }
+  }, [])
+
   const play = useCallback(() => {
     const el = audioRef.current
     if (!el) return
