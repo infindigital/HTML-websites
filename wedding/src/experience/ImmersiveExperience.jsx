@@ -71,11 +71,14 @@ export default function ImmersiveExperience({ template }) {
 
   // Opening hand-off: start the music + films (first gesture) then glide down.
   const onBegin = useCallback(() => {
+    // Sound + films start immediately (called straight from the opening tap, so
+    // this runs inside the user gesture — the music is instant). Only the
+    // downward glide waits, letting the portal finish opening first.
     try { play() } catch { /* autoplay may be blocked; the button stays */ }
     playAllVideos()
     window.setTimeout(
       () => window.scrollTo({ top: Math.round(window.innerHeight * 0.96), behavior: 'smooth' }),
-      60,
+      1000,
     )
   }, [play])
 

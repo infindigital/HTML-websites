@@ -65,6 +65,13 @@ export default function CinematicVideo({
     const play = () => {
       if (!autoplay) return
       el.muted = true
+      // Buffer ahead so a background film plays smoothly instead of stalling
+      // ("getting stuck") mid-scene. The element ships as preload="none" so it
+      // never loads on mount; we upgrade it to eager buffering only once the
+      // scene is actually approaching, then start playback. Relying on the
+      // opening's cache alone was not enough — a deferred film with no buffer
+      // of its own runs dry the moment it plays.
+      try { if (el.preload !== 'auto') el.preload = 'auto' } catch { /* noop */ }
       el.play?.().catch(() => {})
     }
     let io
@@ -76,9 +83,9 @@ export default function CinematicVideo({
             else el.pause?.()
           })
         },
-        // Start loading/playing a little BEFORE the scene is fully in view so
-        // the film is already moving when it arrives — no frozen poster.
-        { threshold: 0.01, rootMargin: '30% 0px' },
+        // Start loading/playing well BEFORE the scene is fully in view so the
+        // film has time to buffer and is already moving when it arrives.
+        { threshold: 0.01, rootMargin: '40% 0px' },
       )
       io.observe(wrap)
     } catch {
@@ -123,7 +130,16 @@ export default function CinematicVideo({
           // transient error could turn into a permanent poster fallback. The
           // poster is a real frame (eager), so first paint is always instant.
           preload={priority ? 'auto' : 'none'}
-          onCanPlay={() => setReady(true)}
+          // The poster (a real film frame) hides only once the film is truly
+          // PLAYING, and comes back whenever playback stalls, waits to buffer,
+          // or pauses. So a background film that buffers slowly shows a clean
+          // still instead of a frozen or black frame ("stuck" / "does not
+          // load"); onError falls back to the poster permanently.
+          onPlaying={() => setReady(true)}
+          onTimeUpdate={() => setReady(true)}
+          onWaiting={() => setReady(false)}
+          onStalled={() => setReady(false)}
+          onPause={() => setReady(false)}
           onError={() => setFailed(true)}
         />
       )}

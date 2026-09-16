@@ -493,6 +493,19 @@
    the opening (a non-sticky section) is fine. Pin it at 0: still behind the
    art and text, which sit at z-index:1, but reliably painted. */
 .scene--ceremony .scene__bg { z-index: 0; }
+/* Promote the film + poster to their own compositing layer. A <video> inside a
+   position:sticky wrapper, beside a scroll-transformed sibling (.ceremony__art),
+   can otherwise fail to paint on mobile Chrome/Safari — showing black or nothing
+   even while it plays. translateZ(0) is a no-op transform that forces a stable,
+   reliably painted layer. */
+.scene--ceremony .cvideo,
+.scene--ceremony .cvideo__el,
+.scene--ceremony .cvideo__poster {
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
 .ceremony__art { width: min(88vw, 560px); position: relative; z-index: 1; }
 .ceremony__svg { width: 100%; height: auto; display: block; filter: drop-shadow(0 10px 30px rgba(0,0,0,0.5)); }
 .ceremony__text { position: relative; z-index: 1; display: flex; flex-direction: column; gap: 6px; align-items: center; }

@@ -25,8 +25,12 @@ export default function Opening({ onBegin }) {
     setBegan(true)
     setLitL(true)
     setLitR(true)
-    // Let the portal open, then hand off to the shell (music + scroll).
-    window.setTimeout(() => onBegin?.(), 1150)
+    // Start the music + films synchronously, INSIDE the tap gesture, so the
+    // audio begins the instant the visitor taps. Handing this off after a
+    // timeout (outside the gesture) is what made the music lag before it
+    // played. The portal-open beat before the downward glide is preserved by
+    // the shell, which delays only the scroll — not the sound.
+    onBegin?.()
   }
 
   return (
