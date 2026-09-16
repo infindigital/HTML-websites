@@ -744,6 +744,7 @@
   margin-inline: auto;
 }
 /* Transparent character cutouts — the couple floats on the scene, no frame. */
+.cportrait__pic { display: contents; }
 .cportrait__img {
   display: block;
   width: 100%;

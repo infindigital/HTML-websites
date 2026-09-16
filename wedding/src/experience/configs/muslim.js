@@ -125,7 +125,9 @@ const muslim = {
     poster: '/assets/muslim-poster.jpg',
     couple: '/assets/muslim-couple.png',
   },
-  music: { src: '/song.mp3', start: 13 },
+  // Pre-trimmed so the track starts at the hook and plays instantly (no seek to
+  // a start offset, which mobile can't buffer to before the tap).
+  music: { src: '/assets/muslim-song.mp3', start: 0 },
 
   scenes: [
     { type: 'opening' },

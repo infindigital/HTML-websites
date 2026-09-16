@@ -123,7 +123,8 @@ const christian = {
     couple: '/assets/christian-couple.png',
   },
   // Until I Found You (Stephen Sanchez), from 0:30 into the verse.
-  music: { src: '/assets/Until_I_Found_You.mp3', start: 30 },
+  // Pre-trimmed (was 30s in) so it starts at the hook and plays instantly.
+  music: { src: '/assets/christian-song.mp3', start: 0 },
 
   scenes: [
     { type: 'opening' },

@@ -45,15 +45,22 @@ export default function CouplePortrait({
     return () => io?.disconnect()
   }, [show])
 
+  // Serve the light WebP cutout (~230KB) to browsers that support it, and fall
+  // back to the original PNG (~1.6MB) only for the few that don't — modern
+  // browsers never fetch the heavy PNG.
+  const webp = src.replace(/\.(png|jpe?g)$/i, '.webp')
   const img = (
-    <img
-      className="cportrait__img"
-      src={show ? src : undefined}
-      alt={config.couple.combined}
-      loading={priority ? 'eager' : 'lazy'}
-      decoding="async"
-      draggable="false"
-    />
+    <picture className="cportrait__pic">
+      {show && <source srcSet={webp} type="image/webp" />}
+      <img
+        className="cportrait__img"
+        src={show ? src : undefined}
+        alt={config.couple.combined}
+        loading={priority ? 'eager' : 'lazy'}
+        decoding="async"
+        draggable="false"
+      />
+    </picture>
   )
 
   if (!interactive) {

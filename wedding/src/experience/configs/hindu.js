@@ -118,8 +118,9 @@ const hindu = {
     poster: '/assets/hindu-poster.jpg',
     couple: '/assets/hindu-couple.png',
   },
-  // Din Shagna Da (Phillauri), from 1:39 so the mukhda lands on load.
-  music: { src: '/assets/Din%20Shagna%20Da%20Phillauri%20128%20Kbps.mp3', start: 99 },
+  // Din Shagna Da (Phillauri). Pre-trimmed to the mukhda (was 1:39 in) so it
+  // starts at the hook and plays instantly — no seek that mobile can't buffer.
+  music: { src: '/assets/hindu-song.mp3', start: 0 },
 
   // Scene order — the Hindu arc. Types map to components in the shell.
   scenes: [
