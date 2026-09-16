@@ -85,6 +85,15 @@
   margin: 0 auto;
   font-style: italic;
 }
+/* English heading paired under a script title (e.g. the Arabic ayah scene). */
+.scene__title-en {
+  font-family: var(--xh);
+  font-weight: 500;
+  font-size: clamp(1.05rem, 3.4vw, 1.5rem);
+  letter-spacing: 0.03em;
+  color: var(--x-gold, #f0d183);
+  margin: -2px 0 0;
+}
 .dot { margin: 0 0.5em; opacity: 0.6; }
 
 /* ---------------------------------------------------------------- video */
@@ -414,9 +423,17 @@
 .discovery__obj.is-open .discovery__icon { transform: scale(1.3); }
 .discovery__obj--fly.is-open .discovery__icon { animation: flyAway 1.2s ease forwards; }
 @keyframes flyAway { to { transform: translate(40px, -30px) rotate(12deg); } }
+/* One popup, centred in the field so it can never run off-screen on phones,
+   whatever the message length. The layer owns position (static transform for
+   centring); the inner <p> is flex-centred so framer keeps the transform for
+   the entrance animation. It drops just below the tapped object's row. */
+.discovery__msglayer {
+  position: absolute; left: 50%; transform: translateX(-50%);
+  width: min(84vw, 380px); margin-top: 30px; z-index: 6;
+  display: flex; justify-content: center; pointer-events: none;
+}
 .discovery__msg {
-  position: absolute; left: 50%; top: calc(100% + 8px); transform: translateX(-50%);
-  width: max-content; max-width: 44vw;
+  max-width: 100%; margin: 0; text-align: center; pointer-events: none;
   font-family: var(--xd); font-style: italic; font-size: clamp(0.9rem, 3vw, 1.1rem);
   color: var(--x-ink); background: color-mix(in srgb, var(--x-panel) 88%, transparent);
   border: 1px solid var(--x-line); border-radius: 12px; padding: 8px 12px;
@@ -814,5 +831,5 @@
   border-color: color-mix(in srgb, var(--x-accent, #c98a5e) 55%, transparent);
 }
 
-/* Discovery popup fits a full ayah. */
-.discovery__msg { max-width: min(80vw, 360px); }
+/* Discovery popup width is governed by .discovery__msglayer (centred in the
+   field), so a full ayah stays on-screen on every device. */

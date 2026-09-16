@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Reveal } from '../primitives/Reveal.jsx'
 import InteractiveObject from '../primitives/InteractiveObject.jsx'
@@ -21,11 +21,17 @@ export default function Discovery() {
   const { config, M } = useExperience()
   const d = config.discoveryScene
   const [active, setActive] = useState(-1)
+  // Remember the last opened row so the popup animates out in place on close.
+  const lastY = useRef(50)
   if (!d) return null
+  if (active > -1) lastY.current = SPOTS[active % SPOTS.length].y
 
   return (
-    <section className="scene scene--discovery" aria-label={d.title}>
+    <section className="scene scene--discovery" aria-label={d.titleEn || d.title}>
       <Reveal as="h2" className="scene__title">{d.title}</Reveal>
+      {d.titleEn && (
+        <Reveal as="p" className="scene__title-en" delay={0.06}>{d.titleEn}</Reveal>
+      )}
       <Reveal as="p" className="scene__lede" delay={0.1}>{d.caption}</Reveal>
 
       <div className="discovery__field">
@@ -44,22 +50,30 @@ export default function Discovery() {
               >
                 <Icon className="discovery__icon" />
               </InteractiveObject>
-              <AnimatePresence>
-                {open && (
-                  <motion.p
-                    className="discovery__msg"
-                    initial={{ opacity: 0, y: 8, scale: 0.92 }}
-                    animate={{ opacity: 1, y: 0, scale: 1 }}
-                    exit={{ opacity: 0, y: 8, scale: 0.92 }}
-                    transition={{ duration: 0.4 }}
-                  >
-                    {m}
-                  </motion.p>
-                )}
-              </AnimatePresence>
             </div>
           )
         })}
+
+        {/* A single popup, centred within the field so a long ayah or memory
+            can never run off-screen on any device; it drops just below the
+            tapped object's row. Flex-centring leaves the transform free for
+            the entrance animation. */}
+        <div className="discovery__msglayer" style={{ top: `${lastY.current}%` }}>
+          <AnimatePresence>
+            {active > -1 && (
+              <motion.p
+                key={active}
+                className="discovery__msg"
+                initial={{ opacity: 0, y: 8, scale: 0.92 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: 8, scale: 0.92 }}
+                transition={{ duration: 0.4 }}
+              >
+                {d.messages[active % d.messages.length]}
+              </motion.p>
+            )}
+          </AnimatePresence>
+        </div>
       </div>
     </section>
   )

@@ -121,7 +121,8 @@ const christian = {
     poster: '/assets/christian-poster.jpg',
     couple: '/assets/christian-couple.png',
   },
-  music: { src: '/assets/phillauri.mp3', start: 30 },
+  // Until I Found You (Stephen Sanchez), from 0:30 into the verse.
+  music: { src: '/assets/Until_I_Found_You.mp3', start: 30 },
 
   scenes: [
     { type: 'opening' },

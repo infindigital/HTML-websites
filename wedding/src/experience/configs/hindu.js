@@ -117,7 +117,8 @@ const hindu = {
     poster: '/assets/hindu-poster.jpg',
     couple: '/assets/hindu-couple.png',
   },
-  music: { src: '/assets/phillauri.mp3', start: 99 },
+  // Din Shagna Da (Phillauri), from 1:39 so the mukhda lands on load.
+  music: { src: '/assets/Din%20Shagna%20Da%20Phillauri%20128%20Kbps.mp3', start: 99 },
 
   // Scene order — the Hindu arc. Types map to components in the shell.
   scenes: [

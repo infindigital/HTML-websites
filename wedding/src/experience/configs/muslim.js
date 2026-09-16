@@ -46,6 +46,7 @@ const muslim = {
   discoveryScene: {
     variant: 'moonlight',
     title: 'مَوَدَّةً وَرَحْمَةً',
+    titleEn: 'Love & Mercy',
     caption: 'Love and mercy between you, tap a moon to reveal an ayah.',
     messages: [
       '“And of His signs is that He created for you mates from among yourselves.” · Ar-Rum 30:21',
