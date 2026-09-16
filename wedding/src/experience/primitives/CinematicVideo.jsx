@@ -103,12 +103,12 @@ export default function CinematicVideo({
           loop
           playsInline
           autoPlay={autoplay}
-          // Never front-load the film. The poster (a real frame) paints
-          // instantly; the multi-MB video downloads only once it actually
-          // plays — on the opening "begin" tap, or when a later scene scrolls
-          // into view. This is what stops the opening from looking "empty"
-          // while a film and the music fight over one connection on load.
-          preload="none"
+          // The opening film (priority) loads eagerly so it autoplays promptly
+          // behind its poster on mobile and desktop. Later scenes (non-priority)
+          // stay preload="none" and only fetch when scrolled into view. The
+          // poster is a real frame, loaded eagerly, so first paint is instant;
+          // the ~3MB music no longer competes (it is deferred + warmed).
+          preload={priority ? 'auto' : 'none'}
           onCanPlay={() => setReady(true)}
           onError={() => setFailed(true)}
         />

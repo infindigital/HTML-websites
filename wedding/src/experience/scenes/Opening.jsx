@@ -37,7 +37,6 @@ export default function Opening({ onBegin }) {
         srcMobile={config.assets.videoMobile}
         poster={config.assets.poster}
         priority
-        autoplay={false}
         dim={0.36}
       />
       <div className="opening__vignette" aria-hidden="true" />
