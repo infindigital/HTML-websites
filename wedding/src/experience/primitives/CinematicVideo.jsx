@@ -43,12 +43,18 @@ export default function CinematicVideo({
 
   const showVideo = !reduced && !failed && !!source
 
-  // Autoplay hardening + viewport-gated playback.
+  // Autoplay hardening + viewport-gated playback. Every background film
+  // autoplays (muted) on mobile AND desktop, in every scene that has one.
   //  1) Force the muted *property* on. React only writes the `muted` attribute,
   //     but the browser's autoplay policy checks the property — without this a
   //     muted video is treated as unmuted, autoplay is blocked, and the poster
   //     never lifts (this is why the film "doesn't play" in production).
-  //  2) Play while on screen; pause when scrolled away.
+  //  2) Playback is driven from JS, not the `autoPlay` attribute. The attribute
+  //     makes the browser eagerly load the file even with preload="none",
+  //     so every off-screen scene would fight for bandwidth on open. Calling
+  //     play() ourselves gives muted autoplay (always policy-allowed) exactly
+  //     when we want it: immediately for the opening, on approach for the rest.
+  //  3) Play while on screen; pause when scrolled away.
   useEffect(() => {
     if (!showVideo) return undefined
     const el = videoRef.current
@@ -57,27 +63,32 @@ export default function CinematicVideo({
     el.muted = true
     el.defaultMuted = true
     const play = () => {
+      if (!autoplay) return
       el.muted = true
       el.play?.().catch(() => {})
     }
-    if (autoplay) play()
     let io
     try {
       io = new IntersectionObserver(
         (entries) => {
           entries.forEach((e) => {
-            if (e.isIntersecting) { if (autoplay) play() }
+            if (e.isIntersecting) play()
             else el.pause?.()
           })
         },
-        { threshold: 0.12 },
+        // Start loading/playing a little BEFORE the scene is fully in view so
+        // the film is already moving when it arrives — no frozen poster.
+        { threshold: 0.01, rootMargin: '30% 0px' },
       )
       io.observe(wrap)
     } catch {
-      if (autoplay) play()
+      play() // no IntersectionObserver support: just autoplay
     }
+    // The opening film (priority) is already on screen at mount — start it now
+    // instead of waiting for the observer's first (async) callback.
+    if (priority) play()
     return () => io?.disconnect()
-  }, [showVideo, source, autoplay])
+  }, [showVideo, source, autoplay, priority])
 
   return (
     <div ref={wrapRef} className={`cvideo ${className}`} {...rest}>
@@ -102,12 +113,12 @@ export default function CinematicVideo({
           muted
           loop
           playsInline
-          autoPlay={autoplay}
-          // The opening film (priority) loads eagerly so it autoplays promptly
-          // behind its poster on mobile and desktop. Later scenes (non-priority)
-          // stay preload="none" and only fetch when scrolled into view. The
-          // poster is a real frame, loaded eagerly, so first paint is instant;
-          // the ~3MB music no longer competes (it is deferred + warmed).
+          // No autoPlay attribute on purpose — playback is driven from JS (see
+          // the effect above) so it autoplays muted on mobile + desktop without
+          // the attribute forcing an eager load. The opening film (priority)
+          // preloads eagerly so it starts instantly behind its poster; later
+          // scenes stay preload="none" and load as they scroll near view. The
+          // poster is a real frame (eager), so first paint is always instant.
           preload={priority ? 'auto' : 'none'}
           onCanPlay={() => setReady(true)}
           onError={() => setFailed(true)}
