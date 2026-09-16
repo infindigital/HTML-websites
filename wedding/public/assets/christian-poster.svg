@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Golden-hour garden and chapel">
+  <defs>
+    <linearGradient id="dusk" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2a1e12"/>
+      <stop offset="0.55" stop-color="#6a4a26"/>
+      <stop offset="1" stop-color="#e6b877"/>
+    </linearGradient>
+    <radialGradient id="sun" cx="50%" cy="30%" r="42%">
+      <stop offset="0" stop-color="#fff0d0" stop-opacity="0.9"/>
+      <stop offset="0.5" stop-color="#f0c98a" stop-opacity="0.4"/>
+      <stop offset="1" stop-color="#f0c98a" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="vig3" cx="50%" cy="50%" r="75%">
+      <stop offset="0.55" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#3a2712" stop-opacity="0.5"/>
+    </radialGradient>
+    <linearGradient id="gold3" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#b98f52"/><stop offset="0.5" stop-color="#f3e6c4"/><stop offset="1" stop-color="#b98f52"/>
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="900" fill="url(#dusk)"/>
+  <ellipse cx="800" cy="270" rx="780" ry="560" fill="url(#sun)"/>
+  <!-- chapel silhouette in distance -->
+  <path d="M700 560 V440 L800 360 L900 440 V560 Z" fill="#3a2712" opacity="0.9"/>
+  <rect x="788" y="300" width="24" height="66" fill="#3a2712" opacity="0.9"/>
+  <rect x="776" y="318" width="48" height="14" fill="#3a2712" opacity="0.9"/>
+  <path d="M786 470 V430 Q800 408 814 430 V470 Z" fill="#f3e6c4" opacity="0.6"/>
+  <!-- garden path -->
+  <path d="M740 900 L790 560 L810 560 L860 900 Z" fill="#efdcb0" opacity="0.28"/>
+  <!-- trees -->
+  <g fill="#2a1e12" opacity="0.85">
+    <ellipse cx="230" cy="470" rx="120" ry="150"/><rect x="222" y="560" width="16" height="120"/>
+    <ellipse cx="1380" cy="470" rx="130" ry="160"/><rect x="1372" y="560" width="16" height="120"/>
+  </g>
+  <!-- interlocked rings -->
+  <g fill="none" stroke="url(#gold3)" stroke-width="12">
+    <circle cx="560" cy="720" r="70"/>
+    <circle cx="660" cy="720" r="70"/>
+  </g>
+  <!-- floating petals -->
+  <g fill="#f4d9c0" opacity="0.85">
+    <ellipse cx="1050" cy="640" rx="10" ry="18"/><ellipse cx="1160" cy="720" rx="9" ry="16"/>
+    <ellipse cx="980" cy="760" rx="8" ry="14"/><ellipse cx="1240" cy="640" rx="8" ry="14"/>
+  </g>
+  <rect width="1600" height="900" fill="url(#vig3)"/>
+</svg>

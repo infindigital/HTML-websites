@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Moonlit Islamic wedding arch">
+  <defs>
+    <linearGradient id="night" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#060d1c"/>
+      <stop offset="0.6" stop-color="#0c1d33"/>
+      <stop offset="1" stop-color="#123a30"/>
+    </linearGradient>
+    <radialGradient id="moonglow" cx="72%" cy="24%" r="34%">
+      <stop offset="0" stop-color="#f4e39b" stop-opacity="0.8"/>
+      <stop offset="1" stop-color="#f4e39b" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="lglow" cx="50%" cy="80%" r="60%">
+      <stop offset="0" stop-color="#e9b64a" stop-opacity="0.55"/>
+      <stop offset="1" stop-color="#e9b64a" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="vig2" cx="50%" cy="50%" r="75%">
+      <stop offset="0.55" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity="0.55"/>
+    </radialGradient>
+    <linearGradient id="gold2" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#a9812f"/><stop offset="0.5" stop-color="#f0d183"/><stop offset="1" stop-color="#a9812f"/>
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="900" fill="url(#night)"/>
+  <ellipse cx="1150" cy="220" rx="520" ry="520" fill="url(#moonglow)"/>
+  <!-- stars -->
+  <g fill="#f4e39b">
+    <circle cx="200" cy="140" r="3"/><circle cx="360" cy="90" r="2"/><circle cx="520" cy="180" r="2.5"/>
+    <circle cx="680" cy="110" r="2"/><circle cx="300" cy="260" r="2"/><circle cx="90" cy="300" r="2.5"/>
+    <circle cx="900" cy="120" r="2"/><circle cx="1420" cy="360" r="2.5"/><circle cx="1500" cy="180" r="2"/>
+    <circle cx="140" cy="460" r="2"/><circle cx="1350" cy="120" r="2"/>
+  </g>
+  <!-- crescent -->
+  <path d="M1210 130 a120 120 0 1 0 56 196 a90 90 0 1 1 -56 -196 Z" fill="#f0d183"/>
+  <!-- arch silhouette -->
+  <ellipse cx="800" cy="840" rx="620" ry="300" fill="url(#lglow)"/>
+  <path d="M540 900 V430 Q540 250 680 205 Q800 165 920 205 Q1060 250 1060 430 V900 Z" fill="#040a14" opacity="0.92"/>
+  <path d="M540 430 Q540 250 680 205 Q800 165 920 205 Q1060 250 1060 430" fill="none" stroke="url(#gold2)" stroke-width="7" opacity="0.85"/>
+  <path d="M590 430 Q590 285 705 248 Q800 218 895 248 Q1010 285 1010 430" fill="none" stroke="url(#gold2)" stroke-width="3" opacity="0.55"/>
+  <!-- lanterns -->
+  <g>
+    <path d="M360 300 V430" stroke="url(#gold2)" stroke-width="2"/>
+    <rect x="335" y="430" width="50" height="80" rx="8" fill="#123a30" stroke="url(#gold2)" stroke-width="2"/>
+    <circle cx="360" cy="470" r="46" fill="#e9b64a" opacity="0.4"/>
+    <path d="M1240 340 V450" stroke="url(#gold2)" stroke-width="2"/>
+    <rect x="1215" y="450" width="50" height="80" rx="8" fill="#123a30" stroke="url(#gold2)" stroke-width="2"/>
+    <circle cx="1240" cy="490" r="46" fill="#e9b64a" opacity="0.4"/>
+  </g>
+  <rect width="1600" height="900" fill="url(#vig2)"/>
+</svg>

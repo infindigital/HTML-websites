@@ -4,7 +4,7 @@ import { ThemeProvider } from '../context/ThemeContext.jsx'
 import { LanguageProvider } from '../context/LanguageContext.jsx'
 import { AudioProvider } from '../context/AudioContext.jsx'
 import { InvitationProvider } from '../context/InvitationContext.jsx'
-import InvitationExperience from './InvitationExperience.jsx'
+import ImmersiveExperience from '../experience/ImmersiveExperience.jsx'
 import { getTemplate } from '../studio/templates.js'
 import { templateOrderUrl } from '../studio/whatsapp.js'
 import { cssVars } from '../studio/themes.js'
@@ -47,7 +47,7 @@ export default function InvitationRoute() {
           <LanguageProvider>
             <AudioProvider>
               {back}
-              <InvitationExperience />
+              <ImmersiveExperience template={template} />
             </AudioProvider>
           </LanguageProvider>
         </ThemeProvider>

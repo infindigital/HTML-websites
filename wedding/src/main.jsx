@@ -4,6 +4,7 @@ import { HashRouter } from 'react-router-dom'
 import App from './App.jsx'
 import './index.css'
 import './studio/studio.css'
+import './experience/experience.css'
 
 // HashRouter keeps deep links working on any static host (Vercel, a plain
 // upload, even file://) with no server rewrite config.
