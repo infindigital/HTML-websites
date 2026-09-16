@@ -58,7 +58,9 @@ export default function PreviewModal({ template, onClose }) {
   const hasAudio = !!template.music.audioUrl
   const isLive = template.engine === 'live'
   const vertical = isMobile && template.previewVideoVertical
-  const videoSrc = vertical ? template.previewVideoVertical : template.previewVideo
+  const videoSrc = vertical
+    ? template.previewVideoVertical
+    : (isMobile && template.previewVideoMobile) || template.previewVideo
 
   const toggleAudio = () => {
     const el = audioRef.current

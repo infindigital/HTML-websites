@@ -13,7 +13,7 @@ export default function Closing() {
 
   return (
     <section className="scene scene--closing" aria-label="Closing">
-      <CinematicVideo className="scene__bg" src={config.assets.video} poster={config.assets.poster} dim={0.58} />
+      <CinematicVideo className="scene__bg" src={config.assets.video} srcMobile={config.assets.videoMobile} poster={config.assets.poster} dim={0.58} />
       <div className="closing__vignette" aria-hidden="true" />
 
       <div className="closing__content">

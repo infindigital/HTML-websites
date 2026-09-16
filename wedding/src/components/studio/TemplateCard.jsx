@@ -16,6 +16,9 @@ export default function TemplateCard({ template, onPreview }) {
   const videoRef = useRef(null)
   const mediaRef = useRef(null)
   const hasVideo = !!template.previewVideo
+  // Serve the lighter 720p encode to phones.
+  const narrow = typeof window !== 'undefined' && window.matchMedia?.('(max-width: 640px)').matches
+  const videoSrc = (narrow && template.previewVideoMobile) || template.previewVideo
   const ev = template.event
 
   useEffect(() => {
@@ -91,7 +94,7 @@ export default function TemplateCard({ template, onPreview }) {
               mediaRef.current = el
             }}
             className="card__video"
-            src={template.previewVideo}
+            src={videoSrc}
             poster={template.poster}
             muted
             loop

@@ -20,6 +20,9 @@ function FilmBlock({ t, flip, onWatch }) {
   const reduced = useReducedMotion()
   const ev = t.event
   const price = templatePrice(t)
+  // Serve the lighter 720p encode to phones.
+  const narrow = typeof window !== 'undefined' && window.matchMedia?.('(max-width: 640px)').matches
+  const videoSrc = (narrow && t.previewVideoMobile) || t.previewVideo
   // Reveal the framed film from the block's own scroll progress.
   // (An IntersectionObserver on the video deadlocks: the frame starts at
   // clip-path: inset(100%), and Chromium counts that ancestor clip as zero
@@ -62,7 +65,7 @@ function FilmBlock({ t, flip, onWatch }) {
           <video
             ref={videoRef}
             className="filmblock__video"
-            src={t.previewVideo}
+            src={videoSrc}
             poster={t.poster}
             muted
             loop

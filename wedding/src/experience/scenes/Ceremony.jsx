@@ -26,7 +26,7 @@ export default function Ceremony() {
   return (
     <section className="scene scene--ceremony" ref={ref} aria-label={c.title}>
       <div className="ceremony__sticky">
-        <CinematicVideo className="scene__bg" src={config.assets.video} poster={config.assets.poster} dim={0.52} />
+        <CinematicVideo className="scene__bg" src={config.assets.video} srcMobile={config.assets.videoMobile} poster={config.assets.poster} dim={0.52} />
         <motion.div className="ceremony__art" style={{ scale: artScale }}>
           <M.Ceremony lit={lit} className="ceremony__svg" />
         </motion.div>

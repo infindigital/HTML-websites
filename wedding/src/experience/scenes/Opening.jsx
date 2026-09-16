@@ -34,6 +34,7 @@ export default function Opening({ onBegin }) {
       <CinematicVideo
         className="scene__bg"
         src={config.assets.video}
+        srcMobile={config.assets.videoMobile}
         poster={config.assets.poster}
         priority
         autoplay={false}

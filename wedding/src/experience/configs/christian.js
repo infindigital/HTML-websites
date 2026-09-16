@@ -118,6 +118,7 @@ const christian = {
 
   assets: {
     video: '/assets/christian.mp4',
+    videoMobile: '/assets/christian-m.mp4',
     poster: '/assets/christian-poster.jpg',
     couple: '/assets/christian-couple.png',
   },
