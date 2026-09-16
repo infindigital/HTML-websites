@@ -1,5 +1,5 @@
 import CinematicVideo from '../primitives/CinematicVideo.jsx'
-import AnimatedCouple from '../characters/AnimatedCouple.jsx'
+import CouplePortrait from '../characters/CouplePortrait.jsx'
 import { Reveal } from '../primitives/Reveal.jsx'
 import { useExperience } from '../ExperienceContext.js'
 
@@ -18,7 +18,7 @@ export default function Closing() {
 
       <div className="closing__content">
         <div className="closing__figs">
-          <AnimatedCouple religion={config.religion} />
+          <CouplePortrait />
         </div>
         <Reveal as="p" className="closing__msg">{config.closing.message}</Reveal>
         <Reveal as="p" className="closing__names" delay={0.15}>{config.couple.combined}</Reveal>

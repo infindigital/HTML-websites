@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Reveal, LineReveal } from '../primitives/Reveal.jsx'
-import AnimatedCouple from '../characters/AnimatedCouple.jsx'
+import CouplePortrait from '../characters/CouplePortrait.jsx'
 import { useExperience } from '../ExperienceContext.js'
 
 // =====================================================================
@@ -20,7 +20,7 @@ export default function Story() {
       <div className="story__stage" aria-hidden="true">
         <div className={`story__aura story__aura--${active % 5}`} />
         <div className="story__fig">
-          <AnimatedCouple religion={config.religion} />
+          <CouplePortrait />
         </div>
         <span className="story__count">
           {String(active + 1).padStart(2, '0')}<span>/</span>{String(beats.length).padStart(2, '0')}

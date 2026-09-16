@@ -17,6 +17,8 @@ const PALETTES = {
   petals: ['#f0a13a', '#e6771f', '#f4c65a', '#d94f2a', '#f6d98a'],
   stars: ['#f4e39b', '#dfe6ff', '#bcd0ff', '#ffffff', '#f0d183'],
   blossom: ['#f7e2d8', '#f0c9b4', '#e9d3a6', '#ffffff', '#f4d9c0'],
+  // Soft warm lantern-light motes (no stars) — used by the Muslim world.
+  motes: ['#f0d183', '#f7e6b0', '#e9b64a', '#ffe9a8', '#f4e39b'],
 }
 
 export default function Particles({ variant = 'petals', density = 1, className = '' }) {
@@ -28,8 +30,9 @@ export default function Particles({ variant = 'petals', density = 1, className =
     const ctx = canvas.getContext('2d')
     const reduce = prefersReduced()
     const colors = PALETTES[variant] || PALETTES.petals
-    const rising = variant === 'blossom'
+    const rising = variant === 'blossom' || variant === 'motes'
     const isStar = variant === 'stars'
+    const isMote = variant === 'motes'
 
     let w = 0
     let h = 0
@@ -38,27 +41,29 @@ export default function Particles({ variant = 'petals', density = 1, className =
     let raf = null
 
     const make = (spawnAnywhere) => {
-      const size = isStar ? rand(0.8, 2.4) : rand(6, 16)
+      const size = isStar ? rand(0.8, 2.4) : isMote ? rand(1.6, 4.2) : rand(6, 16)
       return {
         x: rand(0, w),
         y: spawnAnywhere ? rand(0, h) : rising ? h + 20 : -20,
         size,
-        speed: isStar ? rand(0.05, 0.22) : rand(0.4, 1.15),
+        speed: isStar ? rand(0.05, 0.22) : isMote ? rand(0.12, 0.4) : rand(0.4, 1.15),
         sway: rand(0.5, 1.7),
         swaySpeed: rand(0.006, 0.018),
         phase: rand(0, Math.PI * 2),
         rot: rand(0, Math.PI * 2),
         rotSpeed: rand(-0.02, 0.02),
         color: colors[(Math.random() * colors.length) | 0],
-        opacity: isStar ? rand(0.25, 0.95) : rand(0.35, 0.85),
+        opacity: isStar ? rand(0.25, 0.95) : isMote ? rand(0.12, 0.42) : rand(0.35, 0.85),
         twinkle: rand(0.01, 0.03),
       }
     }
 
     const build = () => {
       const area = w * h
-      const base = isStar ? area / 9000 : area / 130000
-      const n = Math.max(isStar ? 26 : 6, Math.min(isStar ? 120 : 20, Math.round(base * density)))
+      const base = isStar ? area / 9000 : isMote ? area / 120000 : area / 130000
+      const cap = isStar ? 120 : isMote ? 22 : 20
+      const min = isStar ? 26 : 6
+      const n = Math.max(min, Math.min(cap, Math.round(base * density)))
       parts = Array.from({ length: n }, () => make(true))
     }
 
@@ -110,6 +115,23 @@ export default function Particles({ variant = 'petals', density = 1, className =
       ctx.restore()
     }
 
+    // Soft warm light mote (lantern glow) — no bright core, no star points.
+    const drawMote = (p) => {
+      ctx.save()
+      ctx.translate(p.x, p.y)
+      ctx.globalAlpha = p.opacity
+      const g = ctx.createRadialGradient(0, 0, 0, 0, 0, p.size * 2.6)
+      g.addColorStop(0, p.color)
+      g.addColorStop(1, 'rgba(0,0,0,0)')
+      ctx.fillStyle = g
+      ctx.beginPath()
+      ctx.arc(0, 0, p.size * 2.6, 0, Math.PI * 2)
+      ctx.fill()
+      ctx.restore()
+    }
+
+    const drawOne = isStar ? drawStar : isMote ? drawMote : drawPetal
+
     const step = (p) => {
       p.phase += p.swaySpeed
       p.x += Math.sin(p.phase) * p.sway * 0.35
@@ -130,14 +152,14 @@ export default function Particles({ variant = 'petals', density = 1, className =
 
     const paint = () => {
       ctx.clearRect(0, 0, w, h)
-      for (const p of parts) (isStar ? drawStar : drawPetal)(p)
+      for (const p of parts) drawOne(p)
     }
 
     const frame = () => {
       ctx.clearRect(0, 0, w, h)
       for (const p of parts) {
         step(p)
-        ;(isStar ? drawStar : drawPetal)(p)
+        drawOne(p)
       }
       raf = requestAnimationFrame(frame)
     }

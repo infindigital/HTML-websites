@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Reveal } from '../primitives/Reveal.jsx'
-import AnimatedCouple from '../characters/AnimatedCouple.jsx'
+import CouplePortrait from '../characters/CouplePortrait.jsx'
 import { useExperience } from '../ExperienceContext.js'
 
 // =====================================================================
@@ -21,8 +21,7 @@ export default function CoupleInteraction() {
         {both ? d.together : 'Meet the couple — tap each of us'}
       </Reveal>
 
-      <AnimatedCouple
-        religion={config.religion}
+      <CouplePortrait
         interactive
         onGroom={() => setGroom(true)}
         onBride={() => setBride(true)}

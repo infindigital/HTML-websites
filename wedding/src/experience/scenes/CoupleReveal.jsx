@@ -1,5 +1,5 @@
 import { motion, useTransform } from 'framer-motion'
-import AnimatedCouple from '../characters/AnimatedCouple.jsx'
+import CouplePortrait from '../characters/CouplePortrait.jsx'
 import { Reveal, LineReveal } from '../primitives/Reveal.jsx'
 import usePointerParallax from '../hooks/usePointerParallax.js'
 import { useExperience } from '../ExperienceContext.js'
@@ -20,7 +20,7 @@ export default function CoupleReveal() {
     <section className="scene scene--couple" aria-label="The couple">
       <div className="couplereveal">
         <motion.div className="couplereveal__figs" style={{ x: fx, y: fy }}>
-          <AnimatedCouple religion={config.religion} />
+          <CouplePortrait priority />
         </motion.div>
 
         <div className="couplereveal__text">

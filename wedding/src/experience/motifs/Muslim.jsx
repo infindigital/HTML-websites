@@ -87,7 +87,8 @@ export function Portal({ open = false, className = '' }) {
   )
 }
 
-// ---- Islamic geometry (8-point star) — scroll-drawn. `progress` 0..1.
+// ---- Moon medallion — concentric halos + a central crescent, scroll-drawn.
+//  (Replaces the earlier 8-point star: this wedding uses the moon, not stars.)
 export function PatternDraw({ progress, className = '' }) {
   const common = { fill: 'none', stroke: 'url(#geoGold)', strokeLinecap: 'round', strokeLinejoin: 'round' }
   return (
@@ -100,13 +101,14 @@ export function PatternDraw({ progress, className = '' }) {
         </linearGradient>
       </defs>
       <motion.circle cx="160" cy="160" r="150" strokeWidth="1.5" {...common} style={{ pathLength: progress }} />
-      <motion.rect x="60" y="60" width="200" height="200" strokeWidth="2" {...common} style={{ pathLength: progress }} />
-      <motion.rect x="60" y="60" width="200" height="200" strokeWidth="2" transform="rotate(45 160 160)" {...common} style={{ pathLength: progress }} />
-      <motion.circle cx="160" cy="160" r="96" strokeWidth="1.5" {...common} style={{ pathLength: progress }} />
-      <motion.circle cx="160" cy="160" r="52" strokeWidth="2" {...common} style={{ pathLength: progress }} />
-      {Array.from({ length: 8 }).map((_, i) => {
-        const a = (i / 8) * Math.PI * 2
-        return <circle key={i} cx={160 + Math.cos(a) * 150} cy={160 + Math.sin(a) * 150} r="2.6" fill="#f0d183" />
+      <motion.circle cx="160" cy="160" r="120" strokeWidth="1" opacity="0.55" {...common} style={{ pathLength: progress }} />
+      <motion.circle cx="160" cy="160" r="70" strokeWidth="1.5" {...common} style={{ pathLength: progress }} />
+      {/* central crescent moon */}
+      <motion.path d="M188 92 a74 74 0 1 0 30 126 a56 56 0 1 1 -30 -126 Z" strokeWidth="2.5" {...common} style={{ pathLength: progress }} />
+      {/* soft points around the outer halo (markers, not stars) */}
+      {Array.from({ length: 12 }).map((_, i) => {
+        const a = (i / 12) * Math.PI * 2
+        return <circle key={i} cx={160 + Math.cos(a) * 135} cy={160 + Math.sin(a) * 135} r="2" fill="#f0d183" opacity="0.8" />
       })}
     </svg>
   )
@@ -146,12 +148,18 @@ export function Ceremony({ lit = 0, className = '' }) {
   )
 }
 
-// ---- Star — a small tappable discovery point.
+// ---- Crescent moon — a small tappable discovery point (no stars here).
 export function Spark({ className = '' }) {
   return (
     <svg className={className} viewBox="0 0 60 60" fill="none" aria-hidden="true">
-      <path d="M30 4 L35 24 L56 30 L35 36 L30 56 L25 36 L4 30 L25 24 Z" fill="#f0d183" />
-      <circle cx="30" cy="30" r="4" fill="#fff6d8" />
+      <defs>
+        <radialGradient id="sparkMoon" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stopColor="#f4e39b" stopOpacity="0.6" />
+          <stop offset="100%" stopColor="#f4e39b" stopOpacity="0" />
+        </radialGradient>
+      </defs>
+      <circle cx="30" cy="30" r="26" fill="url(#sparkMoon)" />
+      <path d="M39 13 a20 20 0 1 0 9 34 a15 15 0 1 1 -9 -34 Z" fill="#f0d183" />
     </svg>
   )
 }
@@ -173,13 +181,13 @@ export function Crescent({ className = '' }) {
 }
 
 export const meta = {
-  particle: 'stars',
+  particle: 'motes',
   progress: 'crescent',
-  transition: 'stars',
+  transition: 'light',
   countdown: 'moon',
   openLabel: 'Tap the light',
   lampLabel: 'Light the lantern',
-  sparkLabel: 'A star',
+  sparkLabel: 'The moon',
 }
 
 export default { SideLamp, Portal, PatternDraw, Ceremony, Spark, Crescent, meta }

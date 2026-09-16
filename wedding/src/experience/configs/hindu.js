@@ -114,7 +114,8 @@ const hindu = {
 
   assets: {
     video: '/assets/hindu.mp4',
-    poster: '/assets/hindu-poster.svg',
+    poster: '/assets/hindu-poster.jpg',
+    couple: '/assets/hindu-couple.jpg',
   },
   music: '/song.mp3',
 

@@ -44,9 +44,9 @@ const muslim = {
 
   // A subtle interactive starfield scene (Muslim-only in the arc).
   discoveryScene: {
-    variant: 'starfield',
-    title: 'Written in the stars',
-    caption: 'Tap a star to uncover a small memory.',
+    variant: 'moonlight',
+    title: 'Under the same moon',
+    caption: 'Tap a moon to uncover a small memory.',
     messages: [
       'The night we first spoke until sunrise.',
       'A promise made under an open sky.',
@@ -99,7 +99,7 @@ const muslim = {
 
   discovery: {
     lamp: 'Light the lantern — and light the way.',
-    spark: 'A star, for a wish.',
+    spark: 'A moon, watching over us.',
     bride: 'Inaya — gentle, luminous, endlessly kind.',
     groom: 'Rayyan — steady as the north star.',
     together: 'Our day',
@@ -120,7 +120,8 @@ const muslim = {
 
   assets: {
     video: '/assets/muslim.mp4',
-    poster: '/assets/muslim-poster.svg',
+    poster: '/assets/muslim-poster.jpg',
+    couple: '/assets/muslim-couple.jpg',
   },
   music: '/song.mp3',
 

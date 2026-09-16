@@ -118,7 +118,8 @@ const christian = {
 
   assets: {
     video: '/assets/christian.mp4',
-    poster: '/assets/christian-poster.svg',
+    poster: '/assets/christian-poster.jpg',
+    couple: '/assets/christian-couple.jpg',
   },
   music: '/song.mp3',
 
