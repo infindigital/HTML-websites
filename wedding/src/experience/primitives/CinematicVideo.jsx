@@ -21,6 +21,8 @@ export default function CinematicVideo({
   className = '',
   objectPosition = 'center',
   priority = false,
+  autoplay = true, // when false, hold on the poster and load the film only
+                   // once something calls play() (e.g. the opening "begin" tap)
   dim = 0, // 0..1 dark scrim for text legibility over the footage
   overlay, // layers rendered above the video (SVG/HTML motifs)
   children,
@@ -58,13 +60,13 @@ export default function CinematicVideo({
       el.muted = true
       el.play?.().catch(() => {})
     }
-    play()
+    if (autoplay) play()
     let io
     try {
       io = new IntersectionObserver(
         (entries) => {
           entries.forEach((e) => {
-            if (e.isIntersecting) play()
+            if (e.isIntersecting) { if (autoplay) play() }
             else el.pause?.()
           })
         },
@@ -72,10 +74,10 @@ export default function CinematicVideo({
       )
       io.observe(wrap)
     } catch {
-      play()
+      if (autoplay) play()
     }
     return () => io?.disconnect()
-  }, [showVideo, source])
+  }, [showVideo, source, autoplay])
 
   return (
     <div ref={wrapRef} className={`cvideo ${className}`} {...rest}>
@@ -86,6 +88,8 @@ export default function CinematicVideo({
           aria-hidden="true"
           className={`cvideo__poster${ready && showVideo ? ' is-hidden' : ''}`}
           style={{ objectPosition }}
+          loading={priority ? 'eager' : 'lazy'}
+          decoding="async"
         />
       )}
       {showVideo && (
@@ -98,8 +102,13 @@ export default function CinematicVideo({
           muted
           loop
           playsInline
-          autoPlay
-          preload={priority ? 'auto' : 'metadata'}
+          autoPlay={autoplay}
+          // Never front-load the film. The poster (a real frame) paints
+          // instantly; the multi-MB video downloads only once it actually
+          // plays — on the opening "begin" tap, or when a later scene scrolls
+          // into view. This is what stops the opening from looking "empty"
+          // while a film and the music fight over one connection on load.
+          preload="none"
           onCanPlay={() => setReady(true)}
           onError={() => setFailed(true)}
         />

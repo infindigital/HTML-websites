@@ -96,7 +96,7 @@ export default function TemplateCard({ template, onPreview }) {
             muted
             loop
             playsInline
-            preload="metadata"
+            preload="none"
           />
         ) : (
           <img

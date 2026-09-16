@@ -96,7 +96,7 @@ export function AudioProvider({ children, src, startOffset }) {
 
   return (
     <AudioContext.Provider value={{ isPlaying, ready, play, pause, toggle }}>
-      <audio ref={audioRef} src={audioSrc} preload="auto" playsInline />
+      <audio ref={audioRef} src={audioSrc} preload="none" playsInline />
       {children}
     </AudioContext.Provider>
   )

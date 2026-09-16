@@ -67,7 +67,7 @@ function FilmBlock({ t, flip, onWatch }) {
             muted
             loop
             playsInline
-            preload="metadata"
+            preload="none"
           />
         </motion.span>
         <span className="filmblock__scrim" aria-hidden="true" />
