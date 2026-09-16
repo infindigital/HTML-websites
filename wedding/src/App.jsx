@@ -1,13 +1,28 @@
-import { useEffect } from 'react'
+import { useLayoutEffect } from 'react'
 import { MotionConfig } from 'framer-motion'
 import { Routes, Route, Navigate, useLocation } from 'react-router-dom'
 import Landing from './pages/Landing.jsx'
 import InvitationRoute from './invitation/InvitationRoute.jsx'
 
-// Jump to the top of the page whenever the route changes.
+// Reset the page on every route change, BEFORE the new route paints.
+//
+// useLayoutEffect (not useEffect) matters here: a preview modal / mobile menu
+// locks scrolling with `body { overflow: hidden }` and only releases it in an
+// async cleanup. Opening the live invitation from that modal on desktop could
+// therefore paint the new route while the body was still locked AND still
+// scrolled down the (now unmounted) landing page — which showed up as an
+// "empty" invitation that only appeared after a manual reload. Releasing the
+// lock and jumping to the top synchronously, before paint, closes that gap.
 function ScrollToTop() {
   const { pathname } = useLocation()
-  useEffect(() => window.scrollTo(0, 0), [pathname])
+  useLayoutEffect(() => {
+    if ('scrollRestoration' in window.history) {
+      try { window.history.scrollRestoration = 'manual' } catch { /* noop */ }
+    }
+    try { document.body.style.overflow = '' } catch { /* noop */ }
+    window.scrollTo(0, 0)
+    if (document.documentElement) document.documentElement.scrollTop = 0
+  }, [pathname])
   return null
 }
 
