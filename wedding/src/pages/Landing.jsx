@@ -120,6 +120,8 @@ function HeroPaint({ reduced }) {
     let running = true
     let raf = 0
     let last = null
+    let lastInput = -Infinity // last real pointer input (ms); gates the auto-wander
+    let autoLast = null // previous synthetic point, for a continuous ambient ribbon
     let hue = Math.random() * 360
     let R = 92
     const stamps = []
@@ -150,6 +152,7 @@ function HeroPaint({ reduced }) {
         last = null
         return
       }
+      lastInput = performance.now()
       if (last) {
         const dx = x - last.x
         const dy = y - last.y
@@ -174,6 +177,7 @@ function HeroPaint({ reduced }) {
       const x = e.clientX - r.left
       const y = e.clientY - r.top
       if (!inside(x, y)) return
+      lastInput = performance.now()
       const n = 7
       for (let i = 0; i < n; i += 1) {
         const a = (i / n) * Math.PI * 2
@@ -196,6 +200,30 @@ function HeroPaint({ reduced }) {
       ctx.globalCompositeOperation = 'destination-out'
       ctx.fillStyle = 'rgba(0,0,0,0.03)'
       ctx.fillRect(0, 0, w, h)
+      // ambient auto-wander: with no real pointer driving the trail (touch
+      // devices, or an idle desktop) a slow synthetic point roams the hero, so
+      // the colour is alive on every device — not only under a cursor.
+      const now = performance.now()
+      if (now - lastInput > 1400) {
+        const at = now * 0.001
+        const ax = w * (0.5 + 0.32 * Math.sin(at * 0.45) * Math.cos(at * 0.19))
+        const ay = h * (0.5 + 0.3 * Math.sin(at * 0.57 + 1.1))
+        if (autoLast) {
+          const dx = ax - autoLast.x
+          const dy = ay - autoLast.y
+          const dist = Math.hypot(dx, dy)
+          const n = Math.max(1, Math.floor(dist / 13))
+          for (let i = 1; i <= n; i += 1) {
+            stamps.push({ x: autoLast.x + (dx * i) / n, y: autoLast.y + (dy * i) / n, hue })
+            hue = (hue + 4) % 360
+          }
+        } else {
+          stamps.push({ x: ax, y: ay, hue })
+        }
+        autoLast = { x: ax, y: ay }
+      } else {
+        autoLast = null
+      }
       // stamp new soft coloured blobs where the cursor moved
       ctx.globalCompositeOperation = 'source-over'
       for (let i = 0; i < stamps.length; i += 1) {
@@ -309,14 +337,18 @@ function Hero() {
   const pmy = useMotionValue(0)
   const mx = useSpring(pmx, SPRING.silk)
   const my = useSpring(pmy, SPRING.silk)
+  const lastPointer = useRef(-Infinity) // last real pointer input (ms); gates the ambient sweep
   // The headline tilts as a single plane toward the pointer — a subtle, living
-  // 3D that reacts to the cursor (desktop). Flat for reduced motion / touch.
+  // 3D. On desktop it reacts to the cursor; with no pointer (touch, or an idle
+  // desktop) a slow ambient sweep drives the same springs so the 3D is alive on
+  // every device. Flat only for reduced motion.
   const titleRotX = useTransform(my, [-0.5, 0.5], reduced ? [0, 0] : [9, -9])
   const titleRotY = useTransform(mx, [-0.5, 0.5], reduced ? [0, 0] : [-13, 13])
   const onMove = (e) => {
     if (reduced) return
     const r = ref.current?.getBoundingClientRect()
     if (!r) return
+    lastPointer.current = performance.now()
     pmx.set((e.clientX - r.left) / r.width - 0.5)
     pmy.set((e.clientY - r.top) / r.height - 0.5)
   }
@@ -324,6 +356,26 @@ function Hero() {
     pmx.set(0)
     pmy.set(0)
   }
+
+  // Ambient sweep: when the cursor isn't driving the parallax — every touch
+  // device, and desktop before the pointer arrives / after it leaves — a slow
+  // synthetic path feeds the same springs, so the headline keeps its 3D tilt
+  // and the deck keeps drifting on phones exactly as under a mouse.
+  useEffect(() => {
+    if (reduced) return undefined
+    let raf = 0
+    const loop = (ts) => {
+      if (performance.now() - lastPointer.current > 1400) {
+        const t = ts * 0.001
+        pmx.set(0.4 * Math.sin(t * 0.5))
+        pmy.set(0.3 * Math.sin(t * 0.63 + 0.9))
+      }
+      raf = requestAnimationFrame(loop)
+    }
+    raf = requestAnimationFrame(loop)
+    return () => cancelAnimationFrame(raf)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [reduced])
 
   return (
     <section className="hero" ref={ref} onMouseMove={onMove} onMouseLeave={onLeave}>
