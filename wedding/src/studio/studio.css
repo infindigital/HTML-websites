@@ -201,33 +201,16 @@
 .hero__wash::after { content: ''; position: absolute; inset: 0;
   background-image: radial-gradient(rgba(22,19,15,0.06) 1.1px, transparent 1.4px);
   background-size: 7px 7px; -webkit-mask-image: radial-gradient(70% 60% at 50% 38%, #000 0%, transparent 72%); mask-image: radial-gradient(70% 60% at 50% 38%, #000 0%, transparent 72%); opacity: 0.5; }
-/* interactive colour paint — a canvas the cursor "paints" onto as it moves
-   (JS-driven trail). Sits above the wash, beneath the masthead + deck, and
-   blends as translucent colour stains on the white ground. */
-.hero__paint { position: absolute; inset: 0; z-index: 1; pointer-events: none; mix-blend-mode: multiply; }
 .hero__inner { position: relative; z-index: 2; width: 100%; max-width: 1240px; padding: 0 clamp(20px, 4vw, 40px); }
 .hero__eyebrow { font-family: var(--sans); font-weight: 600; letter-spacing: 0.3em; text-transform: uppercase; font-size: clamp(0.68rem, 1.1vw, 0.82rem); margin-bottom: clamp(18px, 3vw, 30px); }
-/* 3D headline: an outer stage supplies the vanishing point, an inner plane
-   tilts toward the pointer (Framer springs), and each letter hinges up inside
-   that plane on load. transform-style keeps the letters living in 3D. */
-.hero__title-stage { perspective: 1250px; perspective-origin: 50% 40%; }
-.hero__title-3d { transform-style: preserve-3d; will-change: transform; }
+/* headline — a plain, high-contrast Playfair masthead in solid black. Each
+   letter hinges up once on load (the reveal) and then simply sits still: no
+   extrusion, no tilt, no colour. */
 .hero__title {
   font-family: 'Playfair Display', 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
   font-weight: 500; font-optical-sizing: auto;
   font-size: clamp(2.7rem, 8.8vw, 7.2rem); line-height: 1.0; letter-spacing: -0.012em;
-  color: var(--ink); perspective: 1000px; transform-style: preserve-3d;
-  /* creative 3D relief on the letters themselves — a short black/graphite
-     extrusion + soft cast shadow, so the title is JUST BLACK yet still reads as
-     dimensional on every device. Static; it only shifts as the plane tilts to
-     the cursor. */
-  text-shadow:
-    0.012em 0.012em 0 rgba(22, 19, 15, 0.55),
-    0.024em 0.024em 0 rgba(22, 19, 15, 0.46),
-    0.036em 0.036em 0 rgba(22, 19, 15, 0.38),
-    0.05em 0.05em 0 rgba(22, 19, 15, 0.30),
-    0.064em 0.064em 0.01em rgba(22, 19, 15, 0.24),
-    0.03em 0.16em 0.22em rgba(22, 19, 15, 0.20);
+  color: var(--ink);
 }
 .hero__line { display: block; }
 /* on tablet + desktop each designed line stays whole ("Your Invitation," /

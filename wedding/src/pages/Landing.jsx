@@ -1,10 +1,9 @@
-import { Fragment, useRef, useState, useEffect } from 'react'
+import { Fragment, useRef, useState } from 'react'
 import {
   motion,
   useScroll,
   useTransform,
   useSpring,
-  useMotionValue,
   useMotionValueEvent,
   useReducedMotion,
 } from 'framer-motion'
@@ -21,134 +20,6 @@ import { EASE, DUR, SPRING, fadeUp } from '../studio/motion.js'
 //  HERO — an editorial cover. A choreographed load sequence and a masthead
 //  that parallaxes away on scroll, over a living, colour-painted ground.
 // =====================================================================
-
-// A canvas the cursor paints colour onto as it moves through the hero — a
-// playful, rainbow gradient trail that softly dissolves. Blends as translucent
-// stains on the white ground (see .hero__paint). Motion-safe only.
-function HeroPaint({ reduced }) {
-  const ref = useRef(null)
-
-  useEffect(() => {
-    if (reduced) return undefined
-    const canvas = ref.current
-    const parent = canvas?.parentElement
-    if (!canvas || !parent) return undefined
-    const ctx = canvas.getContext('2d')
-    let w = 0
-    let h = 0
-    let running = true
-    let raf = 0
-    let last = null
-    let hue = Math.random() * 360
-    let R = 92
-    const stamps = []
-    const inside = (x, y) => x >= 0 && y >= 0 && x <= w && y <= h
-
-    const resize = () => {
-      const r = parent.getBoundingClientRect()
-      w = r.width
-      h = r.height
-      const dpr = Math.min(window.devicePixelRatio || 1, 2)
-      canvas.width = Math.round(w * dpr)
-      canvas.height = Math.round(h * dpr)
-      canvas.style.width = `${w}px`
-      canvas.style.height = `${h}px`
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
-      // blob size scales with the hero width (tighter on phones)
-      R = Math.max(46, Math.min(96, w * 0.1))
-    }
-    resize()
-    const ro = new ResizeObserver(resize)
-    ro.observe(parent)
-
-    const onMove = (e) => {
-      const r = parent.getBoundingClientRect()
-      const x = e.clientX - r.left
-      const y = e.clientY - r.top
-      if (x < 0 || y < 0 || x > w || y > h) {
-        last = null
-        return
-      }
-      if (last) {
-        const dx = x - last.x
-        const dy = y - last.y
-        const dist = Math.hypot(dx, dy)
-        const n = Math.max(1, Math.floor(dist / 13))
-        for (let i = 1; i <= n; i += 1) {
-          stamps.push({ x: last.x + (dx * i) / n, y: last.y + (dy * i) / n, hue })
-          hue = (hue + 4) % 360
-        }
-      } else {
-        stamps.push({ x, y, hue })
-      }
-      last = { x, y }
-    }
-    const onLeave = () => {
-      last = null
-    }
-    // A tap / press (touch or mouse) bursts a small colourful splash, so the
-    // effect is playful on phones where there is no hovering cursor.
-    const onDown = (e) => {
-      const r = parent.getBoundingClientRect()
-      const x = e.clientX - r.left
-      const y = e.clientY - r.top
-      if (!inside(x, y)) return
-      const n = 7
-      for (let i = 0; i < n; i += 1) {
-        const a = (i / n) * Math.PI * 2
-        const rr = R * 0.5 * Math.random()
-        stamps.push({ x: x + Math.cos(a) * rr, y: y + Math.sin(a) * rr, hue })
-        hue = (hue + 20) % 360
-      }
-      stamps.push({ x, y, hue })
-      last = { x, y }
-    }
-    parent.addEventListener('pointermove', onMove)
-    parent.addEventListener('pointerdown', onDown)
-    parent.addEventListener('pointerleave', onLeave)
-    parent.addEventListener('pointerup', onLeave)
-    parent.addEventListener('pointercancel', onLeave)
-
-    const tick = () => {
-      if (!running) return
-      // fade the existing paint gently back toward transparent (reveals white)
-      ctx.globalCompositeOperation = 'destination-out'
-      ctx.fillStyle = 'rgba(0,0,0,0.03)'
-      ctx.fillRect(0, 0, w, h)
-      // stamp new soft coloured blobs where the cursor moved
-      ctx.globalCompositeOperation = 'source-over'
-      for (let i = 0; i < stamps.length; i += 1) {
-        const s = stamps[i]
-        const g = ctx.createRadialGradient(s.x, s.y, 0, s.x, s.y, R)
-        const col = `hsla(${s.hue}, 92%, 58%,`
-        g.addColorStop(0, `${col}0.24)`)
-        g.addColorStop(0.5, `${col}0.10)`)
-        g.addColorStop(1, `${col}0)`)
-        ctx.fillStyle = g
-        ctx.beginPath()
-        ctx.arc(s.x, s.y, R, 0, Math.PI * 2)
-        ctx.fill()
-      }
-      stamps.length = 0
-      raf = requestAnimationFrame(tick)
-    }
-    raf = requestAnimationFrame(tick)
-
-    return () => {
-      running = false
-      cancelAnimationFrame(raf)
-      ro.disconnect()
-      parent.removeEventListener('pointermove', onMove)
-      parent.removeEventListener('pointerdown', onDown)
-      parent.removeEventListener('pointerleave', onLeave)
-      parent.removeEventListener('pointerup', onLeave)
-      parent.removeEventListener('pointercancel', onLeave)
-    }
-  }, [reduced])
-
-  if (reduced) return null
-  return <canvas ref={ref} className="hero__paint" aria-hidden="true" />
-}
 
 // -----------------------------------------------------------------------
 //  HERO TITLE — a cinematic, editorial reveal. Each word rises out of a soft
@@ -223,33 +94,10 @@ function Hero() {
   const innerOpacity = useTransform(scrollYProgress, [0, 0.75], [1, reduced ? 1 : 0])
   const washY = useTransform(scrollYProgress, [0, 1], [0, reduced ? 0 : -60])
 
-  // Pointer parallax (desktop only; springed for weight).
-  const pmx = useMotionValue(0)
-  const pmy = useMotionValue(0)
-  const mx = useSpring(pmx, SPRING.silk)
-  const my = useSpring(pmy, SPRING.silk)
-  // The headline tilts as a single plane toward the pointer — a subtle, living
-  // 3D that reacts to the cursor on desktop and never drifts on its own. The
-  // letters' extruded relief (see .hero__title) is always present, so the
-  // headline reads as dimensional on touch devices too. Flat for reduced motion.
-  const titleRotX = useTransform(my, [-0.5, 0.5], reduced ? [0, 0] : [9, -9])
-  const titleRotY = useTransform(mx, [-0.5, 0.5], reduced ? [0, 0] : [-13, 13])
-  const onMove = (e) => {
-    if (reduced) return
-    const r = ref.current?.getBoundingClientRect()
-    if (!r) return
-    pmx.set((e.clientX - r.left) / r.width - 0.5)
-    pmy.set((e.clientY - r.top) / r.height - 0.5)
-  }
-  const onLeave = () => {
-    pmx.set(0)
-    pmy.set(0)
-  }
-
   return (
-    <section className="hero" ref={ref} onMouseMove={onMove} onMouseLeave={onLeave}>
+    <section className="hero" ref={ref}>
+      {/* colour field behind the masthead: static — it drifts only with scroll */}
       <motion.div className="hero__wash" aria-hidden="true" style={{ y: washY }} />
-      <HeroPaint reduced={reduced} />
       <motion.div className="hero__inner" style={{ y: titleY, opacity: innerOpacity }}>
         <motion.p
           className="hero__eyebrow"
@@ -260,11 +108,7 @@ function Hero() {
           The Digital Invitation Studio
         </motion.p>
 
-        <div className="hero__title-stage">
-          <motion.div className="hero__title-3d" style={{ rotateX: titleRotX, rotateY: titleRotY }}>
-            <HeroTitle reduced={reduced} />
-          </motion.div>
-        </div>
+        <HeroTitle reduced={reduced} />
 
         <motion.p
           className="hero__sub"
