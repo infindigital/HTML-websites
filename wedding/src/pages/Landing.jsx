@@ -196,15 +196,14 @@ function HeroPaint({ reduced }) {
       ctx.globalCompositeOperation = 'destination-out'
       ctx.fillStyle = 'rgba(0,0,0,0.03)'
       ctx.fillRect(0, 0, w, h)
-      // stamp new soft graphite blobs where the cursor moved — a subtle,
-      // monochrome "smudge" on the ivory ground (no colour, kept premium).
+      // stamp new soft coloured blobs where the cursor moved
       ctx.globalCompositeOperation = 'source-over'
       for (let i = 0; i < stamps.length; i += 1) {
         const s = stamps[i]
         const g = ctx.createRadialGradient(s.x, s.y, 0, s.x, s.y, R)
-        const col = 'rgba(38, 36, 32,'
-        g.addColorStop(0, `${col}0.09)`)
-        g.addColorStop(0.5, `${col}0.04)`)
+        const col = `hsla(${s.hue}, 92%, 58%,`
+        g.addColorStop(0, `${col}0.24)`)
+        g.addColorStop(0.5, `${col}0.10)`)
         g.addColorStop(1, `${col}0)`)
         ctx.fillStyle = g
         ctx.beginPath()
@@ -238,37 +237,54 @@ function HeroPaint({ reduced }) {
 //  collapses it to a clean fade with no blur or movement, and there is no
 //  layout shift (only transform / filter / opacity animate).
 // -----------------------------------------------------------------------
+const HERO_LABEL = 'Your Invitation, One Beautiful Link'
 const HERO_LINES = [
-  ['Your', 'Invitation,'],
-  ['One', <em key="beautiful" className="hero__em">Beautiful</em>, 'Link'],
+  [{ t: 'Your' }, { t: 'Invitation,' }],
+  [{ t: 'One' }, { t: 'Beautiful', em: true }, { t: 'Link' }],
 ]
 
 function HeroTitle({ reduced }) {
+  // A per-letter cinematic cascade: each character hinges up from a tilt,
+  // rising out of a soft blur into focus, in sequence across the headline.
+  // Runs once on load; reduced motion collapses it to a clean per-letter fade
+  // with no 3D or blur. Only transforms/filter/opacity animate, so there is no
+  // layout shift, and the H1's accessible name is provided verbatim.
   const container = {
     hidden: {},
-    show: { transition: { staggerChildren: 0.11, delayChildren: 0.3 } },
+    show: { transition: { staggerChildren: 0.026, delayChildren: 0.32 } },
   }
-  const word = reduced
-    ? { hidden: { opacity: 0 }, show: { opacity: 1, transition: { duration: 0.6, ease: EASE.enter } } }
+  const charV = reduced
+    ? { hidden: { opacity: 0 }, show: { opacity: 1, transition: { duration: 0.5, ease: EASE.enter } } }
     : {
-        hidden: { opacity: 0, y: '0.42em', filter: 'blur(9px)', scale: 1.05 },
+        hidden: { opacity: 0, y: '0.72em', rotateX: -82, filter: 'blur(7px)', transformPerspective: 720 },
         show: {
           opacity: 1,
           y: 0,
+          rotateX: 0,
           filter: 'blur(0px)',
-          scale: 1,
-          transition: { duration: 1.05, ease: EASE.editorial },
+          transformPerspective: 720,
+          transition: { duration: 0.85, ease: EASE.editorial },
         },
       }
   return (
-    <motion.h1 className="hero__title" variants={container} initial="hidden" animate="show">
+    <motion.h1
+      className="hero__title"
+      variants={container}
+      initial="hidden"
+      animate="show"
+      aria-label={HERO_LABEL}
+    >
       {HERO_LINES.map((line, i) => (
-        <span className="hero__line" key={i}>
+        <span className="hero__line" key={i} aria-hidden="true">
           {line.map((w, j) => (
             <Fragment key={j}>
-              <motion.span className="hero__word" variants={word}>
-                {w}
-              </motion.span>
+              <span className={`hero__word${w.em ? ' hero__em' : ''}`}>
+                {[...w.t].map((c, k) => (
+                  <motion.span className="hero__char" key={k} variants={charV}>
+                    {c}
+                  </motion.span>
+                ))}
+              </span>
               {j < line.length - 1 ? ' ' : null}
             </Fragment>
           ))}
