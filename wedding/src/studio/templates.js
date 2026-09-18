@@ -101,7 +101,7 @@ export const TEMPLATES = [
       'An invitation wrapped in emerald shadows, warm golden light and timeless geometry. A refined, atmospheric welcome to a celebration remembered before it even begins.',
     demoCouple: { groom: 'Rayyan', bride: 'Inaya' }, monogram: 'R ✦ I',
     engine: 'live', engineSkin: EMERALD, audioUrl: '/song.mp3', musicTitle: 'Soft Oud & Strings',
-    previewVideo: '/assets/noor.mp4', previewVideoMobile: '/assets/noor-m.mp4', poster: '/assets/noor-poster.jpg',
+    previewVideo: '/assets/Bride_and_groom_in_wedding_20260918185535.mp4', previewVideoMobile: '/assets/Bride_and_groom_in_wedding_20260918185535.mp4', poster: '/assets/noor-film-poster.jpg',
     event: { weekday: 'Saturday', day: '23', month: 'January', year: '2027', venue: 'The Royal Palace', time: '7:00 PM', iso: '2027-01-23T19:00:00+05:30', city: 'Hyderabad, Telangana', mapQuery: 'Jubilee Hills, Hyderabad, Telangana' },
     highlights: ['Islamic geometry & arches', 'Lantern-gold light', 'Emerald & champagne palette'],
   }),

@@ -249,21 +249,21 @@ function HeroTitle({ reduced }) {
   // Runs once on load; reduced motion collapses it to a clean per-letter fade
   // with no 3D or blur. Only transforms/filter/opacity animate, so there is no
   // layout shift, and the H1's accessible name is provided verbatim.
-  const container = {
-    hidden: {},
-    show: { transition: { staggerChildren: 0.026, delayChildren: 0.32 } },
-  }
+  const container = reduced
+    ? { hidden: {}, show: { transition: { staggerChildren: 0, delayChildren: 0 } } }
+    : { hidden: {}, show: { transition: { staggerChildren: 0.026, delayChildren: 0.32 } } }
   const charV = reduced
-    ? { hidden: { opacity: 0 }, show: { opacity: 1, transition: { duration: 0.5, ease: EASE.enter } } }
+    ? { hidden: { opacity: 0 }, show: { opacity: 1, transition: { duration: 0.35, ease: EASE.enter } } }
     : {
-        hidden: { opacity: 0, y: '0.72em', rotateX: -82, filter: 'blur(7px)', transformPerspective: 720 },
+        hidden: { opacity: 0, y: '0.7em', z: -150, rotateX: -78, filter: 'blur(8px)', transformPerspective: 900 },
         show: {
           opacity: 1,
           y: 0,
+          z: 0,
           rotateX: 0,
           filter: 'blur(0px)',
-          transformPerspective: 720,
-          transition: { duration: 0.85, ease: EASE.editorial },
+          transformPerspective: 900,
+          transition: { duration: 0.9, ease: EASE.editorial },
         },
       }
   return (
@@ -309,6 +309,10 @@ function Hero() {
   const pmy = useMotionValue(0)
   const mx = useSpring(pmx, SPRING.silk)
   const my = useSpring(pmy, SPRING.silk)
+  // The headline tilts as a single plane toward the pointer — a subtle, living
+  // 3D that reacts to the cursor (desktop). Flat for reduced motion / touch.
+  const titleRotX = useTransform(my, [-0.5, 0.5], reduced ? [0, 0] : [9, -9])
+  const titleRotY = useTransform(mx, [-0.5, 0.5], reduced ? [0, 0] : [-13, 13])
   const onMove = (e) => {
     if (reduced) return
     const r = ref.current?.getBoundingClientRect()
@@ -335,7 +339,11 @@ function Hero() {
           The Digital Invitation Studio
         </motion.p>
 
-        <HeroTitle reduced={reduced} />
+        <div className="hero__title-stage">
+          <motion.div className="hero__title-3d" style={{ rotateX: titleRotX, rotateY: titleRotY }}>
+            <HeroTitle reduced={reduced} />
+          </motion.div>
+        </div>
 
         <motion.p
           className="hero__sub"

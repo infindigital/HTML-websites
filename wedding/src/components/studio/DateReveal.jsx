@@ -10,6 +10,12 @@ export default function DateReveal({ event, couple, intro = 'Together with their
   if (!event) return null
   const { weekday, day, month, year, venue, time } = event
 
+  // Couple names get the fashion-editorial treatment: two names set in Italiana
+  // caps, joined by a distinctive italic ampersand. Falls back to the raw string
+  // if it is not a two-name "A & B" form.
+  const names = couple ? couple.split(/\s*&\s*/) : []
+  const hasPair = names.length === 2
+
   const parent = {
     hidden: {},
     show: { transition: { staggerChildren: reduce ? 0 : 0.4, delayChildren: reduce ? 0 : 0.45 } },
@@ -26,7 +32,19 @@ export default function DateReveal({ event, couple, intro = 'Together with their
   return (
     <motion.div className="invfilm" variants={parent} initial="hidden" animate="show">
       {intro && <motion.p className="invfilm__intro" variants={rise}>{intro}</motion.p>}
-      {couple && <motion.p className="invfilm__couple" variants={rise}>{couple}</motion.p>}
+      {couple && (
+        <motion.p className="invfilm__couple" variants={rise} aria-label={couple}>
+          {hasPair ? (
+            <>
+              <span className="invfilm__name">{names[0]}</span>
+              <span className="invfilm__amp" aria-hidden="true">&</span>
+              <span className="invfilm__name">{names[1]}</span>
+            </>
+          ) : (
+            couple
+          )}
+        </motion.p>
+      )}
       <motion.p className="invfilm__eyebrow" variants={rise}>Save the Date</motion.p>
       <motion.span className="invfilm__line" variants={draw} aria-hidden="true" />
       <div className="invfilm__date">

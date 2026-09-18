@@ -21,8 +21,8 @@ const studio = {
   // --- WhatsApp (primary conversion) ----------------------------------
   //  International format, digits only, no "+", no spaces.
   //  Example for India: 919900851873
-  //  >>> PLACEHOLDER: replace with your real WhatsApp business number. <<<
-  whatsappNumber: '910000000000', //  TODO: your WhatsApp business number
+  //  International format, digits only, no "+". (India country code 91 prefixed.)
+  whatsappNumber: '918073302248',
   // Where enquiries without a specific collection go (hero / final CTA / nav).
   whatsappGeneralMessage:
     'Hi, I would like to order an IN/FIN Invite for ₹499. I would like to know more about the available collections.',
