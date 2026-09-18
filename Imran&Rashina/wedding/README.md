@@ -134,10 +134,13 @@ This is a static Vite site — it deploys with zero configuration.
 
 1. Push this repo to GitHub.
 2. In Vercel, **New Project → Import** the repo.
-3. Set **Root Directory** to `wedding/` (this folder). Vercel auto-detects Vite:
+3. Set **Root Directory** to `Imran&Rashina/wedding` (this folder's path in the
+   repo). Vercel auto-detects Vite:
    - Build command: `npm run build`
    - Output directory: `dist`
-4. **Deploy** — you get a shareable `https://…vercel.app` link.
+4. Under **Settings → Git**, set the **Production Branch** to the branch that
+   holds this project.
+5. **Deploy** — you get a shareable `https://…vercel.app` link.
 
 **Option B — CLI**
 
