@@ -9,23 +9,26 @@
 
 const studio = {
   // --- Brand -----------------------------------------------------------
-  brandName: 'Wedora Films',
-  brandFull: 'Wedora Films',
-  tagline: 'Cinematic Wedding Invitations',
+  //  The slash is part of the identity: IN / FIN. Rendered as a wordmark in
+  //  the navbar and footer (see <Wordmark />).
+  brandName: 'IN/FIN Invite',
+  brandFull: 'IN/FIN Invite',
+  tagline: 'Beautiful Digital Wedding Invitations',
   // One-line positioning used in the footer / SEO description.
   positioning:
-    'Premium cinematic wedding invitations, designed around your celebration and personalised with your names.',
+    'Beautiful digital wedding invitations, designed to be opened, shared and remembered through one link.',
 
   // --- WhatsApp (primary conversion) ----------------------------------
   //  International format, digits only, no "+", no spaces.
   //  Example for India: 919900851873
+  //  >>> PLACEHOLDER: replace with your real WhatsApp business number. <<<
   whatsappNumber: '910000000000', //  TODO: your WhatsApp business number
-  // Where enquiries without a specific template go (hero / final CTA).
+  // Where enquiries without a specific collection go (hero / final CTA / nav).
   whatsappGeneralMessage:
-    "Hi! I'd like to know more about your cinematic wedding invitations.",
+    'Hi, I would like to order an IN/FIN Invite for ₹499. I would like to know more about the available collections.',
 
   // --- Contact / social (optional, shown in footer) -------------------
-  email: 'hello@example.com', //  TODO
+  email: '', //  TODO e.g. 'hello@infininvite.com'
   instagram: '', //  TODO e.g. 'https://instagram.com/yourstudio'
 
   // --- Pricing --------------------------------------------------------

@@ -1,17 +1,17 @@
 import { useEffect, useRef } from 'react'
-import { Link } from 'react-router-dom'
 import { templatePrice } from '../../studio/templates.js'
-import { templateOrderUrl } from '../../studio/whatsapp.js'
 import { cssVars } from '../../studio/themes.js'
+import { OrderButton } from './OrderButton.jsx'
 
 const reduceMotion = () =>
   typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
-// A living, video-first card. The film plays (muted, looping) while the card is
-// in view; the whole card tilts in 3D toward the pointer; tapping the film opens
-// the full interactive invitation, and "Watch film" opens the cinematic player.
-export default function TemplateCard({ template, onPreview }) {
+// A living collection card. The preview plays (muted, looping) while the card is
+// in view; the whole card tilts in 3D toward the pointer; "View Invitation"
+// opens the fullscreen preview, exactly what a guest sees when they open the link.
+export default function TemplateCard({ template, onView, index = 0 }) {
   const price = templatePrice(template)
+  const num = String(index + 1).padStart(2, '0')
   const cardRef = useRef(null)
   const videoRef = useRef(null)
   const mediaRef = useRef(null)
@@ -81,12 +81,13 @@ export default function TemplateCard({ template, onPreview }) {
       onMouseMove={onMove}
       onMouseLeave={onLeave}
     >
-      <Link
+      <button
+        type="button"
         className="card__media"
-        to={template.inviteHref}
-        aria-label={`Open the ${template.title} invitation`}
+        onClick={() => onView(template)}
+        aria-label={`View the ${template.title} invitation`}
       >
-        <span className="card__badge">{template.religionLabel}</span>
+        <span className="card__badge">{num}</span>
         {hasVideo ? (
           <video
             ref={(el) => {
@@ -113,7 +114,7 @@ export default function TemplateCard({ template, onPreview }) {
         )}
         <span className="card__scrim" aria-hidden="true" />
         <span className="card__play">
-          <span className="card__play-icon" aria-hidden="true">✦</span> Open invitation
+          <span className="card__play-icon" aria-hidden="true">✦</span> View invitation
         </span>
         <span className="card__dur">{template.duration}</span>
         {ev && (
@@ -121,7 +122,7 @@ export default function TemplateCard({ template, onPreview }) {
             {ev.day} {ev.month} {ev.year}
           </span>
         )}
-      </Link>
+      </button>
 
       <div className="card__body">
         <div className="card__head">
@@ -129,18 +130,12 @@ export default function TemplateCard({ template, onPreview }) {
           <span className="card__price">{price.display}</span>
         </div>
         <p className="card__sub">{template.subtitle}</p>
-        <p className="card__meta">
-          <span>♫ {template.music.title}</span>
-          <span className="card__dot">•</span>
-          <span>Cinematic film</span>
-        </p>
+        {template.styleLabel && <p className="card__style">{template.styleLabel}</p>}
         <div className="card__actions">
-          <button type="button" className="btn btn--ghost" onClick={() => onPreview(template)}>
-            ▶ Open invitation
+          <button type="button" className="btn btn--ghost" onClick={() => onView(template)}>
+            View Invitation
           </button>
-          <a className="btn btn--gold" href={templateOrderUrl(template)} target="_blank" rel="noreferrer">
-            Order · {price.display}
-          </a>
+          <OrderButton template={template} label={`Order ${price.display}`} />
         </div>
       </div>
     </article>

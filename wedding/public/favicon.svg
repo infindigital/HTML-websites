@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="IN/FIN Invite">
+  <rect width="64" height="64" rx="14" fill="#1b1a18"/>
+  <!-- the slash: the core of the IN / FIN identity -->
+  <path d="M40.5 15 L27.5 49" stroke="#f0ece3" stroke-width="4.5" stroke-linecap="round"/>
+  <!-- I marks flanking the slash -->
+  <rect x="15.5" y="24" width="4" height="16" rx="2" fill="#8c8275"/>
+  <rect x="44.5" y="24" width="4" height="16" rx="2" fill="#8c8275"/>
+</svg>

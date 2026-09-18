@@ -16,14 +16,13 @@ export function generalOrderUrl() {
   return encode(studio.whatsappNumber, studio.whatsappGeneralMessage)
 }
 
-// Template-specific order - pre-fills a tidy message.
+// Collection-specific order - pre-fills a tidy, brand-voiced message that
+// names the chosen collection and the ₹499 price.
 export function templateOrderUrl(template) {
   if (!template) return generalOrderUrl()
   const price = templatePrice(template).display
   const message =
-    `Hi ${studio.brandName}! I'd like to order this wedding invitation:\n\n` +
-    `• Design: ${template.title} · ${template.subtitle}\n` +
-    `• Price: ${price}\n\n` +
-    `Please share the next steps for personalising it with our names and details.`
+    `Hi, I would like to order the ${template.title} invitation from ${studio.brandName} for ${price}. ` +
+    `Please share the next steps to personalise it with our names and details.`
   return encode(studio.whatsappNumber, message)
 }

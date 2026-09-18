@@ -1,16 +1,19 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import studio from '../../studio/config.js'
-import { generalOrderUrl } from '../../studio/whatsapp.js'
 import { scrollToId } from '../../studio/scroll.js'
 import { MagneticButton } from './Reveal.jsx'
+import { OrderButton } from './OrderButton.jsx'
+import Wordmark from './Wordmark.jsx'
 
 const LINKS = [
-  { id: 'templates', label: 'Collection' },
-  { id: 'films', label: 'Films' },
-  { id: 'how', label: 'Process' },
-  { id: 'faq', label: 'FAQ' },
+  { id: 'templates', label: 'Collections' },
+  { id: 'how', label: 'How It Works' },
+  { id: 'about', label: 'About' },
+  { id: 'contact', label: 'Contact' },
 ]
+
+const ORDER_LABEL = `Order ${studio.currency}${studio.price}`
 
 export default function Navbar() {
   const [solid, setSolid] = useState(false)
@@ -54,9 +57,8 @@ export default function Navbar() {
   return (
     <header className={`nav ${solid ? 'is-solid' : ''} ${hidden && !open ? 'is-hidden' : ''}`}>
       <div className="wrap nav__inner">
-        <Link to="/" className="nav__brand" onClick={() => setOpen(false)}>
-          <span className="nav__brand-mark spark">✦</span>
-          <span className="nav__brand-name">{studio.brandName}</span>
+        <Link to="/" className="nav__brand" onClick={() => setOpen(false)} aria-label={studio.brandName}>
+          <Wordmark />
         </Link>
 
         <nav className="nav__links" aria-label="Primary">
@@ -66,9 +68,7 @@ export default function Navbar() {
             </button>
           ))}
           <MagneticButton>
-            <a className="btn btn--ink nav__cta" href={generalOrderUrl()} target="_blank" rel="noreferrer">
-              Order
-            </a>
+            <OrderButton className="nav__cta" label={ORDER_LABEL} />
           </MagneticButton>
         </nav>
 
@@ -97,15 +97,12 @@ export default function Navbar() {
             </button>
           ))}
         </div>
-        <a
-          className="btn btn--ink btn--lg nav__overlay-cta"
-          href={generalOrderUrl()}
-          target="_blank"
-          rel="noreferrer"
+        <OrderButton
+          className="nav__overlay-cta"
+          large
+          label={ORDER_LABEL}
           onClick={() => setOpen(false)}
-        >
-          Order on WhatsApp
-        </a>
+        />
         <div className="nav__overlay-foot">
           <span>{studio.brandName}</span>
           <span>{studio.currency}{studio.price} · Personalised</span>

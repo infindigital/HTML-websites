@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect } from 'react'
+import { Fragment, useRef, useState, useEffect } from 'react'
 import {
   motion,
   useScroll,
@@ -11,12 +11,11 @@ import {
 import { Link } from 'react-router-dom'
 import StudioLayout from '../components/studio/StudioLayout.jsx'
 import TemplateGrid from '../components/studio/TemplateGrid.jsx'
-import VideoShowcase from '../components/studio/VideoShowcase.jsx'
 import { LineReveal, Reveal, Stagger, StaggerItem, MagneticButton } from '../components/studio/Reveal.jsx'
+import { OrderButton } from '../components/studio/OrderButton.jsx'
 import { TEMPLATES } from '../studio/templates.js'
 import { cssVars } from '../studio/themes.js'
 import studio from '../studio/config.js'
-import { generalOrderUrl } from '../studio/whatsapp.js'
 import { scrollToId } from '../studio/scroll.js'
 import { EASE, DUR, SPRING, fadeUp } from '../studio/motion.js'
 
@@ -72,11 +71,10 @@ function DeckCard({ t, cfg, index, progress, mx, my, reduced, hovered, setHovere
           <img
             className="deckcard__img"
             src={t.poster}
-            alt={`${t.title}, ${t.subtitle}`}
+            alt={`${t.title}, ${t.subtitle} digital wedding invitation`}
             loading="eager"
             decoding="async"
           />
-          <span className="deckcard__tag">{t.religionLabel}</span>
         </MLink>
       </motion.div>
     </motion.div>
@@ -198,14 +196,15 @@ function HeroPaint({ reduced }) {
       ctx.globalCompositeOperation = 'destination-out'
       ctx.fillStyle = 'rgba(0,0,0,0.03)'
       ctx.fillRect(0, 0, w, h)
-      // stamp new soft coloured blobs where the cursor moved
+      // stamp new soft graphite blobs where the cursor moved — a subtle,
+      // monochrome "smudge" on the ivory ground (no colour, kept premium).
       ctx.globalCompositeOperation = 'source-over'
       for (let i = 0; i < stamps.length; i += 1) {
         const s = stamps[i]
         const g = ctx.createRadialGradient(s.x, s.y, 0, s.x, s.y, R)
-        const col = `hsla(${s.hue}, 92%, 58%,`
-        g.addColorStop(0, `${col}0.24)`)
-        g.addColorStop(0.5, `${col}0.10)`)
+        const col = 'rgba(38, 36, 32,'
+        g.addColorStop(0, `${col}0.09)`)
+        g.addColorStop(0.5, `${col}0.04)`)
         g.addColorStop(1, `${col}0)`)
         ctx.fillStyle = g
         ctx.beginPath()
@@ -231,6 +230,52 @@ function HeroPaint({ reduced }) {
 
   if (reduced) return null
   return <canvas ref={ref} className="hero__paint" aria-hidden="true" />
+}
+
+// -----------------------------------------------------------------------
+//  HERO TITLE — a cinematic, editorial reveal. Each word rises out of a soft
+//  blur into focus, staggered, once on page load. Motion-safe: reduced motion
+//  collapses it to a clean fade with no blur or movement, and there is no
+//  layout shift (only transform / filter / opacity animate).
+// -----------------------------------------------------------------------
+const HERO_LINES = [
+  ['Your', 'Invitation,'],
+  ['One', <em key="beautiful" className="hero__em">Beautiful</em>, 'Link'],
+]
+
+function HeroTitle({ reduced }) {
+  const container = {
+    hidden: {},
+    show: { transition: { staggerChildren: 0.11, delayChildren: 0.3 } },
+  }
+  const word = reduced
+    ? { hidden: { opacity: 0 }, show: { opacity: 1, transition: { duration: 0.6, ease: EASE.enter } } }
+    : {
+        hidden: { opacity: 0, y: '0.42em', filter: 'blur(9px)', scale: 1.05 },
+        show: {
+          opacity: 1,
+          y: 0,
+          filter: 'blur(0px)',
+          scale: 1,
+          transition: { duration: 1.05, ease: EASE.editorial },
+        },
+      }
+  return (
+    <motion.h1 className="hero__title" variants={container} initial="hidden" animate="show">
+      {HERO_LINES.map((line, i) => (
+        <span className="hero__line" key={i}>
+          {line.map((w, j) => (
+            <Fragment key={j}>
+              <motion.span className="hero__word" variants={word}>
+                {w}
+              </motion.span>
+              {j < line.length - 1 ? ' ' : null}
+            </Fragment>
+          ))}
+        </span>
+      ))}
+    </motion.h1>
+  )
 }
 
 function Hero() {
@@ -271,44 +316,34 @@ function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: DUR.base, ease: EASE.enter, delay: 0.15 }}
         >
-          <span className="spark">{studio.brandName}</span>&nbsp;&nbsp;·&nbsp;&nbsp;Presents
+          The Digital Invitation Studio
         </motion.p>
 
-        <LineReveal
-          as="h1"
-          className="hero__title"
-          trigger="load"
-          delay={0.28}
-          each={0.14}
-          lines={['The Art', <>
-            <em>of the</em> Invitation
-          </>]}
-        />
+        <HeroTitle reduced={reduced} />
 
         <motion.p
           className="hero__sub"
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: DUR.base, ease: EASE.enter, delay: 0.72 }}
+          transition={{ duration: DUR.base, ease: EASE.enter, delay: 0.95 }}
         >
-          Cinematic wedding invitations, personalised with your names, scored with
-          music and delivered ready to share, from <strong>{studio.currency}{studio.price}</strong>.
+          Beautifully crafted digital invitations, made to be opened, shared and remembered.
         </motion.p>
 
         <motion.div
           className="hero__cta"
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: DUR.base, ease: EASE.enter, delay: 0.86 }}
+          transition={{ duration: DUR.base, ease: EASE.enter, delay: 1.08 }}
         >
           <MagneticButton>
             <button type="button" className="btn btn--ink btn--lg" onClick={() => scrollToId('templates')}>
-              View the collection
+              Explore the Collections
             </button>
           </MagneticButton>
-          <a className="hero__cta-text" href={generalOrderUrl()} target="_blank" rel="noreferrer">
-            Order on WhatsApp →
-          </a>
+          <MagneticButton>
+            <OrderButton large label={`Order ${studio.currency}${studio.price}`} />
+          </MagneticButton>
         </motion.div>
       </motion.div>
 
@@ -336,9 +371,9 @@ function Hero() {
 //  past it, so the page feels like it moves around the composition.
 // =====================================================================
 const STEPS = [
-  { n: '01', t: 'Choose your design', d: 'Browse the collection and preview any invitation, with its film and score. Every world is fully personalised for your celebration.' },
-  { n: '02', t: 'Send your details', d: 'Tap Order on WhatsApp and share your names, date and venue. No forms, no checkout, just a conversation.' },
-  { n: '03', t: 'Receive your invitation', d: 'We weave your details into the design and send it back, ready to share on WhatsApp, Instagram and beyond.' },
+  { n: '01', t: 'Choose Your Invitation', d: 'Explore the collection and select the design that fits your celebration. Preview exactly what your guests will see.' },
+  { n: '02', t: 'Make It Yours', d: 'Share your names, date and venue on WhatsApp and we personalise the invitation. No forms, no checkout, just a conversation.' },
+  { n: '03', t: 'Share One Beautiful Link', d: 'Receive your invitation as a single link and share it with your guests. They open the link to experience your invitation.' },
 ]
 
 function HowItWorks() {
@@ -355,12 +390,12 @@ function HowItWorks() {
     <section id="how" className="sec how" ref={ref}>
       <div className="wrap how__grid">
         <div className="how__rail">
-          <Reveal className="sec__eyebrow" as="p">The process</Reveal>
+          <Reveal className="sec__eyebrow" as="p">How it works</Reveal>
           <LineReveal
             as="h2"
             className="sec__title how__title"
             each={0.12}
-            lines={['Three steps to', <em key="e">your invitation.</em>]}
+            lines={['From Idea to', <em key="e">Invitation Link.</em>]}
           />
           <div className="how__track" aria-hidden="true">
             <span className="how__track-line" />
@@ -394,18 +429,19 @@ function HowItWorks() {
 // =====================================================================
 function WhyUs() {
   const feats = [
-    { t: 'Cinematic design', d: 'Motion, light and typography that feel like a wedding film.' },
-    { t: 'Music included', d: 'Every invitation carries a score that sets the mood.' },
+    { t: 'One beautiful link', d: 'Your finished invitation arrives as a single link, ready to share with every guest.' },
+    { t: 'Editorial design', d: 'Motion, light and typography, crafted with the care of a wedding film.' },
+    { t: 'Music included', d: 'Every invitation carries a score that sets the mood the moment it opens.' },
     { t: 'Personalised', d: 'Your names, date and venue woven into the design.' },
-    { t: 'WhatsApp ordering', d: 'No complicated checkout, just order and personalise on chat.' },
+    { t: 'WhatsApp ordering', d: 'No complicated checkout. Order and personalise over a simple chat.' },
     { t: 'One simple price', d: `Every design is a flat ${studio.currency}${studio.price}. No tiers, no surprises.` },
   ]
   return (
-    <section className="sec why sec--tint">
+    <section id="about" className="sec why sec--tint">
       <span className="sec__glow sec__glow--rose" aria-hidden="true" />
       <div className="wrap">
         <div className="sec__head">
-          <Reveal className="sec__eyebrow" as="p">Why Wedora</Reveal>
+          <Reveal className="sec__eyebrow" as="p">Why IN/FIN Invite</Reveal>
           <LineReveal
             as="h2"
             className="sec__title"
@@ -433,11 +469,12 @@ function WhyUs() {
 // =====================================================================
 function FAQ() {
   const qs = [
-    { q: 'How do I order?', a: 'Choose a design, tap “Order on WhatsApp”, and share your names, date and venue. We personalise the invitation and send it back to you.' },
-    { q: 'How much does it cost?', a: `Every design is a flat ${studio.currency}${studio.price}, personalised with your details and delivered ready to share.` },
+    { q: 'What exactly do I receive?', a: 'A beautiful digital invitation experience, delivered as one link. You share the link with your guests, and they open it to experience your invitation.' },
+    { q: 'How do I order?', a: `Choose a design, tap Order ${studio.currency}${studio.price}, and share your names, date and venue on WhatsApp. We personalise the invitation and send you your link.` },
+    { q: 'How much does it cost?', a: `Every design is a flat ${studio.currency}${studio.price}, personalised with your details and delivered as a link ready to share.` },
     { q: 'Can you change the names, date and venue?', a: 'Yes, every invitation is fully personalised. The demo names you see are placeholders; your details take their place.' },
     { q: 'Do the invitations include music?', a: 'Yes, each design comes with a score. Music never plays until the viewer chooses to start it.' },
-    { q: 'How do I share the finished invitation?', a: 'You receive a link you can send on WhatsApp and social media. It opens beautifully on phones and laptops.' },
+    { q: 'How do I share the finished invitation?', a: 'You receive one link to share on WhatsApp, Instagram and beyond. It opens beautifully on phones and laptops.' },
   ]
   return (
     <section id="faq" className="sec faq">
@@ -475,17 +512,37 @@ function FinalCTA() {
       <motion.div className="wrap wrap--narrow" style={{ scale }}>
         <LineReveal as="h2" className="final__title" lines={['Your story deserves', <em key="e">an entrance.</em>]} />
         <Reveal className="final__text" as="p" delay={0.1}>
-          Choose your design, send us your details, and let your celebration open like a film, from {studio.currency}{studio.price}.
+          Choose your design, share your details, and receive one beautiful link to open your celebration, for {studio.currency}{studio.price}.
         </Reveal>
         <Reveal delay={0.18}>
           <MagneticButton>
-            <a href={generalOrderUrl()} className="btn btn--gold btn--lg" target="_blank" rel="noreferrer">
-              Start on WhatsApp
-            </a>
+            <OrderButton large label={`Order ${studio.currency}${studio.price}`} />
           </MagneticButton>
         </Reveal>
       </motion.div>
     </motion.section>
+  )
+}
+
+// =====================================================================
+//  VALUE BAND — a quiet editorial strip that states the model plainly:
+//  the product is a link to a digital invitation experience, not a file.
+// =====================================================================
+function ValueBand() {
+  return (
+    <section className="sec valueband sec--center">
+      <div className="wrap wrap--narrow">
+        <LineReveal
+          as="p"
+          className="valueband__line"
+          each={0.12}
+          lines={['One link.', <em key="e">One beautiful first impression.</em>]}
+        />
+        <Reveal className="valueband__sub" as="p" delay={0.1}>
+          Not a video file to download, but a digital invitation experience your guests open, share and remember.
+        </Reveal>
+      </div>
+    </section>
   )
 }
 
@@ -504,37 +561,21 @@ export default function Landing() {
         <span className="sec__glow sec__glow--emerald" aria-hidden="true" />
         <div className="wrap">
           <div className="sec__head">
-            <Reveal className="sec__eyebrow" as="p">The collection</Reveal>
+            <Reveal className="sec__eyebrow" as="p">Collections</Reveal>
             <LineReveal
               as="h2"
               className="sec__title"
-              lines={['Three cinematic worlds,', <em key="e">one for every celebration.</em>]}
+              lines={['Explore the', <em key="e">Collections.</em>]}
             />
             <Reveal className="sec__lead" as="p" delay={0.1}>
-              Muslim, Hindu and Christian, each with its own colour, light and motion. Preview any world, then personalise it with your names.
+              Every celebration deserves its own atmosphere. Explore invitation experiences designed to turn a simple link into a beautiful first impression.
             </Reveal>
           </div>
           <TemplateGrid templates={TEMPLATES} />
         </div>
       </section>
 
-      <section id="films" className="sec films sec--center sec--tint">
-        <span className="sec__glow sec__glow--navy" aria-hidden="true" />
-        <div className="wrap">
-          <div className="sec__head">
-            <Reveal className="sec__eyebrow" as="p">Cinematic films</Reveal>
-            <LineReveal
-              as="h2"
-              className="sec__title"
-              lines={['Wedding films that play', <em key="e">like a trailer.</em>]}
-            />
-            <Reveal className="sec__lead" as="p" delay={0.1}>
-              Prefer a film? Each design also comes as a cinematic video invitation, with your names, date and venue woven into a shareable trailer for your day.
-            </Reveal>
-          </div>
-        </div>
-        <VideoShowcase templates={TEMPLATES} />
-      </section>
+      <ValueBand />
 
       <HowItWorks />
       <WhyUs />

@@ -27,8 +27,13 @@ function mk(t) {
   return {
     id: slug,
     slug,
-    religion: t.religion, // 'muslim' | 'hindu' | 'christian'
-    religionLabel: t.religionLabel,
+    // Internal-only key that maps the collection to its invitation engine skin,
+    // scenes, music and assets. It is NEVER shown to visitors and is never used
+    // as a visible category — the storefront is not categorised by anything but
+    // atmosphere. (Kept named `religion` because the engine reads it.)
+    religion: t.religion,
+    // Short, style-led descriptor shown on the card and in the preview.
+    styleLabel: t.styleLabel || '',
     theme: t.theme || slug,
     inviteHref: `/invite/${slug}`,
     title: t.title,
@@ -90,10 +95,10 @@ const CELESTE = {
 export const TEMPLATES = [
   mk({
     slug: 'noor', theme: 'noor',
-    religion: 'muslim', religionLabel: 'Muslim',
-    title: 'Noor', subtitle: 'The Royal Invitation',
+    religion: 'muslim', styleLabel: 'Elegant, intimate and atmospheric',
+    title: 'Noor', subtitle: 'A Celebration of Love',
     description:
-      'An invitation wrapped in emerald shadows, warm golden light and timeless Islamic geometry. A royal welcome to a celebration remembered before it even begins.',
+      'An invitation wrapped in emerald shadows, warm golden light and timeless geometry. A refined, atmospheric welcome to a celebration remembered before it even begins.',
     demoCouple: { groom: 'Rayyan', bride: 'Inaya' }, monogram: 'R ✦ I',
     engine: 'live', engineSkin: EMERALD, audioUrl: '/song.mp3', musicTitle: 'Soft Oud & Strings',
     previewVideo: '/assets/noor.mp4', previewVideoMobile: '/assets/noor-m.mp4', poster: '/assets/noor-poster.jpg',
@@ -102,10 +107,10 @@ export const TEMPLATES = [
   }),
   mk({
     slug: 'aaranya', theme: 'aaranya',
-    religion: 'hindu', religionLabel: 'Hindu',
-    title: 'Aaranya', subtitle: 'The Royal Celebration',
+    religion: 'hindu', styleLabel: 'Warm, opulent and radiant',
+    title: 'Amour', subtitle: 'Colour, Warmth and Joy',
     description:
-      'The warm glow of a royal Indian celebration in deep maroon and antique gold. Mandala light, marigold and diyas for a wedding full of colour and joy.',
+      'The warm glow of a grand celebration in deep maroon and antique gold, with intricate detail and candlelight. Colour, richness and joy from the very first moment.',
     demoCouple: { groom: 'Aarav', bride: 'Ananya' }, monogram: 'A ✦ A',
     engine: 'live', engineSkin: AARANYA, audioUrl: '/song.mp3', musicTitle: 'Sitar & Tabla',
     previewVideo: '/assets/aaranya.mp4', previewVideoMobile: '/assets/aaranya-m.mp4', poster: '/assets/aaranya-poster.jpg',
@@ -114,10 +119,10 @@ export const TEMPLATES = [
   }),
   mk({
     slug: 'celeste', theme: 'celeste',
-    religion: 'christian', religionLabel: 'Christian',
-    title: 'Celeste', subtitle: 'The Eternal Promise',
+    religion: 'christian', styleLabel: 'Soft, romantic and timeless',
+    title: 'Reverie', subtitle: 'A Timeless Promise',
     description:
-      'Soft candlelight, white roses and chapel grace in ivory, champagne and blush. A gentle, romantic invitation to the beginning of forever.',
+      'Soft candlelight, delicate florals and quiet grace in ivory, champagne and blush. A gentle, romantic invitation to the beginning of forever.',
     demoCouple: { groom: 'Nathan', bride: 'Grace' }, monogram: 'N ✦ G',
     engine: 'live', engineSkin: CELESTE, audioUrl: '/song.mp3', musicTitle: 'Piano & Strings',
     previewVideo: '/assets/celeste.mp4', previewVideoMobile: '/assets/celeste-m.mp4', poster: '/assets/celeste-poster.jpg',
@@ -132,7 +137,7 @@ export const TEMPLATES = [
 export const ARCHIVED_TEMPLATES = [
   mk({
     slug: 'layali', theme: 'layali',
-    religion: 'muslim', religionLabel: 'Muslim',
+    religion: 'muslim', styleLabel: 'Starlit, opulent and grand',
     title: 'Layali', subtitle: 'Midnight & Gold',
     description:
       'A starlit night in midnight blue and antique gold. Crescent light and quiet grandeur for an unforgettable evening.',
@@ -142,7 +147,7 @@ export const ARCHIVED_TEMPLATES = [
   }),
   mk({
     slug: 'amara', theme: 'amara',
-    religion: 'christian', religionLabel: 'Christian',
+    religion: 'christian', styleLabel: 'Soft, romantic and understated',
     title: 'Amara', subtitle: 'Blush & Ivory',
     description:
       'Soft candlelight, timeless florals and ivory grace. An invitation that opens your celebration with quiet romance.',
@@ -152,7 +157,7 @@ export const ARCHIVED_TEMPLATES = [
   }),
   mk({
     slug: 'saanjh', theme: 'saanjh',
-    religion: 'hindu', religionLabel: 'Hindu',
+    religion: 'hindu', styleLabel: 'Warm, golden and joyful',
     title: 'Saanjh', subtitle: 'Marigold Dusk',
     description:
       'The warm glow of dusk in marigold and maroon. Mandala detail and golden light for a celebration full of colour and joy.',
@@ -160,14 +165,6 @@ export const ARCHIVED_TEMPLATES = [
     engine: null, musicTitle: 'Sitar & Flute',
     highlights: ['Mandala & marigold detail', 'Warm diya glow', 'Maroon & gold palette'],
   }),
-]
-
-// Religion filter tabs for the collection (order matters).
-export const RELIGIONS = [
-  { id: 'all', label: 'All' },
-  { id: 'muslim', label: 'Muslim' },
-  { id: 'hindu', label: 'Hindu' },
-  { id: 'christian', label: 'Christian' },
 ]
 
 export function templatePrice(template) {

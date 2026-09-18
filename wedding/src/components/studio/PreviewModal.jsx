@@ -2,8 +2,8 @@ import { useEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { Link } from 'react-router-dom'
 import { templatePrice } from '../../studio/templates.js'
-import { templateOrderUrl } from '../../studio/whatsapp.js'
 import { cssVars } from '../../studio/themes.js'
+import { OrderButton } from './OrderButton.jsx'
 import DateReveal from './DateReveal.jsx'
 
 // Fullscreen cinematic preview. Plays the film if uploaded (vertical source on
@@ -122,7 +122,7 @@ export default function PreviewModal({ template, onClose }) {
               {!template.event && (
                 <div className="modal__soon">
                   <p className="modal__soon-title">
-                    {isLive ? 'A live, interactive invitation' : 'Cinematic film coming soon'}
+                    {isLive ? 'A live, interactive invitation' : 'Preview coming soon'}
                   </p>
                   {isLive && (
                     <Link className="btn btn--gold" to={template.inviteHref}>Open the live invitation →</Link>
@@ -135,7 +135,7 @@ export default function PreviewModal({ template, onClose }) {
 
         <div className="modal__bar">
           <div className="modal__bar-main">
-            <span className="modal__badge">{template.religionLabel}</span>
+            {template.styleLabel && <span className="modal__badge">{template.styleLabel}</span>}
             <div className="modal__bar-titles">
               <h2 className="modal__title">{template.title}</h2>
               <p className="modal__sub">{template.subtitle} · {template.duration}</p>
@@ -150,9 +150,7 @@ export default function PreviewModal({ template, onClose }) {
             )}
             {isLive && <Link className="btn btn--ghost" to={template.inviteHref}>Open full experience</Link>}
             <span className="modal__price">{price.display}</span>
-            <a className="btn btn--gold" href={templateOrderUrl(template)} target="_blank" rel="noreferrer">
-              Order on WhatsApp
-            </a>
+            <OrderButton template={template} label="Order This Invitation" />
           </div>
         </div>
 

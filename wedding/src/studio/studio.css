@@ -1,5 +1,5 @@
 /* =====================================================================
-   WEDORA FILMS — EDITORIAL DESIGN SYSTEM
+   IN/FIN INVITE — EDITORIAL DESIGN SYSTEM
    ---------------------------------------------------------------------
    An art-directed, magazine-grade storefront. Warm paper ground, oversized
    high-contrast serif (Fraunces) display, a single restrained metallic
@@ -10,30 +10,33 @@
    ===================================================================== */
 
 .studio {
-  /* -- white palette ------------------------------------------------- */
-  --paper:   #ffffff;   /* clean white ground */
-  --paper-2: #ffffff;   /* raised surfaces (separated by line + shadow) */
-  --tint:    #f6f5fb;   /* faint cool wash for alternating sections */
-  --ink:     #16130f;   /* near-black display ink */
-  --ink-2:   #4a453d;   /* secondary text */
-  --muted:   #857f74;   /* metadata / captions */
-  --line:    rgba(20, 18, 15, 0.12);
-  --line-2:  rgba(20, 18, 15, 0.06);
+  /* -- warm ivory + charcoal palette --------------------------------- */
+  --paper:   #f6f3ec;   /* warm ivory ground */
+  --paper-2: #fdfbf6;   /* raised surfaces (cards / panels) */
+  --tint:    #eee8dd;   /* deeper ivory wash for alternating sections */
+  --ink:     #1b1a17;   /* deep charcoal / near-black display ink */
+  --ink-2:   #55504a;   /* secondary text (medium charcoal) */
+  --muted:   #8a847a;   /* metadata / captions (medium grey) */
+  --line:    rgba(27, 26, 23, 0.14);
+  --line-2:  rgba(27, 26, 23, 0.07);
 
-  /* -- accents. A bright, celebratory set (not one muted metallic) —
-     colour is allowed to sing: eyebrows, glows, footer, the hero paint. */
-  --gold:    #b1832f;
-  --gold-2:  #e3b95e;
-  --wa:      #1c9d54;   /* whatsapp only */
-  --spark:   linear-gradient(90deg, #ff3d7f 0%, #ff8a3c 48%, #7b5cff 100%);
+  /* -- accent. A single restrained warm-neutral (soft pewter). The legacy
+     "gold" tokens are repointed to neutral tones so every existing accent
+     becomes tasteful metallic-grey, never gold. */
+  --accent:  #8c8275;   /* warm neutral / soft pewter */
+  --gold:    #6f6a61;   /* (legacy name) deep taupe */
+  --gold-2:  #9c9488;   /* (legacy name) soft greige */
+  --wa:      #1f9d55;   /* whatsapp / order green */
+  --wa-2:    #17914b;   /* whatsapp hover (brighter/deeper) */
+  --spark:   linear-gradient(90deg, #26241f 0%, #4a453d 100%); /* neutral: brand mark / progress */
 
-  /* -- living colour (soft washes / glows / the hero paint trail) ---- */
-  --c-rose:    #ff3d7f;
-  --c-amber:   #ff9d3c;
-  --c-violet:  #7b5cff;
-  --c-emerald: #12b886;
-  --c-navy:    #3a6ff0;
-  --c-maroon:  #e0552b;
+  /* -- washes / glows — neutralised to soft warm greys (no colour) ---- */
+  --c-rose:    #b9b1a4;
+  --c-amber:   #c2b6a3;
+  --c-violet:  #aaa59b;
+  --c-emerald: #a8aea3;
+  --c-navy:    #a0a1a4;
+  --c-maroon:  #b4a695;
 
   /* -- motion tokens (mirror src/studio/motion.js) ------------------- */
   --ease-editorial: cubic-bezier(0.16, 1, 0.3, 1);
@@ -55,9 +58,10 @@
   --t-gold: var(--gold-2);
   --t-glow: rgba(154, 119, 54, 0.18);
 
-  /* -- type ---------------------------------------------------------- */
-  --serif: 'Fraunces', 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
-  --sans:  'Bricolage Grotesque', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  /* -- type. Editorial luxury display (Playfair Display) + a clean, premium
+     humanist sans for UI/body (Manrope). ---------------------------- */
+  --serif: 'Playfair Display', 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+  --sans:  'Manrope', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
   --caps:  var(--sans);
 
   color: var(--ink);
@@ -114,15 +118,26 @@
   cursor: pointer; text-decoration: none; line-height: 1; white-space: nowrap;
   transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), background 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }
-/* primary editorial CTA — the dark pill, à la "Start Reading" */
-.btn--ink { background: var(--ink); color: #f5f2ea; }
-.btn--ink:hover { transform: translateY(-2px); box-shadow: 0 14px 30px rgba(22, 19, 15, 0.24); }
-/* commerce CTA — restrained gold */
-.btn--gold { background: var(--gold); color: #fbf7ee; }
-.btn--gold:hover { transform: translateY(-2px); background: #86682f; box-shadow: 0 14px 30px rgba(154, 119, 54, 0.28); }
+/* primary editorial CTA — the charcoal pill */
+.btn--ink { background: var(--ink); color: #f4f0e8; }
+.btn--ink:hover { transform: translateY(-2px); box-shadow: 0 14px 30px rgba(27, 26, 23, 0.24); }
+.btn--ink:active { transform: translateY(0) scale(0.98); }
+/* secondary — restrained warm-neutral pill */
+.btn--gold { background: var(--gold); color: #f7f4ee; }
+.btn--gold:hover { transform: translateY(-2px); background: #5c584f; box-shadow: 0 14px 30px rgba(27, 26, 23, 0.2); }
+.btn--gold:active { transform: translateY(0) scale(0.98); }
+/* order CTA — WhatsApp green. White text, a soft lift + arrow nudge on hover
+   and a small scale-down on click. Reads unmistakably as order-on-WhatsApp. */
+.btn--wa { background: var(--wa); color: #fff; box-shadow: 0 10px 24px rgba(31, 157, 85, 0.26); }
+.btn--wa:hover { transform: translateY(-2px); background: #24b061; box-shadow: 0 16px 34px rgba(31, 157, 85, 0.34); }
+.btn--wa:active { transform: translateY(0) scale(0.97); }
+.btn__wa { flex: none; margin-right: -0.1em; }
+.btn__arrow { display: inline-block; transition: transform 0.32s var(--ease-enter); }
+.btn--wa:hover .btn__arrow { transform: translateX(3px); }
 /* quiet, hairline text button */
 .btn--ghost { background: transparent; color: var(--ink); border-color: var(--line); }
 .btn--ghost:hover { border-color: var(--ink); transform: translateY(-2px); }
+.btn--ghost:active { transform: scale(0.98); }
 .btn--lg { padding: 17px 34px; font-size: 0.78rem; }
 
 /* ---------------------------------------------------------------- navbar */
@@ -131,11 +146,15 @@
    collapsing the fullscreen mobile menu into the 76px nav strip. The slide
    hide/show still animates fine via the transition below. */
 .nav { position: fixed; inset: 0 0 auto 0; z-index: 60; transition: transform 0.5s var(--ease-enter), background 0.4s ease, box-shadow 0.4s ease, backdrop-filter 0.4s ease; }
-.nav.is-solid { background: rgba(255, 255, 255, 0.86); backdrop-filter: blur(14px); box-shadow: 0 1px 0 var(--line-2); }
+.nav.is-solid { background: rgba(246, 243, 236, 0.85); backdrop-filter: blur(14px); box-shadow: 0 1px 0 var(--line-2); }
 .nav__inner { display: flex; align-items: center; justify-content: space-between; min-height: 76px; gap: 20px; }
 .nav__brand { display: inline-flex; align-items: center; gap: 9px; text-decoration: none; color: var(--ink); }
-.nav__brand-mark { font-size: 0.9rem; }
-.nav__brand-name { font-family: var(--sans); font-weight: 500; font-size: 0.92rem; letter-spacing: 0.28em; text-transform: uppercase; }
+
+/* wordmark (IN / FIN Invite) — the slash is the identity, given the accent tone */
+.wordmark { display: inline-flex; align-items: baseline; gap: 8px; line-height: 1; }
+.wordmark__mark { font-family: var(--sans); font-weight: 700; font-size: 0.96rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--ink); }
+.wordmark__slash { color: var(--accent); font-weight: 500; margin: 0 0.03em; }
+.wordmark__sub { font-family: var(--serif); font-style: italic; font-weight: 500; font-size: 1.12rem; letter-spacing: 0.01em; color: var(--ink-2); }
 .nav__links { display: flex; align-items: center; gap: 34px; }
 .nav__link { background: none; border: 0; cursor: pointer; font-family: var(--sans); font-weight: 400; font-size: 0.76rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-2); position: relative; padding: 4px 0; transition: color 0.25s ease; }
 .nav__link::after { content: ''; position: absolute; left: 0; bottom: -2px; width: 100%; height: 1px; background: var(--ink); transform: scaleX(0); transform-origin: 0 50%; transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1); }
@@ -167,12 +186,12 @@
 .hero__wash::before {
   content: ''; position: absolute; inset: -6%;
   background:
-    radial-gradient(40% 46% at 18% 28%, rgba(28, 106, 82, 0.26), transparent 66%),
-    radial-gradient(42% 44% at 84% 22%, rgba(58, 86, 143, 0.23), transparent 66%),
-    radial-gradient(48% 48% at 78% 80%, rgba(176, 85, 43, 0.22), transparent 66%),
-    radial-gradient(42% 42% at 20% 82%, rgba(209, 86, 127, 0.2), transparent 66%);
-  filter: blur(8px);
-  animation: auroraDrift 24s ease-in-out infinite alternate;
+    radial-gradient(42% 46% at 20% 26%, rgba(140, 130, 117, 0.16), transparent 66%),
+    radial-gradient(44% 44% at 82% 22%, rgba(120, 112, 100, 0.14), transparent 66%),
+    radial-gradient(48% 48% at 78% 82%, rgba(150, 140, 126, 0.12), transparent 66%),
+    radial-gradient(42% 42% at 20% 82%, rgba(120, 116, 108, 0.1), transparent 66%);
+  filter: blur(10px);
+  animation: auroraDrift 26s ease-in-out infinite alternate;
 }
 @keyframes auroraDrift {
   0%   { transform: translate3d(-2%, -1%, 0) scale(1); }
@@ -188,9 +207,10 @@
 .hero__paint { position: absolute; inset: 0; z-index: 1; pointer-events: none; mix-blend-mode: multiply; }
 .hero__inner { position: relative; z-index: 2; width: 100%; max-width: 1080px; padding: 0 clamp(20px, 4vw, 40px); }
 .hero__eyebrow { font-family: var(--sans); font-weight: 600; letter-spacing: 0.3em; text-transform: uppercase; font-size: clamp(0.68rem, 1.1vw, 0.82rem); margin-bottom: clamp(18px, 3vw, 30px); }
-.hero__title { font-family: var(--serif); font-weight: 400; font-optical-sizing: auto; font-size: clamp(3.1rem, 12vw, 9rem); line-height: 0.95; letter-spacing: -0.015em; color: var(--ink); }
-.hero__title .line { display: block; }
-.hero__title em { font-style: italic; font-weight: 400; font-size: 0.82em; }
+.hero__title { font-family: var(--serif); font-weight: 500; font-optical-sizing: auto; font-size: clamp(2.9rem, 11.2vw, 8.2rem); line-height: 0.99; letter-spacing: -0.012em; color: var(--ink); }
+.hero__line { display: block; }
+.hero__word { display: inline-block; will-change: transform, filter; }
+.hero__title em, .hero__em { font-style: italic; font-weight: 500; }
 .hero__sub { max-width: 520px; margin: clamp(18px, 3vw, 28px) auto 0; color: var(--ink-2); font-size: clamp(1rem, 1.5vw, 1.12rem); line-height: 1.6; }
 .hero__sub strong { color: var(--ink); font-weight: 600; }
 .hero__cta { display: flex; gap: 16px; justify-content: center; align-items: center; flex-wrap: wrap; margin-top: clamp(22px, 3vw, 32px); }
@@ -229,6 +249,12 @@
 .sec__lead { margin-top: 22px; color: var(--ink-2); font-size: clamp(1rem, 1.4vw, 1.12rem); line-height: 1.65; max-width: 56ch; }
 .sec--center .sec__lead { margin-inline: auto; }
 
+/* ---------------------------------------------------------------- value band */
+.sec.valueband { padding: clamp(72px, 11vw, 140px) 0; text-align: center; }
+.valueband__line { font-family: var(--serif); font-weight: 500; font-optical-sizing: auto; font-size: clamp(2rem, 5.4vw, 3.7rem); line-height: 1.06; letter-spacing: -0.01em; color: var(--ink); }
+.valueband__line em { font-style: italic; }
+.valueband__sub { margin: 22px auto 0; max-width: 52ch; color: var(--ink-2); font-size: clamp(1rem, 1.4vw, 1.12rem); line-height: 1.65; }
+
 /* ---------------------------------------------------------------- collection tabs */
 .tabs { display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; margin: 0 auto clamp(40px, 5vw, 58px); }
 .tab { font-family: var(--sans); font-weight: 400; font-size: 0.78rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); background: none; border: 0; padding: 6px 0; cursor: pointer; position: relative; transition: color 0.3s ease; }
@@ -256,7 +282,8 @@
 .card__head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
 .card__title { font-family: var(--serif); font-weight: 500; font-size: 1.7rem; line-height: 1.05; color: var(--ink); }
 .card__price { color: var(--gold); font-family: var(--sans); font-weight: 500; font-size: 0.82rem; letter-spacing: 0.06em; white-space: nowrap; }
-.card__sub { color: var(--ink-2); font-size: 0.98rem; font-family: var(--serif); font-style: italic; }
+.card__sub { color: var(--ink-2); font-size: 1.02rem; font-family: var(--serif); font-style: italic; }
+.card__style { color: var(--muted); font-family: var(--sans); font-weight: 500; font-size: 0.68rem; letter-spacing: 0.16em; text-transform: uppercase; margin-top: 12px; }
 .card__meta { display: flex; align-items: center; gap: 9px; color: var(--muted); font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; margin-top: 8px; }
 .card__dot { opacity: 0.5; }
 .card__actions { display: flex; gap: 10px; margin-top: 18px; }
@@ -302,7 +329,7 @@
 .faq__item p { color: var(--ink-2); padding: 0 0 22px; line-height: 1.7; max-width: 62ch; font-size: 1rem; }
 
 /* ---------------------------------------------------------------- final message */
-.final { text-align: center; background: linear-gradient(180deg, #ffffff 0%, var(--tint) 100%); color: var(--ink); }
+.final { text-align: center; background: linear-gradient(180deg, var(--paper) 0%, var(--tint) 100%); color: var(--ink); }
 .final__title { font-family: var(--serif); font-weight: 400; font-optical-sizing: auto; font-size: clamp(2.4rem, 6.5vw, 5rem); line-height: 1.0; letter-spacing: -0.015em; color: var(--ink); }
 .final__title em { font-style: italic; }
 .final__text { color: var(--ink-2); font-size: 1.08rem; margin: 26px auto 38px; max-width: 520px; line-height: 1.6; }
@@ -312,33 +339,30 @@
 /* ---------------------------------------------------------------- footer (last page of the magazine) */
 .foot {
   position: relative; overflow: hidden;
-  background: linear-gradient(125deg, #7c3aed 0%, #d83a9a 33%, #ff5d73 62%, #ff9a4d 100%);
-  background-size: 190% 190%; animation: footShift 22s ease-in-out infinite alternate;
-  color: rgba(255, 255, 255, 0.94); padding: clamp(70px, 9vw, 120px) 0 0;
+  background: #16150f;   /* deep charcoal — premium, quiet */
+  color: rgba(246, 243, 236, 0.86); padding: clamp(70px, 9vw, 120px) 0 0;
 }
-@keyframes footShift { 0% { background-position: 0% 50%; } 100% { background-position: 100% 50%; } }
-/* soft coloured light blobs for extra life on the gradient */
+/* faint warm neutral light (no colour) for depth */
 .foot::before {
-  content: ''; position: absolute; inset: 0; z-index: 0; pointer-events: none; mix-blend-mode: screen;
+  content: ''; position: absolute; inset: 0; z-index: 0; pointer-events: none;
   background:
-    radial-gradient(38% 56% at 10% 16%, rgba(255, 255, 255, 0.24), transparent 62%),
-    radial-gradient(46% 60% at 90% 92%, rgba(255, 214, 120, 0.32), transparent 64%);
+    radial-gradient(60% 72% at 10% 4%, rgba(140, 130, 117, 0.16), transparent 60%),
+    radial-gradient(52% 62% at 92% 98%, rgba(120, 112, 100, 0.13), transparent 62%);
 }
 .foot > * { position: relative; z-index: 1; }
-.foot__closer { font-family: var(--serif); font-weight: 400; font-optical-sizing: auto; font-size: clamp(2.6rem, 9vw, 7rem); line-height: 0.96; letter-spacing: -0.02em; color: #fff; text-shadow: 0 2px 34px rgba(74, 8, 54, 0.3); max-width: 12ch; }
+.foot__closer { font-family: var(--serif); font-weight: 500; font-optical-sizing: auto; font-size: clamp(2.6rem, 9vw, 6.4rem); line-height: 0.98; letter-spacing: -0.015em; color: #f6f2ea; text-shadow: 0 2px 34px rgba(0, 0, 0, 0.35); max-width: 13ch; }
 .foot__closer em { font-style: italic; }
-.foot__grid { display: grid; grid-template-columns: 1.6fr 1fr 1fr; gap: 44px; margin-top: clamp(48px, 7vw, 88px); padding-top: 44px; border-top: 1px solid rgba(255, 255, 255, 0.3); }
-.foot__name { font-family: var(--sans); font-weight: 600; font-size: 1rem; letter-spacing: 0.24em; text-transform: uppercase; color: #fff; }
-.foot__mark { color: #ffe9a8; }
-.foot__tag { color: rgba(255, 255, 255, 0.9); margin: 16px 0 24px; max-width: 340px; line-height: 1.65; font-size: 0.96rem; }
-.foot .btn--gold { background: #fff; color: #8a1750; box-shadow: 0 14px 30px rgba(60, 0, 40, 0.24); }
-.foot .btn--gold:hover { background: #fff; transform: translateY(-2px); box-shadow: 0 20px 44px rgba(60, 0, 40, 0.34); }
+.foot__grid { display: grid; grid-template-columns: 1.6fr 1fr 1fr; gap: 44px; margin-top: clamp(48px, 7vw, 88px); padding-top: 44px; border-top: 1px solid rgba(246, 243, 236, 0.16); }
+.foot__name { margin-bottom: 4px; }
+.foot .wordmark__mark { color: #f6f2ea; }
+.foot .wordmark__sub { color: rgba(246, 243, 236, 0.74); }
+.foot__tag { color: rgba(246, 243, 236, 0.7); margin: 16px 0 24px; max-width: 340px; line-height: 1.65; font-size: 0.96rem; }
 .foot__col { display: flex; flex-direction: column; gap: 13px; align-items: flex-start; }
-.foot__col h4 { font-family: var(--sans); font-weight: 600; font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255, 255, 255, 0.82); margin-bottom: 4px; }
-.foot__col a, .foot__col button { color: rgba(255, 255, 255, 0.9); text-decoration: none; background: none; border: 0; padding: 0; cursor: pointer; font: inherit; font-size: 0.98rem; letter-spacing: 0.02em; transition: color 0.25s ease; }
+.foot__col h4 { font-family: var(--sans); font-weight: 600; font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(246, 243, 236, 0.58); margin-bottom: 4px; }
+.foot__col a, .foot__col button { color: rgba(246, 243, 236, 0.82); text-decoration: none; background: none; border: 0; padding: 0; cursor: pointer; font: inherit; font-size: 0.98rem; letter-spacing: 0.02em; transition: color 0.25s ease; }
 .foot__col a:hover, .foot__col button:hover { color: #fff; }
-.foot__base { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-top: 56px; padding: 26px clamp(20px, 4vw, 40px); border-top: 1px solid rgba(255, 255, 255, 0.3); color: rgba(255, 255, 255, 0.85); font-size: 0.78rem; letter-spacing: 0.05em; }
-.foot__totop { display: inline-flex; align-items: center; gap: 9px; background: none; border: 0; color: rgba(255, 255, 255, 0.92); cursor: pointer; font-family: var(--sans); font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase; transition: color 0.25s ease; }
+.foot__base { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-top: 56px; padding: 26px clamp(20px, 4vw, 40px); border-top: 1px solid rgba(246, 243, 236, 0.16); color: rgba(246, 243, 236, 0.64); font-size: 0.78rem; letter-spacing: 0.05em; }
+.foot__totop { display: inline-flex; align-items: center; gap: 9px; background: none; border: 0; color: rgba(246, 243, 236, 0.82); cursor: pointer; font-family: var(--sans); font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase; transition: color 0.25s ease; }
 .foot__totop:hover { color: #fff; }
 .foot__totop span { display: inline-block; transition: transform 0.3s ease; }
 .foot__totop:hover span { transform: translateY(-3px); }
@@ -397,7 +421,9 @@
 /* ---------------------------------------------------------------- modal / player (kept cinematic-dark) */
 .modal { position: fixed; inset: 0; z-index: 80; display: flex; align-items: center; justify-content: center; padding: 20px; background: rgba(16, 13, 20, 0.6); backdrop-filter: blur(8px); animation: fade 0.25s ease; }
 @keyframes fade { from { opacity: 0; } to { opacity: 1; } }
-.modal__panel { position: relative; width: 100%; max-width: 900px; max-height: 92vh; overflow: auto; border-radius: 14px; background: var(--paper-2); border: 1px solid var(--line); box-shadow: 0 40px 100px rgba(0, 0, 0, 0.44); }
+.modal__panel { position: relative; width: 100%; max-width: 900px; max-height: 92vh; overflow: auto; border-radius: 14px; background: var(--paper-2); border: 1px solid var(--line); box-shadow: 0 40px 100px rgba(0, 0, 0, 0.44); animation: modalRise 0.55s var(--ease-editorial) both; }
+/* the preview "opens" — a soft rise + settle, like an invitation opening */
+@keyframes modalRise { from { opacity: 0; transform: translateY(18px) scale(0.985); } to { opacity: 1; transform: none; } }
 .modal__close { position: absolute; top: 12px; right: 14px; z-index: 5; width: 40px; height: 40px; border-radius: 50%; border: 0; cursor: pointer; background: rgba(0, 0, 0, 0.42); color: #fff; font-size: 1.5rem; line-height: 1; }
 .modal__media { position: relative; aspect-ratio: 16 / 10; background: var(--t-ink); }
 .modal__video { width: 100%; height: 100%; object-fit: cover; display: block; }
@@ -421,7 +447,7 @@
 .modal__bar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 14px 20px; padding: 18px 24px 22px; }
 .modal--player .modal__bar { color: #efeae0; }
 .modal__bar-main { display: flex; align-items: center; gap: 14px; }
-.modal__badge { flex: none; font-family: var(--sans); font-weight: 500; font-size: 0.62rem; letter-spacing: 0.16em; text-transform: uppercase; color: #fff; background: var(--t-deep); padding: 6px 12px; border-radius: 999px; }
+.modal__badge { flex: none; font-family: var(--sans); font-weight: 600; font-size: 0.62rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--t-gold); background: transparent; padding: 0; }
 .modal--player .modal__title { color: #f6f1e6; }
 .modal__bar-titles .modal__title { margin: 0; font-size: 1.6rem; }
 .modal__sub { color: var(--muted); font-size: 0.9rem; margin-top: 2px; }
