@@ -158,7 +158,7 @@
 /* wordmark (IN / FIN Invite) — the slash is the identity, given the accent tone */
 .wordmark { display: inline-flex; align-items: baseline; gap: 7px; line-height: 1; }
 .wordmark__mark { font-family: var(--sans); font-weight: 800; font-size: clamp(1.12rem, 1.5vw, 1.32rem); letter-spacing: 0.13em; text-transform: uppercase; color: var(--ink); }
-.wordmark__slash { color: var(--accent); font-weight: 700; margin: 0 0.02em; }
+.wordmark__slash { color: #8b857c; font-weight: 700; margin: 0 0.02em; }
 .wordmark__sub { font-family: var(--sans); font-style: normal; font-weight: 800; font-size: clamp(1.12rem, 1.5vw, 1.32rem); letter-spacing: 0.02em; color: var(--ink); }
 .nav__links { display: flex; align-items: center; gap: 34px; }
 .nav__link { background: none; border: 0; cursor: pointer; font-family: var(--sans); font-weight: 400; font-size: 0.76rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-2); position: relative; padding: 4px 0; transition: color 0.25s ease; }
@@ -201,6 +201,11 @@
 .hero__wash::after { content: ''; position: absolute; inset: 0;
   background-image: radial-gradient(rgba(22,19,15,0.06) 1.1px, transparent 1.4px);
   background-size: 7px 7px; -webkit-mask-image: radial-gradient(70% 60% at 50% 38%, #000 0%, transparent 72%); mask-image: radial-gradient(70% 60% at 50% 38%, #000 0%, transparent 72%); opacity: 0.5; }
+/* interactive colour paint — a canvas that the cursor, a tap, and scrolling
+   "paint" trailing colour onto (JS-driven). Sits above the wash, beneath the
+   masthead, and blends as soft translucent colour stains that slowly dissolve
+   back to the white ground. Present on all devices; removed for reduced motion. */
+.hero__paint { position: absolute; inset: 0; z-index: 1; pointer-events: none; mix-blend-mode: multiply; }
 .hero__inner { position: relative; z-index: 2; width: 100%; max-width: 1240px; padding: 0 clamp(20px, 4vw, 40px); }
 .hero__eyebrow { font-family: var(--sans); font-weight: 600; letter-spacing: 0.3em; text-transform: uppercase; font-size: clamp(0.68rem, 1.1vw, 0.82rem); margin-bottom: clamp(18px, 3vw, 30px); }
 /* headline — a plain, high-contrast Playfair masthead in solid black. Each
@@ -354,7 +359,7 @@
 /* a big, bold, black wordmark that stamps the brand hard on the colour field */
 .foot .wordmark { gap: 9px; }
 .foot .wordmark__mark, .foot .wordmark__sub { color: var(--ink); font-weight: 800; font-size: clamp(1.6rem, 3.6vw, 2.3rem); }
-.foot .wordmark__slash { color: var(--ink); }
+.foot .wordmark__slash { color: #8b857c; }
 .foot__tag { color: rgba(255, 255, 255, 0.9); margin: 16px 0 24px; max-width: 340px; line-height: 1.65; font-size: 0.96rem; }
 .foot__col { display: flex; flex-direction: column; gap: 13px; align-items: flex-start; }
 .foot__col h4 { font-family: var(--sans); font-weight: 600; font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255, 255, 255, 0.82); margin-bottom: 4px; }
@@ -438,12 +443,19 @@
 .modal__desc { color: var(--ink-2); margin-top: 12px; line-height: 1.6; }
 .modal__meta { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; color: var(--muted); font-size: 0.84rem; margin-top: 14px; }
 .modal__actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 22px; }
-.modal--player { background: rgba(12, 9, 18, 0.74); backdrop-filter: blur(20px); }
-.modal--player .modal__panel { max-width: 1180px; width: 95vw; background: #0c0910; border-color: rgba(255,255,255,0.1); }
-.modal__stage { position: relative; width: 100%; aspect-ratio: 16 / 9; background: var(--t-ink); overflow: hidden; }
-.modal__stage--vertical { aspect-ratio: 9 / 16; width: auto; max-height: 76vh; margin: 0 auto; }
+/* View Invitation opens the film FULL SCREEN — the player fills the whole
+   viewport (edge to edge, no window), the stage takes all the height above a
+   slim caption bar, and the whole video frame is shown on black. */
+.modal--player { background: #060409; backdrop-filter: none; padding: 0; }
+.modal--player .modal__panel {
+  max-width: none; width: 100vw; height: 100vh; height: 100dvh; max-height: none;
+  border-radius: 0; border: 0; background: #000;
+  display: flex; flex-direction: column; overflow: hidden;
+}
+.modal__stage { position: relative; width: 100%; flex: 1 1 auto; min-height: 0; background: #000; overflow: hidden; }
+.modal__stage--vertical { flex: 1 1 auto; width: 100%; max-height: none; margin: 0; }
 .modal__stage .modal__video { width: 100%; height: 100%; object-fit: contain; display: block; background: #000; }
-.modal__bar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 14px 20px; padding: 18px 24px 22px; }
+.modal__bar { flex: 0 0 auto; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 20px; padding: 14px 22px calc(16px + env(safe-area-inset-bottom, 0px)); border-top: 1px solid rgba(255, 255, 255, 0.08); }
 .modal--player .modal__bar { color: #efeae0; }
 .modal__bar-main { display: flex; align-items: center; gap: 14px; }
 .modal__badge { flex: none; font-family: var(--sans); font-weight: 600; font-size: 0.62rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--t-gold); background: transparent; padding: 0; }
@@ -554,13 +566,22 @@
   .foot__base { padding-bottom: calc(94px + env(safe-area-inset-bottom, 0px)); }
 }
 @media (max-width: 560px) {
-  .modal__stage:not(.modal__stage--vertical) { aspect-ratio: 3 / 4; }
   .invfilm { gap: 5px; }
   .invfilm__couple { font-size: clamp(1.6rem, 8vw, 2.2rem); }
   .invfilm__day { font-size: clamp(2.2rem, 11vw, 3rem); }
   .invfilm__date { gap: 12px; }
   .modal__sound { font-size: 0.58rem; padding: 8px 11px; }
   .card__actions { flex-direction: column; }
+  /* full-screen film on phones: keep the caption bar compact so the film keeps
+     the screen. Drop the decorative badge + duration, shrink the controls. */
+  .modal--player .modal__bar { gap: 9px 10px; padding: 11px 15px calc(13px + env(safe-area-inset-bottom, 0px)); }
+  .modal--player .modal__bar-main { flex: 1 1 100%; gap: 10px; min-width: 0; }
+  .modal--player .modal__badge { display: none; }
+  .modal--player .modal__sub { display: none; }
+  .modal--player .modal__bar-titles .modal__title { font-size: 1.14rem; }
+  .modal--player .modal__bar-actions { flex: 1 1 100%; gap: 8px 10px; justify-content: flex-start; }
+  .modal--player .modal__bar-actions .btn { font-size: 0.6rem; padding: 9px 13px; letter-spacing: 0.08em; }
+  .modal--player .modal__bar-actions .modal__price { order: -1; font-size: 1rem; }
 }
 
 /* ---------------------------------------------------------------- invite route (outside .studio) */

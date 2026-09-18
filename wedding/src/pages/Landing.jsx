@@ -1,4 +1,4 @@
-import { Fragment, useRef, useState } from 'react'
+import { Fragment, useEffect, useRef, useState } from 'react'
 import {
   motion,
   useScroll,
@@ -20,6 +20,166 @@ import { EASE, DUR, SPRING, fadeUp } from '../studio/motion.js'
 //  HERO — an editorial cover. A choreographed load sequence and a masthead
 //  that parallaxes away on scroll, over a living, colour-painted ground.
 // =====================================================================
+
+// A canvas that colour is "painted" onto — a soft, living trail that follows
+// the cursor, bursts on a tap, and flows as the page scrolls, then slowly
+// dissolves back to the ground. It leaves its colour "shadow" and works on
+// every device (pointer, touch and scroll all paint), blending as translucent
+// stains on the white ground (see .hero__paint). Removed for reduced motion.
+function HeroPaint({ reduced }) {
+  const ref = useRef(null)
+
+  useEffect(() => {
+    if (reduced) return undefined
+    const canvas = ref.current
+    const parent = canvas?.parentElement
+    if (!canvas || !parent) return undefined
+    const ctx = canvas.getContext('2d')
+    let w = 0
+    let h = 0
+    let running = true
+    let raf = 0
+    let last = null
+    let hue = Math.random() * 360
+    let R = 92
+    const stamps = []
+    const inside = (x, y) => x >= 0 && y >= 0 && x <= w && y <= h
+
+    const resize = () => {
+      const r = parent.getBoundingClientRect()
+      w = r.width
+      h = r.height
+      const dpr = Math.min(window.devicePixelRatio || 1, 2)
+      canvas.width = Math.round(w * dpr)
+      canvas.height = Math.round(h * dpr)
+      canvas.style.width = `${w}px`
+      canvas.style.height = `${h}px`
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
+      // blob size scales with the hero width (tighter on phones)
+      R = Math.max(46, Math.min(96, w * 0.1))
+    }
+    resize()
+    const ro = new ResizeObserver(resize)
+    ro.observe(parent)
+
+    // lay a run of soft stamps between two points, advancing the hue as it goes
+    const trail = (x0, y0, x1, y1) => {
+      const dx = x1 - x0
+      const dy = y1 - y0
+      const dist = Math.hypot(dx, dy)
+      const n = Math.max(1, Math.floor(dist / 13))
+      for (let i = 1; i <= n; i += 1) {
+        stamps.push({ x: x0 + (dx * i) / n, y: y0 + (dy * i) / n, hue })
+        hue = (hue + 4) % 360
+      }
+    }
+
+    // desktop: the cursor paints a colour trail as it moves through the hero
+    const onMove = (e) => {
+      const r = parent.getBoundingClientRect()
+      const x = e.clientX - r.left
+      const y = e.clientY - r.top
+      if (!inside(x, y)) {
+        last = null
+        return
+      }
+      if (last) trail(last.x, last.y, x, y)
+      else stamps.push({ x, y, hue })
+      last = { x, y }
+    }
+    const onLeave = () => {
+      last = null
+    }
+    // a tap / press bursts a small colourful splash, so the effect is playful on
+    // phones where there is no hovering cursor
+    const onDown = (e) => {
+      const r = parent.getBoundingClientRect()
+      const x = e.clientX - r.left
+      const y = e.clientY - r.top
+      if (!inside(x, y)) return
+      const n = 7
+      for (let i = 0; i < n; i += 1) {
+        const a = (i / n) * Math.PI * 2
+        const rr = R * 0.5 * Math.random()
+        stamps.push({ x: x + Math.cos(a) * rr, y: y + Math.sin(a) * rr, hue })
+        hue = (hue + 20) % 360
+      }
+      stamps.push({ x, y, hue })
+      last = { x, y }
+    }
+    parent.addEventListener('pointermove', onMove)
+    parent.addEventListener('pointerdown', onDown)
+    parent.addEventListener('pointerleave', onLeave)
+    parent.addEventListener('pointerup', onLeave)
+    parent.addEventListener('pointercancel', onLeave)
+
+    // scrolling paints too, so the colour lives on EVERY device: as the page
+    // scrolls through the hero a wandering anchor lays a flowing ribbon of
+    // colour. It only paints while the hero is actually on screen.
+    let ax = w * 0.5
+    let ay = h * 0.42
+    let lastY = window.scrollY || window.pageYOffset || 0
+    let vx = 0
+    let vy = 0
+    const onScroll = () => {
+      const y = window.scrollY || window.pageYOffset || 0
+      const dy = y - lastY
+      lastY = y
+      const r = parent.getBoundingClientRect()
+      if (r.bottom < 0 || r.top > window.innerHeight) return
+      const speed = Math.min(Math.abs(dy), 90)
+      if (speed < 1.2) return
+      vx = vx * 0.7 + (Math.random() - 0.5) * speed * 0.9
+      vy = vy * 0.7 + (Math.random() - 0.5) * speed * 0.4 + Math.sign(dy) * speed * 0.12
+      const px = ax
+      const py = ay
+      ax = Math.max(w * 0.08, Math.min(w * 0.92, ax + vx))
+      ay = Math.max(h * 0.08, Math.min(h * 0.92, ay + vy))
+      trail(px, py, ax, ay)
+    }
+    window.addEventListener('scroll', onScroll, { passive: true })
+
+    const tick = () => {
+      if (!running) return
+      // fade the existing paint gently back toward transparent (reveals ground)
+      ctx.globalCompositeOperation = 'destination-out'
+      ctx.fillStyle = 'rgba(0,0,0,0.03)'
+      ctx.fillRect(0, 0, w, h)
+      // stamp new soft coloured blobs where colour was painted this frame
+      ctx.globalCompositeOperation = 'source-over'
+      for (let i = 0; i < stamps.length; i += 1) {
+        const s = stamps[i]
+        const g = ctx.createRadialGradient(s.x, s.y, 0, s.x, s.y, R)
+        const col = `hsla(${s.hue}, 92%, 58%,`
+        g.addColorStop(0, `${col}0.24)`)
+        g.addColorStop(0.5, `${col}0.10)`)
+        g.addColorStop(1, `${col}0)`)
+        ctx.fillStyle = g
+        ctx.beginPath()
+        ctx.arc(s.x, s.y, R, 0, Math.PI * 2)
+        ctx.fill()
+      }
+      stamps.length = 0
+      raf = requestAnimationFrame(tick)
+    }
+    raf = requestAnimationFrame(tick)
+
+    return () => {
+      running = false
+      cancelAnimationFrame(raf)
+      ro.disconnect()
+      parent.removeEventListener('pointermove', onMove)
+      parent.removeEventListener('pointerdown', onDown)
+      parent.removeEventListener('pointerleave', onLeave)
+      parent.removeEventListener('pointerup', onLeave)
+      parent.removeEventListener('pointercancel', onLeave)
+      window.removeEventListener('scroll', onScroll)
+    }
+  }, [reduced])
+
+  if (reduced) return null
+  return <canvas ref={ref} className="hero__paint" aria-hidden="true" />
+}
 
 // -----------------------------------------------------------------------
 //  HERO TITLE — a cinematic, editorial reveal. Each word rises out of a soft
@@ -98,6 +258,8 @@ function Hero() {
     <section className="hero" ref={ref}>
       {/* colour field behind the masthead: static — it drifts only with scroll */}
       <motion.div className="hero__wash" aria-hidden="true" style={{ y: washY }} />
+      {/* the living colour paint — trails from cursor, tap and scroll on all devices */}
+      <HeroPaint reduced={reduced} />
       <motion.div className="hero__inner" style={{ y: titleY, opacity: innerOpacity }}>
         <motion.p
           className="hero__eyebrow"
