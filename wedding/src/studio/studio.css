@@ -187,7 +187,8 @@
   background: radial-gradient(58% 48% at 50% 26%, rgba(255, 255, 255, 0.82), transparent 72%);
   will-change: transform;
 }
-/* drifting colour aurora — restrained, premium, always in slow motion */
+/* soft colour field behind the masthead — STATIC: colour without any motion of
+   its own (it only shifts with the scroll parallax on the parent .hero__wash) */
 .hero__wash::before {
   content: ''; position: absolute; inset: -6%;
   background:
@@ -196,12 +197,6 @@
     radial-gradient(48% 48% at 78% 80%, rgba(176, 85, 43, 0.22), transparent 66%),
     radial-gradient(42% 42% at 20% 82%, rgba(209, 86, 127, 0.2), transparent 66%);
   filter: blur(8px);
-  animation: auroraDrift 24s ease-in-out infinite alternate;
-}
-@keyframes auroraDrift {
-  0%   { transform: translate3d(-2%, -1%, 0) scale(1); }
-  50%  { transform: translate3d(2%, 2%, 0) scale(1.07); }
-  100% { transform: translate3d(1%, -2%, 0) scale(1.03); }
 }
 .hero__wash::after { content: ''; position: absolute; inset: 0;
   background-image: radial-gradient(rgba(22,19,15,0.06) 1.1px, transparent 1.4px);
@@ -217,7 +212,23 @@
    that plane on load. transform-style keeps the letters living in 3D. */
 .hero__title-stage { perspective: 1250px; perspective-origin: 50% 40%; }
 .hero__title-3d { transform-style: preserve-3d; will-change: transform; }
-.hero__title { font-family: 'Playfair Display', 'Cormorant Garamond', Georgia, 'Times New Roman', serif; font-weight: 500; font-optical-sizing: auto; font-size: clamp(2.7rem, 8.8vw, 7.2rem); line-height: 1.0; letter-spacing: -0.012em; color: var(--ink); perspective: 1000px; transform-style: preserve-3d; }
+.hero__title {
+  font-family: 'Playfair Display', 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+  font-weight: 500; font-optical-sizing: auto;
+  font-size: clamp(2.7rem, 8.8vw, 7.2rem); line-height: 1.0; letter-spacing: -0.012em;
+  color: var(--ink); perspective: 1000px; transform-style: preserve-3d;
+  /* creative 3D relief on the letters themselves — a short black/graphite
+     extrusion + soft cast shadow, so the title is JUST BLACK yet still reads as
+     dimensional on every device. Static; it only shifts as the plane tilts to
+     the cursor. */
+  text-shadow:
+    0.012em 0.012em 0 rgba(22, 19, 15, 0.55),
+    0.024em 0.024em 0 rgba(22, 19, 15, 0.46),
+    0.036em 0.036em 0 rgba(22, 19, 15, 0.38),
+    0.05em 0.05em 0 rgba(22, 19, 15, 0.30),
+    0.064em 0.064em 0.01em rgba(22, 19, 15, 0.24),
+    0.03em 0.16em 0.22em rgba(22, 19, 15, 0.20);
+}
 .hero__line { display: block; }
 /* on tablet + desktop each designed line stays whole ("Your Invitation," /
    "One Beautiful Link"); phones let it wrap naturally to avoid overflow. */
@@ -231,23 +242,10 @@
 .hero__cta-text { font-family: var(--sans); font-size: 0.76rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink); text-decoration: none; border-bottom: 1px solid var(--line); padding-bottom: 3px; transition: border-color 0.3s ease; }
 .hero__cta-text:hover { border-color: var(--ink); }
 
-/* fanned deck of the collection, echoing the reference's card fan.
-   Three nested layers: -outer (load entrance + z-index), -mid (scroll +
-   pointer parallax, driven by Framer MotionValues), .deckcard (hover lift). */
-.hero__deck { position: relative; z-index: 2; display: flex; justify-content: center; align-items: flex-end; margin-top: clamp(18px, 3vw, 40px); min-height: clamp(230px, 34vw, 370px); perspective: 1500px; }
-.deckcard-outer { position: relative; will-change: transform; }
-.deckcard-outer:not(:first-child) { margin-left: clamp(-66px, -7vw, -42px); }
-.deckcard-mid { position: relative; transform-style: preserve-3d; will-change: transform; }
-.deckcard { position: relative; display: block; width: clamp(150px, 20vw, 232px); aspect-ratio: 3 / 4; border-radius: 14px; overflow: hidden; background: var(--t-ink); box-shadow: 0 26px 60px rgba(22, 19, 15, 0.24); border: 5px solid #fbf9f3; text-decoration: none; will-change: transform; transition: box-shadow 0.45s var(--ease-enter); }
-.deckcard:hover { box-shadow: 0 46px 96px rgba(22, 19, 15, 0.34), 0 0 60px -18px var(--t-glow); }
-.deckcard__img { width: 100%; height: 100%; object-fit: cover; display: block; }
-/* colour glow drawn from the card's own theme — living, premium warmth */
-.deckcard__glow { position: absolute; inset: 0; z-index: 1; pointer-events: none; background: radial-gradient(120% 78% at 50% 122%, var(--t-glow), transparent 58%); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.16); opacity: 0.85; transition: opacity 0.45s ease; }
-.deckcard:hover .deckcard__glow { opacity: 1; }
-.deckcard__tag { position: absolute; top: 12px; left: 12px; z-index: 2; font-family: var(--sans); font-weight: 500; font-size: 0.56rem; letter-spacing: 0.16em; text-transform: uppercase; color: #fff; background: rgba(0, 0, 0, 0.34); padding: 6px 10px; border-radius: 999px; backdrop-filter: blur(4px); }
-
-.hero__scroll { position: absolute; bottom: 22px; left: 50%; transform: translateX(-50%); z-index: 2; display: flex; flex-direction: column; align-items: center; gap: 9px; color: var(--muted); background: none; border: 0; cursor: pointer; font-family: var(--sans); font-size: 0.6rem; letter-spacing: 0.3em; text-transform: uppercase; }
-.hero__scroll-line { width: 1px; height: 42px; background: linear-gradient(var(--ink), transparent); animation: scrollPulse 2.4s ease-in-out infinite; }
+.hero__scroll { position: absolute; bottom: 24px; left: 50%; transform: translateX(-50%); z-index: 2; display: flex; flex-direction: column; align-items: center; gap: 11px; color: var(--ink); background: none; border: 0; cursor: pointer; font-family: var(--sans); font-weight: 700; font-size: 0.72rem; letter-spacing: 0.3em; text-transform: uppercase; }
+/* highlighted scroll cue — a dark-on-tint chip so it clearly stands out */
+.hero__scroll-label { padding: 4px 13px; border-radius: 999px; background: rgba(22, 19, 15, 0.07); }
+.hero__scroll-line { width: 2px; height: 48px; border-radius: 2px; background: linear-gradient(var(--ink), rgba(22, 19, 15, 0.04)); animation: scrollPulse 2.4s ease-in-out infinite; }
 @keyframes scrollPulse { 0%, 100% { opacity: 0.25; transform: scaleY(0.6); } 50% { opacity: 0.9; transform: scaleY(1); } }
 
 /* ---------------------------------------------------------------- sections */
@@ -569,7 +567,6 @@
   .nav__links { display: none; }
   .nav__burger { display: flex; }
   .mcta { display: flex; }
-  .hero__deck { min-height: clamp(200px, 60vw, 280px); }
   /* keep the footer's last line clear of the sticky WhatsApp CTA */
   .foot__base { padding-bottom: calc(94px + env(safe-area-inset-bottom, 0px)); }
 }
@@ -581,7 +578,6 @@
   .invfilm__date { gap: 12px; }
   .modal__sound { font-size: 0.58rem; padding: 8px 11px; }
   .card__actions { flex-direction: column; }
-  .deckcard-outer:not(:first-child) { margin-left: -52px; }
 }
 
 /* ---------------------------------------------------------------- invite route (outside .studio) */
@@ -601,7 +597,7 @@
   .cursor { display: none; }
   .scroll-progress { display: none; }
   .hero__scroll-line { display: none; }
-  .card, .deckcard { transform: none !important; }
+  .card { transform: none !important; }
   .card__poster, .card__video, .filmblock__video { transition: none; }
   .studio *, .studio *::before, .studio *::after { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; scroll-behavior: auto !important; }
 }

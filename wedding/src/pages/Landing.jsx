@@ -8,100 +8,19 @@ import {
   useMotionValueEvent,
   useReducedMotion,
 } from 'framer-motion'
-import { Link } from 'react-router-dom'
 import StudioLayout from '../components/studio/StudioLayout.jsx'
 import TemplateGrid from '../components/studio/TemplateGrid.jsx'
 import { LineReveal, Reveal, Stagger, StaggerItem, MagneticButton } from '../components/studio/Reveal.jsx'
 import { OrderButton } from '../components/studio/OrderButton.jsx'
 import { TEMPLATES } from '../studio/templates.js'
-import { cssVars } from '../studio/themes.js'
 import studio from '../studio/config.js'
 import { scrollToId } from '../studio/scroll.js'
 import { EASE, DUR, SPRING, fadeUp } from '../studio/motion.js'
 
-const MLink = motion(Link)
-
 // =====================================================================
-//  HERO — an editorial cover. A choreographed load sequence, a masthead
-//  that parallaxes away on scroll, and a fanned 3D deck that spreads and
-//  lifts as the page moves, reacting subtly to the pointer.
+//  HERO — an editorial cover. A choreographed load sequence and a masthead
+//  that parallaxes away on scroll, over a living, colour-painted ground.
 // =====================================================================
-
-// Per-card choreography for the fanned deck. Base fan + how each card
-// spreads / drifts / responds to depth as the hero scrolls away.
-const DECK = [
-  { rot: -10, spreadRot: -8, spreadX: -74, driftY: -34, y: 16, depth: 1.5, z: 2 },
-  { rot: 2, spreadRot: 0, spreadX: 2, driftY: -74, y: -10, depth: 0.8, z: 4 },
-  { rot: 10, spreadRot: 8, spreadX: 74, driftY: -34, y: 16, depth: 1.5, z: 3 },
-]
-
-function DeckCard({ t, cfg, index, progress, mx, my, reduced, hovered, setHovered }) {
-  // Scroll + pointer driven transforms (static when reduced-motion).
-  const rotate = useTransform(progress, [0, 1], [cfg.rot, cfg.rot + cfg.spreadRot])
-  const rotateY = useTransform(mx, (m) => m * cfg.depth * 9)
-  const x = useTransform([progress, mx], ([p, m]) => p * cfg.spreadX + m * cfg.depth * 24)
-  const y = useTransform([progress, my], ([p, m]) => cfg.y + p * cfg.driftY + m * cfg.depth * 16)
-  const scale = useTransform(progress, [0, 1], [1, 0.9])
-
-  const midStyle = reduced
-    ? { transform: `rotate(${cfg.rot}deg) translateY(${cfg.y}px)` }
-    : { rotate, rotateY, x, y, scale }
-
-  return (
-    <motion.div
-      className="deckcard-outer"
-      style={{ zIndex: hovered === index ? 30 : cfg.z }}
-      initial={reduced ? { opacity: 0 } : { opacity: 0, y: 130, scale: 0.82 }}
-      animate={reduced ? { opacity: 1 } : { opacity: 1, y: 0, scale: 1 }}
-      transition={{ duration: 1.1, ease: EASE.editorial, delay: 0.55 + index * 0.13 }}
-      onMouseEnter={() => setHovered(index)}
-      onMouseLeave={() => setHovered(-1)}
-    >
-      <motion.div className="deckcard-mid" style={midStyle}>
-        <MLink
-          to={t.inviteHref}
-          className="deckcard"
-          data-theme-id={t.theme}
-          style={cssVars(t.theme)}
-          aria-label={`Open the ${t.title} invitation`}
-          whileHover={reduced ? undefined : { y: -18, scale: 1.05 }}
-          transition={{ duration: 0.5, ease: EASE.enter }}
-        >
-          <span className="deckcard__glow" aria-hidden="true" />
-          <img
-            className="deckcard__img"
-            src={t.poster}
-            alt={`${t.title}, ${t.subtitle} digital wedding invitation`}
-            loading="eager"
-            decoding="async"
-          />
-        </MLink>
-      </motion.div>
-    </motion.div>
-  )
-}
-
-function HeroDeck({ progress, mx, my, reduced }) {
-  const [hovered, setHovered] = useState(-1)
-  return (
-    <div className="hero__deck" aria-label="The collection">
-      {TEMPLATES.slice(0, 3).map((t, i) => (
-        <DeckCard
-          key={t.id}
-          t={t}
-          cfg={DECK[i]}
-          index={i}
-          progress={progress}
-          mx={mx}
-          my={my}
-          reduced={reduced}
-          hovered={hovered}
-          setHovered={setHovered}
-        />
-      ))}
-    </div>
-  )
-}
 
 // A canvas the cursor paints colour onto as it moves through the hero — a
 // playful, rainbow gradient trail that softly dissolves. Blends as translucent
@@ -120,8 +39,6 @@ function HeroPaint({ reduced }) {
     let running = true
     let raf = 0
     let last = null
-    let lastInput = -Infinity // last real pointer input (ms); gates the auto-wander
-    let autoLast = null // previous synthetic point, for a continuous ambient ribbon
     let hue = Math.random() * 360
     let R = 92
     const stamps = []
@@ -152,7 +69,6 @@ function HeroPaint({ reduced }) {
         last = null
         return
       }
-      lastInput = performance.now()
       if (last) {
         const dx = x - last.x
         const dy = y - last.y
@@ -177,7 +93,6 @@ function HeroPaint({ reduced }) {
       const x = e.clientX - r.left
       const y = e.clientY - r.top
       if (!inside(x, y)) return
-      lastInput = performance.now()
       const n = 7
       for (let i = 0; i < n; i += 1) {
         const a = (i / n) * Math.PI * 2
@@ -200,30 +115,6 @@ function HeroPaint({ reduced }) {
       ctx.globalCompositeOperation = 'destination-out'
       ctx.fillStyle = 'rgba(0,0,0,0.03)'
       ctx.fillRect(0, 0, w, h)
-      // ambient auto-wander: with no real pointer driving the trail (touch
-      // devices, or an idle desktop) a slow synthetic point roams the hero, so
-      // the colour is alive on every device — not only under a cursor.
-      const now = performance.now()
-      if (now - lastInput > 1400) {
-        const at = now * 0.001
-        const ax = w * (0.5 + 0.32 * Math.sin(at * 0.45) * Math.cos(at * 0.19))
-        const ay = h * (0.5 + 0.3 * Math.sin(at * 0.57 + 1.1))
-        if (autoLast) {
-          const dx = ax - autoLast.x
-          const dy = ay - autoLast.y
-          const dist = Math.hypot(dx, dy)
-          const n = Math.max(1, Math.floor(dist / 13))
-          for (let i = 1; i <= n; i += 1) {
-            stamps.push({ x: autoLast.x + (dx * i) / n, y: autoLast.y + (dy * i) / n, hue })
-            hue = (hue + 4) % 360
-          }
-        } else {
-          stamps.push({ x: ax, y: ay, hue })
-        }
-        autoLast = { x: ax, y: ay }
-      } else {
-        autoLast = null
-      }
       // stamp new soft coloured blobs where the cursor moved
       ctx.globalCompositeOperation = 'source-over'
       for (let i = 0; i < stamps.length; i += 1) {
@@ -337,18 +228,16 @@ function Hero() {
   const pmy = useMotionValue(0)
   const mx = useSpring(pmx, SPRING.silk)
   const my = useSpring(pmy, SPRING.silk)
-  const lastPointer = useRef(-Infinity) // last real pointer input (ms); gates the ambient sweep
   // The headline tilts as a single plane toward the pointer — a subtle, living
-  // 3D. On desktop it reacts to the cursor; with no pointer (touch, or an idle
-  // desktop) a slow ambient sweep drives the same springs so the 3D is alive on
-  // every device. Flat only for reduced motion.
+  // 3D that reacts to the cursor on desktop and never drifts on its own. The
+  // letters' extruded relief (see .hero__title) is always present, so the
+  // headline reads as dimensional on touch devices too. Flat for reduced motion.
   const titleRotX = useTransform(my, [-0.5, 0.5], reduced ? [0, 0] : [9, -9])
   const titleRotY = useTransform(mx, [-0.5, 0.5], reduced ? [0, 0] : [-13, 13])
   const onMove = (e) => {
     if (reduced) return
     const r = ref.current?.getBoundingClientRect()
     if (!r) return
-    lastPointer.current = performance.now()
     pmx.set((e.clientX - r.left) / r.width - 0.5)
     pmy.set((e.clientY - r.top) / r.height - 0.5)
   }
@@ -356,26 +245,6 @@ function Hero() {
     pmx.set(0)
     pmy.set(0)
   }
-
-  // Ambient sweep: when the cursor isn't driving the parallax — every touch
-  // device, and desktop before the pointer arrives / after it leaves — a slow
-  // synthetic path feeds the same springs, so the headline keeps its 3D tilt
-  // and the deck keeps drifting on phones exactly as under a mouse.
-  useEffect(() => {
-    if (reduced) return undefined
-    let raf = 0
-    const loop = (ts) => {
-      if (performance.now() - lastPointer.current > 1400) {
-        const t = ts * 0.001
-        pmx.set(0.4 * Math.sin(t * 0.5))
-        pmy.set(0.3 * Math.sin(t * 0.63 + 0.9))
-      }
-      raf = requestAnimationFrame(loop)
-    }
-    raf = requestAnimationFrame(loop)
-    return () => cancelAnimationFrame(raf)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [reduced])
 
   return (
     <section className="hero" ref={ref} onMouseMove={onMove} onMouseLeave={onLeave}>
@@ -423,8 +292,6 @@ function Hero() {
         </motion.div>
       </motion.div>
 
-      <HeroDeck progress={scrollYProgress} mx={mx} my={my} reduced={reduced} />
-
       <motion.button
         type="button"
         className="hero__scroll"
@@ -434,7 +301,7 @@ function Hero() {
         animate={{ opacity: 1 }}
         transition={{ duration: DUR.base, delay: 1.15 }}
       >
-        <span>Scroll</span>
+        <span className="hero__scroll-label">Scroll</span>
         <span className="hero__scroll-line" />
       </motion.button>
     </section>
@@ -643,9 +510,6 @@ export default function Landing() {
               className="sec__title"
               lines={['Explore the', <em key="e">Collections.</em>]}
             />
-            <Reveal className="sec__lead" as="p" delay={0.1}>
-              Every celebration deserves its own atmosphere. Explore invitation experiences designed to turn a simple link into a beautiful first impression.
-            </Reveal>
           </div>
           <TemplateGrid templates={TEMPLATES} />
         </div>
