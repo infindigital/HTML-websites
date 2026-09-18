@@ -489,8 +489,8 @@ canvas {
 }
 .laurel {
   position: relative;
-  width: 150px;
-  height: 150px;
+  width: 168px;
+  height: 168px;
   margin: 0 auto;
   color: var(--gold-1);
 }
@@ -1005,9 +1005,13 @@ canvas {
 }
 .closing__monogram {
   font-family: 'Cinzel', var(--label-font);
-  font-size: 1.5rem;
+  font-size: 1.15rem;
   font-weight: 600;
   color: var(--gold-1);
+  /* Tighter than the shared 0.25em so the two initials + star nest inside
+     the laurel opening without colliding with the leaves. */
+  letter-spacing: 0.04em;
+  transform: translateY(-6px);
 }
 .closing__names {
   font-family: var(--serif-font);
