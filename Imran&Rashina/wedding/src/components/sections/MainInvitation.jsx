@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion'
-import config from '../../config.js'
 import { useLanguage } from '../../context/LanguageContext.jsx'
 import ArchFrame from '../ui/ArchFrame.jsx'
+import Bismillah from '../ui/Bismillah.jsx'
 import Reveal from '../ui/Reveal.jsx'
 import { AmpersandDivider } from '../ui/Ornaments.jsx'
 import { ChevronDownIcon } from '../ui/Icons.jsx'
@@ -13,9 +13,7 @@ export default function MainInvitation({ id }) {
   return (
     <section className="section main-invite" id={id} aria-label="Wedding invitation">
       <ArchFrame className="main-invite__arch">
-        <Reveal as="p" className="amiri bismillah">
-          {config.bismillah}
-        </Reveal>
+        <Bismillah />
 
         <Reveal delay={0.05}>
           <span className="pill">{t('weddingPill')}</span>

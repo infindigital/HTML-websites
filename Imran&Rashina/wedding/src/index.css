@@ -753,13 +753,21 @@ canvas {
    2 · Main invitation
    ===================================================================== */
 .bismillah {
-  font-size: clamp(1.5rem, 7vw, 1.95rem);
-  line-height: 1.25;
+  /* Font-size is set at runtime by the Bismillah component so the single wide
+     glyph always fits its frame and is never clipped. The value below is only a
+     pre-JS fallback. */
+  font-size: 1.5rem;
+  line-height: 1.35;
   color: var(--gold-1);
-  margin-bottom: 0.9rem;
+  margin: 0 auto 0.9rem;
   max-width: 100%;
-  overflow: hidden;
+  text-align: center;
+  overflow: visible;
+}
+.bismillah__glyph {
+  display: inline-block;
   white-space: nowrap;
+  line-height: 1;
 }
 .main-invite__lead {
   color: var(--ink-soft);
@@ -1118,7 +1126,7 @@ canvas {
     padding: 38px 40px 46px;
   }
   .bismillah {
-    font-size: clamp(2.2rem, 5vw, 2.9rem);
+    /* font-size is controlled at runtime by the Bismillah component */
     margin-bottom: 1.1rem;
   }
   .main-invite__lead {
