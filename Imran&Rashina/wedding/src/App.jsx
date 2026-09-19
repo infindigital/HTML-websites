@@ -3,6 +3,7 @@ import { useAudio } from './context/AudioContext.jsx'
 import FallingLeaves from './components/ui/FallingLeaves.jsx'
 import ThemeToggle from './components/ui/ThemeToggle.jsx'
 import MusicButton from './components/ui/MusicButton.jsx'
+import MadeByBar from './components/ui/MadeByBar.jsx'
 import SealIntro from './components/sections/SealIntro.jsx'
 import MainInvitation from './components/sections/MainInvitation.jsx'
 import FamilyInvitation from './components/sections/FamilyInvitation.jsx'
@@ -49,6 +50,7 @@ export default function App() {
       {/* fixed persistent controls */}
       <ThemeToggle />
       {opened && <MusicButton />}
+      <MadeByBar />
 
       <main className="app">
         {!opened ? (
