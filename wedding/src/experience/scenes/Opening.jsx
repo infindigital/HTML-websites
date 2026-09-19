@@ -135,13 +135,10 @@ export default function Opening({ onBegin }) {
               aria-label={meta.openLabel}
             >
               <span className="opening__hint-arrow" aria-hidden="true">︿</span>
-              <motion.span
-                className="opening__hint-text"
-                animate={{ opacity: [0.55, 1, 0.55] }}
-                transition={{ duration: 2.4, repeat: Infinity, ease: EASE.soft }}
-              >
+              <span className="opening__hint-text">
+                <span className="opening__hint-finger" aria-hidden="true">☝</span>
                 Tap the door to open
-              </motion.span>
+              </span>
             </motion.button>
           )}
         </AnimatePresence>
