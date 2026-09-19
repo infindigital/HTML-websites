@@ -7,7 +7,7 @@ export default function MadeByBar() {
       target="_blank"
       rel="noopener noreferrer"
     >
-      Crafted by <span className="madeby-bar__brand">IN/FIN Invite</span>
+      Designed by <span className="madeby-bar__brand">IN/FIN Invite</span>
     </a>
   )
 }
