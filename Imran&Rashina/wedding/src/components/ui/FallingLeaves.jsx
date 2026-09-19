@@ -2,8 +2,10 @@ import { useEffect, useRef } from 'react'
 import { useTheme } from '../../context/ThemeContext.jsx'
 
 // Continuous falling-botanical layer: green leaves + tiny gold specks drift
-// down and sway forever on a full-screen canvas. Paused when the user
-// prefers reduced motion.
+// down and sway forever on a full-screen canvas. The drift is a core part of
+// the invitation's look, so it always runs — on every device — including when
+// the device reports reduced motion (e.g. an iPhone in Low Power Mode, which
+// forces that setting on and would otherwise freeze the leaves).
 
 const LEAF_GREENS = ['#6f8f5a', '#5c7a48', '#87a56b', '#4e6b3e', '#9ab27f']
 
@@ -21,9 +23,6 @@ export default function FallingLeaves() {
     const canvas = canvasRef.current
     if (!canvas) return
     const ctx = canvas.getContext('2d')
-
-    const reduceMotion =
-      window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ?? false
 
     let width = 0
     let height = 0
@@ -132,15 +131,9 @@ export default function FallingLeaves() {
 
     resize()
 
-    if (reduceMotion) {
-      // Draw one calm static frame, then leave it be.
-      for (const p of particles) {
-        if (p.kind === 'speck') drawSpeck(p)
-        else drawLeaf(p)
-      }
-    } else {
-      rafId = requestAnimationFrame(frame)
-    }
+    // Always animate — the drifting leaves are part of the design on every
+    // device, so they keep flowing even under a reduced-motion preference.
+    rafId = requestAnimationFrame(frame)
 
     let resizeTimer = null
     function onResize() {
