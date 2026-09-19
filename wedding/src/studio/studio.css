@@ -157,8 +157,9 @@
 
 /* wordmark (IN/FIN Invite) — the "IN/FIN" mark is the supplied logo image,
    the "Invite" sub-word is text. Both scale from the wordmark's font-size. */
-.wordmark { display: inline-flex; align-items: center; gap: 8px; line-height: 1; font-size: clamp(1.12rem, 1.5vw, 1.32rem); }
-.wordmark__img { height: 1.05em; width: auto; display: block; user-select: none; }
+.wordmark { display: inline-flex; align-items: center; gap: 8px; line-height: 1; font-size: clamp(1.3rem, 1.75vw, 1.5rem); }
+/* logo image sized so the "in/fin" mark matches the "Invite" text height */
+.wordmark__img { height: 0.88em; width: auto; display: block; user-select: none; }
 .wordmark__sub { font-family: var(--sans); font-style: normal; font-weight: 800; font-size: 1em; letter-spacing: 0.02em; color: var(--ink); }
 .nav__links { display: flex; align-items: center; gap: 28px; margin-left: auto; }
 .nav__link { background: none; border: 0; cursor: pointer; font-family: var(--sans); font-weight: 400; font-size: 0.76rem; letter-spacing: 0.16em; text-transform: uppercase; white-space: nowrap; color: var(--ink-2); position: relative; padding: 4px 0; transition: color 0.25s ease; }
@@ -359,7 +360,7 @@
 .foot__grid { display: grid; grid-template-columns: 1.6fr 1fr 1fr; gap: 44px; margin-top: clamp(48px, 7vw, 88px); padding-top: 44px; border-top: 1px solid rgba(255, 255, 255, 0.3); }
 .foot__name { margin-bottom: 10px; }
 /* a big brand stamp on the colour field: the logo image + "Invite" scaled up */
-.foot .wordmark { gap: 11px; font-size: clamp(1.6rem, 3.6vw, 2.3rem); }
+.foot .wordmark { gap: 10px; font-size: clamp(2rem, 4.6vw, 3rem); }
 .foot .wordmark__sub { color: var(--ink); }
 .foot__tag { color: rgba(255, 255, 255, 0.9); margin: 16px 0 24px; max-width: 340px; line-height: 1.65; font-size: 0.96rem; }
 .foot__col { display: flex; flex-direction: column; gap: 13px; align-items: flex-start; }
