@@ -67,20 +67,26 @@ export default function Navbar() {
               {l.label}
             </button>
           ))}
-          <MagneticButton>
-            <OrderButton className="nav__cta" label={ORDER_LABEL} />
-          </MagneticButton>
         </nav>
 
-        <button
-          type="button"
-          className={`nav__burger ${open ? 'is-open' : ''}`}
-          aria-label="Toggle menu"
-          aria-expanded={open}
-          onClick={() => setOpen((v) => !v)}
-        >
-          <span /><span /><span />
-        </button>
+        <div className="nav__actions">
+          {/* order CTA stays in the bar on desktop + tablet; hidden on phones,
+              where it lives in the overlay menu and the sticky WhatsApp bar */}
+          <div className="nav__cta-slot">
+            <MagneticButton>
+              <OrderButton className="nav__cta" label={ORDER_LABEL} />
+            </MagneticButton>
+          </div>
+          <button
+            type="button"
+            className={`nav__burger ${open ? 'is-open' : ''}`}
+            aria-label="Toggle menu"
+            aria-expanded={open}
+            onClick={() => setOpen((v) => !v)}
+          >
+            <span /><span /><span />
+          </button>
+        </div>
       </div>
 
       <div className={`nav__overlay ${open ? 'is-open' : ''}`} aria-hidden={!open}>
