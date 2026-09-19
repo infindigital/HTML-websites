@@ -1,6 +1,5 @@
 import config from '../../config.js'
 import { useLanguage } from '../../context/LanguageContext.jsx'
-import ArchFrame from '../ui/ArchFrame.jsx'
 import Reveal from '../ui/Reveal.jsx'
 import { Flourish } from '../ui/Ornaments.jsx'
 
@@ -19,17 +18,15 @@ export default function Venue() {
       </Reveal>
 
       <Reveal delay={0.05}>
-        <ArchFrame className="venue__arch">
-          <div className="venue__map">
-            <iframe
-              title={venue.name}
-              src={venue.googleMapsEmbedUrl}
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-              allowFullScreen
-            />
-          </div>
-        </ArchFrame>
+        <div className="venue__map">
+          <iframe
+            title={venue.name}
+            src={venue.googleMapsEmbedUrl}
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+            allowFullScreen
+          />
+        </div>
       </Reveal>
 
       <Reveal as="h3" delay={0.08} className="cormorant venue__name">

@@ -10,12 +10,8 @@ function getInitialTheme() {
   } catch {
     /* localStorage may be unavailable (private mode) */
   }
-  // Fall back to the OS preference on first visit; default to the cream light look.
-  try {
-    if (window.matchMedia?.('(prefers-color-scheme: dark)').matches) return 'dark'
-  } catch {
-    /* ignore */
-  }
+  // Always open in the cream light look on the first visit, regardless of the
+  // visitor's OS setting. A later manual toggle is remembered above.
   return 'light'
 }
 

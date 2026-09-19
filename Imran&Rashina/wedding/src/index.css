@@ -692,9 +692,33 @@ canvas {
   pointer-events: none;
 }
 .seal-intro__hint {
-  font-size: 1.1rem;
-  color: var(--ink-soft);
-  margin-top: 0.4rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+  margin-top: 0.5rem;
+}
+.seal-intro__finger {
+  font-size: 1.9rem;
+  line-height: 1;
+  filter: drop-shadow(0 3px 5px rgba(0, 0, 0, 0.28));
+}
+.seal-intro__hint-text {
+  font-family: var(--serif-font);
+  font-weight: 700;
+  font-size: 1.12rem;
+  letter-spacing: 0.02em;
+  color: #111;
+  padding: 0.28rem 0.9rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid var(--line);
+}
+/* Keep the pill legible on the dark palette too. */
+:root[data-theme='dark'] .seal-intro__hint-text {
+  color: #000;
+  background: rgba(240, 220, 149, 0.92);
+  border-color: transparent;
 }
 
 /* =====================================================================
@@ -935,15 +959,15 @@ canvas {
 /* =====================================================================
    6 · Venue
    ===================================================================== */
-.venue__arch {
-  max-width: 360px;
-}
 .venue__map {
   width: 100%;
-  aspect-ratio: 4 / 3;
-  border-radius: 46% 46% 12px 12px / 30% 30% 8px 8px;
+  max-width: 34rem;
+  height: clamp(300px, 62vw, 440px);
+  margin: 0 auto;
+  border-radius: 20px;
   overflow: hidden;
-  border: 1px solid var(--line);
+  border: 2px solid var(--line);
+  box-shadow: 0 16px 36px var(--shadow);
   background: var(--bg-soft);
 }
 .venue__map iframe {
@@ -1075,9 +1099,12 @@ canvas {
 
   /* inner cards were pinned to phone width — let them grow with the page */
   .scratch__arch,
-  .venue__arch,
   .verse__arch {
     max-width: 32rem;
+  }
+  .venue__map {
+    max-width: 40rem;
+    height: clamp(380px, 34vw, 520px);
   }
   .countdown__grid {
     max-width: 36rem;

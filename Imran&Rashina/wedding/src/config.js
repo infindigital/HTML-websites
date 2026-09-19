@@ -60,7 +60,7 @@ const config = {
   previewImage: '/preview.jpg',
 
   defaultLanguage: 'en',
-  languages: ['en', 'kn', 'hi', 'ar'], // English, Kannada, Hindi, Arabic
+  languages: ['en'], // English only
 }
 
 export default config

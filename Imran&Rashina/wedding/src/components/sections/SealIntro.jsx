@@ -120,18 +120,21 @@ export default function SealIntro({ onOpen }) {
         <AnimatePresence>
           {!breaking && (
             <motion.p
-              className="seal-intro__hint cormorant-italic"
+              className="seal-intro__hint"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.6, delay: 0.9 }}
             >
               <motion.span
-                animate={{ opacity: [0.55, 1, 0.55] }}
-                transition={{ duration: 2.4, repeat: Infinity, ease: 'easeInOut' }}
+                className="seal-intro__finger"
+                aria-hidden="true"
+                animate={{ y: [0, -9, 0] }}
+                transition={{ duration: 1.4, repeat: Infinity, ease: 'easeInOut' }}
               >
-                {t('tapToOpen')}
+                👆
               </motion.span>
+              <span className="seal-intro__hint-text">{t('tapToOpen')}</span>
             </motion.p>
           )}
         </AnimatePresence>
