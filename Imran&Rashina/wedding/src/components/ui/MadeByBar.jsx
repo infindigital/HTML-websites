@@ -3,7 +3,7 @@ export default function MadeByBar() {
   return (
     <a
       className="madeby-bar"
-      href="https://invite.infindigital.net"
+      href="https://invite.infindigital.net/imran-rashina"
       target="_blank"
       rel="noopener noreferrer"
     >
