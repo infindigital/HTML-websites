@@ -307,7 +307,9 @@ canvas {
   letter-spacing: 0.03em;
   line-height: 1;
   white-space: nowrap;
+  font-weight: 600;
   color: #000;
+  -webkit-text-fill-color: #000;
   text-decoration: none;
   background: rgba(255, 255, 255, 0.82);
   border: 1px solid rgba(0, 0, 0, 0.12);
