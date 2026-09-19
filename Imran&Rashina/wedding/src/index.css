@@ -308,7 +308,7 @@ canvas {
   letter-spacing: 0.02em;
   line-height: 1;
   white-space: nowrap;
-  font-weight: 700;
+  font-weight: 400;
   color: #000;
   -webkit-text-fill-color: #000;
   text-decoration: none;
@@ -316,6 +316,9 @@ canvas {
   border: 1px solid rgba(0, 0, 0, 0.18);
   box-shadow: 0 3px 10px var(--shadow);
   -webkit-tap-highlight-color: transparent;
+}
+.madeby-bar__brand {
+  font-weight: 700;
 }
 
 /* language switcher */
