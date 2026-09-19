@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react'
+import { Link } from 'react-router-dom'
 import { templatePrice } from '../../studio/templates.js'
 import { cssVars } from '../../studio/themes.js'
 import { OrderButton } from './OrderButton.jsx'
@@ -7,9 +8,10 @@ const reduceMotion = () =>
   typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
 // A living collection card. The preview plays (muted, looping) while the card is
-// in view; the whole card tilts in 3D toward the pointer; "View Invitation"
-// opens the fullscreen preview, exactly what a guest sees when they open the link.
-export default function TemplateCard({ template, onView, index = 0 }) {
+// in view; the whole card tilts in 3D toward the pointer; "View Invitation" opens
+// the live invitation itself (/invite/<slug>) — exactly what a guest sees when
+// they open the link — so every card leads straight into the same experience.
+export default function TemplateCard({ template, index = 0 }) {
   const price = templatePrice(template)
   const num = String(index + 1).padStart(2, '0')
   const cardRef = useRef(null)
@@ -81,10 +83,9 @@ export default function TemplateCard({ template, onView, index = 0 }) {
       onMouseMove={onMove}
       onMouseLeave={onLeave}
     >
-      <button
-        type="button"
+      <Link
+        to={template.inviteHref}
         className="card__media"
-        onClick={() => onView(template)}
         aria-label={`View the ${template.title} invitation`}
       >
         <span className="card__badge">{num}</span>
@@ -122,7 +123,7 @@ export default function TemplateCard({ template, onView, index = 0 }) {
             {ev.day} {ev.month} {ev.year}
           </span>
         )}
-      </button>
+      </Link>
 
       <div className="card__body">
         <div className="card__head">
@@ -132,9 +133,9 @@ export default function TemplateCard({ template, onView, index = 0 }) {
         <p className="card__sub">{template.subtitle}</p>
         {template.styleLabel && <p className="card__style">{template.styleLabel}</p>}
         <div className="card__actions">
-          <button type="button" className="btn btn--ghost" onClick={() => onView(template)}>
+          <Link className="btn btn--ghost" to={template.inviteHref}>
             View Invitation
-          </button>
+          </Link>
           <OrderButton template={template} label={`Order ${price.display}`} />
         </div>
       </div>

@@ -150,9 +150,11 @@ function HeroPaint({ reduced }) {
       for (let i = 0; i < stamps.length; i += 1) {
         const s = stamps[i]
         const g = ctx.createRadialGradient(s.x, s.y, 0, s.x, s.y, R)
-        const col = `hsla(${s.hue}, 92%, 58%,`
-        g.addColorStop(0, `${col}0.24)`)
-        g.addColorStop(0.5, `${col}0.10)`)
+        // full-saturation, high-opacity stamps so the colour reads bright and
+        // vivid (not a pale wash) as it trails from cursor, tap and scroll
+        const col = `hsla(${s.hue}, 100%, 55%,`
+        g.addColorStop(0, `${col}0.5)`)
+        g.addColorStop(0.5, `${col}0.22)`)
         g.addColorStop(1, `${col}0)`)
         ctx.fillStyle = g
         ctx.beginPath()
