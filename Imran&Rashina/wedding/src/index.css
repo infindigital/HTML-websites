@@ -959,15 +959,15 @@ canvas {
 /* =====================================================================
    6 · Venue
    ===================================================================== */
+.venue__arch {
+  max-width: 34rem;
+}
 .venue__map {
   width: 100%;
-  max-width: 34rem;
-  height: clamp(300px, 62vw, 440px);
-  margin: 0 auto;
-  border-radius: 20px;
+  height: clamp(340px, 66vw, 470px);
+  border-radius: 8px 8px 10px 10px;
   overflow: hidden;
-  border: 2px solid var(--line);
-  box-shadow: 0 16px 36px var(--shadow);
+  border: 1px solid var(--line);
   background: var(--bg-soft);
 }
 .venue__map iframe {
@@ -1099,12 +1099,12 @@ canvas {
 
   /* inner cards were pinned to phone width — let them grow with the page */
   .scratch__arch,
+  .venue__arch,
   .verse__arch {
     max-width: 32rem;
   }
   .venue__map {
-    max-width: 40rem;
-    height: clamp(380px, 34vw, 520px);
+    height: clamp(400px, 32vw, 540px);
   }
   .countdown__grid {
     max-width: 36rem;
