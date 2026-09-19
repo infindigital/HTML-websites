@@ -1,22 +1,15 @@
 import studio from '../../studio/config.js'
+import logo from '../../assets/infin-logo.png'
 
-// The IN/FIN Invite wordmark. The slash is the heart of the identity, so it is
-// given its own muted accent tone. Data-driven from studio.brandName: the first
-// token ("IN/FIN") is the mark, the remainder ("Invite") the lighter sub-word.
+// The IN/FIN Invite wordmark. The "IN/FIN" mark is now the supplied brand
+// logo image; the remaining word ("Invite") stays as a text sub-word beside
+// it. Data-driven from studio.brandName for the sub-word.
 export default function Wordmark({ className = '' }) {
-  const [markRaw, ...restArr] = studio.brandName.split(' ')
+  const [, ...restArr] = studio.brandName.split(' ')
   const sub = restArr.join(' ')
-  const parts = markRaw.split('/')
   return (
     <span className={`wordmark ${className}`}>
-      <span className="wordmark__mark">
-        {parts.map((p, i) => (
-          <span key={i}>
-            {p}
-            {i < parts.length - 1 && <span className="wordmark__slash" aria-hidden="true">/</span>}
-          </span>
-        ))}
-      </span>
+      <img className="wordmark__img" src={logo} alt="in/fin" draggable="false" />
       {sub && <span className="wordmark__sub">{sub}</span>}
     </span>
   )
