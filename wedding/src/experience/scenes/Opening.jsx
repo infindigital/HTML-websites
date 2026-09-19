@@ -69,16 +69,39 @@ export default function Opening({ onBegin }) {
             <SideLamp bright={litL} className="lamp-svg" />
           </InteractiveObject>
 
-          <InteractiveObject
-            className="opening__portal"
-            label={meta.openLabel}
-            active={began}
-            hoverScale={1.02}
-            tapScale={0.99}
-            onActivate={begin}
-          >
-            <Portal open={began} />
-          </InteractiveObject>
+          <div className="opening__door">
+            <InteractiveObject
+              className="opening__portal"
+              label={meta.openLabel}
+              active={began}
+              hoverScale={1.02}
+              tapScale={0.99}
+              onActivate={begin}
+            >
+              <Portal open={began} />
+            </InteractiveObject>
+
+            {/* highlight — makes the door stand out and shows it is tappable */}
+            <AnimatePresence>
+              {!began && (
+                <motion.span
+                  className="opening__door-cue"
+                  aria-hidden="true"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.6, delay: 0.8 }}
+                >
+                  <span className="opening__door-glow" />
+                  <span className="opening__tap">
+                    <span className="opening__tap-ring" />
+                    <span className="opening__tap-ring opening__tap-ring--2" />
+                    <span className="opening__tap-dot" />
+                  </span>
+                </motion.span>
+              )}
+            </AnimatePresence>
+          </div>
 
           <InteractiveObject
             className="opening__lamp opening__lamp--r"
@@ -111,13 +134,14 @@ export default function Opening({ onBegin }) {
               transition={{ duration: 0.6, delay: 0.95 }}
               aria-label={meta.openLabel}
             >
+              <span className="opening__hint-arrow" aria-hidden="true">︿</span>
               <motion.span
-                animate={{ opacity: [0.5, 1, 0.5] }}
+                className="opening__hint-text"
+                animate={{ opacity: [0.55, 1, 0.55] }}
                 transition={{ duration: 2.4, repeat: Infinity, ease: EASE.soft }}
               >
-                {meta.openLabel}
+                Tap the door to open
               </motion.span>
-              <span className="opening__hint-arrow" aria-hidden="true">︾</span>
             </motion.button>
           )}
         </AnimatePresence>

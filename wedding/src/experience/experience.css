@@ -269,6 +269,42 @@
 }
 .opening__hint-arrow { font-size: 1.1em; color: var(--x-gold); }
 
+/* ---- door highlight (shared by all three invitations) -------------------
+   Draws the eye to the openable door and shows, unmistakably, that it is the
+   thing to tap: a soft pulsing glow around the door + a tap ripple on it. */
+.opening__door { position: relative; flex: 0 0 auto; display: flex; }
+.opening__door-cue {
+  position: absolute; inset: 0; z-index: 5; pointer-events: none;
+  display: grid; place-items: center;
+}
+.opening__door-glow {
+  position: absolute; inset: -12% -18%;
+  background: radial-gradient(closest-side,
+    rgba(240, 209, 131, 0.36), rgba(240, 209, 131, 0.09) 60%, transparent 80%);
+  animation: doorGlow 2.6s ease-in-out infinite;
+  will-change: opacity, transform;
+}
+@keyframes doorGlow {
+  0%, 100% { opacity: 0.4; transform: scale(0.97); }
+  50%      { opacity: 0.95; transform: scale(1.04); }
+}
+.opening__tap { position: relative; width: 46px; height: 46px; display: grid; place-items: center; }
+.opening__tap-dot {
+  width: 16px; height: 16px; border-radius: 50%;
+  background: var(--x-gold, #f0d183);
+  box-shadow: 0 0 14px rgba(240, 209, 131, 0.95), 0 2px 6px rgba(0, 0, 0, 0.45);
+}
+.opening__tap-ring {
+  position: absolute; width: 22px; height: 22px; border-radius: 50%;
+  border: 2px solid var(--x-gold, #f0d183);
+  animation: tapRipple 1.9s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+}
+.opening__tap-ring--2 { animation-delay: 0.95s; }
+@keyframes tapRipple {
+  0%   { opacity: 0.85; transform: scale(0.5); }
+  100% { opacity: 0; transform: scale(3); }
+}
+
 /* portal (shared) */
 .portal {
   position: relative;
@@ -699,6 +735,8 @@
 @media (prefers-reduced-motion: reduce) {
   .x-music__wave,
   .venue__pulse,
+  .opening__door-glow,
+  .opening__tap-ring,
   .discovery__obj--fly.is-open .discovery__icon { animation: none !important; }
   .cvideo__poster { opacity: 1 !important; }
   .scenex { display: none; }
