@@ -14,6 +14,11 @@
 
 SET NAMES utf8mb4;
 
+-- Widen the qualification column so long qualifications (e.g. Dr. Elroy
+-- Saldanha's, which is 201 characters) are stored in full rather than
+-- truncated. Safe to re-run; no-op if already widened.
+ALTER TABLE `doctors` MODIFY `qualification` VARCHAR(300) NULL;
+
 START TRANSACTION;
 
 -- Remove any existing visiting doctors (keeps OPD & support staff intact)

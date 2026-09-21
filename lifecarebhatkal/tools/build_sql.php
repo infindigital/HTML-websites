@@ -122,7 +122,7 @@ $OUT .= drop_create('doctors', <<<SQL
   `name` VARCHAR(160) NOT NULL,
   `doctor_type` VARCHAR(20) NOT NULL DEFAULT 'resident',
   `department` VARCHAR(160) NULL,
-  `qualification` VARCHAR(200) NULL,
+  `qualification` VARCHAR(300) NULL,
   `designation` VARCHAR(200) NULL,
   `image` VARCHAR(255) NULL,
   `available_days` VARCHAR(120) NULL,
