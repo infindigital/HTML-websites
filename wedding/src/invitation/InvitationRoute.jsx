@@ -42,6 +42,22 @@ export default function InvitationRoute() {
     <Link to="/" className="invite-back" aria-label="Back to studio">← Back</Link>
   )
 
+  // Designs that ship as their own build (e.g. the seal keepsake) are shown
+  // full-screen in an embed, so the studio link style (/invite/<slug>) applies.
+  if (template.embedUrl) {
+    return (
+      <div className="invite-embed">
+        {back}
+        <iframe
+          className="invite-embed__frame"
+          src={template.embedUrl}
+          title={`${template.title} — wedding invitation`}
+          allow="autoplay; fullscreen"
+        />
+      </div>
+    )
+  }
+
   // Each religion has its own track + start time (see the config `music`).
   const music = configFor(template.religion)?.music
   const musicSrc = typeof music === 'string' ? music : music?.src

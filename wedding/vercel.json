@@ -3,7 +3,8 @@
     { "source": "/imran-rashina", "destination": "https://imran-rashina.vercel.app/" },
     { "source": "/imran-rashina/:path*", "destination": "https://imran-rashina.vercel.app/:path*" },
     { "source": "/rayyan-inaya", "destination": "https://rayyan-inaya.vercel.app/" },
-    { "source": "/rayyan-inaya/:path*", "destination": "https://rayyan-inaya.vercel.app/:path*" }
+    { "source": "/rayyan-inaya/:path*", "destination": "https://rayyan-inaya.vercel.app/:path*" },
+    { "source": "/(.*)", "destination": "/index.html" }
   ],
   "headers": [
     {

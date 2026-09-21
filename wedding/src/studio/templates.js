@@ -36,6 +36,9 @@ function mk(t) {
     styleLabel: t.styleLabel || '',
     theme: t.theme || slug,
     inviteHref: t.inviteHref || `/invite/${slug}`,
+    // A design that ships as its own build is shown full-screen in an embed at
+    // its /invite/<slug> route, so its card link matches the others.
+    embedUrl: t.embedUrl ?? null,
     title: t.title,
     subtitle: t.subtitle,
     description: t.description,
@@ -137,8 +140,9 @@ export const TEMPLATES = [
     description:
       'A gold-foil-on-cream Islamic invitation, sealed with wax and opened with a touch — falling leaves, a scratch-to-reveal card and a live countdown, in four languages.',
     demoCouple: { groom: 'Rayyan', bride: 'Inaya' }, monogram: 'R ✦ I',
-    // Opens the live seal-to-open demo, hosted on its own at /rayyan-inaya.
-    inviteHref: 'https://invite.infindigital.net/rayyan-inaya',
+    // Opens the wax-seal invitation in-studio at /invite/rayyan-inaya (the same
+    // clean link style as the other cards); it embeds the /rayyan-inaya build.
+    embedUrl: '/rayyan-inaya',
     poster: '/assets/rayyan-inaya-poster.jpg',
     event: { weekday: 'Sunday', day: '30', month: 'August', year: '2026', venue: 'The Royal Palace', time: '7:30 PM', city: 'Hyderabad, Telangana', mapQuery: 'Jubilee Hills, Hyderabad, Telangana' },
     highlights: ['Wax-seal opening', 'Gold-foil on cream', 'Four languages (EN · KN · HI · AR)'],

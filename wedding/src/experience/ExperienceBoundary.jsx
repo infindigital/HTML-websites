@@ -71,7 +71,7 @@ export default class ExperienceBoundary extends Component {
             {stack}
           </pre>
         )}
-        <a href="#/" style={{ color: '#e0b46a', fontSize: '0.85rem' }}>← Back to the collection</a>
+        <a href="/" style={{ color: '#e0b46a', fontSize: '0.85rem' }}>← Back to the collection</a>
       </div>
     )
   }

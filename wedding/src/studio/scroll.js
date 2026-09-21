@@ -1,5 +1,5 @@
-// Smooth in-page scroll. Used instead of href="#id" because HashRouter
-// reserves the URL hash for routing.
+// Smooth in-page scroll. Used instead of href="#id" so section navigation
+// never puts a "#" in the URL.
 //
 // Before scrolling we park the weighted smooth-scroll lerp (if any) via a
 // `smoothscroll:stop` event, so the custom scroll and this native smooth
