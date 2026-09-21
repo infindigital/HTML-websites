@@ -1,4 +1,4 @@
-import studio from '../../studio/config.js'
+import studio, { formatPrice } from '../../studio/config.js'
 import { generalOrderUrl } from '../../studio/whatsapp.js'
 import { scrollToId, scrollToTop } from '../../studio/scroll.js'
 import { LineReveal, Reveal, MagneticButton } from './Reveal.jsx'
@@ -10,7 +10,7 @@ import Wordmark from './Wordmark.jsx'
 export default function Footer() {
   const year = new Date().getFullYear()
   const toTop = () => scrollToTop()
-  const orderLabel = `Order ${studio.currency}${studio.price}`
+  const orderLabel = `Order ${formatPrice(studio.price)}`
 
   return (
     <footer id="contact" className="foot">

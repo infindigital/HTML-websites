@@ -12,7 +12,7 @@ import TemplateGrid from '../components/studio/TemplateGrid.jsx'
 import { LineReveal, Reveal, Stagger, StaggerItem, MagneticButton } from '../components/studio/Reveal.jsx'
 import { OrderButton } from '../components/studio/OrderButton.jsx'
 import { TEMPLATES } from '../studio/templates.js'
-import studio from '../studio/config.js'
+import studio, { formatPrice } from '../studio/config.js'
 import { scrollToId } from '../studio/scroll.js'
 import { EASE, DUR, SPRING, fadeUp } from '../studio/motion.js'
 
@@ -272,7 +272,7 @@ function Hero() {
             </button>
           </MagneticButton>
           <MagneticButton>
-            <OrderButton large label={`Order ${studio.currency}${studio.price}`} />
+            <OrderButton large label={`Order ${formatPrice(studio.price)}`} />
           </MagneticButton>
         </motion.div>
       </motion.div>
@@ -362,7 +362,7 @@ function WhyUs() {
     { t: 'Music included', d: 'Every invitation carries a score that sets the mood the moment it opens.' },
     { t: 'Personalised', d: 'Your names, date and venue woven into the design.' },
     { t: 'WhatsApp ordering', d: 'No complicated checkout. Order and personalise over a simple chat.' },
-    { t: 'One simple price', d: `Every design is a flat ${studio.currency}${studio.price}. No tiers, no surprises.` },
+    { t: 'One simple price', d: `Every design is a flat ${formatPrice(studio.price)}. No tiers, no surprises.` },
   ]
   return (
     <section id="about" className="sec why sec--tint">
@@ -398,8 +398,8 @@ function WhyUs() {
 function FAQ() {
   const qs = [
     { q: 'What exactly do I receive?', a: 'A beautiful digital invitation experience, delivered as one link. You share the link with your guests, and they open it to experience your invitation.' },
-    { q: 'How do I order?', a: `Choose a design, tap Order ${studio.currency}${studio.price}, and share your names, date and venue on WhatsApp. We personalise the invitation and send you your link.` },
-    { q: 'How much does it cost?', a: `Every design is a flat ${studio.currency}${studio.price}, personalised with your details and delivered as a link ready to share.` },
+    { q: 'How do I order?', a: `Choose a design, tap Order ${formatPrice(studio.price)}, and share your names, date and venue on WhatsApp. We personalise the invitation and send you your link.` },
+    { q: 'How much does it cost?', a: `Every design is a flat ${formatPrice(studio.price)}, personalised with your details and delivered as a link ready to share.` },
     { q: 'Can you change the names, date and venue?', a: 'Yes, every invitation is fully personalised. The demo names you see are placeholders; your details take their place.' },
     { q: 'Do the invitations include music?', a: 'Yes, each design comes with a score. Music never plays until the viewer chooses to start it.' },
     { q: 'How do I share the finished invitation?', a: 'You receive one link to share on WhatsApp, Instagram and beyond. It opens beautifully on phones and laptops.' },
@@ -440,11 +440,11 @@ function FinalCTA() {
       <motion.div className="wrap wrap--narrow" style={{ scale }}>
         <LineReveal as="h2" className="final__title" lines={['Your story deserves', <em key="e">an entrance.</em>]} />
         <Reveal className="final__text" as="p" delay={0.1}>
-          Choose your design, share your details, and receive one beautiful link to open your celebration, for {studio.currency}{studio.price}.
+          Choose your design, share your details, and receive one beautiful link to open your celebration, for {formatPrice(studio.price)}.
         </Reveal>
         <Reveal delay={0.18}>
           <MagneticButton>
-            <OrderButton large label={`Order ${studio.currency}${studio.price}`} />
+            <OrderButton large label={`Order ${formatPrice(studio.price)}`} />
           </MagneticButton>
         </Reveal>
       </motion.div>

@@ -97,9 +97,26 @@ const CELESTE = {
 // ---------------------------------------------------------------- flagship 3
 export const TEMPLATES = [
   mk({
+    slug: 'meher', theme: 'meher',
+    religion: 'muslim', styleLabel: 'Gold-foil on cream · sealed with wax',
+    title: 'Meher', subtitle: 'A Gilded Keepsake',
+    price: 1499, // premium wax-seal flagship
+    description:
+      'A gold-foil-on-cream Islamic invitation, sealed with wax and opened with a touch — falling leaves, a scratch-to-reveal card and a live countdown, in four languages.',
+    demoCouple: { groom: 'Rayyan', bride: 'Inaya' }, monogram: 'R ✦ I',
+    // Opens the wax-seal invitation in-studio at /invite/meher (same clean link
+    // style as the other cards); embeds the /seal/ build served by this same
+    // studio deployment — no separate project or proxy.
+    embedUrl: '/seal/',
+    poster: '/assets/rayyan-inaya-poster.jpg',
+    event: { weekday: 'Sunday', day: '30', month: 'August', year: '2026', venue: 'The Royal Palace', time: '7:30 PM', city: 'Hyderabad, Telangana', mapQuery: 'Jubilee Hills, Hyderabad, Telangana' },
+    highlights: ['Wax-seal opening', 'Gold-foil on cream', 'Four languages (EN · KN · HI · AR)'],
+  }),
+  mk({
     slug: 'noor', theme: 'noor',
     religion: 'muslim', styleLabel: 'Elegant, intimate and atmospheric',
     title: 'Noor', subtitle: 'A Celebration of Love',
+    price: 1399,
     description:
       'An invitation wrapped in emerald shadows, warm golden light and timeless geometry. A refined, atmospheric welcome to a celebration remembered before it even begins.',
     demoCouple: { groom: 'Rayyan', bride: 'Inaya' }, monogram: 'R ✦ I',
@@ -112,6 +129,7 @@ export const TEMPLATES = [
     slug: 'aaranya', theme: 'aaranya',
     religion: 'hindu', styleLabel: 'Warm, opulent and radiant',
     title: 'Amour', subtitle: 'Colour, Warmth and Joy',
+    price: 1399,
     description:
       'The warm glow of a grand celebration in deep maroon and antique gold, with intricate detail and candlelight. Colour, richness and joy from the very first moment.',
     demoCouple: { groom: 'Aarav', bride: 'Ananya' }, monogram: 'A ✦ A',
@@ -124,6 +142,7 @@ export const TEMPLATES = [
     slug: 'celeste', theme: 'celeste',
     religion: 'christian', styleLabel: 'Soft, romantic and timeless',
     title: 'Reverie', subtitle: 'A Timeless Promise',
+    price: 1399,
     description:
       'Soft candlelight, delicate florals and quiet grace in ivory, champagne and blush. A gentle, romantic invitation to the beginning of forever.',
     demoCouple: { groom: 'Nathan', bride: 'Grace' }, monogram: 'N ✦ G',
@@ -131,22 +150,6 @@ export const TEMPLATES = [
     previewVideo: '/assets/celeste.mp4', previewVideoMobile: '/assets/celeste-m.mp4', poster: '/assets/celeste-poster.jpg',
     event: { weekday: 'Saturday', day: '05', month: 'June', year: '2027', venue: "St. Mary's Chapel", time: '4:00 PM', iso: '2027-06-05T16:00:00+05:30', city: 'Bandra, Mumbai', mapQuery: 'Bandra West, Mumbai, Maharashtra' },
     highlights: ['Chapel light & candles', "White roses & baby's breath", 'Ivory, champagne & blush palette'],
-  }),
-  mk({
-    slug: 'meher', theme: 'meher',
-    religion: 'muslim', styleLabel: 'Gold-foil on cream · sealed with wax',
-    title: 'Meher', subtitle: 'A Gilded Keepsake',
-    price: 299, // this design is priced at ₹299, not the flat studio price
-    description:
-      'A gold-foil-on-cream Islamic invitation, sealed with wax and opened with a touch — falling leaves, a scratch-to-reveal card and a live countdown, in four languages.',
-    demoCouple: { groom: 'Rayyan', bride: 'Inaya' }, monogram: 'R ✦ I',
-    // Opens the wax-seal invitation in-studio at /invite/meher (same clean link
-    // style as the other cards); embeds the /seal/ build served by this same
-    // studio deployment — no separate project or proxy.
-    embedUrl: '/seal/',
-    poster: '/assets/rayyan-inaya-poster.jpg',
-    event: { weekday: 'Sunday', day: '30', month: 'August', year: '2026', venue: 'The Royal Palace', time: '7:30 PM', city: 'Hyderabad, Telangana', mapQuery: 'Jubilee Hills, Hyderabad, Telangana' },
-    highlights: ['Wax-seal opening', 'Gold-foil on cream', 'Four languages (EN · KN · HI · AR)'],
   }),
 ]
 

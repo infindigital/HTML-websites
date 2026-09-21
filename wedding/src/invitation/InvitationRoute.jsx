@@ -7,7 +7,7 @@ import { InvitationProvider } from '../context/InvitationContext.jsx'
 import ImmersiveExperience from '../experience/ImmersiveExperience.jsx'
 import ExperienceBoundary from '../experience/ExperienceBoundary.jsx'
 import { configFor } from '../experience/configs/index.js'
-import { getTemplate } from '../studio/templates.js'
+import { getTemplate, templatePrice } from '../studio/templates.js'
 import { templateOrderUrl } from '../studio/whatsapp.js'
 import { cssVars } from '../studio/themes.js'
 
@@ -94,7 +94,7 @@ export default function InvitationRoute() {
           and we’ll personalise it with your names.
         </p>
         <a className="btn btn--gold" href={templateOrderUrl(template)} target="_blank" rel="noreferrer">
-          Order · ₹499
+          Order · {templatePrice(template).display}
         </a>
       </div>
     </div>

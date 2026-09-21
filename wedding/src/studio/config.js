@@ -25,7 +25,7 @@ const studio = {
   whatsappNumber: '918073302248',
   // Where enquiries without a specific collection go (hero / final CTA / nav).
   whatsappGeneralMessage:
-    'Hi, I would like to order an IN/FIN Invite for ₹499. I would like to know more about the available collections.',
+    'Hi, I would like to order an IN/FIN Invite for ₹1,499. I would like to know more about the available collections.',
 
   // --- Contact / social (optional, shown in footer) -------------------
   email: '', //  TODO e.g. 'hello@infininvite.com'
@@ -34,7 +34,7 @@ const studio = {
   // --- Pricing --------------------------------------------------------
   //  Single flat price for every invitation.
   currency: '₹',
-  price: 499,
+  price: 1499,
   priceShowsStartingFrom: false,
 }
 

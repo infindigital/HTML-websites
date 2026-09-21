@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import studio from '../../studio/config.js'
+import studio, { formatPrice } from '../../studio/config.js'
 import { scrollToId } from '../../studio/scroll.js'
 import { MagneticButton } from './Reveal.jsx'
 import { OrderButton } from './OrderButton.jsx'
@@ -13,7 +13,7 @@ const LINKS = [
   { id: 'contact', label: 'Contact' },
 ]
 
-const ORDER_LABEL = `Order ${studio.currency}${studio.price}`
+const ORDER_LABEL = `Order ${formatPrice(studio.price)}`
 
 export default function Navbar() {
   const [solid, setSolid] = useState(false)
@@ -111,7 +111,7 @@ export default function Navbar() {
         />
         <div className="nav__overlay-foot">
           <span>{studio.brandName}</span>
-          <span>{studio.currency}{studio.price} · Personalised</span>
+          <span>{formatPrice(studio.price)} · Personalised</span>
         </div>
       </div>
     </header>

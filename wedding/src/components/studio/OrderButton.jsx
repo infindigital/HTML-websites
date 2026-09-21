@@ -10,7 +10,7 @@ function WaGlyph() {
   )
 }
 
-// The single, reusable ₹499 order CTA. Green (WhatsApp), white text, with a
+// The single, reusable order CTA. Green (WhatsApp), white text, with a
 // gentle arrow micro-interaction (see .btn--wa in studio.css). Pass a
 // `template` to pre-fill a collection-specific WhatsApp message, or nothing
 // for the general enquiry.

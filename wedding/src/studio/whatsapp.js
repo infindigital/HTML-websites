@@ -17,7 +17,7 @@ export function generalOrderUrl() {
 }
 
 // Collection-specific order - pre-fills a tidy, brand-voiced message that
-// names the chosen collection and the ₹499 price.
+// names the chosen collection and its price.
 export function templateOrderUrl(template) {
   if (!template) return generalOrderUrl()
   const price = templatePrice(template).display
