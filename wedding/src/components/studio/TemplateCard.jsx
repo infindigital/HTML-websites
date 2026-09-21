@@ -7,6 +7,24 @@ import { OrderButton } from './OrderButton.jsx'
 const reduceMotion = () =>
   typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
+// Cards usually open the live invitation via an in-app route (/invite/<slug>).
+// A template can instead point at a full URL — a demo hosted on its own, e.g.
+// /rayyan-inaya — which opens as a real link (new tab), not a client-side route.
+function InviteLink({ href, children, ...rest }) {
+  if (/^https?:\/\//.test(href)) {
+    return (
+      <a href={href} target="_blank" rel="noopener noreferrer" {...rest}>
+        {children}
+      </a>
+    )
+  }
+  return (
+    <Link to={href} {...rest}>
+      {children}
+    </Link>
+  )
+}
+
 // A living collection card. The preview plays (muted, looping) while the card is
 // in view; the whole card tilts in 3D toward the pointer; "View Invitation" opens
 // the live invitation itself (/invite/<slug>) — exactly what a guest sees when
@@ -83,8 +101,8 @@ export default function TemplateCard({ template, index = 0 }) {
       onMouseMove={onMove}
       onMouseLeave={onLeave}
     >
-      <Link
-        to={template.inviteHref}
+      <InviteLink
+        href={template.inviteHref}
         className="card__media"
         aria-label={`View the ${template.title} invitation`}
       >
@@ -123,7 +141,7 @@ export default function TemplateCard({ template, index = 0 }) {
             {ev.day} {ev.month} {ev.year}
           </span>
         )}
-      </Link>
+      </InviteLink>
 
       <div className="card__body">
         <div className="card__head">
@@ -133,9 +151,9 @@ export default function TemplateCard({ template, index = 0 }) {
         <p className="card__sub">{template.subtitle}</p>
         {template.styleLabel && <p className="card__style">{template.styleLabel}</p>}
         <div className="card__actions">
-          <Link className="btn btn--ghost" to={template.inviteHref}>
+          <InviteLink className="btn btn--ghost" href={template.inviteHref}>
             View Invitation
-          </Link>
+          </InviteLink>
           <OrderButton template={template} label={`Order ${price.display}`} />
         </div>
       </div>

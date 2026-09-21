@@ -35,7 +35,7 @@ function mk(t) {
     // Short, style-led descriptor shown on the card and in the preview.
     styleLabel: t.styleLabel || '',
     theme: t.theme || slug,
-    inviteHref: `/invite/${slug}`,
+    inviteHref: t.inviteHref || `/invite/${slug}`,
     title: t.title,
     subtitle: t.subtitle,
     description: t.description,
@@ -128,6 +128,20 @@ export const TEMPLATES = [
     previewVideo: '/assets/celeste.mp4', previewVideoMobile: '/assets/celeste-m.mp4', poster: '/assets/celeste-poster.jpg',
     event: { weekday: 'Saturday', day: '05', month: 'June', year: '2027', venue: "St. Mary's Chapel", time: '4:00 PM', iso: '2027-06-05T16:00:00+05:30', city: 'Bandra, Mumbai', mapQuery: 'Bandra West, Mumbai, Maharashtra' },
     highlights: ['Chapel light & candles', "White roses & baby's breath", 'Ivory, champagne & blush palette'],
+  }),
+  mk({
+    slug: 'rayyan-inaya', theme: 'meher',
+    religion: 'muslim', styleLabel: 'Gold-foil on cream · sealed with wax',
+    title: 'Meher', subtitle: 'A Gilded Keepsake',
+    price: 299, // this design is priced at ₹299, not the flat studio price
+    description:
+      'A gold-foil-on-cream Islamic invitation, sealed with wax and opened with a touch — falling leaves, a scratch-to-reveal card and a live countdown, in four languages.',
+    demoCouple: { groom: 'Rayyan', bride: 'Inaya' }, monogram: 'R ✦ I',
+    // Opens the live seal-to-open demo, hosted on its own at /rayyan-inaya.
+    inviteHref: 'https://invite.infindigital.net/rayyan-inaya',
+    poster: '/assets/rayyan-inaya-poster.jpg',
+    event: { weekday: 'Sunday', day: '30', month: 'August', year: '2026', venue: 'The Royal Palace', time: '7:30 PM', city: 'Hyderabad, Telangana', mapQuery: 'Jubilee Hills, Hyderabad, Telangana' },
+    highlights: ['Wax-seal opening', 'Gold-foil on cream', 'Four languages (EN · KN · HI · AR)'],
   }),
 ]
 

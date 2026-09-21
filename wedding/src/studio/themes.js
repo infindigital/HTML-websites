@@ -17,6 +17,11 @@ export const THEMES = {
     id: 'layali',
     tokens: { ink: '#101a30', ivory: '#eef1fa', deep: '#3a568f', gold: '#d9c27e', glow: 'rgba(58,86,143,0.22)' },
   },
+  // gold-foil on cream (Muslim - Rayyan & Inaya seal keepsake)
+  meher: {
+    id: 'meher',
+    tokens: { ink: '#2a2013', ivory: '#f6efe1', deep: '#b08636', gold: '#e6c879', glow: 'rgba(176,134,54,0.24)' },
+  },
   // plum + dusty rose + ivory
   amara: {
     id: 'amara',
