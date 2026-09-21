@@ -196,6 +196,11 @@ export function templatePrice(template) {
   return tier()
 }
 
+// Lowest price across the live collection — drives "from ₹X" copy.
+export function lowestTemplatePrice() {
+  return Math.min(...TEMPLATES.map((t) => templatePrice(t).amount))
+}
+
 export function getTemplate(slug) {
   return (
     TEMPLATES.find((t) => t.slug === slug) ||
