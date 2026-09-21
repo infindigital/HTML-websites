@@ -844,6 +844,9 @@ h1,.h1,h2,.h2,h3,.h3,h4,.h4,h5,.h5,h6,.h6,
 
 </head>
 <body>
+<script>/* Capture the originally requested path before the router can rewrite it, so a
+   deep-link to a dashboard-only page (e.g. a brand-new department) can be shown
+   once its content has loaded from the database. */try{window.__lcWanted=location.pathname;}catch(e){}</script>
 <div class="topbar">
   <div class="topbar-inner">
     <div class="tb-left">
@@ -2048,7 +2051,7 @@ docReady(scrollToTop);
     if(scroll!==false)window.scrollTo({top:0,behavior:'smooth'});
     var nc=document.getElementById('lcnav'); if(nc&&nc.classList.contains('show')){ try{new bootstrap.Collapse(nc,{toggle:false}).hide();}catch(e){} }
   }
-  window.lcShow=show;window.lcId2Path=id2path;window.lcPath2Id=path2id;
+  window.lcShow=show;window.lcId2Path=id2path;window.lcPath2Id=path2id;window.lcReveals=reveals;
   document.addEventListener('click',function(e){var l=e.target.closest('[data-link]');if(l){e.preventDefault();var sc=l.getAttribute('data-scroll');show(l.getAttribute('data-link'),!sc,true);if(sc){var el=document.getElementById(sc);if(el){setTimeout(function(){el.scrollIntoView({behavior:'smooth',block:'start'});},90);}}}});
   window.addEventListener('popstate',function(){show(path2id(location.pathname),false,false);});
   window.addEventListener('hashchange',function(){if(location.hash){var hid=location.hash.replace(/^#/,'')||'home';try{history.replaceState(null,'',id2path(hid));}catch(e){}show(hid,false,false);}});
@@ -2350,6 +2353,146 @@ docReady(scrollToTop);
   }
   load('blog',renderBlog);
   load('careers',renderCareers);
+})();
+</script>
+<script>
+/* Live content from the dashboard for the remaining sections (progressive
+   enhancement). Each section replaces its built-in static content ONLY when the
+   dashboard returns rows; otherwise the built-in content stays, so nothing ever
+   breaks. Covers: OPD (resident) doctors, support staff, departments (grid +
+   auto-generated detail pages for departments that have no built-in page),
+   events, gallery and FAQs. All values are escaped/sanitised before insertion. */
+(function(){
+  /* escape for text AND double-quoted attribute contexts (also escapes quotes) */
+  function esc(v){var d=document.createElement('div');d.textContent=(v==null?'':String(v));return d.innerHTML.replace(/"/g,'&quot;').replace(/'/g,'&#39;');}
+  function slug(s){return String(s||'').toLowerCase().replace(/&/g,' and ').replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'');}
+  var TAGS={P:1,BR:1,STRONG:1,B:1,EM:1,I:1,U:1,UL:1,OL:1,LI:1,H3:1,H4:1,H5:1,H6:1,BLOCKQUOTE:1,SPAN:1};
+  function sanitize(htmlStr){var tpl=document.createElement('template');tpl.innerHTML=String(htmlStr||'');
+    function walk(node){var out=document.createDocumentFragment();
+      Array.prototype.forEach.call(node.childNodes,function(ch){
+        if(ch.nodeType===3){out.appendChild(document.createTextNode(ch.nodeValue));}
+        else if(ch.nodeType===1){var t=ch.tagName.toUpperCase();if(t==='SCRIPT'||t==='STYLE')return;
+          if(TAGS[t]){var el=document.createElement(t.toLowerCase());el.appendChild(walk(ch));out.appendChild(el);}
+          else{out.appendChild(walk(ch));}}});
+      return out;}
+    var d=document.createElement('div');d.appendChild(walk(tpl.content));return d.innerHTML;}
+  function getJSON(url,cb){try{fetch(url,{headers:{'Accept':'application/json'}})
+    .then(function(r){return r.ok?r.json():null;})
+    .then(function(j){if(j)cb(j);}).catch(function(){});}catch(e){}}
+  function host(){return document.getElementById('app')||document.querySelector('main')||document.body;}
+  function refresh(pageEl){ if(pageEl&&!pageEl.hidden&&window.lcReveals){ try{window.lcReveals(pageEl);}catch(e){} } }
+
+  /* ---------- DOCTORS: OPD (resident) + Support (shared enquiry modal) ---------- */
+  function docCard(d,badgeClass,badgeText){
+    var bio=d.short_bio||''; if(!bio&&d.full_bio){var tmp=document.createElement('div');tmp.innerHTML=d.full_bio;bio=(tmp.textContent||'').trim();}
+    var img=d.image?'<img class="rounded-circle lc-doc-img" src="'+esc(d.image)+'" alt="'+esc(d.name)+'" width="118" height="118" loading="lazy">':'';
+    return '<div class="card card-span h-100 shadow rounded-3 lift lc-doc-open" role="button" tabindex="0"'
+      +' data-dn="'+esc(d.name)+'" data-ds="'+esc(d.designation)+'" data-dq="'+esc(d.qualification)+'" data-dbio="'+esc(bio)+'">'
+      +'<div class="card-body d-flex flex-column flex-center text-center py-5 px-3">'+img
+      +'<h5 class="mt-3 mb-2">'+esc(d.name)+'</h5>'
+      +'<span class="badge '+badgeClass+' rounded-pill mb-2">'+esc(badgeText)+'</span>'
+      +(d.designation?'<p class="mb-1 text-teal fw-medium">'+esc(d.designation)+'</p>':'')
+      +(d.qualification?'<p class="mb-2 fs--1">'+esc(d.qualification)+'</p>':'')
+      +'<span class="lc-doc-cta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="16" rx="2"/><path d="M3.5 9.5h17M8 3v4M16 3v4M12 13v4M10 15h4"/></svg>View &amp; enquire</span>'
+      +'</div></div>';}
+  function renderResident(list){
+    if(!list.length)return;
+    var grid=document.getElementById('docGrid'); if(!grid)return;
+    grid.innerHTML=list.map(function(d){
+      return '<div class="col-sm-6 col-lg-4 col-xl-3 mb-4 doc-item" data-dept="'+esc(slug(d.department))+'">'+docCard(d,'bg-primary','Resident')+'</div>';
+    }).join('');
+    var f=document.getElementById('docFilter');
+    if(f){var seen={},opts='<option value="all">All departments</option>';
+      list.forEach(function(d){var s=slug(d.department);if(d.department&&!seen[s]){seen[s]=1;opts+='<option value="'+esc(s)+'">'+esc(d.department)+'</option>';}});
+      f.innerHTML=opts;}
+    refresh(document.querySelector('.lc-page[data-page="doctors"]'));
+  }
+  function renderSupport(list){
+    if(!list.length)return;
+    var first=document.querySelector('.lc-page[data-page="support"] .lc-doc-open');
+    var grid=first?first.closest('.row'):null; if(!grid)return;
+    grid.innerHTML=list.map(function(d){
+      return '<div class="col-sm-6 col-lg-4 col-xl-3 mb-4">'+docCard(d,'bg-success','Allied')+'</div>';
+    }).join('');
+    refresh(document.querySelector('.lc-page[data-page="support"]'));
+  }
+
+  /* ---------- DEPARTMENTS: live grid + generated detail pages ---------- */
+  function deptBadge(cat){return (String(cat||'').toLowerCase()==='visiting')
+      ?{cls:'bg-secondary',label:'Visiting Specialty'}:{cls:'bg-primary',label:'OPD Department'};}
+  function deptCard(d){var s=d.slug||slug(d.name);var b=deptBadge(d.category);
+    var img=d.thumb_image?'<img class="card-img-top rounded-top-3 lc-blog-img" src="'+esc(d.thumb_image)+'" alt="'+esc(d.name)+'">':'';
+    return '<div class="col-md-6 col-lg-4 mb-4"><a class="card h-100 shadow card-span rounded-3 lift text-decoration-none" href="/dept-'+esc(s)+'" data-link="dept-'+esc(s)+'">'+img
+      +'<div class="card-body p-4"><span class="badge '+b.cls+' rounded-pill mb-2">'+b.label+'</span>'
+      +'<h5 class="fw-bold mb-2">'+esc(d.name)+'</h5>'
+      +(d.short_desc?'<p class="mb-3 fs--1">'+esc(d.short_desc)+'</p>':'')
+      +'<span class="text-secondary fw-medium">Learn more &rarr;</span></div></a></div>';}
+  function deptHero(d){var b=deptBadge(d.category);
+    return '<section class="lc-phero" data-hero><span class="lc-orb o1"></span><span class="lc-orb o2"></span><span class="lc-orb o3"></span>'
+      +'<div class="container"><div class="row justify-content-center text-center"><div class="col-lg-9 lc-hero-inner rv">'
+      +'<p class="fw-bold text-uppercase ls mb-2 lc-eyebrow">'+esc(b.label)+'</p>'
+      +'<h1 class="fw-bold display-4 mb-3">'+esc(d.name)+'</h1>'
+      +(d.short_desc?'<p class="fs-1 mx-auto" style="max-width:680px">'+esc(d.short_desc)+'</p>':'')
+      +'<svg class="lc-ecg" viewBox="0 0 200 34" preserveAspectRatio="none"><path d="M0 17h58l6-12 8 24 7-18 5 6h20l6-9 7 15 6-6h64"/></svg>'
+      +'</div></div></div><div class="lc-wave"><svg viewBox="0 0 1440 64" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"><path fill="#ffffff" d="M0 40c180 26 360 26 540 8 220-22 460-40 720-18 100 8 180 14 180 14v20H0z"/></svg></div></section>';}
+  function deptChecks(services){var lines=String(services||'').split(/\r?\n/).map(function(x){return x.trim();}).filter(Boolean);
+    if(!lines.length)return '';
+    return '<ul class="lc-checks">'+lines.map(function(x){return '<li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-11"/></svg><span>'+esc(x)+'</span></li>';}).join('')+'</ul>';}
+  function deptPage(d){var s=d.slug||slug(d.name);
+    var img=d.hero_image?'<div class="col-md-6 mb-4 mb-md-0 rv"><img class="img-fluid rounded-3 shadow w-100" src="'+esc(d.hero_image)+'" alt="'+esc(d.name)+'"></div>':'';
+    var body='<div class="'+(img?'col-md-6':'col-lg-8 mx-auto')+' rv"><h2 class="fw-bold mb-3">About '+esc(d.name)+'</h2>'
+      +(d.overview?sanitize(d.overview):(d.short_desc?'<p>'+esc(d.short_desc)+'</p>':''))
+      +deptChecks(d.services)
+      +'<div class="mt-4"><a class="btn btn-primary rounded-pill me-2" href="/contact" data-link="contact">Book an appointment</a><a class="btn btn-outline-primary rounded-pill" href="https://wa.me/918385992233">WhatsApp</a></div></div>';
+    return '<div class="lc-page" data-page="dept-'+esc(s)+'" hidden>'+deptHero(d)
+      +'<section class="py-7"><div class="container"><div class="row align-items-center">'+img+body+'</div></div></section></div>';}
+  function renderDepartments(list){
+    if(!list.length)return;
+    var grid=document.querySelector('.lc-page[data-page="departments"] .row.rv-stagger');
+    if(grid){grid.innerHTML=list.map(deptCard).join('');}
+    list.forEach(function(d){var s=d.slug||slug(d.name);
+      if(!document.querySelector('.lc-page[data-page="dept-'+s+'"]')){
+        host().insertAdjacentHTML('beforeend',deptPage(d));
+        var p=document.querySelector('.lc-page[data-page="dept-'+s+'"]'); if(p)p.hidden=true;}});
+    refresh(document.querySelector('.lc-page[data-page="departments"]'));
+    // If the visitor deep-linked a department that only exists in the database
+    // (so the router fell back to home before it was generated), show it now.
+    var wantPath=window.__lcWanted||location.pathname;
+    var cur=window.lcPath2Id?window.lcPath2Id(wantPath):'';
+    if(cur&&cur.indexOf('dept-')===0&&document.querySelector('.lc-page[data-page="'+cur+'"]')&&window.lcShow){
+      var vis=document.querySelector('.lc-page:not([hidden])');
+      if(!vis||vis.getAttribute('data-page')!==cur){window.lcShow(cur,false,false);}
+    }
+  }
+
+  /* ---------- EVENTS + GALLERY (image grids) ---------- */
+  function tile(src,alt){return '<div class="col-6 col-md-4 col-lg-3 mb-4"><div class="lc-gitem shadow-sm rv"><img src="'+esc(src)+'" alt="'+esc(alt||'Life Care')+'" loading="lazy"></div></div>';}
+  function renderTiles(pageSel,items,imgKey){
+    items=(items||[]).filter(function(it){return it[imgKey];}); if(!items.length)return;
+    var grid=document.querySelector(pageSel+' section.py-7 .row'); if(!grid)return;
+    grid.innerHTML=items.map(function(it){return tile(it[imgKey],it.title);}).join('');
+    refresh(document.querySelector(pageSel));
+  }
+
+  /* ---------- FAQs ---------- */
+  function renderFaqs(list){
+    if(!list.length)return;
+    var anyQ=document.querySelector('.faq-q'); var box=anyQ?anyQ.closest('.col-lg-9'):null; if(!box)return;
+    box.innerHTML=list.map(function(f){
+      return '<div class="card shadow-sm rounded-3 mb-3"><div class="card-body p-0">'
+        +'<div class="faq-q d-flex justify-content-between align-items-center p-4"><h6 class="fw-bold mb-0">'+esc(f.question)+'</h6>'
+        +'<span class="text-teal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span></div>'
+        +'<div class="faq-a"><p class="px-4 pb-4 mb-0">'+esc(f.answer)+'</p></div></div></div>';
+    }).join('');
+  }
+
+  /* ---------- kick off all fetches ---------- */
+  getJSON('api/doctors.php?type=resident',function(j){if(j.ok&&j.doctors)renderResident(j.doctors);});
+  getJSON('api/doctors.php?type=support',function(j){if(j.ok&&j.doctors)renderSupport(j.doctors);});
+  getJSON('api/content.php?type=departments',function(j){if(j.ok&&j.items)renderDepartments(j.items);});
+  getJSON('api/content.php?type=events',function(j){if(j.ok&&j.items)renderTiles('.lc-page[data-page="events"]',j.items,'cover_image');});
+  getJSON('api/content.php?type=gallery',function(j){if(j.ok&&j.items)renderTiles('.lc-page[data-page="gallery"]',j.items,'image');});
+  getJSON('api/content.php?type=faqs',function(j){if(j.ok&&j.items)renderFaqs(j.items);});
 })();
 </script>
 <a class="lc-wa-fab" href="https://whatsapp.com/channel/0029Vb8E7Q4LY6dDI1LRnl0p" target="_blank" rel="noopener noreferrer" aria-label="Join our WhatsApp channel" title="Join our WhatsApp channel">

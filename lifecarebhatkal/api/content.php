@@ -20,6 +20,9 @@ if (($_SERVER['REQUEST_METHOD'] ?? 'GET') !== 'GET') {
     exit;
 }
 
+// Each entry: table, ordering, selected columns, and an OPTIONAL status value.
+// When 'status' is omitted the table has no status column (e.g. gallery) and
+// every row is returned.
 $MAP = [
     'blog' => [
         'table'  => 'blog_posts',
@@ -32,6 +35,29 @@ $MAP = [
         'status' => 'active',
         'order'  => 'display_order, id',
         'cols'   => 'id, title, department, location, type, description, requirements, apply_email',
+    ],
+    'departments' => [
+        'table'  => 'departments',
+        'status' => 'published',
+        'order'  => 'display_order, id',
+        'cols'   => 'id, name, slug, category, thumb_image, hero_image, short_desc, overview, services',
+    ],
+    'events' => [
+        'table'  => 'events',
+        'status' => 'published',
+        'order'  => 'event_date DESC, id DESC',
+        'cols'   => 'id, title, slug, event_date, cover_image, description, gallery',
+    ],
+    'gallery' => [
+        'table'  => 'gallery_images',
+        'order'  => 'display_order, id',
+        'cols'   => 'id, album, title, image, display_order',
+    ],
+    'faqs' => [
+        'table'  => 'faqs',
+        'status' => 'published',
+        'order'  => 'display_order, id',
+        'cols'   => 'id, question, answer',
     ],
 ];
 
@@ -49,10 +75,17 @@ try {
         echo json_encode(['ok' => false, 'reason' => 'db-not-configured', 'items' => []]);
         exit;
     }
-    $st = $pdo->prepare(
-        "SELECT {$cfg['cols']} FROM {$cfg['table']} WHERE status = ? ORDER BY {$cfg['order']}"
-    );
-    $st->execute([$cfg['status']]);
+    if (isset($cfg['status'])) {
+        $st = $pdo->prepare(
+            "SELECT {$cfg['cols']} FROM {$cfg['table']} WHERE status = ? ORDER BY {$cfg['order']}"
+        );
+        $st->execute([$cfg['status']]);
+    } else {
+        $st = $pdo->prepare(
+            "SELECT {$cfg['cols']} FROM {$cfg['table']} ORDER BY {$cfg['order']}"
+        );
+        $st->execute();
+    }
     $rows = $st->fetchAll();
 
     foreach ($rows as &$r) {
