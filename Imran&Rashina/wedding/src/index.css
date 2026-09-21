@@ -293,32 +293,39 @@ canvas {
   pointer-events: none;
 }
 
-/* tiny persistent "made by IN/FIN Invite" credit — bottom centre, all devices */
+/* tiny persistent "Powered by IN/FIN" credit — bottom-right, all devices */
 .madeby-bar {
   position: fixed;
   z-index: 50;
-  left: 50%;
+  right: calc(env(safe-area-inset-right, 0px) + 10px);
   bottom: calc(env(safe-area-inset-bottom, 0px) + 10px);
-  transform: translateX(-50%);
-  padding: 0.28rem 0.75rem;
+  left: auto;
+  transform: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.28rem;
+  padding: 0.2rem 0.48rem;
   border-radius: 999px;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica,
     Arial, sans-serif;
-  font-size: 0.66rem;
+  font-size: 0.55rem;
   letter-spacing: 0.02em;
   line-height: 1;
   white-space: nowrap;
-  font-weight: 400;
-  color: #000;
-  -webkit-text-fill-color: #000;
+  font-weight: 500;
+  color: #222;
+  -webkit-text-fill-color: #222;
   text-decoration: none;
+  /* keep the badge light in both themes — the IN/FIN wordmark is dark ink */
   background: #ffffff;
-  border: 1px solid rgba(0, 0, 0, 0.18);
+  border: 1px solid rgba(0, 0, 0, 0.14);
   box-shadow: 0 3px 10px var(--shadow);
   -webkit-tap-highlight-color: transparent;
 }
-.madeby-bar__brand {
-  font-weight: 700;
+.madeby-bar__logo {
+  display: block;
+  height: 0.72rem;
+  width: auto;
 }
 
 /* language switcher */
