@@ -52,12 +52,13 @@ const config = {
     ref: 'Surah Ar-Rum · 30:21',
   },
 
-  // Assets — drop your own files into /public (see README).
-  audioSrc: '/song.mp3',
+  // Assets — drop your own files into /public (see README). Paths are prefixed
+  // with the Vite base URL so they resolve under the /imran-rashina subpath.
+  audioSrc: `${import.meta.env.BASE_URL}song.mp3`,
   // The track has a short intro; playback (and every loop) begins here, in
   // seconds. Set to 0 to play from the very start.
   audioStartOffset: 13,
-  previewImage: '/preview.jpg',
+  previewImage: `${import.meta.env.BASE_URL}preview.jpg`,
 
   defaultLanguage: 'en',
   languages: ['en'], // English only
