@@ -37,7 +37,7 @@ return [
     'list_cols'=>['name'=>'Name','doctor_type'=>'Type','department'=>'Department','status'=>'Status'],
     'fields'=>[
         ['name','Full name','text',['required'=>true]],
-        ['doctor_type','Type','select',['options'=>['resident'=>'Resident consultant','visiting'=>'Visiting specialist','support'=>'Support / allied'],'required'=>true]],
+        ['doctor_type','Type','select',['options'=>['resident'=>'Resident consultant','visiting'=>'Visiting Doctor','support'=>'Support / allied'],'required'=>true]],
         ['department','Department','text',['help'=>'Free text, e.g. Orthopaedics']],
         ['qualification','Qualification','text',['placeholder'=>'MBBS, MD']],
         ['designation','Designation','text',[]],
