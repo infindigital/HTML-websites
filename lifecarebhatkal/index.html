@@ -2008,7 +2008,7 @@ docReady(scrollToTop);
   var cio=('IntersectionObserver'in window)?new IntersectionObserver(function(en){en.forEach(function(e){if(e.isIntersecting){countUp(e.target);cio.unobserve(e.target);}});},{threshold:.4}):null;
   function counts(scope){(scope||document).querySelectorAll('[data-count]').forEach(function(el){el.textContent='0';if(cio)cio.observe(el);else countUp(el);});}
   function show(id,scroll){var t=document.querySelector('.lc-page[data-page="'+id+'"]');if(!t){id='home';t=document.querySelector('.lc-page[data-page="home"]');}
-    pages.forEach(function(p){p.hidden=(p!==t);});
+    [].slice.call(document.querySelectorAll('.lc-page')).forEach(function(p){p.hidden=(p!==t);});
     var top=id, base=id.indexOf('dept-')===0?'departments':(id.indexOf('doc-')===0?'visiting':(id.indexOf('article-')===0?'blog':id));
     document.querySelectorAll('.lc-menubar .nav-link').forEach(function(a){a.classList.toggle('active',a.getAttribute('data-link')===base);});
     reveals(t);counts(t);initTilt(t);if(window.lcSlideImages)window.lcSlideImages(t);
@@ -2152,6 +2152,78 @@ docReady(scrollToTop);
   function run(){ window.lcSlideImages(document); }
   if(document.readyState === 'loading'){ document.addEventListener('DOMContentLoaded', run); }
   else { run(); }
+})();
+</script>
+<script>
+/* Live visiting doctors from the dashboard database (progressive enhancement).
+   If api/doctors.php returns published doctors, replace the built-in list and
+   detail pages with the live ones. On any failure the built-in list stays. */
+(function(){
+  function esc(v){var d=document.createElement('div');d.textContent=(v==null?'':String(v));return d.innerHTML;}
+  var ALLOW={P:1,UL:1,OL:1,LI:1,STRONG:1,EM:1,B:1,I:1,BR:1,H4:1,H5:1,H6:1,SPAN:1};
+  function sanitize(htmlStr){var tpl=document.createElement('template');tpl.innerHTML=String(htmlStr||'');
+    function walk(node){var out=document.createDocumentFragment();
+      Array.prototype.forEach.call(node.childNodes,function(ch){
+        if(ch.nodeType===3){out.appendChild(document.createTextNode(ch.nodeValue));}
+        else if(ch.nodeType===1){var t=ch.tagName.toUpperCase();if(t==='SCRIPT'||t==='STYLE')return;
+          if(ALLOW[t]){var el=document.createElement(t.toLowerCase());el.appendChild(walk(ch));out.appendChild(el);}
+          else{out.appendChild(walk(ch));}}});
+      return out;}
+    var d=document.createElement('div');d.appendChild(walk(tpl.content));return d.innerHTML;}
+  var CAL='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="16" rx="2"/><path d="M3.5 9.5h17M8 3v4M16 3v4M12 13v4M10 15h4"/></svg>';
+  var WAVE='<div class="lc-wave"><svg viewBox="0 0 1440 64" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"><path fill="#ffffff" d="M0 40c180 26 360 26 540 8 220-22 460-40 720-18 100 8 180 14 180 14v20H0z"/></svg></div>';
+  function pid(d){return 'doc-db-'+d.id;}
+  function card(d){var img=d.image?('<img class="rounded-circle lc-doc-img" src="'+esc(d.image)+'" alt="'+esc(d.name)+'" width="118" height="118" loading="lazy">'):'';
+    return '<div class="col-sm-6 col-lg-4 col-xl-3 mb-4"><a class="card card-span h-100 shadow rounded-3 lift lc-doc-card text-decoration-none" href="#'+pid(d)+'" data-link="'+pid(d)+'" aria-label="View profile of '+esc(d.name)+'">'
+      +'<div class="card-body d-flex flex-column flex-center text-center py-5 px-3">'+img
+      +'<h5 class="mt-3 mb-2">'+esc(d.name)+'</h5><span class="badge bg-secondary rounded-pill mb-2">Visiting Doctor</span>'
+      +'<p class="mb-1 text-teal fw-medium">'+esc(d.designation)+'</p>'
+      +(d.qualification?'<p class="mb-2 fs--1">'+esc(d.qualification)+'</p>':'')
+      +'<span class="lc-doc-cta">'+CAL+'View profile</span></div></a></div>';}
+  function availBadge(d){if(!d.available_days&&!d.available_time)return '';
+    var t=[d.available_days,d.available_time].filter(Boolean).join(', ');
+    return '<p class="mb-0 mt-2"><span class="badge bg-soft-primary text-primary rounded-pill">Available: '+esc(t)+'</span></p>';}
+  function availBlock(d){var rows=[];if(d.available_days)rows.push(['Visiting schedule',d.available_days]);if(d.available_time)rows.push(['Timing',d.available_time]);
+    if(!rows.length)return '<p class="fs--1 mb-3 text-body-secondary">Visiting days vary. Please call reception on <a href="tel:+918385992233">+91 8385992233</a> to confirm the schedule.</p>';
+    return '<ul class="list-unstyled mb-3">'+rows.map(function(r){return '<li class="d-flex justify-content-between gap-3 py-1 border-bottom"><span class="fw-medium">'+esc(r[0])+'</span><span class="text-end">'+esc(r[1])+'</span></li>';}).join('')+'</ul>';}
+  function page(d){var img=d.image?('<img class="rounded-circle lc-doc-img lc-doc-img-lg shadow" src="'+esc(d.image)+'" alt="'+esc(d.name)+'" width="176" height="176">'):'';
+    return '<div class="lc-page" data-page="'+pid(d)+'" hidden><section class="py-6 bg-soft-teal lc-docdetail"><div class="container">'
+      +'<nav class="mb-4" aria-label="Breadcrumb"><a class="lc-back-link text-decoration-none fw-medium" href="#visiting" data-link="visiting">&larr; Back to Visiting Doctors</a></nav>'
+      +'<div class="row g-4 align-items-center rv"><div class="col-12 col-md-auto text-center">'+img+'</div>'
+      +'<div class="col"><span class="badge bg-secondary rounded-pill mb-2">Visiting Doctor</span>'
+      +'<h1 class="fw-bold mb-1">'+esc(d.name)+'</h1><p class="text-teal fw-medium fs-1 mb-1">'+esc(d.designation)+'</p>'
+      +(d.qualification?'<p class="fs--1 mb-1">'+esc(d.qualification)+'</p>':'')
+      +(d.department?'<p class="mb-0"><strong>Department:</strong> '+esc(d.department)+'</p>':'')
+      +availBadge(d)+'</div></div></div>'+WAVE+'</section>'
+      +'<section class="py-6"><div class="container"><div class="row g-4"><div class="col-lg-8 rv">'
+      +'<h2 class="h4 fw-bold mb-3">About '+esc(d.name)+'</h2>'
+      +(d.short_bio?'<p class="lead fs-1">'+esc(d.short_bio)+'</p>':'')
+      +(d.full_bio?sanitize(d.full_bio):'')+'</div>'
+      +'<div class="col-lg-4 rv"><div class="card shadow rounded-3 border-0"><div class="card-body p-4">'
+      +'<h3 class="h5 fw-bold mb-3">Book an appointment</h3>'+availBlock(d)
+      +'<a class="btn btn-primary rounded-pill w-100 mb-2" href="#contact" data-link="contact">Book an appointment</a>'
+      +'<a class="btn btn-outline-primary rounded-pill w-100" href="tel:+918385992233">Call +91 8385992233</a>'
+      +'</div></div></div></div></div></section></div>';}
+  function render(list){
+    var grid=document.querySelector('.lc-page[data-page="visiting"] .row.rv-stagger');
+    if(!grid)return;
+    grid.innerHTML=list.map(card).join('');
+    // remove built-in static doctor pages, add live ones
+    [].slice.call(document.querySelectorAll('.lc-page[data-page^="doc-"]')).forEach(function(p){p.remove();});
+    var host=document.getElementById('app')||document.querySelector('main')||document.body;
+    host.insertAdjacentHTML('beforeend', list.map(page).join(''));
+    [].slice.call(document.querySelectorAll('.lc-page[data-page^="doc-db-"]')).forEach(function(p){p.hidden=true;});
+    // if the visitor deep-linked an old static doctor page that no longer exists, send them to the list
+    if(location.hash.indexOf('#doc-')===0 && !document.querySelector('.lc-page[data-page="'+location.hash.slice(1)+'"]')){
+      location.hash='#visiting';
+    } else { try{window.dispatchEvent(new HashChangeEvent('hashchange'));}catch(e){} }
+  }
+  try{
+    fetch('api/doctors.php?type=visiting',{headers:{'Accept':'application/json'}})
+      .then(function(r){return r.ok?r.json():null;})
+      .then(function(j){ if(j&&j.ok&&j.doctors&&j.doctors.length){ render(j.doctors); } })
+      .catch(function(){});
+  }catch(e){}
 })();
 </script>
 </body>
