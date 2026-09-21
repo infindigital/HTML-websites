@@ -133,16 +133,17 @@ export const TEMPLATES = [
     highlights: ['Chapel light & candles', "White roses & baby's breath", 'Ivory, champagne & blush palette'],
   }),
   mk({
-    slug: 'rayyan-inaya', theme: 'meher',
+    slug: 'meher', theme: 'meher',
     religion: 'muslim', styleLabel: 'Gold-foil on cream · sealed with wax',
     title: 'Meher', subtitle: 'A Gilded Keepsake',
     price: 299, // this design is priced at ₹299, not the flat studio price
     description:
       'A gold-foil-on-cream Islamic invitation, sealed with wax and opened with a touch — falling leaves, a scratch-to-reveal card and a live countdown, in four languages.',
     demoCouple: { groom: 'Rayyan', bride: 'Inaya' }, monogram: 'R ✦ I',
-    // Opens the wax-seal invitation in-studio at /invite/rayyan-inaya (the same
-    // clean link style as the other cards); it embeds the /rayyan-inaya build.
-    embedUrl: '/rayyan-inaya',
+    // Opens the wax-seal invitation in-studio at /invite/meher (same clean link
+    // style as the other cards); embeds the /seal/ build served by this same
+    // studio deployment — no separate project or proxy.
+    embedUrl: '/seal/',
     poster: '/assets/rayyan-inaya-poster.jpg',
     event: { weekday: 'Sunday', day: '30', month: 'August', year: '2026', venue: 'The Royal Palace', time: '7:30 PM', city: 'Hyderabad, Telangana', mapQuery: 'Jubilee Hills, Hyderabad, Telangana' },
     highlights: ['Wax-seal opening', 'Gold-foil on cream', 'Four languages (EN · KN · HI · AR)'],
