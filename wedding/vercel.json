@@ -1,6 +1,7 @@
 {
   "rewrites": [
     { "source": "/imran-rashina", "destination": "/imran-rashina/index.html" },
+    { "source": "/ashfaq-mishriya", "destination": "/ashfaq-mishriya/index.html" },
     { "source": "/seal", "destination": "/seal/index.html" },
     { "source": "/(.*)", "destination": "/index.html" }
   ],
@@ -19,6 +20,14 @@
     },
     {
       "source": "/imran-rashina/(.*)",
+      "headers": [{ "key": "X-Robots-Tag", "value": "noindex" }]
+    },
+    {
+      "source": "/ashfaq-mishriya",
+      "headers": [{ "key": "X-Robots-Tag", "value": "noindex" }]
+    },
+    {
+      "source": "/ashfaq-mishriya/(.*)",
       "headers": [{ "key": "X-Robots-Tag", "value": "noindex" }]
     }
   ]
