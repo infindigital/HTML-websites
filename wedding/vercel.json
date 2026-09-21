@@ -1,4 +1,8 @@
 {
+  "rewrites": [
+    { "source": "/imran-rashina", "destination": "https://imran-rashina.vercel.app/imran-rashina" },
+    { "source": "/imran-rashina/:path*", "destination": "https://imran-rashina.vercel.app/imran-rashina/:path*" }
+  ],
   "headers": [
     {
       "source": "/",
