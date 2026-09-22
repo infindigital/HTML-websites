@@ -560,7 +560,7 @@
   position: sticky; top: 0; height: 100svh; overflow: hidden;
   display: flex; flex-direction: column; align-items: center; justify-content: center;
   gap: clamp(8px, 2vh, 20px);
-  padding: calc(env(safe-area-inset-top) + 10vh) var(--x-gutter) calc(env(safe-area-inset-bottom) + 8vh);
+  padding: calc(env(safe-area-inset-top) + 6vh) var(--x-gutter) calc(env(safe-area-inset-bottom) + 6vh);
   text-align: center;
 }
 /* The ceremony background film lives INSIDE .ceremony__sticky, and a
@@ -584,7 +584,13 @@
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
 }
-.ceremony__art { width: min(88vw, 560px); position: relative; z-index: 1; }
+/* The ceremony art is landscape (motif viewBox 360×300 ≈ 1.2:1). The 55vh
+   term caps its height at ~46vh so on short / wide viewports (laptops,
+   landscape) it can't push the ceremony note past the bottom of the sticky
+   frame and get clipped. Height derives from width, so the aspect ratio is
+   preserved and the art stays centred; phones (width-bound at 88vw) and tall
+   screens (bound at 560px) are unaffected. */
+.ceremony__art { width: min(88vw, 560px, 55vh); position: relative; z-index: 1; }
 .ceremony__svg { width: 100%; height: auto; display: block; filter: drop-shadow(0 10px 30px rgba(0,0,0,0.5)); }
 .ceremony__text { position: relative; z-index: 1; display: flex; flex-direction: column; gap: 6px; align-items: center; }
 .ceremony__title { font-family: var(--xh); font-weight: 500; font-size: clamp(1.8rem, 7vw, 3.4rem); margin: 0; color: var(--x-ink); }
