@@ -1,7 +1,7 @@
 /* =====================================================================
-   INFIN DIGITAL — Legal pages (Privacy / Terms)
+   INFIN DIGITAL - Legal pages (Privacy / Terms)
    Minimal, dependency-free script: just the header scroll state and the
-   mobile menu. No GSAP / Lenis / Three.js — these pages stay lightweight.
+   mobile menu. No GSAP / Lenis / Three.js - these pages stay lightweight.
    ===================================================================== */
 (function () {
   var header = document.getElementById('header');

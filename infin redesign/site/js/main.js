@@ -1,5 +1,5 @@
 /* =====================================================================
-   INFIN DIGITAL — Interaction & Animation System
+   INFIN DIGITAL - Interaction & Animation System
    GSAP + ScrollTrigger + Lenis, with progressive 3D enhancement
    ===================================================================== */
 
@@ -173,7 +173,7 @@ function initHeader() {
   $$('a[href^="#"]').forEach(a => {
     a.addEventListener('click', e => {
       const id = a.getAttribute('href');
-      if (id === '#') { e.preventDefault(); return; } // placeholder link — no jump
+      if (id === '#') { e.preventDefault(); return; } // placeholder link - no jump
       if (id.length < 2) return;
       const target = document.querySelector(id);
       if (!target) return;
@@ -325,7 +325,7 @@ function initLogoWall() {
 }
 
 /* --------------------------------------------------------------
-   SERVICES — sticky visual switching + accordion
+   SERVICES - sticky visual switching + accordion
 -------------------------------------------------------------- */
 function initServices() {
   const items = $$('.svc-item');
@@ -360,7 +360,7 @@ function initServices() {
 }
 
 /* --------------------------------------------------------------
-   GROWTH SYSTEM — pinned horizontal steps
+   GROWTH SYSTEM - pinned horizontal steps
 -------------------------------------------------------------- */
 function initGrowthDecor() {
   // Inject a floating 3D cube into each step (colour comes from --gs)
@@ -407,7 +407,7 @@ function initGrowth() {
 }
 
 /* --------------------------------------------------------------
-   WORK — pinned horizontal scroll
+   WORK - pinned horizontal scroll
 -------------------------------------------------------------- */
 function initWork() {
   const grid = $('[data-work-grid]');
@@ -435,7 +435,7 @@ function initWork() {
 }
 
 /* --------------------------------------------------------------
-   CREATIVE LAB — parallax + cursor layers
+   CREATIVE LAB - parallax + cursor layers
 -------------------------------------------------------------- */
 function initLab() {
   const lab = $('[data-lab]');
@@ -446,7 +446,7 @@ function initLab() {
     gsap.set(im, { autoAlpha: 0, scale: .8, rotate: gsap.utils.random(-4, 4) });
     ScrollTrigger.create({ trigger: lab, start: 'top 70%', onEnter: () => gsap.to(im, { autoAlpha: 1, scale: 1, duration: 1, delay: i * .08, ease: 'power3.out' }) });
   });
-  // scroll parallax by depth — skip on phones, where posters sit in a fixed
+  // scroll parallax by depth - skip on phones, where posters sit in a fixed
   // grid and a vertical offset would drag them out of their cells
   if (!MOBILE) {
     imgs.forEach(im => {
@@ -599,7 +599,7 @@ function initCase() {
 }
 
 /* --------------------------------------------------------------
-   WHY INFIN — background color transitions
+   WHY INFIN - background color transitions
 -------------------------------------------------------------- */
 function initWhy() {
   const section = $('#why');
@@ -662,7 +662,7 @@ function initTestimonials() {
    HERO title subtle scroll transform
 -------------------------------------------------------------- */
 /* --------------------------------------------------------------
-   HERO — the IN/FIN universe
+   HERO - the IN/FIN universe
    The letters never move. A smoothed pointer + slow autonomous drift
    shift the world (and the eye) INSIDE the glyphs via CSS vars; scroll
    adds a second depth axis. An entrance sequence lets the eye be
@@ -673,7 +673,7 @@ function initHero() {
   if (!hero) return;
   const word = $('.infin', hero);
 
-  // Entrance — quiet, staged reveal
+  // Entrance - quiet, staged reveal
   if (!REDUCED) {
     const ins = $$('[data-hero-in]', hero);
     gsap.set('.infin-word', { autoAlpha: 0, yPercent: 8 });
@@ -683,7 +683,7 @@ function initHero() {
       .to(ins, { autoAlpha: 1, y: 0, duration: .9, stagger: .08, ease: 'power3.out' }, .5);
   }
 
-  // Restrained scroll parallax — the word lifts & softens
+  // Restrained scroll parallax - the word lifts & softens
   if (!REDUCED) {
     gsap.to(word, {
       yPercent: -6, scale: 1.02, ease: 'none',
@@ -770,5 +770,5 @@ function boot() {
   window.addEventListener('load', () => ScrollTrigger.refresh());
 }
 
-// Intro preloader removed — boot straight into the page.
+// Intro preloader removed - boot straight into the page.
 boot();

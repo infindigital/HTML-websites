@@ -1,7 +1,7 @@
 /* =====================================================================
-   INFIN DIGITAL — 3D Scenes (Three.js)
+   INFIN DIGITAL - 3D Scenes (Three.js)
    Custom "digital growth machine": floating glass panels, browser
-   windows, a rising bar chart, spheres and the in/fin slash — objects
+   windows, a rising bar chart, spheres and the in/fin slash - objects
    specific to a digital marketing studio, not a generic template.
    ===================================================================== */
 
@@ -66,7 +66,7 @@ export function initHeroScene({ canvas, interactive, lowPower }) {
   // The composition floats to the RIGHT of the headline. A base x-offset is
   // applied to `root` in resize() so it lives in the hero's negative space.
 
-  // The in/fin slash — signature object
+  // The in/fin slash - signature object
   const slashGeo = new THREE.BoxGeometry(0.4, 3.0, 0.4);
   const slash = new THREE.Mesh(slashGeo, glassMat(ACCENTS.lime, 0.95));
   slash.rotation.z = 0.42; slash.position.set(0, 0, 0);

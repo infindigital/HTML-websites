@@ -1,5 +1,5 @@
 /* =====================================================================
-   INFIN DIGITAL — Interactive Experience
+   INFIN DIGITAL - Interactive Experience
    Design System & Styles
    ===================================================================== */
 
@@ -18,7 +18,7 @@
   --stone:#6D6D5D;
   --char:#2A2721;
 
-  /* Accents — used sparingly as visual events */
+  /* Accents - used sparingly as visual events */
   --blue:#2B4DFF;
   --cyan:#16E0E0;
   --violet:#7A3CFF;
@@ -287,12 +287,12 @@ body.show-cursor #cursor{display:block}
    HERO
    ============================================================ */
 /* ============================================================
-   01 · HERO — white editorial canvas
+   01 · HERO - white editorial canvas
    A pure-white, typography-led hero. The word IN/FIN is set in a
    high-contrast display serif at massive scale. It is two stacked
    layers clipped to the same glyphs: a solid ink layer, and an
    imagery layer beneath it revealed only through a soft, cursor-
-   following spotlight — subtle editorial movement, letters stay
+   following spotlight - subtle editorial movement, letters stay
    fully readable. A few quiet image panels sit in the white space.
    ============================================================ */
 .sr-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
@@ -417,7 +417,7 @@ body.show-cursor #cursor{display:block}
 }
 
 /* ============================================================
-   ABOUT — floating plates
+   ABOUT - floating plates
    ============================================================ */
 #about{overflow:hidden}
 .about-grid{display:grid;grid-template-columns:1fr;gap:clamp(2.5rem,6vw,5rem);align-items:start}
@@ -485,7 +485,7 @@ body.show-cursor #cursor{display:block}
 .svc-intro-words span:nth-child(4){color:var(--lime)}
 
 /* ============================================================
-   SERVICES — sticky
+   SERVICES - sticky
    ============================================================ */
 #services{background:var(--ink)}
 .svc-layout{display:grid;grid-template-columns:1fr;gap:0}
@@ -548,7 +548,7 @@ body.show-cursor #cursor{display:block}
 }
 
 /* ============================================================
-   GROWTH SYSTEM — sticky steps
+   GROWTH SYSTEM - sticky steps
    ============================================================ */
 #growth{background:var(--paper);color:var(--ink);overflow:hidden}
 .growth-head{text-align:center;margin-bottom:clamp(2rem,5vw,4rem)}
@@ -608,7 +608,7 @@ body.show-cursor #cursor{display:block}
 }
 
 /* ============================================================
-   WORK — horizontal scroll
+   WORK - horizontal scroll
    ============================================================ */
 #work{background:var(--ink);overflow:hidden}
 .work-intro{padding-top:clamp(4rem,9vh,7rem);padding-bottom:clamp(2rem,5vh,3rem)}
@@ -637,7 +637,7 @@ body.show-cursor #cursor{display:block}
 .work-card:hover .wc-body h3{color:var(--lime)}
 .wc-body p{color:var(--taupe);max-width:46ch;font-size:.98rem;line-height:1.55}
 
-/* Trusted & Certified — colourful 3D cards */
+/* Trusted & Certified - colourful 3D cards */
 .cert{background:var(--ink);color:var(--paper);padding-block:clamp(4rem,10vh,8rem)}
 .cert-head{display:flex;justify-content:space-between;align-items:flex-end;gap:2rem;flex-wrap:wrap;margin-bottom:clamp(2.5rem,5vw,4rem)}
 .cert-head h2{font-size:clamp(2.4rem,6.5vw,5.5rem);text-transform:uppercase;line-height:.9}
@@ -696,7 +696,7 @@ body.show-cursor #cursor{display:block}
 .hscroll-progress i{display:block;height:100%;width:0;background:var(--lime)}
 
 /* ============================================================
-   CREATIVE LAB — parallax collage
+   CREATIVE LAB - parallax collage
    ============================================================ */
 #lab{background:var(--ink);overflow:hidden;min-height:100vh;position:relative;display:flex;align-items:center}
 .lab-title{
@@ -714,7 +714,7 @@ body.show-cursor #cursor{display:block}
 .lab-img{position:absolute;border-radius:12px;overflow:hidden;box-shadow:0 30px 60px -25px rgba(0,0,0,.6);will-change:transform;pointer-events:auto;cursor:pointer}
 .lab-img img{width:100%;height:100%;object-fit:cover;display:block}
 .lab-img.zoomed{box-shadow:0 50px 100px -20px rgba(0,0,0,.8)}
-/* Phone: the scattered absolute collage doesn't work in a tall section — the
+/* Phone: the scattered absolute collage doesn't work in a tall section - the
    posters bunch at the top and the title is stranded below. Lay the six
    posters out as a tidy 2-column grid beneath the title instead, so every
    poster is visible and easy to tap. Tapping one still enlarges it to full
@@ -733,7 +733,7 @@ body.show-cursor #cursor{display:block}
 }
 
 /* ============================================================
-   RESULTS — counters
+   RESULTS - counters
    ============================================================ */
 #results{background:var(--blue);color:var(--white)}
 .results-head{margin-bottom:clamp(2.5rem,6vw,5rem)}
@@ -748,7 +748,7 @@ body.show-cursor #cursor{display:block}
 .result .r-note{margin-top:.4rem;font-size:.85rem;color:rgba(255,255,255,.55)}
 
 /* ============================================================
-   CASE STUDY — click to conversion
+   CASE STUDY - click to conversion
    ============================================================ */
 #case{background:var(--ink);color:var(--paper);overflow:hidden}
 .case-h{font-size:clamp(2.6rem,9vw,8rem);text-transform:uppercase;line-height:.9;margin-bottom:clamp(2.5rem,6vw,4rem)}
@@ -933,7 +933,7 @@ body.show-cursor #cursor{display:block}
    ===================================================================== */
 :root{
   --pop:var(--violet);
-  /* Darken the secondary / description greys — the light-theme page needs
+  /* Darken the secondary / description greys - the light-theme page needs
      stronger body copy than the dark theme did. Both tokens now only sit on
      light surfaces, so this lifts every description at once. */
   --stone:#3d3d3b;
@@ -955,7 +955,7 @@ body{background:var(--white);color:var(--ink)}
 #loader .loader-bar{background:rgba(11,11,12,.1)}
 #loader .loader-count{color:var(--ink)}
 
-/* Custom cursor — solid dark so it reads on white (no difference-blend, which
+/* Custom cursor - solid dark so it reads on white (no difference-blend, which
    would turn a dark dot near-white and make it invisible on the light theme) */
 #cursor{background:var(--ink);mix-blend-mode:normal}
 #cursor.big{background:var(--pop);mix-blend-mode:normal}
@@ -976,7 +976,7 @@ body{background:var(--white);color:var(--ink)}
 .btn-ghost{border-color:rgba(11,11,12,.25);color:var(--ink)}
 .btn-ghost:hover{background:var(--ink);color:var(--white);border-color:var(--ink)}
 
-/* Hero — the IN/FIN universe is authored white-first in the main block above,
+/* Hero - the IN/FIN universe is authored white-first in the main block above,
    so the light-theme layer only needs to keep the surface white. */
 #hero{background:var(--white)}
 
@@ -987,7 +987,7 @@ body{background:var(--white);color:var(--ink)}
 /* Section theming */
 .sec-dark{background:var(--white);color:var(--ink)}
 .sec-paper{background:var(--white)}
-#growth{background:var(--white)}      /* was warm paper — unify to white */
+#growth{background:var(--white)}      /* was warm paper - unify to white */
 #testimonials{background:var(--white)}
 
 /* Services (dark → white) */
@@ -1026,7 +1026,7 @@ body{background:var(--white);color:var(--ink)}
 .lab-note{background:var(--ink);color:var(--white)}
 .lab-note .ln-dot{color:var(--magenta)}
 
-/* Results — the "numbers move" band: blue → lime, text → dark */
+/* Results - the "numbers move" band: blue → lime, text → dark */
 #results{background:var(--lime);color:var(--ink)}
 .results-head .muted{color:rgba(11,11,12,.4)}
 .results-grid{border-top-color:rgba(11,11,12,.22)}
