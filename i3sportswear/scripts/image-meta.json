@@ -1,0 +1,54 @@
+{
+  "noir-gold": {
+    "w": 1973,
+    "h": 1869
+  },
+  "ivory-gold": {
+    "w": 3790,
+    "h": 4077,
+    "split": true
+  },
+  "yellow-circuit": {
+    "w": 4386,
+    "h": 4498,
+    "split": true
+  },
+  "sky-brush": {
+    "w": 4597,
+    "h": 3226
+  },
+  "coral-teal": {
+    "w": 2431,
+    "h": 1810,
+    "split": true
+  },
+  "black-volt": {
+    "w": 4597,
+    "h": 3226
+  },
+  "teal-stripe": {
+    "w": 4597,
+    "h": 3226
+  },
+  "azure-geo": {
+    "w": 4597,
+    "h": 3314
+  },
+  "ink-dragon": {
+    "w": 2147,
+    "h": 2174
+  },
+  "storm-blue": {
+    "w": 2257,
+    "h": 1631,
+    "split": true
+  },
+  "shatter-longsleeve": {
+    "w": 3053,
+    "h": 2772
+  },
+  "crimson-wolf": {
+    "w": 2633,
+    "h": 2492
+  }
+}

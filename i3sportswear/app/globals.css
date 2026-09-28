@@ -1,0 +1,230 @@
+@import "tailwindcss";
+
+/* ============================================================
+   iTHREE design tokens
+   Ratio target: ~85% black/graphite, ~10% light, ~5% gold.
+   ============================================================ */
+@theme {
+  --color-ink: #050505;
+  --color-coal: #0b0b0b;
+  --color-graphite: #151515;
+  --color-line: rgb(245 245 242 / 0.1);
+  --color-bone: #f5f5f2;
+  --color-mute: rgb(245 245 242 / 0.62);
+  --color-faint: rgb(245 245 242 / 0.4);
+  --color-gold: #c9a227;
+  --color-gold-soft: #e0c15a;
+
+  --font-display: "Sora Variable", "Sora", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Inter Variable", "Inter", ui-sans-serif, system-ui, sans-serif;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out-quart: cubic-bezier(0.76, 0, 0.24, 1);
+
+  --breakpoint-xs: 30rem;
+}
+
+:root {
+  --gutter: clamp(16px, 4vw, 64px);
+  --nav-h: 72px;
+  color-scheme: dark;
+}
+
+html {
+  background: var(--color-ink);
+  color: var(--color-bone);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+body {
+  background: var(--color-ink);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.6;
+  overflow-x: clip;
+}
+
+::selection {
+  background: var(--color-gold);
+  color: var(--color-ink);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-gold-soft);
+  outline-offset: 3px;
+}
+
+/* ---------- Type system ---------- */
+@utility display-xl {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(3.75rem, 13.5vw, 13.5rem);
+  line-height: 0.84;
+  letter-spacing: -0.045em;
+  text-transform: uppercase;
+}
+@utility display-lg {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(2.75rem, 8.4vw, 8.75rem);
+  line-height: 0.88;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+}
+@utility display-md {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(2rem, 4.6vw, 4.5rem);
+  line-height: 0.95;
+  letter-spacing: -0.035em;
+  text-transform: uppercase;
+}
+@utility eyebrow {
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: 0.75rem;
+  line-height: 1.2;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+@utility lede {
+  font-size: clamp(1.0625rem, 1.3vw, 1.25rem);
+  line-height: 1.55;
+  color: var(--color-mute);
+}
+@utility shell {
+  padding-inline: var(--gutter);
+  margin-inline: auto;
+  width: 100%;
+  max-width: 1760px;
+}
+
+/* Masked line: children slide up out of an overflow-hidden row. */
+.line-mask {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.06em;
+  margin-bottom: -0.06em;
+}
+.line-mask > span {
+  display: block;
+  will-change: transform;
+}
+
+/* Hero entrance runs in CSS so the headline never waits on JS. */
+@keyframes rise {
+  from {
+    transform: translate3d(0, 105%, 0);
+  }
+  to {
+    transform: translate3d(0, 0, 0);
+  }
+}
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 14px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+@keyframes veil {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+.enter-rise {
+  animation: rise 1.3s var(--ease-out-expo) both;
+}
+.enter-fade {
+  animation: fade-up 1.1s var(--ease-out-expo) both;
+}
+
+[data-hero-copy] .line-mask .enter-rise {
+  animation-delay: 250ms;
+}
+[data-hero-copy] .line-mask:nth-child(2) .enter-rise {
+  animation-delay: 370ms;
+}
+[data-hero-copy] .line-mask:nth-child(3) .enter-rise {
+  animation-delay: 490ms;
+}
+@keyframes scroll-hint {
+  from {
+    transform: translateY(-100%);
+  }
+  to {
+    transform: translateY(200%);
+  }
+}
+
+@keyframes marquee {
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+/* Lines revealed by scroll start hidden only once JS is known to run. */
+@media (prefers-reduced-motion: no-preference) {
+  .js .js-hidden-line {
+    transform: translate3d(0, 120%, 0);
+  }
+  .js .js-hidden-fade {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+/* Hairline progress used by the process + sports rails. */
+.rule {
+  height: 1px;
+  background: var(--color-line);
+}
+
+.no-scrollbar {
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Custom cursor hides the native pointer only where it is active. */
+html.has-cursor,
+html.has-cursor a,
+html.has-cursor button,
+html.has-cursor [data-cursor] {
+  cursor: none;
+}
+html.has-cursor input,
+html.has-cursor textarea {
+  cursor: text;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
