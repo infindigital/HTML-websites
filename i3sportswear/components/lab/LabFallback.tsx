@@ -40,7 +40,7 @@ export default function LabFallback({ kit, view, name, number, crest, zoom }: La
               alt={`${kit.sport} kit, ${side} view`}
               width={768}
               height={768}
-              className="h-full w-full object-contain drop-shadow-[0_40px_40px_rgba(0,0,0,0.6)]"
+              className="h-full w-full object-contain drop-shadow-[0_40px_40px_var(--product-shadow)]"
             />
             {side === "front" ? (
               <Marker at={kit.crest} label="Crest" value="Left chest" show={crest} />

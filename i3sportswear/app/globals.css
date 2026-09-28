@@ -4,6 +4,8 @@
    iTHREE design tokens
    Ratio target: ~85% black/graphite, ~10% light, ~5% gold.
    ============================================================ */
+@custom-variant light (&:where([data-theme="light"], [data-theme="light"] *));
+
 @theme {
   --color-ink: #050505;
   --color-coal: #0b0b0b;
@@ -27,7 +29,46 @@
 :root {
   --gutter: clamp(16px, 4vw, 64px);
   --nav-h: 72px;
+  --stage: #1c1c1b; /* lit centre of product stages */
+  --product-shadow: rgb(0 0 0 / 0.65); /* grounding shadow under product shots */
   color-scheme: dark;
+}
+
+/* Hero stand-in until the 3D scene is ready. Set in CSS so only the image
+   for the current theme and screen shape is downloaded. */
+.hero-still {
+  background-image: url("/images/stills/hero-world-desktop.webp");
+}
+html[data-theme="light"] .hero-still {
+  background-image: url("/images/stills/hero-world-light-desktop.webp");
+}
+@media (max-width: 1023px) {
+  .hero-still {
+    background-image: url("/images/stills/hero-world-mobile.webp");
+  }
+  html[data-theme="light"] .hero-still {
+    background-image: url("/images/stills/hero-world-light-mobile.webp");
+  }
+}
+
+/* Light theme: the same tokens inverted, switched by data-theme on
+   <html> (header toggle, or ?theme=light). Gold is deepened so small gold
+   text stays readable on white. */
+html[data-theme="light"] {
+  /* Warm paper whites, ink text, and the brand gold deepened toward bronze so
+     small gold type still reads on white. */
+  --color-ink: #faf8f3;
+  --color-coal: #f3f0e8;
+  --color-graphite: #e9e4d8;
+  --color-line: rgb(28 24 16 / 0.12);
+  --color-bone: #16140f;
+  --color-mute: rgb(22 20 15 / 0.68);
+  --color-faint: rgb(22 20 15 / 0.5);
+  --color-gold: #b8932a;
+  --color-gold-soft: #8a6a12;
+  --stage: #ffffff;
+  --product-shadow: rgb(90 70 20 / 0.12);
+  color-scheme: light;
 }
 
 html {

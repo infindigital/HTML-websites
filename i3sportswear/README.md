@@ -55,3 +55,18 @@ public/         optimised images, video, icons, social image
 - `prefers-reduced-motion` removes smooth scrolling, pinned sequences, parallax and autoplay; every section renders in its final, readable state and the 3D hero renders as a still.
 - WebGL scenes load only as their section approaches and stop rendering when off-screen.
 - The custom cursor is desktop-only (fine pointer).
+
+## Themes
+
+Dark is the default on every visit. The sun/moon switch in the header turns on
+the light theme for the rest of that visit (`sessionStorage`), and
+`?theme=light` opens the site in light for previews.
+
+- Colours are tokens in `app/globals.css`; `html[data-theme="light"]` overrides
+  them (warm whites, deepened gold). Use the `light:` Tailwind variant for
+  one-off light-theme tweaks.
+- The 3D hero reads the theme (`useTheme`) and switches room colour, fog, floor
+  and pitch lines.
+- The hero stand-in stills (`public/images/stills/hero-world-{,light-}{desktop,mobile}.webp`)
+  are screenshots of the 3D scene's first frame. Re-capture them if the kit ring
+  or the camera's starting position changes.

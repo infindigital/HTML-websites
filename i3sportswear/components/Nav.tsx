@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Button, Logo } from "./ui";
 import { contactHref, nav, site } from "@/lib/site";
+import { setTheme, useTheme } from "@/lib/hooks";
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
@@ -12,6 +13,7 @@ export default function Nav() {
   const [open, setOpen] = useState(false);
   const menuButton = useRef<HTMLButtonElement>(null);
   const panel = useRef<HTMLDivElement>(null);
+  const theme = useTheme();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -94,8 +96,9 @@ export default function Nav() {
             ))}
           </ul>
 
-          <div className="relative z-10 flex items-center gap-3">
-            <Button href="#quote" variant="outline" size="sm" className="px-4! sm:px-5!">
+          <div className="relative z-10 flex items-center gap-2 sm:gap-3">
+            <ThemeSwitch theme={theme} />
+            <Button href="#quote" variant="outline" size="sm" className="px-3! xs:px-4! sm:px-5!">
               Get a quote
             </Button>
             <button
@@ -170,5 +173,49 @@ export default function Nav() {
         )}
       </AnimatePresence>
     </>
+  );
+}
+
+/** Dark / light switch: both icons visible, a sliding thumb marks the active one. */
+function ThemeSwitch({ theme }: { theme: "dark" | "light" }) {
+  const light = theme === "light";
+  return (
+    <button
+      type="button"
+      role="switch"
+      aria-checked={light}
+      aria-label="Light theme"
+      title={light ? "Switch to dark theme" : "Switch to light theme"}
+      onClick={() => setTheme(light ? "dark" : "light")}
+      className="group relative flex h-11 items-center"
+    >
+      <span className="relative flex h-8 w-[3.25rem] items-center justify-between rounded-full px-[6px] xs:w-[3.75rem] xs:px-[7px] ring-1 ring-bone/25 transition-colors group-hover:ring-bone/50">
+        <span
+          aria-hidden
+          className={`absolute top-1 left-1 h-6 w-6 rounded-full bg-gold-soft transition-transform duration-500 ease-[var(--ease-out-expo)] ${
+            light ? "translate-x-[1.25rem] xs:translate-x-[1.75rem]" : "translate-x-0"
+          }`}
+        />
+        <Moon className={`relative ${light ? "text-bone/55" : "text-ink"}`} />
+        <Sun className={`relative ${light ? "text-ink" : "text-bone/55"}`} />
+      </span>
+    </button>
+  );
+}
+
+function Moon({ className = "" }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 20 20" aria-hidden className={`h-[15px] w-[15px] transition-colors duration-500 ${className}`} fill="none" stroke="currentColor" strokeWidth="1.6">
+      <path d="M16.5 12.2A7 7 0 0 1 7.8 3.5a7 7 0 1 0 8.7 8.7Z" />
+    </svg>
+  );
+}
+
+function Sun({ className = "" }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 20 20" aria-hidden className={`h-[15px] w-[15px] transition-colors duration-500 ${className}`} fill="none" stroke="currentColor" strokeWidth="1.6">
+      <circle cx="10" cy="10" r="3.4" />
+      <path d="M10 1.8v2M10 16.2v2M1.8 10h2M16.2 10h2M4.2 4.2l1.4 1.4M14.4 14.4l1.4 1.4M4.2 15.8l1.4-1.4M14.4 5.6l1.4-1.4" />
+    </svg>
   );
 }

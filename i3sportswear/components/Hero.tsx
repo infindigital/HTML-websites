@@ -95,16 +95,7 @@ export default function Hero() {
               <>
                 {/* First frame of the Kit Room, shown instantly while three.js and
                     the kit textures load; the live scene fades in over it. */}
-                <picture>
-                  <source media="(max-width: 1023px)" srcSet="/images/stills/hero-world-mobile.webp" />
-                  <img
-                    src="/images/stills/hero-world-desktop.webp"
-                    alt=""
-                    fetchPriority="high"
-                    decoding="async"
-                    className="absolute inset-0 h-full w-full object-cover"
-                  />
-                </picture>
+                <div aria-hidden className="hero-still absolute inset-0 bg-cover bg-center" />
                 {world && (
                   <div className={`absolute inset-0 transition-opacity duration-700 ${ready ? "opacity-100" : "opacity-0"}`}>
                     <HeroWorld progress={progress} still={still} lite={lite} onReady={markReady} onLost={markLost} />
@@ -117,7 +108,7 @@ export default function Hero() {
           {/* Legibility: weight the frame toward the lower-left text field only. */}
           <div
             aria-hidden
-            className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_top,var(--color-ink)_2%,rgb(5_5_5/0.55)_30%,transparent_62%),linear-gradient(to_right,rgb(5_5_5/0.7),transparent_55%)]"
+            className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_top,var(--color-ink)_2%,color-mix(in_srgb,var(--color-ink)_45%,transparent)_26%,transparent_50%)] lg:bg-[linear-gradient(to_top,var(--color-ink)_2%,color-mix(in_srgb,var(--color-ink)_55%,transparent)_30%,transparent_62%),linear-gradient(to_right,color-mix(in_srgb,var(--color-ink)_70%,transparent),transparent_55%)]"
           />
           <div data-hero-dim aria-hidden className="pointer-events-none absolute inset-0 bg-ink opacity-0" />
 

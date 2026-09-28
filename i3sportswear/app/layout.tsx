@@ -73,13 +73,18 @@ const jsonLd = {
   ],
 };
 
+/**
+ * Runs before first paint: marks JS as available, applies the visitor's theme
+ * choice for this session (dark unless they switched; ?theme=light forces
+ * light) and preloads the matching hero still.
+ */
+const themeBoot = `(function(){var d=document.documentElement;d.classList.add('js');var t;try{t=new URLSearchParams(location.search).get('theme')||sessionStorage.getItem('ithree-theme')}catch(e){}if(t==='light')d.dataset.theme='light';var l=document.createElement('link');l.rel='preload';l.as='image';l.fetchPriority='high';l.href='/images/stills/hero-world-'+(t==='light'?'light-':'')+(matchMedia('(max-width: 1023px)').matches?'mobile':'desktop')+'.webp';document.head.appendChild(l)})()`;
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        <script dangerouslySetInnerHTML={{ __html: "document.documentElement.classList.add('js')" }} />
-        <link rel="preload" as="image" href="/images/stills/hero-world-desktop.webp" media="(min-width: 1024px)" fetchPriority="high" />
-        <link rel="preload" as="image" href="/images/stills/hero-world-mobile.webp" media="(max-width: 1023px)" fetchPriority="high" />
+        <script dangerouslySetInnerHTML={{ __html: themeBoot }} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       </head>
       <body>

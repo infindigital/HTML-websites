@@ -5,6 +5,7 @@ import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { MeshReflectorMaterial, useTexture } from "@react-three/drei";
 import * as THREE from "three";
 import { jerseys } from "@/lib/products";
+import { useTheme, type Theme } from "@/lib/hooks";
 
 /**
  * "The Kit Room": the supplied kits hang in a ring around the centre circle
@@ -28,12 +29,15 @@ const RING = [
   "ink-dragon",
 ];
 const RADIUS = 7.2;
+const DARK_ROOM = "#050505";
+const LIGHT_ROOM = "#faf8f3"; // matches the light theme page background
 const KIT_H = 2.35;
 
 const ease = (t: number) => (t < 0.5 ? 4 * t * t * t : 1 - (-2 * t + 2) ** 3 / 2);
 const clamp01 = (v: number) => Math.min(1, Math.max(0, v));
 
-function Kits({ lite }: { lite: boolean }) {
+function Kits({ lite, theme }: { lite: boolean; theme: Theme }) {
+  const light = theme === "light";
   const list = RING.map((slug) => jerseys.find((j) => j.slug === slug)!);
   const maps = useTexture(list.map((j) => `/images/jerseys/${j.slug}-${lite ? 480 : 960}.webp`));
   const gl = useThree((s) => s.gl);
@@ -61,7 +65,7 @@ function Kits({ lite }: { lite: boolean }) {
             {/* light pool on the floor under each kit */}
             <mesh position={[0, 0.005, 0.35]} rotation={[-Math.PI / 2, 0, 0]}>
               <circleGeometry args={[Math.max(w, 1.6) * 0.62, 48]} />
-              <meshBasicMaterial map={poolTexture()} transparent depthWrite={false} opacity={0.5} toneMapped={false} />
+              <meshBasicMaterial map={poolTexture(light)} transparent depthWrite={false} opacity={light ? 0.9 : 0.5} toneMapped={false} />
             </mesh>
           </group>
         );
@@ -69,38 +73,46 @@ function Kits({ lite }: { lite: boolean }) {
       {/* hanging rail */}
       <mesh position={[0, KIT_H + 0.55, 0]} rotation={[Math.PI / 2, 0, 0]}>
         <torusGeometry args={[RADIUS, 0.012, 8, 160]} />
-        <meshBasicMaterial color="#c9a227" transparent opacity={0.55} toneMapped={false} />
+        <meshBasicMaterial color={light ? "#b8932a" : "#c9a227"} transparent opacity={light ? 0.8 : 0.55} toneMapped={false} />
       </mesh>
     </group>
   );
 }
 
-let pool: THREE.Texture | null = null;
-/** Soft warm radial gradient, generated once. */
-function poolTexture() {
-  if (pool) return pool;
+const pools: Partial<Record<"dark" | "light", THREE.Texture>> = {};
+/** Soft warm radial gradient, generated once per theme: a light pool on the
+ * dark floor, a faint gold wash on the light one. */
+function poolTexture(light: boolean) {
+  const key = light ? "light" : "dark";
+  if (pools[key]) return pools[key];
   const c = document.createElement("canvas");
   c.width = c.height = 128;
   const g = c.getContext("2d")!;
   const grd = g.createRadialGradient(64, 64, 0, 64, 64, 64);
-  grd.addColorStop(0, "rgba(255,236,196,0.55)");
-  grd.addColorStop(0.5, "rgba(224,193,90,0.12)");
-  grd.addColorStop(1, "rgba(0,0,0,0)");
+  if (light) {
+    grd.addColorStop(0, "rgba(201,162,39,0.16)");
+    grd.addColorStop(0.55, "rgba(201,162,39,0.05)");
+    grd.addColorStop(1, "rgba(201,162,39,0)");
+  } else {
+    grd.addColorStop(0, "rgba(255,236,196,0.55)");
+    grd.addColorStop(0.5, "rgba(224,193,90,0.12)");
+    grd.addColorStop(1, "rgba(0,0,0,0)");
+  }
   g.fillStyle = grd;
   g.fillRect(0, 0, 128, 128);
-  pool = new THREE.CanvasTexture(c);
-  pool.colorSpace = THREE.SRGBColorSpace;
-  return pool;
+  const t = new THREE.CanvasTexture(c);
+  t.colorSpace = THREE.SRGBColorSpace;
+  return (pools[key] = t);
 }
 
 /** Pitch markings and the iTHREE mark in the centre circle. */
-function Pitch() {
+function Pitch({ theme }: { theme: Theme }) {
   const logo = useTexture("/images/logo-480.webp");
   logo.colorSpace = THREE.SRGBColorSpace;
   const lines = useMemo(() => {
-    const m = new THREE.MeshBasicMaterial({ color: "#f5f5f2", transparent: true, opacity: 0.16, toneMapped: false });
-    return m;
-  }, []);
+    const light = theme === "light";
+    return new THREE.MeshBasicMaterial({ color: light ? "#6b5a2e" : "#f5f5f2", transparent: true, opacity: light ? 0.28 : 0.16, toneMapped: false });
+  }, [theme]);
   return (
     <group position={[0, 0.004, 0]}>
       <mesh rotation={[-Math.PI / 2, 0, 0]} material={lines}>
@@ -120,7 +132,15 @@ function Pitch() {
   );
 }
 
-function Floor({ lite }: { lite: boolean }) {
+function Floor({ lite, theme }: { lite: boolean; theme: Theme }) {
+  if (theme === "light") {
+    return (
+      <mesh rotation={[-Math.PI / 2, 0, 0]}>
+        <planeGeometry args={[60, 60]} />
+        <meshBasicMaterial color={LIGHT_ROOM} toneMapped={false} />
+      </mesh>
+    );
+  }
   return (
     <mesh rotation={[-Math.PI / 2, 0, 0]}>
       <planeGeometry args={[60, 60]} />
@@ -164,7 +184,7 @@ function CameraRig({ progress, still, portrait }: { progress: RefObject<number>;
     const dir = new THREE.Vector3(Math.sin(yaw), 0, -Math.cos(yaw));
     camera.position.set(-dir.x * (dist + back), height, -dir.z * (dist + back));
     // On portrait screens aim lower so the kits fill the top of the frame above the headline.
-    const lookOut = new THREE.Vector3(dir.x * RADIUS, portrait ? 0.35 : 1.35, dir.z * RADIUS);
+    const lookOut = new THREE.Vector3(dir.x * RADIUS, portrait ? -0.25 : 1.35, dir.z * RADIUS);
     const lookDown = new THREE.Vector3(dir.x * 1.2, 0, dir.z * 1.2);
     look.copy(lookOut).lerp(lookDown, crane);
     camera.lookAt(look);
@@ -189,6 +209,7 @@ export default function HeroWorld({
 }) {
   const wrap = useRef<HTMLDivElement>(null);
   const [inView, setInView] = useState(true);
+  const theme = useTheme();
 
   useEffect(() => {
     const io = new IntersectionObserver(([e]) => setInView(e.isIntersecting));
@@ -204,23 +225,34 @@ export default function HeroWorld({
         frameloop={inView ? (still ? "demand" : "always") : "never"}
         camera={{ fov: lite ? 58 : 42, near: 0.1, far: 60, position: [0, 1.35, 2.6] }}
         gl={{ antialias: true, powerPreference: "high-performance" }}
-        onCreated={({ scene, gl }) => {
-          scene.background = new THREE.Color("#050505");
-          scene.fog = new THREE.Fog("#050505", 6, 19);
-          gl.domElement.addEventListener("webglcontextlost", () => onLost?.());
-        }}
+        onCreated={({ gl }) => gl.domElement.addEventListener("webglcontextlost", () => onLost?.())}
         aria-hidden
       >
+        <Atmosphere theme={theme} lite={lite} />
         <Suspense fallback={null}>
-          <Kits lite={lite} />
-          <Pitch />
-          <Floor lite={lite} />
+          <Kits lite={lite} theme={theme} />
+          <Pitch theme={theme} />
+          <Floor lite={lite} theme={theme} />
           <Ready onReady={onReady} />
         </Suspense>
         <CameraRig progress={progress} still={still} portrait={lite} />
       </Canvas>
     </div>
   );
+}
+
+/** Room colour and distance fog, matched to the page background. */
+function Atmosphere({ theme, lite }: { theme: Theme; lite: boolean }) {
+  const scene = useThree((s) => s.scene);
+  const invalidate = useThree((s) => s.invalidate);
+  useEffect(() => {
+    const bg = theme === "light" ? LIGHT_ROOM : DARK_ROOM;
+    scene.background = new THREE.Color(bg);
+    // Phones see the ring from further back, so push the fog out to keep the kits bright.
+    scene.fog = lite ? new THREE.Fog(bg, 10, 26) : new THREE.Fog(bg, 6, 19);
+    invalidate();
+  }, [scene, theme, lite, invalidate]);
+  return null;
 }
 
 /** Fires once everything inside the Suspense boundary has loaded. */

@@ -73,7 +73,7 @@ export default function Sports() {
           <motion.div
             aria-hidden
             className="absolute inset-0"
-            animate={{ background: `radial-gradient(55% 60% at 50% 55%, rgb(${sport.tint} / 0.16), rgb(5 5 5 / 0) 70%)` }}
+            animate={{ background: `radial-gradient(55% 60% at 50% 55%, rgb(${sport.tint} / 0.16), transparent 70%)` }}
             transition={{ duration: 1.4, ease }}
           />
 
@@ -110,7 +110,7 @@ export default function Sports() {
                   alt={`iTHREE ${sport.name.toLowerCase()} kit in ${jersey.colourway.toLowerCase()}, front and back`}
                   fill
                   sizes="(min-width: 1024px) 64vw, 94vw"
-                  className="object-contain drop-shadow-[0_50px_50px_rgba(0,0,0,0.7)]"
+                  className="object-contain drop-shadow-[0_50px_50px_var(--product-shadow)]"
                 />
               </motion.div>
             </AnimatePresence>
@@ -180,7 +180,7 @@ export default function Sports() {
                   alt={`iTHREE ${s.name.toLowerCase()} kit in ${j.colourway.toLowerCase()}, front and back`}
                   fill
                   sizes="(min-width: 1024px) 60vw, 92vw"
-                  className="object-contain drop-shadow-[0_30px_30px_rgba(0,0,0,0.7)]"
+                  className="object-contain drop-shadow-[0_30px_30px_var(--product-shadow)]"
                 />
               </div>
               <p className="mt-4 font-display text-xl tracking-tight">

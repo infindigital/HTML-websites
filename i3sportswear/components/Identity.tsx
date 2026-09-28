@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { jerseySrc } from "@/lib/products";
 import { useRef } from "react";
 import { Eyebrow, Lines } from "./ui";
 import { MQ, gsap, useGSAP } from "@/lib/gsap";
@@ -50,13 +51,18 @@ export default function Identity() {
             alt=""
             fill
             sizes="100vw"
-            className="object-cover object-[70%_40%] opacity-60"
+            className="object-cover object-[70%_40%] opacity-60 light:hidden"
           />
         </div>
         <div
           aria-hidden
-          className="absolute inset-0 bg-[linear-gradient(to_right,var(--color-ink)_8%,rgb(5_5_5/0.75)_45%,rgb(5_5_5/0.25)_100%),linear-gradient(to_bottom,var(--color-ink),transparent_20%,transparent_80%,var(--color-ink))]"
+          className="absolute inset-0 bg-[linear-gradient(to_right,var(--color-ink)_8%,color-mix(in_srgb,var(--color-ink)_75%,transparent)_45%,color-mix(in_srgb,var(--color-ink)_25%,transparent)_100%),linear-gradient(to_bottom,var(--color-ink),transparent_20%,transparent_80%,var(--color-ink))]"
         />
+        {/* Light theme: the film still is a dark studio, so show a light kit instead,
+            above the fade so it stays crisp. */}
+        <div className="absolute bottom-[7%] left-[var(--gutter)] hidden h-[34%] w-[40%] lg:light:block">
+          <Image src={jerseySrc("coral-teal")} alt="" fill sizes="42vw" className="object-contain object-left-bottom drop-shadow-[0_30px_30px_var(--product-shadow)]" />
+        </div>
       </div>
 
       <div className="shell relative grid gap-16 py-32 lg:grid-cols-12 lg:py-48">

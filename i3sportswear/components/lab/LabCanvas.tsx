@@ -5,6 +5,7 @@ import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { ContactShadows, Html, useTexture } from "@react-three/drei";
 import * as THREE from "three";
 import type { LabKit } from "@/lib/products";
+import { useTheme } from "@/lib/hooks";
 
 export type LabState = {
   kit: LabKit;
@@ -163,6 +164,7 @@ export default function LabCanvas(props: Props) {
   const wrap = useRef<HTMLDivElement>(null);
   const [inView, setInView] = useState(true);
   const startX = useRef(0);
+  const light = useTheme() === "light";
 
   useEffect(() => {
     const io = new IntersectionObserver(([e]) => setInView(e.isIntersecting), { rootMargin: "100px" });
@@ -210,13 +212,13 @@ export default function LabCanvas(props: Props) {
         gl={{ antialias: true, alpha: true, powerPreference: "high-performance" }}
         aria-hidden
       >
-        <ambientLight intensity={0.42} />
+        <ambientLight intensity={light ? 0.8 : 0.42} />
         <directionalLight position={[-2.4, 2.2, 4]} intensity={2.15} color="#fff6e8" />
         <directionalLight position={[3, -0.5, 2.5]} intensity={0.35} color="#dfe6ff" />
         <Suspense fallback={null}>
           <Jersey key={props.kit.slug} {...props} drag={drag} />
         </Suspense>
-        <ContactShadows position={[0, -1.5, 0]} opacity={0.55} scale={5} blur={2.6} far={2} resolution={256} color="#000000" />
+        <ContactShadows position={[0, -1.5, 0]} opacity={light ? 0.14 : 0.55} scale={5} blur={2.6} far={2} resolution={256} color="#000000" />
         <Rig zoom={props.zoom} />
       </Canvas>
     </div>

@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { jerseySrc } from "@/lib/products";
 import { useRef } from "react";
 import { Button, Lines, Logo, Mark } from "./ui";
 import { contactHref, nav, site } from "@/lib/site";
@@ -44,11 +45,15 @@ export function FinalCta() {
     <section id="quote" ref={root} aria-labelledby="cta-title" className="relative flex min-h-[100svh] items-center overflow-hidden bg-ink">
       <div className="absolute inset-0">
         <div data-cta-media className="absolute inset-0 will-change-transform">
-          <Image src="/images/stills/wall" alt="" fill sizes="100vw" className="object-cover object-[80%_50%] opacity-55" />
+          <Image src="/images/stills/wall" alt="" fill sizes="100vw" className="object-cover object-[80%_50%] opacity-55 light:hidden" />
+          {/* Light theme: a light kit in place of the dark film still. */}
+          <div className="absolute inset-y-[14%] right-[4%] hidden w-full light:block lg:w-[52%]">
+            <Image src={jerseySrc("sky-brush")} alt="" fill sizes="(min-width: 1024px) 52vw, 100vw" className="object-contain object-right opacity-25 lg:opacity-100" />
+          </div>
         </div>
         <div
           aria-hidden
-          className="absolute inset-0 bg-[linear-gradient(to_right,var(--color-ink)_15%,rgb(5_5_5/0.6)_55%,rgb(5_5_5/0.2)),linear-gradient(to_bottom,var(--color-ink),transparent_25%,transparent_75%,var(--color-ink))]"
+          className="absolute inset-0 bg-[linear-gradient(to_right,var(--color-ink)_15%,color-mix(in_srgb,var(--color-ink)_60%,transparent)_55%,color-mix(in_srgb,var(--color-ink)_20%,transparent)),linear-gradient(to_bottom,var(--color-ink),transparent_25%,transparent_75%,var(--color-ink))]"
         />
       </div>
 
