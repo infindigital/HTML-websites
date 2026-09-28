@@ -1,15 +1,17 @@
 "use client";
 
 import Image from "next/image";
-import { jerseySrc, jerseys } from "@/lib/products";
-import { useRef } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import { bySlug, jerseySrc } from "@/lib/products";
+import { useEffect, useRef, useState } from "react";
+import { useReducedMotion } from "@/lib/hooks";
 import { Button, Lines, Logo, Mark } from "./ui";
 import { contactHref, nav, site } from "@/lib/site";
 import { MQ, gsap, useGSAP } from "@/lib/gsap";
 
 /**
  * Final CTA. Dark: the jersey wall from the master film, held in deep shadow.
- * Light: a moving wall of the kits themselves.
+ * Light: a centred composition, one kit at a time inside a gold ring.
  */
 export function FinalCta() {
   const root = useRef<HTMLElement>(null);
@@ -54,21 +56,24 @@ export function FinalCta() {
           aria-hidden
           className="absolute inset-0 bg-[linear-gradient(to_right,var(--color-ink)_15%,color-mix(in_srgb,var(--color-ink)_60%,transparent)_55%,color-mix(in_srgb,var(--color-ink)_20%,transparent)),linear-gradient(to_bottom,var(--color-ink),transparent_25%,transparent_75%,var(--color-ink))] light:hidden"
         />
-        {/* Light theme: a warm glow and a moving wall of kits in place of the dark film still. */}
+        {/* Light theme: a soft warm glow behind the kit ring. */}
         <div
           aria-hidden
-          className="absolute inset-0 hidden bg-[radial-gradient(50%_60%_at_12%_35%,color-mix(in_srgb,var(--color-gold)_14%,transparent),transparent_70%)] light:block"
+          className="absolute inset-0 hidden bg-[radial-gradient(38%_42%_at_50%_30%,color-mix(in_srgb,var(--color-gold)_12%,transparent),transparent_72%)] light:block"
         />
       </div>
 
-      <div className="shell relative py-32 light:pb-12 lg:light:pb-16">
-        <p className="eyebrow flex items-center gap-3 text-faint">
+      <div className="shell relative py-32 light:flex light:flex-col light:items-center light:py-20 light:text-center">
+        <div className="hidden light:block">
+          <KitRing />
+        </div>
+        <p className="eyebrow flex items-center gap-3 text-faint light:mt-10">
           <Mark /> Get a quote
         </p>
-        <h2 id="cta-title" data-cta-title className="display-lg mt-8 max-w-[14ch]">
+        <h2 id="cta-title" data-cta-title className="display-lg mt-8 max-w-[14ch] light:mt-6">
           <Lines lines={["Ready to build", <>your team kit<span className="text-gold-soft">?</span></>]} outer="js-hidden-line" />
         </h2>
-        <div data-cta-actions className="mt-12 flex flex-col gap-3 sm:flex-row">
+        <div data-cta-actions className="mt-12 flex w-full flex-col gap-3 sm:w-auto sm:flex-row light:mt-10">
           <Button href="#lab" cursor="explore">
             Start your design
           </Button>
@@ -82,44 +87,67 @@ export function FinalCta() {
           </a>
         )}
       </div>
-
-      <div className="relative hidden w-full pb-24 light:block">
-        <KitRows />
-      </div>
     </section>
   );
 }
 
-// Every clean cut-out kit, split into two runs for the moving wall.
-const wallKits = jerseys.filter((j) => !j.backdrop);
-const runs = [wallKits.filter((_, i) => i % 2 === 0), wallKits.filter((_, i) => i % 2 === 1)];
+// Bright kits that read well on white, one per sport where possible.
+const ringKits = ["sky-brush", "coral-teal", "yellow-circuit", "ivory-gold", "teal-stripe", "azure-geo"].map(bySlug);
 
-function KitCard({ slug }: { slug: string }) {
-  return (
-    <div className="relative mr-4 aspect-[5/4] w-[44vw] max-w-[260px] shrink-0 bg-[var(--stage)] shadow-[0_24px_48px_-24px_var(--product-shadow)] ring-1 ring-bone/[0.07] lg:mr-5 lg:w-[clamp(200px,17vw,280px)] lg:max-w-none">
-      <Image src={jerseySrc(slug)} alt="" fill sizes="(min-width: 1024px) 17vw, 44vw" className="object-contain p-[7%]" />
-    </div>
-  );
-}
+/**
+ * Light theme: one kit at a time inside a thin gold ring, like the centre
+ * circle of the pitch. The kit breaks out of the ring; an outer dashed ring
+ * with a gold marker turns slowly; kits change every few seconds while the
+ * section is on screen (not under reduced motion).
+ */
+function KitRing() {
+  const box = useRef<HTMLDivElement>(null);
+  const [i, setI] = useState(0);
+  const reduce = useReducedMotion();
 
-/** Light theme: two rows of kits sliding in opposite directions (pause on hover). */
-function KitRows() {
+  useEffect(() => {
+    if (reduce || !box.current) return;
+    let timer: ReturnType<typeof setInterval> | undefined;
+    const io = new IntersectionObserver(([e]) => {
+      clearInterval(timer);
+      if (e.isIntersecting) timer = setInterval(() => setI((n) => (n + 1) % ringKits.length), 2800);
+    });
+    io.observe(box.current);
+    return () => {
+      io.disconnect();
+      clearInterval(timer);
+    };
+  }, [reduce]);
+
+  const kit = ringKits[i];
+
   return (
-    <div aria-hidden className="group flex flex-col gap-4 [mask-image:linear-gradient(to_right,transparent,#000_8%,#000_92%,transparent)] lg:gap-5">
-      {runs.map((run, r) => (
-        <div key={r} className="overflow-hidden">
-          {/* Two copies and a margin (not gap) per card, so -50% loops seamlessly. */}
-          <div
-            className={`flex w-max group-hover:[animation-play-state:paused] ${
-              r === 0 ? "animate-[marquee_48s_linear_infinite]" : "animate-[marquee_54s_linear_infinite_reverse]"
-            }`}
-          >
-            {[...run, ...run].map((j, i) => (
-              <KitCard key={`${j.slug}-${i}`} slug={j.slug} />
-            ))}
-          </div>
+    <div ref={box} className="flex flex-col items-center">
+      <div aria-hidden className="relative aspect-square w-[min(62vw,300px)] lg:w-[clamp(260px,22vw,340px)]">
+        <span className="absolute inset-0 rounded-full ring-1 ring-gold/50" />
+        <span className="absolute -inset-[9%] animate-[spin_36s_linear_infinite] rounded-full border border-dashed border-gold/35">
+          <span className="absolute top-1/2 -left-[5px] h-2.5 w-2.5 -translate-y-1/2 rounded-full bg-gold-soft" />
+        </span>
+        <span className="absolute inset-[18%] rounded-full bg-[var(--stage)] shadow-[0_30px_60px_-30px_var(--product-shadow)]" />
+        {/* The kit is wider than the ring so it breaks out of the frame. */}
+        <div className="absolute top-1/2 left-1/2 aspect-[5/4] w-[150%] -translate-x-1/2 -translate-y-1/2">
+          <AnimatePresence initial={false}>
+            <motion.div
+              key={kit.slug}
+              className="absolute inset-0"
+              initial={{ opacity: 0, y: 18, scale: 0.94 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -12, scale: 1.02 }}
+              transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+            >
+              <Image src={jerseySrc(kit.slug)} alt="" fill sizes="(min-width: 1024px) 34vw, 90vw" className="object-contain drop-shadow-[0_24px_24px_var(--product-shadow)]" />
+            </motion.div>
+          </AnimatePresence>
         </div>
-      ))}
+      </div>
+      <p className="eyebrow mt-10 text-faint" aria-live="off">
+        <span className="text-gold-soft">{kit.sport}</span> · {kit.colourway}
+      </p>
     </div>
   );
 }
