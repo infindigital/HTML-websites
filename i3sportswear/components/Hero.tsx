@@ -28,11 +28,13 @@ function canUseWorld() {
 export default function Hero() {
   const root = useRef<HTMLElement>(null);
   const progress = useRef(0);
-  const [world, setWorld] = useState(false);
+  // null until we know whether WebGL works (always null on the server).
+  const [world, setWorld] = useState<boolean | null>(null);
   const [ready, setReady] = useState(false);
   const [still, setStill] = useState(false);
   const [lite, setLite] = useState(false);
   const markReady = useCallback(() => setReady(true), []);
+  const markLost = useCallback(() => setReady(false), []);
 
   useEffect(() => {
     setWorld(canUseWorld());
@@ -60,7 +62,7 @@ export default function Hero() {
         tl.to("[data-hero-copy] .line-mask > span", { yPercent: -110, stagger: 0.04, duration: 0.3, ease: "power2.in" }, 0)
           .to("[data-hero-aside]", { y: -40, autoAlpha: 0, duration: 0.25 }, 0)
           .to("[data-hero-hint]", { autoAlpha: 0, duration: 0.1 }, 0)
-          .to("[data-hero-dim]", { opacity: world ? 0.5 : 0.78, duration: 0.5 }, 0.05)
+          .to("[data-hero-dim]", { opacity: world === false ? 0.78 : 0.5, duration: 0.5 }, 0.05)
           .fromTo(
             "[data-hero-statement] .line-mask > span",
             { y: 0, yPercent: 120 },
@@ -70,7 +72,7 @@ export default function Hero() {
           .fromTo("[data-hero-kicker]", { autoAlpha: 0, y: 12 }, { autoAlpha: 1, y: 0, duration: 0.2 }, 0.4)
           .fromTo("[data-hero-rule]", { scaleX: 0 }, { scaleX: 1, duration: 0.3, ease: "power2.out" }, 0.62)
           .to({}, { duration: 0.12 });
-        if (desktop && !world) tl.fromTo("[data-hero-media]", { scale: 1 }, { scale: 1.1, duration: 0.8 }, 0);
+        if (desktop && world === false) tl.fromTo("[data-hero-media]", { scale: 1 }, { scale: 1.1, duration: 0.8 }, 0);
       });
       return () => mm.revert();
     },
@@ -87,12 +89,28 @@ export default function Hero() {
       <div className="sticky top-0 h-[100svh] overflow-hidden motion-reduce:relative motion-reduce:h-auto">
         <div className="relative h-[100svh]">
           <div data-hero-media className="absolute inset-0 will-change-transform">
-            {world ? (
-              <div className={`absolute inset-0 transition-opacity duration-[1400ms] ${ready ? "opacity-100" : "opacity-0"}`}>
-                <HeroWorld progress={progress} still={still} lite={lite} onReady={markReady} />
-              </div>
-            ) : (
+            {world === false ? (
               <HeroVideo />
+            ) : (
+              <>
+                {/* First frame of the Kit Room, shown instantly while three.js and
+                    the kit textures load; the live scene fades in over it. */}
+                <picture>
+                  <source media="(max-width: 1023px)" srcSet="/images/stills/hero-world-mobile.webp" />
+                  <img
+                    src="/images/stills/hero-world-desktop.webp"
+                    alt=""
+                    fetchPriority="high"
+                    decoding="async"
+                    className="absolute inset-0 h-full w-full object-cover"
+                  />
+                </picture>
+                {world && (
+                  <div className={`absolute inset-0 transition-opacity duration-700 ${ready ? "opacity-100" : "opacity-0"}`}>
+                    <HeroWorld progress={progress} still={still} lite={lite} onReady={markReady} onLost={markLost} />
+                  </div>
+                )}
+              </>
             )}
           </div>
 

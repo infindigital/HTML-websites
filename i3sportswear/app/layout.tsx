@@ -78,7 +78,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: "document.documentElement.classList.add('js')" }} />
-        <link rel="preload" as="image" href="/images/stills/hero-poster-1280.webp" fetchPriority="high" />
+        <link rel="preload" as="image" href="/images/stills/hero-world-desktop.webp" media="(min-width: 1024px)" fetchPriority="high" />
+        <link rel="preload" as="image" href="/images/stills/hero-world-mobile.webp" media="(max-width: 1023px)" fetchPriority="high" />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       </head>
       <body>

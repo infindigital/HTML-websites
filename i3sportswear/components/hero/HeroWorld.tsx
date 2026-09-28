@@ -177,12 +177,15 @@ export default function HeroWorld({
   still = false,
   lite = false,
   onReady,
+  onLost,
 }: {
   progress: RefObject<number>;
   still?: boolean;
   /** Phone mode: smaller textures, cheaper reflections, portrait framing. */
   lite?: boolean;
   onReady?: () => void;
+  /** Mobile browsers can drop the GL context; the parent falls back to the still. */
+  onLost?: () => void;
 }) {
   const wrap = useRef<HTMLDivElement>(null);
   const [inView, setInView] = useState(true);
@@ -201,9 +204,10 @@ export default function HeroWorld({
         frameloop={inView ? (still ? "demand" : "always") : "never"}
         camera={{ fov: lite ? 58 : 42, near: 0.1, far: 60, position: [0, 1.35, 2.6] }}
         gl={{ antialias: true, powerPreference: "high-performance" }}
-        onCreated={({ scene }) => {
+        onCreated={({ scene, gl }) => {
           scene.background = new THREE.Color("#050505");
           scene.fog = new THREE.Fog("#050505", 6, 19);
+          gl.domElement.addEventListener("webglcontextlost", () => onLost?.());
         }}
         aria-hidden
       >
