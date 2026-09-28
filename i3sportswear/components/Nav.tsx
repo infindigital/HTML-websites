@@ -64,14 +64,14 @@ export default function Nav() {
         <nav
           aria-label="Primary"
           className={`shell flex items-center justify-between transition-[height] duration-700 ease-[var(--ease-out-expo)] ${
-            scrolled ? "h-[4.5rem] lg:h-20" : "h-[5.75rem] lg:h-[7rem]"
+            scrolled ? "h-[4.25rem] lg:h-[4.5rem]" : "h-[5.25rem] lg:h-[6.25rem]"
           }`}
         >
           <a
             href="#top"
             aria-label="iTHREE Sportswear, back to top"
             className={`relative z-10 block transition-[height] duration-700 ease-[var(--ease-out-expo)] ${
-              scrolled ? "h-12 lg:h-14" : "h-16 lg:h-[5rem]"
+              scrolled ? "h-11 lg:h-12" : "h-14 lg:h-[4.25rem]"
             }`}
           >
             <Logo priority />
