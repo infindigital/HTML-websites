@@ -2,7 +2,6 @@
 // `src` is a base path without extension, e.g. "/images/jerseys/noir-gold".
 const SETS: Record<string, number[]> = {
   jerseys: [240, 480, 960, 1440, 1920],
-  macro: [480, 960],
   stills: [640, 1280],
 };
 

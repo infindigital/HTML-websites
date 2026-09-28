@@ -25,7 +25,7 @@ export default function Process() {
   useGSAP(
     () => {
       const mm = gsap.matchMedia();
-      mm.add(MQ.desktopMotion, () => {
+      mm.add(MQ.motion, () => {
         const distance = () => row.current!.scrollWidth - window.innerWidth;
         gsap.to(row.current, {
           x: () => -distance(),
@@ -48,26 +48,21 @@ export default function Process() {
           { scaleX: 1, ease: "none", scrollTrigger: { trigger: track.current, start: "top top", end: "bottom bottom", scrub: 0.6 } },
         );
       });
-      mm.add("(max-width: 1023px) and (prefers-reduced-motion: no-preference)", () => {
-        gsap.fromTo(
-          "[data-process-vfill]",
-          { scaleY: 0 },
-          { scaleY: 1, ease: "none", scrollTrigger: { trigger: "[data-process-list]", start: "top 70%", end: "bottom 70%", scrub: true } },
-        );
-        gsap.utils.toArray<HTMLElement>("[data-process-item]").forEach((el) =>
-          gsap.from(el, { x: 24, autoAlpha: 0, duration: 1, ease: "expo.out", scrollTrigger: { trigger: el, start: "top 80%" } }),
-        );
-      });
       return () => mm.revert();
     },
     { scope: root },
   );
 
   return (
-    <section id="process" ref={root} aria-label="From idea to kit" className="relative bg-ink">
+    <section
+      id="process"
+      ref={root}
+      aria-label="From idea to kit"
+      className="relative bg-ink [--process-step:-1.5vh] lg:[--process-step:-5vh]"
+    >
       {/* Desktop */}
-      <div ref={track} className="relative hidden h-[380vh] lg:block lg:motion-reduce:hidden">
-        <div className="sticky top-0 flex h-screen flex-col overflow-hidden pt-32 pb-16">
+      <div ref={track} className="relative h-[420vh] lg:h-[380vh] motion-reduce:hidden">
+        <div className="sticky top-0 flex h-[100svh] flex-col overflow-hidden pt-24 pb-12 lg:pt-32 lg:pb-16">
           <div className="shell flex items-end justify-between">
             <div>
               <Eyebrow index="06">Process</Eyebrow>
@@ -80,23 +75,23 @@ export default function Process() {
             </p>
           </div>
 
-          <div className="shell mt-12">
+          <div className="shell mt-8 lg:mt-12">
             <div className="relative h-px bg-bone/10">
               <span data-process-fill className="absolute inset-0 origin-left bg-gold-soft" />
             </div>
           </div>
 
-          <ol ref={row} className="mt-auto flex w-max items-start gap-[6vw] pr-[20vw] pl-[var(--gutter)] will-change-transform">
+          <ol ref={row} className="mt-auto flex w-max items-start gap-[10vw] pr-[12vw] pl-[var(--gutter)] will-change-transform lg:gap-[6vw] lg:pr-[20vw]">
             {stages.map((s, i) => (
               <li
                 key={s.title}
-                className={`w-[38vw] max-w-[640px] transition-opacity duration-700 ${i === active ? "opacity-100" : "opacity-30"}`}
-                style={{ transform: `translateY(${(i - 2) * -5}vh)` }}
+                className={`w-[78vw] max-w-[640px] transition-opacity duration-700 lg:w-[38vw] ${i === active ? "opacity-100" : "opacity-30"}`}
+                style={{ transform: `translateY(calc(${i - 2} * var(--process-step)))` }}
               >
-                <p aria-hidden className="font-display text-[12vw] leading-[0.8] font-semibold tracking-[-0.06em] text-bone/[0.07]">
+                <p aria-hidden className="font-display text-[34vw] leading-[0.8] lg:text-[12vw] font-semibold tracking-[-0.06em] text-bone/[0.07]">
                   0{i + 1}
                 </p>
-                <div className="-mt-[3vw] flex items-center gap-4">
+                <div className="-mt-[8vw] flex items-center gap-4 lg:-mt-[3vw]">
                   <span
                     aria-hidden
                     className={`block h-px bg-gold-soft transition-[width] duration-700 ease-[var(--ease-out-expo)] ${i === active ? "w-12" : "w-0"}`}
@@ -111,17 +106,15 @@ export default function Process() {
       </div>
 
       {/* Mobile, tablet, reduced motion */}
-      <div className="shell py-28 lg:hidden lg:motion-reduce:block lg:motion-reduce:py-40">
+      <div className="shell hidden py-28 motion-reduce:block lg:py-40">
         <Eyebrow index="06">Process</Eyebrow>
         <h2 className="display-md mt-6">
           From idea to kit<span className="text-gold-soft">.</span>
         </h2>
-        <ol data-process-list className="relative mt-14 pl-8">
-          <span aria-hidden className="absolute top-2 bottom-2 left-0 w-px bg-bone/10">
-            <span data-process-vfill className="absolute inset-0 origin-top bg-gold-soft" />
-          </span>
+        <ol className="relative mt-14 pl-8">
+          <span aria-hidden className="absolute top-2 bottom-2 left-0 w-px bg-gold-soft/40" />
           {stages.map((s, i) => (
-            <li key={s.title} data-process-item className="relative pb-14 last:pb-0">
+            <li key={s.title} className="relative pb-14 last:pb-0">
               <span aria-hidden className="absolute top-3 -left-8 h-px w-4 bg-gold-soft" />
               <p className="eyebrow text-gold-soft">0{i + 1}</p>
               <h3 className="display-md mt-2">{s.title}</h3>

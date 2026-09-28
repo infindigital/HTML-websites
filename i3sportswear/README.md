@@ -49,7 +49,9 @@ public/         optimised images, video, icons, social image
 
 ## Motion and accessibility notes
 
-- `prefers-reduced-motion` removes smooth scrolling, pinned sequences, parallax and autoplay. Every section renders in its final, readable state.
-- Below 1024px, pinned sequences become vertical editorial layouts, WebGL is replaced by a CSS flip card, and the custom cursor is off.
-- WebGL (Three.js) loads only on desktop, only when the Jersey Lab approaches, and pauses when off-screen.
-- The hero film has a visible pause control.
+- Hero: a 3D "Kit Room" (components/hero/HeroWorld.tsx) built from the supplied kit images; scroll turns the camera through the ring and cranes up. The master film is kept only as the fallback where WebGL is unavailable.
+- Performance: a WebGL sheet of real kit fabric (components/perf/FabricCanvas.tsx) whose motion expresses each claim. Fabric squares live in public/images/fabric/.
+- Phones get the same interactions as desktop (3D hero, swipe-to-turn Jersey Lab, pinned sports, fabric, customization and process sequences) with lighter settings: smaller textures, lower pixel ratio, cheaper reflections, fewer cloth segments.
+- `prefers-reduced-motion` removes smooth scrolling, pinned sequences, parallax and autoplay; every section renders in its final, readable state and the 3D hero renders as a still.
+- WebGL scenes load only as their section approaches and stop rendering when off-screen.
+- The custom cursor is desktop-only (fine pointer).

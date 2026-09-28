@@ -7,6 +7,9 @@ import { useGSAP } from "@gsap/react";
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger, useGSAP);
   gsap.defaults({ ease: "power3.out", duration: 1 });
+  // Mobile address bars resize the viewport while scrolling; don't re-measure
+  // pinned sequences for that, or they jump.
+  ScrollTrigger.config({ ignoreMobileResize: true });
 }
 
 /** Shared media conditions for gsap.matchMedia(). */

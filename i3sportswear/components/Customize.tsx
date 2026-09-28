@@ -25,7 +25,7 @@ const frameTransform = (focus: readonly number[], zoom: number) =>
 
 /**
  * 05: Make it yours. A scroll-driven "camera" moves across real kits to show
- * each customisable element. Mobile shows each framed detail as a still.
+ * each customisable element. Reduced motion shows each framed detail as a still.
  */
 export default function Customize() {
   const root = useRef<HTMLElement>(null);
@@ -42,7 +42,7 @@ export default function Customize() {
           { y: 0, yPercent: 0, stagger: 0.08, duration: 1.2, ease: "expo.out", scrollTrigger: { trigger: "[data-custom-title]", start: "top 85%" } },
         );
       });
-      mm.add(MQ.desktopMotion, () => {
+      mm.add(MQ.motion, () => {
         ScrollTrigger.create({
           trigger: track.current,
           start: "top top",
@@ -53,11 +53,6 @@ export default function Customize() {
           },
         });
       });
-      mm.add("(max-width: 1023px) and (prefers-reduced-motion: no-preference)", () => {
-        gsap.utils.toArray<HTMLElement>("[data-custom-card]").forEach((c) =>
-          gsap.from(c, { y: 40, autoAlpha: 0, duration: 1, ease: "expo.out", scrollTrigger: { trigger: c, start: "top 85%" } }),
-        );
-      });
       return () => mm.revert();
     },
     { scope: root },
@@ -67,15 +62,15 @@ export default function Customize() {
 
   return (
     <section id="customize" ref={root} aria-label="Make it yours" className="relative bg-coal">
-      {/* Desktop: pinned camera sequence */}
-      <div ref={track} className="relative hidden h-[480vh] lg:block lg:motion-reduce:hidden">
-        <div className="sticky top-0 grid h-screen grid-cols-12 gap-8 overflow-hidden px-[var(--gutter)]">
-          <div className="col-span-5 flex flex-col justify-center pt-16">
+      {/* Pinned camera sequence (all screen sizes with motion) */}
+      <div ref={track} className="relative h-[420vh] lg:h-[480vh] motion-reduce:hidden">
+        <div className="sticky top-0 flex h-[100svh] flex-col gap-5 overflow-hidden px-[var(--gutter)] pt-24 pb-8 lg:grid lg:grid-cols-12 lg:gap-8 lg:py-0">
+          <div className="lg:col-span-5 lg:flex lg:flex-col lg:justify-center lg:pt-16">
             <Eyebrow index="05">Customization</Eyebrow>
-            <h2 data-custom-title className="display-lg mt-8">
+            <h2 data-custom-title className="display-md mt-4 lg:display-lg lg:mt-8">
               <Lines lines={["Make it", <>yours<span className="text-gold-soft">.</span></>]} outer="js-hidden-line" />
             </h2>
-            <ol className="mt-14 max-w-md">
+            <ol className="mt-14 hidden max-w-md lg:block">
               {steps.map((s, i) => (
                 <li key={s.label} className="border-t border-bone/10 last:border-b">
                   <div className="flex items-baseline gap-5 py-4">
@@ -106,7 +101,7 @@ export default function Customize() {
             </ol>
           </div>
 
-          <div className="relative col-span-7 my-[12vh] overflow-hidden bg-[radial-gradient(60%_60%_at_50%_50%,#1a1a1a,#0b0b0b_75%)]">
+          <div className="relative min-h-0 flex-1 overflow-hidden bg-[radial-gradient(60%_60%_at_50%_50%,#1a1a1a,#0b0b0b_75%)] lg:col-span-7 lg:my-[12vh]">
             {steps.map((s, i) => {
               const j = bySlug(s.slug);
               const on = i === active;
@@ -128,7 +123,7 @@ export default function Customize() {
                       src={jerseySrc(j.slug)}
                       alt={on ? `${s.label}: detail of iTHREE archive kit ${archiveNo(s.slug)}` : ""}
                       fill
-                      sizes={`${Math.round(56 * s.zoom)}vw`}
+                      sizes={`(min-width: 1024px) ${Math.round(56 * s.zoom)}vw, ${Math.round(90 * s.zoom)}vw`}
                       className="object-contain"
                     />
                   </div>
@@ -142,11 +137,27 @@ export default function Customize() {
             <span aria-hidden className="absolute top-5 right-5 h-3 w-3 border-t border-r border-bone/40" />
             <span aria-hidden className="absolute bottom-5 left-5 h-3 w-3 border-b border-l border-bone/40" />
           </div>
+
+          {/* Phone: the active step under the frame */}
+          <div className="lg:hidden" aria-live="polite">
+            <div aria-hidden className="flex gap-1.5">
+              {steps.map((s, i) => (
+                <span key={s.label} className={`h-0.5 flex-1 transition-colors duration-500 ${i <= active ? "bg-gold-soft" : "bg-bone/15"}`} />
+              ))}
+            </div>
+            <div className="mt-5 flex min-h-[4.5rem] gap-4">
+              <span className="eyebrow pt-1.5 text-gold-soft">0{active + 1}</span>
+              <div>
+                <h3 className="font-display text-xl font-medium tracking-tight uppercase">{steps[active].label}</h3>
+                <p className="mt-1 text-sm text-mute">{steps[active].text}</p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
-      {/* Mobile, tablet, reduced motion: framed stills */}
-      <div className="shell py-28 lg:hidden lg:motion-reduce:block lg:motion-reduce:py-40">
+      {/* Reduced motion: framed stills */}
+      <div className="shell hidden py-28 motion-reduce:block lg:py-40">
         <Eyebrow index="05">Customization</Eyebrow>
         <h2 className="display-lg mt-8">
           Make it yours<span className="text-gold-soft">.</span>
@@ -155,7 +166,7 @@ export default function Customize() {
           {steps.map((s, i) => {
             const j = bySlug(s.slug);
             return (
-              <li key={s.label} data-custom-card>
+              <li key={s.label}>
                 <div className="relative aspect-[4/5] overflow-hidden bg-graphite">
                   <div className="absolute inset-0 flex items-center justify-center">
                     <div className="relative w-[92%]" style={{ aspectRatio: `${j.w} / ${j.h}`, transform: frameTransform(s.focus, Math.max(1, s.zoom * 0.85)) }}>

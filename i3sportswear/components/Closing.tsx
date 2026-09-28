@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useRef } from "react";
-import { Button, Lines, Logo } from "./ui";
+import { Button, Lines, Logo, Mark } from "./ui";
 import { contactHref, nav, site } from "@/lib/site";
 import { MQ, gsap, useGSAP } from "@/lib/gsap";
 
@@ -54,7 +54,7 @@ export function FinalCta() {
 
       <div className="shell relative py-32">
         <p className="eyebrow flex items-center gap-3 text-faint">
-          <span aria-hidden className="h-px w-8 bg-gold-soft" /> Get a quote
+          <Mark /> Get a quote
         </p>
         <h2 id="cta-title" data-cta-title className="display-lg mt-8 max-w-[14ch]">
           <Lines lines={["Ready to build", <>your team kit<span className="text-gold-soft">?</span></>]} outer="js-hidden-line" />

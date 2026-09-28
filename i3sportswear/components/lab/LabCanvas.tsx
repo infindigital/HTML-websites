@@ -175,9 +175,10 @@ export default function LabCanvas(props: Props) {
       ref={wrap}
       className="absolute inset-0 touch-pan-y"
       data-cursor="drag"
+      // touch-action: pan-y leaves vertical swipes to page scrolling; horizontal
+      // swipes arrive here as pointer moves and turn the kit.
       onPointerDown={(e) => {
-        if (e.pointerType === "touch") return; // touch keeps native scrolling; use the view toggle
-        (e.target as HTMLElement).setPointerCapture?.(e.pointerId);
+        if (e.pointerType === "mouse") (e.target as HTMLElement).setPointerCapture?.(e.pointerId);
         startX.current = e.clientX;
         Object.assign(drag.current, { active: true, dx: 0, startRotation: drag.current.rotation });
       }}
@@ -189,7 +190,17 @@ export default function LabCanvas(props: Props) {
         drag.current.active = false;
         drag.current.onSettle?.(drag.current.rotation);
       }}
-      onPointerCancel={() => (drag.current.active = false)}
+      onPointerCancel={() => {
+        if (!drag.current.active) return;
+        drag.current.active = false;
+        drag.current.onSettle?.(drag.current.rotation);
+      }}
+      onPointerLeave={(e) => {
+        if (e.pointerType !== "mouse" && drag.current.active) {
+          drag.current.active = false;
+          drag.current.onSettle?.(drag.current.rotation);
+        }
+      }}
     >
       <Canvas
         flat

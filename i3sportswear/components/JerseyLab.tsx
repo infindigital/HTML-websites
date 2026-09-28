@@ -39,7 +39,8 @@ export default function JerseyLab() {
   const [webgl, setWebgl] = useState(false);
   const [ready, setReady] = useState(false);
   const markReady = useCallback(() => setReady(true), []);
-  const rich = useMediaQuery("(min-width: 1024px) and (prefers-reduced-motion: no-preference)");
+  const rich = useMediaQuery("(prefers-reduced-motion: no-preference)");
+  const small = useMediaQuery("(max-width: 1023px)");
   const ids = { name: useId(), number: useId() };
 
   const kit = labKits[kitIndex];
@@ -85,7 +86,7 @@ export default function JerseyLab() {
           onUpdate: (self) => (entry.current = self.progress),
         });
       });
-      mm.add(MQ.compactOrReduced, () => {
+      mm.add("(prefers-reduced-motion: reduce)", () => {
         entry.current = 1;
       });
       return () => mm.revert();
@@ -137,7 +138,7 @@ export default function JerseyLab() {
             {!(rich && webgl && ready) && <LabFallback {...state} />}
             {rich && webgl && near && (
               <div className={`absolute inset-0 transition-opacity duration-1000 ${ready ? "opacity-100" : "opacity-0"}`}>
-                <LabCanvas {...state} entry={entry} onViewChange={setView} onReady={markReady} small={false} />
+                <LabCanvas {...state} entry={entry} onViewChange={setView} onReady={markReady} small={small} />
               </div>
             )}
 
@@ -152,8 +153,8 @@ export default function JerseyLab() {
               </p>
             </div>
             <div className="absolute inset-x-0 bottom-0 flex items-end justify-between p-5 lg:p-7">
-              <p className="eyebrow pointer-events-none hidden text-faint lg:block">
-                {rich && webgl ? "Drag to rotate" : "Preview"}
+              <p className="eyebrow pointer-events-none text-faint">
+                {rich && webgl ? (small ? "Swipe to turn" : "Drag to rotate") : "Preview"}
               </p>
               <div className="flex gap-2">
                 <button

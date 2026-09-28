@@ -1,18 +1,44 @@
 "use client";
 
-import { useRef } from "react";
+import dynamic from "next/dynamic";
+import { useCallback, useEffect, useRef, useState } from "react";
 import HeroVideo from "./HeroVideo";
-import { Button, Lines } from "./ui";
+import { Button, Lines, Mark } from "./ui";
 import { gsap, MQ, useGSAP } from "@/lib/gsap";
 
+const HeroWorld = dynamic(() => import("./hero/HeroWorld"), { ssr: false });
+
+function canUseWorld() {
+  try {
+    const c = document.createElement("canvas");
+    return !!(c.getContext("webgl2") || c.getContext("webgl"));
+  } catch {
+    return false;
+  }
+}
+
 /**
- * 01: Hero. A sticky stage inside a taller track: while it is pinned the
- * film darkens and eases forward, the headline lifts away and the
- * "Built for your game." statement rises into the same frame.
+ * 01: Hero. A sticky stage inside a taller track. On desktop the stage is the
+ * 3D Kit Room (components/hero/HeroWorld); scroll turns the camera through the
+ * ring of kits and cranes up as "Built for your game." rises into frame.
+ * Phones get a lighter build of the same world; the master film remains only
+ * as the fallback where WebGL is unavailable.
  * Reduced motion collapses the track and shows both statements in flow.
  */
 export default function Hero() {
   const root = useRef<HTMLElement>(null);
+  const progress = useRef(0);
+  const [world, setWorld] = useState(false);
+  const [ready, setReady] = useState(false);
+  const [still, setStill] = useState(false);
+  const [lite, setLite] = useState(false);
+  const markReady = useCallback(() => setReady(true), []);
+
+  useEffect(() => {
+    setWorld(canUseWorld());
+    setStill(window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+    setLite(window.matchMedia("(max-width: 1023px)").matches);
+  }, []);
 
   useGSAP(
     () => {
@@ -23,12 +49,18 @@ export default function Hero() {
 
         const tl = gsap.timeline({
           defaults: { ease: "none" },
-          scrollTrigger: { trigger: root.current, start: "top top", end: "bottom bottom", scrub: 0.8 },
+          scrollTrigger: {
+            trigger: root.current,
+            start: "top top",
+            end: "bottom bottom",
+            scrub: 0.8,
+            onUpdate: (self) => (progress.current = self.progress),
+          },
         });
         tl.to("[data-hero-copy] .line-mask > span", { yPercent: -110, stagger: 0.04, duration: 0.3, ease: "power2.in" }, 0)
           .to("[data-hero-aside]", { y: -40, autoAlpha: 0, duration: 0.25 }, 0)
           .to("[data-hero-hint]", { autoAlpha: 0, duration: 0.1 }, 0)
-          .to("[data-hero-dim]", { opacity: 0.78, duration: 0.5 }, 0.05)
+          .to("[data-hero-dim]", { opacity: world ? 0.5 : 0.78, duration: 0.5 }, 0.05)
           .fromTo(
             "[data-hero-statement] .line-mask > span",
             { y: 0, yPercent: 120 },
@@ -38,11 +70,11 @@ export default function Hero() {
           .fromTo("[data-hero-kicker]", { autoAlpha: 0, y: 12 }, { autoAlpha: 1, y: 0, duration: 0.2 }, 0.4)
           .fromTo("[data-hero-rule]", { scaleX: 0 }, { scaleX: 1, duration: 0.3, ease: "power2.out" }, 0.62)
           .to({}, { duration: 0.12 });
-        if (desktop) tl.fromTo("[data-hero-media]", { scale: 1 }, { scale: 1.1, duration: 0.8 }, 0);
+        if (desktop && !world) tl.fromTo("[data-hero-media]", { scale: 1 }, { scale: 1.1, duration: 0.8 }, 0);
       });
       return () => mm.revert();
     },
-    { scope: root },
+    { scope: root, dependencies: [world], revertOnUpdate: true },
   );
 
   return (
@@ -55,7 +87,13 @@ export default function Hero() {
       <div className="sticky top-0 h-[100svh] overflow-hidden motion-reduce:relative motion-reduce:h-auto">
         <div className="relative h-[100svh]">
           <div data-hero-media className="absolute inset-0 will-change-transform">
-            <HeroVideo />
+            {world ? (
+              <div className={`absolute inset-0 transition-opacity duration-[1400ms] ${ready ? "opacity-100" : "opacity-0"}`}>
+                <HeroWorld progress={progress} still={still} lite={lite} onReady={markReady} />
+              </div>
+            ) : (
+              <HeroVideo />
+            )}
           </div>
 
           {/* Legibility: weight the frame toward the lower-left text field only. */}
@@ -108,7 +146,7 @@ export default function Hero() {
         >
           <p data-hero-kicker className="js-hidden-fade eyebrow mb-8 flex items-center gap-3 text-faint">
             <span className="text-gold-soft">01</span>
-            <span aria-hidden className="h-px w-8 bg-bone/25" />
+            <Mark />
             Custom team kits
           </p>
           <h2 className="display-xl">

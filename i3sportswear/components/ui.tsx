@@ -69,12 +69,21 @@ export function Button({ href, children, variant = "solid", size = "md", cursor,
   );
 }
 
-/** Section index label, e.g. "02 / The Jersey Lab". */
+/** Small gold triangle drawn from the iTHREE mark; separates label parts. */
+export function Mark({ className = "" }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 10 8" aria-hidden className={`h-[7px] w-[9px] shrink-0 text-gold-soft ${className}`} fill="currentColor">
+      <path d="M5 0 10 8H0z" />
+    </svg>
+  );
+}
+
+/** Section index label, e.g. "02 ▲ The Jersey Lab". */
 export function Eyebrow({ index, children, className = "" }: { index?: string; children: ReactNode; className?: string }) {
   return (
     <p className={`eyebrow flex items-center gap-3 text-faint ${className}`}>
       {index && <span className="text-gold-soft">{index}</span>}
-      {index && <span aria-hidden className="h-px w-8 bg-bone/25" />}
+      {index && <Mark />}
       <span>{children}</span>
     </p>
   );
