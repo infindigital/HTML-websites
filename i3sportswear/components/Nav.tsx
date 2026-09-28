@@ -67,7 +67,7 @@ export default function Nav() {
             scrolled ? "h-16" : "h-[4.75rem] lg:h-[5.5rem]"
           }`}
         >
-          <a href="#top" aria-label="iTHREE Sportswear — back to top" className="relative z-10 block h-10 lg:h-12">
+          <a href="#top" aria-label="iTHREE Sportswear, back to top" className="relative z-10 block h-10 lg:h-12">
             <Logo priority />
           </a>
 

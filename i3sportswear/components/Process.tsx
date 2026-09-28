@@ -13,7 +13,7 @@ const stages = [
 ];
 
 /**
- * 06 — From idea to kit. Vertical scroll drives a horizontal, gently
+ * 06: From idea to kit. Vertical scroll drives a horizontal, gently
  * descending run of five stages; a gold rule fills as the active stage moves.
  */
 export default function Process() {

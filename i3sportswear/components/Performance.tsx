@@ -18,7 +18,7 @@ const details = [
 
 const archiveNo = (slug: string) => String(jerseys.findIndex((j) => j.slug === slug) + 1).padStart(3, "0");
 
-/** 04 — Performance. Macro detail of real kit artwork, revealed by clip and parallax. */
+/** 04: Performance. Macro detail of real kit artwork, revealed by clip and parallax. */
 export default function Performance() {
   const root = useRef<HTMLElement>(null);
 

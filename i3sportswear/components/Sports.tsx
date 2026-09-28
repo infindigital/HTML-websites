@@ -14,7 +14,7 @@ const ease = [0.16, 1, 0.3, 1] as const;
 const wordSize = (word: string) => `min(18vw, ${(90 / (word.length * 0.66)).toFixed(2)}vw)`;
 
 /**
- * 03 — Built for every game. On desktop the stage is pinned while the page
+ * 03: Built for every game. On desktop the stage is pinned while the page
  * scrolls through six chapters; the word, jersey and ambient tint change per
  * sport. On smaller screens it becomes a vertical editorial sequence.
  */
@@ -135,7 +135,7 @@ export default function Sports() {
                 <span className="text-gold-soft">{String(active + 1).padStart(2, "0")}</span> / 0{sports.length}
               </p>
               <p className="mt-4 font-display text-2xl tracking-tight">{sport.line}</p>
-              <Button href={contactHref(`Hi iTHREE — I'd like a quote for a ${sport.name.toLowerCase()} kit.`)} variant="text" className="mt-5 text-bone/80 hover:text-bone">
+              <Button href={contactHref(`Hi iTHREE, I'd like a quote for a ${sport.name.toLowerCase()} kit.`)} variant="text" className="mt-5 text-bone/80 hover:text-bone">
                 Start a {sport.name.toLowerCase()} kit
               </Button>
             </div>

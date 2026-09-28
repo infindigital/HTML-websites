@@ -24,7 +24,7 @@ const frameTransform = (focus: readonly number[], zoom: number) =>
   `scale(${zoom}) translate(${((0.5 - focus[0]) * 100).toFixed(2)}%, ${((0.5 - focus[1]) * 100).toFixed(2)}%)`;
 
 /**
- * 05 — Make it yours. A scroll-driven "camera" moves across real kits to show
+ * 05: Make it yours. A scroll-driven "camera" moves across real kits to show
  * each customisable element. Mobile shows each framed detail as a still.
  */
 export default function Customize() {
@@ -136,7 +136,7 @@ export default function Customize() {
               );
             })}
             <p className="eyebrow absolute right-5 bottom-5 text-faint">
-              Archive {archiveNo(current.slug)} — {current.sport}
+              Archive {archiveNo(current.slug)} · {current.sport}
             </p>
             <span aria-hidden className="absolute top-5 left-5 h-3 w-3 border-t border-l border-bone/40" />
             <span aria-hidden className="absolute top-5 right-5 h-3 w-3 border-t border-r border-bone/40" />

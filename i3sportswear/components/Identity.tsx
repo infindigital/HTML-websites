@@ -8,7 +8,7 @@ import { MQ, gsap, useGSAP } from "@/lib/gsap";
 const beats = ["It’s colours.", "It’s a crest.", "It’s a number.", "It’s a name.", "It’s the feeling before kickoff."];
 
 /**
- * 07 — Team identity (Our story). A close-up frame from the master film,
+ * 07: Team identity (Our story). A close-up frame from the master film,
  * slowly pushing in, while each line of the manifesto lights up in turn.
  */
 export default function Identity() {

@@ -46,8 +46,8 @@ export default function LabFallback({ kit, view, name, number, crest, zoom }: La
               <Marker at={kit.crest} label="Crest" value="Left chest" show={crest} />
             ) : (
               <>
-                <Marker at={kit.name} label="Name" value={name || "—"} show={!!name} />
-                <Marker at={kit.number} label="No." value={number || "—"} show={!!number} />
+                <Marker at={kit.name} label="Name" value={name} show={!!name} />
+                <Marker at={kit.number} label="No." value={number} show={!!number} />
               </>
             )}
           </div>

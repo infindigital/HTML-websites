@@ -69,7 +69,7 @@ export function Button({ href, children, variant = "solid", size = "md", cursor,
   );
 }
 
-/** Section index label, e.g. "02 — The Jersey Lab". */
+/** Section index label, e.g. "02 / The Jersey Lab". */
 export function Eyebrow({ index, children, className = "" }: { index?: string; children: ReactNode; className?: string }) {
   return (
     <p className={`eyebrow flex items-center gap-3 text-faint ${className}`}>

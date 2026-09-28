@@ -38,7 +38,7 @@ export function FinalCta() {
     { scope: root },
   );
 
-  const talk = contactHref("Hi iTHREE — I'd like to talk about a team kit.");
+  const talk = contactHref("Hi iTHREE, I'd like to talk about a team kit.");
 
   return (
     <section id="quote" ref={root} aria-labelledby="cta-title" className="relative flex min-h-[100svh] items-center overflow-hidden bg-ink">
@@ -95,7 +95,7 @@ export function Footer() {
       <div className="shell">
         <div className="grid gap-16 lg:grid-cols-12">
           <div className="lg:col-span-5">
-            <a href="#top" aria-label="iTHREE Sportswear — back to top" className="block h-32 w-fit sm:h-44">
+            <a href="#top" aria-label="iTHREE Sportswear, back to top" className="block h-32 w-fit sm:h-44">
               <Logo />
             </a>
             <p className="lede mt-8 max-w-sm">Custom performance wear engineered around your team.</p>

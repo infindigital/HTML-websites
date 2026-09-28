@@ -135,8 +135,8 @@ function Jersey({ kit, view, name, number, crest, entry, onViewChange, onReady, 
       </mesh>
 
       <Callout at={toPlane(kit.crest, false)} label="Crest" value="Left chest" show={crest && facing === "front"} />
-      <Callout at={toPlane(kit.name, true)} label="Name" value={name || "—"} show={!!name && facing === "back"} />
-      <Callout at={toPlane(kit.number, true)} label="No." value={number || "—"} show={!!number && facing === "back"} />
+      <Callout at={toPlane(kit.name, true)} label="Name" value={name} show={!!name && facing === "back"} />
+      <Callout at={toPlane(kit.number, true)} label="No." value={number} show={!!number && facing === "back"} />
     </group>
   );
 }

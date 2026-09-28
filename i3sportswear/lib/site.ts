@@ -1,5 +1,5 @@
 /**
- * Business details — the single place to edit contact info and social proof.
+ * Business details: the single place to edit contact info and social proof.
  *
  * Only verified information belongs here. Every empty value hides its UI:
  * no contact detail, statistic, client logo or testimonial is ever invented.
@@ -7,7 +7,7 @@
 export const site = {
   name: "iTHREE Sportswear",
   url: "https://i3sportswear.com",
-  title: "iTHREE Sportswear — Custom Sportswear & Team Jerseys",
+  title: "iTHREE Sportswear | Custom Sportswear & Team Jerseys",
   description:
     "Custom performance wear engineered around your team. Custom football, cricket, basketball and volleyball jerseys designed with your colours, crest, names and numbers.",
 

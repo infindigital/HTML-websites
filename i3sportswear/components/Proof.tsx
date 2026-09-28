@@ -16,7 +16,7 @@ const signals = [
   { title: "Six sports, one standard", text: "Football, cricket, basketball, volleyball, badminton and training wear." },
 ];
 
-/** 09 — Trust. Verified statistics when supplied, qualitative signals otherwise. */
+/** 09: Trust. Verified statistics when supplied, qualitative signals otherwise. */
 export function Trust() {
   const root = useRef<HTMLElement>(null);
   const stats = site.stats;
@@ -80,7 +80,7 @@ export function Trust() {
   );
 }
 
-/** 10 — Client wall. Renders only when real client logos are configured. */
+/** 10: Client wall. Renders only when real client logos are configured. */
 export function Clients() {
   if (!site.clients.length) return null;
   const row = [...site.clients, ...site.clients];
@@ -104,7 +104,7 @@ export function Clients() {
   );
 }
 
-/** 11 — Testimonials. Renders only when real, permissioned quotes exist. */
+/** 11: Testimonials. Renders only when real, permissioned quotes exist. */
 export function Testimonials() {
   const items = site.testimonials;
   const [i, setI] = useState(0);
@@ -134,7 +134,7 @@ export function Testimonials() {
                 <span className="text-gold-soft">&rdquo;</span>
               </blockquote>
               <figcaption className="eyebrow mt-10 text-faint">
-                <span className="text-bone">{t.author}</span> — {t.team}
+                <span className="text-bone">{t.author}</span>, {t.team}
               </figcaption>
             </motion.div>
           </AnimatePresence>

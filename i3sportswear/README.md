@@ -1,4 +1,4 @@
-# iTHREE Sportswear — website
+# iTHREE Sportswear website
 
 A cinematic, single-page brand site for iTHREE Sportswear, built with Next.js 16, React 19, TypeScript, Tailwind CSS 4, GSAP (ScrollTrigger), Framer Motion, Lenis and React Three Fiber.
 

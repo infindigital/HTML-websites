@@ -7,7 +7,7 @@ import { jerseySrc, jerseys } from "@/lib/products";
 import { MQ, gsap, useGSAP } from "@/lib/gsap";
 
 /**
- * 08 — The iTHREE archive. Every supplied kit as an editorial plate in a
+ * 08: The iTHREE archive. Every supplied kit as an editorial plate in a
  * horizontal gallery: native scroll (touch, trackpad, keyboard) plus mouse
  * drag and step buttons on desktop.
  */
@@ -124,7 +124,7 @@ export default function Archive() {
                 <div className="absolute inset-0 transition-transform duration-[1200ms] ease-[var(--ease-out-expo)] group-hover:scale-[1.05] group-hover:-translate-y-1.5">
                   <Image
                     src={jerseySrc(j.slug)}
-                    alt={`iTHREE ${j.sport.toLowerCase()} kit, ${j.colourway.toLowerCase()}, front and back — archive ${String(i + 1).padStart(3, "0")}`}
+                    alt={`iTHREE ${j.sport.toLowerCase()} kit, ${j.colourway.toLowerCase()}, front and back, archive ${String(i + 1).padStart(3, "0")}`}
                     fill
                     sizes="(min-width: 1024px) 28vw, (min-width: 640px) 44vw, 78vw"
                     draggable={false}
@@ -143,7 +143,7 @@ export default function Archive() {
                   <span className="text-bone">{j.sport}</span>
                 </p>
                 <p className="mt-2 grid text-sm text-mute transition-[grid-template-rows,opacity] duration-700 ease-[var(--ease-out-expo)] lg:grid-rows-[0fr] lg:opacity-0 lg:group-hover:grid-rows-[1fr] lg:group-hover:opacity-100">
-                  <span className="overflow-hidden">{j.colourway} — front &amp; back</span>
+                  <span className="overflow-hidden">{j.colourway}, front &amp; back</span>
                 </p>
               </figcaption>
             </figure>

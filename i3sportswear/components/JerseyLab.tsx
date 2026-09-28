@@ -22,7 +22,7 @@ function hasWebGL() {
 }
 
 /**
- * 02 — The Jersey Lab. A visual prototype, not a configurator: it previews
+ * 02: The Jersey Lab. A visual prototype, not a configurator: it previews
  * where names, numbers and crests sit on real iTHREE kits and hands the
  * resulting brief to a real conversation. Nothing is saved or submitted here.
  */
@@ -100,7 +100,7 @@ export default function JerseyLab() {
   };
 
   const brief = [
-    `Hi iTHREE — I'd like a quote for a ${kit.sport.toLowerCase()} kit.`,
+    `Hi iTHREE, I'd like a quote for a ${kit.sport.toLowerCase()} kit.`,
     `Reference: Jersey Lab kit ${String(kitIndex + 1).padStart(2, "0")} (${kit.sport}).`,
     name && `Player name: ${name}`,
     number && `Number: ${number}`,
@@ -143,7 +143,7 @@ export default function JerseyLab() {
 
             <div className="pointer-events-none absolute inset-x-0 top-0 flex flex-wrap items-start justify-between gap-x-6 gap-y-2 p-5 lg:p-7">
               <p className="eyebrow text-faint">
-                Kit <span className="text-bone">{String(kitIndex + 1).padStart(2, "0")}</span> / 0{labKits.length} —{" "}
+                Kit <span className="text-bone">{String(kitIndex + 1).padStart(2, "0")}</span> / 0{labKits.length} ·{" "}
                 <span className="text-bone">{kit.sport}</span>
               </p>
               <p className="eyebrow text-faint" aria-live="polite">

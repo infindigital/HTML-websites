@@ -6,7 +6,7 @@ import { Button, Lines } from "./ui";
 import { gsap, MQ, useGSAP } from "@/lib/gsap";
 
 /**
- * 01 — Hero. A sticky stage inside a taller track: while it is pinned the
+ * 01: Hero. A sticky stage inside a taller track: while it is pinned the
  * film darkens and eases forward, the headline lifts away and the
  * "Built for your game." statement rises into the same frame.
  * Reduced motion collapses the track and shows both statements in flow.
@@ -106,8 +106,10 @@ export default function Hero() {
           data-hero-statement
           className="shell pointer-events-none absolute inset-0 flex flex-col justify-center motion-reduce:relative motion-reduce:py-32"
         >
-          <p data-hero-kicker className="js-hidden-fade eyebrow mb-8 text-faint">
-            <span className="text-gold-soft">01</span> — Custom team kits
+          <p data-hero-kicker className="js-hidden-fade eyebrow mb-8 flex items-center gap-3 text-faint">
+            <span className="text-gold-soft">01</span>
+            <span aria-hidden className="h-px w-8 bg-bone/25" />
+            Custom team kits
           </p>
           <h2 className="display-xl">
             <Lines lines={["Built", "For", <>Your game<span className="text-gold-soft">.</span></>]} outer="js-hidden-line" />
