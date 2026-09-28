@@ -34,7 +34,7 @@ Sport labels for each jersey are in `lib/products.ts`. They were assigned from e
 Source files supplied by iTHREE stay untouched in this folder (`website logo.png`, the master video, `i3sportswear.zip`). Web versions in `public/` were generated from them:
 
 - `scripts/process_images.py <folder of original PNGs>` builds the responsive WebP sets (240–1920px), the front/back textures for the Jersey Lab, and records image sizes. Jerseys are only trimmed and resized, never recoloured or edited.
-- Video: `public/video/hero-720.webm` (VP9), `hero-720.mp4` (H.264) and `hero-480.mp4` (mobile), all without audio and with fast start. Stills in `public/images/stills/` are frames from the same film.
+- `scripts/process_video.py "<master video>.mp4"` builds `public/video/hero-720.webm` (VP9), `hero-720.mp4` (H.264) and `hero-480.mp4` (mobile), all without audio and with fast start, plus the stills in `public/images/stills/` and `public/og.jpg`. It also removes the small watermark in the master film's lower-right corner. Set `WATERMARK = None` in the script when processing a clean export.
 
 `next/image` uses a custom loader (`lib/image-loader.ts`) that maps requested widths onto those pre-generated files.
 
