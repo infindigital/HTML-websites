@@ -11,6 +11,7 @@ const beats = ["It’s colours.", "It’s a crest.", "It’s a number.", "It’s
 /**
  * 07: Team identity (Our story). A close-up frame from the master film,
  * slowly pushing in, while each line of the manifesto lights up in turn.
+ * Light theme: fanned kit cards and an outlined gold "11" replace the dark still.
  */
 export default function Identity() {
   const root = useRef<HTMLElement>(null);
@@ -28,6 +29,19 @@ export default function Identity() {
           "[data-identity-media]",
           { scale: 1.12 },
           { scale: 1, ease: "none", scrollTrigger: { trigger: root.current, start: "top bottom", end: "bottom top", scrub: true } },
+        );
+        // Light theme: the fanned kits spread and rise, the outline numeral drifts.
+        gsap.utils.toArray<HTMLElement>("[data-fan-kit]").forEach((kit, i) => {
+          gsap.fromTo(
+            kit,
+            { y: 70, x: (i - 1) * -24 },
+            { y: -10 * i, x: (i - 1) * 14, ease: "none", scrollTrigger: { trigger: root.current, start: "top bottom", end: "bottom 40%", scrub: true } },
+          );
+        });
+        gsap.fromTo(
+          "[data-identity-numeral]",
+          { yPercent: 12 },
+          { yPercent: -6, ease: "none", scrollTrigger: { trigger: root.current, start: "top bottom", end: "bottom top", scrub: true } },
         );
         gsap.utils.toArray<HTMLElement>("[data-beat]").forEach((beat) => {
           gsap.fromTo(
@@ -58,11 +72,19 @@ export default function Identity() {
           aria-hidden
           className="absolute inset-0 bg-[linear-gradient(to_right,var(--color-ink)_8%,color-mix(in_srgb,var(--color-ink)_75%,transparent)_45%,color-mix(in_srgb,var(--color-ink)_25%,transparent)_100%),linear-gradient(to_bottom,var(--color-ink),transparent_20%,transparent_80%,var(--color-ink))]"
         />
-        {/* Light theme: the film still is a dark studio, so show a light kit instead,
-            above the fade so it stays crisp. */}
-        <div className="absolute bottom-[7%] left-[var(--gutter)] hidden h-[34%] w-[40%] lg:light:block">
-          <Image src={jerseySrc("coral-teal")} alt="" fill sizes="42vw" className="object-contain object-left-bottom drop-shadow-[0_30px_30px_var(--product-shadow)]" />
-        </div>
+        {/* Light theme backdrop: a warm gold glow and an outlined "11" in place of
+            the dark film still. */}
+        <div
+          aria-hidden
+          className="absolute inset-0 hidden bg-[radial-gradient(55%_50%_at_18%_78%,color-mix(in_srgb,var(--color-gold)_14%,transparent),transparent_70%),radial-gradient(40%_45%_at_88%_20%,color-mix(in_srgb,var(--color-gold)_8%,transparent),transparent_70%)] light:block"
+        />
+        <span
+          aria-hidden
+          data-identity-numeral
+          className="pointer-events-none absolute -right-[3vw] -bottom-[8vw] hidden font-display text-[62vw] leading-none font-semibold tracking-[-0.06em] text-transparent opacity-50 select-none [-webkit-text-stroke:1.5px_var(--color-gold)] light:block lg:-bottom-[5vw] lg:text-[34vw]"
+        >
+          11
+        </span>
       </div>
 
       <div className="shell relative grid gap-16 py-32 lg:grid-cols-12 lg:py-48">
@@ -74,6 +96,9 @@ export default function Identity() {
               outer="js-hidden-line"
             />
           </h2>
+          <div className="hidden light:block">
+            <KitFan />
+          </div>
         </div>
         <ul className="flex flex-col gap-3 self-end lg:col-span-5 lg:col-start-8 lg:pt-[30vh]">
           {beats.map((b, i) => (
@@ -88,5 +113,32 @@ export default function Identity() {
         </ul>
       </div>
     </section>
+  );
+}
+
+// Three kits fanned like cards: one team's squad, three sports.
+const fan = [
+  { slug: "sky-brush", left: "0%", rotate: -7, z: 1 },
+  { slug: "coral-teal", left: "23%", rotate: 0, z: 3 },
+  { slug: "yellow-circuit", left: "46%", rotate: 6, z: 2 },
+];
+
+/** Light theme only: kit cards that drift apart as the section scrolls. */
+function KitFan() {
+  return (
+    <div aria-hidden className="relative mt-14 aspect-[2.15/1] w-full max-w-[680px] lg:mt-20">
+      {fan.map((k) => (
+        <div
+          key={k.slug}
+          data-fan-kit
+          className="absolute bottom-0 aspect-[5/4] w-[54%] will-change-transform"
+          style={{ left: k.left, zIndex: k.z, rotate: `${k.rotate}deg` }}
+        >
+          <div className="relative h-full w-full bg-[var(--stage)] shadow-[0_30px_60px_-24px_var(--product-shadow)] ring-1 ring-bone/[0.07]">
+            <Image src={jerseySrc(k.slug)} alt="" fill sizes="(min-width: 1024px) 18vw, 45vw" className="object-contain p-[7%]" />
+          </div>
+        </div>
+      ))}
+    </div>
   );
 }

@@ -222,7 +222,6 @@ body {
     transform: translate3d(-50%, 0, 0);
   }
 }
-
 /* Lines revealed by scroll start hidden only once JS is known to run. */
 @media (prefers-reduced-motion: no-preference) {
   .js .js-hidden-line {

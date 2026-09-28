@@ -99,7 +99,7 @@ export default function Nav() {
           <div className="relative z-10 flex items-center gap-2 sm:gap-3">
             <ThemeSwitch theme={theme} />
             <Button href="#quote" variant="outline" size="sm" className="px-3! xs:px-4! sm:px-5!">
-              Get a quote
+              <span className="max-[389px]:hidden">Get a&nbsp;</span>quote
             </Button>
             <button
               ref={menuButton}
@@ -176,30 +176,33 @@ export default function Nav() {
   );
 }
 
-/** Dark / light switch: both icons visible, a sliding thumb marks the active one. */
+/** Two separate theme buttons, moon for dark and sun for light; the active one is filled gold. */
 function ThemeSwitch({ theme }: { theme: "dark" | "light" }) {
-  const light = theme === "light";
+  const options = [
+    { value: "dark", label: "Dark theme", Icon: Moon },
+    { value: "light", label: "Light theme", Icon: Sun },
+  ] as const;
   return (
-    <button
-      type="button"
-      role="switch"
-      aria-checked={light}
-      aria-label="Light theme"
-      title={light ? "Switch to dark theme" : "Switch to light theme"}
-      onClick={() => setTheme(light ? "dark" : "light")}
-      className="group relative flex h-11 items-center"
-    >
-      <span className="relative flex h-8 w-[3.25rem] items-center justify-between rounded-full px-[6px] xs:w-[3.75rem] xs:px-[7px] ring-1 ring-bone/25 transition-colors group-hover:ring-bone/50">
-        <span
-          aria-hidden
-          className={`absolute top-1 left-1 h-6 w-6 rounded-full bg-gold-soft transition-transform duration-500 ease-[var(--ease-out-expo)] ${
-            light ? "translate-x-[1.25rem] xs:translate-x-[1.75rem]" : "translate-x-0"
-          }`}
-        />
-        <Moon className={`relative ${light ? "text-bone/55" : "text-ink"}`} />
-        <Sun className={`relative ${light ? "text-ink" : "text-bone/55"}`} />
-      </span>
-    </button>
+    <div role="group" aria-label="Theme" className="flex items-center gap-1 sm:gap-1.5">
+      {options.map(({ value, label, Icon }) => {
+        const on = theme === value;
+        return (
+          <button
+            key={value}
+            type="button"
+            aria-pressed={on}
+            aria-label={label}
+            title={label}
+            onClick={() => !on && setTheme(value)}
+            className={`flex h-8 w-8 items-center justify-center rounded-full transition-colors duration-300 sm:h-9 sm:w-9 ${
+              on ? "bg-gold-soft text-ink" : "text-bone/80 ring-1 ring-bone/35 ring-inset hover:text-bone hover:ring-bone/60"
+            }`}
+          >
+            <Icon />
+          </button>
+        );
+      })}
+    </div>
   );
 }
 

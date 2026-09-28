@@ -1,13 +1,16 @@
 "use client";
 
 import Image from "next/image";
-import { jerseySrc } from "@/lib/products";
+import { jerseySrc, jerseys } from "@/lib/products";
 import { useRef } from "react";
 import { Button, Lines, Logo, Mark } from "./ui";
 import { contactHref, nav, site } from "@/lib/site";
 import { MQ, gsap, useGSAP } from "@/lib/gsap";
 
-/** Final CTA. The jersey wall from the master film, held in deep shadow. */
+/**
+ * Final CTA. Dark: the jersey wall from the master film, held in deep shadow.
+ * Light: a moving wall of the kits themselves.
+ */
 export function FinalCta() {
   const root = useRef<HTMLElement>(null);
 
@@ -42,22 +45,23 @@ export function FinalCta() {
   const talk = contactHref("Hi iTHREE, I'd like to talk about a team kit.");
 
   return (
-    <section id="quote" ref={root} aria-labelledby="cta-title" className="relative flex min-h-[100svh] items-center overflow-hidden bg-ink">
+    <section id="quote" ref={root} aria-labelledby="cta-title" className="relative flex min-h-[100svh] flex-col justify-center overflow-hidden bg-ink">
       <div className="absolute inset-0">
         <div data-cta-media className="absolute inset-0 will-change-transform">
           <Image src="/images/stills/wall" alt="" fill sizes="100vw" className="object-cover object-[80%_50%] opacity-55 light:hidden" />
-          {/* Light theme: a light kit in place of the dark film still. */}
-          <div className="absolute inset-y-[14%] right-[4%] hidden w-full light:block lg:w-[52%]">
-            <Image src={jerseySrc("sky-brush")} alt="" fill sizes="(min-width: 1024px) 52vw, 100vw" className="object-contain object-right opacity-25 lg:opacity-100" />
-          </div>
         </div>
         <div
           aria-hidden
-          className="absolute inset-0 bg-[linear-gradient(to_right,var(--color-ink)_15%,color-mix(in_srgb,var(--color-ink)_60%,transparent)_55%,color-mix(in_srgb,var(--color-ink)_20%,transparent)),linear-gradient(to_bottom,var(--color-ink),transparent_25%,transparent_75%,var(--color-ink))]"
+          className="absolute inset-0 bg-[linear-gradient(to_right,var(--color-ink)_15%,color-mix(in_srgb,var(--color-ink)_60%,transparent)_55%,color-mix(in_srgb,var(--color-ink)_20%,transparent)),linear-gradient(to_bottom,var(--color-ink),transparent_25%,transparent_75%,var(--color-ink))] light:hidden"
+        />
+        {/* Light theme: a warm glow and a moving wall of kits in place of the dark film still. */}
+        <div
+          aria-hidden
+          className="absolute inset-0 hidden bg-[radial-gradient(50%_60%_at_12%_35%,color-mix(in_srgb,var(--color-gold)_14%,transparent),transparent_70%)] light:block"
         />
       </div>
 
-      <div className="shell relative py-32">
+      <div className="shell relative py-32 light:pb-12 lg:light:pb-16">
         <p className="eyebrow flex items-center gap-3 text-faint">
           <Mark /> Get a quote
         </p>
@@ -78,7 +82,45 @@ export function FinalCta() {
           </a>
         )}
       </div>
+
+      <div className="relative hidden w-full pb-24 light:block">
+        <KitRows />
+      </div>
     </section>
+  );
+}
+
+// Every clean cut-out kit, split into two runs for the moving wall.
+const wallKits = jerseys.filter((j) => !j.backdrop);
+const runs = [wallKits.filter((_, i) => i % 2 === 0), wallKits.filter((_, i) => i % 2 === 1)];
+
+function KitCard({ slug }: { slug: string }) {
+  return (
+    <div className="relative mr-4 aspect-[5/4] w-[44vw] max-w-[260px] shrink-0 bg-[var(--stage)] shadow-[0_24px_48px_-24px_var(--product-shadow)] ring-1 ring-bone/[0.07] lg:mr-5 lg:w-[clamp(200px,17vw,280px)] lg:max-w-none">
+      <Image src={jerseySrc(slug)} alt="" fill sizes="(min-width: 1024px) 17vw, 44vw" className="object-contain p-[7%]" />
+    </div>
+  );
+}
+
+/** Light theme: two rows of kits sliding in opposite directions (pause on hover). */
+function KitRows() {
+  return (
+    <div aria-hidden className="group flex flex-col gap-4 [mask-image:linear-gradient(to_right,transparent,#000_8%,#000_92%,transparent)] lg:gap-5">
+      {runs.map((run, r) => (
+        <div key={r} className="overflow-hidden">
+          {/* Two copies and a margin (not gap) per card, so -50% loops seamlessly. */}
+          <div
+            className={`flex w-max group-hover:[animation-play-state:paused] ${
+              r === 0 ? "animate-[marquee_48s_linear_infinite]" : "animate-[marquee_54s_linear_infinite_reverse]"
+            }`}
+          >
+            {[...run, ...run].map((j, i) => (
+              <KitCard key={`${j.slug}-${i}`} slug={j.slug} />
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
   );
 }
 

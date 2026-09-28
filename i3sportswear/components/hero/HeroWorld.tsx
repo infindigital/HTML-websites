@@ -249,7 +249,10 @@ function Atmosphere({ theme, lite }: { theme: Theme; lite: boolean }) {
     const bg = theme === "light" ? LIGHT_ROOM : DARK_ROOM;
     scene.background = new THREE.Color(bg);
     // Phones see the ring from further back, so push the fog out to keep the kits bright.
-    scene.fog = lite ? new THREE.Fog(bg, 10, 26) : new THREE.Fog(bg, 6, 19);
+    // Light fog washes kit colours toward white, so in the light room it only
+    // softens the far floor edge.
+    scene.fog =
+      theme === "light" ? new THREE.Fog(bg, 16, 40) : lite ? new THREE.Fog(bg, 10, 26) : new THREE.Fog(bg, 6, 19);
     invalidate();
   }, [scene, theme, lite, invalidate]);
   return null;

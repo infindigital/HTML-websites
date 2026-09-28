@@ -108,9 +108,14 @@ export default function Hero() {
           {/* Legibility: weight the frame toward the lower-left text field only. */}
           <div
             aria-hidden
-            className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_top,var(--color-ink)_2%,color-mix(in_srgb,var(--color-ink)_45%,transparent)_26%,transparent_50%)] lg:bg-[linear-gradient(to_top,var(--color-ink)_2%,color-mix(in_srgb,var(--color-ink)_55%,transparent)_30%,transparent_62%),linear-gradient(to_right,color-mix(in_srgb,var(--color-ink)_70%,transparent),transparent_55%)]"
+            className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_top,var(--color-ink)_2%,color-mix(in_srgb,var(--color-ink)_45%,transparent)_26%,transparent_50%)] lg:bg-[linear-gradient(to_top,var(--color-ink)_2%,color-mix(in_srgb,var(--color-ink)_55%,transparent)_30%,transparent_62%),linear-gradient(to_right,color-mix(in_srgb,var(--color-ink)_70%,transparent),transparent_55%)] light:hidden"
           />
-          <div data-hero-dim aria-hidden className="pointer-events-none absolute inset-0 bg-ink opacity-0" />
+          {/* Light theme: dark type reads on the bright room, so only a short fade at the foot. */}
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-0 hidden bg-[linear-gradient(to_top,var(--color-ink)_0%,color-mix(in_srgb,var(--color-ink)_30%,transparent)_16%,transparent_34%)] light:block lg:bg-[linear-gradient(to_top,var(--color-ink)_0%,color-mix(in_srgb,var(--color-ink)_30%,transparent)_16%,transparent_34%),linear-gradient(to_right,color-mix(in_srgb,var(--color-ink)_45%,transparent),transparent_42%)]"
+          />
+          <div data-hero-dim aria-hidden className="pointer-events-none absolute inset-0 bg-ink opacity-0 light:bg-ink/55" />
 
           <div className="shell absolute inset-x-0 bottom-0 pb-20 lg:pb-24">
             <div className="grid items-end gap-10 lg:grid-cols-12">
