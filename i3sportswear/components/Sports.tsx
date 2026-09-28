@@ -73,7 +73,7 @@ export default function Sports() {
           <motion.div
             aria-hidden
             className="absolute inset-0"
-            animate={{ background: `radial-gradient(55% 60% at 50% 55%, rgb(${sport.tint} / 0.16), transparent 70%)` }}
+            animate={{ background: `radial-gradient(55% 60% at 50% 55%, rgb(${sport.tint} / 0.16), rgb(5 5 5 / 0) 70%)` }}
             transition={{ duration: 1.4, ease }}
           />
 

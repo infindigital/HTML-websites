@@ -4,7 +4,6 @@ import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Button, Logo } from "./ui";
 import { contactHref, nav, site } from "@/lib/site";
-import { setTheme, useTheme } from "@/lib/hooks";
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
@@ -13,7 +12,6 @@ export default function Nav() {
   const [open, setOpen] = useState(false);
   const menuButton = useRef<HTMLButtonElement>(null);
   const panel = useRef<HTMLDivElement>(null);
-  const theme = useTheme();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -97,15 +95,6 @@ export default function Nav() {
           </ul>
 
           <div className="relative z-10 flex items-center gap-3">
-            <button
-              type="button"
-              onClick={() => setTheme(theme === "light" ? "dark" : "light")}
-              aria-label={theme === "light" ? "Switch to dark theme" : "Switch to light theme"}
-              title={theme === "light" ? "Dark theme" : "Light theme"}
-              className="flex h-11 w-11 items-center justify-center text-bone/75 transition-colors hover:text-bone"
-            >
-              <ThemeIcon light={theme === "light"} />
-            </button>
             <Button href="#quote" variant="outline" size="sm" className="px-4! sm:px-5!">
               Get a quote
             </Button>
@@ -181,18 +170,5 @@ export default function Nav() {
         )}
       </AnimatePresence>
     </>
-  );
-}
-
-function ThemeIcon({ light }: { light: boolean }) {
-  return light ? (
-    <svg viewBox="0 0 20 20" aria-hidden className="h-[18px] w-[18px]" fill="none" stroke="currentColor" strokeWidth="1.4">
-      <path d="M16.5 12.2A7 7 0 0 1 7.8 3.5a7 7 0 1 0 8.7 8.7Z" />
-    </svg>
-  ) : (
-    <svg viewBox="0 0 20 20" aria-hidden className="h-[18px] w-[18px]" fill="none" stroke="currentColor" strokeWidth="1.4">
-      <circle cx="10" cy="10" r="3.6" />
-      <path d="M10 1.5v2.2M10 16.3v2.2M1.5 10h2.2M16.3 10h2.2M4 4l1.6 1.6M14.4 14.4 16 16M4 16l1.6-1.6M14.4 5.6 16 4" />
-    </svg>
   );
 }

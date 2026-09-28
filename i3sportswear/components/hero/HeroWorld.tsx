@@ -5,7 +5,6 @@ import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { MeshReflectorMaterial, useTexture } from "@react-three/drei";
 import * as THREE from "three";
 import { jerseys } from "@/lib/products";
-import { useTheme, type Theme } from "@/lib/hooks";
 
 /**
  * "The Kit Room": the supplied kits hang in a ring around the centre circle
@@ -95,13 +94,13 @@ function poolTexture() {
 }
 
 /** Pitch markings and the iTHREE mark in the centre circle. */
-function Pitch({ theme }: { theme: Theme }) {
+function Pitch() {
   const logo = useTexture("/images/logo-480.webp");
   logo.colorSpace = THREE.SRGBColorSpace;
   const lines = useMemo(() => {
-    const light = theme === "light";
-    return new THREE.MeshBasicMaterial({ color: light ? "#0b0b0b" : "#f5f5f2", transparent: true, opacity: light ? 0.2 : 0.16, toneMapped: false });
-  }, [theme]);
+    const m = new THREE.MeshBasicMaterial({ color: "#f5f5f2", transparent: true, opacity: 0.16, toneMapped: false });
+    return m;
+  }, []);
   return (
     <group position={[0, 0.004, 0]}>
       <mesh rotation={[-Math.PI / 2, 0, 0]} material={lines}>
@@ -121,23 +120,22 @@ function Pitch({ theme }: { theme: Theme }) {
   );
 }
 
-function Floor({ lite, theme }: { lite: boolean; theme: Theme }) {
-  const light = theme === "light";
+function Floor({ lite }: { lite: boolean }) {
   return (
-    <mesh key={theme} rotation={[-Math.PI / 2, 0, 0]}>
+    <mesh rotation={[-Math.PI / 2, 0, 0]}>
       <planeGeometry args={[60, 60]} />
       <MeshReflectorMaterial
         blur={lite ? [200, 60] : [400, 120]}
         resolution={lite ? 256 : 1024}
         mixBlur={1}
-        mixStrength={light ? 2.5 : 18}
+        mixStrength={18}
         roughness={0.92}
         depthScale={1.1}
         minDepthThreshold={0.4}
         maxDepthThreshold={1.3}
-        color={light ? "#fbfbf8" : "#0a0a0a"}
-        metalness={light ? 0 : 0.55}
-        mirror={light ? 0.2 : 0.6}
+        color="#0a0a0a"
+        metalness={0.55}
+        mirror={0.6}
       />
     </mesh>
   );
@@ -188,7 +186,6 @@ export default function HeroWorld({
 }) {
   const wrap = useRef<HTMLDivElement>(null);
   const [inView, setInView] = useState(true);
-  const theme = useTheme();
 
   useEffect(() => {
     const io = new IntersectionObserver(([e]) => setInView(e.isIntersecting));
@@ -204,32 +201,22 @@ export default function HeroWorld({
         frameloop={inView ? (still ? "demand" : "always") : "never"}
         camera={{ fov: lite ? 58 : 42, near: 0.1, far: 60, position: [0, 1.35, 2.6] }}
         gl={{ antialias: true, powerPreference: "high-performance" }}
+        onCreated={({ scene }) => {
+          scene.background = new THREE.Color("#050505");
+          scene.fog = new THREE.Fog("#050505", 6, 19);
+        }}
         aria-hidden
       >
-        <Atmosphere theme={theme} />
         <Suspense fallback={null}>
           <Kits lite={lite} />
-          <Pitch theme={theme} />
-          <Floor lite={lite} theme={theme} />
+          <Pitch />
+          <Floor lite={lite} />
           <Ready onReady={onReady} />
         </Suspense>
         <CameraRig progress={progress} still={still} portrait={lite} />
       </Canvas>
     </div>
   );
-}
-
-/** Room colour and distance fog, matched to the page background. */
-function Atmosphere({ theme }: { theme: Theme }) {
-  const scene = useThree((s) => s.scene);
-  const invalidate = useThree((s) => s.invalidate);
-  useEffect(() => {
-    const bg = theme === "light" ? "#f5f5f2" : "#050505";
-    scene.background = new THREE.Color(bg);
-    scene.fog = new THREE.Fog(bg, 6, 19);
-    invalidate();
-  }, [scene, theme, invalidate]);
-  return null;
 }
 
 /** Fires once everything inside the Suspense boundary has loaded. */

@@ -101,7 +101,7 @@ export default function Customize() {
             </ol>
           </div>
 
-          <div className="relative min-h-0 flex-1 overflow-hidden bg-[radial-gradient(60%_60%_at_50%_50%,var(--stage),var(--color-coal)_75%)] lg:col-span-7 lg:my-[12vh]">
+          <div className="relative min-h-0 flex-1 overflow-hidden bg-[radial-gradient(60%_60%_at_50%_50%,#1a1a1a,#0b0b0b_75%)] lg:col-span-7 lg:my-[12vh]">
             {steps.map((s, i) => {
               const j = bySlug(s.slug);
               const on = i === active;

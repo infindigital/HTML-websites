@@ -130,7 +130,7 @@ export default function JerseyLab() {
           {/* Stage */}
           <div
             data-lab-stage
-            className="relative h-[min(118vw,560px)] overflow-hidden bg-[radial-gradient(60%_55%_at_50%_42%,var(--stage)_0%,var(--color-coal)_55%,var(--color-ink)_100%)] lg:col-span-8 lg:h-[min(82vh,860px)]"
+            className="relative h-[min(118vw,560px)] overflow-hidden bg-[radial-gradient(60%_55%_at_50%_42%,#1d1d1c_0%,#0e0e0e_55%,#080808_100%)] lg:col-span-8 lg:h-[min(82vh,860px)]"
           >
             {/* studio floor line */}
             <span aria-hidden className="absolute inset-x-0 bottom-[14%] h-px bg-bone/[0.05]" />
