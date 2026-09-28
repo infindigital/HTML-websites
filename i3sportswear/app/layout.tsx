@@ -77,7 +77,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        <script dangerouslySetInnerHTML={{ __html: "document.documentElement.classList.add('js')" }} />
+        <script dangerouslySetInnerHTML={{ __html: "var d=document.documentElement;d.classList.add('js');try{var t=new URLSearchParams(location.search).get('theme')||localStorage.getItem('ithree-theme');if(t==='light')d.dataset.theme='light'}catch(e){}" }} />
         <link rel="preload" as="image" href="/images/stills/hero-poster-1280.webp" fetchPriority="high" />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       </head>

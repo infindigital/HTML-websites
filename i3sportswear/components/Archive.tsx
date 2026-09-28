@@ -118,7 +118,7 @@ export default function Archive() {
             <figure>
               <div
                 className={`relative aspect-[4/5] overflow-hidden ${
-                  j.backdrop ? "bg-[#6f6f6f]" : "bg-[radial-gradient(70%_60%_at_50%_45%,#232322,#121212_70%)]"
+                  j.backdrop ? "bg-[#6f6f6f]" : "bg-[radial-gradient(70%_60%_at_50%_45%,var(--stage),var(--color-coal)_70%)]"
                 }`}
               >
                 <div className="absolute inset-0 transition-transform duration-[1200ms] ease-[var(--ease-out-expo)] group-hover:scale-[1.05] group-hover:-translate-y-1.5">

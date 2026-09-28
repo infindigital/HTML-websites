@@ -95,7 +95,7 @@ export default function Performance() {
         <div className="sticky top-0 h-screen overflow-hidden">
           <div
             aria-hidden
-            className="absolute inset-0 bg-[radial-gradient(45%_55%_at_60%_50%,#1b1b1a,#050505_75%)]"
+            className="absolute inset-0 bg-[radial-gradient(45%_55%_at_60%_50%,var(--stage),var(--color-ink)_75%)]"
           />
           {rich && near && (
             <div className={`absolute inset-0 transition-opacity duration-1000 ${ready ? "opacity-100" : "opacity-0"}`}>

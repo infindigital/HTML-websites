@@ -48,7 +48,7 @@ export function FinalCta() {
         </div>
         <div
           aria-hidden
-          className="absolute inset-0 bg-[linear-gradient(to_right,var(--color-ink)_15%,rgb(5_5_5/0.6)_55%,rgb(5_5_5/0.2)),linear-gradient(to_bottom,var(--color-ink),transparent_25%,transparent_75%,var(--color-ink))]"
+          className="absolute inset-0 bg-[linear-gradient(to_right,var(--color-ink)_15%,color-mix(in_srgb,var(--color-ink)_60%,transparent)_55%,color-mix(in_srgb,var(--color-ink)_20%,transparent)),linear-gradient(to_bottom,var(--color-ink),transparent_25%,transparent_75%,var(--color-ink))]"
         />
       </div>
 

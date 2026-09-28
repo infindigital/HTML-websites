@@ -55,7 +55,7 @@ export default function Identity() {
         </div>
         <div
           aria-hidden
-          className="absolute inset-0 bg-[linear-gradient(to_right,var(--color-ink)_8%,rgb(5_5_5/0.75)_45%,rgb(5_5_5/0.25)_100%),linear-gradient(to_bottom,var(--color-ink),transparent_20%,transparent_80%,var(--color-ink))]"
+          className="absolute inset-0 bg-[linear-gradient(to_right,var(--color-ink)_8%,color-mix(in_srgb,var(--color-ink)_75%,transparent)_45%,color-mix(in_srgb,var(--color-ink)_25%,transparent)_100%),linear-gradient(to_bottom,var(--color-ink),transparent_20%,transparent_80%,var(--color-ink))]"
         />
       </div>
 
