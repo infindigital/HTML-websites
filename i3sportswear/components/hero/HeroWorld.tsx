@@ -106,7 +106,13 @@ function poolTexture(light: boolean) {
 }
 
 /** Pitch markings and the iTHREE mark in the centre circle. */
-function Pitch({ theme }: { theme: Theme }) {
+function Pitch({ theme, yaw }: { theme: Theme; yaw: RefObject<number> }) {
+  const mark = useRef<THREE.Mesh>(null);
+  // Keep the mark upright for the viewer: spin it in the floor plane to follow
+  // the camera's heading, so it never reads upside down as the camera turns.
+  useFrame(() => {
+    if (mark.current) mark.current.rotation.z = -(yaw.current ?? 0);
+  });
   const logo = useTexture("/images/logo-480.webp");
   logo.colorSpace = THREE.SRGBColorSpace;
   const lines = useMemo(() => {
@@ -124,7 +130,7 @@ function Pitch({ theme }: { theme: Theme }) {
       <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0, 0]} material={lines}>
         <planeGeometry args={[0.04, RADIUS * 2.6]} />
       </mesh>
-      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.002, 0]}>
+      <mesh ref={mark} rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.002, 0]}>
         <planeGeometry args={[2.35, 2.0]} />
         <meshBasicMaterial map={logo} transparent opacity={0.85} depthWrite={false} toneMapped={false} />
       </mesh>
@@ -162,7 +168,7 @@ function Floor({ lite, theme }: { lite: boolean; theme: Theme }) {
 }
 
 /** Scroll-driven camera: ahead → turn through the ring → crane up over the circle. */
-function CameraRig({ progress, still, portrait }: { progress: RefObject<number>; still: boolean; portrait: boolean }) {
+function CameraRig({ progress, still, portrait, heading }: { progress: RefObject<number>; still: boolean; portrait: boolean; heading: RefObject<number> }) {
   const look = useMemo(() => new THREE.Vector3(), []);
   const smooth = useRef(0);
   useFrame(({ camera, pointer, clock }, dt) => {
@@ -176,6 +182,7 @@ function CameraRig({ progress, still, portrait }: { progress: RefObject<number>;
 
     // Start angled so the lead kit sits beside the headline, not behind it.
     const yaw = (portrait ? 0 : -0.3) - turn * Math.PI * 0.72 + Math.sin(t * 0.12) * 0.04 * (1 - crane) + pointer.x * -0.06;
+    heading.current = yaw;
     const dist = THREE.MathUtils.lerp(2.6, 0.2, turn); // pull back from the kit toward the centre
     const height = THREE.MathUtils.lerp(1.35, 10.5, crane) + pointer.y * 0.08;
     const back = THREE.MathUtils.lerp(0, 7.5, crane);
@@ -208,6 +215,7 @@ export default function HeroWorld({
   onLost?: () => void;
 }) {
   const wrap = useRef<HTMLDivElement>(null);
+  const heading = useRef(0); // camera yaw, shared with the pitch mark
   const [inView, setInView] = useState(true);
   const theme = useTheme();
 
@@ -231,11 +239,11 @@ export default function HeroWorld({
         <Atmosphere theme={theme} lite={lite} />
         <Suspense fallback={null}>
           <Kits lite={lite} theme={theme} />
-          <Pitch theme={theme} />
+          <Pitch theme={theme} yaw={heading} />
           <Floor lite={lite} theme={theme} />
           <Ready onReady={onReady} />
         </Suspense>
-        <CameraRig progress={progress} still={still} portrait={lite} />
+        <CameraRig progress={progress} still={still} portrait={lite} heading={heading} />
       </Canvas>
     </div>
   );
