@@ -113,7 +113,7 @@ export default function Hero() {
                   inner="enter-rise"
                 />
               </h1>
-              <div data-hero-aside className="max-w-sm lg:col-span-4 lg:max-w-[min(24rem,100%)] lg:justify-self-end lg:pb-3">
+              <div data-hero-aside className="max-w-sm lg:col-span-4 lg:max-w-[min(24rem,100%)] lg:justify-self-end lg:-mb-12">
                 <p className="lede enter-fade text-bone/80 [animation-delay:700ms]">
                   Custom performance wear engineered around your team.
                 </p>
