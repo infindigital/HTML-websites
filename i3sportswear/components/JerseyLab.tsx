@@ -208,22 +208,6 @@ export default function JerseyLab() {
               </div>
             </fieldset>
 
-            <div>
-              <p className="eyebrow text-faint">Colour</p>
-              <div className="mt-4 flex items-center gap-4">
-                <ul className="flex" aria-label={`Kit palette for ${kit.sport}`}>
-                  {kit.palette.map((c) => (
-                    <li key={c} className="-mr-2 h-9 w-9 rounded-full ring-2 ring-coal" style={{ background: c }}>
-                      <span className="sr-only">{c}</span>
-                    </li>
-                  ))}
-                </ul>
-                <p className="text-sm leading-snug text-faint">
-                  Sampled from this kit. Your own team colours are matched in design.
-                </p>
-              </div>
-            </div>
-
             <div className="grid grid-cols-[1fr_7rem] gap-3">
               <label htmlFor={ids.name} className="block">
                 <span className="eyebrow text-faint">Name</span>

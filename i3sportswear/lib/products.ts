@@ -52,7 +52,6 @@ export const sports = [
 export type LabKit = {
   slug: string;
   sport: string;
-  palette: string[];
   crest: [number, number];
   name: [number, number];
   number: [number, number];
@@ -62,7 +61,6 @@ export const labKits: LabKit[] = [
   {
     slug: "storm-blue",
     sport: "Football",
-    palette: ["#1D1F20", "#E1E8E9", "#1C9BD4"],
     crest: [0.585, 0.155],
     name: [0.47, 0.19],
     number: [0.47, 0.32],
@@ -70,7 +68,6 @@ export const labKits: LabKit[] = [
   {
     slug: "ivory-gold",
     sport: "Cricket",
-    palette: ["#F1EFEC", "#D9C9A5", "#0A0A0A"],
     crest: [0.575, 0.135],
     name: [0.5, 0.17],
     number: [0.5, 0.245],
@@ -78,7 +75,6 @@ export const labKits: LabKit[] = [
   {
     slug: "yellow-circuit",
     sport: "Basketball",
-    palette: ["#E0B91C", "#EDEFEE", "#161616"],
     crest: [0.565, 0.18],
     name: [0.5, 0.185],
     number: [0.5, 0.3],
@@ -86,7 +82,6 @@ export const labKits: LabKit[] = [
   {
     slug: "coral-teal",
     sport: "Volleyball",
-    palette: ["#DBDBD9", "#1FA39A", "#BB3909"],
     crest: [0.6, 0.37],
     name: [0.49, 0.26],
     number: [0.49, 0.385],

@@ -10,8 +10,8 @@ import { contactHref, nav, site } from "@/lib/site";
 import { MQ, gsap, useGSAP } from "@/lib/gsap";
 
 /**
- * Final CTA. Dark: the jersey wall from the master film, held in deep shadow.
- * Light: a centred composition, one kit at a time inside a gold ring.
+ * Final CTA. A centred composition in both themes: one kit at a time inside a
+ * gold ring, the headline and actions beneath.
  */
 export function FinalCta() {
   const root = useRef<HTMLElement>(null);
@@ -33,11 +33,6 @@ export function FinalCta() {
           ease: "expo.out",
           scrollTrigger: { trigger: root.current, start: "top 60%" },
         });
-        gsap.fromTo(
-          "[data-cta-media]",
-          { scale: 1.14, xPercent: 3 },
-          { scale: 1, xPercent: 0, ease: "none", scrollTrigger: { trigger: root.current, start: "top bottom", end: "bottom bottom", scrub: true } },
-        );
       });
       return () => mm.revert();
     },
@@ -48,32 +43,21 @@ export function FinalCta() {
 
   return (
     <section id="quote" ref={root} aria-labelledby="cta-title" className="relative flex min-h-[100svh] flex-col justify-center overflow-hidden bg-ink">
-      <div className="absolute inset-0">
-        <div data-cta-media className="absolute inset-0 will-change-transform">
-          <Image src="/images/stills/wall" alt="" fill sizes="100vw" className="object-cover object-[80%_50%] opacity-55 light:hidden" />
-        </div>
-        <div
-          aria-hidden
-          className="absolute inset-0 bg-[linear-gradient(to_right,var(--color-ink)_15%,color-mix(in_srgb,var(--color-ink)_60%,transparent)_55%,color-mix(in_srgb,var(--color-ink)_20%,transparent)),linear-gradient(to_bottom,var(--color-ink),transparent_25%,transparent_75%,var(--color-ink))] light:hidden"
-        />
-        {/* Light theme: a soft warm glow behind the kit ring. */}
-        <div
-          aria-hidden
-          className="absolute inset-0 hidden bg-[radial-gradient(38%_42%_at_50%_30%,color-mix(in_srgb,var(--color-gold)_12%,transparent),transparent_72%)] light:block"
-        />
-      </div>
+      {/* A soft warm glow behind the kit ring. */}
+      <div
+        aria-hidden
+        className="absolute inset-0 bg-[radial-gradient(38%_42%_at_50%_30%,color-mix(in_srgb,var(--color-gold)_12%,transparent),transparent_72%)]"
+      />
 
-      <div className="shell relative py-32 light:flex light:flex-col light:items-center light:py-20 light:text-center">
-        <div className="hidden light:block">
-          <KitRing />
-        </div>
-        <p className="eyebrow flex items-center gap-3 text-faint light:mt-10">
+      <div className="shell relative flex flex-col items-center py-20 text-center">
+        <KitRing />
+        <p className="eyebrow mt-10 flex items-center gap-3 text-faint">
           <Mark /> Get a quote
         </p>
-        <h2 id="cta-title" data-cta-title className="display-lg mt-8 max-w-[14ch] light:mt-6">
+        <h2 id="cta-title" data-cta-title className="display-lg mt-6 max-w-[14ch]">
           <Lines lines={["Ready to build", <>your team kit<span className="text-gold-soft">?</span></>]} outer="js-hidden-line" />
         </h2>
-        <div data-cta-actions className="mt-12 flex w-full flex-col gap-3 sm:w-auto sm:flex-row light:mt-10">
+        <div data-cta-actions className="mt-10 flex w-full flex-col gap-3 sm:w-auto sm:flex-row">
           <Button href="#lab" cursor="explore">
             Start your design
           </Button>
@@ -91,11 +75,11 @@ export function FinalCta() {
   );
 }
 
-// Bright kits that read well on white, one per sport where possible.
+// Bright kits that read on both themes, one per sport where possible.
 const ringKits = ["sky-brush", "coral-teal", "yellow-circuit", "ivory-gold", "teal-stripe", "azure-geo"].map(bySlug);
 
 /**
- * Light theme: one kit at a time inside a thin gold ring, like the centre
+ * One kit at a time inside a thin gold ring, like the centre
  * circle of the pitch. The kit breaks out of the ring; an outer dashed ring
  * with a gold marker turns slowly; kits change every few seconds while the
  * section is on screen (not under reduced motion).
