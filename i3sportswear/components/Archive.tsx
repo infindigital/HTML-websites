@@ -117,9 +117,7 @@ export default function Archive() {
           >
             <figure>
               <div
-                className={`relative aspect-[4/5] overflow-hidden ${
-                  j.backdrop ? "bg-[#6f6f6f]" : "bg-[radial-gradient(70%_60%_at_50%_45%,var(--stage),var(--color-coal)_70%)]"
-                }`}
+                className="relative aspect-[4/5] overflow-hidden bg-[radial-gradient(70%_60%_at_50%_45%,var(--stage),var(--color-coal)_70%)]"
               >
                 <div className="absolute inset-0 transition-transform duration-[1200ms] ease-[var(--ease-out-expo)] group-hover:scale-[1.05] group-hover:-translate-y-1.5">
                   <Image
@@ -128,7 +126,7 @@ export default function Archive() {
                     fill
                     sizes="(min-width: 1024px) 28vw, (min-width: 640px) 44vw, 78vw"
                     draggable={false}
-                    className={j.backdrop ? "object-cover" : "object-contain p-[9%] drop-shadow-[0_24px_24px_var(--product-shadow)]"}
+                    className="object-contain p-[9%] drop-shadow-[0_24px_24px_var(--product-shadow)]"
                   />
                 </div>
                 <span aria-hidden className="absolute top-4 left-4 font-display text-xs tracking-[0.2em] text-bone/60 mix-blend-difference light:mix-blend-normal">

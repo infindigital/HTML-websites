@@ -14,7 +14,7 @@ import { useTheme, type Theme } from "@/lib/hooks";
  */
 
 // Kits in ring order, starting with the one the camera faces first.
-// 11.png is excluded: it ships with its own grey studio backdrop.
+// Eleven kits for eleven players; the long-sleeve kit sits out.
 const RING = [
   "noir-gold",
   "yellow-circuit",

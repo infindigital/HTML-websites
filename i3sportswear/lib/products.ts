@@ -11,8 +11,6 @@ export type Jersey = {
   colourway: string;
   w: number;
   h: number;
-  /** Image carries its own studio backdrop rather than transparency. */
-  backdrop?: boolean;
 };
 
 export const jerseys: Jersey[] = [
@@ -27,7 +25,7 @@ export const jerseys: Jersey[] = [
   { slug: "azure-geo", sport: "Training", colourway: "Azure / Navy", w: 4597, h: 3314 },
   { slug: "ink-dragon", sport: "Basketball", colourway: "White / Ink", w: 2147, h: 2174 },
   { slug: "crimson-wolf", sport: "Football", colourway: "Red / Black", w: 2633, h: 2492 },
-  { slug: "shatter-longsleeve", sport: "Cricket", colourway: "Black / Grey / Red", w: 3053, h: 2772, backdrop: true },
+  { slug: "shatter-longsleeve", sport: "Cricket", colourway: "Black / Grey / Red", w: 2775, h: 1887 },
 ];
 
 export const bySlug = (slug: string) => jerseys.find((j) => j.slug === slug)!;

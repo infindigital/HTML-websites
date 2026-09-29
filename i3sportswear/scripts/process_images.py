@@ -64,9 +64,12 @@ def split_columns(alpha: Image.Image):
 meta = {}
 for name, (slug, mode) in JERSEYS.items():
     im = Image.open(SRC / name).convert("RGBA")
+    if name == "11.png":
+        # 11.png ships with a faint studio backdrop at alpha 38 around an opaque
+        # kit; clear it (rescaling the anti-aliased edge) so it cuts out cleanly.
+        im.putalpha(im.getchannel("A").point(lambda v: 0 if v <= 38 else min(255, round((v - 38) * 255 / 217))))
     bbox = im.getchannel("A").point(lambda v: 255 if v > 8 else 0).getbbox()
-    if name != "11.png":  # 11.png ships with its own studio backdrop
-        im = im.crop(bbox)
+    im = im.crop(bbox)
     save_set(im, OUT / "jerseys" / slug)
     entry = {"w": im.width, "h": im.height}
     if mode == "split":
