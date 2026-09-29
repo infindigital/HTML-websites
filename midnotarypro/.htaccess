@@ -7,6 +7,7 @@
 RedirectMatch 404 /\.git
 RedirectMatch 404 ^/_build/
 RedirectMatch 404 ^/design-system/
+RedirectMatch 404 ^/docs/
 RedirectMatch 404 ^/midnotarypro-(website-content\.pdf|images\.zip)$
 RedirectMatch 403 ^/vendor/
 

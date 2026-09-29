@@ -9,7 +9,19 @@ Source of truth: midnotarypro-website-content.pdf
   - NON_HAGUE_MENTIONED: non-Hague countries named elsewhere on the site
     without a country guide entry (blog post, p. 51).
 Nothing here is invented; do not add requirements that are not in the PDF.
+
+Audit corrections (2026-09), to confirm against the HCCH status table
+(hcch.net, Apostille Section) before each release:
+  - Vietnam removed from the Hague list: it is not a party to the Apostille
+    Convention, and the PDF's own attestation guide lists it for embassy
+    legalization.
+  - Canada note changed from "Joined Jan 2024, effective 2025": the
+    convention entered into force for Canada on 11 January 2024.
+  - Swaziland shown under its current name, Eswatini.
 """
+
+# Update when the lists are re-checked against the HCCH status table.
+REVIEWED_LIST = "September 2026"
 
 HAGUE = {
     "Americas": [
@@ -36,12 +48,12 @@ HAGUE = {
         "Armenia", "Azerbaijan", "Bahrain", "Brunei", "Georgia", "India",
         "Indonesia", "Israel", "Japan", "Kazakhstan", "Kyrgyzstan", "Mongolia",
         "Oman", "Pakistan", "Philippines", "Republic of Korea", "Saudi Arabia",
-        "Singapore", "Tajikistan", "Uzbekistan", "Vietnam",
+        "Singapore", "Tajikistan", "Uzbekistan",
     ],
     "Africa": [
         "Botswana", "Burundi", "Lesotho", "Liberia", "Malawi", "Morocco",
         "Namibia", "Rwanda", "Sao Tome and Principe", "Senegal", "Seychelles",
-        "South Africa", "Swaziland", "Tunisia",
+        "South Africa", "Eswatini", "Tunisia",
     ],
     "Oceania": [
         "Australia", "Cook Islands", "Fiji", "Marshall Islands",
@@ -55,7 +67,7 @@ HAGUE = {
 
 # Notes published alongside a country name in the PDF.
 HAGUE_NOTES = {
-    "Canada": "Joined Jan 2024, effective 2025",
+    "Canada": "in force since January 2024",
 }
 
 # (name, region, embassy, translation or None, final in-country step, common uses)
@@ -131,7 +143,7 @@ ATLAS_NAME = {
     "North Macedonia": "Macedonia",
     "Republic of Korea": "South Korea",
     "United States": "United States of America",
-    "Swaziland": "eSwatini",
+    "Eswatini": "eSwatini",
     "Saint Kitts and Nevis": "St. Kitts and Nevis",
     "Saint Vincent and the Grenadines": "St. Vin. and Gren.",
     "Sao Tome and Principe": "São Tomé and Principe",
