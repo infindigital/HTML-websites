@@ -102,6 +102,24 @@ def service_redirect():
     return "/service/ (redirect)"
 
 
+def not_found():
+    """Custom 404 — served as /404.html by Vercel and via ErrorDocument on Apache."""
+    import os
+    from lib import ROOT
+    buttons = btn("Back to home", "/", "gold") + btn("Contact us", "/contact-us/", "ghost")
+    body = page_hero("Page not found", "The page you are looking for may have moved. Use the links below to find "
+                     "our apostille, notary and document preparation services.",
+                     [("Page not found", None)], buttons=buttons)
+    page("/404/", "Page not found | Midwest Apostille & Notary", "Page not found.", body)
+    src = os.path.join(ROOT, "404", "index.html")
+    html = open(src).read().replace('<meta name="description"', '<meta name="robots" content="noindex">\n<meta name="description"', 1)
+    with open(os.path.join(ROOT, "404.html"), "w") as f:
+        f.write(html)
+    os.remove(src)
+    os.rmdir(os.path.join(ROOT, "404"))
+    return "/404.html"
+
+
 # =========================================================================== Apostille
 APOSTILLE_WHY = [
     ("Same-Day Apostille Processing", "When timing is critical, we provide same-day services for documents that are ready to be certified, so you don’t have to wait days or weeks."),
@@ -723,4 +741,4 @@ def blog_apostille():
 
 def build_all():
     return [about(), services(), service_redirect(), apostille(), notary(), docprep(), contact(), fbi_apostille(),
-            fbi_attestation(), bilingual("en"), bilingual("es"), jail("en"), jail("es"), blog_urgent(), blog_apostille()]
+            fbi_attestation(), bilingual("en"), bilingual("es"), jail("en"), jail("es"), blog_urgent(), blog_apostille(), not_found()]

@@ -11,6 +11,7 @@ RedirectMatch 404 ^/midnotarypro-(website-content\.pdf|images\.zip)$
 RedirectMatch 403 ^/vendor/
 
 DirectoryIndex index.html
+ErrorDocument 404 /404.html
 
 # The old footer link /service/ duplicated /services/.
 RedirectMatch 301 ^/service/?$ /services/
