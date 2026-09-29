@@ -217,9 +217,10 @@ body {
   }
 }
 
-@keyframes float {
-  50% {
-    transform: translate3d(0, -8px, 0);
+@keyframes flap {
+  from {
+    transform: rotateX(-80deg);
+    opacity: 0.4;
   }
 }
 
