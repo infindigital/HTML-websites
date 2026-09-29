@@ -1,0 +1,29 @@
+# Midwest Apostille & Notary — static site + PHP contact handler (Apache / Hostinger)
+
+# Never serve credentials, Composer metadata, build sources, or VCS files.
+<FilesMatch "^(config\.php|config\.example\.php|composer\.(json|lock)|README\.md)$">
+    Require all denied
+</FilesMatch>
+RedirectMatch 404 /\.git
+RedirectMatch 404 ^/_build/
+RedirectMatch 404 ^/design-system/
+RedirectMatch 404 ^/midnotarypro-(website-content\.pdf|images\.zip)$
+RedirectMatch 403 ^/vendor/
+
+DirectoryIndex index.html
+
+# The old footer link /service/ duplicated /services/.
+RedirectMatch 301 ^/service/?$ /services/
+
+# Caching for static assets (versioned via ?v= query strings).
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType text/css "access plus 30 days"
+    ExpiresByType application/javascript "access plus 30 days"
+    ExpiresByType image/webp "access plus 1 year"
+    ExpiresByType image/svg+xml "access plus 30 days"
+    ExpiresByType image/png "access plus 1 year"
+</IfModule>
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/css application/javascript image/svg+xml
+</IfModule>

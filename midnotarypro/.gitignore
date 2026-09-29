@@ -1,0 +1,4 @@
+# real mail credentials — copy config.example.php → config.php on the server
+config.php
+vendor/
+__pycache__/
