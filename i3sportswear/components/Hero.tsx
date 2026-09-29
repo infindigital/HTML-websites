@@ -83,7 +83,7 @@ export default function Hero() {
       id="top"
       ref={root}
       aria-labelledby="hero-title"
-      className="relative h-[210svh] lg:h-[270vh] motion-reduce:h-auto!"
+      className="relative h-[180svh] lg:h-[270vh] motion-reduce:h-auto!"
     >
       <div className="sticky top-0 h-[100svh] overflow-hidden motion-reduce:relative motion-reduce:h-auto">
         <div className="relative h-[100svh]">
@@ -144,7 +144,7 @@ export default function Hero() {
         {/* Statement: layered into the pinned frame with motion, in flow without. */}
         <div
           data-hero-statement
-          className="shell pointer-events-none absolute inset-0 flex flex-col justify-center pt-16 lg:justify-end lg:pt-0 lg:pb-24 motion-reduce:relative motion-reduce:py-32"
+          className="shell pointer-events-none absolute inset-0 flex flex-col justify-end pb-20 lg:pb-24 motion-reduce:relative motion-reduce:py-32"
         >
           <p data-hero-kicker className="js-hidden-fade eyebrow mb-8 flex items-center gap-3 text-faint">
             <span className="text-gold-soft">01</span>

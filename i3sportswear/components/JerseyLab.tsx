@@ -111,7 +111,7 @@ export default function JerseyLab() {
     .join("\n");
 
   return (
-    <section id="lab" ref={root} aria-labelledby="lab-title" className="relative bg-coal py-28 lg:py-40">
+    <section id="lab" ref={root} aria-labelledby="lab-title" className="relative bg-coal pt-20 pb-28 lg:py-40">
       <div className="shell">
         <div className="grid gap-8 lg:grid-cols-12 lg:items-end">
           <div className="lg:col-span-8">
