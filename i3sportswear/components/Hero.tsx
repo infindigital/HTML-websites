@@ -106,8 +106,8 @@ export default function Hero() {
 
           <div className="shell absolute inset-x-0 bottom-0 pb-20 lg:pb-24">
             <div className="grid items-end gap-10 lg:grid-cols-12">
-              {/* On desktop the headline is sized to its 8-column field so "Identity." never runs into the copy beside it. */}
-              <h1 id="hero-title" data-hero-copy className="display-xl lg:col-span-8 lg:text-[min(5.15vw,5.8rem)] lg:whitespace-nowrap lg:[&_.line-mask]:inline-block! lg:[&_.line-mask:not(:last-child)]:mr-[0.24em]">
+              {/* One line on every screen: sized to the full width on phones and to the 8-column field on desktop, so "Identity." never runs into the copy beside it. */}
+              <h1 id="hero-title" data-hero-copy className="display-xl lg:col-span-8 text-[length:calc((100vw_-_2*var(--gutter))/11.7)] whitespace-nowrap lg:text-[min(5.15vw,5.8rem)] [&_.line-mask]:inline-block! [&_.line-mask:not(:last-child)]:mr-[0.24em]">
                 <Lines
                   lines={["Wear", "Your", <>Identity<span className="text-gold-soft">.</span></>]}
                   inner="enter-rise"
@@ -152,7 +152,7 @@ export default function Hero() {
             Custom team kits
           </p>
           {/* Sized so its longest line ("Your game.") fits the same field as "Identity." */}
-          <h2 className="display-xl lg:text-[min(5.15vw,5.8rem)] lg:whitespace-nowrap lg:[&_.line-mask]:inline-block! lg:[&_.line-mask:not(:last-child)]:mr-[0.24em]">
+          <h2 className="display-xl text-[length:calc((100vw_-_2*var(--gutter))/11.7)] whitespace-nowrap lg:text-[min(5.15vw,5.8rem)] [&_.line-mask]:inline-block! [&_.line-mask:not(:last-child)]:mr-[0.24em]">
             <Lines lines={["Built", "For", <>Your game<span className="text-gold-soft">.</span></>]} outer="js-hidden-line" />
           </h2>
           <span data-hero-rule aria-hidden className="mt-10 block h-px w-full max-w-md origin-left bg-bone/25 lg:hidden" />
