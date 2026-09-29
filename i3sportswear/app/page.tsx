@@ -1,7 +1,6 @@
 import Hero from "@/components/Hero";
 import JerseyLab from "@/components/JerseyLab";
 import Sports from "@/components/Sports";
-import Performance from "@/components/Performance";
 import Customize from "@/components/Customize";
 import Process from "@/components/Process";
 import Identity from "@/components/Identity";
@@ -16,7 +15,6 @@ export default function Home() {
         <Hero />
         <JerseyLab />
         <Sports />
-        <Performance />
         <Customize />
         <Process />
         <Identity />

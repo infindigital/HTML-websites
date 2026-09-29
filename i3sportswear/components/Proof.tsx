@@ -16,7 +16,7 @@ const signals = [
   { title: "Six sports, one standard", text: "Football, cricket, basketball, volleyball, badminton and training wear." },
 ];
 
-/** 09: Trust. Verified statistics when supplied, qualitative signals otherwise. */
+/** 08: Trust. Verified statistics when supplied, qualitative signals otherwise. */
 export function Trust() {
   const root = useRef<HTMLElement>(null);
   const stats = site.stats;
@@ -49,7 +49,7 @@ export function Trust() {
       <div className="shell">
         <div className="grid gap-8 lg:grid-cols-12">
           <div className="lg:col-span-6">
-            <Eyebrow index="09">Why iTHREE</Eyebrow>
+            <Eyebrow index="08">Why iTHREE</Eyebrow>
             <h2 id="trust-title" className="display-md mt-8">
               Built on the detail<span className="text-gold-soft">.</span>
             </h2>

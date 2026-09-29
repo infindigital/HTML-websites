@@ -13,7 +13,7 @@ const stages = [
 ];
 
 /**
- * 06: From idea to kit. Vertical scroll drives a horizontal, gently
+ * 05: From idea to kit. Vertical scroll drives a horizontal, gently
  * descending run of five stages; a gold rule fills as the active stage moves.
  */
 export default function Process() {
@@ -65,7 +65,7 @@ export default function Process() {
         <div className="sticky top-0 flex h-[100svh] flex-col overflow-hidden pt-24 pb-12 lg:pt-32 lg:pb-16">
           <div className="shell flex items-end justify-between">
             <div>
-              <Eyebrow index="06">Process</Eyebrow>
+              <Eyebrow index="05">Process</Eyebrow>
               <h2 className="display-md mt-6">
                 From idea to kit<span className="text-gold-soft">.</span>
               </h2>
@@ -107,7 +107,7 @@ export default function Process() {
 
       {/* Mobile, tablet, reduced motion */}
       <div className="shell hidden py-28 motion-reduce:block lg:py-40">
-        <Eyebrow index="06">Process</Eyebrow>
+        <Eyebrow index="05">Process</Eyebrow>
         <h2 className="display-md mt-6">
           From idea to kit<span className="text-gold-soft">.</span>
         </h2>

@@ -24,7 +24,7 @@ const frameTransform = (focus: readonly number[], zoom: number) =>
   `scale(${zoom}) translate(${((0.5 - focus[0]) * 100).toFixed(2)}%, ${((0.5 - focus[1]) * 100).toFixed(2)}%)`;
 
 /**
- * 05: Make it yours. A scroll-driven "camera" moves across real kits to show
+ * 04: Make it yours. A scroll-driven "camera" moves across real kits to show
  * each customisable element. Reduced motion shows each framed detail as a still.
  */
 export default function Customize() {
@@ -66,7 +66,7 @@ export default function Customize() {
       <div ref={track} className="relative h-[420vh] lg:h-[480vh] motion-reduce:hidden">
         <div className="sticky top-0 flex h-[100svh] flex-col gap-5 overflow-hidden px-[var(--gutter)] pt-24 pb-8 lg:grid lg:grid-cols-12 lg:gap-8 lg:py-0">
           <div className="lg:col-span-5 lg:flex lg:flex-col lg:justify-center lg:pt-16">
-            <Eyebrow index="05">Customization</Eyebrow>
+            <Eyebrow index="04">Customization</Eyebrow>
             <h2 data-custom-title className="display-md mt-4 lg:display-lg lg:mt-8">
               <Lines lines={["Make it", <>yours<span className="text-gold-soft">.</span></>]} outer="js-hidden-line" />
             </h2>
@@ -158,7 +158,7 @@ export default function Customize() {
 
       {/* Reduced motion: framed stills */}
       <div className="shell hidden py-28 motion-reduce:block lg:py-40">
-        <Eyebrow index="05">Customization</Eyebrow>
+        <Eyebrow index="04">Customization</Eyebrow>
         <h2 className="display-lg mt-8">
           Make it yours<span className="text-gold-soft">.</span>
         </h2>

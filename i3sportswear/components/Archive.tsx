@@ -7,7 +7,7 @@ import { jerseySrc, jerseys } from "@/lib/products";
 import { MQ, gsap, useGSAP } from "@/lib/gsap";
 
 /**
- * 08: The iTHREE archive. Every supplied kit as an editorial plate in a
+ * 07: The iTHREE archive. Every supplied kit as an editorial plate in a
  * horizontal gallery: native scroll (touch, trackpad, keyboard) plus mouse
  * drag and step buttons on desktop.
  */
@@ -60,7 +60,7 @@ export default function Archive() {
     <section id="archive" ref={root} aria-labelledby="archive-title" className="relative bg-coal py-28 lg:py-40">
       <div className="shell flex flex-wrap items-end justify-between gap-8">
         <div>
-          <Eyebrow index="08">Work</Eyebrow>
+          <Eyebrow index="07">Work</Eyebrow>
           <h2 id="archive-title" data-archive-title className="display-lg mt-8">
             <Lines lines={["iTHREE", <>Archive<span className="text-gold-soft">.</span></>]} outer="js-hidden-line" />
           </h2>

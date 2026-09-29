@@ -9,7 +9,7 @@ import { MQ, gsap, useGSAP } from "@/lib/gsap";
 const beats = ["It’s colours.", "It’s a crest.", "It’s a number.", "It’s a name.", "It’s the feeling before kickoff."];
 
 /**
- * 07: Team identity (Our story). A close-up frame from the master film,
+ * 06: Team identity (Our story). A close-up frame from the master film,
  * slowly pushing in, while each line of the manifesto lights up in turn.
  * Light theme: fanned kit cards and an outlined gold "11" replace the dark still.
  */
@@ -89,7 +89,7 @@ export default function Identity() {
 
       <div className="shell relative grid gap-16 py-32 lg:grid-cols-12 lg:py-48">
         <div className="lg:col-span-7">
-          <Eyebrow index="07">Our story</Eyebrow>
+          <Eyebrow index="06">Our story</Eyebrow>
           <h2 id="identity-title" data-identity-title className="display-lg mt-8">
             <Lines
               lines={["A team is", "more than", <>11 players<span className="text-gold-soft">.</span></>]}
