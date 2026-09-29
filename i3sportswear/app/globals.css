@@ -217,6 +217,12 @@ body {
   }
 }
 
+@keyframes float {
+  50% {
+    transform: translate3d(0, -8px, 0);
+  }
+}
+
 @keyframes marquee {
   to {
     transform: translate3d(-50%, 0, 0);

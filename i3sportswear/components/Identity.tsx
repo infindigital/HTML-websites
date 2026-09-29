@@ -3,18 +3,25 @@
 import Image from "next/image";
 import { useRef, useState } from "react";
 import { Eyebrow, Lines } from "./ui";
-import { MQ, gsap, useGSAP } from "@/lib/gsap";
+import { MQ, ScrollTrigger, gsap, useGSAP } from "@/lib/gsap";
+import { useReducedMotion, useTheme } from "@/lib/hooks";
 
 const beats = ["It’s colours.", "It’s a crest.", "It’s a number.", "It’s a name.", "It’s the feeling before kickoff."];
 
 /**
  * 06: Team identity (Our story). A close-up frame from the master film,
  * slowly pushing in, while each line of the manifesto lights up in turn.
- * Light theme: a line-drawn pitch where the eleven shirts fill in as the
- * section scrolls; hover or tap a shirt to lift it and read its position.
+ * Light theme: a shirt that builds itself line by line as the section
+ * scrolls (colours, crest, number, name, then the glow before kickoff); tap a
+ * line to jump the shirt to that step.
  */
 export default function Identity() {
   const root = useRef<HTMLElement>(null);
+  // 0 = outline only … 5 = finished shirt. Reduced motion shows it finished.
+  const [step, setStep] = useState(0);
+  const reduce = useReducedMotion();
+  const light = useTheme() === "light";
+  const shown = reduce ? beats.length : step;
 
   useGSAP(
     () => {
@@ -30,12 +37,16 @@ export default function Identity() {
           { scale: 1.12 },
           { scale: 1, ease: "none", scrollTrigger: { trigger: root.current, start: "top bottom", end: "bottom top", scrub: true } },
         );
-        // Light theme: the team assembles, one shirt at a time.
-        gsap.fromTo(
-          "[data-shirt-fill]",
-          { opacity: 0 },
-          { opacity: 1, stagger: 0.1, ease: "none", scrollTrigger: { trigger: "[data-squad]", start: "top 85%", end: "bottom 45%", scrub: true } },
-        );
+        // Light theme: the shirt gains one layer per manifesto line as it crosses the screen.
+        ScrollTrigger.create({
+          trigger: "[data-shirt-build]",
+          start: "top 85%",
+          end: "bottom 60%",
+          onUpdate: (self) => {
+            const next = Math.min(beats.length, Math.floor(self.progress * (beats.length + 1)));
+            setStep((prev) => (prev === next ? prev : next));
+          },
+        });
         gsap.utils.toArray<HTMLElement>("[data-beat]").forEach((beat) => {
           gsap.fromTo(
             beat,
@@ -71,7 +82,7 @@ export default function Identity() {
             />
           </h2>
           <div className="hidden light:block">
-            <Squad />
+            <ShirtBuild step={shown} />
           </div>
         </div>
         <ul className="flex flex-col gap-3 self-end lg:col-span-5 lg:col-start-8 lg:pt-[30vh]">
@@ -81,7 +92,22 @@ export default function Identity() {
               data-beat
               className={`font-display tracking-tight ${i === beats.length - 1 ? "mt-4 text-[clamp(1.75rem,3vw,2.75rem)] leading-[1.05] font-semibold" : "text-[clamp(1.375rem,2.2vw,2rem)]"}`}
             >
-              {b}
+              {/* Light theme: each line is a step of the shirt; tap to jump to it. */}
+              <button
+                type="button"
+                onClick={() => setStep(i + 1)}
+                className="flex items-baseline gap-3 text-left light:cursor-pointer"
+                tabIndex={light ? 0 : -1}
+                aria-hidden={!light}
+              >
+                <span
+                  aria-hidden
+                  className={`hidden h-2 w-2 shrink-0 -translate-y-1 rounded-full transition-colors duration-500 light:block ${
+                    i < shown ? "bg-gold-soft" : "bg-bone/15"
+                  }`}
+                />
+                {b}
+              </button>
             </li>
           ))}
         </ul>
@@ -90,103 +116,58 @@ export default function Identity() {
   );
 }
 
-// A 4-4-2 line-up on a landscape pitch (viewBox 400 × 260), attacking right.
-const squad = [
-  { n: 1, role: "Goalkeeper", x: 40, y: 130 },
-  { n: 3, role: "Left back", x: 105, y: 50 },
-  { n: 4, role: "Centre back", x: 100, y: 103 },
-  { n: 5, role: "Centre back", x: 100, y: 157 },
-  { n: 2, role: "Right back", x: 105, y: 210 },
-  { n: 11, role: "Left midfield", x: 195, y: 50 },
-  { n: 8, role: "Centre midfield", x: 185, y: 103 },
-  { n: 6, role: "Centre midfield", x: 185, y: 157 },
-  { n: 7, role: "Right midfield", x: 195, y: 210 },
-  { n: 9, role: "Striker", x: 285, y: 100 },
-  { n: 10, role: "Striker", x: 285, y: 160 },
-];
+// Shirt geometry in a 300 × 320 view box.
+const BODY = "M96 22 Q150 50 204 22 L222 60 L222 300 L78 300 L78 60 Z";
+const SLEEVE_L = "M96 22 L30 56 L50 120 L78 106 L78 60 Z";
+const SLEEVE_R = "M204 22 L270 56 L250 120 L222 106 L222 60 Z";
+const OUTLINE = "M96 22 Q150 50 204 22 L270 56 L250 120 L222 106 L222 300 L78 300 L78 106 L50 120 L30 56 Z";
+const COLLAR = "M96 22 Q150 50 204 22 Q150 66 96 22 Z";
 
-// Shirt outline centred on 0,0 (about 26 × 23 units).
-const SHIRT = "M-6 -11.5 Q0 -7.5 6 -11.5 L13 -7 L10 -0.5 L7 -2.5 L7 11.5 L-7 11.5 L-7 -2.5 L-10 -0.5 L-13 -7 Z";
-
-/** Light theme only: the eleven, drawn on a pitch. Hover, focus or tap a shirt. */
-function Squad() {
-  const [active, setActive] = useState<number | null>(null);
-  const player = active === null ? null : squad[active];
+/** Light theme only: the shirt gains a layer for every line of the manifesto. */
+function ShirtBuild({ step }: { step: number }) {
+  const layer = (n: number) =>
+    `transition-[opacity,transform] duration-700 ease-[var(--ease-out-expo)] ${step >= n ? "opacity-100" : "opacity-0"}`;
+  const pop = (n: number) => ({ transform: step >= n ? "none" : "translateY(10px) scale(0.92)", transformBox: "fill-box" as const, transformOrigin: "center" });
 
   return (
-    <figure data-squad className="mt-14 w-full max-w-[600px] lg:mt-20">
-      <svg viewBox="0 0 400 260" className="w-full overflow-visible text-gold" role="group" aria-label="Eleven shirts in a 4-4-2 formation">
-        {/* pitch */}
-        <g fill="none" stroke="currentColor" strokeOpacity="0.45" strokeWidth="1">
-          <rect x="6" y="6" width="388" height="248" rx="2" />
-          <line x1="200" y1="6" x2="200" y2="254" />
-          <circle cx="200" cy="130" r="34" />
-          <rect x="6" y="72" width="54" height="116" />
-          <rect x="340" y="72" width="54" height="116" />
-          <rect x="6" y="104" width="20" height="52" />
-          <rect x="374" y="104" width="20" height="52" />
-        </g>
-        <circle cx="200" cy="130" r="2" fill="currentColor" fillOpacity="0.6" />
-
-        {squad.map((p, i) => {
-          const on = active === i;
-          return (
-            <g
-              key={p.n}
-              transform={`translate(${p.x} ${p.y})`}
-              tabIndex={0}
-              role="button"
-              aria-label={`Number ${p.n}, ${p.role}`}
-              onMouseEnter={() => setActive(i)}
-              onMouseLeave={() => setActive(null)}
-              onFocus={() => setActive(i)}
-              onBlur={() => setActive(null)}
-              onClick={() => setActive(i)}
-              className="cursor-pointer outline-none"
-            >
-              {/* generous invisible hit area for fingers */}
-              <circle r="22" fill="transparent" />
-              <g
-                className="transition-transform duration-500 ease-[var(--ease-out-expo)]"
-                style={{ transform: on ? "scale(1.45) translateY(-3px)" : "scale(1.15)" }}
-              >
-                <path d={SHIRT} fill="var(--color-ink)" stroke="currentColor" strokeWidth="1.2" strokeLinejoin="round" />
-                <g data-shirt-fill>
-                  <path d={SHIRT} fill="currentColor" />
-                  <text
-                    y="5"
-                    textAnchor="middle"
-                    className="font-display"
-                    fontSize="9"
-                    fontWeight="700"
-                    fill="var(--color-ink)"
-                  >
-                    {p.n}
-                  </text>
-                </g>
-                {/* Picked shirt: always fully filled, whatever the scroll has revealed. */}
-                {on && (
-                  <g>
-                    <path d={SHIRT} fill="var(--color-gold-soft)" stroke="var(--color-gold-soft)" strokeWidth="1.2" strokeLinejoin="round" />
-                    <text y="5" textAnchor="middle" className="font-display" fontSize="9" fontWeight="700" fill="var(--color-ink)">
-                      {p.n}
-                    </text>
-                  </g>
-                )}
-              </g>
-            </g>
-          );
-        })}
-      </svg>
-      <figcaption className="eyebrow mt-6 flex items-center gap-3 text-faint" aria-live="polite">
-        {player ? (
-          <>
-            <span className="text-gold-soft">No. {String(player.n).padStart(2, "0")}</span>
-            <span className="text-bone">{player.role}</span>
-          </>
-        ) : (
-          "Tap a shirt to meet the eleven"
-        )}
+    <figure data-shirt-build aria-hidden className="mt-14 w-full max-w-[380px] lg:mt-20">
+      <div className={step >= 5 ? "animate-[float_4s_ease-in-out_infinite]" : ""}>
+        <svg
+          viewBox="0 0 300 320"
+          className="w-full overflow-visible transition-[filter] duration-1000"
+          style={{ filter: step >= 5 ? "drop-shadow(0 0 36px color-mix(in srgb, var(--color-gold) 45%, transparent))" : "none" }}
+        >
+          {/* 1 · colours */}
+          <g className={layer(1)} style={pop(1)}>
+            <path d={BODY} fill="#16140f" />
+            <path d={SLEEVE_L} fill="var(--color-gold)" />
+            <path d={SLEEVE_R} fill="var(--color-gold)" />
+            <path d="M78 268 L222 238 L222 254 L78 284 Z" fill="var(--color-gold)" opacity="0.9" />
+            <path d={COLLAR} fill="var(--color-gold)" />
+          </g>
+          {/* outline, always drawn */}
+          <path d={OUTLINE} fill="none" stroke="var(--color-gold)" strokeWidth="1.6" strokeLinejoin="round" />
+          <path d="M96 22 Q150 66 204 22" fill="none" stroke="var(--color-gold)" strokeWidth="1.6" />
+          {/* 2 · crest (left chest) */}
+          <g className={layer(2)} style={pop(2)}>
+            <image href="/images/logo-480.webp" x="168" y="66" width="38" height="32" />
+          </g>
+          {/* 4 · name */}
+          <g className={layer(4)} style={pop(4)}>
+            <text x="150" y="132" textAnchor="middle" className="font-display" fontSize="15" fontWeight="600" letterSpacing="3" fill="#faf8f3">
+              YOUR NAME
+            </text>
+          </g>
+          {/* 3 · number */}
+          <g className={layer(3)} style={pop(3)}>
+            <text x="150" y="222" textAnchor="middle" className="font-display" fontSize="92" fontWeight="700" letterSpacing="-4" fill="var(--color-gold-soft)">
+              11
+            </text>
+          </g>
+        </svg>
+      </div>
+      <figcaption className="eyebrow mt-6 text-faint">
+        <span className="text-gold-soft">{String(step).padStart(2, "0")}</span> / 0{beats.length} · Tap a line to build the shirt
       </figcaption>
     </figure>
   );
