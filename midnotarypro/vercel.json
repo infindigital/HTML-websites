@@ -1,0 +1,25 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "trailingSlash": true,
+  "redirects": [
+    { "source": "/service", "destination": "/services/", "permanent": true }
+  ],
+  "headers": [
+    {
+      "source": "/assets/css/(.*)",
+      "headers": [{ "key": "Cache-Control", "value": "public, max-age=2592000" }]
+    },
+    {
+      "source": "/assets/js/(.*)",
+      "headers": [{ "key": "Cache-Control", "value": "public, max-age=2592000" }]
+    },
+    {
+      "source": "/assets/img/(.*)\\.(webp|png)",
+      "headers": [{ "key": "Cache-Control", "value": "public, max-age=31536000" }]
+    },
+    {
+      "source": "/assets/img/(.*)\\.svg",
+      "headers": [{ "key": "Cache-Control", "value": "public, max-age=2592000" }]
+    }
+  ]
+}

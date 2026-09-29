@@ -1,0 +1,14 @@
+# Mirrors the .htaccess deny rules: never deploy build sources, credentials or client source files.
+_build/
+design-system/
+vendor/
+config.php
+config.example.php
+composer.json
+composer.lock
+contact-handler.php
+README.md
+midnotarypro-website-content.pdf
+midnotarypro-images.zip
+.htaccess
+.gitignore

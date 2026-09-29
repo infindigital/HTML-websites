@@ -35,3 +35,10 @@ See `design-system/MASTER.md`.
 ## Open items for the client
 
 - Footer links Privacy, Terms, Document handling and Shipping & returns point to `#` until content is supplied.
+
+## Deploy (Vercel)
+
+Import the repo with **Root Directory** `midnotarypro`, Framework **Other**, no build command.
+`vercel.json` adds the `/service/` → `/services/` redirect and asset caching; `.vercelignore`
+keeps the build sources, PDF, zip and PHP files out of the deployment (same as `.htaccess`).
+Vercel can't run PHP, so the contact form only sends email on the Apache/Hostinger host.
