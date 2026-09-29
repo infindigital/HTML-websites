@@ -252,7 +252,7 @@ function Atmosphere({ theme, lite }: { theme: Theme; lite: boolean }) {
     // Light fog washes kit colours toward white, so in the light room it only
     // softens the far floor edge.
     scene.fog =
-      theme === "light" ? new THREE.Fog(bg, 16, 40) : lite ? new THREE.Fog(bg, 10, 26) : new THREE.Fog(bg, 6, 19);
+      theme === "light" ? new THREE.Fog(bg, 16, 40) : new THREE.Fog(bg, 10, 26);
     invalidate();
   }, [scene, theme, lite, invalidate]);
   return null;

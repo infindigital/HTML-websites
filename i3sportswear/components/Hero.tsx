@@ -62,7 +62,6 @@ export default function Hero() {
         tl.to("[data-hero-copy] .line-mask > span", { yPercent: -110, stagger: 0.04, duration: 0.3, ease: "power2.in" }, 0)
           .to("[data-hero-aside]", { y: -40, autoAlpha: 0, duration: 0.25 }, 0)
           .to("[data-hero-hint]", { autoAlpha: 0, duration: 0.1 }, 0)
-          .to("[data-hero-dim]", { opacity: world === false ? 0.78 : 0.5, duration: 0.5 }, 0.05)
           .fromTo(
             "[data-hero-statement] .line-mask > span",
             { y: 0, yPercent: 120 },
@@ -105,27 +104,16 @@ export default function Hero() {
             )}
           </div>
 
-          {/* Legibility: weight the frame toward the lower-left text field only. */}
-          <div
-            aria-hidden
-            className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_top,var(--color-ink)_2%,color-mix(in_srgb,var(--color-ink)_45%,transparent)_26%,transparent_50%)] lg:bg-[linear-gradient(to_top,var(--color-ink)_2%,color-mix(in_srgb,var(--color-ink)_55%,transparent)_30%,transparent_62%),linear-gradient(to_right,color-mix(in_srgb,var(--color-ink)_70%,transparent),transparent_55%)] light:hidden"
-          />
-          {/* Light theme: dark type reads on the bright room, so only a short fade at the foot. */}
-          <div
-            aria-hidden
-            className="pointer-events-none absolute inset-0 hidden bg-[linear-gradient(to_top,var(--color-ink)_0%,color-mix(in_srgb,var(--color-ink)_30%,transparent)_16%,transparent_34%)] light:block lg:bg-[linear-gradient(to_top,var(--color-ink)_0%,color-mix(in_srgb,var(--color-ink)_30%,transparent)_16%,transparent_34%),linear-gradient(to_right,color-mix(in_srgb,var(--color-ink)_45%,transparent),transparent_42%)]"
-          />
-          <div data-hero-dim aria-hidden className="pointer-events-none absolute inset-0 bg-ink opacity-0 light:bg-ink/55" />
-
           <div className="shell absolute inset-x-0 bottom-0 pb-20 lg:pb-24">
             <div className="grid items-end gap-10 lg:grid-cols-12">
-              <h1 id="hero-title" data-hero-copy className="display-xl lg:col-span-8">
+              {/* On desktop the headline is sized to its 8-column field so "Identity." never runs into the copy beside it. */}
+              <h1 id="hero-title" data-hero-copy className="display-xl lg:col-span-8 lg:text-[min(5.15vw,5.8rem)] lg:whitespace-nowrap lg:[&_.line-mask]:inline-block! lg:[&_.line-mask:not(:last-child)]:mr-[0.24em]">
                 <Lines
                   lines={["Wear", "Your", <>Identity<span className="text-gold-soft">.</span></>]}
                   inner="enter-rise"
                 />
               </h1>
-              <div data-hero-aside className="max-w-sm lg:col-span-4 lg:justify-self-end lg:pb-3">
+              <div data-hero-aside className="max-w-sm lg:col-span-4 lg:max-w-[min(24rem,100%)] lg:justify-self-end lg:pb-3">
                 <p className="lede enter-fade text-bone/80 [animation-delay:700ms]">
                   Custom performance wear engineered around your team.
                 </p>
@@ -156,17 +144,18 @@ export default function Hero() {
         {/* Statement: layered into the pinned frame with motion, in flow without. */}
         <div
           data-hero-statement
-          className="shell pointer-events-none absolute inset-0 flex flex-col justify-center motion-reduce:relative motion-reduce:py-32"
+          className="shell pointer-events-none absolute inset-0 flex flex-col justify-center pt-16 lg:justify-end lg:pt-0 lg:pb-24 motion-reduce:relative motion-reduce:py-32"
         >
           <p data-hero-kicker className="js-hidden-fade eyebrow mb-8 flex items-center gap-3 text-faint">
             <span className="text-gold-soft">01</span>
             <Mark />
             Custom team kits
           </p>
-          <h2 className="display-xl">
+          {/* Sized so its longest line ("Your game.") fits the same field as "Identity." */}
+          <h2 className="display-xl lg:text-[min(5.15vw,5.8rem)] lg:whitespace-nowrap lg:[&_.line-mask]:inline-block! lg:[&_.line-mask:not(:last-child)]:mr-[0.24em]">
             <Lines lines={["Built", "For", <>Your game<span className="text-gold-soft">.</span></>]} outer="js-hidden-line" />
           </h2>
-          <span data-hero-rule aria-hidden className="mt-10 block h-px w-full max-w-md origin-left bg-bone/25" />
+          <span data-hero-rule aria-hidden className="mt-10 block h-px w-full max-w-md origin-left bg-bone/25 lg:hidden" />
         </div>
       </div>
     </section>
