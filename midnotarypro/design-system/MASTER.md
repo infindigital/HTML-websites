@@ -9,48 +9,46 @@ Decisions come from the UI/UX Pro Max skill (`.claude/skills/ui-ux-pro-max`):
 
 | Query | Result used | Rejected |
 |---|---|---|
-| `--design-system "legal document authentication editorial institutional premium"` | Pattern: **Scroll-Triggered Storytelling** (readable without motion, progress indicator, final state under reduced motion). Palette direction: dark ink + warm metallic accent on warm off-white. | Style "Liquid Glass" (brief forbids glass and blur). Cormorant / Montserrat (fashion mood). |
+| `--design-system "legal document authentication editorial institutional premium"` | Pattern: **Scroll-Triggered Storytelling** (readable without motion, progress indicator, final state under reduced motion). Palette direction: dark ink + warm metallic accent on white (client asked for a white theme). | Style "Liquid Glass" (brief forbids glass and blur). Cormorant / Montserrat (fashion mood). |
 | `--domain style "editorial print magazine"` | **Editorial Grid / Magazine**: asymmetric grid, section dividers, large imagery, print typography. Cost low, accessibility risk low. | Exaggerated minimalism, Bauhaus. |
-| `--domain typography "editorial serif authoritative readable professional"` + `--domain google-fonts` | **Newsreader** (variable, optical sizes 6 to 72, designed for reading). Body: **Schibsted Grotesk**, a grotesk drawn for a news publisher. | EB Garamond / Public Sans (previous version, felt generic); Playfair; Roboto. |
+| `--domain typography "professional modern sans corporate"` + `--domain google-fonts` | Headings **Plus Jakarta Sans** (500 to 800), body **Inter** (400 to 700). Chosen by the client. | EB Garamond and Newsreader (earlier versions, rejected by the client); Playfair; Roboto. |
 | `--domain gsap "image mask clip reveal"`, `"pinned scroll storytelling"` | Reveal y offsets 8 to 24px; scrub 0.5 to 1.5; **pin at most 1 to 2 sections per page**; never hide crawlable content without a no-JS fallback. | Back-eased stagger presets (too bouncy for the brand). |
 
 ## Colour
 
 | Token | Hex | Use |
 |---|---|---|
-| `--ink` | `#141a22` | Headings, primary text |
-| `--ink-2` | `#3b434e` | Body text |
-| `--ink-3` | `#5c6570` | Labels, captions (4.5:1 on ivory) |
+| `--ink` | `#0f1a2b` | Headings, primary text |
+| `--ink-2` | `#3a4556` | Body text |
+| `--ink-3` | `#5b6678` | Labels, captions (4.5:1 on white and paper) |
 | `--navy` | `#16263a` | Primary buttons, dark sections |
 | `--navy-deep` | `#0f1b2a` | Footer |
 | `--slate` | `#48627a` | Muted blue: Hague countries, notary stamp |
-| `--ivory` | `#f4f0e7` | Page background (with 4.5% paper grain) |
-| `--paper` | `#fbfaf6` | Soft white surfaces |
-| `--bone` | `#ebe5d8` | Alternate band |
+| `--ivory` | `#ffffff` | Page background (pure white, no grain) |
+| `--paper` | `#f6f8fb` | Cool grey bands (hero fact band, alternate sections) |
+| `--bone` | `#eef2f7` | Alternate band, kicker and frame fills |
 | `--brass` | `#b08d57` | Warm metallic accent: rules, markers, seals |
 | `--brass-ink` | `#7a5b2b` | Accent text on light backgrounds |
 | `--seal` | `#8c2d27` | Wax red, used only for ribbons, errors and callout rules |
 
-Rules: no gradients except the two small foil seals; no glow, no blur, no glass. One shadow
+Rules: no gradients except the two small foil seals and hard colour splits (no blends); no glow, no blur, no glass. One shadow
 style (soft, long, low) and only on paper objects (certificates, document cards, dropdown).
 
 ## Typography
 
-Two families only.
+Two families only. No italics anywhere.
 
 | Role | Font | Size | Weight / leading |
 |---|---|---|---|
-| Display (home H1 line) | Newsreader | clamp(3.4rem … 8.1rem) | 330 / 0.93, tracking -0.032em, italic second line |
-| H1 (inner) | Newsreader | clamp(2.5rem … 5.6rem) | 340 / 1.0 |
-| H2 (section) | Newsreader | clamp(2.1rem … 4rem) | 360 / 1.04, max 19ch |
-| H3 | Newsreader | 1.25 to 1.9rem | 400 to 430 / 1.2 |
-| H4 / prose H3 | Schibsted Grotesk | 1.02rem | 700 |
-| Body | Schibsted Grotesk | 1.0625rem | 400 / 1.65 |
-| Small / caption | Schibsted Grotesk or Newsreader italic | 0.75 to 0.875rem | |
-| Navigation | Schibsted Grotesk | 0.9375rem | 500 |
-| Buttons | Schibsted Grotesk | 0.9375rem | 600 |
-| Labels | Schibsted Grotesk | 0.75rem uppercase, 0.14em tracking | 600 |
-| Numbers | Newsreader italic in brass-ink | 1 to 1.1rem | editorial numbering (01, 02…) |
+| Home H1 kicker | Inter | 0.95 to 1.1rem | 600, bone fill with brass left rule |
+| Home display line | Plus Jakarta Sans | clamp(2.6rem … 5.1rem) | 800 / 1.02, tracking -0.035em, second line in slate |
+| H1 (inner) | Plus Jakarta Sans | clamp(2.3rem … 4.7rem) | 800 / 1.05 |
+| H2 (section) | Plus Jakarta Sans | clamp(1.9rem … 3.3rem) | 750 / 1.1, max 20ch |
+| H3 | Plus Jakarta Sans | 1.25 to 1.9rem | 600 to 700 / 1.2 |
+| Body | Inter | 1.0625rem | 400 / 1.65 |
+| Navigation, buttons | Inter | 0.9375rem | 500 / 600 |
+| Labels | Inter | 0.75rem uppercase, 0.14em tracking | 600 |
+| Numbers | Plus Jakarta Sans in brass-ink | 1 to 1.1rem | editorial numbering (01, 02…) |
 
 ## Grid and spacing
 
@@ -64,21 +62,22 @@ Two families only.
 
 | Component | Where | Notes |
 |---|---|---|
-| Header | all | Transparent over ivory, turns solid with a hairline and compact height after 16px of scroll. Brass progress line. Dropdowns are plain link lists, no descriptions. EN / ES switch. |
-| Drawer | < 1100px | Full-screen ivory sheet, serif links, clip-path reveal, focus trap, Escape to close. |
+| Header | all | Transparent over white, turns solid with a hairline and compact height after 16px of scroll. Brass progress line. Dropdowns are plain link lists, no descriptions. EN / ES switch. |
+| Drawer | < 1100px | Full-screen white sheet, heading-font links, clip-path reveal, focus trap, Escape to close. |
 | Section header (`shead`) | all | Running number, label, serif H2, optional lead. |
 | Rows | all | Numbered editorial rows instead of icon cards. 1, 2, 3 or 4 columns. |
 | Checklist | all | Hairline list with a small brass check. |
 | Buttons | all | Primary navy, secondary outline, light / outline-light on navy, text. Fill wipes in from the left on hover, arrow nudges. |
 | Links | all | Underline retracts and redraws on hover, arrow moves 4px. |
-| Hero composition | home | Photographed plate + inset photo + HTML apostille certificate with drawn signature and foil seal. |
+| Home hero | home | World map with route arcs from Kansas City, destination checker (Hague or legalization), photographed plate, HTML apostille certificate, document review status card, seal inset, facts row and six service cards. |
+| Inner hero | all inner pages | Faint route map, framed photo with an office card (real address and phone), fact band on cool grey. |
 | Document journey | home | Sticky document stage that gains a stamp, seal, apostille, translation and shipping route across 7 chapters. |
 | Service index | home, services, 404 | Large serif service names; hover or focus swaps a masked image in a sticky preview. |
 | Route tabs | home, services, apostille | Hague vs non-Hague stations with a destination lookup. |
 | Country explorer | home, apostille, FBI apostille | Map + crawlable region lists + "record card" panel. |
 | FBI timeline / legalization route | FBI pages | Sticky image, progress line; navy map with arc to the destination embassy. |
 | Record card | explorer, legal route | Paper card with a dashed inner rule, like an official record. |
-| Pull quote | about, notary, doc prep | Navy band, Newsreader italic. |
+| Pull quote | about, notary, doc prep | Navy band, Plus Jakarta Sans 500/600. |
 | Price facts | apostille | Large serif figures under a heavy rule. |
 | Forms | contact | Visible labels, required marked in text, errors under the field, focus ring. |
 | Breadcrumbs | every inner page | Slash separated, plus BreadcrumbList JSON-LD. |
