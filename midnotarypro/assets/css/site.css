@@ -338,12 +338,10 @@ details[open] > summary .drawer__plus::after { transform: rotate(0deg); }
 /* destination checker */
 .hcheck { margin-top: 2rem; max-width: 560px; padding: 1.1rem 1.1rem 1rem; background: #fff; box-shadow: 0 18px 40px -30px rgba(15, 26, 43, 0.45); }
 .hcheck__label { display: block; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--navy); margin-bottom: 0.6rem; }
-.hcheck__field { display: flex; align-items: center; gap: 0.6rem; border: 1px solid var(--rule-2); padding-left: 0.85rem; background: var(--paper); transition: border-color var(--t-fast), box-shadow var(--t-fast); }
+.hcheck__field { display: flex; align-items: center; gap: 0.6rem; border: 1px solid var(--rule-2); padding: 0 0.85rem; background: var(--paper); transition: border-color var(--t-fast), box-shadow var(--t-fast); }
 .hcheck__field:focus-within { border-color: var(--navy); box-shadow: 0 0 0 3px rgba(22, 38, 58, 0.12); background: #fff; }
 .hcheck__field .icon { color: var(--ink-3); }
 .hcheck__field input { flex: 1; min-width: 0; min-height: 50px; border: 0; background: transparent; outline: none; font-size: 1rem; }
-.hcheck__btn { align-self: stretch; padding: 0 1.1rem; background: var(--navy); color: #fff; font-weight: 600; font-size: 0.9rem; transition: background var(--t-fast); }
-.hcheck__btn:hover { background: var(--ink); }
 .hcheck__out { margin-top: 0.7rem; font-size: 0.9rem; color: var(--ink-2); min-height: 1.5em; }
 .hcheck__out a { color: var(--navy); font-weight: 600; text-decoration: underline; text-decoration-color: var(--brass); text-underline-offset: 0.2em; }
 .hcheck__out.is-hague strong { color: var(--slate); }
@@ -428,8 +426,7 @@ details[open] > summary .drawer__plus::after { transform: rotate(0deg); }
   .hstatus { width: 64%; min-width: 0; left: 0; bottom: 0; padding: 0.75rem; }
   .hstatus__list li { font-size: 0.72rem; }
   .hcheck { padding: 0.9rem; }
-  .hcheck__btn { padding: 0 0.8rem; font-size: 0.82rem; }
-}
+  }
 
 /* ------------------------------------------------------------------ intro + ledger */
 .intro__grid { display: grid; gap: 3rem; }

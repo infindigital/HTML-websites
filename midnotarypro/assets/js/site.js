@@ -406,6 +406,7 @@
       }
     };
     input.addEventListener("input", () => run(false));
+    input.addEventListener("change", () => run(true));
     form.addEventListener("submit", (e) => { e.preventDefault(); run(true); });
   }
 

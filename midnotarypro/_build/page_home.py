@@ -45,7 +45,7 @@ def hero():
       <div class="btn-row">{cta_btn(magnetic=True)}{call_btn()}</div>
       <form class="hcheck" role="search" aria-label="Check a destination country" data-hcheck>
         <label class="hcheck__label" for="hcheck-in">Where is your document going?</label>
-        <div class="hcheck__field">{icon("search")}<input id="hcheck-in" type="text" list="hcheck-list" autocomplete="off" placeholder="Type a country, for example Spain" data-hcheck-in><button class="hcheck__btn" type="submit">Check route</button></div>
+        <div class="hcheck__field">{icon("search")}<input id="hcheck-in" type="text" list="hcheck-list" autocomplete="off" placeholder="Type a country, for example Spain" data-hcheck-in></div>
         <datalist id="hcheck-list">{route_options()}</datalist>
         <p class="hcheck__out" aria-live="polite" data-hcheck-out>Hague countries accept an apostille. Other countries need embassy legalization.</p>
       </form>
