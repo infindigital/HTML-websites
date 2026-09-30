@@ -73,7 +73,7 @@ second line indented like a printed front page.
 - Spacing scale: 8, 16, 24, 32, 48, 64, 96, 128 (`--s1` to `--s8`). Section padding
   `clamp(4rem, 2rem + 6vw, 8rem)`.
 - Radius 2px on buttons and inputs, 0 elsewhere; circles only for dots and seals.
-- Hairlines instead of boxes. No card grids.
+- No decorative lines: no rules above headers, between list rows, table rows, stats, contacts or footer blocks. Space, numbers and type weight separate things. Lines remain only where they carry meaning: button and input outlines, focus rings, link underlines, the active tab underline, timeline connectors, and the drawn details on paper documents. No card grids.
 
 ## Signature motif
 
