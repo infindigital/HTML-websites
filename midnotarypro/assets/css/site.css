@@ -158,8 +158,8 @@ main img:not([src$=".svg"]) { filter: saturate(0.86) contrast(1.02); }
 .site-header.is-solid { background: var(--white); border-bottom-color: var(--rule); box-shadow: 0 8px 24px -22px rgba(17, 20, 24, 0.35); }
 .site-header__inner { display: flex; align-items: center; gap: var(--s4); height: var(--header-h); transition: height var(--t-ui) var(--ease); }
 .site-header.is-solid .site-header__inner { height: 68px; }
-.brand img { height: 46px; width: auto; transition: height var(--t-ui) var(--ease); }
-.site-header.is-solid .brand img { height: 38px; }
+.brand img { height: 64px; width: auto; transition: height var(--t-ui) var(--ease); }
+.site-header.is-solid .brand img { height: 52px; }
 .nav { margin-left: auto; }
 .nav__list { display: flex; align-items: center; gap: clamp(1.1rem, 2vw, 2rem); }
 .nav__item { position: relative; display: flex; align-items: center; gap: 0.1rem; }
@@ -193,15 +193,15 @@ main img:not([src$=".svg"]) { filter: saturate(0.86) contrast(1.02); }
 @media (max-width: 640px) {
   :root { --header-h: 68px; }
   .header-cta { display: none; }
-  .brand img { height: 38px; }
+  .brand img { height: 48px; }
   .site-header.is-solid .site-header__inner { height: 60px; }
-  .site-header.is-solid .brand img { height: 34px; }
+  .site-header.is-solid .brand img { height: 42px; }
 }
 
 .drawer { position: fixed; inset: 0; z-index: 90; display: grid; grid-template-rows: auto 1fr auto; background: var(--white); padding: 0 var(--gutter) max(24px, env(safe-area-inset-bottom)); clip-path: inset(0 0 100% 0); transition: clip-path 600ms var(--ease); overflow-y: auto; }
 .drawer.is-open { clip-path: inset(0); }
 .drawer__head { display: flex; align-items: center; justify-content: space-between; height: var(--header-h); border-bottom: 1px solid var(--rule); }
-.drawer__head img { height: 38px; width: auto; }
+.drawer__head img { height: 48px; width: auto; }
 .drawer__close { display: inline-flex; align-items: center; gap: 0.5rem; min-height: 44px; font-size: 0.875rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; }
 .drawer__list > li { border-bottom: 1px solid var(--rule); }
 .drawer__list > li > a, .drawer__list summary { display: flex; align-items: center; justify-content: space-between; min-height: 64px; font-family: var(--serif); font-size: clamp(1.7rem, 1.3rem + 2vw, 2.3rem); font-weight: 600; color: var(--ink); list-style: none; cursor: pointer; }
