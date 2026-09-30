@@ -52,10 +52,9 @@ def hero():
     </div>
     <div class="hero__art" aria-hidden="true" data-hero-art>
       <div class="ncert" data-hero-inset>
-        <p class="ncert__title">Notarial Certificate</p>
-        <p class="ncert__sub">State of Missouri</p>
+        <span class="ncert__crest"></span><span class="ncert__head"></span><span class="ncert__subhead"></span>
         <span class="ncert__line"></span><span class="ncert__line ncert__line--m"></span><span class="ncert__line"></span><span class="ncert__line ncert__line--s"></span>
-        <div class="ncert__foot"><span class="ncert__sign">Notary signature</span><span class="ncert__stamp">Notary<br>Public</span></div>
+        <div class="ncert__foot"><span class="ncert__sign"></span><span class="ncert__seal"></span></div>
       </div>
       <div class="acert" data-hero-cert>
         <p class="acert__title">Apostille</p>

@@ -55,7 +55,7 @@ CTA_LABEL_ES = "Iniciar revisión de documentos"
 
 _DIMS = json.load(open(os.path.join(os.path.dirname(__file__), "image-dims.json")))
 _ICONS = open(os.path.join(os.path.dirname(__file__), "icons.svg")).read()
-VERSION = "3"
+VERSION = "4"
 
 
 def esc(s):
