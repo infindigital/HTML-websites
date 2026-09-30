@@ -4,7 +4,7 @@ Generated on every build by `_build/seo_audit.py`. Not deployed.
 
 | URL | Title | Desc | H1 | Canonical | Schema | Index | Links | Crumb | OG | Img alt | Hreflang | Issues |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
-| `/` | 52 | 158 | 1 | ok | FAQPage | index | 10 | no | yes | 4 described, 21 decorative | none | none |
+| `/` | 52 | 158 | 1 | ok | FAQPage | index | 10 | no | yes | 5 described, 21 decorative | none | none |
 | `/about-us/` | 46 | 159 | 1 | ok | BreadcrumbList | index | 2 | yes | yes | 4 described, 1 decorative | none | none |
 | `/services/` | 51 | 157 | 1 | ok | BreadcrumbList, ItemList | index | 7 | yes | yes | 2 described, 19 decorative | none | none |
 | `/apostille-services/` | 47 | 153 | 1 | ok | BreadcrumbList, FAQPage, Service | index | 4 | yes | yes | 4 described, 1 decorative | none | none |

@@ -79,10 +79,12 @@ def intro():
     return f'''
 <section class="section intro" aria-labelledby="intro-h">
   <div class="container">
-    {shead("01", "Midwest Apostille &amp; Notary", "A document office in Kansas City, working for clients everywhere.", "intro-h")}
     <div class="intro__grid">
-      <p class="intro__big" data-reveal>We prepare, notarize, authenticate and ship documents for immigration, study, marriage, business and dual citizenship. One office handles the whole chain, so nothing is lost between hand-offs.</p>
-
+      <div class="intro__copy">
+        {shead("01", "Midwest Apostille &amp; Notary", "A document office in Kansas City, working for clients everywhere.", "intro-h")}
+        <p class="intro__big" data-reveal>We prepare, notarize, authenticate and ship documents for immigration, study, marriage, business and dual citizenship. One office handles the whole chain, so nothing is lost between hand-offs.</p>
+      </div>
+      <figure class="intro__media" data-mask>{img("document-handover", "Certificate with a gold seal handed across a desk for signature", "(min-width: 1024px) 44vw, 100vw", attrs="data-parallax")}</figure>
     </div>
   </div>
 </section>'''

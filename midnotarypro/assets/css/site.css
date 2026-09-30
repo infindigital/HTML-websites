@@ -14,8 +14,8 @@
   --slate: #48627a;
   --slate-soft: #9fb1c2;
   --ivory: #ffffff;
-  --paper: #f6f8fb;
-  --bone: #eef2f7;
+  --paper: #e9eff6;
+  --bone: #dfe7f1;
   --brass: #b08d57;
   --brass-ink: #7a5b2b;
   --brass-soft: #d8c197;
@@ -441,8 +441,6 @@ details[open] > summary .drawer__plus::after { transform: rotate(0deg); }
 .ledger dt { font-family: var(--serif); font-size: clamp(1.6rem, 1.2rem + 1.4vw, 2.4rem); font-weight: 700; line-height: 1.05; color: var(--navy); }
 .ledger dd { margin-top: 0.5rem; font-size: 0.9rem; color: var(--ink-2); line-height: 1.5; }
 @media (min-width: 900px) {
-  .intro__grid { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gutter); }
-  .intro__big { grid-column: 1 / 9; }
   .ledger { grid-column: 4 / 13; grid-template-columns: repeat(4, 1fr); }
   .ledger > div { padding: 1.25rem 1.25rem 1.5rem; }
   .ledger > div:first-child { padding-left: 0; }
@@ -1069,3 +1067,19 @@ html:not(.js) .tl__bar::after { transform: scaleY(1); }
 .ncert__seal::before { content: ""; position: absolute; inset: 16%; border-radius: 50%; border: 1.5px dashed rgba(255, 255, 255, 0.7); }
 .ncert__seal::after { content: ""; position: absolute; left: 22%; right: 22%; top: 78%; height: 70%; z-index: -1; background: linear-gradient(90deg, #1f3a5f 0 45%, transparent 45% 55%, #1f3a5f 55%); clip-path: polygon(0 0, 100% 0, 100% 100%, 76% 82%, 55% 100%, 55% 0, 45% 0, 45% 100%, 24% 82%, 0 100%); }
 @media (max-width: 599px) { .ncert { width: 40%; right: 0; } }
+
+/* intro: copy left, cropped photo right */
+.intro__grid { display: grid; gap: clamp(2rem, 4vw, 3rem); align-items: center; }
+.intro__copy .shead { margin-bottom: clamp(1.5rem, 3vw, 2.25rem); }
+.intro__media { aspect-ratio: 16 / 10; overflow: hidden; margin: 0; }
+.intro__media img { width: 100%; height: 100%; object-fit: cover; object-position: 60% 55%; transform: scale(1.06); }
+@media (min-width: 1024px) {
+  .intro__grid { grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr); column-gap: clamp(3rem, 6vw, 6rem); }
+  .intro__media { aspect-ratio: 5 / 4.4; }
+}
+/* journey: size the stage by viewport height so the counter never rides up over the heading */
+@media (min-width: 1024px) {
+  .journey__sticky { justify-content: flex-start; padding-top: 2.5rem; overflow: visible; }
+  .jstage { width: min(100%, 470px, calc((100vh - var(--header-h) - 15rem) * 0.87)); }
+  .rail { margin-top: 2.25rem; }
+}
