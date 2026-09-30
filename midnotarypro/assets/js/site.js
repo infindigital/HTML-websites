@@ -15,6 +15,19 @@
   const motion = () => hasGsap() && !reduce;
   const svgNS = "http://www.w3.org/2000/svg";
   const EASE = "power3.out";
+  // One motion system (mirrors the CSS tokens): micro 0.2s, UI 0.4s, reveal 0.8s, story 1.1s.
+  const T = { micro: 0.2, ui: 0.4, reveal: 0.8, story: 1.1 };
+  const mobile = () => window.matchMedia("(max-width: 1023px)").matches;
+  // Runs fn on animation frames only while el is on screen; no scroll work elsewhere.
+  function whileVisible(el, fn) {
+    let on = false, ticking = false;
+    const tick = () => { ticking = false; if (on) fn(); };
+    addEventListener("scroll", () => { if (on && !ticking) { ticking = true; requestAnimationFrame(tick); } }, { passive: true });
+    addEventListener("resize", () => { if (on) fn(); }, { passive: true });
+    if ("IntersectionObserver" in window) {
+      new IntersectionObserver((en) => { on = en[0].isIntersecting; if (on) fn(); }, { rootMargin: "100px 0px" }).observe(el);
+    } else { on = true; fn(); }
+  }
 
   /* ------------------------------------------------------------------ header */
   function initHeader() {
@@ -130,16 +143,18 @@
     if (!motion()) return;
     const { gsap } = window;
 
-    // Inner page hero: words rise, then the supporting copy.
+    // Inner page hero: words rise, supporting copy follows, the photo opens from the bottom edge.
     $$('.phero [data-split="hero"]').forEach((h) => {
-      gsap.from(splitWords(h), { yPercent: 105, duration: 1, ease: "power4.out", stagger: 0.05, delay: 0.1 });
+      gsap.from(splitWords(h), { yPercent: 105, duration: T.story, ease: "power4.out", stagger: 0.05, delay: 0.1 });
     });
     $$(".phero [data-hero-copy] > :not(h1)").forEach((el, i) => {
-      gsap.from(el, { y: 16, opacity: 0, duration: 0.8, ease: EASE, delay: 0.3 + i * 0.07 });
+      gsap.from(el, { y: 14, opacity: 0, duration: T.reveal, ease: EASE, delay: 0.3 + i * 0.07 });
     });
-    if ($(".phero__card")) gsap.from(".phero__card", { y: 22, opacity: 0, duration: 0.8, ease: EASE, delay: 0.85 });
-    if ($(".phero__frame")) gsap.from(".phero__frame", { x: -18, y: 18, opacity: 0, duration: 1, ease: EASE, delay: 0.45 });
-    if ($(".phero__facts li")) gsap.from(".phero__facts li", { y: 14, opacity: 0, duration: 0.6, ease: EASE, stagger: 0.08, delay: 0.7 });
+    $$(".phero__mask").forEach((m) => {
+      gsap.fromTo(m, { clipPath: "inset(100% 0% 0% 0%)" }, { clipPath: "inset(0% 0% 0% 0%)", duration: T.story + 0.2, ease: "power4.inOut", delay: 0.2, clearProps: "clipPath" });
+      gsap.from($("img", m), { scale: 1.15, duration: 1.6, ease: EASE, delay: 0.2 });
+    });
+    if ($(".phero__facts li")) gsap.from(".phero__facts li", { y: 12, opacity: 0, duration: T.reveal, ease: EASE, stagger: 0.08, delay: 0.6 });
 
     // Section headings: word rise on scroll (medium impact).
     $$("[data-split]:not([data-split='hero'])").forEach((h) => {
@@ -172,47 +187,276 @@
       tl.fromTo(fig, { clipPath: "inset(100% 0% 0% 0%)" }, { clipPath: "inset(0% 0% 0% 0%)", duration: 1.2, ease: "power4.inOut", clearProps: "clipPath" });
       if (im && !im.hasAttribute("data-parallax")) tl.from(im, { scale: 1.2, duration: 1.6, ease: "power3.out" }, 0);
     });
+    // Section entrances for the home compositions (one system: fade + 16px rise).
+    $$(".stats__item, .sdir__row, .rb__step, .rb__out, .fbi__col, .nt__media, .nt__copy, .dp__copy, .dp__stack, .guide, .reviews__stage, .reviews__tabs").forEach((el) => {
+      gsap.from(el, { y: 16, opacity: 0, duration: T.reveal, ease: EASE, scrollTrigger: { trigger: el, start: "top 90%", once: true } });
+    });
     // CTA headline.
     $$(".cta .label, .cta__row").forEach((el) => {
       gsap.from(el, { y: 20, opacity: 0, duration: 0.9, ease: EASE, scrollTrigger: { trigger: el, start: "top 90%", once: true } });
     });
   }
 
-  /* --------------------------------------------------------------- home hero */
+  /* ------------------------------------------------------------ home hero
+     Signature sequence: eyebrow, headline lines, copy, then the document is placed,
+     filled, signed, sealed and stamped READY FOR INTERNATIONAL USE. */
   function initHero() {
     const art = $("[data-hero-art]");
-    if (!art || !motion()) return;
+    if (!art || !$(".hero")) return;
+    const steps = $$("[data-hero-steps] li", art);
+    const light = (k) => steps.forEach((li, i) => li.classList.toggle("is-on", i <= k));
+    if (!motion()) { light(steps.length - 1); return; }
     const { gsap } = window;
-    const plate = $("[data-hero-plate]", art), plateImg = $("[data-hero-img]", art), inset = $("[data-hero-inset]", art);
-    const cert = $("[data-hero-cert]", art), seal = $("[data-hero-seal]", art), sig = $(".acert__sig path", art);
-    const display = $(".hero__display");
-    const words = display ? splitWords(display) : [];
+    const plate = $("[data-hero-plate]", art), doc = $("[data-hero-doc]", art), under = $("[data-hero-under]", art);
+    const sig = $(".hdoc__sig path", art), seal = $(".hdoc__seal", art), stamp = $(".hdoc__stamp", art);
     const tl = gsap.timeline({ defaults: { ease: EASE } });
-    tl.from(".hero__label", { opacity: 0, y: 12, duration: 0.7 }, 0.05)
-      .from(".hero__kicker", { opacity: 0, y: 12, duration: 0.7 }, 0.12)
-      .from(words, { yPercent: 105, duration: 1.15, ease: "power4.out", stagger: 0.07 }, 0.2)
-      .from([".hero__lead", ".hero__copy .btn-row"], { opacity: 0, y: 16, duration: 0.8, stagger: 0.09 }, 0.6)
-      .fromTo(plate, { clipPath: "inset(100% 0% 0% 0%)" }, { clipPath: "inset(0% 0% 0% 0%)", duration: 1.4, ease: "power4.inOut" }, 0.15)
-      .fromTo(plateImg, { scale: 1.3 }, { scale: 1.08, duration: 2.2, ease: "power3.out" }, 0.15)
-      .fromTo(inset, { clipPath: "inset(0% 100% 0% 0%)" }, { clipPath: "inset(0% 0% 0% 0%)", duration: 1.1, ease: "power4.inOut" }, 0.75)
-      .from(cert, { opacity: 0, y: 40, rotate: -7, duration: 1.2, ease: "power3.out" }, 0.95)
-      .from($$(".acert__fields i", art), { scaleX: 0, duration: 0.6, stagger: 0.05, ease: "power2.out" }, 1.35)
-      .fromTo(sig, { strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 1.2, ease: "power1.inOut" }, 1.7)
-      .from(seal, { opacity: 0, scale: 1.7, rotate: -40, duration: 0.55, ease: "back.out(2.4)" }, 2.25)
-      .from(".hcheck", { opacity: 0, y: 16, duration: 0.8 }, 0.85)
-      .from("[data-hero-status]", { opacity: 0, y: 30, duration: 0.9 }, 1.5)
-      .from(".hero__facts li", { opacity: 0, y: 14, duration: 0.6, stagger: 0.07 }, 1.0)
-      .from(".hsvc li", { opacity: 0, y: 18, duration: 0.6, stagger: 0.06 }, 1.2);
-    const steps = $$(".hstatus__list li", art);
-    steps.forEach((li) => li.classList.add("is-pending"));
-    steps.forEach((li, i) => tl.call(() => { li.classList.remove("is-pending"); gsap.fromTo($(".icon", li), { scale: 0.4 }, { scale: 1, duration: 0.45, ease: "back.out(2.5)" }); }, null, 2.1 + i * 0.45));
-    // Scroll-linked depth: three layers at different speeds.
+    tl.from(".hero__eyebrow", { opacity: 0, y: 10, duration: T.reveal }, 0.05)
+      .from(".hero__display .hl > span", { yPercent: 110, duration: T.story, ease: "power4.out", stagger: 0.1 }, 0.15)
+      .from(".hero__lead", { opacity: 0, y: 16, duration: T.reveal }, 0.6)
+      .from(".hero__copy .btn-row", { opacity: 0, y: 16, duration: T.reveal }, 0.72)
+      .fromTo(plate, { clipPath: "inset(100% 0% 0% 0%)" }, { clipPath: "inset(0% 0% 0% 0%)", duration: 1.3, ease: "power4.inOut" }, 0.2)
+      .from(under, { opacity: 0, y: 40, rotate: -10, duration: T.story }, 0.55)
+      .from(doc, { opacity: 0, y: 60, rotate: 5, duration: T.story }, 0.7)
+      .call(() => light(0), null, 1.0)
+      .from($$(".hdoc__v", art), { scaleX: 0, duration: T.ui, stagger: 0.04, ease: "power2.out" }, 1.15)
+      .fromTo(sig, { strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: T.story, ease: "power1.inOut" }, 1.5)
+      .call(() => light(1), null, 1.9)
+      .from(seal, { opacity: 0, scale: 0.6, rotate: -60, duration: T.reveal }, 2.3)
+      .call(() => light(2), null, 2.4)
+      .addLabel("stamp", 2.9)
+      .fromTo(stamp, { opacity: 0, scale: 1.6 }, { opacity: 1, scale: 1, duration: 0.45, ease: "power4.in" }, "stamp")
+      .to(doc, { y: 3, duration: 0.08, yoyo: true, repeat: 1, ease: "power1.inOut" }, "stamp+=0.42")
+      .call(() => light(3), null, "stamp+=0.45");
+    // Click the document to replay signing and stamping.
+    doc.style.cursor = "pointer";
+    art.addEventListener("click", () => { if (!tl.isActive()) { light(0); tl.play(1.45); } });
+    // Scroll: the three layers drift at different speeds.
     const st = { trigger: ".hero", start: "top top", end: "bottom top", scrub: 0.8 };
-    gsap.to(plateImg, { yPercent: 7, ease: "none", scrollTrigger: st });
-    gsap.to("[data-hero-status]", { y: -40, ease: "none", scrollTrigger: st });
-    gsap.to(cert, { y: -70, rotate: -4, ease: "none", scrollTrigger: st });
-    gsap.to(inset, { y: 36, ease: "none", scrollTrigger: st });
-    gsap.to(seal, { rotate: 20, ease: "none", scrollTrigger: st });
+    gsap.to(plate, { yPercent: 6, ease: "none", scrollTrigger: st });
+    gsap.to(under, { y: 40, ease: "none", scrollTrigger: st });
+    gsap.to(doc, { y: -60, ease: "none", scrollTrigger: st });
+    gsap.to(seal, { rotate: 24, ease: "none", scrollTrigger: st });
+    // Pointer depth on desktop only.
+    if (finePointer && !mobile()) {
+      const qx = gsap.quickTo(doc, "x", { duration: 0.9, ease: EASE }), qx2 = gsap.quickTo(under, "x", { duration: 1.1, ease: EASE });
+      art.addEventListener("mousemove", (e) => {
+        const r = art.getBoundingClientRect();
+        const x = (e.clientX - r.left) / r.width - 0.5;
+        qx(x * 14); qx2(x * -8);
+      });
+      art.addEventListener("mouseleave", () => { qx(0); qx2(0); });
+    }
+  }
+
+  /* ------------------------------------------------------------ stats count */
+  function initStats() {
+    const nums = $$("[data-count]");
+    if (!nums.length || !motion() || !("IntersectionObserver" in window)) return;
+    nums.forEach((el) => {
+      const raw = el.dataset.count, n = parseInt(raw, 10), suffix = raw.replace(/^\d+/, "");
+      const io = new IntersectionObserver((en) => {
+        if (!en[0].isIntersecting) return;
+        io.disconnect();
+        const o = { v: 0 };
+        window.gsap.to(o, { v: n, duration: 1.6, ease: "power2.out", onUpdate: () => { el.textContent = Math.round(o.v) + suffix; } });
+      }, { threshold: 0.6 });
+      el.textContent = "0" + suffix;
+      io.observe(el);
+    });
+  }
+
+  /* ------------------------------------------------------------ route builder */
+  const RB_DOCS = {
+    fbi: { name: "FBI report", fed: true, first: ["Your FBI report", "Existing Identity History Summary, or fingerprints taken by us"], mid: [["Package review", "DS-4194 checked against your report"]] },
+    birth: { name: "Birth certificate", first: ["Certified copy", "Issued by the vital records office of the state of birth"], mid: [] },
+    marriage: { name: "Marriage certificate", first: ["Certified copy", "Issued by the office that recorded the marriage"], mid: [] },
+    diploma: { name: "Diploma or transcript", first: ["Notarized copy", "Usually certified by the school registrar before a notary"], mid: [] },
+    poa: { name: "Power of attorney", first: ["Drafted for you", "Prepared in the format the receiving office expects"], mid: [["Notarization", "Signed before our notary: office, mobile or online"]] },
+    business: { name: "Business document", first: ["Certified or notarized copy", "From the issuing office, or signed before a notary"], mid: [] },
+  };
+  const RB_PURPOSE = { visa: ["a visa", "consulate"], work: ["work", "employer or ministry"], study: ["study", "school"], marriage: ["a marriage", "civil registry"], immigration: ["immigration", "immigration office"], business: ["business", "receiving company or registry"] };
+  const RB_DEST = { hague: "a Hague country", legal: "a non-Hague country", unsure: "a country you are not sure about" };
+
+  function rbRoute(doc, dest) {
+    const d = RB_DOCS[doc];
+    const r = [d.first, ...d.mid];
+    const sos = ["Secretary of State", "Certification in the state that issued or notarized the document"];
+    const dos = ["U.S. Department of State", "Authentication by the Office of Authentications"];
+    if (dest === "hague") r.push(d.fed ? ["U.S. Department of State apostille", "Issued by the Office of Authentications"] : ["Secretary of State apostille", "One certificate, accepted by every Hague member"]);
+    else if (dest === "legal") {
+      if (!d.fed) r.push(sos);
+      r.push(dos, ["Embassy legalization", "By the destination embassy in Washington, DC"], ["Ministry of Foreign Affairs", "Final step in the destination country, where required"]);
+    } else r.push(d.fed ? dos : sos, ["Apostille or embassy legalization", "We confirm the country's status before submitting"]);
+    r.push(["Certified translation", "Spanish, Arabic or French, when the destination requires it"]);
+    r.push(["Ready for international use", "Shipped back with tracking, or couriered abroad"]);
+    return r;
+  }
+
+  function initRouteBuilder() {
+    const root = $("[data-rb]");
+    if (!root) return;
+    const form = $("[data-rb-form]", root), list = $("[data-rb-route]", root), summary = $("[data-rb-summary]", root);
+    const note = $("[data-rb-note]", root), stamp = $(".rb__stamp", root), country = $("[data-rb-country]", root), hint = $("[data-rb-hint]", root);
+    const opts = new Map($$("#rb-countries option", root).map((o) => [o.value.toLowerCase(), o]));
+    let countryName = "";
+    const val = (n) => { const c = $(`input[name="${n}"]:checked`, form); return c ? c.value : ""; };
+    const esc = (t) => t.replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+    const render = (animate) => {
+      const doc = val("doc"), dest = val("dest"), purpose = val("purpose");
+      const steps = rbRoute(doc, dest);
+      list.innerHTML = steps.map(([t, d], i) => `<li class="rb__st${animate && !reduce ? " is-new" : ""}" style="--i:${i}"><span class="rb__dot"></span><strong>${t}</strong><span>${d}</span></li>`).join("");
+      const where = countryName || RB_DEST[dest];
+      summary.textContent = `${RB_DOCS[doc].name}, going to ${where}, for ${RB_PURPOSE[purpose][0]}.`;
+      note.textContent = `Purpose: ${purpose}. We check what the receiving ${RB_PURPOSE[purpose][1]} asks for, and confirm every step with you before anything is submitted.`;
+      if (animate && !reduce) {
+        list.style.setProperty("--draw", "0");
+        requestAnimationFrame(() => requestAnimationFrame(() => list.style.setProperty("--draw", "1")));
+        stamp.classList.remove("is-press"); void stamp.offsetWidth; stamp.classList.add("is-press");
+      }
+    };
+    form.addEventListener("change", (e) => { if (e.target.name === "dest") { countryName = ""; country.value = ""; hint.textContent = ""; } if (e.target.name) render(true); });
+    form.addEventListener("submit", (e) => e.preventDefault());
+    const match = (final) => {
+      const v = country.value.trim();
+      if (!v) { countryName = ""; hint.textContent = ""; render(true); return; }
+      const o = opts.get(v.toLowerCase()) || (final ? Array.from(opts.values()).find((x) => x.value.toLowerCase().startsWith(v.toLowerCase())) : null);
+      if (!o) { if (final) { hint.textContent = `${v.replace(/[<>&]/g, "")} is not on our lists. Choose "Not sure" and we will confirm.`; } return; }
+      const hague = o.dataset.status === "hague";
+      const radio = $(`input[name="dest"][value="${hague ? "hague" : "legal"}"]`, form);
+      radio.checked = true;
+      countryName = esc(o.value);
+      hint.textContent = hague ? `${o.value} is a Hague Convention member: apostille.` : `${o.value} is not a Hague member: embassy legalization.`;
+      render(true);
+    };
+    country.addEventListener("input", () => match(false));
+    country.addEventListener("change", () => match(true));
+    country.addEventListener("keydown", (e) => { if (e.key === "Enter") { e.preventDefault(); match(true); } });
+    render(false);
+    if ("IntersectionObserver" in window && !reduce) {
+      const io = new IntersectionObserver((en) => { if (en[0].isIntersecting) { io.disconnect(); render(true); } }, { threshold: 0.35 });
+      io.observe(list);
+    }
+  }
+
+  /* ------------------------------------------------------------ apostille process
+     Desktop: one pinned stage, scroll moves through four states (the only pin on the page).
+     Mobile: a vertical timeline, the small document above it follows the active step. */
+  function initProcess() {
+    const root = $("[data-proc]");
+    if (!root) return;
+    const pin = $("[data-proc-pin]", root), docEl = $("[data-proc-doc]", root), bar = $("[data-proc-bar]", root);
+    const steps = $$("[data-proc-step]", root), track = $$("[data-proc-track] li", root), n = steps.length;
+    let cur = -1;
+    const set = (k) => {
+      if (k === cur) return;
+      cur = k;
+      for (let i = 0; i < n; i++) docEl.classList.toggle(`is-${i}`, i <= k);
+      steps.forEach((s, i) => s.classList.toggle("is-on", i === k));
+      track.forEach((t, i) => t.classList.toggle("is-on", i <= k));
+    };
+    set(0);
+    const desktop = () => !mobile();
+    whileVisible(pin, () => {
+      if (!desktop()) return;
+      const r = pin.getBoundingClientRect();
+      const total = r.height - innerHeight;
+      const p = Math.max(0, Math.min(1, -r.top / Math.max(1, total)));
+      if (bar) bar.style.setProperty("--p", p.toFixed(3));
+      set(Math.min(n - 1, Math.floor(p * n * 0.999)));
+    });
+    // Phones: the document plays its four states once when it comes into view; then every step stays readable.
+    if ("IntersectionObserver" in window) {
+      const io = new IntersectionObserver((en) => {
+        if (!en[0].isIntersecting || desktop()) return;
+        io.disconnect();
+        const delay = reduce ? 0 : 900;
+        for (let k = 1; k < n; k++) setTimeout(() => { if (!desktop()) set(k); }, delay * k);
+        setTimeout(() => { if (!desktop()) steps.forEach((s) => s.classList.add("is-on")); }, delay * n);
+      }, { threshold: 0.6 });
+      io.observe(docEl);
+    }
+    // Track buttons jump to a stage.
+    $$("[data-proc-go]", root).forEach((b) => b.addEventListener("click", () => {
+      const k = +b.dataset.procGo;
+      const r = pin.getBoundingClientRect();
+      const total = r.height - innerHeight;
+      scrollTo({ top: scrollY + r.top + total * ((k + 0.5) / n), behavior: reduce ? "auto" : "smooth" });
+    }));
+  }
+
+  /* ------------------------------------------------------------ FBI paths */
+  function initFbi() {
+    const root = $("[data-fbi]");
+    if (!root) return;
+    const rows = $$("[data-fbi-row]", root), line = $("[data-fbi-line]", root);
+    const cols = $$("[data-fbi-col]", root), picks = $$("[data-fbi-pick]", root);
+    if ("IntersectionObserver" in window) {
+      const io = new IntersectionObserver((en) => en.forEach((e) => { if (e.isIntersecting) e.target.classList.add("is-lit"); }), { rootMargin: "0px 0px -30% 0px" });
+      rows.forEach((r) => io.observe(r));
+    } else rows.forEach((r) => r.classList.add("is-lit"));
+    if (line) whileVisible(root, () => {
+      const r = $(".fbi__paths", root).getBoundingClientRect();
+      const p = Math.max(0, Math.min(1, (innerHeight * 0.7 - r.top) / r.height));
+      line.style.setProperty("--p", p.toFixed(3));
+    });
+    picks.forEach((b) => b.addEventListener("click", () => {
+      const on = b.getAttribute("aria-pressed") !== "true";
+      picks.forEach((x) => x.setAttribute("aria-pressed", String(x === b && on)));
+      cols.forEach((c) => {
+        c.classList.toggle("is-dim", on && c.dataset.fbiCol !== b.dataset.fbiPick);
+        if (on && c.dataset.fbiCol === b.dataset.fbiPick) $$("[data-fbi-row]", c).forEach((r, i) => { r.classList.remove("is-lit"); setTimeout(() => r.classList.add("is-lit"), reduce ? 0 : 120 * i); });
+      });
+    }));
+  }
+
+  /* ------------------------------------------------------------ notary tabs + signing slip */
+  function initNotary() {
+    const root = $("[data-nt-root]");
+    if (!root) return;
+    const tabs = $$("[data-nt]", root), panels = $$("[data-np]", root), photos = $$("[data-nphoto]", root), slip = $("[data-nslip]", root);
+    const sign = () => { if (!slip) return; slip.classList.remove("is-done"); void slip.offsetWidth; requestAnimationFrame(() => slip.classList.add("is-done")); };
+    const select = (i, focus) => {
+      tabs.forEach((t, k) => { const on = k === i; t.setAttribute("aria-selected", String(on)); t.tabIndex = on ? 0 : -1; });
+      panels.forEach((p, k) => { p.hidden = k !== i; });
+      photos.forEach((p, k) => p.classList.toggle("is-on", k === i));
+      if (focus) tabs[i].focus();
+      sign();
+    };
+    tabs.forEach((t, i) => {
+      t.addEventListener("click", () => select(i));
+      t.addEventListener("keydown", (e) => {
+        const keys = { ArrowDown: 1, ArrowRight: 1, ArrowUp: -1, ArrowLeft: -1 };
+        if (!(e.key in keys)) return;
+        e.preventDefault();
+        select((i + keys[e.key] + tabs.length) % tabs.length, true);
+      });
+    });
+    if (slip && "IntersectionObserver" in window) {
+      const io = new IntersectionObserver((en) => { if (en[0].isIntersecting) { io.disconnect(); sign(); } }, { threshold: 0.5 });
+      io.observe(slip);
+    } else if (slip) slip.classList.add("is-done");
+  }
+
+  /* ------------------------------------------------------------ document preparation stack */
+  function initDocPrep() {
+    const root = $("[data-dp-root]");
+    if (!root) return;
+    const btns = $$("[data-dp]", root), sheets = $$("[data-dp-sheet]", root), n = sheets.length;
+    const set = (a) => {
+      sheets.forEach((s, i) => s.style.setProperty("--k", String(Math.min(4, (i - a + n) % n))));
+      btns.forEach((b, i) => b.setAttribute("aria-pressed", String(i === a)));
+    };
+    btns.forEach((b, i) => {
+      b.addEventListener("click", () => set(i));
+      if (finePointer) b.addEventListener("mouseenter", () => set(i));
+      b.addEventListener("keydown", (e) => {
+        const d = e.key === "ArrowDown" ? 1 : e.key === "ArrowUp" ? -1 : 0;
+        if (!d) return;
+        e.preventDefault();
+        const k = (i + d + n) % n; set(k); btns[k].focus();
+      });
+    });
+    set(0);
   }
 
   /* --------------------------------------------------------------- parallax */
@@ -225,49 +469,38 @@
     });
   }
 
-  /* ------------------------------------------------------- document journey */
-  function initJourney() {
-    const root = $("[data-journey]");
-    if (!root) return;
-    const stage = $("[data-stage]", root);
-    const chapters = $$("[data-chapter]", root);
-    const rail = $$("[data-rail]", root);
-    const num = $("[data-stage-num]", root), name = $("[data-stage-name]", root);
-    const n = chapters.length;
-    const set = (k) => {
-      for (let i = 1; i <= n; i++) stage.classList.toggle(`is-${i}`, i <= k);
-      chapters.forEach((c, i) => c.classList.toggle("is-on", i === k - 1));
-      rail.forEach((r, i) => r.classList.toggle("is-on", i === k - 1));
-      num.textContent = String(k).padStart(2, "0");
-      name.textContent = $(".chapter__k", chapters[k - 1]).textContent;
-    };
-    if (!("IntersectionObserver" in window)) return; // stays in the complete (final) state
-    set(1);
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach((e) => { if (e.isIntersecting) set(+e.target.dataset.chapter); });
-    }, { rootMargin: "-45% 0px -45% 0px" });
-    chapters.forEach((c) => io.observe(c));
-    if (motion()) {
-      window.gsap.from(stage, { opacity: 0, y: 30, duration: 1, ease: EASE, scrollTrigger: { trigger: root, start: "top 70%", once: true } });
-    }
-  }
-
-  /* ---------------------------------------------------------- service index */
+  /* ---------------------------------------------------- service directory */
   function initServiceIndex() {
     $$("[data-sindex-root]").forEach((root) => {
-      const rows = $$(".sindex__row", root);
+      const rows = $$("[data-sindex-row]", root);
       const imgs = $$("[data-sindex-img]", root);
-      const cap = $("[data-sindex-cap]", root);
+      const cap = $("[data-sindex-cap]", root), num = $("[data-sindex-num]", root), desc = $("[data-sindex-desc]", root);
+      const frame = $("[data-sindex-frame]", root);
+      let cur = -1;
       const set = (i) => {
+        if (i === cur) return;
+        cur = i;
         rows.forEach((r, k) => r.classList.toggle("is-on", k === i));
         imgs.forEach((im, k) => im.classList.toggle("is-on", k === i));
-        if (cap) cap.textContent = $(".sindex__name", rows[i]).textContent;
+        if (cap) cap.textContent = $(".sdir__name", rows[i]).textContent;
+        if (num) num.textContent = String(i + 1).padStart(2, "0");
+        if (desc) { desc.textContent = $(".sdir__desc", rows[i]).textContent; desc.classList.remove("is-swap"); void desc.offsetWidth; desc.classList.add("is-swap"); }
       };
       rows.forEach((r, i) => {
         const a = $("a", r);
         a.addEventListener("mouseenter", () => set(i));
         a.addEventListener("focus", () => set(i));
       });
+      // Subtle cursor depth on the preview (fine pointers only).
+      if (frame && finePointer && !reduce) {
+        frame.style.transition = "transform 600ms cubic-bezier(.2,.7,.2,1)";
+        root.addEventListener("mousemove", (e) => {
+          const r = root.getBoundingClientRect();
+          const x = (e.clientX - r.left) / r.width - 0.5, y = (e.clientY - r.top) / r.height - 0.5;
+          frame.style.transform = `translate(${x * -10}px, ${y * -14}px)`;
+        });
+        root.addEventListener("mouseleave", () => { frame.style.transform = ""; });
+      }
       set(0);
     });
   }
@@ -341,7 +574,6 @@
       tpl.innerHTML = text.trim();
       const svg = tpl.content.firstElementChild;
       host.insertBefore(svg, host.firstChild);
-      if (host.dataset.worldMap === "hero") heroArcs(svg);
       if (host.dataset.worldMap === "legal") initLegal(svg, host);
       if (host.dataset.worldMap === "explorer") initExplorerMap(svg, host);
       if (motion()) window.gsap.from(svg, { opacity: 0, duration: 0.9, ease: "power2.out" });
@@ -359,58 +591,6 @@
     const d = Math.hypot(x2 - x1, y2 - y1);
     return `M${x1},${y1} Q${(x1 + x2) / 2},${(y1 + y2) / 2 - d * lift} ${x2},${y2}`;
   };
-
-  function heroArcs(svg) {
-    const origin = svg.dataset.kc.split(",").map(Number);
-    const targets = ["spain", "france", "morocco", "india", "philippines", "united-arab-emirates", "mexico", "brazil", "south-korea", "colombia"];
-    const g = document.createElementNS(svgNS, "g");
-    const mk = (tag, attrs) => { const el = document.createElementNS(svgNS, tag); Object.entries(attrs).forEach(([k, v]) => el.setAttribute(k, v)); return el; };
-    targets.forEach((t) => {
-      const c = center(svg, t);
-      if (!c) return;
-      g.appendChild(mk("path", { d: arcPath(origin, c, 0.3), class: "route-arc" }));
-      g.appendChild(mk("circle", { cx: c[0], cy: c[1], r: 2.6, class: "route-node" }));
-    });
-    g.append(mk("circle", { cx: origin[0], cy: origin[1], r: 4, class: "route-origin" }), mk("circle", { cx: origin[0], cy: origin[1], r: 6, class: "route-pulse" }));
-    svg.appendChild(g);
-    if (!motion()) return;
-    $$(".route-arc", g).forEach((p, i) => {
-      const len = p.getTotalLength();
-      window.gsap.fromTo(p, { strokeDasharray: len, strokeDashoffset: len }, {
-        strokeDashoffset: 0, duration: 1.8, ease: "power2.inOut", delay: 0.3 + i * 0.12,
-        onComplete: () => { p.style.strokeDasharray = "3 5"; p.style.strokeDashoffset = "0"; },
-      });
-    });
-    window.gsap.to(svg, { yPercent: 8, ease: "none", scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true } });
-  }
-
-  /* ------------------------------------------------------ hero destination check */
-  function initHeroCheck() {
-    const form = $("[data-hcheck]");
-    if (!form) return;
-    const input = $("[data-hcheck-in]", form), out = $("[data-hcheck-out]", form);
-    const opts = new Map($$("option", form).map((o) => [o.value.toLowerCase(), o]));
-    const initial = out.innerHTML;
-    const run = (final) => {
-      const v = input.value.trim();
-      out.className = "hcheck__out";
-      if (!v) { out.innerHTML = initial; return; }
-      const o = opts.get(v.toLowerCase()) || (final ? Array.from(opts.values()).find((x) => x.value.toLowerCase().startsWith(v.toLowerCase())) : null);
-      if (!o) {
-        if (final) out.innerHTML = `${v.replace(/[<>&]/g, "")} is not on our published lists. <a href="/contact-us/">Ask us</a> and we will confirm the route.`;
-        return;
-      }
-      if (o.dataset.status === "hague") {
-        out.classList.add("is-hague");
-        out.innerHTML = `<strong>${o.value}</strong> is a Hague Convention member: you need an <a href="/apostille-services/">apostille</a>.`;
-      } else {
-        out.classList.add("is-legal");
-        out.innerHTML = `<strong>${o.value}</strong> is not a Hague member: you need <a href="/apostille-services/#embassy-legalization">embassy legalization</a>.`;
-      }
-    };
-    input.addEventListener("input", () => run(false));
-    form.addEventListener("submit", (e) => { e.preventDefault(); run(true); });
-  }
 
   /* --------------------------------------------------------- country explorer */
   function initExplorer() {
@@ -629,17 +809,12 @@
       panels.forEach((p, n) => { p.hidden = n !== i; p.classList.toggle("is-on", n === i); });
       num.textContent = String(i + 1).padStart(2, "0");
       if (focus) tabs[i].focus();
-      if (motion()) {
-        const p = panels[i];
-        window.gsap.fromTo($(".review__quote", p), { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.7, ease: EASE });
-        window.gsap.fromTo($(".review__by", p), { opacity: 0 }, { opacity: 1, duration: 0.6, delay: 0.2 });
-      }
     };
     tabs.forEach((t, n) => {
       t.addEventListener("click", () => show(n));
       t.addEventListener("keydown", (e) => {
-        if (e.key === "ArrowRight") { e.preventDefault(); show(i + 1, true); }
-        if (e.key === "ArrowLeft") { e.preventDefault(); show(i - 1, true); }
+        if (e.key === "ArrowRight" || e.key === "ArrowDown") { e.preventDefault(); show(i + 1, true); }
+        if (e.key === "ArrowLeft" || e.key === "ArrowUp") { e.preventDefault(); show(i - 1, true); }
       });
     });
     $("[data-review-prev]", root).addEventListener("click", () => show(i - 1));
@@ -760,11 +935,14 @@
   /* ------------------------------------------------------------------- boot */
   function boot() {
     initHeader();
-    initHeroCheck();
     initExplorer();
     initRoutes();
-    initJourney();
     initServiceIndex();
+    initRouteBuilder();
+    initProcess();
+    initFbi();
+    initNotary();
+    initDocPrep();
     initTimeline();
     initStack();
     initReviews();
@@ -779,6 +957,7 @@
       window.gsap.defaults({ duration: 0.7, ease: EASE });
     }
     initHero();
+    initStats();
     initReveals();
     initParallax();
     // Hero content was held back by CSS only to avoid a flash before GSAP sets its start state.

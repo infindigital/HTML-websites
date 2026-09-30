@@ -47,14 +47,14 @@ def breadcrumbs(crumbs, lang="en"):
 
 
 PHERO_STRIP = [
-    ("zap", "Same-day apostille", "Missouri and Kansas documents"),
-    ("globe", "All 50 states", "Courier and international shipping"),
-    ("languages", "Four languages", "English, Spanish, Arabic, French"),
+    ("Same-day apostille", "Missouri and Kansas documents"),
+    ("All 50 states", "Courier and international shipping"),
+    ("Four languages", "English, Spanish, Arabic, French"),
 ]
 PHERO_STRIP_ES = [
-    ("zap", "Apostilla el mismo día", "Documentos de Missouri y Kansas"),
-    ("globe", "Los 50 estados", "Mensajería y envío internacional"),
-    ("languages", "Cuatro idiomas", "Inglés, español, árabe y francés"),
+    ("Apostilla el mismo día", "Documentos de Missouri y Kansas"),
+    ("Los 50 estados", "Mensajería y envío internacional"),
+    ("Cuatro idiomas", "Inglés, español, árabe y francés"),
 ]
 
 
@@ -62,22 +62,17 @@ def page_hero(h1, lead, crumbs, image=None, alt="", lab="", buttons="", plate=""
     media = ""
     es = lang == "es"
     if image:
-        cap = f'<figcaption><span>{plate}</span></figcaption>' if plate else ""
-        office = (f'<div class="phero__card" aria-hidden="true"><p class="phero__card-head"><span class="phero__pulse"></span>'
-                  f'{"Oficina en Kansas City" if es else "Kansas City office"}</p>'
-                  f'<p class="phero__card-addr">{STREET}<br>{CITY_LINE}</p><p class="phero__card-tel">{icon("phone")}{PHONE}</p></div>')
-        media = (f'<div class="phero__art"><span class="phero__frame" aria-hidden="true"></span>'
-                 f'<figure class="phero__media" data-mask>{img(image, alt, "(min-width: 1024px) 42vw, 100vw", eager=True, attrs="data-parallax")}'
-                 f'{cap}</figure>{office}</div>')
+        cap = f'<figcaption>{plate}</figcaption>' if plate else ""
+        media = (f'<figure class="phero__media" data-hero-art><span class="phero__mask">{img(image, alt, "(min-width: 1024px) 40vw, 100vw", eager=True, attrs="data-parallax")}</span>'
+                 f'{cap}</figure>')
     strip = PHERO_STRIP_ES if es else PHERO_STRIP
-    facts = "".join(f'<li>{icon(ic)}<span><strong>{t}</strong>{d}</span></li>' for ic, t, d in strip)
+    facts = "".join(f'<li><strong>{t}</strong><span>{d}</span></li>' for t, d in strip)
     return f'''
 <section class="phero{" phero--" + tone if tone else ""}{" phero--noimg" if not image else ""}{" phero--long" if len(h1) > 60 else ""}" aria-labelledby="page-h1">
-  <div class="phero__bgmap" data-world-map="hero" aria-hidden="true"></div>
   <div class="container phero__grid">
     <div class="phero__copy" data-hero-copy>
       {breadcrumbs(crumbs, lang)}
-      {label(lab) if lab else ""}
+      {label(lab, "phero__eyebrow") if lab else ""}
       <h1 id="page-h1" class="phero__title" data-split="hero">{h1}</h1>
       <p class="phero__lead">{lead}</p>
       {f'<div class="btn-row">{buttons}</div>' if buttons else ""}
@@ -85,7 +80,7 @@ def page_hero(h1, lead, crumbs, image=None, alt="", lab="", buttons="", plate=""
     </div>
     {media}
   </div>
-  <div class="phero__band"><div class="container"><ul class="phero__facts" role="list">{facts}</ul></div></div>
+  <div class="container"><ul class="phero__facts" role="list">{facts}</ul></div>
 </section>'''
 
 
@@ -107,84 +102,6 @@ def pull_quote(quote, cite="", tone="section--navy"):
 <section class="section {tone} quote-sec">
   <div class="container">
     <figure class="pquote"><blockquote><p data-split>{quote}</p></blockquote>{c}</figure>
-  </div>
-</section>'''
-
-
-# ----------------------------------------------------------------------------- journey
-JOURNEY = [
-    ("document", "Document", "It starts with the original.",
-     "Birth and marriage certificates, diplomas, FBI reports, powers of attorney and business records. We check what you have and whether a certified copy is needed first.",
-     ("How to get an apostille in Kansas City", "/how-to-get-an-apostille-in-kansas-city-birth-certificates-custodian-documents-more/")),
-    ("prepare", "Prepare", "Formatted for the office that will read it.",
-     "We draft and format affidavits, powers of attorney, travel consent forms and custodian statements so they meet official requirements.",
-     ("Document preparation", "/document-preparation-services/")),
-    ("notarize", "Notarize", "Signed before a commissioned notary.",
-     "In our Kansas City office, at your home or office, or online through remote online notarization.",
-     ("Notary services", "/notary-services/")),
-    ("authenticate", "Authenticate", "Certified by the right authority.",
-     "State documents go to the Secretary of State. Federal documents, like an FBI Identity History Summary, go to the U.S. Department of State.",
-     ("FBI apostille", "/fbi-apostille-for-hague-countries/")),
-    ("apostille", "Apostille or legalize", "One certificate, or the embassy route.",
-     "Hague member countries accept a single apostille. Other countries need embassy legalization, often followed by a Ministry of Foreign Affairs step in the country.",
-     ("Apostille services", "/apostille-services/")),
-    ("translate", "Translate", "In the language of the destination.",
-     "Certified translation support in Spanish, Arabic and French, coordinated so it arrives together with the document.",
-     ("FBI legalization and translation", "/fbi-attestation-legalization/")),
-    ("deliver", "Deliver", "Back in your hands, or on its way abroad.",
-     "Priority shipping with return tracking, local courier delivery, and FedEx or DHL international return shipping on request.",
-     ("Contact us about delivery", "/contact-us/")),
-]
-
-
-def journey(hid="journey-h", num="02"):
-    n = len(JOURNEY)
-    chapters = "".join(f'''
-      <article class="chapter" data-chapter="{i + 1}" id="step-{k}">
-        <p class="chapter__n"><span>{i + 1:02d}</span><span class="chapter__of">/ {n:02d}</span><span class="chapter__k">{name}</span></p>
-        <h3 class="chapter__title">{t}</h3>
-        <p>{d}</p>
-        {link(ln[0], ln[1])}
-      </article>''' for i, (k, name, t, d, ln) in enumerate(JOURNEY))
-    rail = "".join(f'<li><a href="#step-{k}" data-rail="{i + 1}"><span>{i + 1:02d}</span>{name}</a></li>'
-                   for i, (k, name, *_rest) in enumerate(JOURNEY))
-    sig = ('<svg class="jdoc__sig" viewBox="0 0 160 44" aria-hidden="true"><path pathLength="1" '
-           'd="M4 32 C 16 8, 26 6, 28 26 S 40 40, 50 20 S 66 4, 70 24 S 86 38, 98 18 S 118 8, 124 22 S 140 30, 156 14"/></svg>')
-    stage_classes = " ".join(f"is-{i}" for i in range(1, n + 1))
-    return f'''
-<section class="section journey" aria-labelledby="{hid}" data-journey>
-  <div class="container">
-    {shead(num, "The route of a document", "Seven steps between your desk and a foreign office.", hid,
-           "Not every document needs every step. We tell you which ones apply before you send anything.")}
-    <div class="journey__grid">
-      <div class="journey__sticky">
-        <div class="jstage {stage_classes}" data-stage aria-hidden="true">
-          <div class="jstage__paper jdoc">
-            <p class="jdoc__head"><span>Public document</span><span>No. 0418</span></p>
-            <p class="jdoc__title">Certificate</p>
-            <span class="jline"></span><span class="jline jline--m"></span><span class="jline"></span>
-            <span class="jline jline--s"></span><span class="jline"></span><span class="jline jline--m"></span>
-            <div class="jdoc__foot">{sig}<span class="jdoc__signline">Signature</span></div>
-            <span class="jdoc__notary">Notary<br>Public<br><small>Missouri</small></span>
-            <span class="jdoc__seal"><span>Secretary<br>of State</span></span>
-          </div>
-          <div class="jstage__trans jtrans"><p>Certified translation</p><span class="jline"></span><span class="jline jline--m"></span><span class="jline"></span><b>EN &#8594; ES</b></div>
-          <div class="jstage__cert jcert">
-            <p class="jcert__title">Apostille</p>
-            <p class="jcert__sub">Convention de La Haye du 5 octobre 1961</p>
-            <ol><li>Country</li><li>Signed by</li><li>Acting as</li><li>Bears the seal of</li><li>Certified at</li><li>By</li></ol>
-            <span class="jcert__ribbon"></span>
-          </div>
-          <div class="jstage__ship jship">
-            <svg viewBox="0 0 300 90" aria-hidden="true"><path class="jship__line" pathLength="1" d="M18 70 C 90 10, 200 4, 282 40"/><circle cx="18" cy="70" r="4"/><circle cx="282" cy="40" r="4"/></svg>
-            <span class="jship__from">Kansas City, MO</span><span class="jship__to">Destination</span>
-          </div>
-          <p class="jstage__count"><b data-stage-num>{n:02d}</b><span>/ {n:02d}</span><span data-stage-name>{JOURNEY[-1][1]}</span></p>
-        </div>
-        <ol class="rail" role="list">{rail}</ol>
-      </div>
-      <div class="journey__chapters">{chapters}</div>
-    </div>
   </div>
 </section>'''
 
@@ -213,28 +130,33 @@ SERVICE_INDEX = [
 
 
 def service_index(heading, hid, num="03", lab="Services", lead="", items=None):
+    """Editorial service directory: numbered rows, the active row expands, a sticky visual follows."""
     items = items or SERVICE_INDEX
+    n = len(items)
     rows_html, figs = [], []
     for i, (t, href, im, meta, d) in enumerate(items):
         rows_html.append(f'''
-        <li class="sindex__row">
-          <a class="sindex__link" href="{href}" data-sindex="{i}">
-            <span class="sindex__n">{i + 1:02d}</span>
-            <span class="sindex__name">{t}</span>
-            <span class="sindex__desc">{d}</span>
-            <span class="sindex__meta">{meta}</span>
-            <span class="sindex__thumb">{img(im, "", "120px")}</span>
-            <span class="sindex__go" aria-hidden="true">{icon("arrow-up-right")}</span>
+        <li class="sdir__row{" is-on" if i == 0 else ""}" data-sindex-row="{i}">
+          <a class="sdir__link" href="{href}" data-sindex="{i}">
+            <span class="sdir__n">{i + 1:02d}</span>
+            <span class="sdir__name">{t}</span>
+            <span class="sdir__meta">{meta}</span>
+            <span class="sdir__desc">{d}</span>
+            <span class="sdir__cta">View service{icon("arrow-right")}</span>
           </a>
         </li>''')
-        figs.append(img(im, "", "(min-width: 1100px) 34vw, 1px", cls="is-on" if i == 0 else "", attrs=f'data-sindex-img="{i}"'))
+        figs.append(img(im, "", "(min-width: 1100px) 36vw, 1px", cls="is-on" if i == 0 else "", attrs=f'data-sindex-img="{i}"'))
     return f'''
-<section class="section sindex-sec" aria-labelledby="{hid}">
+<section class="section sdir-sec" aria-labelledby="{hid}">
   <div class="container">
     {shead(num, lab, heading, hid, lead)}
-    <div class="sindex" data-sindex-root>
-      <ol class="sindex__list" role="list">{"".join(rows_html)}</ol>
-      <div class="sindex__preview" aria-hidden="true"><div class="sindex__frame">{"".join(figs)}</div><p class="sindex__cap" data-sindex-cap>{items[0][0]}</p></div>
+    <div class="sdir" data-sindex-root>
+      <ol class="sdir__list" role="list">{"".join(rows_html)}</ol>
+      <div class="sdir__preview" aria-hidden="true">
+        <div class="sdir__frame" data-sindex-frame>{"".join(figs)}</div>
+        <p class="sdir__count"><b data-sindex-num>01</b> / {n:02d}<span data-sindex-cap>{items[0][0]}</span></p>
+        <p class="sdir__pdesc" data-sindex-desc>{items[0][4]}</p>
+      </div>
     </div>
   </div>
 </section>'''
@@ -331,10 +253,10 @@ def countries_explorer(heading="Find your destination.", hid="countries-h", num=
           <h3 id="rg-{sid}-nonhague">Non-Hague: embassy legalization</h3>
           <ul class="region__list" role="list">{"".join(lis)}</ul>
         </section>''')
-    chips = ['<button class="filter is-active" type="button" data-filter="all" aria-pressed="true">All</button>']
+    chips = ['<button class="rfilter" type="button" data-filter="all" aria-pressed="true">All</button>']
     for r in HAGUE:
-        chips.append(f'<button class="filter" type="button" data-filter="{r}" aria-pressed="false">{r}</button>')
-    chips.append('<button class="filter" type="button" data-filter="Non-Hague" aria-pressed="false">Non-Hague</button>')
+        chips.append(f'<button class="rfilter" type="button" data-filter="{r}" aria-pressed="false">{r}</button>')
+    chips.append('<button class="rfilter" type="button" data-filter="Non-Hague" aria-pressed="false">Non-Hague</button>')
     lead = lead if lead is not None else ("Search a country or choose it on the map. Hague members accept an apostille; "
                                           "the others need embassy legalization.")
     head = shead(num, "Country explorer", heading, hid, lead) if num else shead("", "Country explorer", heading, hid, lead)
@@ -346,7 +268,7 @@ def countries_explorer(heading="Find your destination.", hid="countries-h", num=
       <div class="explorer__bar">
         <div class="field-inline">{icon("search")}<label class="sr-only" for="{sid}-search">Search countries</label>
           <input id="{sid}-search" type="search" placeholder="Search a country" autocomplete="off" data-country-search></div>
-        <div class="filters" role="group" aria-label="Filter by region">{"".join(chips)}</div>
+        <div class="rfilters" role="group" aria-label="Filter by region">{"".join(chips)}</div>
       </div>
       <div class="explorer__main">
         <div class="explorer__map">
@@ -354,8 +276,8 @@ def countries_explorer(heading="Find your destination.", hid="countries-h", num=
           <p class="legend" aria-hidden="true"><span><i class="legend__h"></i>Hague member: apostille</span><span><i class="legend__l"></i>Non-Hague: legalization</span><span><i class="legend__n"></i>Not on our lists</span></p>
         </div>
         <aside class="record" aria-live="polite" data-country-panel>
-          <p class="record__status">Record</p>
-          <h3>Select a destination</h3>
+          <p class="record__status">Destination</p>
+          <h3>Select a country</h3>
           <p>Choose a country from the map or the lists below to see which route applies and what to do next.</p>
         </aside>
       </div>
@@ -461,23 +383,26 @@ NO_TAB = ' tabindex="-1"'
 def reviews_section(hid="reviews-h", num="06", heading="In their words."):
     n = len(REVIEWS)
     panels, tabs = [], []
+    stars = '<span class="review__stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</span>'
     for i, (name, text) in enumerate(REVIEWS):
+        size = " review__quote--long" if len(text) > 420 else (" review__quote--mid" if len(text) > 180 else "")
         panels.append(f'''
-        <div class="review{" is-on" if i == 0 else ""}" id="review-{i}" role="tabpanel" aria-labelledby="rt-{i}" data-review{"" if i == 0 else " hidden"}>
-          <blockquote class="review__quote{" review__quote--long" if len(text) > 240 else ""}"><p>{text}</p></blockquote>
-          <p class="review__by"><strong>{name}</strong><span>Google review, 5 of 5</span></p>
-        </div>''')
-        tabs.append(f'<li role="presentation"><button type="button" role="tab" id="rt-{i}" aria-controls="review-{i}" aria-selected="{"true" if i == 0 else "false"}"{"" if i == 0 else NO_TAB}><span class="sr-only">Review {i + 1}: </span>{name}</button></li>')
+        <div class="review{" is-on" if i == 0 else ""}" id="review-{i}" role="tabpanel" aria-labelledby="rt-{i}" data-review{"" if i == 0 else " hidden"}><figure>
+          <blockquote class="review__quote{size}"><p>{text}</p></blockquote>
+          <figcaption class="review__by"><strong>{name}</strong><span>{stars}Google review, 5 of 5</span></figcaption>
+        </figure></div>''')
+        tabs.append(f'<li role="presentation"><button type="button" role="tab" id="rt-{i}" aria-controls="review-{i}" aria-selected="{"true" if i == 0 else "false"}"{"" if i == 0 else NO_TAB}><span class="reviews__i">{i + 1:02d}</span><span class="sr-only">Review {i + 1}: </span>{name}</button></li>')
     return f'''
-<section class="section section--paper" aria-labelledby="{hid}">
+<section class="section" aria-labelledby="{hid}">
   <div class="container">
     {shead(num, "Client reviews", heading, hid, "Reviews from clients on Google, quoted as written.")}
     <div class="reviews" data-reviews>
-      <div class="reviews__stage">{"".join(panels)}</div>
-      <div class="reviews__nav">
-        <p class="reviews__count" aria-hidden="true"><b data-review-num>01</b> / {n:02d}</p>
-        <button class="icon-btn" type="button" data-review-prev aria-label="Previous review">{icon("chevron-left")}</button>
-        <button class="icon-btn" type="button" data-review-next aria-label="Next review">{icon("chevron-right")}</button>
+      <div class="reviews__stage">{"".join(panels)}
+        <div class="reviews__nav">
+          <p class="reviews__count" aria-hidden="true"><b data-review-num>01</b> / {n:02d}</p>
+          <button class="icon-btn" type="button" data-review-prev aria-label="Previous review">{icon("chevron-left")}</button>
+          <button class="icon-btn" type="button" data-review-next aria-label="Next review">{icon("chevron-right")}</button>
+        </div>
       </div>
       <ul class="reviews__tabs" role="tablist" aria-label="Choose a review">{"".join(tabs)}</ul>
     </div>
@@ -520,11 +445,11 @@ def cta_final(heading="Get clarity before you send your documents.",
     return f'''
 <section class="cta" aria-labelledby="cta-h">
   <div class="container cta__inner">
-    <p class="label label--light">{"Próximo paso" if es else "Next step"}</p>
+    <p class="label cta__eyebrow">{"Próximo paso" if es else "Next step"}</p>
     <h2 id="cta-h" class="cta__title" data-split>{heading}</h2>
     <div class="cta__row">
       <p>{text}</p>
-      <div class="btn-row">{cta_btn("light", "Iniciar revisión de documentos" if es else "Start Your Document Review", magnetic=True)}{call_btn("outline-light", f"Llamar {PHONE}" if es else None)}</div>
+      <div class="btn-row">{cta_btn("primary", "Iniciar revisión de documentos" if es else "Start Your Document Review", magnetic=True)}{call_btn("secondary", f"Llamar {PHONE}" if es else None)}</div>
     </div>
     <ul class="cta__contacts" role="list">
       <li><span>{"Oficina" if es else "Office"}</span><a href="{MAPS_URL}" target="_blank" rel="noopener">{ADDRESS}</a></li>
