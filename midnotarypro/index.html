@@ -74,6 +74,7 @@
 <main id="main">
 
 <section class="hero" aria-labelledby="hero-h">
+  <div class="hero__bgmap" data-world-map="hero" aria-hidden="true"></div>
   <div class="container hero__grid">
     <div class="hero__copy" data-hero-copy>
       <p class="label hero__label">Kansas City, Missouri &middot; Nationwide</p>
@@ -88,13 +89,17 @@
         <p class="hcheck__out" aria-live="polite" data-hcheck-out>Hague countries accept an apostille. Other countries need embassy legalization.</p>
       </form>
     </div>
-    <div class="hero__art" data-hero-art>
-      <div class="hero__map" data-world-map="hero" aria-hidden="true"><p class="hero__maptip" data-map-tip></p></div>
-      <div class="acert" data-hero-cert aria-hidden="true">
+    <div class="hero__art" aria-hidden="true" data-hero-art>
+      <figure class="hero__inset" data-hero-inset><img src="/assets/img/notary-seal-lg.webp" srcset="/assets/img/notary-seal-sm.webp 800w, /assets/img/notary-seal-lg.webp 1600w" sizes="(min-width: 1024px) 16vw, 40vw" width="1600" height="1067" alt="" decoding="async" loading="lazy"></figure>
+      <div class="acert" data-hero-cert>
         <p class="acert__title">Apostille</p>
         <p class="acert__sub">(Convention de La Haye du 5 octobre 1961)</p>
         <ol class="acert__fields" role="list"><li><span>1.</span><em>Country</em><i></i></li><li><span>2.</span><em>This public document</em><i></i></li><li><span>3.</span><em>has been signed by</em><i></i></li><li><span>4.</span><em>acting in the capacity of</em><i></i></li><li><span>5.</span><em>bears the seal of</em><i></i></li><li><span>6.</span><em>Certified at</em><i></i></li><li><span>7.</span><em>the</em><i></i></li><li><span>8.</span><em>by</em><i></i></li><li><span>9.</span><em>No.</em><i></i></li></ol>
         <div class="acert__foot"><svg class="acert__sig" viewBox="0 0 160 44" aria-hidden="true"><path pathLength="1" d="M4 30 C 18 6, 28 8, 30 26 S 44 38, 54 18 S 70 6, 74 24 S 92 36, 104 16 S 124 10, 132 24 S 146 28, 156 12"/></svg><span class="acert__seal" data-hero-seal><span>Certified</span></span></div>
+      </div>
+      <div class="hstatus" data-hero-status>
+        <p class="hstatus__head"><span class="hstatus__pulse"></span>Document review<b>Kansas City, MO</b></p>
+        <ol class="hstatus__list" role="list"><li><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-check"/></svg><span>Document received</span></li><li><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-check"/></svg><span>Route confirmed: apostille</span></li><li><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-check"/></svg><span>Certified by the Secretary of State</span></li><li><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-check"/></svg><span>Shipped with tracking</span></li></ol>
       </div>
     </div>
   </div>

@@ -28,11 +28,14 @@ def hero():
          "Certified at", "the", "by", "No."], start=1))
     sig = ('<svg class="acert__sig" viewBox="0 0 160 44" aria-hidden="true"><path pathLength="1" '
            'd="M4 30 C 18 6, 28 8, 30 26 S 44 38, 54 18 S 70 6, 74 24 S 92 36, 104 16 S 124 10, 132 24 S 146 28, 156 12"/></svg>')
+    status = "".join(f'<li>{icon("check")}<span>{t}</span></li>' for t in
+                     ["Document received", "Route confirmed: apostille", "Certified by the Secretary of State", "Shipped with tracking"])
     facts = "".join(f'<li>{icon(ic)}<span><strong>{t}</strong>{d}</span></li>' for ic, t, d in HERO_FACTS)
     cards = "".join(f'<li><a href="{h}"><span class="hsvc__icon">{icon(ic)}</span><span class="hsvc__txt"><strong>{t}</strong><span>{d}</span></span>{icon("arrow-up-right", "hsvc__go")}</a></li>'
                     for ic, t, d, h in HERO_SERVICES)
     return f'''
 <section class="hero" aria-labelledby="hero-h">
+  <div class="hero__bgmap" data-world-map="hero" aria-hidden="true"></div>
   <div class="container hero__grid">
     <div class="hero__copy" data-hero-copy>
       {label("Kansas City, Missouri &middot; Nationwide", "hero__label")}
@@ -47,13 +50,17 @@ def hero():
         <p class="hcheck__out" aria-live="polite" data-hcheck-out>Hague countries accept an apostille. Other countries need embassy legalization.</p>
       </form>
     </div>
-    <div class="hero__art" data-hero-art>
-      <div class="hero__map" data-world-map="hero" aria-hidden="true"><p class="hero__maptip" data-map-tip></p></div>
-      <div class="acert" data-hero-cert aria-hidden="true">
+    <div class="hero__art" aria-hidden="true" data-hero-art>
+      <figure class="hero__inset" data-hero-inset>{img("notary-seal", "", "(min-width: 1024px) 16vw, 40vw")}</figure>
+      <div class="acert" data-hero-cert>
         <p class="acert__title">Apostille</p>
         <p class="acert__sub">(Convention de La Haye du 5 octobre 1961)</p>
         <ol class="acert__fields" role="list">{fields}</ol>
         <div class="acert__foot">{sig}<span class="acert__seal" data-hero-seal><span>Certified</span></span></div>
+      </div>
+      <div class="hstatus" data-hero-status>
+        <p class="hstatus__head"><span class="hstatus__pulse"></span>Document review<b>Kansas City, MO</b></p>
+        <ol class="hstatus__list" role="list">{status}</ol>
       </div>
     </div>
   </div>
