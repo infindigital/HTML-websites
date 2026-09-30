@@ -137,6 +137,9 @@
     $$(".phero [data-hero-copy] > :not(h1)").forEach((el, i) => {
       gsap.from(el, { y: 16, opacity: 0, duration: 0.8, ease: EASE, delay: 0.3 + i * 0.07 });
     });
+    if ($(".phero__card")) gsap.from(".phero__card", { y: 22, opacity: 0, duration: 0.8, ease: EASE, delay: 0.85 });
+    if ($(".phero__frame")) gsap.from(".phero__frame", { x: -18, y: 18, opacity: 0, duration: 1, ease: EASE, delay: 0.45 });
+    if ($(".phero__facts li")) gsap.from(".phero__facts li", { y: 14, opacity: 0, duration: 0.6, ease: EASE, stagger: 0.08, delay: 0.7 });
 
     // Section headings: word rise on scroll (medium impact).
     $$("[data-split]:not([data-split='hero'])").forEach((h) => {
@@ -188,7 +191,7 @@
     tl.from(".hero__label", { opacity: 0, y: 12, duration: 0.7 }, 0.05)
       .from(".hero__kicker", { opacity: 0, y: 12, duration: 0.7 }, 0.12)
       .from(words, { yPercent: 105, duration: 1.15, ease: "power4.out", stagger: 0.07 }, 0.2)
-      .from([".hero__lead", ".hero__copy .btn-row", ".hero__facts"], { opacity: 0, y: 16, duration: 0.8, stagger: 0.09 }, 0.6)
+      .from([".hero__lead", ".hero__copy .btn-row"], { opacity: 0, y: 16, duration: 0.8, stagger: 0.09 }, 0.6)
       .fromTo(plate, { clipPath: "inset(100% 0% 0% 0%)" }, { clipPath: "inset(0% 0% 0% 0%)", duration: 1.4, ease: "power4.inOut" }, 0.15)
       .fromTo(plateImg, { scale: 1.3 }, { scale: 1.08, duration: 2.2, ease: "power3.out" }, 0.15)
       .fromTo(inset, { clipPath: "inset(0% 100% 0% 0%)" }, { clipPath: "inset(0% 0% 0% 0%)", duration: 1.1, ease: "power4.inOut" }, 0.75)
@@ -196,11 +199,17 @@
       .from($$(".acert__fields i", art), { scaleX: 0, duration: 0.6, stagger: 0.05, ease: "power2.out" }, 1.35)
       .fromTo(sig, { strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 1.2, ease: "power1.inOut" }, 1.7)
       .from(seal, { opacity: 0, scale: 1.7, rotate: -40, duration: 0.55, ease: "back.out(2.4)" }, 2.25)
-      .from(".hero__caption", { opacity: 0, duration: 0.8 }, 2.2)
-      .from(".hero__index li", { opacity: 0, y: 10, duration: 0.6, stagger: 0.05 }, 1.1);
+      .from(".hcheck", { opacity: 0, y: 16, duration: 0.8 }, 0.85)
+      .from("[data-hero-status]", { opacity: 0, y: 30, duration: 0.9 }, 1.5)
+      .from(".hero__facts li", { opacity: 0, y: 14, duration: 0.6, stagger: 0.07 }, 1.0)
+      .from(".hsvc li", { opacity: 0, y: 18, duration: 0.6, stagger: 0.06 }, 1.2);
+    const steps = $$(".hstatus__list li", art);
+    steps.forEach((li) => li.classList.add("is-pending"));
+    steps.forEach((li, i) => tl.call(() => { li.classList.remove("is-pending"); gsap.fromTo($(".icon", li), { scale: 0.4 }, { scale: 1, duration: 0.45, ease: "back.out(2.5)" }); }, null, 2.1 + i * 0.45));
     // Scroll-linked depth: three layers at different speeds.
     const st = { trigger: ".hero", start: "top top", end: "bottom top", scrub: 0.8 };
     gsap.to(plateImg, { yPercent: 7, ease: "none", scrollTrigger: st });
+    gsap.to("[data-hero-status]", { y: -40, ease: "none", scrollTrigger: st });
     gsap.to(cert, { y: -70, rotate: -4, ease: "none", scrollTrigger: st });
     gsap.to(inset, { y: 36, ease: "none", scrollTrigger: st });
     gsap.to(seal, { rotate: 20, ease: "none", scrollTrigger: st });
@@ -332,6 +341,7 @@
       tpl.innerHTML = text.trim();
       const svg = tpl.content.firstElementChild;
       host.insertBefore(svg, host.firstChild);
+      if (host.dataset.worldMap === "hero") heroArcs(svg);
       if (host.dataset.worldMap === "legal") initLegal(svg, host);
       if (host.dataset.worldMap === "explorer") initExplorerMap(svg, host);
       if (motion()) window.gsap.from(svg, { opacity: 0, duration: 0.9, ease: "power2.out" });
@@ -349,6 +359,58 @@
     const d = Math.hypot(x2 - x1, y2 - y1);
     return `M${x1},${y1} Q${(x1 + x2) / 2},${(y1 + y2) / 2 - d * lift} ${x2},${y2}`;
   };
+
+  function heroArcs(svg) {
+    const origin = svg.dataset.kc.split(",").map(Number);
+    const targets = ["spain", "france", "morocco", "india", "philippines", "united-arab-emirates", "mexico", "brazil", "south-korea", "colombia"];
+    const g = document.createElementNS(svgNS, "g");
+    const mk = (tag, attrs) => { const el = document.createElementNS(svgNS, tag); Object.entries(attrs).forEach(([k, v]) => el.setAttribute(k, v)); return el; };
+    targets.forEach((t) => {
+      const c = center(svg, t);
+      if (!c) return;
+      g.appendChild(mk("path", { d: arcPath(origin, c, 0.3), class: "route-arc" }));
+      g.appendChild(mk("circle", { cx: c[0], cy: c[1], r: 2.6, class: "route-node" }));
+    });
+    g.append(mk("circle", { cx: origin[0], cy: origin[1], r: 4, class: "route-origin" }), mk("circle", { cx: origin[0], cy: origin[1], r: 6, class: "route-pulse" }));
+    svg.appendChild(g);
+    if (!motion()) return;
+    $$(".route-arc", g).forEach((p, i) => {
+      const len = p.getTotalLength();
+      window.gsap.fromTo(p, { strokeDasharray: len, strokeDashoffset: len }, {
+        strokeDashoffset: 0, duration: 1.8, ease: "power2.inOut", delay: 0.3 + i * 0.12,
+        onComplete: () => { p.style.strokeDasharray = "3 5"; p.style.strokeDashoffset = "0"; },
+      });
+    });
+    window.gsap.to(svg, { yPercent: 8, ease: "none", scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true } });
+  }
+
+  /* ------------------------------------------------------ hero destination check */
+  function initHeroCheck() {
+    const form = $("[data-hcheck]");
+    if (!form) return;
+    const input = $("[data-hcheck-in]", form), out = $("[data-hcheck-out]", form);
+    const opts = new Map($$("option", form).map((o) => [o.value.toLowerCase(), o]));
+    const initial = out.innerHTML;
+    const run = (final) => {
+      const v = input.value.trim();
+      out.className = "hcheck__out";
+      if (!v) { out.innerHTML = initial; return; }
+      const o = opts.get(v.toLowerCase()) || (final ? Array.from(opts.values()).find((x) => x.value.toLowerCase().startsWith(v.toLowerCase())) : null);
+      if (!o) {
+        if (final) out.innerHTML = `${v.replace(/[<>&]/g, "")} is not on our published lists. <a href="/contact-us/">Ask us</a> and we will confirm the route.`;
+        return;
+      }
+      if (o.dataset.status === "hague") {
+        out.classList.add("is-hague");
+        out.innerHTML = `<strong>${o.value}</strong> is a Hague Convention member: you need an <a href="/apostille-services/">apostille</a>.`;
+      } else {
+        out.classList.add("is-legal");
+        out.innerHTML = `<strong>${o.value}</strong> is not a Hague member: you need <a href="/apostille-services/#embassy-legalization">embassy legalization</a>.`;
+      }
+    };
+    input.addEventListener("input", () => run(false));
+    form.addEventListener("submit", (e) => { e.preventDefault(); run(true); });
+  }
 
   /* --------------------------------------------------------- country explorer */
   function initExplorer() {
@@ -698,6 +760,7 @@
   /* ------------------------------------------------------------------- boot */
   function boot() {
     initHeader();
+    initHeroCheck();
     initExplorer();
     initRoutes();
     initJourney();

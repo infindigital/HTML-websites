@@ -55,7 +55,7 @@ CTA_LABEL_ES = "Iniciar revisión de documentos"
 
 _DIMS = json.load(open(os.path.join(os.path.dirname(__file__), "image-dims.json")))
 _ICONS = open(os.path.join(os.path.dirname(__file__), "icons.svg")).read()
-VERSION = "2"
+VERSION = "3"
 
 
 def esc(s):
@@ -320,8 +320,8 @@ PAGES = []
 HEAD_SCRIPT = ('''<script>(function(d){d.classList.add("js");if(!matchMedia("(prefers-reduced-motion: reduce)").matches)'''
                '''{d.classList.add("motion-pending");setTimeout(function(){d.classList.remove("motion-pending")},2500)}})'''
                '''(document.documentElement)</script>''')
-FONTS = ("https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300..600;1,6..72,300..500"
-         "&amp;family=Schibsted+Grotesk:wght@400..700&amp;display=swap")
+FONTS = ("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500..800"
+         "&amp;family=Inter:wght@400..700&amp;display=swap")
 BANNED = ["whether you", "seamless", "unlock", "empower", "elevate", "game-changing", "cutting-edge",
           "in today's", "at the intersection", "your trusted partner"]
 
@@ -391,7 +391,7 @@ def page(path, title, desc, body, *, active="", lang="en", crumbs=None, schema=(
 <meta name="twitter:title" content="{esc(title)}">
 <meta name="twitter:description" content="{esc(desc)}">
 <meta name="twitter:image" content="{SITE}/assets/img/{og_image}-lg.webp">
-<meta name="theme-color" content="#f4f0e7">
+<meta name="theme-color" content="#ffffff">
 <meta name="format-detection" content="telephone=no">
 <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">

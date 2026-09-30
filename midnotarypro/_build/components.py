@@ -3,7 +3,7 @@ time-sensitive values (pricing, turnaround)."""
 from countries import HAGUE, HAGUE_NOTES, LEGALIZATION, NON_HAGUE_MENTIONED, REVIEWED_LIST, slug
 from facts import (APOSTILLE_RUSH_OTHER_STATES, APOSTILLE_STD_PRICE, APOSTILLE_STD_TIME, APOSTILLE_VIP_PRICE,
                    LANGUAGES)
-from lib import (ADDRESS, BOOK, DISCLAIMER, DISCLAIMER_ES, EMAIL, MAPS_URL, PHONE, TEL, WHATSAPP, btn, call_btn,
+from lib import (ADDRESS, BOOK, STREET, CITY_LINE, DISCLAIMER, DISCLAIMER_ES, EMAIL, MAPS_URL, PHONE, TEL, WHATSAPP, btn, call_btn,
                  cta_btn, esc, icon, img, label, link)
 
 
@@ -46,14 +46,34 @@ def breadcrumbs(crumbs, lang="en"):
     return f'<nav class="crumbs" aria-label="{"Ruta de navegación" if lang == "es" else "Breadcrumb"}"><ol role="list">{"".join(items)}</ol></nav>'
 
 
+PHERO_STRIP = [
+    ("zap", "Same-day apostille", "Missouri and Kansas documents"),
+    ("globe", "All 50 states", "Courier and international shipping"),
+    ("languages", "Four languages", "English, Spanish, Arabic, French"),
+]
+PHERO_STRIP_ES = [
+    ("zap", "Apostilla el mismo día", "Documentos de Missouri y Kansas"),
+    ("globe", "Los 50 estados", "Mensajería y envío internacional"),
+    ("languages", "Cuatro idiomas", "Inglés, español, árabe y francés"),
+]
+
+
 def page_hero(h1, lead, crumbs, image=None, alt="", lab="", buttons="", plate="", lang="en", extra="", tone=""):
     media = ""
+    es = lang == "es"
     if image:
         cap = f'<figcaption><span>{plate}</span></figcaption>' if plate else ""
-        media = (f'<figure class="phero__media" data-mask>{img(image, alt, "(min-width: 1024px) 42vw, 100vw", eager=True, attrs="data-parallax")}'
-                 f'{cap}</figure>')
+        office = (f'<div class="phero__card" aria-hidden="true"><p class="phero__card-head"><span class="phero__pulse"></span>'
+                  f'{"Oficina en Kansas City" if es else "Kansas City office"}</p>'
+                  f'<p class="phero__card-addr">{STREET}<br>{CITY_LINE}</p><p class="phero__card-tel">{icon("phone")}{PHONE}</p></div>')
+        media = (f'<div class="phero__art"><span class="phero__frame" aria-hidden="true"></span>'
+                 f'<figure class="phero__media" data-mask>{img(image, alt, "(min-width: 1024px) 42vw, 100vw", eager=True, attrs="data-parallax")}'
+                 f'{cap}</figure>{office}</div>')
+    strip = PHERO_STRIP_ES if es else PHERO_STRIP
+    facts = "".join(f'<li>{icon(ic)}<span><strong>{t}</strong>{d}</span></li>' for ic, t, d in strip)
     return f'''
 <section class="phero{" phero--" + tone if tone else ""}{" phero--noimg" if not image else ""}{" phero--long" if len(h1) > 60 else ""}" aria-labelledby="page-h1">
+  <div class="phero__bgmap" data-world-map="hero" aria-hidden="true"></div>
   <div class="container phero__grid">
     <div class="phero__copy" data-hero-copy>
       {breadcrumbs(crumbs, lang)}
@@ -65,6 +85,7 @@ def page_hero(h1, lead, crumbs, image=None, alt="", lab="", buttons="", plate=""
     </div>
     {media}
   </div>
+  <div class="phero__band"><div class="container"><ul class="phero__facts" role="list">{facts}</ul></div></div>
 </section>'''
 
 
@@ -233,7 +254,7 @@ def _stations(items):
     return "".join(f'<li class="stations__item"><span class="stations__dot" aria-hidden="true"></span><strong>{t}</strong><span>{d}</span></li>' for t, d in items)
 
 
-def _route_options():
+def route_options():
     seen, opts = set(), []
     for names in HAGUE.values():
         for n in names:
@@ -257,7 +278,7 @@ def route_compare(hid="routes-h", num="04", explorer_href="#countries", sid=None
     <div class="routes__lookup">
       <label for="route-country">Destination country</label>
       <div class="field-inline">{icon("search")}<input id="route-country" type="text" list="route-countries" autocomplete="off" placeholder="For example, Spain or Qatar" data-route-country></div>
-      <datalist id="route-countries" data-route-list>{_route_options()}</datalist>
+      <datalist id="route-countries" data-route-list>{route_options()}</datalist>
       <p class="routes__status" aria-live="polite" data-route-status>Not sure? <a href="{explorer_href}">Browse the country list</a>.</p>
     </div>
     <div class="tabs" data-tabs>

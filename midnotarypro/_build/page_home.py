@@ -1,9 +1,25 @@
 """Homepage: an editorial, scroll-told route from a document on your desk to a foreign office."""
-from components import (HOME_FAQ, countries_explorer, cta_final, faq_section, journey, label, reviews_section,
+from components import (HOME_FAQ, route_options, countries_explorer, cta_final, faq_section, journey, label, reviews_section,
                         route_compare, service_index, shead)
-from lib import call_btn, cta_btn, faq_schema, img, link, page
+from lib import call_btn, cta_btn, faq_schema, icon, img, link, page
 
 H1_KEYWORD = "Apostille &amp; Notary Services in Kansas City"
+
+
+HERO_SERVICES = [
+    ("stamp", "Apostille", "Same-day for MO &amp; KS", "/apostille-services/"),
+    ("landmark", "Embassy legalization", "Non-Hague countries", "/apostille-services/#embassy-legalization"),
+    ("signature", "Notary", "Office, mobile or online", "/notary-services/"),
+    ("file-pen-line", "Document preparation", "POA, affidavits, forms", "/document-preparation-services/"),
+    ("fingerprint", "FBI apostille", "Fingerprint to apostille", "/fbi-apostille-for-hague-countries/"),
+    ("building-2", "Jail notary", "Jackson &amp; Wyandotte", "/jail-notary-kansas-city/"),
+]
+HERO_FACTS = [
+    ("zap", "Same-day apostille", "Missouri and Kansas documents"),
+    ("globe", "All 50 states", "Courier and international shipping"),
+    ("laptop", "Remote online notary", "Sign from anywhere"),
+    ("languages", "Four languages", "English, Spanish, Arabic, French"),
+]
 
 
 def hero():
@@ -12,8 +28,14 @@ def hero():
          "Certified at", "the", "by", "No."], start=1))
     sig = ('<svg class="acert__sig" viewBox="0 0 160 44" aria-hidden="true"><path pathLength="1" '
            'd="M4 30 C 18 6, 28 8, 30 26 S 44 38, 54 18 S 70 6, 74 24 S 92 36, 104 16 S 124 10, 132 24 S 146 28, 156 12"/></svg>')
+    status = "".join(f'<li>{icon("check")}<span>{t}</span></li>' for t in
+                     ["Document received", "Route confirmed: apostille", "Certified by the Secretary of State", "Shipped with tracking"])
+    facts = "".join(f'<li>{icon(ic)}<span><strong>{t}</strong>{d}</span></li>' for ic, t, d in HERO_FACTS)
+    cards = "".join(f'<li><a href="{h}"><span class="hsvc__icon">{icon(ic)}</span><span class="hsvc__txt"><strong>{t}</strong><span>{d}</span></span>{icon("arrow-up-right", "hsvc__go")}</a></li>'
+                    for ic, t, d, h in HERO_SERVICES)
     return f'''
 <section class="hero" aria-labelledby="hero-h">
+  <div class="hero__bgmap" data-world-map="hero" aria-hidden="true"></div>
   <div class="container hero__grid">
     <div class="hero__copy" data-hero-copy>
       {label("Kansas City, Missouri &middot; Nationwide", "hero__label")}
@@ -21,14 +43,15 @@ def hero():
         <span class="hero__display" data-split="hero">Documents ready<br> <em>for the world.</em></span></h1>
       <p class="hero__lead">Apostille, embassy legalization, notarization and document preparation for Missouri, Kansas and clients in all 50 states. We confirm the route before anything is submitted.</p>
       <div class="btn-row">{cta_btn(magnetic=True)}{call_btn()}</div>
-      <ul class="hero__facts" role="list">
-        <li>Same-day apostille for Missouri and Kansas documents</li>
-        <li>Remote online notary</li>
-        <li lang="es">Se habla español</li>
-      </ul>
+      <form class="hcheck" role="search" aria-label="Check a destination country" data-hcheck>
+        <label class="hcheck__label" for="hcheck-in">Where is your document going?</label>
+        <div class="hcheck__field">{icon("search")}<input id="hcheck-in" type="text" list="hcheck-list" autocomplete="off" placeholder="Type a country, for example Spain" data-hcheck-in><button class="hcheck__btn" type="submit">Check route</button></div>
+        <datalist id="hcheck-list">{route_options()}</datalist>
+        <p class="hcheck__out" aria-live="polite" data-hcheck-out>Hague countries accept an apostille. Other countries need embassy legalization.</p>
+      </form>
     </div>
     <div class="hero__art" aria-hidden="true" data-hero-art>
-      <figure class="hero__plate" data-hero-plate>{img("apostille-certificates", "", "(min-width: 1024px) 40vw, 92vw", eager=True, attrs="data-hero-img")}</figure>
+      <figure class="hero__plate" data-hero-plate>{img("hero-world-documents", "", "(min-width: 1024px) 44vw, 92vw", eager=True, attrs="data-hero-img")}</figure>
       <figure class="hero__inset" data-hero-inset>{img("notary-seal", "", "(min-width: 1024px) 16vw, 40vw")}</figure>
       <div class="acert" data-hero-cert>
         <p class="acert__title">Apostille</p>
@@ -36,20 +59,16 @@ def hero():
         <ol class="acert__fields" role="list">{fields}</ol>
         <div class="acert__foot">{sig}<span class="acert__seal" data-hero-seal><span>Certified</span></span></div>
       </div>
-      <p class="hero__caption"><span>Plate 01</span>Certificate, seal and passports</p>
+      <div class="hstatus" data-hero-status>
+        <p class="hstatus__head"><span class="hstatus__pulse"></span>Document review<b>Kansas City, MO</b></p>
+        <ol class="hstatus__list" role="list">{status}</ol>
+      </div>
     </div>
   </div>
-  <nav class="hero__index container" aria-label="Service shortcuts">
-    <ul role="list">
-      <li><a href="/apostille-services/">Apostille</a></li>
-      <li><a href="/apostille-services/#embassy-legalization">Embassy legalization</a></li>
-      <li><a href="/notary-services/">Notary</a></li>
-      <li><a href="/notary-services/#remote-online-notary">Remote online notary</a></li>
-      <li><a href="/document-preparation-services/">Document preparation</a></li>
-      <li><a href="/fbi-apostille-for-hague-countries/">FBI apostille</a></li>
-      <li><a href="/jail-notary-kansas-city/">Jail notary</a></li>
-    </ul>
-  </nav>
+  <div class="container">
+    <ul class="hero__facts" role="list">{facts}</ul>
+    <nav class="hsvc" aria-label="Service shortcuts"><ul role="list">{cards}</ul></nav>
+  </div>
 </section>'''
 
 
@@ -60,12 +79,7 @@ def intro():
     {shead("01", "Midwest Apostille &amp; Notary", "A document office in Kansas City, working for clients everywhere.", "intro-h")}
     <div class="intro__grid">
       <p class="intro__big" data-reveal>We prepare, notarize, authenticate and ship documents for immigration, study, marriage, business and dual citizenship. One office handles the whole chain, so nothing is lost between hand-offs.</p>
-      <dl class="ledger" data-stagger>
-        <div><dt>Same day</dt><dd>VIP apostille for Missouri and Kansas documents</dd></div>
-        <div><dt>50 states</dt><dd>Apostille service with local courier delivery</dd></div>
-        <div><dt>Online</dt><dd>Remote online notarization from anywhere</dd></div>
-        <div><dt>Bilingual</dt><dd>English, Spanish, Arabic and French support</dd></div>
-      </dl>
+
     </div>
   </div>
 </section>'''
@@ -139,6 +153,6 @@ def build():
     return page("/", "Apostille & Notary Services in Kansas City | Midwest",
                 "Apostille, embassy legalization, notary and document preparation in Kansas City, MO. Same-day apostille for Missouri and Kansas, and service in all 50 states.",
                 body, active="home", schema=[faq_schema("/", HOME_FAQ)], body_class="is-home",
-                preload=("apostille-certificates", "(min-width: 1024px) 40vw, 92vw"),
+                preload=("hero-world-documents", "(min-width: 1024px) 44vw, 92vw"),
                 keyword="apostille and notary services Kansas City")
 
