@@ -1,6 +1,6 @@
 import Image from "next/image";
 import type { ComponentProps, ReactNode } from "react";
-import { isExternal } from "@/lib/site";
+import { wpBase } from "@/lib/site";
 
 /** The supplied iTHREE lockup, untouched. Height drives the size. */
 export function Logo({ className = "", priority = false }: { className?: string; priority?: boolean }) {
@@ -38,7 +38,8 @@ type ButtonProps = {
  * than fading, which reads as deliberate and keeps the label legible.
  */
 export function Button({ href, children, variant = "solid", size = "md", cursor, className = "", ...rest }: ButtonProps) {
-  const external = isExternal(href) && !href.startsWith("mailto:") && !href.startsWith("tel:");
+  // Other sites open in a new tab; the WordPress pages are part of this site.
+  const external = /^https?:/.test(href) && !href.startsWith(wpBase);
   const base =
     "group relative isolate inline-flex items-center justify-center gap-3 overflow-hidden whitespace-nowrap eyebrow tracking-[0.18em] transition-colors duration-500 ease-[var(--ease-out-expo)]";
   const sizes = size === "md" ? "h-14 px-7" : "h-10 px-5 text-[0.6875rem]";

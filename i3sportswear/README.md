@@ -14,15 +14,19 @@ npm run build    # writes the static site to out/
 
 Upload the contents of `out/` to the web host.
 
-## Before launch: fill in business details
+## Business details and WordPress links
+
+This app replaces **only the homepage** of i3sportswear.com. About, Products, the eight product categories and Contact stay on WordPress, and the header and footer link to them.
 
 Everything the site says about the business lives in **`lib/site.ts`**. Nothing is invented: every empty value hides its UI.
 
 | Field | What it shows |
 | --- | --- |
-| `contact.whatsapp` / `email` / `phone` | Where "Get a quote", "Talk to our team", "Send this brief" and the footer lead. **Until one is filled in, these buttons only scroll to the quote section.** |
-| `contact.location` | Footer location |
-| `social[].href` | Footer social links and schema.org `sameAs` |
+| `wpBase`, `pages`, `productLinks` | WordPress URLs used by the header menu, the Products dropdown, the mobile menu and the footer. WordPress links open in the same tab. **Confirm each path against the live WordPress menu.** |
+| `contact.phone` / `hours` / `address` / `location` | Top contact bar, mobile menu, final CTA, footer and the LocalBusiness schema |
+| `contact.email` | Footer and mobile menu `mailto:` link (hidden while empty) |
+| `whatsappUrl` | The exact WhatsApp link from the original site: floating button, header, top bar, footer |
+| `social[].href` | Instagram in the top bar, mobile menu and footer, plus schema.org `sameAs` |
 | `stats` | Verified numbers for the trust section (otherwise qualitative signals are shown) |
 | `clients` | Monochrome client logo wall (hidden when empty) |
 | `testimonials` | Testimonial section (hidden when empty; real quotes only) |

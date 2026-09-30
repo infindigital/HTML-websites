@@ -104,7 +104,7 @@ export default function Hero() {
             )}
           </div>
 
-          <div className="shell absolute inset-x-0 bottom-0 pb-20 lg:pb-24">
+          <div className="shell absolute inset-x-0 bottom-0 pb-24">
             <div className="grid items-end gap-10 lg:grid-cols-12">
               {/* One line on every screen: sized to the full width on phones and to the 8-column field on desktop, so "Identity." never runs into the copy beside it. */}
               <h1 id="hero-title" data-hero-copy className="display-xl lg:col-span-8 text-[length:calc((100vw_-_2*var(--gutter))/11.7)] whitespace-nowrap lg:text-[min(5.15vw,5.8rem)] [&_.line-mask]:inline-block! [&_.line-mask:not(:last-child)]:mr-[0.24em]">
@@ -117,7 +117,7 @@ export default function Hero() {
                 <p className="lede enter-fade text-bone/80 [animation-delay:700ms]">
                   Custom performance wear engineered around your team.
                 </p>
-                <div className="enter-fade mt-8 flex flex-col gap-3 sm:flex-row [animation-delay:850ms]">
+                <div className="enter-fade mt-8 flex flex-col gap-3 sm:flex-row lg:flex-col xl:flex-row [animation-delay:850ms]">
                   <Button href="#lab" cursor="explore">
                     Design your kit
                   </Button>

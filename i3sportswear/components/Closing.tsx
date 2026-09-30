@@ -6,7 +6,8 @@ import { bySlug, jerseySrc } from "@/lib/products";
 import { useEffect, useRef, useState } from "react";
 import { useReducedMotion } from "@/lib/hooks";
 import { Button, Lines, Logo, Mark } from "./ui";
-import { contactHref, nav, site } from "@/lib/site";
+import { contactHref, pages, productLinks, site, telHref } from "@/lib/site";
+import { ClockIcon, InstagramIcon, MailIcon, PhoneIcon, PinIcon, WhatsAppIcon } from "./icons";
 import { MQ, gsap, useGSAP } from "@/lib/gsap";
 
 /**
@@ -65,11 +66,17 @@ export function FinalCta() {
             Talk to our team
           </Button>
         </div>
-        {site.contact.whatsapp && (
-          <a href={contactHref()} target="_blank" rel="noopener" className="eyebrow mt-8 inline-flex items-center gap-3 text-bone/70 hover:text-bone">
-            <WhatsAppIcon /> Message us on WhatsApp
+        <p className="mt-8 flex flex-wrap items-center justify-center gap-x-6 gap-y-3 text-sm text-bone/70">
+          <a href={site.whatsappUrl} target="_blank" rel="noopener" className="inline-flex items-center gap-2 hover:text-bone">
+            <WhatsAppIcon /> WhatsApp
           </a>
-        )}
+          <a href={telHref} className="inline-flex items-center gap-2 hover:text-bone">
+            <PhoneIcon className="h-4 w-4" /> {site.contact.phone}
+          </a>
+          <span className="inline-flex items-center gap-2">
+            <PinIcon className="h-4 w-4" /> {site.contact.location}
+          </span>
+        </p>
       </div>
     </section>
   );
@@ -136,36 +143,52 @@ function KitRing() {
   );
 }
 
-function WhatsAppIcon() {
-  return (
-    <svg viewBox="0 0 24 24" aria-hidden className="h-4 w-4" fill="currentColor">
-      <path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.1-1.2l-.5-.2Z" />
-    </svg>
-  );
-}
-
 export function Footer() {
-  const { email, phone, whatsapp, location } = site.contact;
-  const socials = site.social.filter((s) => s.href);
+  const { email, phone, address, hours } = site.contact;
+  const instagram = site.social.find((s) => s.label === "Instagram")?.href;
   const year = new Date().getFullYear();
+  const link = "text-bone/80 transition-colors hover:text-gold-soft";
 
   return (
-    <footer className="border-t border-bone/10 bg-ink pt-24 pb-10">
+    <footer className="border-t border-bone/10 bg-ink pt-24 pb-28">
       <div className="shell">
-        <div className="grid gap-16 lg:grid-cols-12">
-          <div className="lg:col-span-5">
-            <a href="#top" aria-label="iTHREE Sportswear, back to top" className="block h-32 w-fit sm:h-44">
+        <div className="grid gap-14 sm:grid-cols-2 lg:grid-cols-12 lg:gap-10">
+          <div className="sm:col-span-2 lg:col-span-4">
+            <a href="/" aria-label="iTHREE Sportswear home" className="block h-32 w-fit sm:h-40">
               <Logo />
             </a>
-            <p className="lede mt-8 max-w-sm">Custom performance wear engineered around your team.</p>
+            <p className="mt-8 font-display text-lg font-semibold tracking-tight">{site.legalName}</p>
+            <p className="lede mt-3 max-w-sm">{site.summary}</p>
+            <div className="mt-8 flex items-center gap-3">
+              {instagram && (
+                <a
+                  href={instagram}
+                  target="_blank"
+                  rel="noopener"
+                  aria-label="iThree Sports Wear on Instagram (opens in a new tab)"
+                  className="flex h-11 w-11 items-center justify-center rounded-full text-bone/80 ring-1 ring-bone/20 transition hover:text-gold-soft hover:ring-gold-soft"
+                >
+                  <InstagramIcon className="h-[18px] w-[18px]" />
+                </a>
+              )}
+              <a
+                href={site.whatsappUrl}
+                target="_blank"
+                rel="noopener"
+                aria-label="Chat with iThree Sports Wear on WhatsApp (opens in a new tab)"
+                className="flex h-11 w-11 items-center justify-center rounded-full text-bone/80 ring-1 ring-bone/20 transition hover:text-gold-soft hover:ring-gold-soft"
+              >
+                <WhatsAppIcon className="h-[18px] w-[18px]" />
+              </a>
+            </div>
           </div>
 
-          <nav aria-label="Footer" className="lg:col-span-2 lg:col-start-7">
-            <p className="eyebrow text-faint">Explore</p>
+          <nav aria-label="Company" className="lg:col-span-2 lg:col-start-6">
+            <p className="eyebrow text-faint">Company</p>
             <ul className="mt-6 flex flex-col gap-3">
-              {[...nav, { label: "Get a quote", href: "#quote" }].map((n) => (
-                <li key={n.href}>
-                  <a href={n.href} className="text-bone/80 transition-colors hover:text-gold-soft">
+              {[{ label: "Home", href: "/" }, pages.about, pages.products, pages.contact].map((n) => (
+                <li key={n.label}>
+                  <a href={n.href} className={link}>
                     {n.label}
                   </a>
                 </li>
@@ -173,65 +196,56 @@ export function Footer() {
             </ul>
           </nav>
 
-          <div className="lg:col-span-2">
-            <p className="eyebrow text-faint">Contact</p>
-            <ul className="mt-6 flex flex-col gap-3 text-bone/80">
-              {whatsapp && (
-                <li>
-                  <a href={contactHref()} target="_blank" rel="noopener" className="inline-flex items-center gap-2 hover:text-gold-soft">
-                    <WhatsAppIcon /> WhatsApp
+          <nav aria-label="Products" className="lg:col-span-2">
+            <p className="eyebrow text-faint">Products</p>
+            <ul className="mt-6 flex flex-col gap-3">
+              {productLinks.map((n) => (
+                <li key={n.label}>
+                  <a href={n.href} className={link}>
+                    {n.label}
                   </a>
                 </li>
-              )}
-              {phone && (
-                <li>
-                  <a href={`tel:${phone.replace(/[^\d+]/g, "")}`} className="hover:text-gold-soft">
-                    {phone}
-                  </a>
-                </li>
-              )}
-              {email && (
-                <li>
-                  <a href={`mailto:${email}`} className="break-all hover:text-gold-soft">
-                    {email}
-                  </a>
-                </li>
-              )}
-              {!whatsapp && !phone && !email && (
-                <li>
-                  <a href="#quote" className="hover:text-gold-soft">
-                    Get a quote
-                  </a>
-                </li>
-              )}
+              ))}
             </ul>
-            {location && (
-              <>
-                <p className="eyebrow mt-10 text-faint">Location</p>
-                <address className="mt-4 text-bone/80 not-italic">{location}</address>
-              </>
-            )}
-          </div>
+          </nav>
 
-          {socials.length > 0 && (
-            <div className="lg:col-span-2">
-              <p className="eyebrow text-faint">Follow</p>
-              <ul className="mt-6 flex flex-col gap-3">
-                {socials.map((s) => (
-                  <li key={s.label}>
-                    <a href={s.href} target="_blank" rel="noopener" className="text-bone/80 hover:text-gold-soft">
-                      {s.label}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
+          <div className="sm:col-span-2 lg:col-span-3">
+            <p className="eyebrow text-faint">Contact</p>
+            <address className="mt-6 flex flex-col gap-4 text-bone/80 not-italic">
+              <a href={telHref} className="flex items-center gap-3 transition-colors hover:text-gold-soft">
+                <PhoneIcon className="h-4 w-4 shrink-0 text-gold-soft" />
+                {phone}
+              </a>
+              <a href={site.whatsappUrl} target="_blank" rel="noopener" className="flex items-center gap-3 transition-colors hover:text-gold-soft">
+                <WhatsAppIcon className="h-4 w-4 shrink-0 text-gold-soft" />
+                WhatsApp {phone}
+              </a>
+              {email && (
+                <a href={`mailto:${email}`} className="flex items-center gap-3 break-all transition-colors hover:text-gold-soft">
+                  <MailIcon className="h-4 w-4 shrink-0 text-gold-soft" />
+                  {email}
+                </a>
+              )}
+              <span className="flex items-start gap-3">
+                <PinIcon className="mt-1 h-4 w-4 shrink-0 text-gold-soft" />
+                {address}
+              </span>
+            </address>
+            <p className="eyebrow mt-10 text-faint">Opening hours</p>
+            <p className="mt-4 flex items-start gap-3 text-bone/80">
+              <ClockIcon className="mt-1 h-4 w-4 shrink-0 text-gold-soft" />
+              <span>
+                {hours.days}
+                <br />
+                {hours.time}
+              </span>
+            </p>
+          </div>
         </div>
 
         <div className="mt-24 flex flex-col-reverse gap-6 border-t border-bone/10 pt-8 sm:flex-row sm:items-center sm:justify-between">
           <p className="text-sm text-faint">
-            &copy; {year} {site.name}. All rights reserved.
+            &copy; {year} {site.legalName}. All rights reserved.
           </p>
           <a href="#top" className="eyebrow inline-flex items-center gap-3 text-bone/60 hover:text-bone">
             Back to top
