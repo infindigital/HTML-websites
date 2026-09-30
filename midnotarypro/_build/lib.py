@@ -55,7 +55,7 @@ CTA_LABEL_ES = "Iniciar revisión de documentos"
 
 _DIMS = json.load(open(os.path.join(os.path.dirname(__file__), "image-dims.json")))
 _ICONS = open(os.path.join(os.path.dirname(__file__), "icons.svg")).read()
-VERSION = "4"
+VERSION = "5"
 
 
 def esc(s):
@@ -321,8 +321,8 @@ PAGES = []
 HEAD_SCRIPT = ('''<script>(function(d){d.classList.add("js");if(!matchMedia("(prefers-reduced-motion: reduce)").matches)'''
                '''{d.classList.add("motion-pending");setTimeout(function(){d.classList.remove("motion-pending")},2500)}})'''
                '''(document.documentElement)</script>''')
-FONTS = ("https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400..700"
-         "&amp;family=Inter:wght@400..700&amp;display=swap")
+FONTS = ("https://fonts.googleapis.com/css2?family=Libre+Bodoni:wght@400..700"
+         "&amp;family=Public+Sans:wght@400..700&amp;display=swap")
 BANNED = ["whether you", "seamless", "unlock", "empower", "elevate", "game-changing", "cutting-edge",
           "in today's", "at the intersection", "your trusted partner"]
 

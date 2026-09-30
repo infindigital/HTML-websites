@@ -188,8 +188,13 @@
       if (im && !im.hasAttribute("data-parallax")) tl.from(im, { scale: 1.2, duration: 1.6, ease: "power3.out" }, 0);
     });
     // Section entrances for the home compositions (one system: fade + 16px rise).
-    $$(".stats__item, .sdir__row, .rb__step, .rb__out, .fbi__col, .nt__media, .nt__copy, .dp__copy, .dp__stack, .guide, .reviews__stage, .reviews__tabs").forEach((el) => {
+    $$(".stats__item, .sdir__row, .rb__step, .rb__out, .fbi__col, .nt__media, .nt__copy, .dp__copy, .dp__stack, .guide, .glist, .reviews__stage, .reviews__tabs").forEach((el) => {
       gsap.from(el, { y: 16, opacity: 0, duration: T.reveal, ease: EASE, scrollTrigger: { trigger: el, start: "top 90%", once: true } });
+    });
+    // Chapter transition: the navy route chapter opens from the container edges to full bleed as it arrives.
+    $$(".rb.section--navy").forEach((sec) => {
+      gsap.fromTo(sec, { clipPath: "inset(0% 3% 0% 3%)" }, { clipPath: "inset(0% 0% 0% 0%)", ease: "none",
+        scrollTrigger: { trigger: sec, start: "top bottom", end: "top 25%", scrub: 0.6 } });
     });
     // CTA headline.
     $$(".cta .label, .cta__row").forEach((el) => {
@@ -201,51 +206,41 @@
      Signature sequence: eyebrow, headline lines, copy, then the document is placed,
      filled, signed, sealed and stamped READY FOR INTERNATIONAL USE. */
   function initHero() {
-    const art = $("[data-hero-art]");
-    if (!art || !$(".hero")) return;
-    const steps = $$("[data-hero-steps] li", art);
-    const light = (k) => steps.forEach((li, i) => li.classList.toggle("is-on", i <= k));
-    if (!motion()) { light(steps.length - 1); return; }
+    const led = $("[data-hero-art]");
+    if (!led || !$(".hero")) return;
+    const cells = $$("[data-ledger]", led), bar = $("[data-ledger-bar]", led);
+    const light = (k) => cells.forEach((c, i) => c.classList.toggle("is-on", i <= k));
+    if (!motion()) { light(cells.length - 1); return; }
     const { gsap } = window;
-    const plate = $("[data-hero-plate]", art), doc = $("[data-hero-doc]", art), under = $("[data-hero-under]", art);
-    const sig = $(".hdoc__sig path", art), seal = $(".hdoc__seal", art), stamp = $(".hdoc__stamp", art);
-    const tl = gsap.timeline({ defaults: { ease: EASE } });
-    tl.from(".hero__eyebrow", { opacity: 0, y: 10, duration: T.reveal }, 0.05)
-      .from(".hero__display .hl > span", { yPercent: 110, duration: T.story, ease: "power4.out", stagger: 0.1 }, 0.15)
-      .from(".hero__lead", { opacity: 0, y: 16, duration: T.reveal }, 0.6)
-      .from(".hero__copy .btn-row", { opacity: 0, y: 16, duration: T.reveal }, 0.72)
-      .fromTo(plate, { clipPath: "inset(100% 0% 0% 0%)" }, { clipPath: "inset(0% 0% 0% 0%)", duration: 1.3, ease: "power4.inOut" }, 0.2)
-      .from(under, { opacity: 0, y: 40, rotate: -10, duration: T.story }, 0.55)
-      .from(doc, { opacity: 0, y: 60, rotate: 5, duration: T.story }, 0.7)
-      .call(() => light(0), null, 1.0)
-      .from($$(".hdoc__v", art), { scaleX: 0, duration: T.ui, stagger: 0.04, ease: "power2.out" }, 1.15)
-      .fromTo(sig, { strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: T.story, ease: "power1.inOut" }, 1.5)
-      .call(() => light(1), null, 1.9)
-      .from(seal, { opacity: 0, scale: 0.6, rotate: -60, duration: T.reveal }, 2.3)
-      .call(() => light(2), null, 2.4)
-      .addLabel("stamp", 2.9)
-      .fromTo(stamp, { opacity: 0, scale: 1.6 }, { opacity: 1, scale: 1, duration: 0.45, ease: "power4.in" }, "stamp")
-      .to(doc, { y: 3, duration: 0.08, yoyo: true, repeat: 1, ease: "power1.inOut" }, "stamp+=0.42")
-      .call(() => light(3), null, "stamp+=0.45");
-    // Click the document to replay signing and stamping.
-    doc.style.cursor = "pointer";
-    art.addEventListener("click", () => { if (!tl.isActive()) { light(0); tl.play(1.45); } });
-    // Scroll: the three layers drift at different speeds.
+    const lines = $$(".ledger__sheet .pline", led), sig = $(".ledger__sig path", led);
+    const seal = $(".ledger__seal", led), stamp = $(".ledger__stamp", led);
+    const intro = gsap.timeline({ defaults: { ease: EASE } });
+    intro.from(".hero__eyebrow", { opacity: 0, y: 10, duration: T.reveal }, 0.05)
+      .from(".hero__display .hl > span", { yPercent: 110, duration: T.story, ease: "power4.out", stagger: 0.12 }, 0.15)
+      .fromTo(".hero__base", { clipPath: "inset(0 100% 0 0)" }, { clipPath: "inset(0 0% 0 0)", duration: 1.2, ease: "power3.inOut" }, 0.55)
+      .from(".hero__intro > *", { opacity: 0, y: 16, duration: T.reveal, stagger: 0.1 }, 0.9);
+    // The ledger plays the four stages in order: lines are written, the signature is drawn, the seal turns in, the stamp presses.
+    const tl = gsap.timeline({ defaults: { ease: EASE }, onStart: () => led.classList.add("is-playing"), onComplete: () => led.classList.remove("is-playing") });
+    tl.call(() => light(0), null, 0)
+      .fromTo(bar, { "--lp": 0 }, { "--lp": 0.25, duration: 0.5, ease: "none" }, 0)
+      .fromTo(lines, { scaleX: 0 }, { scaleX: 1, duration: T.ui, stagger: 0.08, ease: "power2.out" }, 0.05)
+      .call(() => light(1), null, 0.6)
+      .to(bar, { "--lp": 0.5, duration: 0.9, ease: "none" }, 0.6)
+      .fromTo(sig, { strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 0.9, ease: "power1.inOut" }, 0.6)
+      .call(() => light(2), null, 1.55)
+      .to(bar, { "--lp": 0.75, duration: 0.6, ease: "none" }, 1.55)
+      .fromTo(seal, { opacity: 0, scale: 0.6, rotate: -90 }, { opacity: 1, scale: 1, rotate: 0, duration: T.reveal }, 1.55)
+      .call(() => light(3), null, 2.25)
+      .to(bar, { "--lp": 1, duration: 0.45, ease: "none" }, 2.25)
+      .fromTo(stamp, { opacity: 0, scale: 1.7 }, { opacity: 1, scale: 1, duration: 0.42, ease: "power4.in" }, 2.3);
+    tl.pause();
+    intro.add(tl.play(0), 1.4);
+    led.addEventListener("click", () => { if (!tl.isActive()) tl.restart(); });
+    // Scroll: the headline's two lines part slightly and the ledger lifts, so the page reads as layered paper.
     const st = { trigger: ".hero", start: "top top", end: "bottom top", scrub: 0.8 };
-    gsap.to(plate, { yPercent: 6, ease: "none", scrollTrigger: st });
-    gsap.to(under, { y: 40, ease: "none", scrollTrigger: st });
-    gsap.to(doc, { y: -60, ease: "none", scrollTrigger: st });
-    gsap.to(seal, { rotate: 24, ease: "none", scrollTrigger: st });
-    // Pointer depth on desktop only.
-    if (finePointer && !mobile()) {
-      const qx = gsap.quickTo(doc, "x", { duration: 0.9, ease: EASE }), qx2 = gsap.quickTo(under, "x", { duration: 1.1, ease: EASE });
-      art.addEventListener("mousemove", (e) => {
-        const r = art.getBoundingClientRect();
-        const x = (e.clientX - r.left) / r.width - 0.5;
-        qx(x * 14); qx2(x * -8);
-      });
-      art.addEventListener("mouseleave", () => { qx(0); qx2(0); });
-    }
+    gsap.to(".hero__display .hl:first-child > span", { xPercent: -4, ease: "none", scrollTrigger: st });
+    gsap.to(".hero__display .hl:last-child > span", { xPercent: 5, ease: "none", scrollTrigger: st });
+    gsap.to(seal, { rotate: 40, ease: "none", scrollTrigger: st });
   }
 
   /* ------------------------------------------------------------ stats count */

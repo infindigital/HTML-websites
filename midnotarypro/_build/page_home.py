@@ -37,49 +37,53 @@ def ready_stamp(cls="stamp"):
 
 
 # ----------------------------------------------------------------------------- 1. hero
+HERO_LEDGER = [
+    ("Document", "The original, or a certified copy"),
+    ("Signed", "Notarized where the office requires it"),
+    ("Sealed", "Apostille, or embassy legalization"),
+    ("Ready", "Returned or shipped with tracking"),
+]
+
+
+def _ledger_art(i):
+    """One drawn detail per stage: ruled lines, a signature, a seal, the final stamp."""
+    if i == 0:
+        return '<span class="ledger__sheet"><span class="pline"></span><span class="pline pline--m"></span><span class="pline"></span><span class="pline pline--s"></span></span>'
+    if i == 1:
+        return signature("ledger__sig")
+    if i == 2:
+        return seal("ledger__seal")
+    return ready_stamp("stamp ledger__stamp")
+
+
 def hero():
-    fields = [("Country", "United States of America"), ("This public document", ""), ("has been signed by", ""),
-              ("acting in the capacity of", ""), ("bears the seal / stamp of", ""), ("Certified", ""),
-              ("at", ""), ("the", ""), ("by", ""), ("No.", "")]
-    rows = "".join(f'<li><span class="hdoc__n">{i}.</span><span class="hdoc__k">{k}</span>'
-                   f'<span class="hdoc__v">{v}</span></li>' for i, (k, v) in enumerate(fields, start=1))
+    cells = "".join(f'<li class="ledger__cell" data-ledger="{i}"><span class="ledger__art">{_ledger_art(i)}</span>'
+                    f'<span class="ledger__n">{i + 1:02d}</span><strong>{t}</strong><span class="ledger__d">{d}</span></li>'
+                    for i, (t, d) in enumerate(HERO_LEDGER))
     return f'''
 <section class="hero" aria-labelledby="hero-h">
   <div class="hero__bgmap" data-world-map="hero" aria-hidden="true"></div>
-  <div class="container hero__grid">
-    <div class="hero__copy" data-hero-copy>
-      <h1 class="hero__title" id="hero-h">
-        <span class="hero__eyebrow">{H1_KEYWORD}</span>
-        <span class="hero__display"><span class="hl"><span>Documents</span></span> <span class="hl"><span>ready for</span></span> <span class="hl"><span>the world.</span></span></span>
-      </h1>
-      <p class="hero__lead">Apostille, embassy legalization, notarization and document preparation for Missouri, Kansas and all 50 states. We confirm the route before anything is submitted.</p>
-      <div class="btn-row">{cta_btn(magnetic=True)}<a class="btn btn--secondary" href="#route-builder"><span class="btn__label">Find your document route</span><span class="btn__icon">{icon("arrow-down")}</span></a></div>
-    </div>
-    <div class="hero__art" aria-hidden="true" data-hero-art>
-      <div class="hero__plate" data-hero-plate></div>
-      <div class="hdoc hdoc--under" data-hero-under>
-        <p class="hdoc__kicker">Public document</p>
-        <span class="pline"></span><span class="pline pline--m"></span><span class="pline"></span><span class="pline pline--s"></span>
+  <div class="container hero__inner" data-hero-copy>
+    <h1 class="hero__title" id="hero-h">
+      <span class="hero__eyebrow">{H1_KEYWORD}</span>
+      <span class="hero__display"><span class="hl"><span>Documents ready</span></span> <span class="hl"><span>for the world.</span></span></span>
+    </h1>
+    <div class="hero__base">
+      <div class="hero__intro">
+        <p class="hero__lead">Apostille, embassy legalization, notarization and document preparation for Missouri, Kansas and all 50 states. We confirm the route before anything is submitted.</p>
+        <div class="btn-row">{cta_btn(magnetic=True)}<a class="btn btn--quiet" href="#route-builder"><span class="btn__label">Find your document route</span><span class="btn__icon">{icon("arrow-down")}</span></a></div>
       </div>
-      <div class="hdoc hdoc--main" data-hero-doc>
-        <p class="hdoc__title">Apostille</p>
-        <p class="hdoc__sub">(Convention de La Haye du 5 octobre 1961)</p>
-        <ol class="hdoc__fields" role="list">{rows}</ol>
-        <div class="hdoc__foot">
-          <div class="hdoc__sign">{signature("hdoc__sig")}<span>Signature</span></div>
-          {seal("hdoc__seal")}
-        </div>
-        {ready_stamp("stamp hdoc__stamp")}
+      <div class="hero__ledger" data-hero-art>
+        <p class="ledger__k" aria-hidden="true"><span>From your desk</span><span>To a foreign office</span></p>
+        <ol class="ledger" role="list" aria-label="How a document becomes ready for international use">{cells}</ol>
+        <span class="ledger__bar" aria-hidden="true"><i data-ledger-bar></i></span>
       </div>
-      <ol class="hero__steps" role="list" data-hero-steps>
-        <li>Document</li><li>Signed</li><li>Sealed</li><li>Ready</li>
-      </ol>
     </div>
   </div>
 </section>'''
 
 
-# ----------------------------------------------------------------------------- 2. stats band
+# ----------------------------------------------------------------------------- 2. stats (inside Trust)
 def stats():
     items = [("50", "States", "Apostille service nationwide"),
              (str(HAGUE_COUNT), "Hague countries", "Accept a single apostille"),
@@ -87,10 +91,7 @@ def stats():
              ("4", "Languages", "English, Spanish, Arabic, French")]
     cells = "".join(f'<div class="stats__item"><dt><span class="stats__k">{k}</span><span class="stats__d">{d}</span></dt>'
                     f'<dd class="stats__n" data-count="{n}">{n}</dd></div>' for n, k, d in items)
-    return f'''
-<section class="stats" aria-label="At a glance">
-  <div class="container"><dl class="stats__list">{cells}</dl></div>
-</section>'''
+    return f'<dl class="stats__list stats">{cells}</dl>'
 
 
 # ----------------------------------------------------------------------------- 3. services
@@ -133,7 +134,7 @@ def route_builder():
     return f'''
 <section class="section section--navy rb" id="route-builder" aria-labelledby="rb-h" data-rb>
   <div class="container">
-    {shead("02", "Your document route", "Three answers. One clear route.", "rb-h",
+    {shead("01", "Your document route", "Three answers. One clear route.", "rb-h",
            "Choose the document, where it is going and why. The route updates as you go.")}
     <div class="rb__grid">
       <form class="rb__form" data-rb-form>
@@ -186,7 +187,7 @@ def process():
     return f'''
 <section class="section proc" aria-labelledby="proc-h" data-proc>
   <div class="container">
-    {shead("03", "How an apostille works", "From your desk to a foreign office, in four stages.", "proc-h",
+    {shead("02", "The apostille journey", "From your desk to a foreign office, in four stages.", "proc-h",
            "Not every document needs every stage. We tell you which ones apply before you send anything.")}
   </div>
   <div class="proc__pin" data-proc-pin>
@@ -236,7 +237,7 @@ def fbi_paths():
           {link(cta, href)}
         </div>'''
     return f'''
-<section class="section section--mist fbi" aria-labelledby="fbi-h" data-fbi>
+<section class="section fbi" aria-labelledby="fbi-h" data-fbi>
   <div class="container">
     {shead("04", "FBI background checks", "Two paths. We walk the right one with you.", "fbi-h",
            "An apostille alone is rejected by countries outside the Hague Convention, such as the UAE, Qatar, Kuwait and Egypt.")}
@@ -330,47 +331,37 @@ def doc_prep():
 </section>'''
 
 
-# ----------------------------------------------------------------------------- 9. guides
+# ----------------------------------------------------------------------------- 9. guides (inside Questions)
+GUIDES = [
+    ("/how-to-get-an-apostille-in-kansas-city-birth-certificates-custodian-documents-more/", "Apostille guide",
+     "How to get an apostille in Kansas City: birth certificates, custodian documents and more"),
+    ("/urgent-notary-services-in-kansas-city-jail-hospital-after-hours-help/", "Notary guide",
+     "Urgent notary services in Kansas City: jail, hospital and after-hours help"),
+]
+
+
 def guides():
-    posts = [
-        ("/how-to-get-an-apostille-in-kansas-city-birth-certificates-custodian-documents-more/", "apostille-documents",
-         "Apostille guide", "How to get an apostille in Kansas City: birth certificates, custodian documents and more"),
-        ("/urgent-notary-services-in-kansas-city-jail-hospital-after-hours-help/", "notary-seal",
-         "Notary guide", "Urgent notary services in Kansas City: jail, hospital and after-hours help"),
-    ]
-    items = "".join(f'''
-      <li class="guide">
-        <a href="{h}">
-          <span class="guide__media">{img(im, "", "(min-width: 900px) 30vw, 90vw")}</span>
-          <span class="guide__body"><span class="label">{k}</span><span class="guide__title">{t}</span></span>
-        </a>
-      </li>''' for h, im, k, t in posts)
-    return f'''
-<section class="section" aria-labelledby="guides-h">
-  <div class="container">
-    {shead("09", "Guides", "Read before you send.", "guides-h", "Short, practical guides written from the questions clients ask us most.",
-           extra=link("All guides and FBI resources", "/guides/", "shead__link"))}
-    <ul class="guides guides--rows" role="list">{items}</ul>
-  </div>
-</section>'''
+    items = "".join(f'<li><a href="{h}"><span class="label">{k}</span><span class="glist__t">{t}</span>'
+                    f'<span class="glist__i">{icon("arrow-up-right")}</span></a></li>' for h, k, t in GUIDES)
+    return (f'<div class="glist"><p class="label">Read before you send</p><ul class="glist__list" role="list">{items}</ul>'
+            f'{link("All guides and FBI resources", "/guides/")}</div>')
 
 
 def build():
     body = "".join([
         hero(),
-        stats(),
-        service_index("Six services, one office.", "services-h", num="01", lab="Services",
-                      lead="Choose a service to see what it covers and how to start.", items=HOME_SERVICES),
         route_builder(),
         process(),
+        service_index("Six services, one office.", "services-h", num="03", lab="Services",
+                      lead="Choose a service to see what it covers and how to start.", items=HOME_SERVICES),
         fbi_paths(),
         notary(),
         doc_prep(),
         countries_explorer(num="07", heading="Is your destination a Hague country?"),
-        reviews_section(num="08"),
-        guides(),
-        faq_section(HOME_FAQ, num="10", heading="Questions, answered.",
-                    lead='More detail on the <a class="text-link" href="/apostille-services/">apostille</a> and <a class="text-link" href="/notary-services/">notary</a> pages.'),
+        reviews_section(num="08", lab="Trust", pre=stats()),
+        faq_section(HOME_FAQ, num="09", heading="Questions, answered.",
+                    lead='More detail on the <a class="text-link" href="/apostille-services/">apostille</a> and <a class="text-link" href="/notary-services/">notary</a> pages.',
+                    aside=guides()),
         cta_final(),
     ])
     return page("/", "Apostille & Notary Services in Kansas City | Midwest",

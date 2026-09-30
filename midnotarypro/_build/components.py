@@ -381,7 +381,7 @@ REVIEWS = [
 NO_TAB = ' tabindex="-1"'
 
 
-def reviews_section(hid="reviews-h", num="06", heading="In their words."):
+def reviews_section(hid="reviews-h", num="06", heading="In their words.", lab="Client reviews", pre=""):
     n = len(REVIEWS)
     panels, tabs = [], []
     stars = '<span class="review__stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</span>'
@@ -396,8 +396,8 @@ def reviews_section(hid="reviews-h", num="06", heading="In their words."):
     return f'''
 <section class="section" aria-labelledby="{hid}">
   <div class="container">
-    {shead(num, "Client reviews", heading, hid, "Reviews from clients on Google, quoted as written.")}
-    <div class="reviews" data-reviews>
+    {shead(num, lab, heading, hid, "Reviews from clients on Google, quoted as written.")}
+    {pre}<div class="reviews" data-reviews>
       <div class="reviews__stage">{"".join(panels)}
         <div class="reviews__nav">
           <p class="reviews__count" aria-hidden="true"><b data-review-num>01</b> / {n:02d}</p>
