@@ -381,7 +381,7 @@ REVIEWS = [
 NO_TAB = ' tabindex="-1"'
 
 
-def reviews_section(hid="reviews-h", num="06", heading="In their words.", lab="Client reviews", pre=""):
+def reviews_section(hid="reviews-h", num="06", heading="In their words.", lab="Client reviews", pre="", tone=""):
     n = len(REVIEWS)
     panels, tabs = [], []
     stars = '<span class="review__stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</span>'
@@ -394,7 +394,7 @@ def reviews_section(hid="reviews-h", num="06", heading="In their words.", lab="C
         </figure></div>''')
         tabs.append(f'<li role="presentation"><button type="button" role="tab" id="rt-{i}" aria-controls="review-{i}" aria-selected="{"true" if i == 0 else "false"}"{"" if i == 0 else NO_TAB}><span class="reviews__i">{i + 1:02d}</span><span class="sr-only">Review {i + 1}: </span>{name}</button></li>')
     return f'''
-<section class="section" aria-labelledby="{hid}">
+<section class="section {tone}" aria-labelledby="{hid}">
   <div class="container">
     {shead(num, lab, heading, hid, "Reviews from clients on Google, quoted as written.")}
     {pre}<div class="reviews" data-reviews>
@@ -444,7 +444,7 @@ def cta_final(heading="Get clarity before you send your documents.",
               lang="en"):
     es = lang == "es"
     return f'''
-<section class="cta" aria-labelledby="cta-h">
+<section class="cta tone-dark" aria-labelledby="cta-h">
   <div class="container cta__inner">
     <p class="label cta__eyebrow">{"Próximo paso" if es else "Next step"}</p>
     <h2 id="cta-h" class="cta__title" data-split>{heading}</h2>

@@ -1,4 +1,4 @@
-# Midwest Apostille & Notary: Design System (Master, v5)
+# Midwest Apostille & Notary: Design System (Master, v5.1)
 
 Source of truth for every page. Implemented as tokens on `:root` in `assets/css/site.css`, the
 Python components in `_build/components.py` and `_build/page_home.py`, and one motion config in
@@ -32,9 +32,12 @@ Decisions come from the UI/UX Pro Max skill (`.claude/skills/ui-ux-pro-max`):
 | `--mist` | `#EEF1F4` | Image placeholders and map land only. Never a section ground. |
 | `--paper` | `#FFFFFF` | Paper objects are white and separated by a hairline and `--shadow-paper` |
 
-Section rhythm on the home page: white hero, **navy** route chapter, then white to the end, closed by
-the **ink** footer. No off-white, cream, grey or tinted grounds anywhere; sections are separated by
-the section header's black rule, not by background changes.
+Section rhythm on the home page (v5.1, "midnight navy"): **navy** hero with a cropped client photo,
+white 01 route, **navy** 02 journey, white 03 services, **navy** 04 FBI, white 05 notary, **navy** 06
+preparation, white 07 explorer, **navy** 08 trust, white 09 questions, **navy** CTA, ink footer.
+Sections are separated by the change of ground, never by a rule above the header. Dark chapters use
+`.tone-dark`, which swaps the colour tokens (ink becomes #F5F2EB, rules become light) so every
+component works on both grounds; paper objects inside a dark chapter keep paper tokens.
 
 Rules: no gradients, glows, blobs or glass. Inactive states change colour, never opacity below
 contrast. One shadow token (`--shadow-paper`), used only on paper objects and the dropdown.
@@ -86,8 +89,8 @@ Story order: Hero, 01 Document route, 02 Apostille journey, 03 Services, 04 FBI 
 
 | Section | Interaction |
 |---|---|
-| Hero | No photograph. Full-width Bodoni headline over the world map (routes from Kansas City to ten destinations: hover a country for its name, hover a destination for its route, click one to fill the route builder; routes cycle when idle). Lines rise on load; the base rule opens left to right; the ledger plays Document (lines written), Signed (signature drawn), Sealed (seal turns in), Ready (stamp presses) while a black rule fills above it. Click the ledger to replay. On scroll the two headline lines part slightly. |
-| 01 Route builder (navy) | The chapter opens from the container edges to full bleed as it arrives (scrubbed clip; without JS it is simply full). Document, destination (or type a country), purpose. The route re-renders with a drawn connecting line and the stamp presses. Radios, so arrow keys work. |
+| Hero (navy) | A cropped client photograph (apostille certificates) bleeds off the right edge and fades into the navy; the world map is drawn in light lines behind the headline with brass routes from Kansas City to ten destinations (hover a country for its name, hover a destination for its route, click one to set it in the route sentence; routes cycle when idle). Headline lines rise; the ledger plays Document (lines written), Signed (signature drawn), Sealed (seal turns in), Ready (stamp presses) under a brass rule that fills. Click the ledger to replay. On phones the photo sits above the headline as a band. |
+| 01 Route builder | One sentence: "I have [document], going to [destination] for [purpose]." Each blank is a native select sized to its chosen words; the destination select also lists every country, grouped Hague / non-Hague, and the hero map sets it. Below, a paper route sheet: summary, numbered stations in one row (as many columns as steps), note, READY stamp that presses on change, and the CTA. |
 | Apostille process | The only pinned section: 300vh on desktop, four stages driven by scroll, track buttons jump to a stage. Phones: no pin; the document plays its four states once in view, then all steps stay readable. |
 | FBI paths (mist) | Hague and non-Hague columns with a central divider that fills on scroll; steps light as they enter; the switch highlights one path. |
 | Notary | Three tabs (arrow keys), photo swaps through a side mask, signing slip completes in view and replays on tab change. |

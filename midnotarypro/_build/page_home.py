@@ -61,12 +61,13 @@ def hero():
                     f'<span class="ledger__n">{i + 1:02d}</span><strong>{t}</strong><span class="ledger__d">{d}</span></li>'
                     for i, (t, d) in enumerate(HERO_LEDGER))
     return f'''
-<section class="hero" aria-labelledby="hero-h">
+<section class="hero tone-dark" aria-labelledby="hero-h">
+  <figure class="hero__photo" data-hero-photo>{img("apostille-certificates", "Apostille certificates with gold seals and a fountain pen on a navy desk", "(min-width: 1024px) 48vw, 100vw", eager=True)}</figure>
   <div class="hero__bgmap" data-world-map="hero" aria-hidden="true"></div>
   <div class="container hero__inner" data-hero-copy>
     <h1 class="hero__title" id="hero-h">
       <span class="hero__eyebrow">{H1_KEYWORD}</span>
-      <span class="hero__display"><span class="hl"><span>Documents ready</span></span> <span class="hl"><span>for the world.</span></span></span>
+      <span class="hero__display"><span class="hl"><span>Documents</span></span> <span class="hl"><span>ready for</span></span> <span class="hl"><span>the world.</span></span></span>
     </h1>
     <div class="hero__base">
       <div class="hero__intro">
@@ -112,49 +113,55 @@ HOME_SERVICES = [
 
 
 # ----------------------------------------------------------------------------- 4. route builder
-RB_DOCS = [("fbi", "FBI report"), ("birth", "Birth certificate"), ("marriage", "Marriage certificate"),
-           ("diploma", "Diploma or transcript"), ("poa", "Power of attorney"), ("business", "Business document")]
-RB_DEST = [("hague", "Hague country"), ("legal", "Non-Hague country"), ("unsure", "Not sure")]
-RB_PURPOSE = [("visa", "Visa"), ("work", "Work"), ("study", "Study"), ("marriage", "Marriage"),
-              ("immigration", "Immigration"), ("business", "Business")]
+RB_DOCS = [("fbi", "an FBI report"), ("birth", "a birth certificate"), ("marriage", "a marriage certificate"),
+           ("diploma", "a diploma or transcript"), ("poa", "a power of attorney"), ("business", "a business document")]
+RB_DEST = [("hague", "a Hague country"), ("legal", "a non-Hague country"), ("unsure", "a country I am not sure about")]
+RB_PURPOSE = [("visa", "a visa"), ("work", "work"), ("study", "study"), ("marriage", "a marriage"),
+              ("immigration", "immigration"), ("business", "business")]
 
 
-def _choices(name, items, first):
-    return "".join(
-        f'<label class="rb__opt"><input type="radio" name="{name}" value="{v}"{" checked" if v == first else ""}>'
-        f'<span>{t}</span></label>' for v, t in items)
+def _select(name, label, items, extra=""):
+    opts = "".join(f'<option value="{v}">{t}</option>' for v, t in items)
+    return (f'<span class="rb__pick"><label class="sr-only" for="rb-{name}">{label}</label>'
+            f'<select id="rb-{name}" name="{name}" data-rb-select>{opts}{extra}</select></span>')
+
+
+def _country_groups():
+    """Every listed country as a destination choice, grouped by route, so the map and the sentence share one control."""
+    hague, legal = [], []
+    for o in route_options().split("</option>"):
+        if not o:
+            continue
+        name = o.split('value="')[1].split('"')[0]
+        (hague if 'data-status="hague"' in o else legal).append(name)
+    grp = lambda lab, key, names: (f'<optgroup label="{lab}">' + "".join(
+        f'<option value="c:{n}" data-status="{key}">{n}</option>' for n in sorted(set(names))) + '</optgroup>')
+    return grp("Hague countries: apostille", "hague", hague) + grp("Non-Hague countries: legalization", "legalization", legal)
 
 
 def route_builder():
-    default = [("Your document", "FBI Identity History Summary, or fingerprints taken by us"),
+    default = [("Your FBI report", "Existing Identity History Summary, or fingerprints taken by us"),
                ("Package review", "DS-4194 checked against your report"),
-               ("U.S. Department of State", "Apostille issued by the Office of Authentications"),
-               ("Ready for international use", "Shipped back with tracking")]
-    stations = "".join(f'<li class="rb__st"><span class="rb__dot"></span><strong>{t}</strong><span>{d}</span></li>' for t, d in default)
+               ("U.S. Department of State apostille", "Issued by the Office of Authentications"),
+               ("Certified translation", "Spanish, Arabic or French, when the destination requires it"),
+               ("Ready for international use", "Shipped back with tracking, or couriered abroad")]
+    stations = "".join(f'<li class="rb__st"><span class="rb__n">{i + 1:02d}</span><strong>{t}</strong><span>{d}</span></li>'
+                       for i, (t, d) in enumerate(default))
     return f'''
-<section class="section section--navy rb" id="route-builder" aria-labelledby="rb-h" data-rb>
+<section class="section rb" id="route-builder" aria-labelledby="rb-h" data-rb>
   <div class="container">
     {shead("01", "Your document route", "Three answers. One clear route.", "rb-h",
-           "Choose the document, where it is going and why. The route updates as you go.")}
-    <div class="rb__grid">
-      <form class="rb__form" data-rb-form>
-        <fieldset class="rb__step"><legend><span class="rb__num">01</span>Document</legend>
-          <div class="rb__opts">{_choices("doc", RB_DOCS, "fbi")}</div></fieldset>
-        <fieldset class="rb__step"><legend><span class="rb__num">02</span>Destination</legend>
-          <div class="rb__opts">{_choices("dest", RB_DEST, "hague")}</div>
-          <div class="rb__country"><label for="rb-country">Or type the country</label>
-            <input id="rb-country" type="text" list="rb-countries" autocomplete="off" placeholder="For example, Spain or Qatar" data-rb-country>
-            <datalist id="rb-countries">{route_options()}</datalist>
-            <p class="rb__hint" aria-live="polite" data-rb-hint></p></div></fieldset>
-        <fieldset class="rb__step"><legend><span class="rb__num">03</span>Purpose</legend>
-          <div class="rb__opts">{_choices("purpose", RB_PURPOSE, "visa")}</div></fieldset>
-      </form>
-      <div class="rb__out" data-rb-out>
-        <p class="rb__label">Your document route</p>
-        <p class="rb__summary" aria-live="polite" data-rb-summary>FBI report, going to a Hague country, for a visa.</p>
-        <ol class="rb__route" role="list" data-rb-route>{stations}</ol>
+           "Complete the sentence. The route below rewrites itself, step by step.")}
+    <form class="rb__form" data-rb-form>
+      <p class="rb__sentence">I have {_select("doc", "Document", RB_DOCS)}, going to {_select("dest", "Destination", RB_DEST, _country_groups())} for {_select("purpose", "Purpose", RB_PURPOSE)}.</p>
+    </form>
+    <div class="rb__sheet" data-rb-out>
+      <div class="rb__head"><p class="label">Your document route</p><p class="rb__summary" aria-live="polite" data-rb-summary>An FBI report, going to a Hague country, for a visa.</p></div>
+      <ol class="rb__route" role="list" data-rb-route style="--n:5">{stations}</ol>
+      <div class="rb__foot">
         <p class="rb__note" data-rb-note>We confirm every step with you before anything is submitted.</p>
-        <div class="rb__end">{ready_stamp("stamp stamp--light rb__stamp")}<div class="btn-row">{cta_btn("light")}</div></div>
+        {ready_stamp("stamp rb__stamp")}
+        <div class="btn-row">{cta_btn()}</div>
       </div>
     </div>
   </div>
@@ -185,7 +192,7 @@ def process():
           <p>{d}</p>
         </article>''' for i, (k, name, t, d) in enumerate(PROCESS))
     return f'''
-<section class="section proc" aria-labelledby="proc-h" data-proc>
+<section class="section tone-dark proc" aria-labelledby="proc-h" data-proc>
   <div class="container">
     {shead("02", "The apostille journey", "From your desk to a foreign office, in four stages.", "proc-h",
            "Not every document needs every stage. We tell you which ones apply before you send anything.")}
@@ -237,7 +244,7 @@ def fbi_paths():
           {link(cta, href)}
         </div>'''
     return f'''
-<section class="section fbi" aria-labelledby="fbi-h" data-fbi>
+<section class="section tone-dark fbi" aria-labelledby="fbi-h" data-fbi>
   <div class="container">
     {shead("04", "FBI background checks", "Two paths. We walk the right one with you.", "fbi-h",
            "An apostille alone is rejected by countries outside the Hague Convention, such as the UAE, Qatar, Kuwait and Egypt.")}
@@ -318,7 +325,7 @@ def doc_prep():
                      f'<span class="pline pline--s"></span><span class="dp__sl">Ready to notarize</span></div>'
                      for i, (t, d) in enumerate(DOCS))
     return f'''
-<section class="section dp" aria-labelledby="dp-h" data-dp-root>
+<section class="section tone-dark dp" aria-labelledby="dp-h" data-dp-root>
   <div class="container dp__grid">
     <div class="dp__copy">
       {shead("06", "Document preparation", "Drafted right before anyone signs.", "dp-h",
@@ -358,7 +365,7 @@ def build():
         notary(),
         doc_prep(),
         countries_explorer(num="07", heading="Is your destination a Hague country?"),
-        reviews_section(num="08", lab="Trust", pre=stats()),
+        reviews_section(num="08", lab="Trust", pre=stats(), tone="tone-dark"),
         faq_section(HOME_FAQ, num="09", heading="Questions, answered.",
                     lead='More detail on the <a class="text-link" href="/apostille-services/">apostille</a> and <a class="text-link" href="/notary-services/">notary</a> pages.',
                     aside=guides()),
@@ -366,5 +373,5 @@ def build():
     ])
     return page("/", "Apostille & Notary Services in Kansas City | Midwest",
                 "Apostille, embassy legalization, notary and document preparation in Kansas City, MO. Same-day apostille for Missouri and Kansas, and service in all 50 states.",
-                body, active="home", schema=[faq_schema("/", HOME_FAQ)], body_class="is-home",
+                body, active="home", schema=[faq_schema("/", HOME_FAQ)], body_class="is-home", preload=("apostille-certificates", "(min-width: 1024px) 48vw, 100vw"),
                 keyword="apostille and notary services Kansas City")

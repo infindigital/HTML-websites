@@ -262,15 +262,15 @@
 
   /* ------------------------------------------------------------ route builder */
   const RB_DOCS = {
-    fbi: { name: "FBI report", fed: true, first: ["Your FBI report", "Existing Identity History Summary, or fingerprints taken by us"], mid: [["Package review", "DS-4194 checked against your report"]] },
-    birth: { name: "Birth certificate", first: ["Certified copy", "Issued by the vital records office of the state of birth"], mid: [] },
-    marriage: { name: "Marriage certificate", first: ["Certified copy", "Issued by the office that recorded the marriage"], mid: [] },
-    diploma: { name: "Diploma or transcript", first: ["Notarized copy", "Usually certified by the school registrar before a notary"], mid: [] },
-    poa: { name: "Power of attorney", first: ["Drafted for you", "Prepared in the format the receiving office expects"], mid: [["Notarization", "Signed before our notary: office, mobile or online"]] },
-    business: { name: "Business document", first: ["Certified or notarized copy", "From the issuing office, or signed before a notary"], mid: [] },
+    fbi: { name: "an FBI report", fed: true, first: ["Your FBI report", "Existing Identity History Summary, or fingerprints taken by us"], mid: [["Package review", "DS-4194 checked against your report"]] },
+    birth: { name: "a birth certificate", first: ["Certified copy", "Issued by the vital records office of the state of birth"], mid: [] },
+    marriage: { name: "a marriage certificate", first: ["Certified copy", "Issued by the office that recorded the marriage"], mid: [] },
+    diploma: { name: "a diploma or transcript", first: ["Notarized copy", "Usually certified by the school registrar before a notary"], mid: [] },
+    poa: { name: "a power of attorney", first: ["Drafted for you", "Prepared in the format the receiving office expects"], mid: [["Notarization", "Signed before our notary: office, mobile or online"]] },
+    business: { name: "a business document", first: ["Certified or notarized copy", "From the issuing office, or signed before a notary"], mid: [] },
   };
   const RB_PURPOSE = { visa: ["a visa", "consulate"], work: ["work", "employer or ministry"], study: ["study", "school"], marriage: ["a marriage", "civil registry"], immigration: ["immigration", "immigration office"], business: ["business", "receiving company or registry"] };
-  const RB_DEST = { hague: "a Hague country", legal: "a non-Hague country", unsure: "a country you are not sure about" };
+  const RB_DEST = { hague: "a Hague country", legal: "a non-Hague country", unsure: "a country you are not sure about yet" };
 
   function rbRoute(doc, dest) {
     const d = RB_DOCS[doc];
@@ -291,41 +291,30 @@
     const root = $("[data-rb]");
     if (!root) return;
     const form = $("[data-rb-form]", root), list = $("[data-rb-route]", root), summary = $("[data-rb-summary]", root);
-    const note = $("[data-rb-note]", root), stamp = $(".rb__stamp", root), country = $("[data-rb-country]", root), hint = $("[data-rb-hint]", root);
-    const opts = new Map($$("#rb-countries option", root).map((o) => [o.value.toLowerCase(), o]));
-    let countryName = "";
-    const val = (n) => { const c = $(`input[name="${n}"]:checked`, form); return c ? c.value : ""; };
-    const esc = (t) => t.replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+    const note = $("[data-rb-note]", root), stamp = $(".rb__stamp", root), sel = $$("[data-rb-select]", form);
+    const dest = form.elements.dest;
+    // Each select is as wide as its chosen words, so the sentence reads as a sentence.
+    const probe = document.createElement("span");
+    probe.className = "rb__probe"; probe.setAttribute("aria-hidden", "true"); $(".rb__sentence", form).appendChild(probe);
+    const fit = (s) => { probe.textContent = s.options[s.selectedIndex].text; s.style.width = `calc(${Math.ceil(probe.getBoundingClientRect().width) + 4}px + 1.2em)`; };
     const render = (animate) => {
-      const doc = val("doc"), dest = val("dest"), purpose = val("purpose");
-      const steps = rbRoute(doc, dest);
-      list.innerHTML = steps.map(([t, d], i) => `<li class="rb__st${animate && !reduce ? " is-new" : ""}" style="--i:${i}"><span class="rb__dot"></span><strong>${t}</strong><span>${d}</span></li>`).join("");
-      const where = countryName || RB_DEST[dest];
-      summary.textContent = `${RB_DOCS[doc].name}, going to ${where}, for ${RB_PURPOSE[purpose][0]}.`;
-      note.textContent = `Purpose: ${purpose}. We check what the receiving ${RB_PURPOSE[purpose][1]} asks for, and confirm every step with you before anything is submitted.`;
-      if (animate && !reduce) {
-        list.style.setProperty("--draw", "0");
-        requestAnimationFrame(() => requestAnimationFrame(() => list.style.setProperty("--draw", "1")));
-        stamp.classList.remove("is-press"); void stamp.offsetWidth; stamp.classList.add("is-press");
-      }
+      const doc = form.elements.doc.value, purpose = form.elements.purpose.value;
+      const opt = dest.options[dest.selectedIndex];
+      const isCountry = dest.value.startsWith("c:");
+      const route = isCountry ? (opt.dataset.status === "hague" ? "hague" : "legal") : dest.value;
+      const where = isCountry ? `${opt.text} (${route === "hague" ? "Hague member: apostille" : "not a Hague member: embassy legalization"})` : RB_DEST[route];
+      const steps = rbRoute(doc, route);
+      list.style.setProperty("--n", steps.length);
+      list.innerHTML = steps.map(([t, d], i) => `<li class="rb__st${animate && !reduce ? " is-new" : ""}" style="--i:${i}"><span class="rb__n">${String(i + 1).padStart(2, "0")}</span><strong>${t}</strong><span>${d}</span></li>`).join("");
+      const name = RB_DOCS[doc].name;
+      summary.textContent = `${name[0].toUpperCase()}${name.slice(1)}, going to ${where}, for ${RB_PURPOSE[purpose][0]}.`;
+      note.textContent = `We check what the receiving ${RB_PURPOSE[purpose][1]} asks for, and confirm every step with you before anything is submitted.`;
+      if (animate && !reduce) { stamp.classList.remove("is-press"); void stamp.offsetWidth; stamp.classList.add("is-press"); }
     };
-    form.addEventListener("change", (e) => { if (e.target.name === "dest") { countryName = ""; country.value = ""; hint.textContent = ""; } if (e.target.name) render(true); });
+    sel.forEach(fit);
+    form.addEventListener("change", (e) => { if (e.target.matches("[data-rb-select]")) { fit(e.target); render(true); } });
     form.addEventListener("submit", (e) => e.preventDefault());
-    const match = (final) => {
-      const v = country.value.trim();
-      if (!v) { countryName = ""; hint.textContent = ""; render(true); return; }
-      const o = opts.get(v.toLowerCase()) || (final ? Array.from(opts.values()).find((x) => x.value.toLowerCase().startsWith(v.toLowerCase())) : null);
-      if (!o) { if (final) { hint.textContent = `${v.replace(/[<>&]/g, "")} is not on our lists. Choose "Not sure" and we will confirm.`; } return; }
-      const hague = o.dataset.status === "hague";
-      const radio = $(`input[name="dest"][value="${hague ? "hague" : "legal"}"]`, form);
-      radio.checked = true;
-      countryName = esc(o.value);
-      hint.textContent = hague ? `${o.value} is a Hague Convention member: apostille.` : `${o.value} is not a Hague member: embassy legalization.`;
-      render(true);
-    };
-    country.addEventListener("input", () => match(false));
-    country.addEventListener("change", () => match(true));
-    country.addEventListener("keydown", (e) => { if (e.key === "Enter") { e.preventDefault(); match(true); } });
+    if (document.fonts) document.fonts.ready.then(() => sel.forEach(fit));
     render(false);
     if ("IntersectionObserver" in window && !reduce) {
       const io = new IntersectionObserver((en) => { if (en[0].isIntersecting) { io.disconnect(); render(true); } }, { threshold: 0.35 });
@@ -333,9 +322,6 @@
     }
   }
 
-  /* ------------------------------------------------------------ apostille process
-     Desktop: one pinned stage, scroll moves through four states (the only pin on the page).
-     Mobile: a vertical timeline, the small document above it follows the active step. */
   function initProcess() {
     const root = $("[data-proc]");
     if (!root) return;
@@ -647,10 +633,10 @@
       const land = e.target.closest("[data-c]"), hit = e.target.closest(".route-hit");
       const r = hit ? routes.find((x) => x.hit === hit) : land ? bySlug.get(land.dataset.c) : null;
       if (!r) return;
-      const input = $("[data-rb-country]");
-      if (input) {
-        input.value = r.name;
-        input.dispatchEvent(new Event("change", { bubbles: true }));
+      const dest = $("#rb-dest"), opt = dest && Array.from(dest.options).find((o) => o.text === r.name || o.text.startsWith(r.name.split(" (")[0]));
+      if (opt) {
+        dest.value = opt.value;
+        dest.dispatchEvent(new Event("change", { bubbles: true }));
         $("#route-builder").scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
       } else location.href = r.status === "hague" ? "/apostille-services/" : "/apostille-services/#embassy-legalization";
     });
