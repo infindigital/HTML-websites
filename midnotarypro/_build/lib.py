@@ -5,6 +5,7 @@ Each call to page() registers the route, which is later used for sitemap.xml,
 robots.txt and the internal SEO audit (docs/seo-audit.md).
 """
 import datetime
+import hashlib
 import html
 import json
 import os
@@ -55,7 +56,11 @@ CTA_LABEL_ES = "Iniciar revisión de documentos"
 
 _DIMS = json.load(open(os.path.join(os.path.dirname(__file__), "image-dims.json")))
 _ICONS = open(os.path.join(os.path.dirname(__file__), "icons.svg")).read()
-VERSION = "4"
+_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+# Content hash of the CSS and JS, so a changed file always gets a new URL and never reuses a cached one.
+VERSION = hashlib.sha1(b"".join(
+    open(os.path.join(_ROOT, "assets", sub), "rb").read() for sub in ("css/site.css", "js/site.js")
+)).hexdigest()[:10]
 
 
 def esc(s):
