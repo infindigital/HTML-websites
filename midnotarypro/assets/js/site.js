@@ -183,7 +183,6 @@
     const art = $("[data-hero-art]");
     if (!art || !motion()) return;
     const { gsap } = window;
-    const plate = $("[data-hero-plate]", art), plateImg = $("[data-hero-img]", art), inset = $("[data-hero-inset]", art);
     const cert = $("[data-hero-cert]", art), seal = $("[data-hero-seal]", art), sig = $(".acert__sig path", art);
     const display = $(".hero__display");
     const words = display ? splitWords(display) : [];
@@ -192,26 +191,18 @@
       .from(".hero__kicker", { opacity: 0, y: 12, duration: 0.7 }, 0.12)
       .from(words, { yPercent: 105, duration: 1.15, ease: "power4.out", stagger: 0.07 }, 0.2)
       .from([".hero__lead", ".hero__copy .btn-row"], { opacity: 0, y: 16, duration: 0.8, stagger: 0.09 }, 0.6)
-      .fromTo(plate, { clipPath: "inset(100% 0% 0% 0%)" }, { clipPath: "inset(0% 0% 0% 0%)", duration: 1.4, ease: "power4.inOut" }, 0.15)
-      .fromTo(plateImg, { scale: 1.3 }, { scale: 1.08, duration: 2.2, ease: "power3.out" }, 0.15)
-      .fromTo(inset, { clipPath: "inset(0% 100% 0% 0%)" }, { clipPath: "inset(0% 0% 0% 0%)", duration: 1.1, ease: "power4.inOut" }, 0.75)
-      .from(cert, { opacity: 0, y: 40, rotate: -7, duration: 1.2, ease: "power3.out" }, 0.95)
-      .from($$(".acert__fields i", art), { scaleX: 0, duration: 0.6, stagger: 0.05, ease: "power2.out" }, 1.35)
-      .fromTo(sig, { strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 1.2, ease: "power1.inOut" }, 1.7)
-      .from(seal, { opacity: 0, scale: 1.7, rotate: -40, duration: 0.55, ease: "back.out(2.4)" }, 2.25)
+      .from(cert, { opacity: 0, y: 50, rotate: -9, duration: 1.2, ease: "power3.out" }, 0.8)
+      .from($$(".acert__fields i", art), { scaleX: 0, duration: 0.6, stagger: 0.05, ease: "power2.out" }, 1.2)
+      .fromTo(sig, { strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 1.2, ease: "power1.inOut" }, 1.55)
+      .from(seal, { opacity: 0, scale: 1.7, rotate: -40, duration: 0.55, ease: "back.out(2.4)" }, 2.1)
       .from(".hcheck", { opacity: 0, y: 16, duration: 0.8 }, 0.85)
-      .from("[data-hero-status]", { opacity: 0, y: 30, duration: 0.9 }, 1.5)
       .from(".hero__facts li", { opacity: 0, y: 14, duration: 0.6, stagger: 0.07 }, 1.0)
       .from(".hsvc li", { opacity: 0, y: 18, duration: 0.6, stagger: 0.06 }, 1.2);
-    const steps = $$(".hstatus__list li", art);
-    steps.forEach((li) => li.classList.add("is-pending"));
-    steps.forEach((li, i) => tl.call(() => { li.classList.remove("is-pending"); gsap.fromTo($(".icon", li), { scale: 0.4 }, { scale: 1, duration: 0.45, ease: "back.out(2.5)" }); }, null, 2.1 + i * 0.45));
-    // Scroll-linked depth: three layers at different speeds.
+    // Click the certificate to sign and seal it again.
+    cert.addEventListener("click", () => { if (!tl.isActive()) tl.play(1.5); });
+    // Scroll: the certificate lifts over the map.
     const st = { trigger: ".hero", start: "top top", end: "bottom top", scrub: 0.8 };
-    gsap.to(plateImg, { yPercent: 7, ease: "none", scrollTrigger: st });
-    gsap.to("[data-hero-status]", { y: -40, ease: "none", scrollTrigger: st });
-    gsap.to(cert, { y: -70, rotate: -4, ease: "none", scrollTrigger: st });
-    gsap.to(inset, { y: 36, ease: "none", scrollTrigger: st });
+    gsap.to(cert, { y: -60, rotate: -1, ease: "none", scrollTrigger: st });
     gsap.to(seal, { rotate: 20, ease: "none", scrollTrigger: st });
   }
 
@@ -363,16 +354,51 @@
   function heroArcs(svg) {
     const origin = svg.dataset.kc.split(",").map(Number);
     const targets = ["spain", "france", "morocco", "india", "philippines", "united-arab-emirates", "mexico", "brazil", "south-korea", "colombia"];
+    const host = svg.parentElement, tip = $("[data-map-tip]", host);
     const g = document.createElementNS(svgNS, "g");
     const mk = (tag, attrs) => { const el = document.createElementNS(svgNS, tag); Object.entries(attrs).forEach(([k, v]) => el.setAttribute(k, v)); return el; };
+    const arcs = new Map();
     targets.forEach((t) => {
       const c = center(svg, t);
       if (!c) return;
-      g.appendChild(mk("path", { d: arcPath(origin, c, 0.3), class: "route-arc" }));
-      g.appendChild(mk("circle", { cx: c[0], cy: c[1], r: 2.6, class: "route-node" }));
+      const arc = mk("path", { d: arcPath(origin, c, 0.3), class: "route-arc" });
+      const node = mk("circle", { cx: c[0], cy: c[1], r: 2.6, class: "route-node" });
+      g.append(arc, node);
+      arcs.set(t, { arc, node });
     });
     g.append(mk("circle", { cx: origin[0], cy: origin[1], r: 4, class: "route-origin" }), mk("circle", { cx: origin[0], cy: origin[1], r: 6, class: "route-pulse" }));
     svg.appendChild(g);
+    // Hover a country for its name; destinations with a route light it. Click fills the country check.
+    const vb = svg.viewBox.baseVal;
+    let hot = null;
+    const show = (land) => {
+      if (!tip) return;
+      if (hot) { hot.classList.remove("is-hot"); const r = arcs.get(hot.dataset.c); if (r) { r.arc.classList.remove("is-hot"); r.node.classList.remove("is-hot"); } }
+      hot = land;
+      if (!land) { tip.classList.remove("is-on"); return; }
+      land.classList.add("is-hot");
+      const r = arcs.get(land.dataset.c);
+      if (r) { r.arc.classList.add("is-hot"); r.node.classList.add("is-hot"); }
+      tip.textContent = land.dataset.n;
+      tip.style.left = `${(land.dataset.cx / vb.width) * 100}%`;
+      tip.style.top = `${(land.dataset.cy / vb.height) * 100}%`;
+      tip.classList.add("is-on");
+    };
+    svg.addEventListener("pointerover", (e) => { const land = e.target.closest("[data-c]"); if (land) show(land); });
+    svg.addEventListener("pointerleave", () => show(null));
+    svg.addEventListener("click", (e) => {
+      const land = e.target.closest("[data-c]"), input = $("[data-hcheck-in]");
+      if (!land || !input) return;
+      const opt = $$("#hcheck-list option").find((o) => o.value === land.dataset.n || o.value.startsWith(`${land.dataset.n} (`));
+      if (!opt) return;
+      input.value = opt.value;
+      input.closest("form").requestSubmit();
+    });
+    // The country check lights its country on the map.
+    document.addEventListener("hcheck:country", (e) => {
+      const land = $$("[data-c]", svg).find((l) => e.detail && (l.dataset.n === e.detail || e.detail.startsWith(`${l.dataset.n} (`)));
+      show(land || null);
+    });
     if (!motion()) return;
     $$(".route-arc", g).forEach((p, i) => {
       const len = p.getTotalLength();
@@ -381,7 +407,6 @@
         onComplete: () => { p.style.strokeDasharray = "3 5"; p.style.strokeDashoffset = "0"; },
       });
     });
-    window.gsap.to(svg, { yPercent: 8, ease: "none", scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true } });
   }
 
   /* ------------------------------------------------------ hero destination check */
@@ -400,6 +425,7 @@
         if (final) out.innerHTML = `${v.replace(/[<>&]/g, "")} is not on our published lists. <a href="/contact-us/">Ask us</a> and we will confirm the route.`;
         return;
       }
+      document.dispatchEvent(new CustomEvent("hcheck:country", { detail: o.value }));
       if (o.dataset.status === "hague") {
         out.classList.add("is-hague");
         out.innerHTML = `<strong>${o.value}</strong> is a Hague Convention member: you need an <a href="/apostille-services/">apostille</a>.`;
