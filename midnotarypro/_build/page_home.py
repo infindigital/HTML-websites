@@ -45,6 +45,7 @@ def hero():
                    f'<span class="hdoc__v">{v}</span></li>' for i, (k, v) in enumerate(fields, start=1))
     return f'''
 <section class="hero" aria-labelledby="hero-h">
+  <div class="hero__bgmap" data-world-map="hero" aria-hidden="true"></div>
   <div class="container hero__grid">
     <div class="hero__copy" data-hero-copy>
       <h1 class="hero__title" id="hero-h">

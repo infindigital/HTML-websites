@@ -574,6 +574,7 @@
       tpl.innerHTML = text.trim();
       const svg = tpl.content.firstElementChild;
       host.insertBefore(svg, host.firstChild);
+      if (host.dataset.worldMap === "hero") heroArcs(svg, host);
       if (host.dataset.worldMap === "legal") initLegal(svg, host);
       if (host.dataset.worldMap === "explorer") initExplorerMap(svg, host);
       if (motion()) window.gsap.from(svg, { opacity: 0, duration: 0.9, ease: "power2.out" });
@@ -591,6 +592,101 @@
     const d = Math.hypot(x2 - x1, y2 - y1);
     return `M${x1},${y1} Q${(x1 + x2) / 2},${(y1 + y2) / 2 - d * lift} ${x2},${y2}`;
   };
+
+  /* ------------------------------------------------ hero map: routes from Kansas City */
+  const HERO_ROUTES = [
+    ["spain", "Spain", "hague"], ["france", "France", "hague"], ["morocco", "Morocco", "hague"], ["india", "India", "hague"],
+    ["philippines", "Philippines", "hague"], ["united-arab-emirates", "United Arab Emirates (UAE)", "legal"], ["mexico", "Mexico", "hague"],
+    ["brazil", "Brazil", "hague"], ["south-korea", "Republic of Korea", "hague"], ["colombia", "Colombia", "hague"],
+  ];
+  function heroArcs(svg, host) {
+    const origin = svg.dataset.kc.split(",").map(Number);
+    const vb = svg.viewBox.baseVal;
+    const g = document.createElementNS(svgNS, "g");
+    const mk = (tag, attrs) => { const el = document.createElementNS(svgNS, tag); Object.entries(attrs).forEach(([k, v]) => el.setAttribute(k, v)); return el; };
+    const routes = [];
+    HERO_ROUTES.forEach(([slug, name, status]) => {
+      const c = center(svg, slug);
+      if (!c) return;
+      const arc = mk("path", { d: arcPath(origin, c, 0.3), class: "route-arc" });
+      const node = mk("circle", { cx: c[0], cy: c[1], r: 2.6, class: "route-node" });
+      const hit = mk("circle", { cx: c[0], cy: c[1], r: 12, class: "route-hit" });
+      g.append(arc, node, hit);
+      const land = svg.querySelector(`[data-c="${slug}"]`);
+      if (land) land.classList.add("is-target");
+      routes.push({ slug, name, status, c, arc, node, hit, land });
+    });
+    g.append(mk("circle", { cx: origin[0], cy: origin[1], r: 4, class: "route-origin" }), mk("circle", { cx: origin[0], cy: origin[1], r: 6, class: "route-pulse" }));
+    svg.appendChild(g);
+
+    // Tooltip: any country shows its name; destinations also show the route.
+    const tip = document.createElement("div");
+    tip.className = "map-tip";
+    tip.setAttribute("aria-hidden", "true");
+    host.appendChild(tip);
+    const place = ([x, y]) => { tip.style.left = `${(x / vb.width) * 100}%`; tip.style.top = `${(y / vb.height) * 100}%`; };
+    const label = (r) => `${r.name}<small>${r.status === "hague" ? "Hague member: apostille" : "Embassy legalization"}</small>`;
+    let hot = null;
+    const clear = () => { routes.forEach((r) => [r.arc, r.node, r.land].forEach((el) => el && el.classList.remove("is-hot"))); svg.querySelectorAll("[data-c].is-hot").forEach((el) => el.classList.remove("is-hot")); hot = null; };
+    const light = (r, withTip = true) => {
+      clear(); hot = r;
+      [r.arc, r.node, r.land].forEach((el) => el && el.classList.add("is-hot"));
+      if (withTip) { tip.innerHTML = label(r); place(r.c); tip.classList.add("is-on"); }
+    };
+    const bySlug = new Map(routes.map((r) => [r.slug, r]));
+    let hovering = false;
+    svg.addEventListener("pointerover", (e) => {
+      const land = e.target.closest("[data-c]"), hit = e.target.closest(".route-hit");
+      const r = hit ? routes.find((x) => x.hit === hit) : land ? bySlug.get(land.dataset.c) : null;
+      hovering = true;
+      if (r) { light(r); return; }
+      if (land) {
+        clear(); land.classList.add("is-hot");
+        tip.textContent = land.dataset.n || ""; place([+land.dataset.cx, +land.dataset.cy]);
+        tip.classList.toggle("is-on", !!tip.textContent);
+      }
+    });
+    svg.addEventListener("pointerleave", () => { hovering = false; clear(); tip.classList.remove("is-on"); });
+    // Click a destination: fill the route builder on the home page, or open the right service.
+    svg.addEventListener("click", (e) => {
+      const land = e.target.closest("[data-c]"), hit = e.target.closest(".route-hit");
+      const r = hit ? routes.find((x) => x.hit === hit) : land ? bySlug.get(land.dataset.c) : null;
+      if (!r) return;
+      const input = $("[data-rb-country]");
+      if (input) {
+        input.value = r.name;
+        input.dispatchEvent(new Event("change", { bubbles: true }));
+        $("#route-builder").scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
+      } else location.href = r.status === "hague" ? "/apostille-services/" : "/apostille-services/#embassy-legalization";
+    });
+    if (!motion()) return;
+    routes.forEach((r, i) => {
+      const len = r.arc.getTotalLength();
+      window.gsap.fromTo(r.arc, { strokeDasharray: len, strokeDashoffset: len }, {
+        strokeDashoffset: 0, duration: 1.8, ease: "power2.inOut", delay: 0.3 + i * 0.12,
+        onComplete: () => { r.arc.style.strokeDasharray = "3 5"; r.arc.style.strokeDashoffset = "0"; },
+      });
+    });
+    const sec = host.closest("section");
+    window.gsap.to(host, { yPercent: 8, ease: "none", scrollTrigger: { trigger: sec, start: "top top", end: "bottom top", scrub: true } });
+    // Idle cycle: one route at a time lights up, paused while the pointer is on the map or it is off screen.
+    let k = 0, visible = true;
+    if ("IntersectionObserver" in window) new IntersectionObserver((en) => { visible = en[0].isIntersecting; }).observe(host);
+    setTimeout(() => setInterval(() => {
+      if (hovering || !visible || document.hidden) return;
+      const r = routes[k++ % routes.length];
+      light(r, !mobile());
+    }, 2600), 3200);
+    // Pointer depth on desktop.
+    if (finePointer && !mobile() && sec) {
+      sec.addEventListener("mousemove", (e) => {
+        const b = sec.getBoundingClientRect();
+        const x = (e.clientX - b.left) / b.width - 0.5, y = (e.clientY - b.top) / b.height - 0.5;
+        svg.style.transform = `translate(${x * -18}px, ${y * -12}px)`;
+      });
+      sec.addEventListener("mouseleave", () => { svg.style.transform = ""; });
+    }
+  }
 
   /* --------------------------------------------------------- country explorer */
   function initExplorer() {

@@ -54,6 +54,8 @@ Two families. No italics.
 | Navigation / button | Inter | 0.9375rem | 500 / 600 |
 | Caption | Inter | 0.8125rem | 400 |
 
+Eyebrow labels (hero, inner hero, closing CTA) start with a small brass seal mark (ring and centre dot), echoing the document seal. No dash rules.
+
 The home H1 is one element: a small eyebrow line ("Apostille & Notary Services in Kansas City", the
 keyword) and the display line "Documents ready for the world."
 
@@ -78,7 +80,7 @@ and the notary slip (signature draws, stamp, "Notarized").
 
 | Section | Interaction |
 |---|---|
-| Hero | Headline lines rise; plate opens from the bottom; document fields fill, signature draws, seal turns in, stamp presses; step labels light Document / Signed / Sealed / Ready. Click the document to replay. Scroll drifts the layers; pointer adds depth on desktop. |
+| Hero | World map behind the hero with routes from Kansas City to ten destinations: hover any country for its name, hover a destination for its route (apostille or embassy legalization), click a destination to fill the route builder; routes cycle when idle and the map follows the pointer. Headline lines rise; plate opens from the bottom; document fields fill, signature draws, seal turns in, stamp presses; step labels light Document / Signed / Sealed / Ready. Click the document to replay. Scroll drifts the layers; pointer adds depth on desktop. |
 | Stats band | Numbers count up once in view. |
 | Service directory | Rows have a fixed height (no hover jitter). Hover or focus: row rule draws, name shifts, "View service" replaces the meta, preview image opens through a mask, counter and description update. Phones: all descriptions shown. |
 | Route builder (navy) | Document, destination (or type a country), purpose. The route re-renders with a drawn connecting line and the stamp presses. Radios, so arrow keys work. |
@@ -109,8 +111,7 @@ footer. Scroll work runs only while a section is on screen (`whileVisible`). Und
 ## Images
 
 Client photos only, WebP in two sizes with `srcset`, explicit dimensions, lazy below the fold. One
-shared grade (`saturate(0.86) contrast(1.02)`) so the set reads as one. No stock globes or maps in the
-hero; the hero visual is HTML and SVG.
+shared grade (`saturate(0.86) contrast(1.02)`) so the set reads as one. The hero document is HTML and SVG; the world map behind every hero is the site's own SVG map.
 
 ## Writing rules
 

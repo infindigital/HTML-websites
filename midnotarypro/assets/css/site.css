@@ -295,11 +295,11 @@ details[open] > summary .drawer__plus::after { transform: rotate(0deg); }
 .sig path, .hdoc__sig path, .pdoc__sig path, .nslip__sig path { fill: none; stroke: var(--navy); stroke-width: 1.6; stroke-linecap: round; stroke-dasharray: 1; stroke-dashoffset: 0; }
 
 /* ================================================================== 8. home hero */
-.hero { position: relative; overflow: hidden; padding: clamp(1.5rem, 0.5rem + 3vw, 3rem) 0 var(--section); }
+.hero { position: relative; overflow: hidden; isolation: isolate; padding: clamp(1.5rem, 0.5rem + 3vw, 3rem) 0 var(--section); }
 .hero__grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s6); align-items: center; }
 .hero__title { display: block; }
 .hero__eyebrow { display: flex; align-items: center; gap: 0.8rem; font-family: var(--sans); font-size: var(--fs-eyebrow); font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-2); }
-.hero__eyebrow::before { content: ""; width: 32px; height: 1px; background: var(--brass); }
+.hero__eyebrow::before { content: ""; flex: none; width: 13px; height: 13px; border: 1.5px solid var(--brass); border-radius: 50%; box-shadow: inset 0 0 0 2.5px var(--white), inset 0 0 0 6px var(--brass); }
 .hero__display { display: block; margin-top: var(--s3); font-size: var(--fs-display); font-weight: 600; line-height: 0.98; letter-spacing: -0.028em; color: var(--ink); }
 .hero__display .hl { display: block; overflow: hidden; padding-bottom: 0.06em; margin-bottom: -0.06em; }
 .hero__display .hl > span { display: inline-block; }
@@ -346,6 +346,35 @@ details[open] > summary .drawer__plus::after { transform: rotate(0deg); }
   .hdoc__stamp { right: -4%; }
   .hero__plate, .hero__steps { width: 82%; }
   .hero__steps { padding: 0 0.75rem 0.75rem; }
+}
+
+/* world map behind the hero (home + inner pages): Kansas City with routes to the world */
+.hero__bgmap, .phero__bgmap { position: absolute; z-index: -1; pointer-events: none; }
+.hero__bgmap { top: 4%; right: -6%; width: min(1180px, 78vw); }
+.phero__bgmap { top: 4%; left: 24%; width: min(1120px, 74vw); }
+/* the map is decoration for the layout but interactive for pointers: countries and routes respond */
+:is(.hero__bgmap, .phero__bgmap) svg { transition: transform 900ms var(--ease); }
+:is(.hero__bgmap, .phero__bgmap) [data-c] { pointer-events: auto; cursor: default; transition: fill var(--t-micro); }
+:is(.hero__bgmap, .phero__bgmap) [data-c]:hover, :is(.hero__bgmap, .phero__bgmap) [data-c].is-hot { fill: #cfd8e2; }
+:is(.hero__bgmap, .phero__bgmap) [data-c].is-target { fill: #dfe5ec; cursor: pointer; }
+:is(.hero__bgmap, .phero__bgmap) [data-c].is-target.is-hot { fill: var(--slate-soft); }
+:is(.hero__bgmap, .phero__bgmap) .route-arc { transition: stroke var(--t-ui) var(--ease), stroke-width var(--t-ui) var(--ease), opacity var(--t-ui) var(--ease); }
+:is(.hero__bgmap, .phero__bgmap) .route-arc.is-hot { stroke: var(--navy); stroke-width: 2; stroke-dasharray: none !important; }
+:is(.hero__bgmap, .phero__bgmap) .route-node { transition: r var(--t-ui) var(--ease), fill var(--t-ui) var(--ease); }
+:is(.hero__bgmap, .phero__bgmap) .route-node.is-hot { fill: var(--navy); r: 4.5; }
+:is(.hero__bgmap, .phero__bgmap) .route-hit { fill: transparent; pointer-events: auto; cursor: pointer; }
+.map-tip { position: absolute; z-index: 2; pointer-events: none; display: grid; gap: 1px; padding: 0.45rem 0.7rem; background: var(--ink); color: var(--on-navy); font-size: 0.75rem; font-weight: 600; letter-spacing: 0.02em; white-space: nowrap; transform: translate(-50%, calc(-100% - 12px)); opacity: 0; transition: opacity var(--t-micro) var(--ease); }
+.map-tip small { font-size: 0.66rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--brass-soft); }
+.map-tip.is-on { opacity: 1; }
+:is(.hero__bgmap, .phero__bgmap) .world-map__land path, :is(.hero__bgmap, .phero__bgmap) .world-map__dots circle { fill: #e8ecf1; stroke: var(--white); stroke-width: 0.5; }
+:is(.hero__bgmap, .phero__bgmap) .route-arc { fill: none; stroke: var(--brass); stroke-width: 1.2; stroke-dasharray: 3 5; }
+:is(.hero__bgmap, .phero__bgmap) .route-node { fill: var(--brass); }
+:is(.hero__bgmap, .phero__bgmap) .route-origin { fill: var(--navy); }
+:is(.hero__bgmap, .phero__bgmap) .route-pulse { fill: none; stroke: var(--navy); stroke-width: 1; transform-box: fill-box; transform-origin: center; animation: map-pulse 2.6s var(--ease) infinite; }
+@keyframes map-pulse { from { transform: scale(0.6); opacity: 0.9; } to { transform: scale(3); opacity: 0; } }
+@media (max-width: 1023px) {
+  .hero__bgmap { width: 140vw; right: -45vw; top: 46%; opacity: 0.8; }
+  .phero__bgmap { width: 140vw; left: auto; right: -50vw; top: 18%; opacity: 0.45; }
 }
 
 /* ================================================================== 9. stats band */
@@ -811,7 +840,7 @@ html:not(.js) .tl__bar::after { transform: scaleY(1); }
 }
 
 /* ================================================================== 20. inner pages */
-.phero { position: relative; padding: clamp(1.5rem, 0.75rem + 2.5vw, 3rem) 0 0; }
+.phero { position: relative; overflow: hidden; isolation: isolate; padding: clamp(1.5rem, 0.75rem + 2.5vw, 3rem) 0 0; }
 .phero__grid { display: grid; gap: var(--s5); align-items: end; }
 .crumbs ol { display: flex; flex-wrap: wrap; gap: 0.3rem 0; font-size: var(--fs-caption); color: var(--ink-3); }
 .crumbs li + li::before { content: "/"; margin: 0 0.6rem; color: var(--rule-2); }
@@ -819,7 +848,7 @@ html:not(.js) .tl__bar::after { transform: scaleY(1); }
 .crumbs a:hover { color: var(--ink); text-decoration: underline; text-underline-offset: 0.2em; }
 .crumbs [aria-current] { color: var(--ink-2); }
 .phero__eyebrow { display: flex; align-items: center; gap: 0.8rem; margin-top: var(--s5); color: var(--ink-2); }
-.phero__eyebrow::before { content: ""; width: 32px; height: 1px; background: var(--brass); }
+.phero__eyebrow::before { content: ""; flex: none; width: 13px; height: 13px; border: 1.5px solid var(--brass); border-radius: 50%; box-shadow: inset 0 0 0 2.5px var(--white), inset 0 0 0 6px var(--brass); }
 .phero__title { margin-top: var(--s2); font-size: var(--fs-h1); line-height: 1.04; letter-spacing: -0.025em; max-width: 16ch; }
 .phero--noimg .phero__title { max-width: 20ch; }
 .phero--long .phero__title { font-size: clamp(2rem, 1.3rem + 2.3vw, 3.4rem); line-height: 1.08; max-width: 24ch; }
@@ -963,7 +992,7 @@ html:not(.js) .tl__bar::after { transform: scaleY(1); }
 .cta { padding-block: var(--section); }
 .cta__inner::before { content: ""; display: block; height: 1px; margin-bottom: var(--s2); background: var(--ink); }
 .cta__eyebrow { display: inline-flex; align-items: center; gap: 0.8rem; color: var(--ink-2); }
-.cta__eyebrow::before { content: ""; width: 32px; height: 1px; background: var(--brass); }
+.cta__eyebrow::before { content: ""; flex: none; width: 13px; height: 13px; border: 1.5px solid var(--brass); border-radius: 50%; box-shadow: inset 0 0 0 2.5px var(--white), inset 0 0 0 6px var(--brass); }
 .cta__title { margin-top: var(--s3); font-size: clamp(2.6rem, 1.4rem + 4vw, 5.4rem); font-weight: 600; line-height: 1.02; letter-spacing: -0.028em; max-width: 15ch; }
 .cta__row { display: grid; gap: var(--s4); margin-top: var(--s5); align-items: end; }
 .cta__row p { color: var(--ink-2); max-width: 48ch; font-size: var(--fs-lead); }
@@ -1025,3 +1054,7 @@ html:not(.js) .tl__bar::after { transform: scaleY(1); }
   .site-header, .drawer, .action-bar, .site-footer, .hero__art, .rb__out, .pdoc, .dp__stack, .nslip { display: none !important; }
   body { background: #fff; }
 }
+
+/* let the hero map receive the pointer where no content sits on top of it */
+.hero__grid, .phero__grid { pointer-events: none; }
+.hero__copy, .phero__copy, .phero__media, .hero__art .hdoc--main { pointer-events: auto; }

@@ -69,6 +69,7 @@ def page_hero(h1, lead, crumbs, image=None, alt="", lab="", buttons="", plate=""
     facts = "".join(f'<li><strong>{t}</strong><span>{d}</span></li>' for t, d in strip)
     return f'''
 <section class="phero{" phero--" + tone if tone else ""}{" phero--noimg" if not image else ""}{" phero--long" if len(h1) > 60 else ""}" aria-labelledby="page-h1">
+  <div class="phero__bgmap" data-world-map="hero" aria-hidden="true"></div>
   <div class="container phero__grid">
     <div class="phero__copy" data-hero-copy>
       {breadcrumbs(crumbs, lang)}
