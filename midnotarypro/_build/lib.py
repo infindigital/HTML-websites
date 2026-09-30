@@ -55,7 +55,7 @@ CTA_LABEL_ES = "Iniciar revisión de documentos"
 
 _DIMS = json.load(open(os.path.join(os.path.dirname(__file__), "image-dims.json")))
 _ICONS = open(os.path.join(os.path.dirname(__file__), "icons.svg")).read()
-VERSION = "5"
+VERSION = "3"
 
 
 def esc(s):
@@ -120,8 +120,7 @@ SERVICES_MENU = [
 ]
 RESOURCES_MENU = [
     ("/guides/", "Guides", ""),
-    ("/fbi-apostille-for-hague-countries/", "FBI Apostille", ""),
-    ("/fbi-attestation-legalization/", "FBI Legalization", ""),
+    ("/guides/#fbi", "FBI Resources", ""),
     ("/notary-apostille-services/", "English", "en"),
     ("/servicios-de-notaria-y-apostilla/", "Español", "es"),
 ]
@@ -219,30 +218,30 @@ def footer(lang="en"):
       <div class="footer__brand">
         <a href="/" class="footer__logo"><img src="/assets/img/logo-light.png" width="375" height="139" alt="{esc(BRAND)}" loading="lazy"></a>
         <p class="footer__line">{"Apostilla, legalización, notaría y preparación de documentos en Kansas City y en los 50 estados." if es else "Apostille, embassy legalization, notary and document preparation in Kansas City and across all 50 states."}</p>
-        <ul class="footer__social" role="list">{social}</ul>
+        <address class="footer__nap">
+          <strong>{esc(BRAND)}</strong><br>
+          <a href="{MAPS_URL}" target="_blank" rel="noopener">{STREET}<br>{CITY_LINE}</a><br>
+          <a href="{TEL}">{PHONE}</a><br>
+          <a href="mailto:{EMAIL}">{EMAIL}</a>
+        </address>
       </div>
       <nav class="footer__col" aria-labelledby="f-services"><h2 id="f-services">{"Servicios" if es else "Services"}</h2><ul role="list">{svc}<li><a href="/services/">{"Todos los servicios" if es else "All services"}</a></li></ul></nav>
       <nav class="footer__col" aria-labelledby="f-res"><h2 id="f-res">{"Recursos" if es else "Resources"}</h2><ul role="list">
-        <li><a href="/guides/">{"Guías" if es else "Guides"}</a></li>
+        <li><a href="/guides/">Guides</a></li>
         <li><a href="/how-to-get-an-apostille-in-kansas-city-birth-certificates-custodian-documents-more/">How to get an apostille</a></li>
         <li><a href="/urgent-notary-services-in-kansas-city-jail-hospital-after-hours-help/">Urgent notary help</a></li>
-        <li><a href="/about-us/">{"Nosotros" if es else "About"}</a></li>
-        <li><a href="{APPT}" target="_blank" rel="noopener">{"Citas" if es else "Appointments"}</a></li>
+        <li><a href="/notary-apostille-services/" lang="en" hreflang="en">English services</a></li>
+        <li><a href="/servicios-de-notaria-y-apostilla/" lang="es" hreflang="es">Servicios en español</a></li>
+        <li><a href="/notaria-en-carceles-de-kansas-cit/" lang="es" hreflang="es">Notaría en cárceles</a></li>
       </ul></nav>
-      <div class="footer__col"><h2 id="f-contact">{"Contacto" if es else "Contact"}</h2>
-        <address class="footer__nap" aria-labelledby="f-contact">
-          <strong>{esc(BRAND)}</strong>
-          <a href="{MAPS_URL}" target="_blank" rel="noopener">{STREET}<br>{CITY_LINE}</a>
-          <a href="{TEL}">{PHONE}</a>
-          <a href="mailto:{EMAIL}">{EMAIL}</a>
-          <a href="/contact-us/">{"Formulario de contacto" if es else "Contact form"}</a>
-        </address>
-      </div>
+      <nav class="footer__col" aria-labelledby="f-co"><h2 id="f-co">{"Empresa" if es else "Company"}</h2><ul role="list">
+        <li><a href="/about-us/">{"Nosotros" if es else "About"}</a></li>
+        <li><a href="/contact-us/">{"Contacto" if es else "Contact"}</a></li>
+        <li><a href="{APPT}" target="_blank" rel="noopener">{"Citas" if es else "Appointments"}</a></li>
+      </ul>
+      <ul class="footer__social" role="list">{social}</ul></nav>
     </div>
-    <div class="footer__legal">
-      <p class="footer__disclaimer">{DISCLAIMER_ES if es else DISCLAIMER}</p>
-      <nav class="footer__lang" aria-label="{"Idioma" if es else "Language"}"><a href="/notary-apostille-services/" lang="en" hreflang="en"{' aria-current="true"' if not es else ""}>English</a><a href="/servicios-de-notaria-y-apostilla/" lang="es" hreflang="es"{' aria-current="true"' if es else ""}>Español</a></nav>
-    </div>
+    <p class="footer__disclaimer">{DISCLAIMER_ES if es else DISCLAIMER}</p>
     <div class="footer__bottom">
       <p>© {YEAR} {esc(BRAND)}. {"Todos los derechos reservados." if es else "All rights reserved."} Developed and managed by Infin Digital.</p>
       <a class="footer__top-link" href="#top">{"Volver arriba" if es else "Back to top"}{icon("arrow-up-right")}</a>
@@ -321,8 +320,8 @@ PAGES = []
 HEAD_SCRIPT = ('''<script>(function(d){d.classList.add("js");if(!matchMedia("(prefers-reduced-motion: reduce)").matches)'''
                '''{d.classList.add("motion-pending");setTimeout(function(){d.classList.remove("motion-pending")},2500)}})'''
                '''(document.documentElement)</script>''')
-FONTS = ("https://fonts.googleapis.com/css2?family=Libre+Bodoni:wght@400..700"
-         "&amp;family=Public+Sans:wght@400..700&amp;display=swap")
+FONTS = ("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500..800"
+         "&amp;family=Inter:wght@400..700&amp;display=swap")
 BANNED = ["whether you", "seamless", "unlock", "empower", "elevate", "game-changing", "cutting-edge",
           "in today's", "at the intersection", "your trusted partner"]
 

@@ -1,7 +1,7 @@
 """Internal pages. One primary search intent per page; see docs/seo-route-map.md."""
 import os
 
-from components import (FBI_STEPS, HOME_FAQ, SERVICE_INDEX, breadcrumbs, checklist, contact_strip,
+from components import (FBI_STEPS, HOME_FAQ, JOURNEY, SERVICE_INDEX, breadcrumbs, checklist, contact_strip,
                         countries_explorer, cta_final, disclaimer, doc_stack, faq_section, fbi_timeline, label,
                         legal_route, page_hero, pricing_note, pull_quote, reviews_section, route_compare, rows,
                         service_index, shead, split)

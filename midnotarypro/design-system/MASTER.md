@@ -1,124 +1,113 @@
-# Midwest Apostille & Notary: Design System (Master, v5.1)
+# Midwest Apostille & Notary: Design System (Master)
 
-Source of truth for every page. Implemented as tokens on `:root` in `assets/css/site.css`, the
-Python components in `_build/components.py` and `_build/page_home.py`, and one motion config in
-`assets/js/site.js`. One website: one grid, one type system, one colour system, one motion system.
+Source of truth for every page. Implemented in `assets/css/site.css` (tokens on `:root`)
+and the Python components in `_build/components.py`.
 
 ## How this was chosen
 
 Decisions come from the UI/UX Pro Max skill (`.claude/skills/ui-ux-pro-max`):
 
-| Query | Used | Rejected |
+| Query | Result used | Rejected |
 |---|---|---|
-| `--domain style "editorial minimal swiss grid print"` | **Editorial Grid / Magazine**: asymmetric grid, section dividers, large imagery, print typography | Glass, bento, gradient-mesh and other SaaS styles |
-| `--domain color "legal professional services trust navy"` | Legal Services profile: authority navy plus a restrained gold. Refined to the client's direction: pure white page, near-black ink, deep navy, muted blue, brass used only for rules and marks | Bright blue CTA, blue-tinted page background |
-| `--domain typography "newspaper editorial magazine serif sans"` | **Magazine Style: Libre Bodoni + Public Sans**. A high-contrast Bodoni cut for text sizes, bold and very dark at display size; Public Sans is the U.S. Web Design System typeface, which suits government document work | EB Garamond and Newsreader (rejected by the client earlier), Cormorant (too light), Playfair + Inter (generic), Source Serif 4 + Inter (v4, judged not premium enough) |
-| `--design-system "legal document authentication editorial premium white"` | Black plus gold accent, restraint | The suggested Liquid Glass style and the off-white #FAFAF9 background: both conflict with the brief (pure white, no glass) |
-| `--domain gsap "scroll storytelling sticky mask reveal"` | Pin at most 1 to 2 sections per page; reveals are 8 to 16px fades; nothing crawlable hidden without a no-JS fallback | Back and elastic eases |
+| `--design-system "legal document authentication editorial institutional premium"` | Pattern: **Scroll-Triggered Storytelling** (readable without motion, progress indicator, final state under reduced motion). Palette direction: dark ink + warm metallic accent on warm off-white. | Style "Liquid Glass" (brief forbids glass and blur). Cormorant / Montserrat (fashion mood). |
+| `--domain style "editorial print magazine"` | **Editorial Grid / Magazine**: asymmetric grid, section dividers, large imagery, print typography. Cost low, accessibility risk low. | Exaggerated minimalism, Bauhaus. |
+| `--domain typography "editorial serif authoritative readable professional"` + `--domain google-fonts` | **Newsreader** (variable, optical sizes 6 to 72, designed for reading). Body: **Schibsted Grotesk**, a grotesk drawn for a news publisher. | EB Garamond / Public Sans (previous version, felt generic); Playfair; Roboto. |
+| `--domain gsap "image mask clip reveal"`, `"pinned scroll storytelling"` | Reveal y offsets 8 to 24px; scrub 0.5 to 1.5; **pin at most 1 to 2 sections per page**; never hide crawlable content without a no-JS fallback. | Back-eased stagger presets (too bouncy for the brand). |
 
 ## Colour
 
 | Token | Hex | Use |
 |---|---|---|
-| `--white` | `#FFFFFF` | Page background. White dominates. |
-| `--ink` | `#0B0D10` | Headings, strong rules, primary text (19.6:1) |
-| `--ink-2` | `#1D2228` | Body text (16:1) |
-| `--ink-3` | `#434A53` | Labels, captions, inactive states (8.9:1). The lightest text colour on white. |
-| `--navy` | `#0F2236` | Primary buttons, the route chapter |
-| `--ink-deep` | `#0A121C` | Footer |
-| `--slate` | `#3D5670` | Stamps, Hague countries on maps |
-| `--brass` | `#A8834B` | The one accent: rules, seals, quote marks, map routes. Never body text. |
-| `--brass-ink` | `#6B4D1F` | Accent text on white (running numbers) |
-| `--mist` | `#EEF1F4` | Image placeholders and map land only. Never a section ground. |
-| `--paper` | `#FFFFFF` | Paper objects are white and separated by a hairline and `--shadow-paper` |
+| `--ink` | `#141a22` | Headings, primary text |
+| `--ink-2` | `#3b434e` | Body text |
+| `--ink-3` | `#5c6570` | Labels, captions (4.5:1 on ivory) |
+| `--navy` | `#16263a` | Primary buttons, dark sections |
+| `--navy-deep` | `#0f1b2a` | Footer |
+| `--slate` | `#48627a` | Muted blue: Hague countries, notary stamp |
+| `--ivory` | `#f4f0e7` | Page background (with 4.5% paper grain) |
+| `--paper` | `#fbfaf6` | Soft white surfaces |
+| `--bone` | `#ebe5d8` | Alternate band |
+| `--brass` | `#b08d57` | Warm metallic accent: rules, markers, seals |
+| `--brass-ink` | `#7a5b2b` | Accent text on light backgrounds |
+| `--seal` | `#8c2d27` | Wax red, used only for ribbons, errors and callout rules |
 
-Section rhythm on the home page (v5.1, "midnight navy"): **navy** hero with a cropped client photo,
-white 01 route, **navy** 02 journey, white 03 services, **navy** 04 FBI, white 05 notary, **navy** 06
-preparation, white 07 explorer, **navy** 08 trust, white 09 questions, **navy** CTA, ink footer.
-Sections are separated by the change of ground, never by a rule above the header. Dark chapters use
-`.tone-dark`, which swaps the colour tokens (ink becomes #F5F2EB, rules become light) so every
-component works on both grounds; paper objects inside a dark chapter keep paper tokens.
-
-Rules: no gradients, glows, blobs or glass. Inactive states change colour, never opacity below
-contrast. One shadow token (`--shadow-paper`), used only on paper objects and the dropdown.
+Rules: no gradients except the two small foil seals; no glow, no blur, no glass. One shadow
+style (soft, long, low) and only on paper objects (certificates, document cards, dropdown).
 
 ## Typography
 
-Two families. No italics.
+Two families only.
 
 | Role | Font | Size | Weight / leading |
 |---|---|---|---|
-| Display (home H1 line) | Libre Bodoni | `--fs-display` clamp(3.1rem … 8.75rem) | 600 / 0.94, tracking -0.03em |
-| H1 (inner) | Libre Bodoni | `--fs-h1` clamp(2.5rem … 4.5rem) | 600 / 1.04 |
-| H2 (section) | Libre Bodoni | `--fs-h2` clamp(2rem … 3.4rem) | 600 / 1.08, max 19ch |
-| H3 | Libre Bodoni | `--fs-h3` clamp(1.35rem … 1.75rem) | 600 / 1.2 |
-| Stats | Libre Bodoni | clamp(3.2rem … 6.5rem) | 500 / 0.95, tabular numbers |
-| Body | Public Sans | 1.0625rem | 400 / 1.65 |
-| Lead | Public Sans | clamp(1.06rem … 1.22rem) | 400 |
-| Eyebrow / label | Public Sans | 0.75rem uppercase, 0.14em | 600 / 700 |
-| Navigation / button | Public Sans | 0.9375rem | 500 / 600 |
-| Caption | Public Sans | 0.8125rem | 400 |
+| Display (home H1 line) | Newsreader | clamp(3.4rem … 8.1rem) | 330 / 0.93, tracking -0.032em, italic second line |
+| H1 (inner) | Newsreader | clamp(2.5rem … 5.6rem) | 340 / 1.0 |
+| H2 (section) | Newsreader | clamp(2.1rem … 4rem) | 360 / 1.04, max 19ch |
+| H3 | Newsreader | 1.25 to 1.9rem | 400 to 430 / 1.2 |
+| H4 / prose H3 | Schibsted Grotesk | 1.02rem | 700 |
+| Body | Schibsted Grotesk | 1.0625rem | 400 / 1.65 |
+| Small / caption | Schibsted Grotesk or Newsreader italic | 0.75 to 0.875rem | |
+| Navigation | Schibsted Grotesk | 0.9375rem | 500 |
+| Buttons | Schibsted Grotesk | 0.9375rem | 600 |
+| Labels | Schibsted Grotesk | 0.75rem uppercase, 0.14em tracking | 600 |
+| Numbers | Newsreader italic in brass-ink | 1 to 1.1rem | editorial numbering (01, 02…) |
 
-Eyebrow labels (hero, inner hero, closing CTA) start with a small brass seal mark (ring and centre dot), echoing the document seal. No dash rules.
+## Grid and spacing
 
-The home H1 is one element: a small eyebrow line ("Apostille & Notary Services in Kansas City", the
-keyword) and the display lines "Documents ready / for the world.", set across the full grid with the
-second line indented like a printed front page.
+- Container 1360px plus a fluid gutter `clamp(16px, 4vw, 48px)`.
+- 12 columns. Section headers put the number/label in columns 1 to 3 and the H2 in columns 4 to 11.
+- Section padding `clamp(4rem, 2.25rem + 5vw, 7.5rem)`.
+- Hairline rules (`--rule`, 14% ink) separate everything instead of boxes. Radius is 2px on
+  buttons and inputs and 0 elsewhere.
 
-## Grid, spacing, shape
+## Components
 
-- Container 1280px plus gutter `clamp(16px, 4vw, 48px)`. Every section uses it.
-- 12 columns. Section headers: number and label in columns 1 to 3, heading in 4 to 11. Split
-  compositions use 1 to 6 / 8 to 12 (or 1 to 7 / 9 to 12), so edges line up down the page.
-- Spacing scale: 8, 16, 24, 32, 48, 64, 96, 128 (`--s1` to `--s8`). Section padding
-  `clamp(4rem, 2rem + 6vw, 8rem)`.
-- Radius 2px on buttons and inputs, 0 elsewhere; circles only for dots and seals.
-- No decorative lines: no rules above headers, between list rows, table rows, stats, contacts or footer blocks. Space, numbers and type weight separate things. Lines remain only where they carry meaning: button and input outlines, focus rings, link underlines, the active tab underline, timeline connectors, and the drawn details on paper documents. No card grids.
-
-## Signature motif
-
-A paper document that is signed, sealed and stamped **READY FOR INTERNATIONAL USE**.
-It appears in the hero ledger (the four stages drawn in order), the route builder (the stamp presses when the route
-changes), the process section (the document gains a notary stamp, an apostille and the final stamp)
-and the notary slip (signature draws, stamp, "Notarized").
-
-## Components (home)
-
-Story order: Hero, 01 Document route, 02 Apostille journey, 03 Services, 04 FBI Hague vs non-Hague,
-05 Notary, 06 Document preparation, 07 Country explorer, 08 Trust, 09 Questions, Final CTA.
-
-| Section | Interaction |
-|---|---|
-| Hero (navy) | A cropped client photograph (apostille certificates) bleeds off the right edge and fades into the navy; the world map is drawn in light lines behind the headline with brass routes from Kansas City to ten destinations (hover a country for its name, hover a destination for its route, click one to set it in the route sentence; routes cycle when idle). Headline lines rise; the ledger plays Document (lines written), Signed (signature drawn), Sealed (seal turns in), Ready (stamp presses) under a brass rule that fills. Click the ledger to replay. On phones the photo sits above the headline as a band. |
-| 01 Route builder | One sentence: "I have [document], going to [destination] for [purpose]." Each blank is a native select sized to its chosen words; the destination select also lists every country, grouped Hague / non-Hague, and the hero map sets it. Below, a paper route sheet: summary, numbered stations in one row (as many columns as steps), note, READY stamp that presses on change, and the CTA. |
-| Apostille process | The only pinned section: 300vh on desktop, four stages driven by scroll, track buttons jump to a stage. Phones: no pin; the document plays its four states once in view, then all steps stay readable. |
-| FBI paths (mist) | Hague and non-Hague columns with a central divider that fills on scroll; steps light as they enter; the switch highlights one path. |
-| Notary | Three tabs (arrow keys), photo swaps through a side mask, signing slip completes in view and replays on tab change. |
-| Document preparation | Seven rows (fixed height); hover, click or arrow keys bring that sheet to the front of the stack; the description is printed on the sheet. |
-| Country explorer | Search, text-tab regions, map, destination record. |
-| Trust | Four figures count up once in view (50 states, the computed Hague count, 100+ destinations, 4 languages), then one quote at a time, numbered index of reviewers, previous and next. No autoplay. |
-| Questions | Accordion plus the two guides as ruled text links (no image cards). Quiet. |
+| Component | Where | Notes |
+|---|---|---|
+| Header | all | Transparent over ivory, turns solid with a hairline and compact height after 16px of scroll. Brass progress line. Dropdowns are plain link lists, no descriptions. EN / ES switch. |
+| Drawer | < 1100px | Full-screen ivory sheet, serif links, clip-path reveal, focus trap, Escape to close. |
+| Section header (`shead`) | all | Running number, label, serif H2, optional lead. |
+| Rows | all | Numbered editorial rows instead of icon cards. 1, 2, 3 or 4 columns. |
+| Checklist | all | Hairline list with a small brass check. |
+| Buttons | all | Primary navy, secondary outline, light / outline-light on navy, text. Fill wipes in from the left on hover, arrow nudges. |
+| Links | all | Underline retracts and redraws on hover, arrow moves 4px. |
+| Hero composition | home | Photographed plate + inset photo + HTML apostille certificate with drawn signature and foil seal. |
+| Document journey | home | Sticky document stage that gains a stamp, seal, apostille, translation and shipping route across 7 chapters. |
+| Service index | home, services, 404 | Large serif service names; hover or focus swaps a masked image in a sticky preview. |
+| Route tabs | home, services, apostille | Hague vs non-Hague stations with a destination lookup. |
+| Country explorer | home, apostille, FBI apostille | Map + crawlable region lists + "record card" panel. |
+| FBI timeline / legalization route | FBI pages | Sticky image, progress line; navy map with arc to the destination embassy. |
+| Record card | explorer, legal route | Paper card with a dashed inner rule, like an official record. |
+| Pull quote | about, notary, doc prep | Navy band, Newsreader italic. |
+| Price facts | apostille | Large serif figures under a heavy rule. |
+| Forms | contact | Visible labels, required marked in text, errors under the field, focus ring. |
+| Breadcrumbs | every inner page | Slash separated, plus BreadcrumbList JSON-LD. |
+| Final CTA | all | Navy with faint ruled-paper lines. |
 
 ## Motion
 
-One system, mirrored in CSS and JS (`T` in `site.js`):
+GSAP 3.12 + ScrollTrigger (deferred, CDN). Hierarchy:
 
-| Token | Duration | Use |
+| Level | Where | Motion |
 |---|---|---|
-| micro | 200ms | Hover colour, underline |
-| UI | 400ms | Tabs, toggles, crossfades |
-| reveal | 800ms | Section entrances (fade plus 16px rise) |
-| story | 1100ms | Hero lines, signature, process states |
+| High | Home hero | Word rise on the display line, plate mask reveal, inset wipe, certificate drops in, fields draw, signature writes, seal presses. Scroll moves the three layers at different speeds. |
+| Medium | Section headings, image masks, journey stage | Word rise, clip-path reveals from the bottom edge, stage state changes (CSS transitions). |
+| Subtle | Rows, lists, panels | 14 to 24px fade-up, stagger 0.06s, max 10 items. |
+| Micro | Buttons, links, CTAs | Fill wipe, arrow nudge, magnetic pull on the two main CTAs. |
+| Very subtle | Navigation | Underline, header compaction. |
+| None | Footer | |
 
-Easing: `cubic-bezier(0.2, 0.7, 0.2, 1)` (GSAP `power3.out`), no bounce. Wow moments: hero and route
-builder. Interactive: services, process, FBI, notary, document preparation. Quiet: FAQ, guides,
-footer. Scroll work runs only while a section is on screen (`whileVisible`). Under
-`prefers-reduced-motion` and without JavaScript everything renders in its final, readable state.
+Durations 0.45 to 1.2s; easing `power3.out` / `power4.out`, never back or elastic, except the seal "press".
+Only one sticky storytelling section per page. Under `prefers-reduced-motion` all transitions are
+removed and every element renders in its final state; without JavaScript the journey stage shows
+the completed document. A 2.5s CSS guard (`motion-pending`) prevents a flash before GSAP sets the
+hero start state.
 
 ## Images
 
-Client photos only, WebP in two sizes with `srcset`, explicit dimensions, lazy below the fold. One
-shared grade (`saturate(0.86) contrast(1.02)`) so the set reads as one. The hero document is HTML and SVG; the world map behind every hero is the site's own SVG map.
+Client photos only, WebP in two sizes (`-sm` 800w, `-lg` up to 1600w) with `srcset`, explicit
+width and height, lazy below the fold, preloaded with `fetchpriority="high"` for each page hero.
+Every image has an `alt` attribute; images inside decorative compositions use `alt=""`.
 
 ## Writing rules
 
@@ -126,5 +115,5 @@ shared grade (`saturate(0.86) contrast(1.02)`) so the set reads as one. The hero
 - Banned phrases (enforced by the build): "whether you", "seamless", "unlock", "empower", "elevate",
   "game-changing", "cutting-edge", "in today's", "at the intersection", "your trusted partner".
   Client reviews are quoted as written and exempt.
-- Only facts from the client's content PDF. Prices and turnaround live in `_build/facts.py`. The
-  Hague count is computed from `_build/countries.py`.
+- Short, direct, American English. One idea per paragraph.
+- Only facts from the client's content PDF. Prices and turnaround live in `_build/facts.py`.
