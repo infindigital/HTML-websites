@@ -51,7 +51,12 @@ def hero():
       </form>
     </div>
     <div class="hero__art" aria-hidden="true" data-hero-art>
-      <figure class="hero__inset" data-hero-inset>{img("notary-seal", "", "(min-width: 1024px) 16vw, 40vw")}</figure>
+      <div class="ncert" data-hero-inset>
+        <p class="ncert__title">Notarial Certificate</p>
+        <p class="ncert__sub">State of Missouri</p>
+        <span class="ncert__line"></span><span class="ncert__line ncert__line--m"></span><span class="ncert__line"></span><span class="ncert__line ncert__line--s"></span>
+        <div class="ncert__foot"><span class="ncert__sign">Notary signature</span><span class="ncert__stamp">Notary<br>Public</span></div>
+      </div>
       <div class="acert" data-hero-cert>
         <p class="acert__title">Apostille</p>
         <p class="acert__sub">(Convention de La Haye du 5 octobre 1961)</p>
