@@ -561,15 +561,14 @@ details[open] > summary .drawer__plus::after { transform: rotate(0deg); }
 .sindex__list { }
 .sindex__row { }
 .sindex__link {
-  display: grid; grid-template-columns: 2.75rem minmax(0, 1fr) auto; grid-template-areas: "n name thumb" "n desc desc" "n meta meta";
+  display: grid; grid-template-columns: 2.75rem minmax(0, 1fr); grid-template-areas: "n name" "n desc" "n meta";
   column-gap: 0.75rem; row-gap: 0.35rem; padding: 1.5rem 0; position: relative;
 }
 .sindex__n { grid-area: n; font-family: var(--serif); font-style: normal; font-size: 1rem; color: var(--brass-ink); padding-top: 0.55rem; transition: color var(--t-fast); }
 .sindex__name { grid-area: name; font-family: var(--serif); font-size: clamp(1.5rem, 1.05rem + 1.6vw, 2.4rem); font-weight: 700; line-height: 1.1; letter-spacing: -0.03em; transition: transform 0.6s var(--ease-out), color var(--t-fast); }
 .sindex__desc { grid-area: desc; color: var(--ink-2); font-size: 0.97rem; max-width: 52ch; }
 .sindex__meta { grid-area: meta; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-3); }
-.sindex__thumb { grid-area: thumb; width: 64px; aspect-ratio: 1; overflow: hidden; }
-.sindex__thumb img { width: 100%; height: 100%; object-fit: cover; }
+.sindex__thumb { display: none; }
 .sindex__go { display: none; }
 .sindex__preview { display: none; }
 @media (min-width: 1100px) {
