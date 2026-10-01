@@ -5,12 +5,32 @@ import { categories, type CategoryKey } from "./navigation";
  * testimonials or claims that are not on the live site.
  */
 
-export const heroSlides = [
+export type HeroSlide = {
+  id: string;
+  lines: string[];
+  jersey: string;
+  tone: string;
+  accent: string;
+  /** Optional per-slide label and line; the hero defaults are used otherwise. */
+  eyebrow?: string;
+  text?: string;
+};
+
+export const heroSlides: HeroSlide[] = [
   { id: "identity", lines: ["Wear your", "identity."], jersey: "black-gold", tone: "#e9dfc6", accent: "#b8932a" },
   { id: "game", lines: ["Built for", "your game."], jersey: "blue-geometric", tone: "#d3e5f6", accent: "#1f6fd1" },
   { id: "yours", lines: ["Make it", "yours."], jersey: "yellow-basketball", tone: "#f4e6a2", accent: "#c79a00" },
   { id: "team", lines: ["Your team.", "Your style."], jersey: "red-wolf", tone: "#f1d4ce", accent: "#c4251c" },
-] as const;
+  {
+    id: "corporate",
+    lines: ["Your brand.", "Your team.", "Your T‑shirts."],
+    jersey: "corporate",
+    tone: "#e6e2d6",
+    accent: "#b8932a",
+    eyebrow: "Corporate apparel",
+    text: "Custom corporate T-shirts designed for teams, events, businesses and branded campaigns.",
+  },
+];
 
 /** The three promises from the live homepage. */
 export const pillars = [

@@ -124,7 +124,7 @@ export default function Hero() {
                   {...front}
                   priority={index === 0}
                   sizes="(min-width: 1024px) 30vw, 55vw"
-                  alt={`Player wearing the iTHREE ${kit.name} jersey, front view`}
+                  alt={slide.id === "corporate" ? "Custom corporate polo T-shirt with a logo on the chest, front view" : `Player wearing the iTHREE ${kit.name} jersey, front view`}
                   className="h-full w-auto object-contain drop-shadow-[0_40px_40px_rgb(0_0_0/0.18)]"
                 />
               </motion.div>
@@ -138,9 +138,9 @@ export default function Hero() {
         <div className="lg:w-[52%]">
           <p className="label enter-fade flex items-center gap-3 text-mute">
             <Mark />
-            Custom team kits · iThree Sports Wear
+            {slide.eyebrow ?? "Custom team kits · iThree Sports Wear"}
           </p>
-          <h1 className="display-xxl mt-5 text-[clamp(3rem,13.5vw,5.5rem)] lg:mt-7 lg:text-[min(7.2vw,8.6rem)]" aria-live={running ? "off" : "polite"}>
+          <h1 className={`display-xxl mt-5 lg:mt-7 ${slide.lines.length > 2 ? "text-[clamp(2.6rem,11.5vw,4.6rem)] lg:text-[min(5.6vw,6.6rem)]" : "text-[clamp(3rem,13.5vw,5.5rem)] lg:text-[min(7.2vw,8.6rem)]"}`} aria-live={running ? "off" : "polite"}>
             <AnimatePresence mode="wait" initial={false}>
               <motion.span key={slide.id} className="block" exit={{ opacity: 0, y: -16 }} transition={{ duration: 0.35, ease: "easeIn" }}>
                 {slide.lines.map((line, i) => (
@@ -176,7 +176,7 @@ export default function Hero() {
           </div>
           <div data-hero-copy className="max-lg:hidden">
             <p className="lede enter-fade mt-8 max-w-md [animation-delay:400ms]">
-              Custom performance wear designed around your team, your colours and your identity.
+              {slide.text ?? "Custom performance wear designed around your team, your colours and your identity."}
             </p>
             <div className="enter-fade mt-10 flex flex-wrap gap-3 [animation-delay:550ms]">
               <Button href="#contact" cursor="Start">

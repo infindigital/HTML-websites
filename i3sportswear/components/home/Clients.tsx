@@ -1,22 +1,13 @@
-import { Img, Kicker } from "./ui";
+import { Kicker } from "./ui";
+import LogoStrip from "./LogoStrip";
 import { clients, testimonials } from "@/config/content";
 
 /**
  * Clients, straight after the hero: the supplied client logos in full
- * colour on a slow marquee that pauses on hover; under reduced motion they
- * simply wrap.
+ * colour on a strip that glides on its own and scrolls by hand (LogoStrip).
  */
 export function Clients() {
   if (!clients.length) return null;
-  const row = (hidden: boolean) => (
-    <ul aria-hidden={hidden || undefined} className="flex shrink-0 items-center gap-16 pr-16 motion-reduce:flex-wrap motion-reduce:justify-center lg:gap-24 lg:pr-24">
-      {clients.map((c) => (
-        <li key={c.name} className="shrink-0">
-          <Img src={c.src} alt={hidden ? "" : c.name} width={520} height={164} className="h-12 w-auto object-contain transition-transform duration-500 hover:scale-105 lg:h-16" />
-        </li>
-      ))}
-    </ul>
-  );
   return (
     <section aria-labelledby="clients-title" className="border-y border-line bg-white py-16 lg:py-20">
       <div className="shell flex items-baseline justify-between gap-6">
@@ -24,12 +15,7 @@ export function Clients() {
           <span id="clients-title">Trusted by teams and organisations</span>
         </Kicker>
       </div>
-      <div className="group mt-10 flex overflow-hidden [mask-image:linear-gradient(90deg,transparent,#000_8%,#000_92%,transparent)] motion-reduce:[mask-image:none]">
-        <div className="flex animate-[marquee_38s_linear_infinite] group-hover:[animation-play-state:paused] motion-reduce:w-full motion-reduce:animate-none motion-reduce:justify-center">
-          {row(false)}
-          <div className="contents motion-reduce:hidden">{row(true)}</div>
-        </div>
-      </div>
+      <LogoStrip />
     </section>
   );
 }

@@ -2,6 +2,7 @@
 Builds every image the homepage uses from the two supplied ZIPs:
 
     jersey new photos.zip          -> public/images/jerseys/
+    coprorate.png                  -> public/images/jerseys/corporate-*
     remaining homepage photos.zip  -> clients/, uniforms/, process/, icons/
 
 Jerseys: the studio background is removed (rembg, isnet-general-use) and each
@@ -9,7 +10,8 @@ photo is split into the front figure, the back figure and the pair. The
 garments themselves are never edited. Re-run after replacing a ZIP:
 
     pip install "rembg[cpu]" pillow
-    python3 scripts/process_assets.py
+    python3 scripts/process_assets.py            # everything
+    python3 scripts/process_assets.py corporate  # just the corporate polo
 """
 
 import io
@@ -89,15 +91,12 @@ def members(zf):
             yield os.path.basename(info.filename), zf.read(info)
 
 
-def jerseys():
-    from rembg import new_session, remove
+def cut_out(jid, data, session):
+    """Front, back and pair cut-outs of one front-and-back studio photo."""
+    from rembg import remove
 
-    session = new_session("isnet-general-use")
-    with zipfile.ZipFile(os.path.join(ROOT, "jersey new photos.zip")) as zf:
-        for name, data in members(zf):
-            if name not in JERSEYS:
-                continue
-            jid = JERSEYS[name]
+    if True:
+        if True:
             src = Image.open(io.BytesIO(data)).convert("RGB")
             cut = remove(src, session=session, alpha_matting=True,
                          alpha_matting_foreground_threshold=240, alpha_matting_background_threshold=15)
@@ -117,6 +116,23 @@ def jerseys():
             for size in (640, 1200):
                 save_webp(pair, f"{d}/{jid}-pair-{size}.webp", width=size)
             print(jid, "front", front.size, "back", back.size, "pair", pair.size)
+
+
+def jerseys():
+    from rembg import new_session
+
+    session = new_session("isnet-general-use")
+    with zipfile.ZipFile(os.path.join(ROOT, "jersey new photos.zip")) as zf:
+        for name, data in members(zf):
+            if name in JERSEYS:
+                cut_out(JERSEYS[name], data, session)
+
+
+def corporate():
+    from rembg import new_session
+
+    with open(os.path.join(ROOT, "coprorate.png"), "rb") as f:
+        cut_out("corporate", f.read(), new_session("isnet-general-use"))
 
 
 def homepage():
@@ -141,6 +157,12 @@ def homepage():
 
 
 if __name__ == "__main__":
+    import sys
+
     os.makedirs(os.path.join(OUT, "icons"), exist_ok=True)
-    homepage()
-    jerseys()
+    if sys.argv[1:] == ["corporate"]:
+        corporate()
+    else:
+        homepage()
+        jerseys()
+        corporate()

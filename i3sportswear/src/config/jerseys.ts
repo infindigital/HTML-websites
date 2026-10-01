@@ -32,7 +32,13 @@ export const jerseys: Jersey[] = [
   { id: "black-full-sleeve", name: "Black Full Sleeve", sport: null, category: null, tone: "#dedcd8", ink: "dark" },
 ];
 
-export const jerseyById = (id: string) => jerseys.find((j) => j.id === id)!;
+/**
+ * The corporate polo (coprorate.png). Kept out of `jerseys` so the archive
+ * stays the twelve sports designs; used by the hero and the corporate section.
+ */
+export const corporateKit: Jersey = { id: "corporate", name: "Corporate Polo", sport: null, category: null, tone: "#e6e2d6", ink: "dark" };
+
+export const jerseyById = (id: string) => (id === corporateKit.id ? corporateKit : jerseys.find((j) => j.id === id)!);
 
 export const jerseySrc = (id: string, view: "front" | "back" | "pair", size: "s" | "l" = "l") => {
   const px = view === "pair" ? (size === "s" ? 640 : 1200) : size === "s" ? 520 : 1000;

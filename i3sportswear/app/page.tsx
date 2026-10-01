@@ -1,6 +1,7 @@
 import Hero from "@/components/home/Hero";
 import Statement from "@/components/home/Statement";
 import SportTiles from "@/components/home/SportTiles";
+import Corporate from "@/components/home/Corporate";
 import OfficialJerseys from "@/components/home/OfficialJerseys";
 import JerseyShowcase from "@/components/home/JerseyShowcase";
 import SportsShowcase from "@/components/home/SportsShowcase";
@@ -17,6 +18,7 @@ export default function Home() {
       <main id="main">
         <Hero />
         <Clients />
+        <Corporate />
         <SportTiles />
         <Statement />
         <JerseyShowcase />

@@ -72,14 +72,14 @@ export default function Header() {
         <nav
           aria-label="Primary"
           className={`shell flex items-center justify-between gap-6 transition-[height] duration-500 ease-[var(--ease-out-expo)] ${
-            scrolled ? "h-16 lg:h-[4.25rem]" : "h-[4.75rem] lg:h-[5.5rem]"
+            scrolled ? "h-[4.25rem] lg:h-[4.5rem]" : "h-[5rem] lg:h-[6rem]"
           }`}
         >
           <a
             href={pages.home.href}
             aria-label="iTHREE Sports Wear home"
             className={`relative z-10 block shrink-0 transition-[height] duration-500 ease-[var(--ease-out-expo)] ${
-              scrolled ? "h-10 lg:h-11" : "h-12 lg:h-14"
+              scrolled ? "h-12 lg:h-[3.25rem]" : "h-14 lg:h-[4.25rem]"
             }`}
           >
             <Logo priority />

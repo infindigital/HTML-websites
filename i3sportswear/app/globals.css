@@ -71,6 +71,11 @@ body {
   outline: 2px solid var(--color-ink);
   outline-offset: 3px;
 }
+/* Text fields mark focus with their gold underline instead of a box. */
+input:focus-visible,
+textarea:focus-visible {
+  outline: none;
+}
 
 /* ---------- Type ---------- */
 @utility display-xxl {
