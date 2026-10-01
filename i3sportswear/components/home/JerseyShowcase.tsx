@@ -60,14 +60,14 @@ export default function JerseyShowcase() {
       className="relative bg-white transition-colors duration-700"
       style={tint ? { backgroundColor: `color-mix(in srgb, ${tint} 38%, white)` } : undefined}
     >
-      <div data-archive-pin className="flex min-h-[100svh] flex-col justify-center gap-10 overflow-hidden py-20 lg:gap-10 lg:pt-28 lg:pb-10">
+      <div data-archive-pin className="flex min-h-[100svh] flex-col justify-center gap-10 overflow-hidden py-20 lg:h-[100svh] lg:min-h-0 lg:gap-[min(2.5rem,4svh)] lg:pt-[calc(var(--header-h)+min(2rem,3svh))] lg:pb-[min(2.5rem,4svh)]">
         <div className="shell flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
           <div>
             <Kicker index="02">Jersey archive</Kicker>
-            <h2 id="jerseys-title" data-reveal className="display-lg mt-6 lg:text-[min(4.6vw,4.75rem)]">
+            <h2 id="jerseys-title" data-reveal className="display-lg mt-6 lg:mt-[min(1.5rem,2svh)] lg:text-[min(4.6vw,4.75rem,8svh)]">
               <Lines lines={["Our custom", <>jersey designs<span className="text-gold">.</span></>]} />
             </h2>
-            <p data-fade className="mt-4 max-w-md text-mute">
+            <p data-fade className="mt-4 max-w-md text-mute lg:mt-[min(1rem,1.5svh)]">
               Explore selected custom jersey designs created for teams, clubs and sporting identities.
             </p>
           </div>
@@ -88,7 +88,7 @@ export default function JerseyShowcase() {
 
         <div
           ref={track}
-          className="no-scrollbar flex snap-x snap-mandatory gap-4 overflow-x-auto px-[var(--gutter)] [&.is-pinned]:snap-none [&.is-pinned]:overflow-visible lg:gap-6"
+          className="no-scrollbar flex lg:min-h-0 lg:flex-1 snap-x snap-mandatory gap-4 overflow-x-auto px-[var(--gutter)] [&.is-pinned]:snap-none [&.is-pinned]:overflow-visible lg:gap-6"
         >
           {jerseys.map((j, i) => {
             const { productUrl, matched } = jerseyProduct(j);
@@ -134,7 +134,7 @@ export default function JerseyShowcase() {
               onMouseEnter: () => setTint(j.tone),
               onMouseLeave: () => setTint(null),
               className:
-                "group relative flex h-[min(118vw,560px)] w-[78vw] shrink-0 snap-start flex-col overflow-hidden sm:w-[46vw] lg:h-[min(calc(100svh-19rem),640px)] lg:w-[min(27vw,460px)]",
+                "group relative flex h-[min(118vw,560px)] w-[78vw] shrink-0 snap-start flex-col overflow-hidden sm:w-[46vw] lg:h-full lg:max-h-[640px] lg:w-[min(27vw,460px)]",
               style: { backgroundColor: j.tone },
             };
             // Only a verified product match becomes a link (src/config/productUrls.ts).

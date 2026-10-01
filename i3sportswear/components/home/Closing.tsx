@@ -57,38 +57,38 @@ export function Contact() {
   useReveal(root);
 
   return (
-    <section id="contact" ref={root} aria-labelledby="contact-title" className="bg-white py-24 lg:py-32">
-      <div className="shell grid gap-12 lg:grid-cols-12 lg:items-end lg:gap-16">
+    <section id="contact" ref={root} aria-labelledby="contact-title" className="border-t border-line bg-white py-14 lg:py-16">
+      <div className="shell grid gap-8 lg:grid-cols-12 lg:items-center lg:gap-12">
         <div className="lg:col-span-6">
           <Kicker index="10">Contact</Kicker>
-          <h2 id="contact-title" data-reveal className="display-lg mt-6">
-            <Lines lines={["Contact", <>us<span className="text-gold">.</span></>]} />
+          <h2 id="contact-title" data-reveal className="display-lg mt-4 text-[clamp(2.25rem,5vw,3.75rem)]">
+            <Lines lines={[<>Contact us<span className="text-gold">.</span></>]} />
           </h2>
-          <p data-fade className="lede mt-6 max-w-lg">
+          <p data-fade className="mt-4 max-w-lg text-mute">
             Tell us about your team, your sport and what you need on our contact form, and we&rsquo;ll get back to you with designs and a quote.
           </p>
-          <div data-fade className="mt-10">
+          <div data-fade className="mt-6">
             <Button href={pages.contact.href} cursor="Quote">Request a quote</Button>
           </div>
         </div>
 
-        <ul data-fade className="flex flex-col border border-line text-[0.95rem] text-mute lg:col-span-5 lg:col-start-8">
+        <ul data-fade className="flex flex-col border border-line text-[0.95rem] text-mute lg:col-span-6 lg:col-start-7">
           <li className="border-b border-line">
-            <a href={PHONE.href} className="flex items-center gap-4 px-6 py-5 transition-colors hover:bg-paper hover:text-ink">
+            <a href={PHONE.href} className="flex items-center gap-4 px-5 py-3.5 transition-colors hover:bg-paper hover:text-ink">
               <PhoneIcon className="h-4 w-4 shrink-0 text-gold-deep" /> {PHONE.display}
             </a>
           </li>
           {EMAIL && (
             <li className="border-b border-line">
-              <a href={`mailto:${EMAIL}`} className="flex items-center gap-4 break-all px-6 py-5 transition-colors hover:bg-paper hover:text-ink">
+              <a href={`mailto:${EMAIL}`} className="flex items-center gap-4 break-all px-5 py-3.5 transition-colors hover:bg-paper hover:text-ink">
                 <MailIcon className="h-4 w-4 shrink-0 text-gold-deep" /> {EMAIL}
               </a>
             </li>
           )}
-          <li className="flex items-start gap-4 border-b border-line px-6 py-5">
+          <li className="flex items-start gap-4 border-b border-line px-5 py-3.5">
             <ClockIcon className="mt-1 h-4 w-4 shrink-0 text-gold-deep" /> {OPENING_HOURS.days}, {OPENING_HOURS.time}
           </li>
-          <li className="flex items-start gap-4 px-6 py-5">
+          <li className="flex items-start gap-4 px-5 py-3.5">
             <PinIcon className="mt-1 h-4 w-4 shrink-0 text-gold-deep" /> {ADDRESS.full}
           </li>
         </ul>
