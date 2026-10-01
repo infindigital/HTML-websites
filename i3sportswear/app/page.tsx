@@ -1,30 +1,33 @@
-import Hero from "@/components/Hero";
-import JerseyLab from "@/components/JerseyLab";
-import Sports from "@/components/Sports";
-import Customize from "@/components/Customize";
-import Process from "@/components/Process";
-import Identity from "@/components/Identity";
-import Archive from "@/components/Archive";
-import { Clients, Testimonials, Trust } from "@/components/Proof";
-import { FinalCta, Footer } from "@/components/Closing";
+import Hero from "@/components/home/Hero";
+import Statement from "@/components/home/Statement";
+import JerseyShowcase from "@/components/home/JerseyShowcase";
+import SportsShowcase from "@/components/home/SportsShowcase";
+import Customize from "@/components/home/Customize";
+import Process from "@/components/home/Process";
+import About from "@/components/home/About";
+import WhyChoose from "@/components/home/WhyChoose";
+import { Clients, Testimonials } from "@/components/home/Clients";
+import { Contact, FinalCta, Footer, WhatsAppFloat } from "@/components/home/Closing";
 
 export default function Home() {
   return (
     <>
       <main id="main">
         <Hero />
-        <JerseyLab />
-        <Sports />
+        <Statement />
+        <JerseyShowcase />
+        <SportsShowcase />
         <Customize />
         <Process />
-        <Identity />
-        <Archive />
-        <Trust />
+        <About />
+        <WhyChoose />
         <Clients />
         <Testimonials />
         <FinalCta />
+        <Contact />
       </main>
       <Footer />
+      <WhatsAppFloat />
     </>
   );
 }

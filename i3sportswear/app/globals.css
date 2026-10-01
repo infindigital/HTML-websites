@@ -1,21 +1,24 @@
 @import "tailwindcss";
 
 /* ============================================================
-   iTHREE design tokens
-   Ratio target: ~85% black/graphite, ~10% light, ~5% gold.
+   iTHREE: light editorial system.
+   Paper and white grounds, ink type, gold used sparingly. Jersey
+   colours appear as panels behind the product, one at a time.
    ============================================================ */
-@custom-variant light (&:where([data-theme="light"], [data-theme="light"] *));
-
 @theme {
-  --color-ink: #050505;
-  --color-coal: #0b0b0b;
-  --color-graphite: #151515;
-  --color-line: rgb(245 245 242 / 0.1);
-  --color-bone: #f5f5f2;
-  --color-mute: rgb(245 245 242 / 0.62);
-  --color-faint: rgb(245 245 242 / 0.4);
+  --color-paper: #f5f5f2;
+  --color-white: #ffffff;
+  --color-stone: #edede8;
+  --color-ink: #0b0b0b;
+  --color-ink-2: #151515;
+  --color-mute: rgb(11 11 11 / 0.64);
+  --color-faint: rgb(11 11 11 / 0.48);
+  --color-line: rgb(11 11 11 / 0.12);
   --color-gold: #c9a227;
   --color-gold-soft: #e0c15a;
+  /* Gold for text and small marks on light grounds (4.5:1 on white). */
+  --color-gold-deep: #8a6a12;
+  --color-whatsapp: #25d366;
 
   --font-display: "Sora Variable", "Sora", ui-sans-serif, system-ui, sans-serif;
   --font-sans: "Inter Variable", "Inter", ui-sans-serif, system-ui, sans-serif;
@@ -23,57 +26,18 @@
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-in-out-quart: cubic-bezier(0.76, 0, 0.24, 1);
 
-  --breakpoint-xs: 30rem;
+  --breakpoint-xs: 25rem;
 }
 
 :root {
   --gutter: clamp(16px, 4vw, 64px);
-  --nav-h: 72px;
-  --stage: #1c1c1b; /* lit centre of product stages */
-  --product-shadow: rgb(0 0 0 / 0.65); /* grounding shadow under product shots */
-  color-scheme: dark;
-}
-
-/* Hero stand-in until the 3D scene is ready. Set in CSS so only the image
-   for the current theme and screen shape is downloaded. */
-.hero-still {
-  background-image: url("/images/stills/hero-world-desktop.webp");
-}
-html[data-theme="light"] .hero-still {
-  background-image: url("/images/stills/hero-world-light-desktop.webp");
-}
-@media (max-width: 1023px) {
-  .hero-still {
-    background-image: url("/images/stills/hero-world-mobile.webp");
-  }
-  html[data-theme="light"] .hero-still {
-    background-image: url("/images/stills/hero-world-light-mobile.webp");
-  }
-}
-
-/* Light theme: the same tokens inverted, switched by data-theme on
-   <html> (header toggle, or ?theme=light). Gold is deepened so small gold
-   text stays readable on white. */
-html[data-theme="light"] {
-  /* Warm paper whites, ink text, and the brand gold deepened toward bronze so
-     small gold type still reads on white. */
-  --color-ink: #faf8f3;
-  --color-coal: #f3f0e8;
-  --color-graphite: #e9e4d8;
-  --color-line: rgb(28 24 16 / 0.12);
-  --color-bone: #16140f;
-  --color-mute: rgb(22 20 15 / 0.68);
-  --color-faint: rgb(22 20 15 / 0.5);
-  --color-gold: #b8932a;
-  --color-gold-soft: #8a6a12;
-  --stage: #ffffff;
-  --product-shadow: rgb(90 70 20 / 0.12);
+  --header-h: 76px;
   color-scheme: light;
 }
 
 html {
-  background: var(--color-ink);
-  color: var(--color-bone);
+  background: var(--color-paper);
+  color: var(--color-ink);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
@@ -91,7 +55,7 @@ html.lenis body {
 }
 
 body {
-  background: var(--color-ink);
+  background: var(--color-paper);
   font-family: var(--font-sans);
   font-size: 16px;
   line-height: 1.6;
@@ -99,79 +63,98 @@ body {
 }
 
 ::selection {
-  background: var(--color-gold);
-  color: var(--color-ink);
+  background: var(--color-ink);
+  color: var(--color-paper);
 }
 
 :focus-visible {
-  outline: 2px solid var(--color-gold-soft);
+  outline: 2px solid var(--color-ink);
   outline-offset: 3px;
 }
 
-/* ---------- Type system ---------- */
+/* ---------- Type ---------- */
+@utility display-xxl {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(3.4rem, 10.5vw, 11.5rem);
+  line-height: 0.86;
+  letter-spacing: -0.05em;
+  text-transform: uppercase;
+}
 @utility display-xl {
   font-family: var(--font-display);
-  font-weight: 600;
-  font-size: clamp(3.75rem, 13.5vw, 13.5rem);
-  line-height: 0.84;
+  font-weight: 700;
+  font-size: clamp(2.9rem, 8vw, 8.5rem);
+  line-height: 0.88;
   letter-spacing: -0.045em;
   text-transform: uppercase;
 }
 @utility display-lg {
   font-family: var(--font-display);
-  font-weight: 600;
-  font-size: clamp(2.75rem, 8.4vw, 8.75rem);
-  line-height: 0.88;
+  font-weight: 700;
+  font-size: clamp(2.4rem, 5.6vw, 5.75rem);
+  line-height: 0.92;
   letter-spacing: -0.04em;
   text-transform: uppercase;
 }
 @utility display-md {
   font-family: var(--font-display);
   font-weight: 600;
-  font-size: clamp(2rem, 4.6vw, 4.5rem);
-  line-height: 0.95;
-  letter-spacing: -0.035em;
-  text-transform: uppercase;
+  font-size: clamp(1.6rem, 2.8vw, 2.6rem);
+  line-height: 1;
+  letter-spacing: -0.03em;
 }
-@utility eyebrow {
+@utility label {
   font-family: var(--font-sans);
-  font-weight: 500;
-  font-size: 0.75rem;
+  font-weight: 600;
+  font-size: 0.72rem;
   line-height: 1.2;
-  letter-spacing: 0.22em;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
 }
 @utility lede {
-  font-size: clamp(1.0625rem, 1.3vw, 1.25rem);
-  line-height: 1.55;
+  font-size: clamp(1.05rem, 1.25vw, 1.2rem);
+  line-height: 1.6;
   color: var(--color-mute);
 }
 @utility shell {
   padding-inline: var(--gutter);
   margin-inline: auto;
   width: 100%;
-  max-width: 1760px;
+  max-width: 1680px;
+}
+@utility outline-text {
+  color: transparent;
+  -webkit-text-stroke: 1.5px currentColor;
 }
 
-/* Masked line: children slide up out of an overflow-hidden row. */
-.line-mask {
+/* Masked line: the inner span slides up out of an overflow-hidden row. */
+.mask {
   display: block;
   overflow: hidden;
-  padding-bottom: 0.06em;
-  margin-bottom: -0.06em;
+  padding-bottom: 0.08em;
+  margin-bottom: -0.08em;
 }
-.line-mask > span {
+.mask > span {
   display: block;
   will-change: transform;
 }
 
-/* Hero entrance runs in CSS so the headline never waits on JS. */
+/* Lines revealed on scroll start hidden only once JS is known to run, and
+   never under reduced motion. */
+@media (prefers-reduced-motion: no-preference) {
+  .js [data-reveal] .mask > span {
+    transform: translate3d(0, 110%, 0);
+  }
+  .js [data-fade] {
+    opacity: 0;
+    transform: translate3d(0, 18px, 0);
+  }
+}
+
 @keyframes rise {
   from {
-    transform: translate3d(0, 105%, 0);
-  }
-  to {
-    transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 110%, 0);
   }
 }
 @keyframes fade-up {
@@ -179,36 +162,13 @@ body {
     opacity: 0;
     transform: translate3d(0, 14px, 0);
   }
+}
+@keyframes marquee {
   to {
-    opacity: 1;
-    transform: translate3d(0, 0, 0);
+    transform: translate3d(-50%, 0, 0);
   }
 }
-@keyframes veil {
-  from {
-    opacity: 1;
-  }
-  to {
-    opacity: 0;
-  }
-}
-.enter-rise {
-  animation: rise 1.3s var(--ease-out-expo) both;
-}
-.enter-fade {
-  animation: fade-up 1.1s var(--ease-out-expo) both;
-}
-
-[data-hero-copy] .line-mask .enter-rise {
-  animation-delay: 250ms;
-}
-[data-hero-copy] .line-mask:nth-child(2) .enter-rise {
-  animation-delay: 370ms;
-}
-[data-hero-copy] .line-mask:nth-child(3) .enter-rise {
-  animation-delay: 490ms;
-}
-@keyframes scroll-hint {
+@keyframes scroll-line {
   from {
     transform: translateY(-100%);
   }
@@ -216,34 +176,17 @@ body {
     transform: translateY(200%);
   }
 }
-
-@keyframes flap {
+@keyframes progress {
   from {
-    transform: rotateX(-80deg);
-    opacity: 0.4;
+    transform: scaleX(0);
   }
-}
-
-@keyframes marquee {
   to {
-    transform: translate3d(-50%, 0, 0);
-  }
-}
-/* Lines revealed by scroll start hidden only once JS is known to run. */
-@media (prefers-reduced-motion: no-preference) {
-  .js .js-hidden-line {
-    transform: translate3d(0, 120%, 0);
-  }
-  .js .js-hidden-fade {
-    opacity: 0;
-    visibility: hidden;
+    transform: scaleX(1);
   }
 }
 
-/* Hairline progress used by the process + sports rails. */
-.rule {
-  height: 1px;
-  background: var(--color-line);
+.enter-fade {
+  animation: fade-up 1s var(--ease-out-expo) both;
 }
 
 .no-scrollbar {
@@ -251,6 +194,13 @@ body {
 }
 .no-scrollbar::-webkit-scrollbar {
   display: none;
+}
+
+/* Sport line icons are black PNGs; masks let them take any colour. */
+.icon-mask {
+  background-color: currentColor;
+  -webkit-mask: var(--icon) center / contain no-repeat;
+  mask: var(--icon) center / contain no-repeat;
 }
 
 /* Custom cursor hides the native pointer only where it is active. */
@@ -261,7 +211,8 @@ html.has-cursor [data-cursor] {
   cursor: none;
 }
 html.has-cursor input,
-html.has-cursor textarea {
+html.has-cursor textarea,
+html.has-cursor select {
   cursor: text;
 }
 

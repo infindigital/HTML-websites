@@ -2,46 +2,26 @@ import type { Metadata, Viewport } from "next";
 import "@fontsource-variable/sora";
 import "@fontsource-variable/inter";
 import "./globals.css";
-import Nav from "@/components/Nav";
-import Cursor from "@/components/Cursor";
+import Header from "@/components/home/Header";
+import Pointer from "@/components/home/Pointer";
 import SmoothScroll from "@/components/SmoothScroll";
-import { site } from "@/lib/site";
+import { BRAND, EMAIL, INSTAGRAM, OPENING_HOURS, PHONE, SEO, SITE_URL } from "@/config/site";
 
 export const metadata: Metadata = {
-  metadataBase: new URL(site.url),
-  title: site.title,
-  description: site.description,
-  keywords: [
-    "custom sportswear",
-    "custom sports jerseys",
-    "custom team jerseys",
-    "custom football jerseys",
-    "custom cricket jerseys",
-    "custom basketball jerseys",
-    "custom volleyball jerseys",
-    "throwball jerseys",
-    "kabaddi jerseys",
-    "track suits",
-    "officials uniforms",
-    "sportswear Bantwal",
-    "iThree Sports Wear",
-  ],
+  metadataBase: new URL(SITE_URL),
+  title: SEO.title,
+  description: SEO.description,
   alternates: { canonical: "/" },
   openGraph: {
     type: "website",
     url: "/",
-    siteName: site.name,
-    title: site.title,
-    description: site.description,
-    images: [{ url: "/og.jpg", width: 1200, height: 630, alt: "iTHREE Sportswear custom team jerseys" }],
+    siteName: BRAND.name,
+    title: SEO.title,
+    description: SEO.description,
+    images: [{ url: "/og.jpg", width: 1200, height: 630, alt: "iTHREE Sports Wear custom team jerseys" }],
     locale: "en_IN",
   },
-  twitter: {
-    card: "summary_large_image",
-    title: site.title,
-    description: site.description,
-    images: ["/og.jpg"],
-  },
+  twitter: { card: "summary_large_image", title: SEO.title, description: SEO.description, images: ["/og.jpg"] },
   icons: {
     icon: [{ url: "/favicon.ico", sizes: "any" }, { url: "/icon-512.png", type: "image/png" }],
     apple: "/apple-icon.png",
@@ -49,86 +29,47 @@ export const metadata: Metadata = {
   robots: { index: true, follow: true },
 };
 
-export const viewport: Viewport = {
-  themeColor: "#050505",
-  colorScheme: "dark",
-};
+export const viewport: Viewport = { themeColor: "#f5f5f2", colorScheme: "light" };
 
-const sameAs = site.social.map((s) => s.href).filter(Boolean);
 const jsonLd = {
   "@context": "https://schema.org",
   "@graph": [
     {
       "@type": ["Organization", "LocalBusiness"],
-      "@id": `${site.url}/#organization`,
-      name: site.name,
-      alternateName: [site.legalName, "i3 Sports Wear"],
-      url: `${site.url}/`,
-      logo: `${site.url}/images/logo-480.png`,
-      image: `${site.url}/og.jpg`,
-      description: site.description,
-      telephone: site.contact.phone,
-      ...(site.contact.email ? { email: site.contact.email } : {}),
-      address: {
-        "@type": "PostalAddress",
-        streetAddress: "A 1-290(4), Tharabari Amtoor, Golthamajal",
-        addressLocality: "Bantwal",
-        addressRegion: "Karnataka",
-        addressCountry: "IN",
-      },
+      "@id": `${SITE_URL}/#organization`,
+      name: BRAND.name,
+      alternateName: [BRAND.legalName, "i3 Sports Wear"],
+      url: `${SITE_URL}/`,
+      logo: `${SITE_URL}/images/logo-480.png`,
+      image: `${SITE_URL}/og.jpg`,
+      description: SEO.description,
+      telephone: PHONE.display,
+      ...(EMAIL ? { email: EMAIL } : {}),
+      address: { "@type": "PostalAddress", streetAddress: "A 1-290(4), Tharabari Amtoor, Golthamajal", addressLocality: "Bantwal", addressCountry: "IN" },
       openingHoursSpecification: [
-        {
-          "@type": "OpeningHoursSpecification",
-          dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
-          opens: "07:00",
-          closes: "21:00",
-        },
+        { "@type": "OpeningHoursSpecification", dayOfWeek: OPENING_HOURS.schema.days, opens: OPENING_HOURS.schema.opens, closes: OPENING_HOURS.schema.closes },
       ],
-      contactPoint: {
-        "@type": "ContactPoint",
-        telephone: site.contact.phone,
-        contactType: "customer service",
-        availableLanguage: ["English"],
-      },
-      sameAs,
+      sameAs: [INSTAGRAM.href],
     },
-    {
-      "@type": "WebSite",
-      "@id": `${site.url}/#website`,
-      url: `${site.url}/`,
-      name: site.name,
-      publisher: { "@id": `${site.url}/#organization` },
-    },
-    {
-      "@type": "WebPage",
-      "@id": `${site.url}/#webpage`,
-      url: `${site.url}/`,
-      name: site.title,
-      description: site.description,
-      isPartOf: { "@id": `${site.url}/#website` },
-      about: { "@id": `${site.url}/#organization` },
-    },
+    { "@type": "WebSite", "@id": `${SITE_URL}/#website`, url: `${SITE_URL}/`, name: BRAND.name, publisher: { "@id": `${SITE_URL}/#organization` } },
   ],
 };
 
-/**
- * Runs before first paint: marks JS as available, applies the visitor's theme
- * choice for this session (dark unless they switched; ?theme=light forces
- * light) and preloads the matching hero still.
- */
-const themeBoot = `(function(){var d=document.documentElement;d.classList.add('js');var t;try{t=new URLSearchParams(location.search).get('theme')||sessionStorage.getItem('ithree-theme')}catch(e){}if(t==='light')d.dataset.theme='light';var l=document.createElement('link');l.rel='preload';l.as='image';l.fetchPriority='high';l.href='/images/stills/hero-world-'+(t==='light'?'light-':'')+(matchMedia('(max-width: 1023px)').matches?'mobile':'desktop')+'.webp';document.head.appendChild(l)})()`;
+/** Marks JS as available before first paint, so scroll reveals can start hidden without hiding content from no-JS visitors. */
+const boot = `document.documentElement.classList.add('js')`;
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en-IN" suppressHydrationWarning>
       <head>
-        <script dangerouslySetInnerHTML={{ __html: themeBoot }} />
+        <script dangerouslySetInnerHTML={{ __html: boot }} />
+        <link rel="preload" as="image" href="/images/jerseys/black-gold-front-1000.webp" imageSrcSet="/images/jerseys/black-gold-front-520.webp 255w, /images/jerseys/black-gold-front-1000.webp 490w" imageSizes="(min-width: 1024px) 30vw, 55vw" fetchPriority="high" />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       </head>
       <body>
         <SmoothScroll />
-        <Cursor />
-        <Nav />
+        <Pointer />
+        <Header />
         {children}
       </body>
     </html>

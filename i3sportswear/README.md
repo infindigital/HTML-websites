@@ -1,75 +1,56 @@
-# iTHREE Sportswear website
+# iTHREE Sportswear: homepage
 
-A cinematic, single-page brand site for iTHREE Sportswear, built with Next.js 16, React 19, TypeScript, Tailwind CSS 4, GSAP (ScrollTrigger), Framer Motion, Lenis and React Three Fiber.
+The new homepage for https://i3sportswear.com/. Only the homepage lives here;
+About, Products, the category pages, product pages and Contact stay on
+WordPress, and every link points at those WordPress URLs.
 
-It builds to **plain static HTML/CSS/JS** in `out/`, so it can be hosted on any static host (Netlify, Vercel, Cloudflare Pages, cPanel, S3, …).
+Light editorial design built around the supplied photography. No 3D.
 
 ## Run and build
 
 ```bash
 npm install
-npm run dev      # http://localhost:3000
-npm run build    # writes the static site to out/
+npm run dev     # http://localhost:3000
+npm run build   # static export to out/
+npm run lint    # type-check
 ```
 
-Upload the contents of `out/` to the web host.
+## Where to edit things
 
-## Business details and WordPress links
-
-This app replaces **only the homepage** of i3sportswear.com. About, Products, the eight product categories and Contact stay on WordPress, and the header and footer link to them.
-
-Everything the site says about the business lives in **`lib/site.ts`**. Nothing is invented: every empty value hides its UI.
-
-| Field | What it shows |
+| File | What it holds |
 | --- | --- |
-| `wpBase`, `pages`, `productLinks` | WordPress URLs used by the header menu, the Products dropdown, the mobile menu and the footer. WordPress links open in the same tab. **Confirm each path against the live WordPress menu.** |
-| `contact.phone` / `hours` / `address` / `location` | Top contact bar, mobile menu, final CTA, footer and the LocalBusiness schema |
-| `contact.email` | Footer and mobile menu `mailto:` link (hidden while empty) |
-| `whatsappUrl` | The exact WhatsApp link from the original site: floating button, header, top bar, footer |
-| `social[].href` | Instagram in the top bar, mobile menu and footer, plus schema.org `sameAs` |
-| `stats` | Verified numbers for the trust section (otherwise qualitative signals are shown) |
-| `clients` | Monochrome client logo wall (hidden when empty) |
-| `testimonials` | Testimonial section (hidden when empty; real quotes only) |
+| `src/config/site.ts` | `SITE_URL`, `WORDPRESS_URL`, phone, email, address, opening hours, Instagram, WhatsApp, SEO title/description |
+| `src/config/navigation.ts` | Menu and the eight WordPress category URLs |
+| `src/config/productUrls.ts` | **WordPress product page for each jersey.** `null` = not mapped yet: the card links to its category (or all products) and carries `data-url-mapping="pending"` |
+| `src/config/jerseys.ts` | The twelve supplied kits: names, sport (only where the supplied file name states it), panel colours |
+| `src/config/content.ts` | Hero slides, promises, sports, customisation steps, process, why-choose, clients, testimonials |
 
-Sport labels for each jersey are in `lib/products.ts`. They were assigned from each garment's cut and should be confirmed.
+Empty values hide their UI: no email is shown until `EMAIL` is set, and the
+testimonials section stays hidden while `testimonials` is empty.
+
+## Sections (components/home)
+
+Header (mega menu, full-screen mobile menu) → Hero (four-slide campaign) →
+Statement → JerseyShowcase (pinned horizontal archive on desktop, swipe on
+phones) → SportsShowcase → Customize → Process → About → WhyChoose → Clients
+(+ Testimonials when real quotes exist) → FinalCta → Contact → Footer, plus
+the floating WhatsApp button.
+
+The contact form has no server: it opens WhatsApp with the visitor's details
+filled in, and says so.
 
 ## Assets
 
-Source files supplied by iTHREE stay untouched in this folder (`website logo.png`, the master video, `i3sportswear.zip`). Web versions in `public/` were generated from them:
+`scripts/process_assets.py` builds everything in `public/images/` from the two
+supplied ZIPs (`jersey new photos.zip`, `remaining homepage photos.zip`):
+background-removed front, back and pair cut-outs of each kit (the garments are
+not edited), client logos, uniform photos and process illustrations. Re-run it
+after replacing a ZIP.
 
-- `scripts/process_images.py <folder of original PNGs>` builds the responsive WebP sets (240–1920px), the front/back textures for the Jersey Lab, and records image sizes. Jerseys are only trimmed and resized, never recoloured or edited.
-- `scripts/process_video.py "<master video>.mp4"` builds `public/video/hero-720.webm` (VP9), `hero-720.mp4` (H.264) and `hero-480.mp4` (mobile), all without audio and with fast start, plus the stills in `public/images/stills/` and `public/og.jpg`. It also removes the small watermark in the master film's lower-right corner. Set `WATERMARK = None` in the script when processing a clean export.
+## Motion and accessibility
 
-`next/image` uses a custom loader (`lib/image-loader.ts`) that maps requested widths onto those pre-generated files.
-
-## Structure
-
-```
-app/            layout (SEO metadata, JSON-LD), page, global tokens + type system
-components/     one file per section; lab/ holds the WebGL stage and its CSS fallback
-lib/            site config, product data, GSAP setup, hooks, image loader
-public/         optimised images, video, icons, social image
-```
-
-## Motion and accessibility notes
-
-- Hero: a 3D "Kit Room" (components/hero/HeroWorld.tsx) built from the supplied kit images; scroll turns the camera through the ring and cranes up. The master film is kept only as the fallback where WebGL is unavailable.
-- Phones get the same interactions as desktop (3D hero, swipe-to-turn Jersey Lab, pinned sports, customization and process sequences) with lighter settings: smaller textures, lower pixel ratio, cheaper reflections, fewer cloth segments.
-- `prefers-reduced-motion` removes smooth scrolling, pinned sequences, parallax and autoplay; every section renders in its final, readable state and the 3D hero renders as a still.
-- WebGL scenes load only as their section approaches and stop rendering when off-screen.
-- The custom cursor is desktop-only (fine pointer).
-
-## Themes
-
-Dark is the default on every visit. The sun/moon switch in the header turns on
-the light theme for the rest of that visit (`sessionStorage`), and
-`?theme=light` opens the site in light for previews.
-
-- Colours are tokens in `app/globals.css`; `html[data-theme="light"]` overrides
-  them (warm whites, deepened gold). Use the `light:` Tailwind variant for
-  one-off light-theme tweaks.
-- The 3D hero reads the theme (`useTheme`) and switches room colour, fog, floor
-  and pitch lines.
-- The hero stand-in stills (`public/images/stills/hero-world-{,light-}{desktop,mobile}.webp`)
-  are screenshots of the 3D scene's first frame. Re-capture them if the kit ring
-  or the camera's starting position changes.
+GSAP ScrollTrigger + Lenis on desktop; native scrolling on touch. One pinned
+section (the archive). The hero carousel pauses on hover, focus, off-screen
+and hidden tabs and has a pause button. Under `prefers-reduced-motion` nothing
+auto-plays or scrubs and all content is visible. The custom cursor and
+magnetic buttons are desktop-only.
