@@ -5,7 +5,7 @@ Generated on every build by `_build/seo_audit.py`. Not deployed.
 | URL | Title | Desc | H1 | Canonical | Schema | Index | Links | Crumb | OG | Img alt | Hreflang | Issues |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
 | `/` | 52 | 159 | 1 | ok | FAQPage | index | 15 | no | yes | 5 described, 25 decorative | none | none |
-| `/about-us/` | 46 | 159 | 1 | ok | BreadcrumbList | index | 2 | yes | yes | 4 described, 1 decorative | none | none |
+| `/about-us/` | 46 | 159 | 1 | ok | BreadcrumbList | index | 3 | yes | yes | 4 described, 1 decorative | none | none |
 | `/services/` | 51 | 157 | 1 | ok | BreadcrumbList, ItemList | index | 9 | yes | yes | 2 described, 23 decorative | none | none |
 | `/apostille-services/` | 47 | 151 | 1 | ok | BreadcrumbList, FAQPage, Service | index | 41 | yes | yes | 4 described, 1 decorative | none | none |
 | `/notary-services/` | 44 | 150 | 1 | ok | BreadcrumbList, FAQPage, Service | index | 5 | yes | yes | 5 described, 1 decorative | none | none |

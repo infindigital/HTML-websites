@@ -2,7 +2,7 @@
 import os
 
 from components import (APOSTILLE_FAQ_BASE, FBI_STEPS, HOME_FAQ, JOURNEY, SERVICE_INDEX, breadcrumbs, checklist, contact_strip,
-                        countries_explorer, cta_final, disclaimer, doc_stack, faq_section, fbi_timeline, label,
+                        countries_explorer, cta_final, partner_section, disclaimer, doc_stack, faq_section, fbi_timeline, label,
                         legal_route, page_hero, pricing_note, pull_quote, reviews_section, route_compare, rows,
                         service_index, shead, split)
 from countries import LEGALIZATION
@@ -45,7 +45,8 @@ def about():
       {shead("02", "How we work", "Handled with precision and care.", "care-h", cls="shead--stack")}
       <p>Whether it is an immigration file, an international move or a new chapter abroad, we check the route first, prepare what is missing, and manage every hand-off until the document is back with you.</p>
       <p>{link("See every service", "/services/")}</p>''', hid="care-h", plate="Plate 02. Certificates and seals")
-    body += reviews_section(num="03") + cta_final()
+    body += partner_section("03", tone="section--paper")
+    body += reviews_section(num="04") + cta_final()
     return page(path, "About Midwest Apostille & Notary | Kansas City",
                 "Midwest Apostille & Notary Services is a Kansas City office for apostille, embassy legalization, notarization and document preparation, in English and Spanish.",
                 body, active="about", crumbs=crumbs, og_image="document-handover",
