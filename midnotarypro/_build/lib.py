@@ -15,6 +15,8 @@ from facts import GOOGLE_RATING, HOURS_TEXT, HOURS_TEXT_ES, OPENING_HOURS, PARTN
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 SITE = "https://midnotarypro.com"
+# Address used in sitemap.xml and robots.txt. Set back to SITE when midnotarypro.com goes live.
+SITEMAP_BASE = "https://midnotaryprocom.vercel.app"
 BRAND = "Midwest Apostille & Notary Services"
 BRAND_SHORT = "Midwest Apostille & Notary"
 YEAR = datetime.date.today().year
@@ -489,9 +491,9 @@ def write_sitemap():
             continue
         alts = ""
         if p["alt"]:
-            alts = "".join(f'\n    <xhtml:link rel="alternate" hreflang="{k}" href="{SITE}{v}"/>' for k, v in p["alt"].items())
-            alts += f'\n    <xhtml:link rel="alternate" hreflang="x-default" href="{SITE}{p["alt"]["en"]}"/>'
-        urls.append(f"  <url>\n    <loc>{SITE}{p['path']}</loc>\n    <lastmod>{TODAY}</lastmod>{alts}\n  </url>")
+            alts = "".join(f'\n    <xhtml:link rel="alternate" hreflang="{k}" href="{SITEMAP_BASE}{v}"/>' for k, v in p["alt"].items())
+            alts += f'\n    <xhtml:link rel="alternate" hreflang="x-default" href="{SITEMAP_BASE}{p["alt"]["en"]}"/>'
+        urls.append(f"  <url>\n    <loc>{SITEMAP_BASE}{p['path']}</loc>\n    <lastmod>{TODAY}</lastmod>{alts}\n  </url>")
     xml = ('<?xml version="1.0" encoding="UTF-8"?>\n'
            '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n'
            + "\n".join(urls) + "\n</urlset>\n")
@@ -499,5 +501,5 @@ def write_sitemap():
         f.write(xml)
     with open(os.path.join(ROOT, "robots.txt"), "w") as f:
         f.write("User-agent: *\nAllow: /\nDisallow: /contact-handler.php\n\n"
-                f"Sitemap: {SITE}/sitemap.xml\n")
+                f"Sitemap: {SITEMAP_BASE}/sitemap.xml\n")
     return len(urls)

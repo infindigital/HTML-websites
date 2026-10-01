@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 Disallow: /contact-handler.php
 
-Sitemap: https://midnotarypro.com/sitemap.xml
+Sitemap: https://midnotaryprocom.vercel.app/sitemap.xml
