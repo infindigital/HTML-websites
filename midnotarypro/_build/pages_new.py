@@ -259,6 +259,7 @@ def business():
         <div class="hp" aria-hidden="true"><label for="b-company">Company</label><input id="b-company" name="company" tabindex="-1" autocomplete="off"></div>
         <input type="hidden" name="form_source" value="Business accounts">
         <p class="form__status" role="status" tabindex="-1" data-form-status></p>
+        <p class="form__consent">By sending this form you agree to our <a href="/privacy-policy/">privacy policy</a> and <a href="/terms-and-conditions/">terms and conditions</a>.</p>
         <div class="btn-row"><button class="btn btn--primary" type="submit"><span class="btn__label">Send enquiry</span><span class="btn__icon">{icon("send")}</span></button></div>
       </form>
     </div>
@@ -374,6 +375,7 @@ def order():
         <div class="hp" aria-hidden="true"><label for="o-company">Company</label><input id="o-company" name="company" tabindex="-1" autocomplete="off"></div>
         <input type="hidden" name="form_source" value="Online order">
         <p class="form__status" role="status" tabindex="-1" data-form-status></p>
+        <p class="form__consent">By sending this form you agree to our <a href="/privacy-policy/">privacy policy</a> and <a href="/terms-and-conditions/">terms and conditions</a>.</p>
         <div class="btn-row"><button class="btn btn--primary" type="submit"><span class="btn__label">Place order</span><span class="btn__icon">{icon("send")}</span></button></div>
         <p class="fine">After you place the order we confirm the total and send you a secure payment link for the deposit or the full amount, with the mailing address for your documents. {GUARANTEE}</p>
       </form>

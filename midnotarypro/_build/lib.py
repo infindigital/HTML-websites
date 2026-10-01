@@ -239,6 +239,12 @@ def drawer(alt=None, lang="en"):
 
 def footer(lang="en"):
     es = lang == "es"
+    legal_links = ((("Privacidad", "Términos", "Reembolsos", "Aviso legal", "Accesibilidad") if es else
+                    ("Privacy", "Terms", "Refunds", "Disclaimer", "Accessibility")),
+                   ("/privacy-policy/", "/terms-and-conditions/", "/refund-and-cancellation-policy/", "/disclaimer/",
+                    "/accessibility/"))
+    legal = "".join(f'<li><a href="{p}"{hl}>{n}</a></li>' for n, p in zip(*legal_links)
+                    for hl in [' hreflang="en"' if es else ""])
     social = "".join(
         f'<li><a href="{u}" target="_blank" rel="noopener" aria-label="{n}">{icon(i)}</a></li>' for n, i, u in SOCIAL)
     svc = "".join(f'<li><a href="{h}">{t}</a></li>' for h, t in SERVICES_MENU[:8])
@@ -281,6 +287,7 @@ def footer(lang="en"):
     <p class="footer__disclaimer">{DISCLAIMER_ES if es else DISCLAIMER}</p>
     <div class="footer__bottom">
       <p>© {YEAR} {esc(BRAND)}. {"Todos los derechos reservados." if es else "All rights reserved."} Developed and managed by Infin Digital.</p>
+      <ul class="footer__legal" role="list">{legal}</ul>
       <a class="footer__top-link" href="#top">{"Volver arriba" if es else "Back to top"}{icon("arrow-up-right")}</a>
     </div>
   </div>

@@ -108,3 +108,6 @@ PARTNER = "Midwest Identity Services"
 PARTNER_URL = "https://midwestidentityservices.com/"
 PARTNER_LINE = ("Fingerprinting is provided through our partner, Midwest Identity Services, at the same location, so you "
                 "can get your FD-258 card or FBI fingerprints and your apostille in one visit.")
+
+# Date shown on the legal pages (pages_legal.py). Update it whenever their wording changes.
+LEGAL_UPDATED = "October 1, 2026"

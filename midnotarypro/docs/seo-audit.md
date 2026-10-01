@@ -10,7 +10,7 @@ Generated on every build by `_build/seo_audit.py`. Not deployed.
 | `/apostille-services/` | 47 | 151 | 1 | ok | BreadcrumbList, FAQPage, Service | index | 41 | yes | yes | 4 described, 1 decorative | none | none |
 | `/notary-services/` | 44 | 150 | 1 | ok | BreadcrumbList, FAQPage, Service | index | 5 | yes | yes | 5 described, 1 decorative | none | none |
 | `/document-preparation-services/` | 47 | 150 | 1 | ok | BreadcrumbList, Service | index | 3 | yes | yes | 4 described, 1 decorative | none | none |
-| `/contact-us/` | 48 | 144 | 1 | ok | BreadcrumbList, ContactPage | index | 1 | yes | yes | 2 described, 1 decorative | none | none |
+| `/contact-us/` | 48 | 144 | 1 | ok | BreadcrumbList, ContactPage | index | 3 | yes | yes | 2 described, 1 decorative | none | none |
 | `/fbi-apostille-for-hague-countries/` | 52 | 150 | 1 | ok | BreadcrumbList, FAQPage, Service | index | 4 | yes | yes | 3 described, 5 decorative | none | none |
 | `/fbi-attestation-legalization/` | 43 | 152 | 1 | ok | BreadcrumbList, FAQPage, Service | index | 3 | yes | yes | 3 described, 1 decorative | none | none |
 | `/notary-apostille-services/` | 51 | 151 | 1 | ok | BreadcrumbList, Service | index | 8 | yes | yes | 6 described, 1 decorative | en, es, x-default | none |
@@ -24,9 +24,9 @@ Generated on every build by `_build/seo_audit.py`. Not deployed.
 | `/pricing/` | 54 | 135 | 1 | ok | BreadcrumbList, OfferCatalog | index | 4 | yes | yes | 2 described, 1 decorative | none | none |
 | `/fbi-fingerprinting-apostille-kansas-city/` | 55 | 135 | 1 | ok | BreadcrumbList, FAQPage, Service | index | 5 | yes | yes | 3 described, 1 decorative | none | none |
 | `/certified-translation-services/` | 55 | 144 | 1 | ok | BreadcrumbList, FAQPage, Service | index | 2 | yes | yes | 3 described, 1 decorative | none | none |
-| `/business-accounts/` | 47 | 157 | 1 | ok | BreadcrumbList, Service | index | 2 | yes | yes | 3 described, 1 decorative | none | none |
+| `/business-accounts/` | 47 | 157 | 1 | ok | BreadcrumbList, Service | index | 4 | yes | yes | 3 described, 1 decorative | none | none |
 | `/faq/` | 51 | 153 | 1 | ok | BreadcrumbList, FAQPage | index | 4 | yes | yes | 2 described, 1 decorative | none | none |
-| `/order/` | 54 | 154 | 1 | ok | BreadcrumbList | index | 1 | yes | yes | 2 described, 1 decorative | none | none |
+| `/order/` | 54 | 154 | 1 | ok | BreadcrumbList | index | 3 | yes | yes | 2 described, 1 decorative | none | none |
 | `/apostille-for-dual-citizenship/` | 54 | 148 | 1 | ok | BreadcrumbList, FAQPage, Service | index | 8 | yes | yes | 3 described, 1 decorative | none | none |
 | `/missouri-apostille-services/` | 56 | 138 | 1 | ok | BreadcrumbList, FAQPage, Service | index | 17 | yes | yes | 3 described, 1 decorative | none | none |
 | `/kansas-apostille-services/` | 54 | 138 | 1 | ok | BreadcrumbList, FAQPage, Service | index | 17 | yes | yes | 3 described, 1 decorative | none | none |
@@ -71,5 +71,10 @@ Generated on every build by `_build/seo_audit.py`. Not deployed.
 | `/apostilla-para-espana-kansas-city/` | 49 | 128 | 1 | ok | BreadcrumbList, Service | index | 2 | yes | yes | 3 described, 1 decorative | en, es, x-default | none |
 | `/ar/` | 43 | 126 | 1 | ok | BreadcrumbList, Service | noindex | 1 | yes | yes | 2 described, 1 decorative | none | none |
 | `/fr/` | 51 | 148 | 1 | ok | BreadcrumbList, Service | noindex | 1 | yes | yes | 2 described, 1 decorative | none | none |
+| `/privacy-policy/` | 43 | 145 | 1 | ok | BreadcrumbList | index | 5 | yes | yes | 2 described, 1 decorative | none | none |
+| `/terms-and-conditions/` | 49 | 153 | 1 | ok | BreadcrumbList | index | 6 | yes | yes | 2 described, 1 decorative | none | none |
+| `/refund-and-cancellation-policy/` | 48 | 148 | 1 | ok | BreadcrumbList | index | 5 | yes | yes | 2 described, 1 decorative | none | none |
+| `/disclaimer/` | 48 | 147 | 1 | ok | BreadcrumbList | index | 5 | yes | yes | 2 described, 1 decorative | none | none |
+| `/accessibility/` | 51 | 142 | 1 | ok | BreadcrumbList | index | 5 | yes | yes | 2 described, 1 decorative | none | none |
 
 Decorative images use empty `alt` (aria-hidden art and duplicated thumbnails). Every image has an `alt` attribute.

@@ -330,6 +330,7 @@ def contact():
         <div class="hp" aria-hidden="true"><label for="f-company">Company</label><input id="f-company" name="company" tabindex="-1" autocomplete="off"></div>
         <input type="hidden" name="form_source" value="Contact page">
         <p class="form__status" role="status" tabindex="-1" data-form-status></p>
+        <p class="form__consent">By sending this form you agree to our <a href="/privacy-policy/">privacy policy</a> and <a href="/terms-and-conditions/">terms and conditions</a>.</p>
         <div class="btn-row"><button class="btn btn--primary" type="submit"><span class="btn__label">Send message</span><span class="btn__icon">{icon("send")}</span></button></div>
         {disclaimer()}
       </form>
