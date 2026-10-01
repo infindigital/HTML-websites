@@ -18,9 +18,6 @@ export type HeroSlide = {
 
 export const heroSlides: HeroSlide[] = [
   { id: "identity", lines: ["Wear your", "identity."], jersey: "black-gold", tone: "#e9dfc6", accent: "#b8932a" },
-  { id: "game", lines: ["Built for", "your game."], jersey: "blue-geometric", tone: "#d3e5f6", accent: "#1f6fd1" },
-  { id: "yours", lines: ["Make it", "yours."], jersey: "yellow-basketball", tone: "#f4e6a2", accent: "#c79a00" },
-  { id: "team", lines: ["Your team.", "Your style."], jersey: "red-wolf", tone: "#f1d4ce", accent: "#c4251c" },
   {
     id: "corporate",
     lines: ["Your brand.", "Your team.", "Your T‑shirts."],
@@ -30,6 +27,9 @@ export const heroSlides: HeroSlide[] = [
     eyebrow: "Corporate apparel",
     text: "Custom corporate T-shirts designed for teams, events, businesses and branded campaigns.",
   },
+  { id: "game", lines: ["Built for", "your game."], jersey: "blue-geometric", tone: "#d3e5f6", accent: "#1f6fd1" },
+  { id: "yours", lines: ["Make it", "yours."], jersey: "yellow-basketball", tone: "#f4e6a2", accent: "#c79a00" },
+  { id: "team", lines: ["Your team.", "Your style."], jersey: "red-wolf", tone: "#f1d4ce", accent: "#c4251c" },
 ];
 
 /** The three promises from the live homepage. */
