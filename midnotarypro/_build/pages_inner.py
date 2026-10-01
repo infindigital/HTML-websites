@@ -214,7 +214,7 @@ NOTARY_FAQ = [
     ("Do you have evening and weekend appointments?", "Yes. We offer daytime, evening and weekend availability for notary appointments."),
     ("Do you notarize immigration documents?", "Yes, including immigration forms, affidavits and notarized copies."),
     ("Can you notarize a document for someone in jail?", 'Yes. See our <a href="/jail-notary-kansas-city/">jail notary service</a> for Kansas City area facilities and pricing.'),
-    ("Do you offer 24 hour or emergency notary service?", f"For urgent documents, call or text {PHONE}. We offer same-day notary appointments, evenings, weekends and holidays, and tell you the earliest time we can reach you."),
+    ("Do you offer 24 hour or emergency notary service?", f"Yes. We are open 24 hours, 7 days a week. For urgent documents, call or text {PHONE} and we will tell you the earliest time we can reach you."),
     ("Is there a notary near me in Kansas City?", "Our notary public office is at 8101 E. Bannister Rd., Kansas City, MO 64134, and our mobile notaries travel across the Kansas City metro in Missouri and Kansas."),
     ("Do you notarize at hospitals and nursing homes?", 'Yes, in the Kansas City area. See <a href="/urgent-notary-services-in-kansas-city-jail-hospital-after-hours-help/">urgent notary: jail, hospital and after hours</a>.'),
 ]

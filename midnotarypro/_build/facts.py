@@ -69,11 +69,10 @@ APOSTILLE_STD_TIME_ES = "7 a 14 días hábiles"
 INTL_REVIEWED = {"ar": False, "fr": False}
 
 # --------------------------------------------------------------------------- business details still to be supplied
-# Opening hours as schema.org openingHoursSpecification rows, e.g. [("Monday Tuesday Wednesday Thursday Friday", "09:00", "18:00")]
-OPENING_HOURS = None
-# Interim wording until exact hours are supplied (from the original content: daytime, evening and weekend availability).
-HOURS_TEXT = "By appointment, with daytime, evening and weekend availability"
-HOURS_TEXT_ES = "Con cita, con horario de día, de noche y fines de semana"
+# Opening hours: open 24 hours, 7 days a week (client, October 2026). schema.org openingHoursSpecification rows.
+OPENING_HOURS = [("Monday Tuesday Wednesday Thursday Friday Saturday Sunday", "00:00", "23:59")]
+HOURS_TEXT = "Open 24 hours, 7 days a week"
+HOURS_TEXT_ES = "Abierto las 24 horas, los 7 días de la semana"
 # Google rating, e.g. ("5.0", 48). Left out of the schema until supplied.
 GOOGLE_RATING = None
 PRICE_RANGE = "$45-$400"
