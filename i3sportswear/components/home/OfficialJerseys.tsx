@@ -45,9 +45,9 @@ export default function OfficialJerseys() {
       {/* Phones: intro, photo, then colours and actions. Desktop: text left, photo right. */}
       <div className="shell grid gap-10 lg:grid-cols-12 lg:gap-x-16 lg:gap-y-0">
         <div className="min-w-0 lg:col-span-5 lg:row-start-1">
-          <Kicker index="03">Official jerseys</Kicker>
+          <Kicker index="03">Official &amp; uniforms</Kicker>
           <h2 id="official-title" data-reveal className="display-lg mt-6">
-            <Lines lines={["Our custom", <>jersey designs<span className="text-gold">.</span></>]} />
+            <Lines lines={["Official", <>jerseys<span className="text-gold">.</span></>]} />
           </h2>
           <p data-fade className="lede mt-6 max-w-md">
             Collared official jerseys for staff, schools, events and team officials, finished with your logo.

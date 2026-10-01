@@ -1,4 +1,4 @@
-import { categories, pages, type CategoryKey } from "./navigation";
+import type { CategoryKey } from "./navigation";
 import { productUrls } from "./productUrls";
 
 /**
@@ -53,10 +53,8 @@ export function jerseySet(id: string, view: "front" | "back" | "pair") {
   return { src: jerseySrc(id, view, "l"), srcSet: `${jerseySrc(id, view, "s")} 255w, ${jerseySrc(id, view, "l")} 490w`, width: 490, height: 1000 };
 }
 
-/** Where a jersey card links: its product page, else its category, else all products. */
-export function jerseyLink(j: Jersey) {
-  const product = productUrls[j.id];
-  if (product) return { href: product, label: "View product", mapped: true };
-  if (j.category) return { href: categories[j.category].href, label: `View ${categories[j.category].label}`, mapped: false };
-  return { href: pages.products.href, label: "View products", mapped: false };
+/** A jersey's verified product page, or null when there is no exact match. */
+export function jerseyProduct(j: Jersey): { productUrl: string; matched: true } | { productUrl: null; matched: false } {
+  const url = productUrls[j.id] ?? null;
+  return url ? { productUrl: url, matched: true } : { productUrl: null, matched: false };
 }

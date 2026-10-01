@@ -3,7 +3,7 @@
 import { useRef, useState } from "react";
 import { Arrow, Button, Img, Kicker, Lines } from "./ui";
 import { useReveal } from "./useReveal";
-import { jerseys, jerseyLink, jerseySet } from "@/config/jerseys";
+import { jerseys, jerseyProduct, jerseySet } from "@/config/jerseys";
 import { pages } from "@/config/navigation";
 import { gsap, MQ, useGSAP } from "@/lib/gsap";
 
@@ -65,8 +65,11 @@ export default function JerseyShowcase() {
           <div>
             <Kicker index="02">Jersey archive</Kicker>
             <h2 id="jerseys-title" data-reveal className="display-lg mt-6 lg:text-[min(4.6vw,4.75rem)]">
-              <Lines lines={["Twelve designs.", <>Your team next<span className="text-gold">.</span></>]} />
+              <Lines lines={["Our custom", <>jersey designs<span className="text-gold">.</span></>]} />
             </h2>
+            <p data-fade className="mt-4 max-w-md text-mute">
+              Explore selected custom jersey designs created for teams, clubs and sporting identities.
+            </p>
           </div>
           <div className="flex items-center gap-3">
             <Button href={pages.products.href} variant="outline" size="sm">
@@ -88,30 +91,17 @@ export default function JerseyShowcase() {
           className="no-scrollbar flex snap-x snap-mandatory gap-4 overflow-x-auto px-[var(--gutter)] [&.is-pinned]:snap-none [&.is-pinned]:overflow-visible lg:gap-6"
         >
           {jerseys.map((j, i) => {
-            const link = jerseyLink(j);
+            const { productUrl, matched } = jerseyProduct(j);
             const front = jerseySet(j.id, "front");
             const back = jerseySet(j.id, "back");
-            return (
-              <a
-                key={j.id}
-                data-card
-                href={link.href}
-                data-cursor="View"
-                data-url-mapping={link.mapped ? undefined : "pending"}
-                onMouseEnter={() => setTint(j.tone)}
-                onMouseLeave={() => setTint(null)}
-                onFocus={() => setTint(j.tone)}
-                onBlur={() => setTint(null)}
-                aria-label={`${j.name} jersey: ${link.label}`}
-                className="group relative flex h-[min(118vw,560px)] w-[78vw] shrink-0 snap-start flex-col overflow-hidden sm:w-[46vw] lg:h-[min(calc(100svh-19rem),640px)] lg:w-[min(27vw,460px)]"
-                style={{ backgroundColor: j.tone }}
-              >
+            const body = (
+              <>
                 <span className="label absolute top-5 left-5 z-10 text-ink/60">
                   {String(i + 1).padStart(2, "0")} <span className="text-ink/30">/ {jerseys.length}</span>
                 </span>
                 {j.sport && <span className="label absolute top-5 right-5 z-10 bg-white/70 px-2.5 py-1.5 text-ink">{j.sport}</span>}
 
-                <div className="relative mx-auto mt-12 h-[72%] w-full transition-transform duration-700 ease-[var(--ease-out-expo)] group-hover:scale-[1.04]">
+                <div className={`relative mx-auto mt-12 h-[72%] w-full ${matched ? "transition-transform duration-700 ease-[var(--ease-out-expo)] group-hover:scale-[1.04]" : ""}`}>
                   <Img
                     {...front}
                     sizes="(min-width: 1024px) 16vw, 40vw"
@@ -127,16 +117,43 @@ export default function JerseyShowcase() {
                   />
                 </div>
 
-                <div className="mt-auto flex items-end justify-between gap-4 bg-gradient-to-t from-white/70 to-transparent p-5 pt-10">
-                  <div className="transition-transform duration-500 ease-[var(--ease-out-expo)] group-hover:-translate-y-1">
-                    <h3 className="font-display text-2xl leading-tight font-semibold tracking-tight">{j.name}</h3>
-                    <p className="label mt-2 flex items-center gap-2 text-ink/70">
-                      {link.label}
-                      <Arrow className="transition-transform duration-500 group-hover:translate-x-1" />
+                {matched && <span aria-hidden className="pointer-events-none absolute inset-0 bg-ink/0 transition-colors duration-500 group-hover:bg-ink/[0.04]" />}
+
+                <div className="mt-auto bg-gradient-to-t from-white/70 to-transparent p-5 pt-10">
+                  <h3 className="font-display text-2xl leading-tight font-semibold tracking-tight">{j.name}</h3>
+                  {matched && (
+                    <p className="label mt-2 flex translate-y-1 items-center gap-2 text-ink/70 opacity-0 transition-[opacity,translate] duration-500 group-hover:translate-y-0 group-hover:opacity-100 group-focus-visible:translate-y-0 group-focus-visible:opacity-100">
+                      View jersey <Arrow />
                     </p>
-                  </div>
+                  )}
                 </div>
+              </>
+            );
+            const common = {
+              "data-card": true,
+              onMouseEnter: () => setTint(j.tone),
+              onMouseLeave: () => setTint(null),
+              className:
+                "group relative flex h-[min(118vw,560px)] w-[78vw] shrink-0 snap-start flex-col overflow-hidden sm:w-[46vw] lg:h-[min(calc(100svh-19rem),640px)] lg:w-[min(27vw,460px)]",
+              style: { backgroundColor: j.tone },
+            };
+            // Only a verified product match becomes a link (src/config/productUrls.ts).
+            return matched ? (
+              <a
+                key={j.id}
+                {...common}
+                href={productUrl}
+                data-cursor="View"
+                onFocus={() => setTint(j.tone)}
+                onBlur={() => setTint(null)}
+                aria-label={`View the ${j.name} jersey`}
+              >
+                {body}
               </a>
+            ) : (
+              <article key={j.id} {...common} aria-label={`${j.name} jersey`}>
+                {body}
+              </article>
             );
           })}
         </div>
