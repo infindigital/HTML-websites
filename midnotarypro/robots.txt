@@ -1,5 +1,13 @@
+# robots.txt - Midwest Apostille & Notary Services
+# https://midnotarypro.com/
+
 User-agent: *
 Allow: /
+
+# Build tooling, internal notes and the form handler are not content.
+Disallow: /_build/
+Disallow: /docs/
+Disallow: /design-system/
 Disallow: /contact-handler.php
 
 Sitemap: https://midnotarypro.com/sitemap.xml
