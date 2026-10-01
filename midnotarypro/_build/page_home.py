@@ -1,7 +1,7 @@
 """Homepage: an editorial, scroll-told route from a document on your desk to a foreign office."""
-from components import (HOME_FAQ, route_options, countries_explorer, cta_final, faq_section, journey, label, reviews_section,
-                        route_compare, service_index, shead)
-from lib import call_btn, cta_btn, faq_schema, icon, img, link, page
+from components import (HOME_FAQ, route_options, countries_explorer, cta_final, faq_section, journey, label, partner_section,
+                        pricing_section, reviews_section, route_compare, service_index, services_count_heading, shead)
+from lib import YEAR, call_btn, cta_btn, faq_schema, icon, img, link, page
 
 H1_KEYWORD = "Apostille &amp; Notary Services in Kansas City"
 
@@ -11,12 +11,12 @@ HERO_SERVICES = [
     ("landmark", "Embassy legalization", "Non-Hague countries", "/apostille-services/#embassy-legalization"),
     ("signature", "Notary", "Office, mobile or online", "/notary-services/"),
     ("file-pen-line", "Document preparation", "POA, affidavits, forms", "/document-preparation-services/"),
-    ("fingerprint", "FBI apostille", "Fingerprint to apostille", "/fbi-apostille-for-hague-countries/"),
+    ("fingerprint", "FBI fingerprinting", "Prints + apostille, $229", "/fbi-fingerprinting-apostille-kansas-city/"),
     ("building-2", "Jail notary", "Jackson &amp; Wyandotte", "/jail-notary-kansas-city/"),
 ]
 HERO_FACTS = [
     ("zap", "Same-day apostille", "Missouri and Kansas documents"),
-    ("globe", "All 50 states", "Courier and international shipping"),
+    ("globe", "Every U.S. state", "Apostilles for documents from any state"),
     ("laptop", "Remote online notary", "Sign from anywhere"),
     ("languages", "Four languages", "English, Spanish, Arabic, French"),
 ]
@@ -41,7 +41,7 @@ def hero():
       {label("Kansas City, Missouri &middot; Nationwide", "hero__label")}
       <h1 class="hero__title" id="hero-h"><span class="hero__kicker">{H1_KEYWORD}<span class="sr-only">:</span></span>
         <span class="hero__display" data-split="hero">Documents ready<br> <em>for the world.</em></span></h1>
-      <p class="hero__lead">Apostille, embassy legalization, notarization and document preparation for Missouri, Kansas and clients in all 50 states. We confirm the route before anything is submitted.</p>
+      <p class="hero__lead">Apostille, embassy legalization, notarization and document preparation for Missouri, Kansas and clients across the U.S. We confirm the route before anything is submitted.</p>
       <div class="btn-row">{cta_btn(magnetic=True)}{call_btn()}</div>
       <form class="hcheck" role="search" aria-label="Check a destination country" data-hcheck>
         <label class="hcheck__label" for="hcheck-in">Where is your document going?</label>
@@ -90,11 +90,11 @@ def intro():
 </section>'''
 
 
-def in_person_online():
+def in_person_online(num="05"):
     return f'''
 <section class="section section--paper" aria-labelledby="notary-h">
   <div class="container">
-    {shead("05", "Notary", "In person, or on a screen.", "notary-h", "Notary appointments in our office, at your location in the Kansas City area, or online.")}
+    {shead(num, "Notary", "In person, or on a screen.", "notary-h", "Notary appointments in our office, at your location in the Kansas City area, or online.")}
     <div class="duo">
       <article class="duo__item">
         <figure class="duo__media" data-mask>{img("notary-signing", "Notary signing a document next to a notary stamp", "(min-width: 900px) 46vw, 100vw", attrs="data-parallax")}</figure>
@@ -115,12 +115,12 @@ def in_person_online():
 </section>'''
 
 
-def guides():
+def guides(num="08"):
     posts = [
         ("/how-to-get-an-apostille-in-kansas-city-birth-certificates-custodian-documents-more/", "apostille-documents",
-         "Apostille guide", "How to get an apostille in Kansas City: birth certificates, custodian documents and more"),
+         "Apostille guide", f"How to get an apostille in Missouri ({YEAR}): birth certificates, custodian documents and more"),
         ("/urgent-notary-services-in-kansas-city-jail-hospital-after-hours-help/", "jail-notary",
-         "Notary guide", "Urgent notary services in Kansas City: jail, hospital and after-hours help"),
+         "Notary guide", f"Urgent notary services in Kansas City ({YEAR}): jail, hospital and after-hours help"),
     ]
     items = "".join(f'''
       <li class="guide">
@@ -133,7 +133,7 @@ def guides():
     return f'''
 <section class="section" aria-labelledby="guides-h">
   <div class="container">
-    {shead("08", "Guides", "Read before you send.", "guides-h", "Short, practical guides written from the questions clients ask us most.", extra=link("All guides and FBI resources", "/guides/", "shead__link"))}
+    {shead(num, "Guides", "Read before you send.", "guides-h", "Short, practical guides written from the questions clients ask us most.", extra=link("All guides and FBI resources", "/guides/", "shead__link"))}
     <ul class="guides" role="list">{items}</ul>
   </div>
 </section>'''
@@ -144,19 +144,21 @@ def build():
         hero(),
         intro(),
         journey(num="02"),
-        service_index("Nine services, one office.", "services-h", num="03", lab="Services",
+        service_index(services_count_heading(), "services-h", num="03", lab="Services",
                       lead="Choose a service to see what it covers, where we provide it and how to book."),
-        route_compare(num="04"),
-        in_person_online(),
-        countries_explorer(num="06", heading="Is your destination a Hague country?", tone="section--bone"),
-        reviews_section(num="07"),
-        guides(),
-        faq_section(HOME_FAQ, num="09", heading="Questions, answered.",
+        pricing_section(num="04"),
+        route_compare(num="05"),
+        in_person_online(num="06"),
+        partner_section(num="07"),
+        countries_explorer(num="08", heading="Is your destination a Hague country?", tone="section--bone"),
+        reviews_section(num="09"),
+        guides(num="10"),
+        faq_section(HOME_FAQ, num="11", heading="Questions, answered.",
                     lead='More detail on the <a class="text-link" href="/apostille-services/">apostille</a> and <a class="text-link" href="/notary-services/">notary</a> pages.'),
         cta_final(),
     ])
     return page("/", "Apostille & Notary Services in Kansas City | Midwest",
-                "Apostille, embassy legalization, notary and document preparation in Kansas City, MO. Same-day apostille for Missouri and Kansas, and service in all 50 states.",
+                "Apostille, embassy legalization, notary, FBI fingerprinting and certified translation in Kansas City, MO. Same-day apostille for Missouri and Kansas documents.",
                 body, active="home", schema=[faq_schema("/", HOME_FAQ)], body_class="is-home",
                 preload=("hero-world-documents", "(min-width: 1024px) 44vw, 92vw"),
                 keyword="apostille and notary services Kansas City")

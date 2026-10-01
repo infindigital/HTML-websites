@@ -1,19 +1,18 @@
 """Internal pages. One primary search intent per page; see docs/seo-route-map.md."""
 import os
 
-from components import (FBI_STEPS, HOME_FAQ, JOURNEY, SERVICE_INDEX, breadcrumbs, checklist, contact_strip,
+from components import (APOSTILLE_FAQ_BASE, FBI_STEPS, HOME_FAQ, JOURNEY, SERVICE_INDEX, breadcrumbs, checklist, contact_strip,
                         countries_explorer, cta_final, disclaimer, doc_stack, faq_section, fbi_timeline, label,
                         legal_route, page_hero, pricing_note, pull_quote, reviews_section, route_compare, rows,
                         service_index, shead, split)
 from countries import LEGALIZATION
-from facts import (APOSTILLE_RUSH_OTHER_STATES, APOSTILLE_STD_PRICE, APOSTILLE_STD_TIME, APOSTILLE_VIP_PRICE,
-                   JAIL_PRICES_EN, JAIL_PRICES_ES)
-from lib import (ADDRESS, APPT, BOOK, EMAIL, JAIL_PHONE, JAIL_TEL, MAP_EMBED, MAPS_URL, PHONE, ROOT, SITE, TEL,
+from facts import JAIL_PRICES_EN, JAIL_PRICES_ES, KS_STD, MO_STD, PARTNER, PARTNER_LINE, PARTNER_URL
+from lib import (YEAR, ADDRESS, APPT, BOOK, NO_ADVICE, NO_ADVICE_ES, PHONE, EMAIL, JAIL_PHONE, JAIL_TEL, MAP_EMBED, MAPS_URL, PHONE, ROOT, SITE, TEL,
                  WHATSAPP, article_schema, btn, call_btn, cta_btn, esc, faq_schema, icon, img, link, page,
                  service_schema)
 
 ES_PAIR = {"en": "/notary-apostille-services/", "es": "/servicios-de-notaria-y-apostilla/"}
-JAIL_PAIR = {"en": "/jail-notary-kansas-city/", "es": "/notaria-en-carceles-de-kansas-cit/"}
+JAIL_PAIR = {"en": "/jail-notary-kansas-city/", "es": "/notaria-en-carceles-de-kansas-city/"}
 SVC = ("Services", "/services/")
 
 
@@ -84,13 +83,21 @@ def services():
                 body, active="services", crumbs=crumbs, schema=[item_list], keyword="apostille and notary services (overview)")
 
 
+def redirect_page(old, new, title):
+    os.makedirs(os.path.join(ROOT, old.strip("/")), exist_ok=True)
+    with open(os.path.join(ROOT, old.strip("/"), "index.html"), "w") as f:
+        f.write(f'<!doctype html><html lang="en"><head><meta charset="utf-8"><title>{title}</title>'
+                f'<meta name="robots" content="noindex"><link rel="canonical" href="{SITE}{new}">'
+                f'<meta http-equiv="refresh" content="0; url={new}"></head><body><p><a href="{new}">{title}</a></p></body></html>\n')
+    return f"{old} (301 on the server, meta refresh fallback)"
+
+
 def service_redirect():
-    os.makedirs(os.path.join(ROOT, "service"), exist_ok=True)
-    with open(os.path.join(ROOT, "service", "index.html"), "w") as f:
-        f.write(f'<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Services</title>'
-                f'<meta name="robots" content="noindex"><link rel="canonical" href="{SITE}/services/">'
-                f'<meta http-equiv="refresh" content="0; url=/services/"></head><body><p><a href="/services/">Services</a></p></body></html>\n')
-    return "/service/ (301 on the server, meta refresh fallback)"
+    return redirect_page("/service/", "/services/", "Services")
+
+
+def jail_es_redirect():
+    return redirect_page("/notaria-en-carceles-de-kansas-cit/", "/notaria-en-carceles-de-kansas-city/", "Notaría en cárceles de Kansas City")
 
 
 def not_found():
@@ -103,13 +110,32 @@ def not_found():
 
 
 # =========================================================================== Apostille
-APOSTILLE_FAQ = [
-    HOME_FAQ[0], HOME_FAQ[1], HOME_FAQ[2],
-    ("Do I need a notary for an apostille?", "Only for documents such as powers of attorney or affidavits. Certified vital records like birth and marriage certificates are submitted as originals and do not need a notary."),
-    ("Can I get an apostille for a document in Spanish?", "Yes, as long as it is notarized in English. We also assist with translated documents for many countries."),
-    ("What if my document is for a non-Hague country?", "We offer embassy legalization for countries outside the Hague Apostille Convention, including U.S. Department of State certification and consular legalization."),
-    ("Which countries are part of the Hague Convention?", 'Use the <a href="#countries">country explorer</a> on this page to check any destination.'),
+APOSTILLE_FAQ = [HOME_FAQ[0], HOME_FAQ[1], HOME_FAQ[2]] + APOSTILLE_FAQ_BASE + [
+    ("Where can I get an apostille near me?", 'At our office at 8101 E. Bannister Rd., Kansas City, MO, or by mail from anywhere. See <a href="/missouri-apostille-services/">Missouri</a> and <a href="/kansas-apostille-services/">Kansas apostille services</a> and the cities we serve.'),
+    ("Do you offer embassy legalization in Kansas City?", "Yes. For countries outside the Hague Convention we handle document authentication and embassy legalization, including the U.S. Department of State step."),
 ]
+
+
+def apostille_hubs():
+    from pages_countries import COUNTRIES, country_path
+    from pages_docs import DOCS
+    from pages_local import CITIES, city_path
+    docs = "".join(f'<a href="{d["path"]}"><b>{d["short"]} apostille</b><span>What you need first, price, turnaround</span></a>' for d in DOCS)
+    docs += '<a href="/apostille-for-dual-citizenship/"><b>Dual citizenship</b><span>Italian, Irish and Polish files</span></a>'
+    ctry = "".join(f'<a href="{country_path(c)}"><b>{c.get("title_name", c["name"])}</b><span>{"Apostille" if c["route"] == "apostille" else "Embassy legalization"}{", " + c["tr"] + " translation" if c["tr"] else ""}</span></a>' for c in COUNTRIES)
+    cities = "".join(f'<a href="{city_path(c)}"><b>{c["city"]}</b><span>{c["county"]}</span></a>' for c in CITIES)
+    return f'''
+<section class="section" id="by-document" aria-labelledby="bydoc-h">
+  <div class="container">{shead("07", "By document", "Apostille by document.", "bydoc-h")}<div class="linkgrid">{docs}</div></div>
+</section>
+<section class="section section--paper" id="by-country" aria-labelledby="byc-h">
+  <div class="container">{shead("08", "By destination", "Apostille and legalization by country.", "byc-h")}<div class="linkgrid linkgrid--4">{ctry}</div></div>
+</section>
+<section class="section" id="by-state" aria-labelledby="bys-h">
+  <div class="container">{shead("09", "Missouri and Kansas", "Statewide, by mail, from one Kansas City office.", "bys-h", "Apostille and remote online notary are available statewide. Mobile notary and jail notary are Kansas City metro only.")}
+    <div class="linkgrid"><a href="/missouri-apostille-services/"><b>Missouri apostille services</b><span>Missouri Secretary of State, Jefferson City</span></a><a href="/kansas-apostille-services/"><b>Kansas apostille services</b><span>Kansas Secretary of State, Topeka</span></a></div>
+    <div class="linkgrid linkgrid--4" style="margin-top:0.75rem">{cities}</div></div>
+</section>'''
 
 
 def apostille():
@@ -117,10 +143,10 @@ def apostille():
     crumbs = [SVC, ("Apostille Services", path)]
     body = page_hero(
         "Apostille Services in Kansas City",
-        "Apostille and authentication for documents going abroad: same-day VIP service for Missouri and Kansas documents, standard processing, and apostille service in all 50 states.",
+        f"Apostille and authentication for documents going abroad. Missouri apostilles from {MO_STD} and Kansas from {KS_STD}, with same-day service for Missouri and Kansas documents, and apostilles for documents issued in every other state.",
         crumbs, image="apostille-documents", alt="Certificates with wax seals, a notary stamp and a fountain pen",
         lab="Apostille &amp; authentication", plate="Plate 01. Sealed certificates",
-        buttons=cta_btn() + btn("Servicios en español", "/servicios-de-notaria-y-apostilla/", "secondary", "arrow-right", extra=' lang="es" hreflang="es"'))
+        buttons=cta_btn() + call_btn())
     body += split("apostille-certificates", "Apostille certificate with a gold seal next to passports", f'''
       {shead("01", "What an apostille does", "One certificate that makes a document valid abroad.", "what-h", cls="shead--stack")}
       <p>An apostille authenticates the origin of a public document for use in countries that belong to the 1961 Hague Apostille Convention. It replaces the older chain of government legalizations with a single certificate.</p>
@@ -129,9 +155,9 @@ def apostille():
     body += f'''
 <section class="section section--paper" aria-labelledby="price-h">
   <div class="container">
-    {shead("02", "Pricing and turnaround", "Published prices, no surprises.", "price-h", "Prices include notarization, priority shipping and return tracking. Spanish translation and formatting are available as options.")}
+    {shead("02", "Pricing and turnaround", "Published prices, no surprises.", "price-h", "Same-day service applies to Missouri and Kansas documents only.")}
     {pricing_note()}
-    <p class="fine">Confirm current turnaround when you book. Timelines for federal documents depend on the U.S. Department of State.</p>
+    <p class="fine">Timelines for federal documents depend on the U.S. Department of State. {link("Full price list", "/pricing/")}</p>
   </div>
 </section>
 <section class="section" aria-labelledby="how-h">
@@ -156,13 +182,14 @@ def apostille():
   </div>
 </section>'''
     body += countries_explorer(num="06", heading="Check your destination country.", tone="section--bone")
-    body += faq_section(APOSTILLE_FAQ, num="07", heading="Apostille questions.")
+    body += apostille_hubs()
+    body += faq_section(APOSTILLE_FAQ, num="10", heading="Apostille questions.")
     body += cta_final()
     return page(path, "Apostille Services in Kansas City, MO | Midwest",
-                "Same-day VIP apostille for Missouri and Kansas documents, standard processing, and service in all 50 states. Birth certificates, diplomas, POAs and more.",
+                f"Apostille in Kansas City: Missouri from {MO_STD}, Kansas from {KS_STD}, same day for Missouri and Kansas documents. Birth certificates, diplomas, POAs and more.",
                 body, active="services", crumbs=crumbs, og_image="apostille-documents",
                 og_alt="Certificates with wax seals and a notary stamp",
-                schema=[service_schema(path, "Apostille Services in Kansas City", "Apostille and authentication services for documents used abroad, with same-day VIP service for Missouri and Kansas documents.", "Apostille services"),
+                schema=[service_schema(path, "Apostille Services in Kansas City", "Apostille and authentication services for documents used abroad, with same-day service for Missouri and Kansas documents.", "Apostille services"),
                         faq_schema(path, APOSTILLE_FAQ)],
                 preload=("apostille-documents", "(min-width: 1024px) 42vw, 100vw"), keyword="apostille services Kansas City")
 
@@ -171,7 +198,9 @@ def apostille():
 NOTARY_INCLUDES = [
     ("General notary work", "Acknowledgments, jurats, oaths and affirmations."),
     ("Powers of attorney", "Including medical authorizations and legal declarations."),
-    ("Real estate and loan signings", "At our office or at your location."),
+    ("Loan signing agent", "Real estate closing notary and loan signings, at our office or at your location."),
+    ("I-9 verification", "Employment eligibility verification for remote hires, as the employer’s authorized representative."),
+    ("Vehicle title notary", "Vehicle titles, bills of sale and related forms."),
     ("Immigration documents", "Notarization of immigration forms and supporting letters."),
     ("Minor travel consent", "Travel consent forms and guardianship documents."),
     ("Copies and affidavits", "Notarized copies, affidavits and sworn statements."),
@@ -184,6 +213,9 @@ NOTARY_FAQ = [
     ("Do you have evening and weekend appointments?", "Yes. We offer daytime, evening and weekend availability for notary appointments."),
     ("Do you notarize immigration documents?", "Yes, including immigration forms, affidavits and notarized copies."),
     ("Can you notarize a document for someone in jail?", 'Yes. See our <a href="/jail-notary-kansas-city/">jail notary service</a> for Kansas City area facilities and pricing.'),
+    ("Do you offer 24 hour or emergency notary service?", f"For urgent documents, call or text {PHONE}. We offer same-day notary appointments, evenings, weekends and holidays, and tell you the earliest time we can reach you."),
+    ("Is there a notary near me in Kansas City?", "Our notary public office is at 8101 E. Bannister Rd., Kansas City, MO 64134, and our mobile notaries travel across the Kansas City metro in Missouri and Kansas."),
+    ("Do you notarize at hospitals and nursing homes?", 'Yes, in the Kansas City area. See <a href="/urgent-notary-services-in-kansas-city-jail-hospital-after-hours-help/">urgent notary: jail, hospital and after hours</a>.'),
 ]
 
 
@@ -192,7 +224,7 @@ def notary():
     crumbs = [SVC, ("Notary Services", path)]
     body = page_hero(
         "Notary Services in Kansas City",
-        "Notary public services for Missouri and Kansas: in our office on E. Bannister Rd., at your home or office, or online through remote online notarization for clients anywhere.",
+        "Notary public in Kansas City, MO for Missouri and Kansas: in our office on E. Bannister Rd., at your home, office, hospital or nursing home, or online through remote online notarization.",
         crumbs, image="notary-stamp", alt="Notary pressing a stamp onto a signed document", lab="Notary public",
         plate="Plate 01. The stamp", buttons=cta_btn() + call_btn())
     body += f'''
@@ -205,7 +237,7 @@ def notary():
     body += split("notary-signing", "Notary signing a document beside a notary stamp", f'''
       {shead("02", "Mobile notary", "We come to you.", "mobile-h", cls="shead--stack")}
       <p>Our mobile notaries meet clients at offices, homes or convenient public locations anywhere in the Kansas City area.</p>
-      {checklist(["Daytime, evening and weekend availability", "Real estate and loan signings", "Jail and hospital visits in the Kansas City metro"])}
+      {checklist(["Same-day notary, plus evening and weekend availability", "Real estate closings and loan signings", "Hospital notary and nursing home notary visits", "Jail visits in the Kansas City metro"])}
       <p>{link("Urgent notary help: jail, hospital, after hours", "/urgent-notary-services-in-kansas-city-jail-hospital-after-hours-help/")}</p>''', hid="mobile-h", sid="mobile-notary")
     body += split("remote-online-notary", "Remote online notarization session on a laptop", f'''
       {shead("03", "Remote online notary", "Notarize from anywhere.", "ron-h", cls="shead--stack")}
@@ -248,7 +280,7 @@ def docprep():
         lab="Document preparation", plate="Plate 01. Prepared and signed", buttons=cta_btn() + call_btn())
     body += doc_stack(DOCPREP_ITEMS, "dp-h", "01", "What we prepare.",
                       "Choose a document to see what we do with it.",
-                      "We do not give legal advice. We help you complete and format documents for official submission, then provide the notary and apostille services that follow.")
+                      "We do not give immigration or legal advice. We help you complete and format documents for official submission, then provide the notary and apostille services that follow.")
     body += split("document-preparation", "Client reviewing prepared documents across a desk", f'''
       {shead("02", "Who we help", "Individuals, families and the professionals who work for them.", "who-h", cls="shead--stack")}
       <p>Our clients include individuals, law firms, immigration attorneys, healthcare professionals, educators and families who need accurate, fast and confidential document drafting.</p>
@@ -259,7 +291,7 @@ def docprep():
     {shead("03", "Why prepare with us", "One office from draft to apostille.", "dwhy-h")}
     {rows([("All in one place", "Prepare, notarize and apostille your documents with one provider."),
            ("Four languages", "English, Spanish, Arabic and French support."),
-           ("Nationwide", "We assist clients in all 50 states and abroad."),
+           ("Nationwide", "We prepare documents for clients across the U.S. and abroad."),
            ("Formatted to be accepted", "Prepared for U.S. agencies, foreign consulates and international institutions.")], cls="rows--4")}
   </div>
 </section>'''
@@ -487,11 +519,11 @@ def bilingual(lang):
         lead=("Servicios de notaría y apostilla en inglés y español, en Kansas City y a nivel nacional. Le explicamos cada paso en su idioma."
               if es else "Notary and apostille help in English and Spanish, in Kansas City and nationwide. We explain every step in your language."),
         lab="Español &middot; English" if es else "English &middot; Español",
-        n_h="Notario en Kansas City, Missouri y Kansas City, Kansas" if es else "Notary in Kansas City, Missouri and Kansas City, Kansas",
+        n_h="Notaría en Kansas City, Missouri y Kansas City, Kansas" if es else "Notary in Kansas City, Missouri and Kansas City, Kansas",
         n_p=("Ofrecemos notarizaciones confiables para:" if es else "We provide trusted notarization for:"),
         n_l=["Documentos legales", "Formularios de inmigración", "Poderes notariales", "Contratos y formularios escolares", "Servicios notariales móviles y en línea"]
         if es else ["Legal documents", "Immigration forms", "Power of attorney", "Contracts and school forms", "Mobile and online notary services"],
-        a_h="Apostilla en los 50 estados" if es else "Apostille in all 50 states",
+        a_h="Apostilla para documentos de cualquier estado" if es else "Apostille for documents from every state",
         a_p="¿Documentos para uso internacional? Nos encargamos de todo el proceso para:" if es else "Need international document authentication? We handle the full process for:",
         a_l=["Actas de nacimiento", "Certificados de matrimonio", "Documentos escolares", "Poderes notariales", "Documentos comerciales", "Entrega por mensajería disponible"]
         if es else ["Birth certificates", "Marriage records", "School transcripts", "Business documents", "Power of attorney", "Courier delivery available"],
@@ -504,13 +536,11 @@ def bilingual(lang):
         crumb="Servicios en español" if es else "Bilingual Services",
     )
     crumbs = [(T["crumb"], path)]
-    other = ES_PAIR["en" if es else "es"]
-    switch = btn("English" if es else "Español", other, "secondary", "arrow-right", extra=f' lang="{"en" if es else "es"}" hreflang="{"en" if es else "es"}"')
-    book = btn("Programar una cita" if es else "Book an appointment", APPT, "primary", "arrow-up-right", external=True)
+    book = cta_btn(label="Iniciar revisión de documentos" if es else "Start Your Document Review")
     body = page_hero(T["h1"], T["lead"], crumbs, image="notary-agreement",
-                     alt="Notario y cliente dándose la mano sobre documentos firmados" if es else "Notary and client shaking hands over signed documents",
-                     lab=T["lab"], buttons=book + switch, lang=lang, plate="Lámina 01. Acuerdo firmado" if es else "Plate 01. A signed agreement")
-    body += split("notary-consultation", "Notario revisando documentos con un cliente" if es else "Notary reviewing documents with a client", f'''
+                     alt="Profesional de notaría y cliente dándose la mano sobre documentos firmados" if es else "Notary and client shaking hands over signed documents",
+                     lab=T["lab"], buttons=book + call_btn(label=f"Llamar {PHONE}" if es else None), lang=lang, plate="Lámina 01. Acuerdo firmado" if es else "Plate 01. A signed agreement")
+    body += split("notary-consultation", "Revisión de documentos con un cliente en nuestra oficina" if es else "Notary reviewing documents with a client", f'''
       {shead("01", "Notaría" if es else "Notary", T["n_h"], "bn-h", cls="shead--stack")}
       <p>{T["n_p"]}</p>{checklist(T["n_l"])}
       <p>{link("Servicios notariales (inglés)" if es else "Notary services", "/notary-services/")}</p>''', hid="bn-h")
@@ -528,6 +558,14 @@ def bilingual(lang):
     {rows(T["o_l"], cls="rows--names")}
   </div>
 </section>'''
+    from pages_countries import COUNTRIES, country_path
+    es_c = [c for c in COUNTRIES if c.get("es")]
+    links = "".join(f'<a href="{country_path(c, "es" if es else "en")}"{"" if es else ""}><b>{"Apostilla para " + c["es"]["name"] if es else "Apostille for " + c["name"]}</b><span>{"Apostilla y traducción al español" if es else "Apostille and Spanish translation"}</span></a>' for c in es_c)
+    body += f'''
+<section class="section" aria-labelledby="bc-h">
+  <div class="container">{shead("05", "Por país" if es else "By country", "Apostilla por país." if es else "Apostille by country.", "bc-h")}<div class="linkgrid">{links}</div>
+  <p class="fine">{"Precios: apostilla de Missouri $90 ($180 el mismo día), Kansas $110 ($250 el mismo día)." if es else "Prices: Missouri apostille $90 ($180 same day), Kansas $110 ($250 same day)."} {NO_ADVICE_ES if es else NO_ADVICE}</p></div>
+</section>'''
     body += cta_final(heading="Obtenga claridad antes de enviar sus documentos." if es else "Get clarity before you send your documents.",
                       text=("Cuéntenos qué documento tiene y a dónde va. Confirmamos la ruta, el precio y un plazo realista antes de enviar nada."
                             if es else "Tell us what the document is and where it is going. We confirm the route, the price and a realistic timeline before anything is submitted."),
@@ -536,7 +574,7 @@ def bilingual(lang):
         return page(path, "Servicios de Notaría y Apostilla en Kansas City | Midwest",
                     "Notaría y apostilla en español en Kansas City: documentos legales, formularios de inmigración, poderes notariales y permisos de viaje para menores.",
                     body, active="resources", lang="es", crumbs=crumbs, alt=ES_PAIR, og_image="notary-agreement",
-                    og_alt="Notario y cliente dándose la mano", keyword="notaría y apostilla Kansas City",
+                    og_alt="Profesional de notaría y cliente dándose la mano", keyword="notaría y apostilla Kansas City",
                     schema=[service_schema(path, "Servicios de Notaría y Apostilla", "Servicios bilingües de notaría y apostilla en Kansas City.", "Notary and apostille services")])
     return page(path, "Bilingual Notary & Apostille Services | Kansas City",
                 "Notary and apostille help in English and Spanish in Kansas City: legal documents, immigration forms, powers of attorney and minor travel consent forms.",
@@ -606,10 +644,8 @@ def jail(lang):
             crumb="Jail Notary", switch=("Español", "es"), book="Book an appointment",
         )
     crumbs = [("Servicios" if es else "Services", "/services/"), (T["crumb"], path)]
-    other = JAIL_PAIR[T["switch"][1]]
-    buttons = (btn(T["book"], APPT, "primary", "arrow-up-right", external=True)
-               + btn(f'{T["call"]}: {JAIL_PHONE}', JAIL_TEL, "secondary", "phone")
-               + btn(T["switch"][0], other, "text", "arrow-right", extra=f' lang="{T["switch"][1]}" hreflang="{T["switch"][1]}"'))
+    buttons = (cta_btn(label="Iniciar revisión de documentos" if es else "Start Your Document Review")
+               + btn(f'{T["call"]}: {JAIL_PHONE}', JAIL_TEL, "secondary", "phone"))
     body = page_hero(T["h1"], T["lead"], crumbs, image="jail-notary",
                      alt="Mazo y sello notarial sobre un escritorio" if es else "Gavel, wax seal and notary stamp on a desk",
                      lab=T["lab"], buttons=buttons, lang=lang, plate="Lámina 01" if es else "Plate 01. Seal and stamp")
@@ -656,10 +692,10 @@ def jail(lang):
 # =========================================================================== Guides hub
 POSTS = [
     ("/how-to-get-an-apostille-in-kansas-city-birth-certificates-custodian-documents-more/", "apostille-documents", "Apostille guide",
-     "How to Get an Apostille in Kansas City: Birth Certificates, Custodian Documents &amp; More",
+     f"How to Get an Apostille in Missouri ({YEAR}): Birth Certificates, Custodian Documents &amp; More",
      "Which documents need a notary, what a custodian certification is, and which countries ask for an apostille."),
     ("/urgent-notary-services-in-kansas-city-jail-hospital-after-hours-help/", "jail-notary", "Notary guide",
-     "Urgent Notary Services in Kansas City: Jail, Hospital &amp; After-Hours Help",
+     f"Urgent Notary Services in Kansas City ({YEAR}): Jail, Hospital &amp; After-Hours Help",
      "Jail and hospital notarizations, after-hours appointments, and the facilities we travel to."),
 ]
 
@@ -691,7 +727,7 @@ def guides_hub():
     {shead("03", "Languages", "English and Spanish pages.", "lang-h")}
     <div class="compare">
       <div class="compare__col"><p class="label">English</p><h3>Bilingual notary and apostille</h3>{link("Bilingual notary and apostille services", "/notary-apostille-services/")}{link("Jail notary in Kansas City", "/jail-notary-kansas-city/")}</div>
-      <div class="compare__col" lang="es"><p class="label">Español</p><h3>Notaría y apostilla</h3>{link("Servicios de notaría y apostilla", "/servicios-de-notaria-y-apostilla/", extra=' hreflang="es"')}{link("Notaría en cárceles de Kansas City", "/notaria-en-carceles-de-kansas-cit/", extra=' hreflang="es"')}</div>
+      <div class="compare__col" lang="es"><p class="label">Español</p><h3>Notaría y apostilla</h3>{link("Servicios de notaría y apostilla", "/servicios-de-notaria-y-apostilla/", extra=' hreflang="es"')}{link("Notaría en cárceles de Kansas City", "/notaria-en-carceles-de-kansas-city/", extra=' hreflang="es"')}</div>
     </div>
   </div>
 </section>'''
@@ -751,15 +787,15 @@ def blog_urgent():
          '<p>We also offer apostille services and custodian of record certifications for documents used abroad. Read <a href="/how-to-get-an-apostille-in-kansas-city-birth-certificates-custodian-documents-more/">how to get an apostille in Kansas City</a>.</p>'),
         ("why", "Why clients call us",
          ul(["Same-day mobile and emergency appointments", "Remote online notary options", "Missouri commissioned notaries",
-             "Our parent company, Midwest Identity Services, offers mobile notary, jail notary and apostille services"])),
+             f'Fingerprinting through our partner, <a href="{PARTNER_URL}" target="_blank" rel="noopener">{PARTNER}</a>, at the same location'])),
         ("schedule", "Schedule a mobile notary appointment",
          f'<p>Call or text <a href="{TEL}">{PHONE}</a>, or <a href="{BOOK}" target="_blank" rel="noopener">book online</a>.</p>'
          "<p>We serve Jackson, Clay, Platte, Cass and Wyandotte counties and the wider Kansas City metro.</p><h3>Cities we serve</h3>"
          "<p>Kansas City, Independence, Raytown, Lee’s Summit, Blue Springs, Grandview, North Kansas City, Gladstone, Liberty, Belton, Raymore, Grain Valley, Oak Grove, Sugar Creek, Riverside, Parkville, Kearney, Harrisonville, Leawood, Overland Park, Shawnee, Merriam, Olathe, Mission, Roeland Park.</p>"),
     ]
     return article("/urgent-notary-services-in-kansas-city-jail-hospital-after-hours-help/",
-                   "Urgent Notary in Kansas City: Jail, Hospital & After Hours",
-                   "Urgent Notary Services in Kansas City: Jail, Hospital &amp; After-Hours Help",
+                   f"Urgent Notary in Kansas City ({YEAR}): Jail & Hospital",
+                   f"Urgent Notary Services in Kansas City ({YEAR}): Jail, Hospital &amp; After-Hours Help",
                    "How to get a document notarized fast in Kansas City: jail and hospital visits, after-hours appointments, and the facilities we travel to.",
                    "Urgent Notary Services", "jail-notary", "Gavel, wax seal and notary stamp on a desk", sections,
                    [("Jail notary in Kansas City", "/jail-notary-kansas-city/"), ("Notary services", "/notary-services/"), ("Remote online notary", "/notary-services/#remote-online-notary")],
@@ -769,7 +805,7 @@ def blog_urgent():
 def blog_apostille():
     sections = [
         ("kansas-city", "Apostille services in Kansas City",
-         "<p>Sending U.S. documents overseas for immigration, study, marriage or dual citizenship? We help individuals, families and attorneys get documents certified through apostille or custodian verification, legally and accurately.</p>"),
+         '<p>Sending U.S. documents overseas for immigration, study, marriage or dual citizenship? This guide explains where to get an apostille in Missouri and what each document needs first. To order, see <a href="/missouri-apostille-services/">Missouri apostille services</a> or the <a href="/pricing/">price list</a>.</p>'),
         ("document-types", "Common apostille document types",
          ul(["Birth certificates (certified copies from Missouri Vital Records)", "Marriage certificates", "Divorce decrees", "Death certificates", "Custodian notarized documents", "Power of attorney", "School transcripts and diplomas", 'FBI background checks (federal apostille, see <a href="/fbi-apostille-for-hague-countries/">FBI apostille</a>)', "Corporate records, articles of incorporation, IRS letters", "Single status affidavit, affidavit of law"], cols=True)
          + "<p>Your document is either notarized and certified by the Secretary of State, or submitted as a certified vital record, which needs no notary.</p>"),
@@ -792,15 +828,15 @@ def blog_apostille():
          f'<p>Call or text <a href="{TEL}">{PHONE}</a>, or <a href="/contact-us/">send us a message</a> with the document and destination.</p>'),
     ]
     return article("/how-to-get-an-apostille-in-kansas-city-birth-certificates-custodian-documents-more/",
-                   "How to Get an Apostille in Kansas City | Midwest Guide",
-                   "How to Get an Apostille in Kansas City: Birth Certificates, Custodian Documents &amp; More",
+                   f"How to Get an Apostille in Missouri ({YEAR}) | Midwest",
+                   f"How to Get an Apostille in Missouri ({YEAR}): Birth Certificates, Custodian Documents &amp; More",
                    "A practical guide to apostilles in Kansas City: which documents need a notary, custodian certifications, and which countries require an apostille.",
                    "How to Get an Apostille", "apostille-documents", "Certificates with wax seals and a notary stamp", sections,
-                   [("Apostille services in Kansas City", "/apostille-services/"), ("Document preparation", "/document-preparation-services/"), ("FBI apostille", "/fbi-apostille-for-hague-countries/")],
+                   [("Missouri apostille services", "/missouri-apostille-services/"), ("Apostille services in Kansas City", "/apostille-services/"), ("Birth certificate apostille", "/birth-certificate-apostille-missouri-kansas/"), ("Pricing", "/pricing/")],
                    "how to get an apostille Kansas City")
 
 
 def build_all():
     return [about(), services(), service_redirect(), apostille(), notary(), docprep(), contact(), fbi_apostille(),
             fbi_attestation(), bilingual("en"), bilingual("es"), jail("en"), jail("es"), guides_hub(), blog_urgent(),
-            blog_apostille(), not_found()]
+            blog_apostille(), not_found(), jail_es_redirect()]

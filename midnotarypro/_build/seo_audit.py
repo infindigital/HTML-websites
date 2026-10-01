@@ -20,12 +20,12 @@ INTENT = {
     "/notary-services/": ("Commercial, local", "notary public Kansas City; mobile notary Kansas City; online notary Kansas City; remote online notary; notary Kansas City MO"),
     "/document-preparation-services/": ("Commercial", "legal document preparation; power of attorney preparation; international document preparation; document assistance"),
     "/jail-notary-kansas-city/": ("Commercial, local", "jail notary services; jail notary Jackson County; notary for inmates; mobile jail notary"),
-    "/notaria-en-carceles-de-kansas-cit/": ("Comercial, local (ES)", "notario para reclusos; notaría móvil cárcel Kansas City"),
+    "/notaria-en-carceles-de-kansas-city/": ("Comercial, local (ES)", "notaría para reclusos; notaría móvil cárcel Kansas City"),
     "/fbi-apostille-for-hague-countries/": ("Commercial, national", "FBI background check apostille; FBI Identity History Summary apostille; FBI document apostille; FBI apostille Hague countries"),
     "/fbi-attestation-legalization/": ("Commercial, national", "FBI attestation; FBI embassy legalization; FBI authentication; non-Hague FBI legalization"),
     "/contact-us/": ("Navigational, local", "Midwest Apostille & Notary phone; address; contact"),
     "/notary-apostille-services/": ("Commercial, bilingual", "Spanish speaking notary Kansas City; bilingual apostille"),
-    "/servicios-de-notaria-y-apostilla/": ("Comercial (ES)", "notario en español Kansas City; apostilla Kansas City"),
+    "/servicios-de-notaria-y-apostilla/": ("Comercial (ES)", "notaría en español Kansas City; apostilla Kansas City"),
     "/guides/": ("Informational hub", "apostille guide; FBI background check apostille guide"),
     "/how-to-get-an-apostille-in-kansas-city-birth-certificates-custodian-documents-more/": ("Informational", "birth certificate apostille Missouri; custodian certification; do I need a notary for an apostille"),
     "/urgent-notary-services-in-kansas-city-jail-hospital-after-hours-help/": ("Informational, urgent", "hospital notary Kansas City; after hours notary Kansas City; jail notary"),
@@ -150,7 +150,7 @@ def audit():
             iss.append("no BreadcrumbList")
         if p["path"] != "/" and p["index"] and not pr.crumbs:
             iss.append("no visible breadcrumb")
-        if p["alt"] and not {"en", "es", "x-default"} <= set(pr.hreflang):
+        if p["alt"] and p["index"] and not set(p["alt"]) | {"x-default"} <= set(pr.hreflang):
             iss.append("incomplete hreflang")
         internal = sorted({h.split("#")[0] for h in pr.main_links if h.startswith("/") and h.split("#")[0] not in ("", p["path"])})
         for h in internal:

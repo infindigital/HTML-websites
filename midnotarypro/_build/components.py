@@ -1,8 +1,8 @@
 """Reusable editorial sections. Facts come from the client's content PDF; see facts.py for
 time-sensitive values (pricing, turnaround)."""
 from countries import HAGUE, HAGUE_NOTES, LEGALIZATION, NON_HAGUE_MENTIONED, REVIEWED_LIST, slug
-from facts import (APOSTILLE_RUSH_OTHER_STATES, APOSTILLE_STD_PRICE, APOSTILLE_STD_TIME, APOSTILLE_VIP_PRICE,
-                   LANGUAGES)
+from facts import (APOSTILLE_STD_TIME, CUTOFFS, CUTOFFS_ES, GUARANTEE, GUARANTEE_ES, KS_SAME, KS_STD, LANGUAGES,
+                   MO_SAME, MO_STD, MULTI_DOC_DISCOUNT, PRICE_NOTE, PRICE_NOTE_ES, PRICES, PRICES_ES, TX_EXP_TIME)
 from lib import (ADDRESS, BOOK, STREET, CITY_LINE, DISCLAIMER, DISCLAIMER_ES, EMAIL, MAPS_URL, PHONE, TEL, WHATSAPP, btn, call_btn,
                  cta_btn, esc, icon, img, label, link)
 
@@ -36,25 +36,37 @@ def checklist(items, cols=False):
 
 
 def breadcrumbs(crumbs, lang="en"):
-    home = "Inicio" if lang == "es" else "Home"
+    home = {"es": "Inicio", "ar": "الرئيسية", "fr": "Accueil"}.get(lang, "Home")
     items = [f'<li><a href="/">{home}</a></li>']
     for i, (name, path) in enumerate(crumbs):
         if i == len(crumbs) - 1:
             items.append(f'<li aria-current="page">{name}</li>')
         else:
             items.append(f'<li><a href="{path}">{name}</a></li>')
-    return f'<nav class="crumbs" aria-label="{"Ruta de navegación" if lang == "es" else "Breadcrumb"}"><ol role="list">{"".join(items)}</ol></nav>'
+    return f'<nav class="crumbs" aria-label="{ {"es": "Ruta de navegación", "ar": "مسار التنقل", "fr": "Fil d’Ariane"}.get(lang, "Breadcrumb")}"><ol role="list">{"".join(items)}</ol></nav>'
 
 
 PHERO_STRIP = [
     ("zap", "Same-day apostille", "Missouri and Kansas documents"),
-    ("globe", "All 50 states", "Courier and international shipping"),
+    ("globe", "Every U.S. state", "Apostilles for documents from any state"),
     ("languages", "Four languages", "English, Spanish, Arabic, French"),
 ]
 PHERO_STRIP_ES = [
     ("zap", "Apostilla el mismo día", "Documentos de Missouri y Kansas"),
-    ("globe", "Los 50 estados", "Mensajería y envío internacional"),
+    ("globe", "Todos los estados", "Apostillas para documentos de cualquier estado"),
     ("languages", "Cuatro idiomas", "Inglés, español, árabe y francés"),
+]
+
+
+PHERO_STRIP_AR = [
+    ("zap", "أبوستيل في نفس اليوم", "لوثائق ميزوري وكانساس"),
+    ("globe", "كل الولايات الأمريكية", "شحن محلي ودولي"),
+    ("languages", "أربع لغات", "الإنجليزية والإسبانية والعربية والفرنسية"),
+]
+PHERO_STRIP_FR = [
+    ("zap", "Apostille le jour même", "Documents du Missouri et du Kansas"),
+    ("globe", "Tous les États américains", "Envoi national et international"),
+    ("languages", "Quatre langues", "Anglais, espagnol, arabe et français"),
 ]
 
 
@@ -64,12 +76,12 @@ def page_hero(h1, lead, crumbs, image=None, alt="", lab="", buttons="", plate=""
     if image:
         cap = f'<figcaption><span>{plate}</span></figcaption>' if plate else ""
         office = (f'<div class="phero__card" aria-hidden="true"><p class="phero__card-head"><span class="phero__pulse"></span>'
-                  f'{"Oficina en Kansas City" if es else "Kansas City office"}</p>'
+                  f'{ {"es": "Oficina en Kansas City", "ar": "مكتب كانساس سيتي", "fr": "Bureau de Kansas City"}.get(lang, "Kansas City office")}</p>'
                   f'<p class="phero__card-addr">{STREET}<br>{CITY_LINE}</p><p class="phero__card-tel">{icon("phone")}{PHONE}</p></div>')
         media = (f'<div class="phero__art"><span class="phero__frame" aria-hidden="true"></span>'
                  f'<figure class="phero__media" data-mask>{img(image, alt, "(min-width: 1024px) 42vw, 100vw", eager=True, attrs="data-parallax")}'
                  f'{cap}</figure>{office}</div>')
-    strip = PHERO_STRIP_ES if es else PHERO_STRIP
+    strip = {"es": PHERO_STRIP_ES, "ar": PHERO_STRIP_AR, "fr": PHERO_STRIP_FR}.get(lang, PHERO_STRIP)
     facts = "".join(f'<li>{icon(ic)}<span><strong>{t}</strong>{d}</span></li>' for ic, t, d in strip)
     return f'''
 <section class="phero{" phero--" + tone if tone else ""}{" phero--noimg" if not image else ""}{" phero--long" if len(h1) > 60 else ""}" aria-labelledby="page-h1">
@@ -166,7 +178,7 @@ def journey(hid="journey-h", num="02"):
             <span class="jline jline--s"></span><span class="jline"></span><span class="jline jline--m"></span>
             <div class="jdoc__foot">{sig}<span class="jdoc__signline">Signature</span></div>
             <span class="jdoc__notary">Notary<br>Public<br><small>Missouri</small></span>
-            <span class="jdoc__seal"><span>Secretary<br>of State</span></span>
+            <span class="jdoc__seal"><span>Certified<br>copy</span></span>
           </div>
           <div class="jstage__trans jtrans"><p>Certified translation</p><span class="jline"></span><span class="jline jline--m"></span><span class="jline"></span><b>EN &#8594; ES</b></div>
           <div class="jstage__cert jcert">
@@ -191,8 +203,8 @@ def journey(hid="journey-h", num="02"):
 
 # ----------------------------------------------------------------------------- service index
 SERVICE_INDEX = [
-    ("Apostille Services", "/apostille-services/", "apostille-certificates", "Kansas City &middot; All 50 states",
-     "Same-day VIP apostille for Missouri and Kansas documents, standard processing, and service in every state."),
+    ("Apostille Services", "/apostille-services/", "apostille-certificates", "Missouri, Kansas &amp; all states",
+     f"Missouri from {MO_STD}, Kansas from {KS_STD}. Same-day service for Missouri and Kansas documents, and apostilles for documents from every state."),
     ("Embassy Legalization", "/apostille-services/#embassy-legalization", "international-route", "Non-Hague countries",
      "For countries outside the Hague Convention: U.S. Department of State certification, then consular legalization."),
     ("Notary Services", "/notary-services/", "notary-stamp", "Missouri &amp; Kansas",
@@ -205,11 +217,20 @@ SERVICE_INDEX = [
      "Powers of attorney, affidavits, travel consent and immigration form support, formatted for notarization or apostille."),
     ("Jail Notary", "/jail-notary-kansas-city/", "jail-notary", "Jackson &amp; Wyandotte counties",
      "Same-day notarizations for inmates. We go to the facility, including evenings, weekends and holidays."),
-    ("FBI Apostille", "/fbi-apostille-for-hague-countries/", "apostille-documents", "Hague countries",
-     "Your FBI background check apostilled by the U.S. Department of State. Fingerprinting available."),
+    ("FBI Fingerprinting &amp; Apostille", "/fbi-fingerprinting-apostille-kansas-city/", "apostille-documents", "Kansas City",
+     "Fingerprints, the FBI report and the U.S. Department of State apostille, as one $229 package."),
     ("FBI Legalization", "/fbi-attestation-legalization/", "hero-world-documents", "UAE, Qatar, Egypt and more",
      "Embassy legalization for FBI background checks going to countries outside the Hague Convention."),
+    ("Certified Translation", "/certified-translation-services/", "notary-consultation", "Spanish, Arabic, French &amp; more",
+     "Certified translation of birth, marriage and divorce records, diplomas and FBI reports, from $45 per page."),
+    ("Business Accounts", "/business-accounts/", "notary-agreement", "Employers, schools, law firms",
+     "Monthly invoicing, volume pricing and one point of contact for organizations that send documents regularly."),
 ]
+NUM_WORDS = {9: "Nine", 10: "Ten", 11: "Eleven", 12: "Twelve", 13: "Thirteen"}
+
+
+def services_count_heading():
+    return f"{NUM_WORDS[len(SERVICE_INDEX)]} services, one office."
 
 
 def service_index(heading, hid, num="03", lab="Services", lead="", items=None):
@@ -503,8 +524,8 @@ def faq_section(items, hid="faq-h", num="", heading="Questions, answered.", lab=
 
 HOME_FAQ = [
     ("What is an apostille?", "An apostille is a certification that authenticates the origin of a public document so it can be used in another country that is a member of the Hague Apostille Convention."),
-    ("How long does an apostille take?", f"For Missouri and Kansas documents, same-day VIP apostille is available ({APOSTILLE_VIP_PRICE}) and standard processing takes {APOSTILLE_STD_TIME} ({APOSTILLE_STD_PRICE}). For documents from other states, our rush service takes {APOSTILLE_RUSH_OTHER_STATES}."),
-    ("Do you offer same-day apostille services?", "Yes, for Missouri and Kansas documents that are ready to be certified. Call us first so we can confirm your document qualifies."),
+    ("How long does an apostille take?", f"Missouri and Kansas documents can be apostilled the same day ({MO_SAME} Missouri, {KS_SAME} Kansas) when they reach us by the cutoff: 10 AM for Kansas, 1 PM for Missouri. Standard processing takes {APOSTILLE_STD_TIME} ({MO_STD} Missouri, {KS_STD} Kansas). Texas expedited service takes {TX_EXP_TIME}; expedited service for other states is quoted on request."),
+    ("Do you offer same-day apostille services?", f"Yes, for Missouri and Kansas documents only. Kansas documents must be received by 10 AM and Missouri documents by 1 PM. {GUARANTEE}"),
     ("What is the difference between an apostille and legalization?", "An apostille is one certificate accepted by Hague Convention member countries. Countries outside the convention require embassy legalization: U.S. Department of State certification followed by the destination embassy, and often a final Ministry of Foreign Affairs step."),
     ("Can I notarize documents online?", "Yes. We offer remote online notarization (RON) through our Missouri-based secure digital platform."),
     ("Do you provide FBI apostille services?", 'Yes. We can take your fingerprints, obtain your FBI Identity History Summary and have it apostilled by the U.S. Department of State. For non-Hague countries we handle <a href="/fbi-attestation-legalization/">FBI background check legalization</a>.'),
@@ -512,24 +533,40 @@ HOME_FAQ = [
 ]
 
 
+APOSTILLE_FAQ_BASE = [
+    ("Do I need a notary for an apostille?", "Only for documents such as powers of attorney or affidavits. Certified vital records like birth and marriage certificates are submitted as originals and do not need a notary."),
+    ("Can I get an apostille for a document in Spanish?", "Yes, as long as it is notarized in English. We also assist with translated documents for many countries."),
+    ("What if my document is for a non-Hague country?", "We offer embassy legalization for countries outside the Hague Apostille Convention, including U.S. Department of State certification and consular legalization."),
+    ("Which countries are part of the Hague Convention?", 'Use the <a href="/apostille-services/#countries">country explorer</a> to check any destination.'),
+]
+
+
 # ----------------------------------------------------------------------------- closing blocks
+CTA_L = {
+    "en": dict(next="Next step", cta="Start Your Document Review", call=None, office="Office", wa="Send a message"),
+    "es": dict(next="Próximo paso", cta="Iniciar revisión de documentos", call=f"Llamar {PHONE}", office="Oficina", wa="Enviar mensaje"),
+    "ar": dict(next="الخطوة التالية", cta="ابدأ مراجعة مستنداتك", call=f'اتصل <bdi dir="ltr">{PHONE}</bdi>', office="المكتب", wa="أرسل رسالة"),
+    "fr": dict(next="Prochaine étape", cta="Faire vérifier mon document", call=f"Appeler le {PHONE}", office="Bureau", wa="Envoyer un message"),
+}
+
+
 def cta_final(heading="Get clarity before you send your documents.",
               text="Tell us what the document is and where it is going. We confirm the route, the price and a realistic timeline before anything is submitted.",
               lang="en"):
-    es = lang == "es"
+    L = CTA_L.get(lang, CTA_L["en"])
     return f'''
 <section class="cta" aria-labelledby="cta-h">
   <div class="container cta__inner">
-    <p class="label label--light">{"Próximo paso" if es else "Next step"}</p>
+    <p class="label label--light">{L["next"]}</p>
     <h2 id="cta-h" class="cta__title" data-split>{heading}</h2>
     <div class="cta__row">
       <p>{text}</p>
-      <div class="btn-row">{cta_btn("light", "Iniciar revisión de documentos" if es else "Start Your Document Review", magnetic=True)}{call_btn("outline-light", f"Llamar {PHONE}" if es else None)}</div>
+      <div class="btn-row">{cta_btn("light", L["cta"], magnetic=True)}{call_btn("outline-light", L["call"])}</div>
     </div>
     <ul class="cta__contacts" role="list">
-      <li><span>{"Oficina" if es else "Office"}</span><a href="{MAPS_URL}" target="_blank" rel="noopener">{ADDRESS}</a></li>
+      <li><span>{L["office"]}</span><a href="{MAPS_URL}" target="_blank" rel="noopener"><bdi dir="ltr">{ADDRESS}</bdi></a></li>
       <li><span>Email</span><a href="mailto:{EMAIL}">{EMAIL}</a></li>
-      <li><span>WhatsApp</span><a href="{WHATSAPP}" target="_blank" rel="noopener">{"Enviar mensaje" if es else "Send a message"}</a></li>
+      <li><span>WhatsApp</span><a href="{WHATSAPP}" target="_blank" rel="noopener">{L["wa"]}</a></li>
     </ul>
   </div>
 </section>'''
@@ -574,13 +611,72 @@ def doc_stack(items, hid, num, heading, lead, note, more=""):
 </section>'''
 
 
+def price_table(lang="en", rows=None, caption=None):
+    """The full price list from facts.PRICES (or a subset of its rows)."""
+    es = lang == "es"
+    data = rows if rows is not None else (PRICES_ES if es else PRICES)
+    head = ("Servicio", "Estándar", "El mismo día / urgente") if es else ("Service", "Standard", "Same-day / expedited")
+    na = f'<span aria-hidden="true">&middot;</span><span class="sr-only">{"No aplica" if es else "Not applicable"}</span>'
+    trs = "".join(f'<tr><th scope="row">{a}</th><td>{b}</td><td>{c or na}</td></tr>' for a, b, c in data)
+    cap = caption or ("Precios" if es else "Prices")
+    return (f'<div class="ptable-wrap"><table class="ptable"><caption class="sr-only">{cap}</caption>'
+            f'<thead><tr><th scope="col">{head[0]}</th><th scope="col">{head[1]}</th><th scope="col">{head[2]}</th></tr></thead>'
+            f'<tbody>{trs}</tbody></table></div>')
+
+
+def price_notes(lang="en", guarantee=True):
+    es = lang == "es"
+    items = [PRICE_NOTE_ES if es else PRICE_NOTE, CUTOFFS_ES if es else CUTOFFS]
+    if guarantee:
+        items.append(GUARANTEE_ES if es else GUARANTEE)
+    if MULTI_DOC_DISCOUNT:
+        items.append(MULTI_DOC_DISCOUNT)
+    return '<ul class="pnotes" role="list">' + "".join(f"<li>{icon('check')}<span>{x}</span></li>" for x in items) + "</ul>"
+
+
+def state_prices(state):
+    """Rows for one state's apostille, for the state, city and document pages."""
+    return [r for r in PRICES if r[0].startswith(state)]
+
+
 def pricing_note():
-    return (f'<dl class="facts facts--price"><div><dt>Same-day VIP</dt><dd><b>{APOSTILLE_VIP_PRICE}</b>Missouri and Kansas documents</dd></div>'
-            f'<div><dt>Standard</dt><dd><b>{APOSTILLE_STD_PRICE}</b>{APOSTILLE_STD_TIME}</dd></div>'
-            f'<div><dt>Other states, rush</dt><dd><b>{APOSTILLE_RUSH_OTHER_STATES}</b>turnaround</dd></div></dl>')
+    return price_table(rows=PRICES[:4]) + price_notes()
 
 
 def disclaimer(lang="en"):
     return f'<p class="fine">{DISCLAIMER_ES if lang == "es" else DISCLAIMER}</p>'
 
 
+
+
+# ----------------------------------------------------------------------------- pricing + partner sections
+HOME_PRICE_ROWS = [0, 1, 2, 3, 6, 9, 7]
+
+
+def pricing_section(num="04", hid="pricing-h", heading="Prices you can see before you send anything.", tone="section--paper"):
+    rows_ = [PRICES[i] for i in HOME_PRICE_ROWS]
+    return f'''
+<section class="section {tone}" id="pricing" aria-labelledby="{hid}">
+  <div class="container pricing">
+    <div class="pricing__head">
+      {shead(num, "Pricing", heading, hid, "Same-day service applies to Missouri and Kansas documents only. Every other state is processed at standard or expedited speed.", cls="shead--stack")}
+      {price_notes()}
+      <p class="pricing__links">{link("Full price list", "/pricing/")}{link("Order online", "/order/")}</p>
+    </div>
+    {price_table(rows=rows_)}
+  </div>
+</section>'''
+
+
+def partner_section(num="", hid="partner-h", tone=""):
+    from facts import PARTNER, PARTNER_LINE, PARTNER_URL
+    return f'''
+<section class="section {tone} partner" aria-labelledby="{hid}">
+  <div class="container partner__inner">
+    {shead(num, "Fingerprinting partner", "Fingerprints and apostille in one visit.", hid, cls="shead--stack")}
+    <div class="partner__copy">
+      <p>{PARTNER_LINE}</p>
+      <p class="pricing__links"><a class="link" href="{PARTNER_URL}" target="_blank" rel="noopener"><span>Visit {PARTNER}</span>{icon("arrow-up-right")}</a>{link("FBI fingerprinting and apostille", "/fbi-fingerprinting-apostille-kansas-city/")}</p>
+    </div>
+  </div>
+</section>'''

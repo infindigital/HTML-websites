@@ -82,6 +82,20 @@ $phone   = clean($data['phone']   ?? '');
 $message = clean($data['message'] ?? ($data['question'] ?? ''));
 $source  = clean($data['form_source'] ?? 'Website');
 
+// Extra order and business fields are named x_<field>; they are appended to the message as "Label: value" lines.
+$extra = [];
+foreach ($data as $key => $value) {
+    if (is_string($key) && str_starts_with($key, 'x_') && !is_array($value)) {
+        $v = clean($value);
+        if ($v !== '' && strlen($v) <= 500) {
+            $extra[] = ucfirst(str_replace('_', ' ', substr($key, 2))) . ': ' . $v;
+        }
+    }
+}
+if ($extra) {
+    $message = implode("\n", array_slice($extra, 0, 30)) . "\n\n" . $message;
+}
+
 $errors = [];
 if ($first === '' && $name === '')                               $errors[] = 'first_name';
 if ($email === '' || !filter_var($email, FILTER_VALIDATE_EMAIL)) $errors[] = 'email';

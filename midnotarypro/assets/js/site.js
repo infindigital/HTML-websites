@@ -710,6 +710,11 @@
         if (!res.ok || !data.ok) throw new Error(data.message || "error");
         status.className = "form__status is-ok";
         status.textContent = data.message || "Thank you. Your message has been sent and we will get back to you shortly.";
+        if (form.hasAttribute("data-order")) {
+          const dep = form.dataset.payDeposit, full = form.dataset.payFull;
+          const links = [dep && `<a href="${dep}" target="_blank" rel="noopener">Pay a deposit</a>`, full && `<a href="${full}" target="_blank" rel="noopener">Pay in full</a>`].filter(Boolean).join(" or ");
+          status.innerHTML = `Thank you. Your order has been received. ${links ? `You can pay now: ${links}.` : "We will confirm the total and email you a secure payment link with the mailing address for your documents."}`;
+        }
         form.reset();
       } catch (err) {
         status.className = "form__status is-err";
@@ -755,6 +760,69 @@
     addEventListener("pageshow", (e) => { if (e.persisted) { const m = $("#main"); if (m) m.style.opacity = ""; } });
   }
 
+  /* ------------------------------------------------- translation price calculator */
+  const trCost = (pages, rate, rate3) => pages * (pages >= 3 ? rate3 : rate);
+  function initTcalc() {
+    $$("[data-tcalc]").forEach((root) => {
+      const input = $("[data-tcalc-in]", root), out = $("[data-tcalc-out]", root), note = $("[data-tcalc-note]", root);
+      const rate = +root.dataset.rate, rate3 = +root.dataset.rate3;
+      const run = () => {
+        const n = Math.max(1, Math.min(200, Math.round(+input.value || 1)));
+        out.textContent = `$${trCost(n, rate, rate3)}`;
+        note.textContent = `${n} page${n > 1 ? "s" : ""} at $${n >= 3 ? rate3 : rate} per page`;
+      };
+      input.addEventListener("input", run);
+      run();
+    });
+  }
+
+  /* ------------------------------------------------------------- order estimate */
+  const PRICE = {
+    state: { MO: { standard: 90, fast: 180 }, KS: { standard: 110, fast: 250 }, TX: { standard: 190, fast: 400 }, OTHER: { standard: 190, fast: null } },
+    fbi_package: 229, fbi_apostille: 155, fbi_prints: 90,
+  };
+  const STATE_NAME = { MO: "Missouri", KS: "Kansas", TX: "Texas", OTHER: "Other state" };
+  function initOrder() {
+    const form = $("[data-order]");
+    if (!form) return;
+    const f = (k) => $(`[data-o-${k}]`, form);
+    const svc = f("svc"), state = f("state"), speed = f("speed"), qty = f("qty"), tr = f("tr"), pages = f("pages");
+    const ship = f("ship"), total = f("total"), note = f("note"), est = f("estimate");
+    const fastLabel = () => (state.value === "MO" || state.value === "KS" ? "Same day" : state.value === "TX" ? "Expedited, 2 to 3 business days" : "Expedited (quoted)");
+    const run = () => {
+      const s = svc.value, n = Math.max(1, Math.min(50, Math.round(+qty.value || 1)));
+      const isState = s === "state";
+      f("statefield").hidden = !isState;
+      f("speedfield").hidden = !isState;
+      speed.options[1].textContent = fastLabel();
+      f("trfield").hidden = !tr.checked && s !== "translation";
+      if (s === "translation") tr.checked = true;
+      let sum = 0;
+      const parts = [], quoted = [];
+      if (isState) {
+        const p = PRICE.state[state.value][speed.value];
+        if (p == null) quoted.push("expedited service");
+        else { sum += p * n; parts.push(`${n} × ${STATE_NAME[state.value]} apostille, ${speed.value === "fast" ? fastLabel().toLowerCase() : "standard"}`); }
+      } else if (s === "legalization") quoted.push("embassy legalization");
+      else if (s !== "translation") { sum += PRICE[s] * n; parts.push(`${n} × ${svc.options[svc.selectedIndex].text}`); }
+      if (tr.checked) {
+        const pg = Math.max(1, Math.min(200, Math.round(+pages.value || 1)));
+        sum += trCost(pg, 45, 35);
+        parts.push(`translation, ${pg} page${pg > 1 ? "s" : ""}`);
+      }
+      if (ship.value === "us") { sum += 45; parts.push("tracked FedEx return"); }
+      if (ship.value === "intl") quoted.push("international shipping");
+      if (f("overnight").checked) quoted.push("overnight shipping");
+      if (f("copies").checked) quoted.push("extra copies");
+      total.textContent = `$${sum}${quoted.length ? " +" : ""}`;
+      note.textContent = `${parts.join(", ") || "Quoted service"}.${quoted.length ? ` Quoted separately: ${quoted.join(", ")}.` : ""} State filing fees are included.`;
+      est.value = `${total.textContent} (${note.textContent})`;
+    };
+    form.addEventListener("input", run);
+    form.addEventListener("change", run);
+    run();
+  }
+
   /* ------------------------------------------------------------------- boot */
   function boot() {
     initHeader();
@@ -768,6 +836,8 @@
     initReviews();
     initAccordions();
     initForm();
+    initTcalc();
+    initOrder();
     initToc();
     initPointer();
     initTransitions();

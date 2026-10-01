@@ -11,9 +11,34 @@
       "source": "/service/",
       "destination": "/services/",
       "permanent": true
+    },
+    {
+      "source": "/notaria-en-carceles-de-kansas-cit",
+      "destination": "/notaria-en-carceles-de-kansas-city/",
+      "permanent": true
+    },
+    {
+      "source": "/notaria-en-carceles-de-kansas-cit/",
+      "destination": "/notaria-en-carceles-de-kansas-city/",
+      "permanent": true
     }
   ],
   "headers": [
+    {
+      "source": "/(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "(?<sub>.+)\\.vercel\\.app"
+        }
+      ],
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow"
+        }
+      ]
+    },
     {
       "source": "/assets/css/(.*)",
       "headers": [

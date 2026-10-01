@@ -10,12 +10,18 @@ sys.path.insert(0, os.path.dirname(__file__))
 
 import page_home  # noqa: E402
 import pages_inner  # noqa: E402
+import pages_countries  # noqa: E402
+import pages_docs  # noqa: E402
+import pages_intl  # noqa: E402
+import pages_local  # noqa: E402
+import pages_new  # noqa: E402
 import seo_audit  # noqa: E402
 from lib import write_sitemap  # noqa: E402
 
 
 def main():
-    built = [page_home.build()] + pages_inner.build_all()
+    built = ([page_home.build()] + pages_inner.build_all() + pages_new.build_all()
+             + pages_local.build_all() + pages_docs.build_all() + pages_countries.build_all() + pages_intl.build_all())
     for p in built:
         print("built", p)
     print("sitemap urls:", write_sitemap())

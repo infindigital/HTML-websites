@@ -11,6 +11,8 @@ import json
 import os
 import re
 
+from facts import GOOGLE_RATING, HOURS_TEXT, HOURS_TEXT_ES, OPENING_HOURS, PARTNER, PARTNER_URL, PRICE_RANGE
+
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 SITE = "https://midnotarypro.com"
 BRAND = "Midwest Apostille & Notary Services"
@@ -34,7 +36,6 @@ GEO = (38.9513604, -94.4949732)  # from the client's Google Maps embed
 WHATSAPP = "https://api.whatsapp.com/send/?phone=18166058096&amp;text&amp;type=phone_number&amp;app_absent=0"
 SOCIAL = [
     ("Instagram", "instagram", "https://www.instagram.com/midwestidentityservices/"),
-    ("Facebook", "facebook", "https://www.facebook.com/people/Quick-Sign-Marriage-Elopement-Services/61574582079939/"),
     ("LinkedIn", "linkedin", "https://www.linkedin.com/company/106789121/"),
     ("WhatsApp", "whatsapp", WHATSAPP),
 ]
@@ -44,13 +45,18 @@ MAP_EMBED = ("https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2949.2775731
 DISCLAIMER = (
     "Midwest Apostille &amp; Notary Services is a document services provider, not a law firm, and does not give "
     "legal advice. Apostille, legalization and translation requirements are set by the destination country and can "
-    "change. Confirm current requirements with the relevant embassy, consulate or authority."
+    "change. Confirm current requirements with the relevant embassy, consulate or authority. Midwest Apostille &amp; Notary "
+    "Services is a private document service and is not affiliated with any government agency."
 )
 DISCLAIMER_ES = (
     "Midwest Apostille &amp; Notary Services es un proveedor de servicios de documentos, no un despacho de abogados, "
     "y no ofrece asesoría legal. Los requisitos de apostilla, legalización y traducción los fija el país de destino "
-    "y pueden cambiar. Confirme los requisitos vigentes con la embajada, el consulado o la autoridad correspondiente."
+    "y pueden cambiar. Confirme los requisitos vigentes con la embajada, el consulado o la autoridad correspondiente. "
+    "No somos abogados y no ofrecemos asesoría legal ni de inmigración. Midwest Apostille &amp; Notary Services es un "
+    "servicio privado de documentos y no está afiliado a ninguna agencia del gobierno."
 )
+NO_ADVICE_ES = "No somos abogados y no ofrecemos asesoría legal ni de inmigración."
+NO_ADVICE = "We do not give immigration or legal advice."
 CTA_LABEL = "Start Your Document Review"
 CTA_LABEL_ES = "Iniciar revisión de documentos"
 
@@ -117,25 +123,37 @@ def link(text, href, cls="", extra=""):
 # --------------------------------------------------------------------------- navigation
 SERVICES_MENU = [
     ("/apostille-services/", "Apostille Services"),
+    ("/missouri-apostille-services/", "Missouri Apostille"),
+    ("/kansas-apostille-services/", "Kansas Apostille"),
+    ("/fbi-fingerprinting-apostille-kansas-city/", "FBI Fingerprinting &amp; Apostille"),
+    ("/fbi-attestation-legalization/", "FBI Legalization"),
+    ("/certified-translation-services/", "Certified Translation"),
     ("/notary-services/", "Notary Services"),
     ("/document-preparation-services/", "Document Preparation"),
     ("/jail-notary-kansas-city/", "Jail Notary"),
-    ("/fbi-apostille-for-hague-countries/", "FBI Apostille"),
-    ("/fbi-attestation-legalization/", "FBI Legalization"),
+    ("/business-accounts/", "Business Accounts"),
 ]
 RESOURCES_MENU = [
     ("/guides/", "Guides", ""),
-    ("/guides/#fbi", "FBI Resources", ""),
-    ("/notary-apostille-services/", "English", "en"),
+    ("/faq/", "FAQ", ""),
+    ("/apostille-services/#by-document", "Apostille by document", ""),
+    ("/apostille-services/#by-country", "Apostille by country", ""),
+    ("/apostille-for-dual-citizenship/", "Dual citizenship", ""),
+    ("/fbi-apostille-for-hague-countries/", "FBI apostille guide", ""),
     ("/servicios-de-notaria-y-apostilla/", "Español", "es"),
+    ("/ar/", "العربية", "ar"),
+    ("/fr/", "Français", "fr"),
 ]
 NAV = [
     ("home", "Home", "/", None),
     ("about", "About", "/about-us/", None),
     ("services", "Services", "/services/", SERVICES_MENU),
+    ("pricing", "Pricing", "/pricing/", None),
     ("resources", "Resources", "/guides/", RESOURCES_MENU),
     ("contact", "Contact", "/contact-us/", None),
 ]
+LANGS = [("en", "EN", "English", "/"), ("es", "ES", "Español", "/servicios-de-notaria-y-apostilla/"),
+         ("ar", "AR", "العربية", "/ar/"), ("fr", "FR", "Français", "/fr/")]
 ES_DEFAULT = "/servicios-de-notaria-y-apostilla/"
 
 
@@ -149,9 +167,21 @@ def _menu(items):
     return "".join(out)
 
 
+def lang_switch(alt=None, lang="en", long=False):
+    out = []
+    for code, short, name, default in LANGS:
+        href = (alt or {}).get(code, default)
+        cur = ' aria-current="true"' if code == lang else ""
+        out.append(f'<a href="{href}" lang="{code}" hreflang="{code}"{cur} aria-label="{name}">{name if long else short}</a>')
+    sep = '<span aria-hidden="true">/</span>'
+    return f'<p class="lang-switch{" lang-switch--lg" if long else ""}">{sep.join(out)}</p>'
+
+
 def header(active, alt=None, lang="en"):
     items = []
     for key, text, href, sub in NAV:
+        if key == "home":
+            continue  # the logo links home
         cur = ' aria-current="page"' if key == active else ""
         if sub:
             items.append(
@@ -161,20 +191,17 @@ def header(active, alt=None, lang="en"):
                 f'<ul class="dropdown" id="dd-{key}" role="list">{_menu(sub)}</ul></li>')
         else:
             items.append(f'<li class="nav__item"><a class="nav__link" href="{href}"{cur}>{text}</a></li>')
-    en_href = (alt or {}).get("en", "/")
-    es_href = (alt or {}).get("es", ES_DEFAULT)
-    en_cur = ' aria-current="true"' if lang == "en" else ""
-    es_cur = ' aria-current="true"' if lang == "es" else ""
     cta = CTA_LABEL_ES if lang == "es" else CTA_LABEL
+    hl = ' lang="en"' if lang in ("ar", "fr") else ""
     return f'''
-<header class="site-header" data-header>
+<header class="site-header" data-header{hl}>
   <div class="container site-header__inner">
     <a class="brand" href="/"><img src="/assets/img/logo-navy.png" width="375" height="139" alt="{esc(BRAND)}, home"></a>
     <nav class="nav" aria-label="Main">
       <ul class="nav__list" role="list">{"".join(items)}</ul>
     </nav>
     <div class="site-header__tools">
-      <p class="lang-switch"><a href="{en_href}" lang="en" hreflang="en"{en_cur} aria-label="English">EN</a><span aria-hidden="true">/</span><a href="{es_href}" lang="es" hreflang="es"{es_cur} aria-label="Español">ES</a></p>
+      {lang_switch(alt, lang)}
       <a class="btn btn--primary btn--sm header-cta" href="{BOOK}" target="_blank" rel="noopener"><span class="btn__label">{cta}</span><span class="btn__icon">{icon("arrow-up-right")}</span></a>
       <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="drawer" data-menu-open><span class="menu-toggle__bars" aria-hidden="true"></span><span class="menu-toggle__text">Menu</span></button>
     </div>
@@ -185,8 +212,6 @@ def header(active, alt=None, lang="en"):
 
 
 def drawer(alt=None, lang="en"):
-    en_href = (alt or {}).get("en", "/")
-    es_href = (alt or {}).get("es", ES_DEFAULT)
     cta = CTA_LABEL_ES if lang == "es" else CTA_LABEL
     return f'''
 <div class="drawer" id="drawer" role="dialog" aria-modal="true" aria-label="Menu" data-drawer hidden>
@@ -200,11 +225,12 @@ def drawer(alt=None, lang="en"):
       <li><a href="/about-us/">About</a></li>
       <li><details><summary>Services<span class="drawer__plus" aria-hidden="true"></span></summary><ul class="drawer__sub" role="list"><li><a href="/services/">All services</a></li>{_menu(SERVICES_MENU)}</ul></details></li>
       <li><details><summary>Resources<span class="drawer__plus" aria-hidden="true"></span></summary><ul class="drawer__sub" role="list">{_menu(RESOURCES_MENU)}</ul></details></li>
+      <li><a href="/pricing/">Pricing</a></li>
       <li><a href="/contact-us/">Contact</a></li>
     </ul>
   </nav>
   <div class="drawer__foot">
-    <p class="lang-switch lang-switch--lg"><a href="{en_href}" lang="en" hreflang="en">English</a><span aria-hidden="true">/</span><a href="{es_href}" lang="es" hreflang="es">Español</a></p>
+    {lang_switch(alt, lang, long=True)}
     <a class="btn btn--primary" href="{BOOK}" target="_blank" rel="noopener"><span class="btn__label">{cta}</span><span class="btn__icon">{icon("arrow-up-right")}</span></a>
     <a class="btn btn--secondary" href="{TEL}"><span class="btn__label">Call {PHONE}</span><span class="btn__icon">{icon("phone")}</span></a>
   </div>
@@ -215,34 +241,40 @@ def footer(lang="en"):
     es = lang == "es"
     social = "".join(
         f'<li><a href="{u}" target="_blank" rel="noopener" aria-label="{n}">{icon(i)}</a></li>' for n, i, u in SOCIAL)
-    svc = "".join(f'<li><a href="{h}">{t}</a></li>' for h, t in SERVICES_MENU)
+    svc = "".join(f'<li><a href="{h}">{t}</a></li>' for h, t in SERVICES_MENU[:8])
+    hours = HOURS_TEXT_ES if es else HOURS_TEXT
+    fl = ' lang="en"' if lang in ("ar", "fr") else ""
     return f'''
-<footer class="site-footer">
+<footer class="site-footer"{fl}>
   <div class="container">
     <div class="footer__top">
       <div class="footer__brand">
         <a href="/" class="footer__logo"><img src="/assets/img/logo-light.png" width="375" height="139" alt="{esc(BRAND)}" loading="lazy"></a>
-        <p class="footer__line">{"Apostilla, legalización, notaría y preparación de documentos en Kansas City y en los 50 estados." if es else "Apostille, embassy legalization, notary and document preparation in Kansas City and across all 50 states."}</p>
         <address class="footer__nap">
-          <strong>{esc(BRAND)}</strong><br>
-          <a href="{MAPS_URL}" target="_blank" rel="noopener">{STREET}<br>{CITY_LINE}</a><br>
-          <a href="{TEL}">{PHONE}</a><br>
+          <strong>{esc(BRAND)}</strong>
+          <a href="{MAPS_URL}" target="_blank" rel="noopener">{STREET}, {CITY_LINE}</a>
+          <span class="footer__hours"><b>{"Horario" if es else "Hours"}:</b> {hours}</span>
+          <a class="footer__tel" href="{TEL}">{icon("phone")}{PHONE}</a>
           <a href="mailto:{EMAIL}">{EMAIL}</a>
         </address>
+        <div class="footer__map"><iframe src="{MAP_EMBED}" title="{"Mapa de" if es else "Map of"} 8101 E. Bannister Rd., Kansas City, MO 64134" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe></div>
       </div>
       <nav class="footer__col" aria-labelledby="f-services"><h2 id="f-services">{"Servicios" if es else "Services"}</h2><ul role="list">{svc}<li><a href="/services/">{"Todos los servicios" if es else "All services"}</a></li></ul></nav>
       <nav class="footer__col" aria-labelledby="f-res"><h2 id="f-res">{"Recursos" if es else "Resources"}</h2><ul role="list">
-        <li><a href="/guides/">Guides</a></li>
-        <li><a href="/how-to-get-an-apostille-in-kansas-city-birth-certificates-custodian-documents-more/">How to get an apostille</a></li>
-        <li><a href="/urgent-notary-services-in-kansas-city-jail-hospital-after-hours-help/">Urgent notary help</a></li>
-        <li><a href="/notary-apostille-services/" lang="en" hreflang="en">English services</a></li>
+        <li><a href="/pricing/">{"Precios" if es else "Pricing"}</a></li>
+        <li><a href="/order/">{"Ordenar en línea" if es else "Order online"}</a></li>
+        <li><a href="/faq/">{"Preguntas frecuentes" if es else "FAQ"}</a></li>
+        <li><a href="/guides/">{"Guías" if es else "Guides"}</a></li>
+        <li><a href="/business-accounts/">{"Cuentas empresariales" if es else "Business accounts"}</a></li>
         <li><a href="/servicios-de-notaria-y-apostilla/" lang="es" hreflang="es">Servicios en español</a></li>
-        <li><a href="/notaria-en-carceles-de-kansas-cit/" lang="es" hreflang="es">Notaría en cárceles</a></li>
+        <li><a href="/ar/" lang="ar" hreflang="ar">العربية</a></li>
+        <li><a href="/fr/" lang="fr" hreflang="fr">Français</a></li>
       </ul></nav>
       <nav class="footer__col" aria-labelledby="f-co"><h2 id="f-co">{"Empresa" if es else "Company"}</h2><ul role="list">
         <li><a href="/about-us/">{"Nosotros" if es else "About"}</a></li>
         <li><a href="/contact-us/">{"Contacto" if es else "Contact"}</a></li>
         <li><a href="{APPT}" target="_blank" rel="noopener">{"Citas" if es else "Appointments"}</a></li>
+        <li><a href="{PARTNER_URL}" target="_blank" rel="noopener">{"Socio de huellas digitales" if es else "Fingerprinting partner"}: {PARTNER}</a></li>
       </ul>
       <ul class="footer__social" role="list">{social}</ul></nav>
     </div>
@@ -269,7 +301,7 @@ WEBSITE_ID = SITE + "/#website"
 
 
 def business_schema():
-    return {
+    biz = {
         "@type": ["LocalBusiness", "ProfessionalService"],
         "@id": BUSINESS_ID,
         "name": BRAND,
@@ -285,8 +317,18 @@ def business_schema():
         "areaServed": [{"@type": "City", "name": "Kansas City, MO"}, {"@type": "State", "name": "Missouri"},
                        {"@type": "State", "name": "Kansas"}, {"@type": "Country", "name": "United States"}],
         "knowsLanguage": ["en", "es", "ar", "fr"],
+        "priceRange": PRICE_RANGE,
+        "hasMap": MAPS_URL.replace("&amp;", "&"),
         "sameAs": [u for n, _, u in SOCIAL if n != "WhatsApp"],
     }
+    if OPENING_HOURS:
+        biz["openingHoursSpecification"] = [
+            {"@type": "OpeningHoursSpecification", "dayOfWeek": days.split(), "opens": o, "closes": c}
+            for days, o, c in OPENING_HOURS]
+    if GOOGLE_RATING:
+        biz["aggregateRating"] = {"@type": "AggregateRating", "ratingValue": GOOGLE_RATING[0],
+                                  "reviewCount": GOOGLE_RATING[1], "bestRating": "5"}
+    return biz
 
 
 def website_schema():
@@ -295,7 +337,7 @@ def website_schema():
 
 
 def breadcrumb_schema(path, crumbs, lang="en"):
-    items = [("Inicio" if lang == "es" else "Home", "/")] + [(strip_tags(n), p) for n, p in crumbs]
+    items = [({"es": "Inicio", "ar": "الرئيسية", "fr": "Accueil"}.get(lang, "Home"), "/")] + [(strip_tags(n), p) for n, p in crumbs]
     return {"@type": "BreadcrumbList", "@id": SITE + path + "#breadcrumb",
             "itemListElement": [{"@type": "ListItem", "position": i + 1, "name": n, "item": SITE + p}
                                 for i, (n, p) in enumerate(items)]}
@@ -360,7 +402,7 @@ def page(path, title, desc, body, *, active="", lang="en", crumbs=None, schema=(
     graph += list(schema)
     ld = json.dumps({"@context": "https://schema.org", "@graph": graph}, ensure_ascii=False).replace("</", "<\\/")
     alt_links = ""
-    if alt:
+    if alt and index:
         alt_links = "".join(f'\n<link rel="alternate" hreflang="{k}" href="{SITE}{v}">' for k, v in alt.items())
         alt_links += f'\n<link rel="alternate" hreflang="x-default" href="{SITE}{alt["en"]}">'
     ow, oh = _DIMS[f"{og_image}-lg"]
@@ -372,7 +414,8 @@ def page(path, title, desc, body, *, active="", lang="en", crumbs=None, schema=(
         pre = (f'\n<link rel="preload" as="image" href="/assets/img/{preload[0]}-lg.webp" '
                f'imagesrcset="/assets/img/{preload[0]}-sm.webp {sw}w, /assets/img/{preload[0]}-lg.webp {lw}w" '
                f'imagesizes="{preload[1]}" fetchpriority="high">')
-    locale = "es_US" if lang == "es" else "en_US"
+    locale = {"es": "es_US", "ar": "ar_AR", "fr": "fr_FR"}.get(lang, "en_US")
+    main_dir = ' dir="rtl"' if lang == "ar" else ""
     doc = f'''<!doctype html>
 <html lang="{lang}" id="top">
 <head>
@@ -410,7 +453,7 @@ def page(path, title, desc, body, *, active="", lang="en", crumbs=None, schema=(
 <a class="skip-link" href="#main">{"Saltar al contenido" if lang == "es" else "Skip to content"}</a>
 {_ICONS}
 {header(active, alt, lang)}
-<main id="main">
+<main id="main"{main_dir}>
 {body}
 </main>
 {footer(lang)}
