@@ -29,8 +29,8 @@ export const ADDRESS = {
 
 export const OPENING_HOURS = {
   days: "Monday to Saturday",
-  time: "7:00 AM – 9:00 PM",
-  short: "Mon–Sat · 7 AM–9 PM",
+  time: "7:00 AM to 9:00 PM",
+  short: "Mon to Sat · 7 AM to 9 PM",
   schema: { days: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"], opens: "07:00", closes: "21:00" },
 };
 

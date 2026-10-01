@@ -36,7 +36,7 @@ export default function About() {
         </div>
 
         <div className="flex flex-col justify-center lg:col-span-5 lg:col-start-8">
-          <Kicker index="06">About us</Kicker>
+          <Kicker index="07">About us</Kicker>
           <h2 id="about-title" data-reveal className="display-lg mt-6">
             <Lines lines={["Made for teams.", <>Made in Bantwal<span className="text-gold">.</span></>]} />
           </h2>

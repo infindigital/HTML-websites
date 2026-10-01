@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef } from "react";
-import { Img, Kicker, Lines } from "./ui";
+import { Kicker, Lines } from "./ui";
 import { useReveal } from "./useReveal";
 import { pillars } from "@/config/content";
 
@@ -28,7 +28,8 @@ export default function Statement() {
           <ul className="grid gap-10 sm:grid-cols-3 lg:col-span-7 lg:gap-8">
             {pillars.map((p, i) => (
               <li key={p.title} data-fade={String(0.1 * i)} className="border-t border-line pt-6">
-                <Img src={p.icon} alt="" width={48} height={62} className="h-10 w-auto" />
+                {/* Supplied icons come in mixed colours (one is white); a mask tints them all the same gold. */}
+                <span aria-hidden className="icon-mask block h-12 w-10 text-gold-deep" style={{ ["--icon" as string]: `url(${p.icon})` }} />
                 <h3 className="mt-6 font-display text-lg font-semibold tracking-tight">{p.title}</h3>
                 <p className="mt-2 text-[0.95rem] leading-relaxed text-mute">{p.text}</p>
               </li>

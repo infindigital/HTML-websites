@@ -51,14 +51,14 @@ PILLARS = {
     "Untitled-design-2026-03-12T144658.410.png": "process",
 }
 ICONS = {
-    "ball.png": "football",
+    "ball.png": "throwball",
     "cricket.png": "cricket",
     "vollyball.png": "volleyball",
     "game.png": "kabaddi",
     "basketball-ball-variant-1.png": "basketball",
     "pants.png": "track-suits",
     "uniform.png": "officials",
-    "foot-ball.png": "throwball",
+    "foot-ball.png": "football",
 }
 
 

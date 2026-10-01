@@ -2,8 +2,9 @@ import { Img, Kicker } from "./ui";
 import { clients, testimonials } from "@/config/content";
 
 /**
- * 09: Clients. The supplied client logos on a slow marquee that pauses on
- * hover; under reduced motion they simply wrap.
+ * Clients, straight after the hero: the supplied client logos in full
+ * colour on a slow marquee that pauses on hover; under reduced motion they
+ * simply wrap.
  */
 export function Clients() {
   if (!clients.length) return null;
@@ -11,7 +12,7 @@ export function Clients() {
     <ul aria-hidden={hidden || undefined} className="flex shrink-0 items-center gap-16 pr-16 motion-reduce:flex-wrap motion-reduce:justify-center lg:gap-24 lg:pr-24">
       {clients.map((c) => (
         <li key={c.name} className="shrink-0">
-          <Img src={c.src} alt={hidden ? "" : c.name} width={520} height={164} className="h-12 w-auto object-contain opacity-80 grayscale transition duration-500 hover:opacity-100 hover:grayscale-0 lg:h-16" />
+          <Img src={c.src} alt={hidden ? "" : c.name} width={520} height={164} className="h-12 w-auto object-contain transition-transform duration-500 hover:scale-105 lg:h-16" />
         </li>
       ))}
     </ul>
@@ -19,8 +20,8 @@ export function Clients() {
   return (
     <section aria-labelledby="clients-title" className="border-y border-line bg-white py-16 lg:py-20">
       <div className="shell flex items-baseline justify-between gap-6">
-        <Kicker index="08">
-          <span id="clients-title">Trusted by</span>
+        <Kicker>
+          <span id="clients-title">Trusted by teams and organisations</span>
         </Kicker>
       </div>
       <div className="group mt-10 flex overflow-hidden [mask-image:linear-gradient(90deg,transparent,#000_8%,#000_92%,transparent)] motion-reduce:[mask-image:none]">

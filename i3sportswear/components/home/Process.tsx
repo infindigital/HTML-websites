@@ -41,7 +41,7 @@ export default function Process() {
   return (
     <section id="process" ref={root} aria-labelledby="process-title" className="bg-stone">
       <div className="shell pt-24 lg:pt-36">
-        <Kicker index="05">How it works</Kicker>
+        <Kicker index="06">How it works</Kicker>
         <h2 id="process-title" data-reveal className="display-lg mt-6">
           <Lines lines={["From idea", <>to kick-off<span className="text-gold">.</span></>]} />
         </h2>

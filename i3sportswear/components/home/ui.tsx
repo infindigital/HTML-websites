@@ -68,12 +68,21 @@ export function Button({ href, children, variant = "solid", size = "md", cursor,
   );
 }
 
-/** Small index label, e.g. "02 — Jersey archive". */
+/** Small gold triangle drawn from the iTHREE mark; separates label parts. */
+export function Mark({ className = "" }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 10 8" aria-hidden className={`h-[7px] w-[9px] shrink-0 text-gold ${className}`} fill="currentColor">
+      <path d="M5 0 10 8H0z" />
+    </svg>
+  );
+}
+
+/** Small index label, e.g. "02 ▲ Jersey archive". */
 export function Kicker({ index, children, className = "" }: { index?: string; children: ReactNode; className?: string }) {
   return (
     <p className={`label flex items-center gap-3 text-mute ${className}`}>
       {index && <span className="text-gold-deep">{index}</span>}
-      {index && <span aria-hidden className="h-px w-8 bg-current opacity-40" />}
+      {index && <Mark />}
       <span>{children}</span>
     </p>
   );

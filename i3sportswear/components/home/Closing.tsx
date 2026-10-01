@@ -88,7 +88,7 @@ export function Contact() {
     <section id="contact" ref={root} aria-labelledby="contact-title" className="bg-white py-24 lg:py-36">
       <div className="shell grid gap-16 lg:grid-cols-12">
         <div className="lg:col-span-5">
-          <Kicker index="09">Contact</Kicker>
+          <Kicker index="10">Contact</Kicker>
           <h2 id="contact-title" data-reveal className="display-lg mt-6">
             <Lines lines={["Start", <>your kit<span className="text-gold">.</span></>]} />
           </h2>

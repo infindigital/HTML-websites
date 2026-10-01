@@ -24,7 +24,7 @@ export default function WhyChoose() {
   return (
     <section id="why" ref={root} aria-labelledby="why-title" className="bg-white py-24 lg:py-36">
       <div className="shell">
-        <Kicker index="07">Why iTHREE</Kicker>
+        <Kicker index="08">Why iTHREE</Kicker>
         <h2 id="why-title" data-reveal className="display-lg mt-6 max-w-4xl">
           <Lines lines={["Why teams", <>choose iTHREE<span className="text-gold">.</span></>]} />
         </h2>

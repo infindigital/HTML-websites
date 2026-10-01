@@ -99,3 +99,33 @@ export const clients = [
  * The section stays hidden while this list is empty.
  */
 export const testimonials: { quote: string; name: string; role: string }[] = [];
+
+/** Official jerseys (polo uniforms) from the live "Our Custom Jersey Designs" section. */
+export const officialJerseys = [
+  { id: "black", name: "Black", swatch: "#141414" },
+  { id: "navy", name: "Navy", swatch: "#1f2547" },
+  { id: "maroon", name: "Maroon", swatch: "#5c1e2b" },
+  { id: "violet", name: "Violet", swatch: "#41318c" },
+  { id: "slate", name: "Slate", swatch: "#5e5b7a" },
+  { id: "taupe", name: "Taupe", swatch: "#8b7b70" },
+  { id: "white", name: "White", swatch: "#f1f1ef" },
+] as const;
+
+export const poloSet = (id: string) => ({
+  src: `/images/uniforms/polo-${id}-1600.webp`,
+  srcSet: `/images/uniforms/polo-${id}-800.webp 800w, /images/uniforms/polo-${id}-1600.webp 1600w`,
+  width: 1600,
+  height: 1416,
+});
+
+/** Sport icons from the live homepage category strip. */
+export const sportIcons: Record<string, string> = {
+  football: "/images/icons/sport-football.png",
+  cricket: "/images/icons/sport-cricket.png",
+  volleyball: "/images/icons/sport-volleyball.png",
+  throwball: "/images/icons/sport-throwball.png",
+  basketball: "/images/icons/sport-basketball.png",
+  kabaddi: "/images/icons/sport-kabaddi.png",
+  trackSuits: "/images/icons/sport-track-suits.png",
+  officials: "/images/icons/sport-officials.png",
+};

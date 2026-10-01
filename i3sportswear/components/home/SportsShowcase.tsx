@@ -41,7 +41,7 @@ export default function SportsShowcase() {
       <div className="shell">
         <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
           <div>
-            <Kicker index="03">Sports</Kicker>
+            <Kicker index="04">Sports</Kicker>
             <h2 id="sports-title" data-reveal className="display-lg mt-6">
               <span className="mask">
                 <span>Every sport. One standard.</span>

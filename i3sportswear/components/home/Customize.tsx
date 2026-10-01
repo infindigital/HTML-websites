@@ -53,7 +53,7 @@ export default function Customize() {
     <section id="customise" ref={root} aria-labelledby="custom-title" className="bg-white">
       <div className="shell grid gap-10 py-24 lg:grid-cols-12 lg:gap-16 lg:py-36">
         <div className="lg:col-span-12">
-          <Kicker index="04">Customization</Kicker>
+          <Kicker index="05">Customization</Kicker>
           <h2 id="custom-title" data-reveal className="display-xl mt-6">
             <Lines lines={[<>Make it yours<span className="text-gold">.</span></>]} />
           </h2>

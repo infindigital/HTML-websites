@@ -2,11 +2,10 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { Button, Img } from "./ui";
+import { Button, Img, Mark } from "./ui";
 import { heroSlides } from "@/config/content";
 import { jerseyById, jerseySet, jerseySrc } from "@/config/jerseys";
 import { gsap, MQ, useGSAP } from "@/lib/gsap";
-import { useReducedMotion } from "@/lib/hooks";
 
 const ease = [0.16, 1, 0.3, 1] as const;
 const DURATION = 6500;
@@ -14,19 +13,18 @@ const DURATION = 6500;
 /**
  * 01: Hero. A four-slide campaign: each slide pairs a headline with one of
  * the supplied kits, front and back, on a panel in that kit's colour. Slides
- * advance on a timer (paused on hover, focus, off-screen or reduced motion)
- * and can be picked directly. Scrolling away drifts the athlete and splits
+ * advance on their own (paused only off-screen, in a hidden tab, or with
+ * the pause button) and can be picked directly. Scrolling away drifts the athlete and splits
  * the headline.
  */
 export default function Hero() {
   const root = useRef<HTMLElement>(null);
   const [index, setIndex] = useState(0);
   const [playing, setPlaying] = useState(true);
-  const [hold, setHold] = useState(false); // hover / focus / off-screen
-  const reduce = useReducedMotion();
+  const [hold, setHold] = useState(false); // off-screen or hidden tab
   const slide = heroSlides[index];
   const kit = jerseyById(slide.jersey);
-  const running = playing && !hold && !reduce;
+  const running = playing && !hold;
 
   const go = useCallback((i: number) => setIndex((i + heroSlides.length) % heroSlides.length), []);
 
@@ -67,8 +65,7 @@ export default function Hero() {
           .to("[data-hero-back]", { yPercent: 8, ease: "none" }, 0)
           .to("[data-hero-line='0']", { xPercent: -14, ease: "none" }, 0)
           .to("[data-hero-line='1']", { xPercent: 10, ease: "none" }, 0)
-          .to("[data-hero-copy]", { y: -60, autoAlpha: 0, ease: "none" }, 0)
-          .to("[data-hero-number]", { yPercent: 30, ease: "none" }, 0);
+          .to("[data-hero-copy]", { y: -60, autoAlpha: 0, ease: "none" }, 0);
       });
       return () => mm.revert();
     },
@@ -84,10 +81,6 @@ export default function Hero() {
       ref={root}
       aria-roledescription="carousel"
       aria-label="iTHREE kits"
-      onMouseEnter={() => setHold(true)}
-      onMouseLeave={() => setHold(false)}
-      onFocus={() => setHold(true)}
-      onBlur={(e) => !e.currentTarget.contains(e.relatedTarget as Node) && setHold(false)}
       className="relative isolate h-[100svh] min-h-[660px] overflow-hidden bg-paper lg:min-h-[720px]"
     >
       {/* Colour panel for the current kit */}
@@ -97,13 +90,6 @@ export default function Hero() {
         animate={{ backgroundColor: slide.tone }}
         transition={{ duration: 1.1, ease }}
       >
-        <span
-          data-hero-number
-          className="absolute -right-[2vw] bottom-[-4vw] font-display text-[42vw] leading-none font-bold tracking-[-0.06em] text-transparent opacity-40 lg:top-[6%] lg:bottom-auto lg:text-[30vw]"
-          style={{ WebkitTextStroke: `2px ${slide.accent}` }}
-        >
-          {String(index + 1).padStart(2, "0")}
-        </span>
       </motion.div>
 
       {/* Kit: back figure behind, front figure leading */}
@@ -151,7 +137,7 @@ export default function Hero() {
       <div className="shell relative flex h-full flex-col pt-[calc(var(--header-h)+3.25rem)] pb-8 lg:justify-center lg:pt-24 lg:pb-28">
         <div className="lg:w-[52%]">
           <p className="label enter-fade flex items-center gap-3 text-mute">
-            <span className="h-px w-8 bg-gold" aria-hidden />
+            <Mark />
             Custom team kits · iThree Sports Wear
           </p>
           <h1 className="display-xxl mt-5 text-[clamp(3rem,13.5vw,5.5rem)] lg:mt-7 lg:text-[min(7.2vw,8.6rem)]" aria-live={running ? "off" : "polite"}>
@@ -215,20 +201,16 @@ export default function Hero() {
                     onClick={() => go(i)}
                     aria-current={active ? "true" : undefined}
                     aria-label={`Slide ${i + 1}: ${s.lines.join(" ")}`}
-                    className="group flex w-16 flex-col items-start gap-2 text-left"
+                    className="group flex h-9 w-16 items-center"
                   >
-                    <span className={`font-display text-sm font-semibold transition-colors ${active ? "text-ink" : "text-faint group-hover:text-ink"}`}>
-                      {String(i + 1).padStart(2, "0")}
-                    </span>
-                    <span className="relative block h-px w-full bg-ink/15">
+                    <span className="relative block h-[2px] w-full bg-ink/15 transition-colors group-hover:bg-ink/35">
                       {active && (
                         <span
                           key={`${index}-${running}`}
                           className="absolute inset-0 origin-left bg-ink"
                           style={{
-                            animation: reduce ? "none" : `progress ${DURATION}ms linear both`,
+                            animation: `progress ${DURATION}ms linear both`,
                             animationPlayState: running ? "running" : "paused",
-                            transform: reduce ? "none" : undefined,
                           }}
                         />
                       )}
@@ -244,7 +226,7 @@ export default function Hero() {
             aria-label={playing ? "Pause slideshow" : "Play slideshow"}
             className="flex h-9 w-9 items-center justify-center rounded-full ring-1 ring-ink/20 transition hover:ring-ink"
           >
-            {playing && !reduce ? (
+            {playing ? (
               <svg viewBox="0 0 12 12" aria-hidden className="h-2.5 w-2.5" fill="currentColor">
                 <path d="M2 1h3v10H2zM7 1h3v10H7z" />
               </svg>
@@ -257,18 +239,26 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* Phones: slide dots as numbers along the panel edge */}
-      <div className="absolute top-[44%] right-[var(--gutter)] z-10 flex flex-col gap-1 lg:hidden">
+      {/* Phones: slide bars along the foot of the panel */}
+      <div className="absolute inset-x-[var(--gutter)] bottom-4 z-10 flex items-center gap-2 lg:hidden">
         {heroSlides.map((s, i) => (
           <button
             key={s.id}
             type="button"
             onClick={() => go(i)}
             aria-current={i === index ? "true" : undefined}
-            aria-label={`Slide ${i + 1}`}
-            className={`label flex h-9 w-9 items-center justify-center ${i === index ? "text-ink" : "text-ink/35"}`}
+            aria-label={`Slide ${i + 1}: ${s.lines.join(" ")}`}
+            className="flex h-8 flex-1 items-center"
           >
-            {String(i + 1).padStart(2, "0")}
+            <span className="relative block h-[2px] w-full overflow-hidden bg-ink/20">
+              {i === index && (
+                <span
+                  key={`${index}-${running}`}
+                  className="absolute inset-0 origin-left bg-ink"
+                  style={{ animation: `progress ${DURATION}ms linear both`, animationPlayState: running ? "running" : "paused" }}
+                />
+              )}
+            </span>
           </button>
         ))}
       </div>
