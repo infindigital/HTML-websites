@@ -61,7 +61,7 @@ export function whatsappWith(message: string) {
 }
 
 export const SEO = {
-  title: "iTHREE Sportswear | Custom Team Jerseys & Sportswear, Bantwal & Mangalore",
+  title: "i3 Sports Wear",
   description:
     "Custom jerseys and team kits for football, cricket, volleyball, throwball, basketball and kabaddi, plus track suits and official uniforms. Your colours, names, numbers and crest, made by iThree Sports Wear, Bantwal and Mangalore.",
 };

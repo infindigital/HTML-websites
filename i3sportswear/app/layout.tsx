@@ -15,7 +15,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     url: "/",
-    siteName: BRAND.name,
+    siteName: SEO.title,
     title: SEO.title,
     description: SEO.description,
     images: [{ url: "/og.jpg", width: 1200, height: 630, alt: "iTHREE Sports Wear custom team jerseys" }],
