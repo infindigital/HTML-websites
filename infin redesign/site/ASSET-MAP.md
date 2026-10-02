@@ -45,7 +45,6 @@ Used as the sticky service badge icons.
 | `img-12` → `work-soulish` | Soulishwear | Fashion e-commerce |
 | `img-36` → `work-mededge` | MedEdge MEA | Healthcare magazine |
 | `img-37` → `work-redcamel` | Redcamel Signs | Signage web |
-| `img-38` → `work-nkn` | NKN Media | Paid campaigns |
 | `img-39` → `work-arvento` | Arvento Events | Event branding |
 
 ## Service / capability visuals
@@ -61,14 +60,14 @@ Used as the sticky service badge icons.
 | `img-21` → `moody-desk` | Sticky visual | Content strategy |
 | `img-33` → `perf-midwest` | Sticky visual | CRO |
 | `img-153` → `perf-campaigns` | Case study — the result | Performance |
-| `img-32` → `nkn-campaign` | Case study — the ad | NKN campaign |
+| `img-32` → `creative-glass` | Case study — the ad | Ad creative |
 | `img-6` → `soules-ecom`, `img-31` → `web-dark`, `img-30/14` → `brand-tbt*` | Spare project/brand visuals | reserve |
 
 ## Creative Lab (Local Souq social campaign creatives) — parallax collage
 `img-138,140,142,143,144,146` → `lab-1 … lab-6`
 
 ## Client logos (moving logo wall)
-`brand-1 … brand-8` → MedEdge, NKN, Redcamel, Local Souq, Soulish, Midwest + others.
+`brand-1 … brand-8` → MedEdge, Redcamel, Local Souq, Soulish, Midwest + others.
 
 ## Trust badges (as-is)
 | Source | Badge |
