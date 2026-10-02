@@ -5,7 +5,7 @@ import { Button, Img, Kicker, Lines, Logo } from "./ui";
 import { useReveal } from "./useReveal";
 import { ClockIcon, InstagramIcon, MailIcon, PhoneIcon, PinIcon, WhatsAppIcon } from "../icons";
 import { categoryList, pages } from "@/config/navigation";
-import { ADDRESS, BRAND, EMAIL, INSTAGRAM, OPENING_HOURS, PHONE, WHATSAPP } from "@/config/site";
+import { ADDRESSES, BRAND, EMAIL, INSTAGRAM, OPENING_HOURS, PHONE, WHATSAPP } from "@/config/site";
 import { jerseySet } from "@/config/jerseys";
 
 const LINEUP = ["black-gold", "blue-geometric", "yellow-basketball", "red-wolf", "blue-brushstroke"];
@@ -88,9 +88,15 @@ export function Contact() {
           <li className="flex items-start gap-4 border-b border-line px-5 py-3.5">
             <ClockIcon className="mt-1 h-4 w-4 shrink-0 text-gold-deep" /> {OPENING_HOURS.days}, {OPENING_HOURS.time}
           </li>
-          <li className="flex items-start gap-4 px-5 py-3.5">
-            <PinIcon className="mt-1 h-4 w-4 shrink-0 text-gold-deep" /> {ADDRESS.full}
-          </li>
+          {ADDRESSES.map((a, n) => (
+            <li key={a.city} className={`flex items-start gap-4 px-5 py-3.5 ${n < ADDRESSES.length - 1 ? "border-b border-line" : ""}`}>
+              <PinIcon className="mt-1 h-4 w-4 shrink-0 text-gold-deep" />
+              <span>
+                <span className="label mb-1 block text-ink/60">{a.city}</span>
+                {a.full}
+              </span>
+            </li>
+          ))}
         </ul>
       </div>
     </section>
@@ -156,7 +162,9 @@ export function Footer() {
                   {EMAIL}
                 </a>
               )}
-              <span>{ADDRESS.full}</span>
+              {ADDRESSES.map((a) => (
+                <span key={a.city}>{a.full}</span>
+              ))}
               <span>
                 {OPENING_HOURS.days}, {OPENING_HOURS.time}
               </span>

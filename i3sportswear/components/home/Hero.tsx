@@ -85,82 +85,111 @@ export default function Hero() {
       ref={root}
       aria-roledescription="carousel"
       aria-label="iTHREE kits"
-      className="relative isolate h-[100svh] min-h-[660px] overflow-hidden bg-paper lg:min-h-[720px]"
+      className="relative isolate flex min-h-[100svh] flex-col overflow-hidden bg-paper lg:block lg:h-[100svh] lg:min-h-[720px]"
     >
-      {/* Colour panel for the current kit */}
-      <motion.div
-        aria-hidden
-        className="absolute inset-x-0 bottom-0 h-[56%] lg:inset-y-0 lg:right-0 lg:left-auto lg:h-auto lg:w-[47%]"
-        animate={{ backgroundColor: slide.tone }}
-        transition={{ duration: 1.1, ease }}
-      >
-      </motion.div>
+      {/* Stage: below the copy on phones and tablets, taking the height that is
+          left (never less than a usable minimum); behind the copy on desktop. */}
+      <div className="relative order-2 min-h-[max(52svh,340px)] flex-1 lg:absolute lg:inset-0 lg:min-h-0">
+        {/* Colour panel for the current kit */}
+        <motion.div
+          aria-hidden
+          className="absolute inset-0 lg:left-auto lg:w-[47%]"
+          animate={{ backgroundColor: slide.tone }}
+          transition={{ duration: 1.1, ease }}
+        >
+        </motion.div>
 
-      {/* Kit: back figure behind, front figure leading */}
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[56%] lg:inset-y-0 lg:right-0 lg:left-auto lg:h-auto lg:w-[60%]">
-        <AnimatePresence initial={false}>
-          <motion.div
-            key={slide.id}
-            className="absolute inset-0"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.9, ease }}
-          >
-            {slide.group ? (
-              // Group photo: always whole, centred in the colour panel, clear of the
-              // slide controls on phones and tablets.
-              <div data-hero-front className="absolute inset-x-[var(--gutter)] top-[3%] bottom-12 origin-bottom lg:inset-x-auto lg:top-[9.5rem] lg:right-0 lg:bottom-0 lg:w-[78%] lg:px-[5%]">
-                <motion.div
-                  className="h-full w-full"
-                  initial={{ y: 30, opacity: 0, clipPath: "inset(-30% -30% 100% -30%)" }}
-                  animate={{ y: 0, opacity: 1, clipPath: "inset(-30% -30% 0% -30%)" }}
-                  transition={{ duration: 1.2, ease }}
-                >
-                  <Img
-                    {...groupSet(slide.group)}
-                    sizes="(min-width: 1024px) 40vw, 80vw"
-                    alt="Three colleagues in custom corporate wear: a navy polo, a white polo and a black hoodie, each with the company logo on the chest"
-                    className="h-full w-full object-contain object-bottom drop-shadow-[0_30px_30px_rgb(0_0_0/0.14)]"
-                  />
-                </motion.div>
-              </div>
-            ) : (
-              <>
-                <div data-hero-back className="absolute right-[4%] bottom-0 h-[78%] lg:right-[6%] lg:h-[calc(78%-6rem)]">
+        {/* Kit: back figure behind, front figure leading */}
+        <div className="pointer-events-none absolute inset-0 lg:left-auto lg:w-[60%]">
+          <AnimatePresence initial={false}>
+            <motion.div
+              key={slide.id}
+              className="absolute inset-0"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.9, ease }}
+            >
+              {slide.group ? (
+                // Group photo: always whole, centred in the colour panel, clear of the
+                // slide controls on phones and tablets.
+                <div data-hero-front className="absolute inset-x-[var(--gutter)] top-[3%] bottom-12 origin-bottom lg:inset-x-auto lg:top-[9.5rem] lg:right-0 lg:bottom-0 lg:w-[78%] lg:px-[5%]">
                   <motion.div
-                    className="h-full"
-                    initial={{ x: 60, opacity: 0 }}
-                    animate={{ x: 0, opacity: 1 }}
-                    transition={{ duration: 1.3, ease, delay: 0.15 }}
-                  >
-                    <Img {...back} sizes="(min-width: 1024px) 22vw, 40vw" alt="" className="h-full w-auto object-contain drop-shadow-[0_30px_30px_rgb(0_0_0/0.12)]" />
-                  </motion.div>
-                </div>
-                <div data-hero-front className="absolute bottom-0 left-[8%] h-[96%] origin-bottom lg:left-[16%] lg:h-[calc(100%-8.5rem)] xl:h-[calc(100%-7rem)]">
-                  <motion.div
-                    className="h-full"
-                    initial={{ x: -40, opacity: 0, clipPath: "inset(-30% -30% 100% -30%)" }}
-                    animate={{ x: 0, opacity: 1, clipPath: "inset(-30% -30% 0% -30%)" }}
+                    className="h-full w-full"
+                    initial={{ y: 30, opacity: 0, clipPath: "inset(-30% -30% 100% -30%)" }}
+                    animate={{ y: 0, opacity: 1, clipPath: "inset(-30% -30% 0% -30%)" }}
                     transition={{ duration: 1.2, ease }}
                   >
                     <Img
-                      {...front}
-                      priority={index === 0}
-                      sizes="(min-width: 1024px) 30vw, 55vw"
-                      alt={`Player wearing the iTHREE ${kit.name} jersey, front view`}
-                      className="h-full w-auto object-contain drop-shadow-[0_40px_40px_rgb(0_0_0/0.18)]"
+                      {...groupSet(slide.group)}
+                      sizes="(min-width: 1024px) 40vw, 80vw"
+                      alt="Three colleagues in custom corporate wear: a navy polo, a white polo and a black hoodie, each with the company logo on the chest"
+                      className="h-full w-full object-contain object-bottom drop-shadow-[0_30px_30px_rgb(0_0_0/0.14)]"
                     />
                   </motion.div>
                 </div>
-              </>
-            )}
-          </motion.div>
-        </AnimatePresence>
+              ) : (
+                <>
+                  <div data-hero-back className="absolute right-[4%] bottom-0 h-[78%] lg:right-[6%] lg:h-[calc(78%-6rem)]">
+                    <motion.div
+                      className="h-full"
+                      initial={{ x: 60, opacity: 0 }}
+                      animate={{ x: 0, opacity: 1 }}
+                      transition={{ duration: 1.3, ease, delay: 0.15 }}
+                    >
+                      <Img {...back} sizes="(min-width: 1024px) 22vw, 40vw" alt="" className="h-full w-auto object-contain drop-shadow-[0_30px_30px_rgb(0_0_0/0.12)]" />
+                    </motion.div>
+                  </div>
+                  <div data-hero-front className="absolute bottom-0 left-[8%] h-[96%] origin-bottom lg:left-[16%] lg:h-[calc(100%-8.5rem)] xl:h-[calc(100%-7rem)]">
+                    <motion.div
+                      className="h-full"
+                      initial={{ x: -40, opacity: 0, clipPath: "inset(-30% -30% 100% -30%)" }}
+                      animate={{ x: 0, opacity: 1, clipPath: "inset(-30% -30% 0% -30%)" }}
+                      transition={{ duration: 1.2, ease }}
+                    >
+                      <Img
+                        {...front}
+                        priority={index === 0}
+                        sizes="(min-width: 1024px) 30vw, 55vw"
+                        alt={`Player wearing the iTHREE ${kit.name} jersey, front view`}
+                        className="h-full w-auto object-contain drop-shadow-[0_40px_40px_rgb(0_0_0/0.18)]"
+                      />
+                    </motion.div>
+                  </div>
+                </>
+              )}
+            </motion.div>
+          </AnimatePresence>
+        </div>
+
+        {/* Phones: slide bars along the foot of the panel */}
+        <div className="absolute inset-x-[var(--gutter)] bottom-4 z-10 flex items-center gap-2 lg:hidden">
+          {heroSlides.map((s, i) => (
+            <button
+              key={s.id}
+              type="button"
+              onClick={() => go(i)}
+              aria-current={i === index ? "true" : undefined}
+              aria-label={`Slide ${i + 1}: ${s.lines.join(" ")}`}
+              className="flex h-8 flex-1 items-center"
+            >
+              <span className="relative block h-[2px] w-full overflow-hidden bg-ink/20">
+                {i === index && (
+                  <span
+                    key={`${index}-${running}`}
+                    className="absolute inset-0 origin-left bg-ink"
+                    style={{ animation: `progress ${DURATION}ms linear both`, animationPlayState: running ? "running" : "paused" }}
+                  />
+                )}
+              </span>
+            </button>
+          ))}
+        </div>
+
       </div>
 
       {/* Copy */}
-      <div className="shell relative flex h-full flex-col pt-[calc(var(--header-h)+3.25rem)] pb-8 lg:justify-center lg:pt-24 lg:pb-28">
+      <div className="shell relative order-1 flex flex-col pt-[calc(var(--header-h)+2.5rem)] pb-6 sm:pb-8 lg:h-full lg:justify-center lg:pt-24 lg:pb-28">
         <div className="lg:w-[52%]">
           <p className="label enter-fade flex items-center gap-3 text-mute">
             <Mark />
@@ -263,30 +292,6 @@ export default function Hero() {
             )}
           </button>
         </div>
-      </div>
-
-      {/* Phones: slide bars along the foot of the panel */}
-      <div className="absolute inset-x-[var(--gutter)] bottom-4 z-10 flex items-center gap-2 lg:hidden">
-        {heroSlides.map((s, i) => (
-          <button
-            key={s.id}
-            type="button"
-            onClick={() => go(i)}
-            aria-current={i === index ? "true" : undefined}
-            aria-label={`Slide ${i + 1}: ${s.lines.join(" ")}`}
-            className="flex h-8 flex-1 items-center"
-          >
-            <span className="relative block h-[2px] w-full overflow-hidden bg-ink/20">
-              {i === index && (
-                <span
-                  key={`${index}-${running}`}
-                  className="absolute inset-0 origin-left bg-ink"
-                  style={{ animation: `progress ${DURATION}ms linear both`, animationPlayState: running ? "running" : "paused" }}
-                />
-              )}
-            </span>
-          </button>
-        ))}
       </div>
 
       <p aria-hidden className="label absolute right-[var(--gutter)] bottom-8 z-10 hidden items-center gap-3 bg-paper/0 text-ink/60 [writing-mode:vertical-rl] 2xl:flex">

@@ -5,7 +5,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Arrow, Button, Img, Logo } from "./ui";
 import { ClockIcon, InstagramIcon, PhoneIcon, PinIcon, WhatsAppIcon, ChevronIcon } from "../icons";
 import { categoryList, mainMenu, pages, type NavLink } from "@/config/navigation";
-import { ADDRESS, INSTAGRAM, OPENING_HOURS, PHONE, WHATSAPP } from "@/config/site";
+import { ADDRESSES, INSTAGRAM, OPENING_HOURS, PHONE, WHATSAPP } from "@/config/site";
 import { sports } from "@/config/content";
 import { jerseySet } from "@/config/jerseys";
 
@@ -290,7 +290,7 @@ function TopBar({ hidden }: { hidden: boolean }) {
               </li>
               <li className="hidden items-center gap-2 whitespace-nowrap lg:flex">
                 <PinIcon className="h-3.5 w-3.5 shrink-0 text-gold-soft" />
-                {ADDRESS.short}
+                {ADDRESSES.map((a) => a.city).join(" · ")}
               </li>
             </ul>
             <ul className="flex shrink-0 items-center">
@@ -387,7 +387,9 @@ function MobileMenu({ panelRef, close }: { panelRef: React.RefObject<HTMLDivElem
           <li>
             {OPENING_HOURS.days}, {OPENING_HOURS.time}
           </li>
-          <li>{ADDRESS.full}</li>
+          {ADDRESSES.map((a) => (
+            <li key={a.city}>{a.full}</li>
+          ))}
           <li>
             <a href={INSTAGRAM.href} target="_blank" rel="noopener" className="hover:text-ink">
               Instagram {INSTAGRAM.handle}

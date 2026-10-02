@@ -21,11 +21,24 @@ export const PHONE = { display: "+91 95910 88069", href: "tel:+919591088069" };
 /** Shown as a mailto: link once the address from the live site is confirmed. */
 export const EMAIL = "";
 
-export const ADDRESS = {
-  full: "A 1-290(4), Tharabari Amtoor, Golthamajal, Bantwal",
-  lines: ["A 1-290(4), Tharabari Amtoor,", "Golthamajal, Bantwal"],
-  short: "Amtoor, Golthamajal, Bantwal",
-};
+/** Both iThree Sports Wear addresses, Bantwal first. */
+export const ADDRESSES = [
+  {
+    city: "Bantwal",
+    full: "A 1-290(4), Tharabari Amtoor, Golthamajal, Bantwal",
+    street: "A 1-290(4), Tharabari Amtoor, Golthamajal",
+    postalCode: "",
+  },
+  {
+    city: "Mangalore",
+    full: "Near Jyothi Spray Painters, Mulihithilu, Jeppu, Mangalore 575001",
+    street: "Near Jyothi Spray Painters, Mulihithilu, Jeppu",
+    postalCode: "575001",
+  },
+] as const;
+
+/** "Bantwal and Mangalore", for running text. */
+export const ADDRESS_CITIES = ADDRESSES.map((a) => a.city).join(" and ");
 
 export const OPENING_HOURS = {
   days: "Monday to Saturday",
@@ -48,7 +61,7 @@ export function whatsappWith(message: string) {
 }
 
 export const SEO = {
-  title: "iTHREE Sportswear | Custom Team Jerseys & Sportswear, Bantwal",
+  title: "iTHREE Sportswear | Custom Team Jerseys & Sportswear, Bantwal & Mangalore",
   description:
-    "Custom jerseys and team kits for football, cricket, volleyball, throwball, basketball and kabaddi, plus track suits and official uniforms. Your colours, names, numbers and crest, made by iThree Sports Wear, Bantwal.",
+    "Custom jerseys and team kits for football, cricket, volleyball, throwball, basketball and kabaddi, plus track suits and official uniforms. Your colours, names, numbers and crest, made by iThree Sports Wear, Bantwal and Mangalore.",
 };

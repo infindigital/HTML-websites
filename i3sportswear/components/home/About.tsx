@@ -5,7 +5,7 @@ import { Button, Kicker, Lines } from "./ui";
 import { useReveal } from "./useReveal";
 import { qualities } from "@/config/content";
 import { pages } from "@/config/navigation";
-import { ADDRESS, BRAND } from "@/config/site";
+import { ADDRESS_CITIES, BRAND } from "@/config/site";
 
 /** Line icons for the three qualities, drawn to match the brand's gold marks. */
 const ICONS: Record<string, ReactNode> = {
@@ -50,7 +50,7 @@ export default function About() {
             <Lines lines={["Made for teams.", <>Made in Bantwal<span className="text-gold">.</span></>]} />
           </h2>
           <p data-fade className="lede mt-8 max-w-xl">
-            {BRAND.legalName} designs custom sportswear in {ADDRESS.short}: jerseys, track suits and uniforms for football,
+            {BRAND.legalName} designs custom sportswear from {ADDRESS_CITIES}: jerseys, track suits and uniforms for football,
             cricket, volleyball, throwball, basketball and kabaddi teams, made in your colours with your names, numbers and
             crest.
           </p>

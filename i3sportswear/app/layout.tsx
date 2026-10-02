@@ -5,7 +5,7 @@ import "./globals.css";
 import Header from "@/components/home/Header";
 import Pointer from "@/components/home/Pointer";
 import SmoothScroll from "@/components/SmoothScroll";
-import { BRAND, EMAIL, INSTAGRAM, OPENING_HOURS, PHONE, SEO, SITE_URL } from "@/config/site";
+import { ADDRESSES, BRAND, EMAIL, INSTAGRAM, OPENING_HOURS, PHONE, SEO, SITE_URL } from "@/config/site";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -45,7 +45,14 @@ const jsonLd = {
       description: SEO.description,
       telephone: PHONE.display,
       ...(EMAIL ? { email: EMAIL } : {}),
-      address: { "@type": "PostalAddress", streetAddress: "A 1-290(4), Tharabari Amtoor, Golthamajal", addressLocality: "Bantwal", addressCountry: "IN" },
+      address: ADDRESSES.map((a) => ({
+        "@type": "PostalAddress",
+        streetAddress: a.street,
+        addressLocality: a.city,
+        ...(a.postalCode ? { postalCode: a.postalCode } : {}),
+        addressRegion: "Karnataka",
+        addressCountry: "IN",
+      })),
       openingHoursSpecification: [
         { "@type": "OpeningHoursSpecification", dayOfWeek: OPENING_HOURS.schema.days, opens: OPENING_HOURS.schema.opens, closes: OPENING_HOURS.schema.closes },
       ],
