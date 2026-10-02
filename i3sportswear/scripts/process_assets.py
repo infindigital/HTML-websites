@@ -65,8 +65,18 @@ ICONS = {
 }
 
 
-def save_webp(im, path, width=None, height=None, quality=86):
+def clean_alpha(im, floor=12):
+    """Clear the near-invisible specks rembg leaves in the background; a CSS
+    drop-shadow would otherwise draw them as a faint rectangle."""
+    if im.mode != "RGBA":
+        return im
     im = im.copy()
+    im.putalpha(im.getchannel("A").point(lambda v: 0 if v <= floor else v))
+    return im
+
+
+def save_webp(im, path, width=None, height=None, quality=86):
+    im = clean_alpha(im)
     if width and im.width > width:
         im = im.resize((width, round(im.height * width / im.width)), Image.LANCZOS)
     if height and im.height > height:

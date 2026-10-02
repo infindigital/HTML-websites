@@ -108,18 +108,20 @@ export default function Hero() {
             transition={{ duration: 0.9, ease }}
           >
             {slide.group ? (
-              <div data-hero-front className="absolute inset-x-0 bottom-0 flex h-[96%] origin-bottom justify-center lg:inset-x-auto lg:right-[3%] lg:h-[calc(100%-10rem)]">
+              // Group photo: always whole, centred in the colour panel, clear of the
+              // slide controls on phones and tablets.
+              <div data-hero-front className="absolute inset-x-[var(--gutter)] top-[3%] bottom-12 origin-bottom lg:inset-x-auto lg:top-[9.5rem] lg:right-0 lg:bottom-0 lg:w-[78%] lg:px-[5%]">
                 <motion.div
-                  className="h-full"
-                  initial={{ y: 30, opacity: 0, clipPath: "inset(0 0 100% 0)" }}
-                  animate={{ y: 0, opacity: 1, clipPath: "inset(0 0 0% 0)" }}
+                  className="h-full w-full"
+                  initial={{ y: 30, opacity: 0, clipPath: "inset(-30% -30% 100% -30%)" }}
+                  animate={{ y: 0, opacity: 1, clipPath: "inset(-30% -30% 0% -30%)" }}
                   transition={{ duration: 1.2, ease }}
                 >
                   <Img
                     {...groupSet(slide.group)}
                     sizes="(min-width: 1024px) 40vw, 80vw"
                     alt="Three colleagues in custom corporate wear: a navy polo, a white polo and a black hoodie, each with the company logo on the chest"
-                    className="h-full w-auto object-contain drop-shadow-[0_40px_40px_rgb(0_0_0/0.16)]"
+                    className="h-full w-full object-contain object-bottom drop-shadow-[0_30px_30px_rgb(0_0_0/0.14)]"
                   />
                 </motion.div>
               </div>
@@ -138,8 +140,8 @@ export default function Hero() {
                 <div data-hero-front className="absolute bottom-0 left-[8%] h-[96%] origin-bottom lg:left-[16%] lg:h-[calc(100%-8.5rem)] xl:h-[calc(100%-7rem)]">
                   <motion.div
                     className="h-full"
-                    initial={{ x: -40, opacity: 0, clipPath: "inset(0 0 100% 0)" }}
-                    animate={{ x: 0, opacity: 1, clipPath: "inset(0 0 0% 0)" }}
+                    initial={{ x: -40, opacity: 0, clipPath: "inset(-30% -30% 100% -30%)" }}
+                    animate={{ x: 0, opacity: 1, clipPath: "inset(-30% -30% 0% -30%)" }}
                     transition={{ duration: 1.2, ease }}
                   >
                     <Img
