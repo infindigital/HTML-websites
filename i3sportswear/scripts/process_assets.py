@@ -2,7 +2,8 @@
 Builds every image the homepage uses from the two supplied ZIPs:
 
     jersey new photos.zip          -> public/images/jerseys/
-    coprorate.png                  -> public/images/jerseys/corporate-*
+    carsol section.png             -> public/images/jerseys/corporate-group-*  (hero)
+    coporate carsol.png            -> public/images/jerseys/corporate-team-*   (corporate section)
     remaining homepage photos.zip  -> clients/, uniforms/, process/, icons/
 
 Jerseys: the studio background is removed (rembg, isnet-general-use) and each
@@ -11,7 +12,7 @@ garments themselves are never edited. Re-run after replacing a ZIP:
 
     pip install "rembg[cpu]" pillow
     python3 scripts/process_assets.py            # everything
-    python3 scripts/process_assets.py corporate  # just the corporate polo
+    python3 scripts/process_assets.py corporate  # just the corporate photos
 """
 
 import io
@@ -128,11 +129,25 @@ def jerseys():
                 cut_out(JERSEYS[name], data, session)
 
 
-def corporate():
-    from rembg import new_session
+# Corporate group photos: background removed, kept as one image each.
+CORPORATE = {
+    "carsol section.png": "corporate-group",
+    "coporate carsol.png": "corporate-team",
+}
 
-    with open(os.path.join(ROOT, "coprorate.png"), "rb") as f:
-        cut_out("corporate", f.read(), new_session("isnet-general-use"))
+
+def corporate():
+    from rembg import new_session, remove
+
+    session = new_session("isnet-general-use")
+    for name, gid in CORPORATE.items():
+        src = Image.open(os.path.join(ROOT, name)).convert("RGB")
+        cut = remove(src, session=session, alpha_matting=True,
+                     alpha_matting_foreground_threshold=240, alpha_matting_background_threshold=15)
+        im = trim(cut, pad=8)
+        for size in (640, 1200):
+            save_webp(im, f"{OUT}/jerseys/{gid}-{size}.webp", width=size)
+        print(gid, im.size)
 
 
 def homepage():

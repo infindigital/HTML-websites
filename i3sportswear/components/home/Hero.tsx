@@ -4,7 +4,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Button, Img, Mark } from "./ui";
 import { heroSlides } from "@/config/content";
-import { jerseyById, jerseySet, jerseySrc } from "@/config/jerseys";
+import { groupSet, jerseyById, jerseySet, jerseySrc } from "@/config/jerseys";
 import { gsap, MQ, useGSAP } from "@/lib/gsap";
 
 const ease = [0.16, 1, 0.3, 1] as const;
@@ -49,6 +49,10 @@ export default function Hero() {
   useEffect(() => {
     const id = setTimeout(() => {
       heroSlides.slice(1).forEach((s) => {
+        if (s.group) {
+          new Image().src = groupSet(s.group).src;
+          return;
+        }
         new Image().src = jerseySrc(s.jersey, "front");
         new Image().src = jerseySrc(s.jersey, "back", "s");
       });
@@ -103,32 +107,52 @@ export default function Hero() {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.9, ease }}
           >
-            <div data-hero-back className="absolute right-[4%] bottom-0 h-[78%] lg:right-[6%] lg:h-[calc(78%-6rem)]">
-              <motion.div
-                className="h-full"
-                initial={{ x: 60, opacity: 0 }}
-                animate={{ x: 0, opacity: 1 }}
-                transition={{ duration: 1.3, ease, delay: 0.15 }}
-              >
-                <Img {...back} sizes="(min-width: 1024px) 22vw, 40vw" alt="" className="h-full w-auto object-contain drop-shadow-[0_30px_30px_rgb(0_0_0/0.12)]" />
-              </motion.div>
-            </div>
-            <div data-hero-front className="absolute bottom-0 left-[8%] h-[96%] origin-bottom lg:left-[16%] lg:h-[calc(100%-8.5rem)] xl:h-[calc(100%-7rem)]">
-              <motion.div
-                className="h-full"
-                initial={{ x: -40, opacity: 0, clipPath: "inset(0 0 100% 0)" }}
-                animate={{ x: 0, opacity: 1, clipPath: "inset(0 0 0% 0)" }}
-                transition={{ duration: 1.2, ease }}
-              >
-                <Img
-                  {...front}
-                  priority={index === 0}
-                  sizes="(min-width: 1024px) 30vw, 55vw"
-                  alt={slide.id === "corporate" ? "Custom corporate polo T-shirt with a logo on the chest, front view" : `Player wearing the iTHREE ${kit.name} jersey, front view`}
-                  className="h-full w-auto object-contain drop-shadow-[0_40px_40px_rgb(0_0_0/0.18)]"
-                />
-              </motion.div>
-            </div>
+            {slide.group ? (
+              <div data-hero-front className="absolute inset-x-0 bottom-0 flex h-[96%] origin-bottom justify-center lg:inset-x-auto lg:right-[3%] lg:h-[calc(100%-10rem)]">
+                <motion.div
+                  className="h-full"
+                  initial={{ y: 30, opacity: 0, clipPath: "inset(0 0 100% 0)" }}
+                  animate={{ y: 0, opacity: 1, clipPath: "inset(0 0 0% 0)" }}
+                  transition={{ duration: 1.2, ease }}
+                >
+                  <Img
+                    {...groupSet(slide.group)}
+                    sizes="(min-width: 1024px) 40vw, 80vw"
+                    alt="Three colleagues in custom corporate wear: a navy polo, a white polo and a black hoodie, each with the company logo on the chest"
+                    className="h-full w-auto object-contain drop-shadow-[0_40px_40px_rgb(0_0_0/0.16)]"
+                  />
+                </motion.div>
+              </div>
+            ) : (
+              <>
+                <div data-hero-back className="absolute right-[4%] bottom-0 h-[78%] lg:right-[6%] lg:h-[calc(78%-6rem)]">
+                  <motion.div
+                    className="h-full"
+                    initial={{ x: 60, opacity: 0 }}
+                    animate={{ x: 0, opacity: 1 }}
+                    transition={{ duration: 1.3, ease, delay: 0.15 }}
+                  >
+                    <Img {...back} sizes="(min-width: 1024px) 22vw, 40vw" alt="" className="h-full w-auto object-contain drop-shadow-[0_30px_30px_rgb(0_0_0/0.12)]" />
+                  </motion.div>
+                </div>
+                <div data-hero-front className="absolute bottom-0 left-[8%] h-[96%] origin-bottom lg:left-[16%] lg:h-[calc(100%-8.5rem)] xl:h-[calc(100%-7rem)]">
+                  <motion.div
+                    className="h-full"
+                    initial={{ x: -40, opacity: 0, clipPath: "inset(0 0 100% 0)" }}
+                    animate={{ x: 0, opacity: 1, clipPath: "inset(0 0 0% 0)" }}
+                    transition={{ duration: 1.2, ease }}
+                  >
+                    <Img
+                      {...front}
+                      priority={index === 0}
+                      sizes="(min-width: 1024px) 30vw, 55vw"
+                      alt={`Player wearing the iTHREE ${kit.name} jersey, front view`}
+                      className="h-full w-auto object-contain drop-shadow-[0_40px_40px_rgb(0_0_0/0.18)]"
+                    />
+                  </motion.div>
+                </div>
+              </>
+            )}
           </motion.div>
         </AnimatePresence>
       </div>

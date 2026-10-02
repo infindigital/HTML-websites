@@ -2,16 +2,17 @@
 
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { Button, Img, Kicker, Lines } from "./ui";
+import { Arrow, Button, Img, Kicker, Lines } from "./ui";
 import { useReveal } from "./useReveal";
 import { officialJerseys, poloSet } from "@/config/content";
 import { categories, pages } from "@/config/navigation";
+import { officialPoloUrls } from "@/config/productUrls";
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
 /**
- * Our Custom Jersey Designs: the official jerseys (polo uniforms) from the
- * live homepage. One large stage and a colour picker: the colours play
+ * Official jerseys: the polo uniforms from the live homepage, each linked
+ * to its own product page where the colour is matched (productUrls.ts). One large stage and a colour picker: the colours play
  * through on their own while the section is on screen, and stop on the one
  * a visitor picks.
  */
@@ -20,6 +21,9 @@ export default function OfficialJerseys() {
   const [i, setI] = useState(0);
   const [picked, setPicked] = useState(false);
   const [onScreen, setOnScreen] = useState(false);
+  // Hold the current colour while the photo is pointed at or focused, so a
+  // click always opens the polo that is on screen.
+  const [holding, setHolding] = useState(false);
   useReveal(root);
 
   useEffect(() => {
@@ -31,14 +35,16 @@ export default function OfficialJerseys() {
   }, []);
 
   useEffect(() => {
-    if (picked || !onScreen) return;
+    if (picked || holding || !onScreen) return;
     const t = setTimeout(() => setI((n) => (n + 1) % officialJerseys.length), 2800);
     return () => clearTimeout(t);
-  }, [i, picked, onScreen]);
+  }, [i, picked, holding, onScreen]);
 
   const pick = (n: number) => (setI(n), setPicked(true));
   const j = officialJerseys[i];
   const href = categories.officials.href;
+  // The polo's own product page when its colour is matched, else the category.
+  const product = officialPoloUrls[j.id] ?? null;
 
   return (
     <section id="official" ref={root} aria-labelledby="official-title" className="bg-paper py-24 lg:py-36">
@@ -55,7 +61,14 @@ export default function OfficialJerseys() {
         </div>
 
         <div className="min-w-0 lg:col-span-6 lg:col-start-7 lg:row-span-2 lg:row-start-1 lg:self-center">
-          <a href={href} data-cursor="View" aria-label={`${j.name} official jersey: view ${categories.officials.label}`} className="group relative mx-auto block aspect-[4/3] max-h-[62vh] overflow-hidden bg-ink lg:aspect-[1600/1416]">
+          <a
+            href={product ?? href}
+            data-cursor="View"
+            aria-label={product ? `View the ${j.name.toLowerCase()} official jersey` : `${j.name} official jersey: view ${categories.officials.label}`}
+            onMouseEnter={() => setHolding(true)}
+            onMouseLeave={() => setHolding(false)}
+            onFocus={() => setHolding(true)}
+            onBlur={() => setHolding(false)} className="group relative mx-auto block aspect-[4/3] max-h-[62vh] overflow-hidden bg-ink lg:aspect-[1600/1416]">
             <AnimatePresence initial={false}>
               <motion.div
                 key={j.id}
@@ -76,6 +89,7 @@ export default function OfficialJerseys() {
             <span className="absolute bottom-0 left-0 z-10 flex items-center gap-3 bg-white px-4 py-3">
               <span aria-hidden className="h-3 w-3 rounded-full ring-1 ring-ink/20" style={{ backgroundColor: j.swatch }} />
               <span className="label text-ink">Official jersey · {j.name}</span>
+              {product && <Arrow className="text-ink transition-transform duration-300 group-hover:translate-x-1" />}
             </span>
           </a>
 

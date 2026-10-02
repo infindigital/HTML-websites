@@ -33,8 +33,8 @@ export const jerseys: Jersey[] = [
 ];
 
 /**
- * The corporate polo (coprorate.png). Kept out of `jerseys` so the archive
- * stays the twelve sports designs; used by the hero and the corporate section.
+ * Corporate wear. Kept out of `jerseys` so the archive stays the twelve
+ * sports designs. Its photos are group shots (see GROUPS below).
  */
 export const corporateKit: Jersey = { id: "corporate", name: "Corporate Polo", sport: null, category: null, tone: "#e6e2d6", ink: "dark" };
 
@@ -51,6 +51,22 @@ export function jerseySet(id: string, view: "front" | "back" | "pair") {
     return { src: jerseySrc(id, view, "l"), srcSet: `${jerseySrc(id, view, "s")} 640w, ${jerseySrc(id, view, "l")} 1200w`, width: 1200, height: 1240 };
   }
   return { src: jerseySrc(id, view, "l"), srcSet: `${jerseySrc(id, view, "s")} 255w, ${jerseySrc(id, view, "l")} 490w`, width: 490, height: 1000 };
+}
+
+/**
+ * Group cut-outs of the corporate team: "carsol section.png" (standing, hero
+ * carousel) and "coporate carsol.png" (seated, corporate section).
+ */
+const GROUPS = {
+  "corporate-group": { width: 1050, height: 1176 },
+  "corporate-team": { width: 1181, height: 1204 },
+} as const;
+export type GroupId = keyof typeof GROUPS;
+
+export function groupSet(id: GroupId) {
+  const { width, height } = GROUPS[id];
+  const l = `/images/jerseys/${id}-1200.webp`;
+  return { src: l, srcSet: `/images/jerseys/${id}-640.webp 640w, ${l} ${width}w`, width, height };
 }
 
 /** A jersey's verified product page, or null when there is no exact match. */

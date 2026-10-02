@@ -41,3 +41,20 @@ export const officialJerseyProductUrls = [
   "https://i3sportswear.com/product/official-jersey-5/",
   "https://i3sportswear.com/product/official-jersey-4/",
 ] as const;
+
+/**
+ * Product page for each polo in the "Official jerseys" section, matched by
+ * colour from the client's list (October 2026):
+ * 11 maroon, 10 navy blue, 9 dark blue, 8 and 7 light brown, 6 light blue,
+ * 5 black, 4 white. Taupe could be 7 or 8, so it stays null and the polo
+ * links to the Official & Uniforms category instead.
+ */
+export const officialPoloUrls: Record<string, string | null> = {
+  black: "https://i3sportswear.com/product/official-jersey-5/",
+  navy: "https://i3sportswear.com/product/official-jersey-10/",
+  maroon: "https://i3sportswear.com/product/official-jersey-11/",
+  violet: "https://i3sportswear.com/product/official-jersey-9/",
+  slate: "https://i3sportswear.com/product/official-jersey-6/",
+  taupe: null,
+  white: "https://i3sportswear.com/product/official-jersey-4/",
+};

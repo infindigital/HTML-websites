@@ -1,4 +1,5 @@
 import { categories, type CategoryKey } from "./navigation";
+import type { GroupId } from "./jerseys";
 
 /**
  * Homepage copy and section data. Kept short and factual: no statistics,
@@ -11,6 +12,8 @@ export type HeroSlide = {
   jersey: string;
   tone: string;
   accent: string;
+  /** A group photo shown in place of the kit's front and back figures. */
+  group?: GroupId;
   /** Optional per-slide label and line; the hero defaults are used otherwise. */
   eyebrow?: string;
   text?: string;
@@ -22,6 +25,7 @@ export const heroSlides: HeroSlide[] = [
     id: "corporate",
     lines: ["Your brand.", "Your team.", "Your T‑shirts."],
     jersey: "corporate",
+    group: "corporate-group",
     tone: "#e6e2d6",
     accent: "#b8932a",
     eyebrow: "Corporate apparel",

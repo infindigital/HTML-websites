@@ -4,24 +4,40 @@ import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Img, Kicker, Lines, Mark } from "./ui";
 import { useReveal } from "./useReveal";
-import { corporateKit, jerseySet } from "@/config/jerseys";
+import { corporateKit, groupSet } from "@/config/jerseys";
 import { useReducedMotion } from "@/lib/hooks";
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
 type Spot = { x: number; y: number; tag: string; above?: boolean };
-type Option = { id: string; label: string; spots?: Spot[]; focus?: "front" | "back" | "both"; colours?: boolean };
+type Option = { id: string; label: string; spots?: Spot[]; colours?: boolean };
 
-// Positions are fractions of the front-and-back cut-out (corporate-pair).
+// Positions are fractions of the seated team cut-out (corporate-team):
+// navy polo on the left, white polo at the back, black hoodie on the right.
 const OPTIONS: Option[] = [
-  { id: "logo", label: "Company Logo", spots: [{ x: 0.38, y: 0.37, tag: "Chest logo" }, { x: 0.75, y: 0.325, tag: "Back logo" }] },
-  { id: "names", label: "Employee Names", spots: [{ x: 0.75, y: 0.245, tag: "Employee name", above: true }], focus: "back" },
-  { id: "team", label: "Team Names", spots: [{ x: 0.75, y: 0.47, tag: "Team name" }], focus: "back" },
+  {
+    id: "logo",
+    label: "Company Logo",
+    spots: [
+      { x: 0.28, y: 0.44, tag: "Polo logo" },
+      { x: 0.58, y: 0.24, tag: "Polo logo", above: true },
+      { x: 0.815, y: 0.575, tag: "Hoodie logo" },
+    ],
+  },
+  { id: "names", label: "Employee Names", spots: [{ x: 0.19, y: 0.45, tag: "Employee name" }] },
+  { id: "team", label: "Team Names", spots: [{ x: 0.815, y: 0.66, tag: "Team name" }] },
   { id: "colours", label: "Custom Colours", colours: true },
-  { id: "sponsor", label: "Sponsor Branding", spots: [{ x: 0.085, y: 0.36, tag: "Sleeve" }], focus: "front" },
-  { id: "print", label: "Front & Back Printing", focus: "both" },
-  { id: "type", label: "Custom Typography", spots: [{ x: 0.75, y: 0.325, tag: "Lettering" }], focus: "back" },
-  { id: "bulk", label: "Bulk Orders" },
+  { id: "sponsor", label: "Sponsor Branding", spots: [{ x: 0.07, y: 0.43, tag: "Sleeve" }] },
+  { id: "print", label: "Front & Back Printing", spots: [{ x: 0.815, y: 0.575, tag: "Front and back print" }] },
+  { id: "type", label: "Custom Typography", spots: [{ x: 0.58, y: 0.24, tag: "Lettering", above: true }] },
+  {
+    id: "bulk",
+    label: "Bulk Orders",
+    spots: [
+      { x: 0.2, y: 0.47, tag: "Polos" },
+      { x: 0.72, y: 0.6, tag: "Hoodies" },
+    ],
+  },
 ];
 
 const USES = [
@@ -35,14 +51,14 @@ const USES = [
   "Sports & Fitness Teams",
 ];
 
-// Panel colours shown behind the polo while "Custom Colours" is active.
+// Panel colours shown behind the team while "Custom Colours" is active.
 const TONES = [corporateKit.tone, "#d6e4f2", "#dcebd7", "#f1dcd4", "#ece3c4"];
 
 /**
  * Corporate T-shirt customization. Follows the client logos: the corporate
- * polo front and back on a colour panel, and a quiet list of what can be
- * customised. Pointing at (or focusing) an option marks where it goes on
- * the shirt. A visual section only: it has no links.
+ * team photo on a colour panel, and a quiet list of what can be customised.
+ * Pointing at (or focusing) an option marks where it goes on the clothes.
+ * A visual section only: it has no links.
  */
 export default function Corporate() {
   const root = useRef<HTMLElement>(null);
@@ -119,45 +135,31 @@ export default function Corporate() {
 function Stage({ option }: { option: Option | null }) {
   const reduce = useReducedMotion();
   const [tick, setTick] = useState(0);
-  const cycling = option?.colours || option?.focus === "both";
+  const cycling = !!option?.colours;
 
   useEffect(() => {
     if (!cycling || reduce) return;
     setTick(0);
     const t = setInterval(() => setTick((n) => n + 1), 1100);
     return () => clearInterval(t);
-  }, [cycling, reduce, option?.id]);
+  }, [cycling, reduce]);
 
-  const tone = option?.colours ? TONES[(tick % (TONES.length - 1)) + 1] : corporateKit.tone;
-  // Which half is dimmed: front-only options dim the back and vice versa;
-  // "Front & Back Printing" alternates between the two.
-  const focus = option?.focus === "both" ? (tick % 2 === 0 ? "front" : "back") : option?.focus;
-  const img = jerseySet("corporate", "pair");
+  const tone = cycling ? TONES[(tick % (TONES.length - 1)) + 1] : corporateKit.tone;
+  const img = groupSet("corporate-team");
 
   return (
-    <div className="relative overflow-hidden transition-colors duration-700" style={{ backgroundColor: tone }}>
-      <div className="relative mx-auto aspect-[1200/1233] w-full max-w-[640px]">
+    <div className="relative overflow-hidden px-[4%] pt-14 pb-4 transition-colors duration-700" style={{ backgroundColor: tone }}>
+      <div className="relative mx-auto aspect-[1181/1204] w-full max-w-[620px]">
         <Img
           {...img}
           sizes="(min-width: 1024px) 44vw, 92vw"
-          alt="Custom corporate polo T-shirt, front and back, with the company logo on the chest and across the back"
+          alt="Three colleagues in custom corporate wear, seated: a navy polo, a white polo and a black hoodie, each with the company logo on the chest"
           className="absolute inset-0 h-full w-full object-contain"
-        />
-        {/* Dim the half that is not being talked about */}
-        <span
-          aria-hidden
-          className="absolute inset-y-0 left-0 w-1/2 transition-opacity duration-500"
-          style={{ backgroundColor: tone, opacity: focus === "back" ? 0.55 : 0 }}
-        />
-        <span
-          aria-hidden
-          className="absolute inset-y-0 right-0 w-1/2 transition-opacity duration-500"
-          style={{ backgroundColor: tone, opacity: focus === "front" ? 0.55 : 0 }}
         />
         <AnimatePresence>
           {option?.spots?.map((p, n) => (
             <motion.span
-              key={`${option.id}-${p.tag}`}
+              key={`${option.id}-${n}`}
               aria-hidden
               className="absolute"
               style={{ left: `${p.x * 100}%`, top: `${p.y * 100}%` }}
@@ -166,15 +168,13 @@ function Stage({ option }: { option: Option | null }) {
               exit={{ opacity: 0, scale: 0.8 }}
               transition={{ duration: 0.45, ease, delay: n * 0.08 }}
             >
-              <span className="absolute -top-6 -left-6 h-12 w-12 rounded-full ring-2 ring-gold sm:-top-8 sm:-left-8 sm:h-16 sm:w-16" />
-              <span className={`label absolute whitespace-nowrap bg-ink px-2.5 py-1.5 text-white ${p.above ? "-top-16 sm:-top-[4.5rem]" : "top-8 sm:top-10"} ${p.x > 0.5 ? "right-0 translate-x-1/2" : "-left-3"}`}>{p.tag}</span>
+              <span className="absolute -top-5 -left-5 h-10 w-10 rounded-full ring-2 ring-gold sm:-top-7 sm:-left-7 sm:h-14 sm:w-14" />
+              <span className={`label absolute whitespace-nowrap bg-ink px-2.5 py-1.5 text-white ${p.above ? "-top-14 sm:-top-16" : "top-7 sm:top-9"} ${p.x > 0.5 ? "right-0 translate-x-1/2" : "-left-3"}`}>{p.tag}</span>
             </motion.span>
           ))}
         </AnimatePresence>
       </div>
-      <p className="label absolute top-4 left-4 bg-white/80 px-2.5 py-1.5 text-ink backdrop-blur">
-        Corporate polo · Front &amp; back
-      </p>
+      <p className="label absolute top-4 left-4 bg-white/80 px-2.5 py-1.5 text-ink backdrop-blur">Corporate wear · Polos &amp; hoodies</p>
     </div>
   );
 }
