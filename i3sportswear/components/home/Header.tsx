@@ -5,7 +5,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Arrow, Button, Img, Logo } from "./ui";
 import { ClockIcon, InstagramIcon, PhoneIcon, PinIcon, WhatsAppIcon, ChevronIcon } from "../icons";
 import { categoryList, mainMenu, pages, type NavLink } from "@/config/navigation";
-import { ADDRESSES, INSTAGRAM, OPENING_HOURS, PHONE, WHATSAPP } from "@/config/site";
+import { ADDRESSES, EMAIL, INSTAGRAM, OPENING_HOURS, PHONE, WHATSAPP } from "@/config/site";
 import { sports } from "@/config/content";
 import { jerseySet } from "@/config/jerseys";
 
@@ -384,6 +384,13 @@ function MobileMenu({ panelRef, close }: { panelRef: React.RefObject<HTMLDivElem
               {PHONE.display}
             </a>
           </li>
+          {EMAIL && (
+            <li>
+              <a href={`mailto:${EMAIL}`} className="break-all hover:text-ink">
+                {EMAIL}
+              </a>
+            </li>
+          )}
           <li>
             {OPENING_HOURS.days}, {OPENING_HOURS.time}
           </li>

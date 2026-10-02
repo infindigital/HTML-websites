@@ -19,7 +19,7 @@ export const BRAND = {
 export const PHONE = { display: "+91 95910 88069", href: "tel:+919591088069" };
 
 /** Shown as a mailto: link once the address from the live site is confirmed. */
-export const EMAIL = "";
+export const EMAIL = "ithreesportswear@gmail.com";
 
 /** Both iThree Sports Wear addresses, Bantwal first. */
 export const ADDRESSES = [
